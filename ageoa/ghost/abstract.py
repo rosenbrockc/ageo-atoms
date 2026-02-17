@@ -65,6 +65,39 @@ class AbstractSignal(BaseModel):
             )
 
 
+class AbstractArray(BaseModel):
+    """Generic abstract array type for non-DSP atoms.
+
+    Propagates shape, dtype, and value-range constraints without domain-specific
+    semantics (unlike AbstractSignal which carries sampling_rate and domain).
+    """
+
+    shape: Tuple[int, ...] = Field(..., description="Array shape")
+    dtype: str = Field(default="float64", description="NumPy dtype string")
+    is_sorted: bool = Field(default=False, description="Whether elements are sorted")
+    min_val: float | None = Field(default=None, description="Minimum value constraint")
+    max_val: float | None = Field(default=None, description="Maximum value constraint")
+
+    def assert_shape_compatible(self, other: "AbstractArray") -> None:
+        """Assert shapes are compatible for element-wise operations."""
+        if self.shape != other.shape:
+            raise ValueError(f"Shape mismatch: {self.shape} vs {other.shape}")
+
+    def assert_sorted(self) -> None:
+        """Assert that the array is sorted."""
+        if not self.is_sorted:
+            raise ValueError("Array is not sorted")
+
+
+class AbstractScalar(BaseModel):
+    """Generic abstract scalar type for non-DSP atoms."""
+
+    dtype: str = Field(default="int64", description="Scalar dtype")
+    min_val: float | None = Field(default=None, description="Minimum value")
+    max_val: float | None = Field(default=None, description="Maximum value")
+    is_index: bool = Field(default=False, description="Whether this is an array index")
+
+
 class AbstractBeatPool(BaseModel):
     """Abstract state for accumulative beat detection / SQI pipelines.
 

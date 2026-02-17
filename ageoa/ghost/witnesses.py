@@ -484,3 +484,71 @@ def witness_heat_kernel_diffusion(
         domain=sig.domain,
         units=sig.units,
     )
+
+
+# ---------------------------------------------------------------------------
+# Generic witnesses for non-DSP atoms (sorting, search, matrix ops)
+# ---------------------------------------------------------------------------
+
+
+def witness_sort(x: "AbstractArray") -> "AbstractArray":
+    """Ghost witness for sorting atoms.
+
+    Postconditions:
+        - Output has same shape, dtype, value range.
+        - Output is marked as sorted.
+    """
+    from ageoa.ghost.abstract import AbstractArray
+
+    return AbstractArray(
+        shape=x.shape,
+        dtype=x.dtype,
+        is_sorted=True,
+        min_val=x.min_val,
+        max_val=x.max_val,
+    )
+
+
+def witness_search(arr: "AbstractArray", key: "AbstractScalar") -> "AbstractScalar":
+    """Ghost witness for search atoms (binary search, linear search).
+
+    Postconditions:
+        - Output is an index type.
+        - Output range is [-1, len(arr)-1].
+    """
+    from ageoa.ghost.abstract import AbstractScalar
+
+    return AbstractScalar(
+        dtype="int64",
+        min_val=-1,
+        max_val=float(arr.shape[0] - 1) if arr.shape else 0,
+        is_index=True,
+    )
+
+
+def witness_matrix_op(A: "AbstractArray", B: "AbstractArray") -> "AbstractArray":
+    """Ghost witness for matrix operations (multiply, solve, etc.).
+
+    Postconditions:
+        - Validates dimension compatibility.
+        - Output shape is derived from input shapes.
+    """
+    from ageoa.ghost.abstract import AbstractArray
+
+    if len(A.shape) < 2 or len(B.shape) < 2:
+        raise ValueError(
+            f"Matrix ops require 2D inputs, got shapes {A.shape} and {B.shape}"
+        )
+    if A.shape[1] != B.shape[0]:
+        raise ValueError(
+            f"Incompatible matrix dimensions: {A.shape} @ {B.shape}"
+        )
+    return AbstractArray(
+        shape=(A.shape[0], B.shape[1]),
+        dtype=A.dtype,
+    )
+
+
+def witness_identity(x):
+    """Pass-through witness for atoms with no structural constraints."""
+    return x
