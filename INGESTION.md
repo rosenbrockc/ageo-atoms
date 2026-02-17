@@ -22,6 +22,7 @@ index, match, assemble, type-check, and export it correctly.
 10. [Required tests per atom](#10-required-tests-per-atom)
 11. [Test template](#11-test-template)
 12. [Checklist](#12-checklist)
+13. [DSP-Specific Contract Patterns](#13-dsp-specific-contract-patterns)
 
 ---
 
@@ -616,3 +617,106 @@ Tests (all five categories):
   [ ] Edge cases: boundary sizes, empty inputs, degenerate cases
   [ ] Upstream parity: output matches direct library call
 ```
+
+---
+
+## 13. DSP-Specific Contract Patterns
+
+Signal processing atoms have domain-specific contract patterns that go
+beyond the standard shape/type postconditions. This section documents the
+three main patterns used across the DSP atom families.
+
+### 13.1 Epsilon-Metric Round-Trip
+
+Invertible transform pairs (FFT/IFFT, DCT/IDCT, GFT/IGFT) must satisfy
+a round-trip property: applying the forward transform followed by the
+inverse must reconstruct the original signal within floating-point
+tolerance.
+
+**Pattern:**
+
+```python
+import os
+_SLOW_CHECKS = os.environ.get("AGEOA_SLOW_CHECKS", "0") == "1"
+
+def _roundtrip_close(original: np.ndarray, reconstructed: np.ndarray, atol: float = 1e-10) -> bool:
+    return bool(np.allclose(original, reconstructed, atol=atol))
+
+@icontract.ensure(
+    lambda result, a, n, axis, norm: _roundtrip_close(
+        np.asarray(a),
+        np.fft.ifft(result, n=n, axis=axis, norm=norm),
+    ),
+    "Round-trip IFFT(FFT(x)) must approximate x",
+    enabled=_SLOW_CHECKS,
+)
+def fft(a, n=None, axis=-1, norm=None) -> np.ndarray: ...
+```
+
+**Tolerances:**
+- `atol=1e-10` for float64 inputs (default)
+- `atol=1e-5` for float32 inputs
+- Always gated by `_SLOW_CHECKS` (`AGEOA_SLOW_CHECKS=1` env var)
+
+**Applies to:** `fft`/`ifft`, `rfft`/`irfft`, `dct`/`idct`,
+`graph_fourier_transform`/`inverse_graph_fourier_transform`
+
+### 13.2 Stability (Filter Design)
+
+Digital IIR filter design atoms must produce stable filters. A discrete-time
+filter is stable if and only if all poles of its transfer function lie
+strictly inside the unit circle in the z-plane.
+
+**Pattern:**
+
+```python
+def _poles_inside_unit_circle(a: np.ndarray) -> bool:
+    roots = np.roots(a)
+    return bool(np.all(np.abs(roots) < 1.0))
+
+@icontract.ensure(
+    lambda result: _poles_inside_unit_circle(result[1]),
+    "Designed filter must be stable (poles inside unit circle)",
+    enabled=_SLOW_CHECKS,
+)
+def butter(N, Wn, ...) -> tuple[np.ndarray, np.ndarray]: ...
+```
+
+**Notes:**
+- Applies to `ba` (transfer function) format output only
+- FIR filters are trivially stable (denominator is `[1]`), so this
+  check is not needed for `firwin`
+- SOS (second-order sections) format is stable by construction
+- Always gated by `_SLOW_CHECKS`
+
+**Applies to:** `butter`, `cheby1`, `cheby2` (all IIR design atoms)
+
+### 13.3 Total Variation Reduction (GSP)
+
+Graph signal processing smoothing operations (heat diffusion, graph
+low-pass filtering) must reduce or preserve the total variation of the
+signal. Total variation on a graph is defined as `TV(x) = x^T L x` where
+`L` is the graph Laplacian.
+
+**Pattern:**
+
+```python
+def _total_variation(L: scipy.sparse.spmatrix, x: np.ndarray) -> float:
+    Lx = L.dot(x)
+    return float(x.dot(Lx))
+
+@icontract.ensure(
+    lambda result, L, x: _total_variation(L, result) <= _total_variation(L, x) + 1e-8,
+    "Heat diffusion must reduce total variation (smoothing)",
+    enabled=_SLOW_CHECKS,
+)
+def heat_kernel_diffusion(L, x, t, k=None) -> np.ndarray: ...
+```
+
+**Notes:**
+- The `+ 1e-8` tolerance accounts for floating-point accumulation
+- Applies only to smoothing/low-pass operations, not to general
+  graph spectral filters (which may amplify high-frequency components)
+- Always gated by `_SLOW_CHECKS`
+
+**Applies to:** `heat_kernel_diffusion`
