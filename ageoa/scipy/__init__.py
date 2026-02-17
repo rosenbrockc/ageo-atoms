@@ -1,3 +1,4 @@
 from . import linalg
+from . import optimize
 
-__all__ = ["linalg"]
+__all__ = ["linalg", "optimize"]
