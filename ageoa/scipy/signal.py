@@ -5,6 +5,12 @@ import scipy.signal
 import icontract
 from typing import Union
 
+from ageoa.ghost.registry import register_atom
+from ageoa.ghost.witnesses import (
+    witness_butter, witness_cheby1, witness_cheby2, witness_firwin,
+    witness_sosfilt, witness_lfilter, witness_freqz,
+)
+
 ArrayLike = Union[np.ndarray, list, tuple]
 
 _SLOW_CHECKS = os.environ.get("AGEOA_SLOW_CHECKS", "0") == "1"
@@ -37,6 +43,7 @@ def _is_valid_critical_freq(wn: Union[float, ArrayLike], fs: Union[float, None])
 # Filter design atoms
 # ---------------------------------------------------------------------------
 
+@register_atom(witness_butter)
 @icontract.require(lambda N: _is_valid_filter_order(N), "Filter order must be a positive integer")
 @icontract.require(lambda Wn, fs: _is_valid_critical_freq(Wn, fs), "Critical frequency must be positive (and < Nyquist if fs given)")
 @icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (b, a) tuple")
@@ -75,6 +82,7 @@ def butter(
     return b, a
 
 
+@register_atom(witness_cheby1)
 @icontract.require(lambda N: _is_valid_filter_order(N), "Filter order must be a positive integer")
 @icontract.require(lambda rp: rp > 0, "Passband ripple must be positive")
 @icontract.require(lambda Wn, fs: _is_valid_critical_freq(Wn, fs), "Critical frequency must be positive (and < Nyquist if fs given)")
@@ -114,6 +122,7 @@ def cheby1(
     return b, a
 
 
+@register_atom(witness_cheby2)
 @icontract.require(lambda N: _is_valid_filter_order(N), "Filter order must be a positive integer")
 @icontract.require(lambda rs: rs > 0, "Stopband attenuation must be positive")
 @icontract.require(lambda Wn, fs: _is_valid_critical_freq(Wn, fs), "Critical frequency must be positive (and < Nyquist if fs given)")
@@ -157,6 +166,7 @@ def cheby2(
 # FIR design
 # ---------------------------------------------------------------------------
 
+@register_atom(witness_firwin)
 @icontract.require(lambda numtaps: isinstance(numtaps, (int, np.integer)) and numtaps > 0, "numtaps must be a positive integer")
 @icontract.ensure(lambda result, numtaps: result.shape == (numtaps,), "Output shape must equal (numtaps,)")
 @icontract.ensure(lambda result: np.isrealobj(result), "FIR coefficients must be real-valued")
@@ -198,6 +208,7 @@ def firwin(
 # Filter application atoms
 # ---------------------------------------------------------------------------
 
+@register_atom(witness_sosfilt)
 @icontract.require(lambda sos: np.asarray(sos).ndim == 2 and np.asarray(sos).shape[1] == 6, "sos must have shape (n_sections, 6)")
 @icontract.require(lambda x: np.asarray(x).size > 0, "Input signal must not be empty")
 @icontract.ensure(lambda result, x: result.shape == np.asarray(x).shape, "Output shape must match input shape")
@@ -228,6 +239,7 @@ def sosfilt(
     return result
 
 
+@register_atom(witness_lfilter)
 @icontract.require(lambda b: bool(np.asarray(b).ndim == 1), "Numerator b must be 1D")
 @icontract.require(lambda a: bool(np.asarray(a).ndim == 1), "Denominator a must be 1D")
 @icontract.require(lambda a: np.asarray(a).ndim != 1 or float(np.asarray(a).flat[0]) != 0.0, "Leading denominator coefficient a[0] must not be zero")
@@ -266,6 +278,7 @@ def lfilter(
 # Frequency response
 # ---------------------------------------------------------------------------
 
+@register_atom(witness_freqz)
 @icontract.require(lambda b: np.asarray(b).size > 0, "Numerator b must be non-empty")
 @icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (w, h) tuple")
 @icontract.ensure(

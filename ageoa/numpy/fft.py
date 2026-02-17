@@ -4,6 +4,9 @@ import numpy as np
 import icontract
 from typing import Sequence, Union
 
+from ageoa.ghost.registry import register_atom
+from ageoa.ghost.witnesses import witness_fft, witness_ifft, witness_rfft, witness_irfft
+
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
 
@@ -15,6 +18,7 @@ def _roundtrip_close(original: np.ndarray, reconstructed: np.ndarray, atol: floa
     return bool(np.allclose(original, reconstructed, atol=atol))
 
 
+@register_atom(witness_fft)
 @icontract.require(lambda a: a is not None, "Input array must not be None")
 @icontract.require(lambda a: np.asarray(a).size > 0, "Input array must not be empty")
 @icontract.ensure(lambda result, a, n: result.shape[-1] == (n if n is not None else np.asarray(a).shape[-1]), "Result shape must match n or input shape")
@@ -59,6 +63,7 @@ def fft(
     return np.fft.fft(a, n=n, axis=axis, norm=norm)
 
 
+@register_atom(witness_ifft)
 @icontract.require(lambda a: a is not None, "Input array must not be None")
 @icontract.require(lambda a: np.asarray(a).size > 0, "Input array must not be empty")
 @icontract.ensure(lambda result, a, n: result.shape[-1] == (n if n is not None else np.asarray(a).shape[-1]), "Result shape must match n or input shape")
@@ -100,6 +105,7 @@ def ifft(
     return np.fft.ifft(a, n=n, axis=axis, norm=norm)
 
 
+@register_atom(witness_rfft)
 @icontract.require(lambda a: a is not None, "Input array must not be None")
 @icontract.require(lambda a: np.asarray(a).size > 0, "Input array must not be empty")
 @icontract.ensure(
@@ -135,6 +141,7 @@ def rfft(
     return np.fft.rfft(a, n=n, axis=axis, norm=norm)
 
 
+@register_atom(witness_irfft)
 @icontract.require(lambda a: a is not None, "Input array must not be None")
 @icontract.require(lambda a: np.asarray(a).size > 0, "Input array must not be empty")
 @icontract.ensure(

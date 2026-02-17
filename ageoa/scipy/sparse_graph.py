@@ -6,6 +6,12 @@ import scipy.sparse.linalg
 import scipy.sparse.csgraph
 import icontract
 
+from ageoa.ghost.registry import register_atom
+from ageoa.ghost.witnesses import (
+    witness_graph_laplacian, witness_graph_fourier_transform,
+    witness_heat_kernel_diffusion,
+)
+
 _SLOW_CHECKS = os.environ.get("AGEOA_SLOW_CHECKS", "0") == "1"
 
 
@@ -42,6 +48,7 @@ def _total_variation(L: scipy.sparse.spmatrix, x: np.ndarray) -> float:
     return float(x.dot(Lx))
 
 
+@register_atom(witness_graph_laplacian)
 @icontract.require(lambda W: _is_symmetric(W), "Weight matrix W must be symmetric")
 @icontract.require(lambda W: _is_square_sparse(W), "Weight matrix W must be square")
 @icontract.ensure(lambda result, W: result.shape == W.shape, "Laplacian shape must match input shape")
@@ -75,6 +82,7 @@ def graph_laplacian(
     return result
 
 
+@register_atom(witness_graph_fourier_transform)
 @icontract.require(lambda L: _is_square_sparse(L), "Laplacian L must be square")
 @icontract.require(lambda L, x: x.shape[0] == L.shape[0], "Signal length must equal graph size")
 @icontract.ensure(
@@ -139,6 +147,7 @@ def inverse_graph_fourier_transform(
     return eigenvectors @ x_hat
 
 
+@register_atom(witness_heat_kernel_diffusion)
 @icontract.require(lambda L: _is_square_sparse(L), "Laplacian L must be square")
 @icontract.require(lambda t: t >= 0, "Diffusion time t must be non-negative")
 @icontract.require(lambda L, x: x.shape[0] == L.shape[0], "Signal length must equal graph size")

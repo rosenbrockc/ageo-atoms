@@ -5,6 +5,9 @@ import scipy.fft
 import icontract
 from typing import Union
 
+from ageoa.ghost.registry import register_atom
+from ageoa.ghost.witnesses import witness_dct, witness_idct
+
 ArrayLike = Union[np.ndarray, list, tuple]
 
 _SLOW_CHECKS = os.environ.get("AGEOA_SLOW_CHECKS", "0") == "1"
@@ -15,6 +18,7 @@ def _roundtrip_close(original: np.ndarray, reconstructed: np.ndarray, atol: floa
     return bool(np.allclose(original, reconstructed, atol=atol))
 
 
+@register_atom(witness_dct)
 @icontract.require(lambda x: x is not None, "Input array must not be None")
 @icontract.require(lambda x: np.asarray(x).size > 0, "Input array must not be empty")
 @icontract.ensure(
@@ -59,6 +63,7 @@ def dct(
     return scipy.fft.dct(x, type=type, n=n, axis=axis, norm=norm, overwrite_x=overwrite_x)
 
 
+@register_atom(witness_idct)
 @icontract.require(lambda x: x is not None, "Input array must not be None")
 @icontract.require(lambda x: np.asarray(x).size > 0, "Input array must not be empty")
 @icontract.ensure(
