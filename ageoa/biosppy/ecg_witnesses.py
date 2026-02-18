@@ -107,3 +107,33 @@ def witness_heart_rate_computation(rpeaks: AbstractSignal) -> tuple[AbstractSign
             units="bpm",
         )
     )
+
+def witness_ssf_segmenter(signal: AbstractSignal) -> AbstractSignal:
+    """Ghost witness for SSF R-peak detection.
+    
+    Postconditions:
+        - Output is a 1D array of indices.
+    """
+    signal.assert_domain("time")
+    return AbstractSignal(
+        shape=(0,),
+        dtype="int64",
+        sampling_rate=signal.sampling_rate,
+        domain="index",
+        units="samples",
+    )
+
+def witness_christov_segmenter(signal: AbstractSignal) -> AbstractSignal:
+    """Ghost witness for Christov R-peak detection.
+    
+    Postconditions:
+        - Output is a 1D array of indices.
+    """
+    signal.assert_domain("time")
+    return AbstractSignal(
+        shape=(0,),
+        dtype="int64",
+        sampling_rate=signal.sampling_rate,
+        domain="index",
+        units="samples",
+    )

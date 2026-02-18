@@ -6,6 +6,16 @@ from ageoa.biosppy.ecg import (
     peak_correction,
     template_extraction,
     heart_rate_computation,
+    ssf_segmenter,
+    christov_segmenter,
+)
+from ageoa.biosppy.pcg import (
+    shannon_energy,
+    pcg_segmentation,
+)
+from ageoa.biosppy.eda import (
+    gamboa_segmenter,
+    eda_feature_extraction,
 )
 
 __all__ = [
@@ -14,4 +24,10 @@ __all__ = [
     "peak_correction",
     "template_extraction",
     "heart_rate_computation",
+    "ssf_segmenter",
+    "christov_segmenter",
+    "shannon_energy",
+    "pcg_segmentation",
+    "gamboa_segmenter",
+    "eda_feature_extraction",
 ]

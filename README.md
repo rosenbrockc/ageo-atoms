@@ -58,7 +58,9 @@ ageoa/
     sparse_graph.py    Graph signal processing (Laplacian, GFT, heat diffusion)
     stats.py           Statistical tests
   biosppy/
-    ecg.py             ECG processing (bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation)
+    ecg.py             ECG processing (bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation, ssf_segmenter, christov_segmenter)
+    pcg.py             PCG processing (shannon_energy, pcg_segmentation)
+    eda.py             EDA processing (gamboa_segmenter, eda_feature_extraction)
   ghost/
     abstract.py        AbstractSignal, AbstractBeatPool metadata types
     registry.py        REGISTRY dict, @register_atom decorator, get_witness()

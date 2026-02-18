@@ -13,6 +13,8 @@ from ageoa.biosppy.ecg_witnesses import (
     witness_peak_correction,
     witness_template_extraction,
     witness_heart_rate_computation,
+    witness_ssf_segmenter,
+    witness_christov_segmenter,
 )
 
 @register_atom(witness_bandpass_filter)
@@ -147,3 +149,91 @@ def heart_rate_computation(rpeaks: np.ndarray, sampling_rate: float = 1000.0) ->
     indices = rpeaks[1:]
     
     return indices, heart_rate
+
+@register_atom(witness_ssf_segmenter)
+@icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
+@icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.ensure(lambda result: result.ndim == 1, "R-peak indices must be 1D")
+def ssf_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
+    """Detect R-peak locations in the filtered ECG signal using the Slope Sum Function (SSF) algorithm.
+    
+    The SSF algorithm enhances the initial upslope of the QRS complex by summing positive 
+    differences in a sliding window. This makes it more robust to slow artifacts like T-waves.
+    """
+    # 1. Difference
+    diff = np.diff(signal)
+    
+    # 2. Rectification (keep only positive slopes)
+    pos_diff = np.where(diff > 0, diff, 0)
+    
+    # 3. Sliding window sum (128ms window as per Zong et al.)
+    window_size = int(0.128 * sampling_rate)
+    if window_size < 1:
+        window_size = 1
+    # Efficient sliding sum using convolution
+    ssf = scipy.signal.convolve(pos_diff, np.ones(window_size), mode='same')
+    
+    # 4. Adaptive thresholding (using 90th percentile for stability against outliers)
+    threshold = 0.5 * np.percentile(ssf, 90)
+    
+    # 5. Detection with minimum distance (600ms to be very safe for 75bpm)
+    min_dist = int(0.6 * sampling_rate)
+    peaks, _ = scipy.signal.find_peaks(ssf, height=threshold, distance=min_dist)
+    
+    # 6. Refine peaks in the original signal
+    refined_peaks = []
+    search_window = int(0.15 * sampling_rate) 
+    for p in peaks:
+        start = max(0, p - search_window)
+        end = min(len(signal), p + search_window)
+        if start < end:
+            # Look for the maximum absolute value (the R-peak)
+            peak_idx = start + np.argmax(np.abs(signal[start:end]))
+            refined_peaks.append(peak_idx)
+            
+    return np.unique(np.array(refined_peaks, dtype=np.int64))
+
+@register_atom(witness_christov_segmenter)
+@icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
+@icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.ensure(lambda result: result.ndim == 1, "R-peak indices must be 1D")
+def christov_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
+    """Detect R-peak locations in the filtered ECG signal using the Christov adaptive thresholding algorithm.
+    
+    The Christov segmenter uses a combination of steepness and amplitude thresholds that 
+    decay over time to model the physiological refractory period of the heart.
+    """
+    # 1. Derivative and Absolute Value
+    diff = np.abs(np.diff(signal))
+    
+    # 2. Moving averages for thresholding
+    ma_size = int(0.15 * sampling_rate)
+    ma = scipy.signal.convolve(diff, np.ones(ma_size)/ma_size, mode='same')
+    
+    peaks = []
+    # Use 95th percentile as a robust max estimate
+    m_max = np.percentile(ma, 95)
+    m = m_max * 0.6
+    last_peak = -int(0.8 * sampling_rate)
+    min_dist = int(0.8 * sampling_rate)
+    
+    for i in range(len(ma)):
+        if ma[i] > m and (i - last_peak) > min_dist:
+            peaks.append(i)
+            last_peak = i
+            m = ma[i] * 1.2 # Jump high to avoid double detection
+        else:
+            # Slow decay back to baseline
+            m = m * 0.995 + (m_max * 0.1) * 0.005
+            
+    # Refine
+    refined_peaks = []
+    search_window = int(0.1 * sampling_rate)
+    for p in peaks:
+        start = max(0, p - search_window)
+        end = min(len(signal), p + search_window)
+        if start < end:
+            peak_idx = start + np.argmax(np.abs(signal[start:end]))
+            refined_peaks.append(peak_idx)
+            
+    return np.unique(np.array(refined_peaks, dtype=np.int64))

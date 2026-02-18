@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "node_id": "PCGProcessor_root",
+      "parent_id": null,
+      "name": "PCGProcessor",
+      "description": "Ingested pipeline for Phonocardiogram (PCG) processing",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "shannon_energy",
+        "pcg_segmentation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "shannon_energy",
+      "parent_id": "PCGProcessor_root",
+      "name": "Shannon Energy",
+      "description": "Compute normalized Shannon Energy for the input PCG signal to highlight heart sounds",
+      "concept_type": "envelope_extraction",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "raw PCG signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "envelope",
+          "type_desc": "np.ndarray",
+          "constraints": "Shannon Energy envelope"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "pcg_segmentation",
+      "parent_id": "PCGProcessor_root",
+      "name": "PCG Segmentation",
+      "description": "Segment PCG heart sounds into S1 and S2 components",
+      "concept_type": "segmentation",
+      "inputs": [
+        {
+          "name": "envelope",
+          "type_desc": "np.ndarray",
+          "constraints": "Shannon Energy envelope"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "s1",
+          "type_desc": "np.ndarray",
+          "constraints": "S1 heart sound indices"
+        },
+        {
+          "name": "s2",
+          "type_desc": "np.ndarray",
+          "constraints": "S2 heart sound indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(envelope: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "shannon_energy",
+      "target_id": "pcg_segmentation",
+      "output_name": "envelope",
+      "input_name": "envelope",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "PCGProcessor"
+  }
+}

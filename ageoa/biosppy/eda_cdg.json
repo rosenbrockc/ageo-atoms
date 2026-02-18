@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "node_id": "EDAProcessor_root",
+      "parent_id": null,
+      "name": "EDAProcessor",
+      "description": "Ingested pipeline for Electrodermal Activity (EDA) processing",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "gamboa_segmenter",
+        "eda_feature_extraction"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "gamboa_segmenter",
+      "parent_id": "EDAProcessor_root",
+      "name": "Gamboa Segmenter",
+      "description": "Detect phasic EDA responses (SCRs) using derivative-based segmentation",
+      "concept_type": "segmentation",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "raw EDA signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "SCR onset indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "eda_feature_extraction",
+      "parent_id": "EDAProcessor_root",
+      "name": "EDA Feature Extraction",
+      "description": "Extract amplitudes and rise times from detected EDA responses",
+      "concept_type": "feature_extraction",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "raw EDA signal"
+        },
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "SCR onset indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "amplitudes",
+          "type_desc": "np.ndarray",
+          "constraints": "SCR peak amplitudes"
+        },
+        {
+          "name": "rise_times",
+          "type_desc": "np.ndarray",
+          "constraints": "SCR rise times in seconds"
+        },
+        {
+          "name": "decay_times",
+          "type_desc": "np.ndarray",
+          "constraints": "SCR 50% recovery times"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, onsets: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "gamboa_segmenter",
+      "target_id": "eda_feature_extraction",
+      "output_name": "onsets",
+      "input_name": "onsets",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "EDAProcessor"
+  }
+}
