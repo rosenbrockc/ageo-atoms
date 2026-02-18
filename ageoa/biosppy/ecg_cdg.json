@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "node_id": "ECGProcessor_root",
+      "parent_id": null,
+      "name": "ECGProcessor",
+      "description": "Ingested pipeline from ECGProcessor",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "bandpass_filter",
+        "r_peak_detection",
+        "peak_correction",
+        "template_extraction",
+        "heart_rate_computation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bandpass_filter",
+      "parent_id": "ECGProcessor_root",
+      "name": "Bandpass Filter",
+      "description": "Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1D raw ECG signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "bandpass-filtered ECG"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "r_peak_detection",
+      "parent_id": "ECGProcessor_root",
+      "name": "R-Peak Detection",
+      "description": "Detect R-peak locations in the filtered ECG signal using the Hamilton segmenter algorithm",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "R-peak sample indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "peak_correction",
+      "parent_id": "ECGProcessor_root",
+      "name": "Peak Correction",
+      "description": "Correct R-peak locations to the nearest local maximum within a tolerance window",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        },
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "initial R-peak indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks_corrected",
+          "type_desc": "np.ndarray",
+          "constraints": "corrected R-peak indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "template_extraction",
+      "parent_id": "ECGProcessor_root",
+      "name": "Template Extraction",
+      "description": "Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        },
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "corrected R-peak indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "templates",
+          "type_desc": "np.ndarray",
+          "constraints": "2D array of heartbeat templates"
+        },
+        {
+          "name": "rpeaks_final",
+          "type_desc": "np.ndarray",
+          "constraints": "final R-peak indices after template extraction"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "heart_rate_computation",
+      "parent_id": "ECGProcessor_root",
+      "name": "Heart Rate Computation",
+      "description": "Compute instantaneous heart rate in bpm from R-R intervals with optional smoothing",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "R-peak sample indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hr_idx",
+          "type_desc": "np.ndarray",
+          "constraints": "time indices for heart rate values"
+        },
+        {
+          "name": "heart_rate",
+          "type_desc": "np.ndarray",
+          "constraints": "instantaneous heart rate in bpm"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "r_peak_detection",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "template_extraction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks_corrected",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks_corrected",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ECGProcessor"
+  }
+}
