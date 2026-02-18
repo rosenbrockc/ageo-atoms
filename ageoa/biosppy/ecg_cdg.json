@@ -45,7 +45,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(signal: np.ndarray) -> np.ndarray",
+      "type_signature": "(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
       "matched_primitive": null,
       "critic_notes": "",
       "decomposition_rationale": ""
@@ -73,7 +73,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray) -> np.ndarray",
+      "type_signature": "(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
       "matched_primitive": null,
       "critic_notes": "",
       "decomposition_rationale": ""
@@ -106,7 +106,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
       "matched_primitive": null,
       "critic_notes": "",
       "decomposition_rationale": ""
@@ -144,7 +144,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, before: float = 0.2, after: float = 0.4) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
       "critic_notes": "",
       "decomposition_rationale": ""
@@ -177,7 +177,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
       "critic_notes": "",
       "decomposition_rationale": ""

@@ -57,6 +57,8 @@ ageoa/
     signal.py          Filter design (butter, cheby1/2, firwin) and application (lfilter, sosfilt, freqz)
     sparse_graph.py    Graph signal processing (Laplacian, GFT, heat diffusion)
     stats.py           Statistical tests
+  biosppy/
+    ecg.py             ECG processing (bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation)
   ghost/
     abstract.py        AbstractSignal, AbstractBeatPool metadata types
     registry.py        REGISTRY dict, @register_atom decorator, get_witness()
