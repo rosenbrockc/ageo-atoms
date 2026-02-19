@@ -1,0 +1,146 @@
+{
+  "nodes": [
+    {
+      "node_id": "greedy_subgraph_solver_vv_root",
+      "parent_id": null,
+      "name": "greedy_subgraph_solver_vv",
+      "description": "Ingested pipeline from greedy_subgraph_solver_vv",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "sub_graph_embedder",
+        "graph_transformer",
+        "quantum_mwis_solver"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "sub_graph_embedder",
+      "parent_id": "greedy_subgraph_solver_vv_root",
+      "name": "Sub-graph Embedder",
+      "description": "Extracts embeddable subgraphs from the main molecule graph using greedy lattice mapping.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "current_graph",
+          "type_desc": "nx.Graph",
+          "constraints": ""
+        },
+        {
+          "name": "subgraph_quantity",
+          "type_desc": "int",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mappings",
+          "type_desc": "list[dict[int, int]]",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_graph: nx.Graph, subgraph_quantity: int) -> list[dict[int, int]]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "graph_transformer",
+      "parent_id": "greedy_subgraph_solver_vv_root",
+      "name": "Graph Transformer",
+      "description": "Converts a molecular subgraph mapping into a solveable graph on the quantum lattice.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "current_graph",
+          "type_desc": "nx.Graph",
+          "constraints": ""
+        },
+        {
+          "name": "lattice",
+          "type_desc": "nx.Graph",
+          "constraints": ""
+        },
+        {
+          "name": "mapping",
+          "type_desc": "dict[int, int]",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subgraph",
+          "type_desc": "nx.Graph",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_graph: nx.Graph, lattice: nx.Graph, mapping: dict[int, int]) -> nx.Graph",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "quantum_mwis_solver",
+      "parent_id": "greedy_subgraph_solver_vv_root",
+      "name": "Quantum MWIS Solver",
+      "description": "Solves the Maximum Weighted Independent Set problem using a quantum algorithm.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "graph",
+          "type_desc": "nx.Graph",
+          "constraints": ""
+        },
+        {
+          "name": "lattice_id_coord_dic",
+          "type_desc": "dict[int, tuple[float, float]]",
+          "constraints": ""
+        },
+        {
+          "name": "mis_sample_quantity",
+          "type_desc": "int",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "solution",
+          "type_desc": "list[set[int]]",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(graph: nx.Graph, lattice_id_coord_dic: dict[int, tuple[float, float]], mis_sample_quantity: int) -> list[set[int]]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": true,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "greedy_subgraph_solver_vv"
+  }
+}
