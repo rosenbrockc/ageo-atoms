@@ -5,5 +5,6 @@ from . import biosppy
 from . import pasqal
 from . import pulsar
 from . import mint
+from . import alphafold
 
-__all__ = ["numpy", "scipy", "ghost", "biosppy", "pasqal", "pulsar", "mint"]
+__all__ = ["numpy", "scipy", "ghost", "biosppy", "pasqal", "pulsar", "mint", "alphafold"]
