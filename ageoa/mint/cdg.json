@@ -1,0 +1,187 @@
+{
+  "nodes": [
+    {
+      "node_id": "MINTSequenceProcessor_root",
+      "parent_id": null,
+      "name": "MINTSequenceProcessor",
+      "description": "Ingested pipeline for multimeric protein sequence processing",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "multimer_collator",
+        "protein_transformer",
+        "chain_level_contextualizer"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "multimer_collator",
+      "parent_id": "MINTSequenceProcessor_root",
+      "name": "Multimer Collator",
+      "description": "Pads, tokenizes, and concatenates multiple protein chains into a single multimeric representation with chain IDs.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "sequences",
+          "type_desc": "list[str]",
+          "constraints": "list of amino acid strings"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tokens",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        },
+        {
+          "name": "chain_ids",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(sequences: list[str]) -> tuple[torch.Tensor, torch.Tensor]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "protein_transformer",
+      "parent_id": "MINTSequenceProcessor_root",
+      "name": "Protein Transformer",
+      "description": "Black-box transformer boundary for multimeric sequence representations.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "tokens",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        },
+        {
+          "name": "chain_ids",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "representations",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen, EmbedDim)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": true,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "chain_level_contextualizer",
+      "parent_id": "MINTSequenceProcessor_root",
+      "name": "Chain-level Contextualizer",
+      "description": "Applies masking and per-chain mean pooling to extract sequence-level embeddings for all chains.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "representations",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen, EmbedDim)"
+        },
+        {
+          "name": "tokens",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        },
+        {
+          "name": "chain_ids",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, TotalSeqLen)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "contextualized_embeddings",
+          "type_desc": "torch.Tensor",
+          "constraints": "(Batch, N_Chains * EmbedDim)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(representations: torch.Tensor, tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "multimer_collator",
+      "target_id": "protein_transformer",
+      "output_name": "tokens",
+      "input_name": "tokens",
+      "source_type": "torch.Tensor",
+      "target_type": "torch.Tensor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "multimer_collator",
+      "target_id": "protein_transformer",
+      "output_name": "chain_ids",
+      "input_name": "chain_ids",
+      "source_type": "torch.Tensor",
+      "target_type": "torch.Tensor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "protein_transformer",
+      "target_id": "chain_level_contextualizer",
+      "output_name": "representations",
+      "input_name": "representations",
+      "source_type": "torch.Tensor",
+      "target_type": "torch.Tensor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "multimer_collator",
+      "target_id": "chain_level_contextualizer",
+      "output_name": "tokens",
+      "input_name": "tokens",
+      "source_type": "torch.Tensor",
+      "target_type": "torch.Tensor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "multimer_collator",
+      "target_id": "chain_level_contextualizer",
+      "output_name": "chain_ids",
+      "input_name": "chain_ids",
+      "source_type": "torch.Tensor",
+      "target_type": "torch.Tensor",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "MINTSequenceProcessor"
+  }
+}
