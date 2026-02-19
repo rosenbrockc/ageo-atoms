@@ -7,5 +7,6 @@ from . import pulsar
 from . import mint
 from . import alphafold
 from . import e2e_ppg
+from . import quant_engine
 
-__all__ = ["numpy", "scipy", "ghost", "biosppy", "pasqal", "pulsar", "mint", "alphafold", "e2e_ppg"]
+__all__ = ["numpy", "scipy", "ghost", "biosppy", "pasqal", "pulsar", "mint", "alphafold", "e2e_ppg", "quant_engine"]
