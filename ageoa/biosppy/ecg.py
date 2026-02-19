@@ -1,4 +1,8 @@
-"""Auto-generated atom wrappers following the ageoa pattern."""
+"""ECG atoms ingested via the Smart Ingester.
+
+These atoms are deterministic wrappers with explicit contracts and ghost witness
+bindings so they can participate cleanly in matcher/synthesizer rounds.
+"""
 
 from __future__ import annotations
 
@@ -6,7 +10,6 @@ import icontract
 import numpy as np
 import scipy.signal
 
-from ageoa.ghost.registry import register_atom
 from ageoa.biosppy.ecg_witnesses import (
     witness_bandpass_filter,
     witness_r_peak_detection,
@@ -16,224 +19,259 @@ from ageoa.biosppy.ecg_witnesses import (
     witness_ssf_segmenter,
     witness_christov_segmenter,
 )
+from ageoa.ghost.registry import register_atom
+
+
+def _peak_indices(
+    signal: np.ndarray,
+    sampling_rate: float,
+    *,
+    min_distance_sec: float,
+    height_scale: float,
+    prominence_scale: float,
+) -> np.ndarray:
+    """Return monotonically-increasing peak indices using deterministic heuristics."""
+    rectified = np.abs(signal)
+    if rectified.size == 0:
+        return np.empty(0, dtype=np.int64)
+
+    peak_level = float(np.max(rectified))
+    if peak_level <= 0.0:
+        return np.empty(0, dtype=np.int64)
+
+    distance = max(1, int(round(min_distance_sec * sampling_rate)))
+    height = max(1e-12, height_scale * peak_level)
+    prominence = max(1e-12, prominence_scale * peak_level)
+
+    peaks, _ = scipy.signal.find_peaks(
+        rectified,
+        distance=distance,
+        height=height,
+        prominence=prominence,
+    )
+    return np.asarray(peaks, dtype=np.int64)
+
 
 @register_atom(witness_bandpass_filter)
 @icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
+@icontract.require(lambda signal: signal.size > 0, "Signal must not be empty")
 @icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.require(lambda lowcut, highcut, sampling_rate: 0 < lowcut < highcut < (sampling_rate / 2.0), "Cutoffs must satisfy 0 < lowcut < highcut < Nyquist")
 @icontract.ensure(lambda result, signal: result.shape == signal.shape, "Output shape must match input")
-def bandpass_filter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal."""
-    lowcut = 3.0
-    highcut = 45.0
+@icontract.ensure(lambda result: np.all(np.isfinite(result)), "Filtered output must be finite")
+def bandpass_filter(
+    signal: np.ndarray,
+    sampling_rate: float = 1000.0,
+    lowcut: float = 3.0,
+    highcut: float = 45.0,
+    order: int = 4,
+) -> np.ndarray:
+    """Bandpass-filter ECG to suppress baseline wander and high-frequency noise."""
+    x = np.asarray(signal, dtype=np.float64)
     nyq = 0.5 * sampling_rate
-    
-    # BioSPPy uses a FIR filter with order = 0.3 * sampling_rate
-    numtaps = int(0.3 * sampling_rate)
-    if numtaps % 2 == 0:
-        numtaps += 1  # FIR filter with numtaps must be odd for bandpass
-        
-    b = scipy.signal.firwin(numtaps, [lowcut, highcut], pass_zero=False, fs=sampling_rate)
-    # Zero-phase filtering for ECG
-    return scipy.signal.filtfilt(b, [1.0], signal)
+    b, a = scipy.signal.butter(order, [lowcut / nyq, highcut / nyq], btype="band")
+
+    # filtfilt is preferred for zero phase; for short signals fallback to lfilter.
+    padlen = 3 * (max(len(a), len(b)) - 1)
+    if x.size <= padlen:
+        return scipy.signal.lfilter(b, a, x)
+    return scipy.signal.filtfilt(b, a, x)
+
 
 @register_atom(witness_r_peak_detection)
 @icontract.require(lambda filtered: filtered.ndim == 1, "Filtered signal must be 1D")
+@icontract.require(lambda filtered: filtered.size > 0, "Filtered signal must not be empty")
 @icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
-@icontract.ensure(lambda result: result.ndim == 1, "R-peak indices must be 1D")
+@icontract.ensure(lambda result: result.ndim == 1, "R-peaks must be a 1D array")
+@icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "R-peaks must be integer indices")
+@icontract.ensure(lambda result: result.size == 0 or bool(np.all(np.diff(result) > 0)), "R-peaks must be strictly increasing")
 def r_peak_detection(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect R-peak locations in the filtered ECG signal using a robust implementation of the Hamilton segmenter algorithm."""
-    # 1. Differentiation
-    diff = np.diff(filtered)
-    # 2. Absolute value
-    abs_diff = np.abs(diff)
-    # 3. Moving average (80ms window)
-    window_size = int(0.08 * sampling_rate)
-    if window_size < 1:
-        window_size = 1
-    ma = scipy.signal.lfilter(np.ones(window_size) / window_size, 1, abs_diff)
-    
-    # 4. Thresholding
-    # We use a dynamic threshold based on the maximum of the moving average
-    # to better distinguish R-peaks from T-waves and noise.
-    threshold = 0.5 * np.max(ma)
-    
-    # 5. Peak detection in MA signal
-    # Min distance between R-peaks is typically 200ms
-    min_dist = int(0.2 * sampling_rate)
-    peaks, _ = scipy.signal.find_peaks(ma, height=threshold, distance=min_dist)
-    
-    # 6. Refine peaks in the filtered signal
-    # For each peak in MA, look for the actual maximum in the filtered signal
-    # within a small window around it.
-    refined_peaks = []
-    search_window = int(0.05 * sampling_rate) # 50ms search window
-    for p in peaks:
-        start = max(0, p - search_window)
-        end = min(len(filtered), p + search_window)
-        if start < end:
-            # We look for the maximum amplitude in the original filtered signal
-            # BioSPPy Hamilton refined logic
-            peak_idx = start + np.argmax(np.abs(filtered[start:end]))
-            refined_peaks.append(peak_idx)
-            
-    return np.unique(np.array(refined_peaks, dtype=np.int64))
+    """Detect R-peaks from a pre-filtered ECG signal."""
+    x = np.asarray(filtered, dtype=np.float64)
+    return _peak_indices(
+        x,
+        sampling_rate,
+        min_distance_sec=0.4,
+        height_scale=0.3,
+        prominence_scale=0.1,
+    )
+
 
 @register_atom(witness_peak_correction)
 @icontract.require(lambda filtered: filtered.ndim == 1, "Filtered signal must be 1D")
 @icontract.require(lambda rpeaks: rpeaks.ndim == 1, "R-peaks must be 1D")
-@icontract.ensure(lambda result, rpeaks: result.shape == rpeaks.shape, "Output shape must match input rpeaks")
-def peak_correction(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Correct R-peak locations to the nearest local maximum within a tolerance window (50ms)."""
-    search_window = int(0.05 * sampling_rate)
-    corrected_peaks = []
-    
-    for r in rpeaks:
-        start = max(0, int(r) - search_window)
-        end = min(len(filtered), int(r) + search_window)
-        if start < end:
-            peak_idx = start + np.argmax(np.abs(filtered[start:end]))
-            corrected_peaks.append(peak_idx)
-        else:
-            corrected_peaks.append(r)
-            
-    return np.array(corrected_peaks, dtype=np.int64)
+@icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.ensure(lambda result, rpeaks: result.shape == rpeaks.shape, "Corrected peaks must preserve count")
+@icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "Corrected peaks must be integer indices")
+def peak_correction(
+    filtered: np.ndarray,
+    rpeaks: np.ndarray,
+    sampling_rate: float = 1000.0,
+    tolerance_sec: float = 0.05,
+) -> np.ndarray:
+    """Snap each detected peak to the local maximum in a fixed tolerance window."""
+    x = np.asarray(filtered, dtype=np.float64)
+    n = x.size
+    peaks = np.asarray(rpeaks, dtype=np.int64)
+
+    if peaks.size == 0:
+        return peaks
+
+    tol = max(1, int(round(tolerance_sec * sampling_rate)))
+    corrected = np.empty_like(peaks)
+
+    for i, p in enumerate(peaks):
+        center = int(np.clip(p, 0, max(0, n - 1)))
+        lo = max(0, center - tol)
+        hi = min(n, center + tol + 1)
+        corrected[i] = lo + int(np.argmax(np.abs(x[lo:hi])))
+
+    return corrected
+
 
 @register_atom(witness_template_extraction)
 @icontract.require(lambda filtered: filtered.ndim == 1, "Filtered signal must be 1D")
 @icontract.require(lambda rpeaks: rpeaks.ndim == 1, "R-peaks must be 1D")
-@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (templates, rpeaks)")
+@icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.require(lambda before_sec: before_sec > 0, "before_sec must be positive")
+@icontract.require(lambda after_sec: after_sec > 0, "after_sec must be positive")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (templates, rpeaks_final)")
+@icontract.ensure(
+    lambda result, before_sec, after_sec, sampling_rate: result[0].ndim == 2
+    and result[0].shape[1] == max(1, int(round((before_sec + after_sec) * sampling_rate))),
+    "Template width must match the extraction window",
+)
+@icontract.ensure(lambda result: result[1].ndim == 1, "Final R-peaks must be 1D")
 def template_extraction(
-    filtered: np.ndarray, 
-    rpeaks: np.ndarray, 
+    filtered: np.ndarray,
+    rpeaks: np.ndarray,
     sampling_rate: float = 1000.0,
-    before: float = 0.2, 
-    after: float = 0.4
+    before_sec: float = 0.2,
+    after_sec: float = 0.4,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows."""
-    n_before = int(before * sampling_rate)
-    n_after = int(after * sampling_rate)
-    
-    templates = []
-    valid_rpeaks = []
-    
-    for r in rpeaks:
-        start = int(r) - n_before
-        end = int(r) + n_after
-        if start >= 0 and end <= len(filtered):
-            templates.append(filtered[start:end])
-            valid_rpeaks.append(r)
-            
+    """Extract fixed-width heartbeat templates around each valid R-peak."""
+    x = np.asarray(filtered, dtype=np.float64)
+    peaks = np.asarray(rpeaks, dtype=np.int64)
+
+    before = max(1, int(round(before_sec * sampling_rate)))
+    after = max(1, int(round(after_sec * sampling_rate)))
+    width = before + after
+
+    templates: list[np.ndarray] = []
+    kept_peaks: list[int] = []
+
+    for peak in peaks:
+        start = int(peak) - before
+        end = int(peak) + after
+        if start < 0 or end > x.size:
+            continue
+        templates.append(x[start:end])
+        kept_peaks.append(int(peak))
+
     if not templates:
-        return np.empty((0, n_before + n_after)), np.empty(0, dtype=np.int64)
-        
-    return np.array(templates), np.array(valid_rpeaks, dtype=np.int64)
+        return np.empty((0, width), dtype=np.float64), np.empty((0,), dtype=np.int64)
+
+    return np.vstack(templates), np.asarray(kept_peaks, dtype=np.int64)
+
 
 @register_atom(witness_heart_rate_computation)
 @icontract.require(lambda rpeaks: rpeaks.ndim == 1, "R-peaks must be 1D")
-@icontract.require(lambda rpeaks: len(rpeaks) >= 2, "At least 2 R-peaks are required to compute heart rate")
-@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (index, heart_rate)")
-def heart_rate_computation(rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]:
-    """Compute instantaneous heart rate in bpm from R-R intervals."""
-    # R-R intervals in samples
-    rr_intervals = np.diff(rpeaks)
-    
-    # Convert to seconds
-    rr_seconds = rr_intervals / sampling_rate
-    
-    # Compute heart rate in bpm
-    # To avoid division by zero
-    rr_seconds[rr_seconds == 0] = np.nan
-    heart_rate = 60.0 / rr_seconds
-    
-    # The indices for heart rate are usually the R-peak locations starting from the second one
-    indices = rpeaks[1:]
-    
-    return indices, heart_rate
+@icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Output must be (hr_idx, heart_rate)")
+@icontract.ensure(lambda result: result[0].shape == result[1].shape, "hr_idx and heart_rate must have the same shape")
+@icontract.ensure(lambda result, rpeaks: result[0].size == max(0, rpeaks.size - 1), "Heart-rate count must match RR interval count")
+@icontract.ensure(lambda result: np.all(np.isfinite(result[1])), "Heart-rate values must be finite")
+def heart_rate_computation(
+    rpeaks: np.ndarray,
+    sampling_rate: float = 1000.0,
+    smooth: bool = True,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Compute instantaneous BPM from RR intervals."""
+    peaks = np.asarray(rpeaks, dtype=np.int64)
+    if peaks.size < 2:
+        return np.empty((0,), dtype=np.int64), np.empty((0,), dtype=np.float64)
+
+    rr_sec = np.diff(peaks).astype(np.float64) / sampling_rate
+    heart_rate = np.zeros_like(rr_sec, dtype=np.float64)
+    valid = rr_sec > 0
+    heart_rate[valid] = 60.0 / rr_sec[valid]
+
+    if smooth and heart_rate.size >= 3:
+        kernel = np.array([0.25, 0.5, 0.25], dtype=np.float64)
+        heart_rate = np.convolve(heart_rate, kernel, mode="same")
+
+    return peaks[1:], heart_rate
+
 
 @register_atom(witness_ssf_segmenter)
 @icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
+@icontract.require(lambda signal: signal.size > 0, "Signal must not be empty")
 @icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
-@icontract.ensure(lambda result: result.ndim == 1, "R-peak indices must be 1D")
+@icontract.ensure(lambda result: result.ndim == 1, "R-peaks must be 1D")
+@icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "R-peaks must be integer indices")
 def ssf_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect R-peak locations in the filtered ECG signal using the Slope Sum Function (SSF) algorithm.
-    
-    The SSF algorithm enhances the initial upslope of the QRS complex by summing positive 
-    differences in a sliding window. This makes it more robust to slow artifacts like T-waves.
-    """
-    # 1. Difference
-    diff = np.diff(signal)
-    
-    # 2. Rectification (keep only positive slopes)
-    pos_diff = np.where(diff > 0, diff, 0)
-    
-    # 3. Sliding window sum (128ms window as per Zong et al.)
-    window_size = int(0.128 * sampling_rate)
-    if window_size < 1:
-        window_size = 1
-    # Efficient sliding sum using convolution
-    ssf = scipy.signal.convolve(pos_diff, np.ones(window_size), mode='same')
-    
-    # 4. Adaptive thresholding (using 90th percentile for stability against outliers)
-    threshold = 0.5 * np.percentile(ssf, 90)
-    
-    # 5. Detection with minimum distance (600ms to be very safe for 75bpm)
-    min_dist = int(0.6 * sampling_rate)
-    peaks, _ = scipy.signal.find_peaks(ssf, height=threshold, distance=min_dist)
-    
-    # 6. Refine peaks in the original signal
-    refined_peaks = []
-    search_window = int(0.15 * sampling_rate) 
-    for p in peaks:
-        start = max(0, p - search_window)
-        end = min(len(signal), p + search_window)
-        if start < end:
-            # Look for the maximum absolute value (the R-peak)
-            peak_idx = start + np.argmax(np.abs(signal[start:end]))
-            refined_peaks.append(peak_idx)
-            
-    return np.unique(np.array(refined_peaks, dtype=np.int64))
+    """Slope-sum-function-inspired R-peak detector."""
+    filtered = bandpass_filter(signal, sampling_rate=sampling_rate)
+    slope = np.diff(filtered, prepend=filtered[0])
+    ssf = np.square(np.maximum(slope, 0.0))
+
+    window = max(1, int(round(0.08 * sampling_rate)))
+    kernel = np.ones(window, dtype=np.float64) / float(window)
+    envelope = np.convolve(ssf, kernel, mode="same")
+
+    peak_level = float(np.max(envelope))
+    if peak_level <= 0.0:
+        return np.empty((0,), dtype=np.int64)
+
+    peaks, _ = scipy.signal.find_peaks(
+        envelope,
+        distance=max(1, int(round(0.35 * sampling_rate))),
+        height=max(1e-12, 0.25 * peak_level),
+        prominence=max(1e-12, 0.10 * peak_level),
+    )
+    return np.asarray(peaks, dtype=np.int64)
+
 
 @register_atom(witness_christov_segmenter)
 @icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
+@icontract.require(lambda signal: signal.size > 0, "Signal must not be empty")
 @icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
-@icontract.ensure(lambda result: result.ndim == 1, "R-peak indices must be 1D")
+@icontract.ensure(lambda result: result.ndim == 1, "R-peaks must be 1D")
+@icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "R-peaks must be integer indices")
 def christov_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect R-peak locations in the filtered ECG signal using the Christov adaptive thresholding algorithm.
-    
-    The Christov segmenter uses a combination of steepness and amplitude thresholds that 
-    decay over time to model the physiological refractory period of the heart.
-    """
-    # 1. Derivative and Absolute Value
-    diff = np.abs(np.diff(signal))
-    
-    # 2. Moving averages for thresholding
-    ma_size = int(0.15 * sampling_rate)
-    ma = scipy.signal.convolve(diff, np.ones(ma_size)/ma_size, mode='same')
-    
-    peaks = []
-    # Use 95th percentile as a robust max estimate
-    m_max = np.percentile(ma, 95)
-    m = m_max * 0.6
-    last_peak = -int(0.8 * sampling_rate)
-    min_dist = int(0.8 * sampling_rate)
-    
-    for i in range(len(ma)):
-        if ma[i] > m and (i - last_peak) > min_dist:
-            peaks.append(i)
-            last_peak = i
-            m = ma[i] * 1.2 # Jump high to avoid double detection
-        else:
-            # Slow decay back to baseline
-            m = m * 0.995 + (m_max * 0.1) * 0.005
-            
-    # Refine
-    refined_peaks = []
-    search_window = int(0.1 * sampling_rate)
-    for p in peaks:
-        start = max(0, p - search_window)
-        end = min(len(signal), p + search_window)
-        if start < end:
-            peak_idx = start + np.argmax(np.abs(signal[start:end]))
-            refined_peaks.append(peak_idx)
-            
-    return np.unique(np.array(refined_peaks, dtype=np.int64))
+    """Christov-style adaptive detector with deterministic thresholding."""
+    filtered = bandpass_filter(
+        signal,
+        sampling_rate=sampling_rate,
+        lowcut=2.0,
+        highcut=min(40.0, 0.49 * sampling_rate),
+        order=2,
+    )
+
+    derivative = np.abs(np.diff(filtered, prepend=filtered[0]))
+    window = max(1, int(round(0.12 * sampling_rate)))
+    kernel = np.ones(window, dtype=np.float64) / float(window)
+    envelope = np.convolve(derivative, kernel, mode="same")
+
+    peak_level = float(np.max(envelope))
+    if peak_level <= 0.0:
+        return np.empty((0,), dtype=np.int64)
+
+    adaptive_height = float(np.median(envelope) + 0.6 * np.std(envelope))
+    peaks, _ = scipy.signal.find_peaks(
+        envelope,
+        distance=max(1, int(round(0.30 * sampling_rate))),
+        height=max(1e-12, adaptive_height),
+        prominence=max(1e-12, 0.08 * peak_level),
+    )
+
+    if peaks.size == 0:
+        return _peak_indices(
+            filtered,
+            sampling_rate,
+            min_distance_sec=0.35,
+            height_scale=0.20,
+            prominence_scale=0.08,
+        )
+
+    return np.asarray(peaks, dtype=np.int64)

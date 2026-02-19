@@ -19,6 +19,8 @@
       "depth": 0,
       "type_signature": "",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -26,7 +28,7 @@
       "node_id": "bandpass_filter",
       "parent_id": "ECGProcessor_root",
       "name": "Bandpass Filter",
-      "description": "Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal",
+      "description": "Apply Butterworth bandpass filtering (default 3-45 Hz) to suppress baseline wander and high-frequency noise",
       "concept_type": "signal_filter",
       "inputs": [
         {
@@ -45,8 +47,10 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
+      "type_signature": "(signal: np.ndarray, sampling_rate: float = 1000.0, lowcut: float = 3.0, highcut: float = 45.0, order: int = 4) -> np.ndarray",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -54,7 +58,7 @@
       "node_id": "r_peak_detection",
       "parent_id": "ECGProcessor_root",
       "name": "R-Peak Detection",
-      "description": "Detect R-peak locations in the filtered ECG signal using the Hamilton segmenter algorithm",
+      "description": "Detect R-peak sample indices from the filtered ECG signal",
       "concept_type": "custom",
       "inputs": [
         {
@@ -75,6 +79,8 @@
       "depth": 1,
       "type_signature": "(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -82,7 +88,7 @@
       "node_id": "peak_correction",
       "parent_id": "ECGProcessor_root",
       "name": "Peak Correction",
-      "description": "Correct R-peak locations to the nearest local maximum within a tolerance window",
+      "description": "Correct each detected peak to the nearest local maximum inside a bounded tolerance window",
       "concept_type": "custom",
       "inputs": [
         {
@@ -106,8 +112,10 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, tolerance_sec: float = 0.05) -> np.ndarray",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -115,7 +123,7 @@
       "node_id": "template_extraction",
       "parent_id": "ECGProcessor_root",
       "name": "Template Extraction",
-      "description": "Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows",
+      "description": "Extract fixed-width beat templates around corrected R-peaks",
       "concept_type": "custom",
       "inputs": [
         {
@@ -138,14 +146,16 @@
         {
           "name": "rpeaks_final",
           "type_desc": "np.ndarray",
-          "constraints": "final R-peak indices after template extraction"
+          "constraints": "kept R-peak indices after boundary checks"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, before: float = 0.2, after: float = 0.4) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, before_sec: float = 0.2, after_sec: float = 0.4) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -153,20 +163,20 @@
       "node_id": "heart_rate_computation",
       "parent_id": "ECGProcessor_root",
       "name": "Heart Rate Computation",
-      "description": "Compute instantaneous heart rate in bpm from R-R intervals with optional smoothing",
+      "description": "Compute instantaneous bpm from corrected R-R intervals with optional smoothing",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "R-peak sample indices"
+          "constraints": "corrected R-peak sample indices"
         }
       ],
       "outputs": [
         {
           "name": "hr_idx",
           "type_desc": "np.ndarray",
-          "constraints": "time indices for heart rate values"
+          "constraints": "indices for heart-rate values"
         },
         {
           "name": "heart_rate",
@@ -177,8 +187,10 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(rpeaks: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(rpeaks: np.ndarray, sampling_rate: float = 1000.0, smooth: bool = True) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
       "critic_notes": "",
       "decomposition_rationale": ""
     }

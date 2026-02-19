@@ -1,6 +1,6 @@
-"""BioSPPy ECG atoms ingested via the Smart Ingester."""
+"""BioSPPy-derived atoms for ECG, EDA, and PCG processing."""
 
-from ageoa.biosppy.ecg import (
+from .ecg import (
     bandpass_filter,
     r_peak_detection,
     peak_correction,
@@ -9,14 +9,8 @@ from ageoa.biosppy.ecg import (
     ssf_segmenter,
     christov_segmenter,
 )
-from ageoa.biosppy.pcg import (
-    shannon_energy,
-    pcg_segmentation,
-)
-from ageoa.biosppy.eda import (
-    gamboa_segmenter,
-    eda_feature_extraction,
-)
+from .eda import gamboa_segmenter, eda_feature_extraction
+from .pcg import shannon_energy, pcg_segmentation
 
 __all__ = [
     "bandpass_filter",
@@ -26,8 +20,8 @@ __all__ = [
     "heart_rate_computation",
     "ssf_segmenter",
     "christov_segmenter",
-    "shannon_energy",
-    "pcg_segmentation",
     "gamboa_segmenter",
     "eda_feature_extraction",
+    "shannon_energy",
+    "pcg_segmentation",
 ]

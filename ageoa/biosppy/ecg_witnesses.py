@@ -1,4 +1,4 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
+"""Ghost witness functions for ECG atoms."""
 
 from __future__ import annotations
 
@@ -7,44 +7,37 @@ try:
 except ImportError:
     pass
 
-def witness_bandpass_filter(signal: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Bandpass Filter.
 
-    Postconditions:
-        - Output shape matches input.
-        - Domain is 'time'.
-    """
+def _template_width(signal: AbstractSignal, before_sec: float = 0.2, after_sec: float = 0.4) -> int:
+    return max(1, int(round((before_sec + after_sec) * signal.sampling_rate)))
+
+
+def witness_bandpass_filter(signal: AbstractSignal) -> AbstractSignal:
+    """Bandpass filter preserves time-domain shape and sampling rate."""
     signal.assert_domain("time")
     return AbstractSignal(
         shape=signal.shape,
         dtype="float64",
         sampling_rate=signal.sampling_rate,
         domain="time",
+        units=signal.units,
     )
 
-def witness_r_peak_detection(filtered: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for R-Peak Detection.
 
-    Postconditions:
-        - Output is a 1D array of indices.
-        - Domain is 'index'.
-    """
+def witness_r_peak_detection(filtered: AbstractSignal) -> AbstractSignal:
+    """R-peak detection returns index-domain sample positions."""
     filtered.assert_domain("time")
     return AbstractSignal(
-        shape=(0,),  # Dynamic length
+        shape=(0,),
         dtype="int64",
         sampling_rate=filtered.sampling_rate,
         domain="index",
         units="samples",
     )
 
-def witness_peak_correction(filtered: AbstractSignal, rpeaks: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Peak Correction.
 
-    Postconditions:
-        - Output shape matches rpeaks input (same number of peaks).
-        - Domain is 'index'.
-    """
+def witness_peak_correction(filtered: AbstractSignal, rpeaks: AbstractSignal) -> AbstractSignal:
+    """Peak correction preserves index-domain cardinality."""
     filtered.assert_domain("time")
     rpeaks.assert_domain("index")
     return AbstractSignal(
@@ -55,65 +48,61 @@ def witness_peak_correction(filtered: AbstractSignal, rpeaks: AbstractSignal) ->
         units="samples",
     )
 
-def witness_template_extraction(filtered: AbstractSignal, rpeaks: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
-    """Ghost witness for Template Extraction.
 
-    Postconditions:
-        - Returns (templates, corrected_rpeaks).
-        - templates shape is (N_peaks, Window_size).
-    """
+def witness_template_extraction(
+    filtered: AbstractSignal,
+    rpeaks: AbstractSignal,
+) -> tuple[AbstractSignal, AbstractSignal]:
+    """Template extraction emits (templates, kept_rpeaks)."""
     filtered.assert_domain("time")
     rpeaks.assert_domain("index")
-    # Assume 0.6s window by default (0.2 + 0.4)
-    window_size = int(0.6 * filtered.sampling_rate)
+
+    num_templates = rpeaks.shape[0] if len(rpeaks.shape) > 0 else 0
+    width = _template_width(filtered)
+
     return (
         AbstractSignal(
-            shape=(0, window_size), # Dynamic N_peaks
+            shape=(num_templates, width),
             dtype="float64",
             sampling_rate=filtered.sampling_rate,
             domain="time",
-            units="volts",
+            units=filtered.units,
         ),
         AbstractSignal(
-            shape=rpeaks.shape,
+            shape=(num_templates,),
             dtype="int64",
             sampling_rate=filtered.sampling_rate,
             domain="index",
             units="samples",
-        )
+        ),
     )
 
-def witness_heart_rate_computation(rpeaks: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
-    """Ghost witness for Heart Rate Computation.
 
-    Postconditions:
-        - Returns (index, heart_rate).
-        - Heart rate is one element shorter than rpeaks.
-    """
+def witness_heart_rate_computation(rpeaks: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+    """Heart-rate computation returns (indices, bpm_values)."""
     rpeaks.assert_domain("index")
+
+    n = max(0, (rpeaks.shape[0] - 1) if len(rpeaks.shape) > 0 else 0)
     return (
         AbstractSignal(
-            shape=(0,),
+            shape=(n,),
             dtype="int64",
             sampling_rate=rpeaks.sampling_rate,
             domain="index",
             units="samples",
         ),
         AbstractSignal(
-            shape=(0,),
+            shape=(n,),
             dtype="float64",
             sampling_rate=rpeaks.sampling_rate,
             domain="time",
             units="bpm",
-        )
+        ),
     )
 
+
 def witness_ssf_segmenter(signal: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for SSF R-peak detection.
-    
-    Postconditions:
-        - Output is a 1D array of indices.
-    """
+    """SSF detector maps time-domain signal to index-domain peaks."""
     signal.assert_domain("time")
     return AbstractSignal(
         shape=(0,),
@@ -123,12 +112,9 @@ def witness_ssf_segmenter(signal: AbstractSignal) -> AbstractSignal:
         units="samples",
     )
 
+
 def witness_christov_segmenter(signal: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Christov R-peak detection.
-    
-    Postconditions:
-        - Output is a 1D array of indices.
-    """
+    """Christov detector maps time-domain signal to index-domain peaks."""
     signal.assert_domain("time")
     return AbstractSignal(
         shape=(0,),

@@ -1,10 +1,15 @@
-"""Auto-generated Pydantic state models for cross-window state."""
+"""Pydantic state model for legacy ECG ingestion artifacts."""
 
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+import numpy as np
+from pydantic import BaseModel, ConfigDict, Field
+
 
 class ECGPipelineState(BaseModel):
-    """Intermediate pipeline state carrying the filtered ECG signal and detected R-peak indices between stages"""
-    filtered: np.ndarray = Field(default=None)
-    rpeaks: np.ndarray = Field(default=None)
+    """Intermediate ECG state carried between decomposition stages."""
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    filtered: np.ndarray | None = Field(default=None)
+    rpeaks: np.ndarray | None = Field(default=None)
