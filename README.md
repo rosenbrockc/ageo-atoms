@@ -69,6 +69,8 @@ ageoa/
     atoms.py           Multimeric protein sequence processing (multimer_collator, protein_transformer, chain_level_contextualizer)
   alphafold/
     atoms.py           3D Equivariant structural logic (invariant_point_attention, equivariant_frame_update, coordinate_reconstruction)
+  e2e_ppg/
+    atoms.py           Stateful PPG windowed processing (process_ppg)
   ghost/
     abstract.py        AbstractSignal, AbstractBeatPool metadata types
     registry.py        REGISTRY dict, @register_atom decorator, get_witness()

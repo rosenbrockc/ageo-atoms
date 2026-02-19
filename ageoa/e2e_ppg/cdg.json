@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "node_id": "PPGProcessor_root",
+      "parent_id": null,
+      "name": "PPGProcessor",
+      "description": "Ingested pipeline from PPGProcessor",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "process_ppg"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "process_ppg",
+      "parent_id": "PPGProcessor_root",
+      "name": "Process PPG",
+      "description": "Process new PPG samples: update buffer, assess quality, and reconstruct if needed.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "new_samples",
+          "type_desc": "np.ndarray",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "processed_samples",
+          "type_desc": "np.ndarray",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(new_samples: np.ndarray, state: PPGState) -> tuple[np.ndarray, PPGState]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "PPGProcessor"
+  }
+}
