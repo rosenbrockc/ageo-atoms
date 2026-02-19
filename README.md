@@ -61,6 +61,10 @@ ageoa/
     ecg.py             ECG processing (bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation, ssf_segmenter, christov_segmenter)
     pcg.py             PCG processing (shannon_energy, pcg_segmentation)
     eda.py             EDA processing (gamboa_segmenter, eda_feature_extraction)
+  pasqal/
+    docking.py         Molecular docking graph decomposition (sub_graph_embedder, graph_transformer, quantum_mwis_solver)
+  pulsar/
+    pipeline.py        Pulsar folding and dedispersion (delay_from_DM, de_disperse, fold_signal, SNR)
   ghost/
     abstract.py        AbstractSignal, AbstractBeatPool metadata types
     registry.py        REGISTRY dict, @register_atom decorator, get_witness()

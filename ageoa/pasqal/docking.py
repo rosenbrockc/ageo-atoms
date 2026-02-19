@@ -2,8 +2,12 @@ from typing import Any, Tuple, List, Dict, Set
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from state_models import MolecularDockingState
-from witnesses import witness_sub_graph_embedder, witness_graph_transformer, witness_quantum_mwis_solver
+from ageoa.pasqal.docking_state import MolecularDockingState
+from ageoa.pasqal.docking_witnesses import (
+    witness_sub_graph_embedder,
+    witness_graph_transformer,
+    witness_quantum_mwis_solver,
+)
 
 class greedy_subgraph_solver_vv:
     graph: Any

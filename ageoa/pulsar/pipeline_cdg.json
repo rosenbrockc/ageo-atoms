@@ -1,0 +1,201 @@
+{
+  "nodes": [
+    {
+      "node_id": "pulsar_pipeline_root",
+      "parent_id": null,
+      "name": "Pulsar Pipeline",
+      "description": "Dedispersion and folding pipeline for pulsar discovery.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "delay_from_dm",
+        "de_disperse",
+        "fold_signal",
+        "snr"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "delay_from_dm",
+      "parent_id": "pulsar_pipeline_root",
+      "name": "Delay From DM",
+      "description": "Calculate time delay for a given DM and frequency.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "DM",
+          "type_desc": "float",
+          "constraints": "non-negative"
+        },
+        {
+          "name": "freq_emitted",
+          "type_desc": "float",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "delay",
+          "type_desc": "float",
+          "constraints": "non-negative"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(DM: float, freq_emitted: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "de_disperse",
+      "parent_id": "pulsar_pipeline_root",
+      "name": "Dedisperse",
+      "description": "Apply dedispersion to the 2D spectrogram data to align pulse arrival times across frequencies.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "data",
+          "type_desc": "np.ndarray",
+          "constraints": "2D (Time, Frequency)"
+        },
+        {
+          "name": "DM",
+          "type_desc": "float",
+          "constraints": ""
+        },
+        {
+          "name": "fchan",
+          "type_desc": "float",
+          "constraints": ""
+        },
+        {
+          "name": "width",
+          "type_desc": "float",
+          "constraints": ""
+        },
+        {
+          "name": "tsamp",
+          "type_desc": "float",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dedispersed",
+          "type_desc": "np.ndarray",
+          "constraints": "same shape as input"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(data: np.ndarray, DM: float, fchan: float, width: float, tsamp: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "fold_signal",
+      "parent_id": "pulsar_pipeline_root",
+      "name": "Fold Signal",
+      "description": "Fold the 2D spectrogram into a 1D pulse profile given a folding period.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "data",
+          "type_desc": "np.ndarray",
+          "constraints": "2D"
+        },
+        {
+          "name": "period",
+          "type_desc": "int",
+          "constraints": "positive"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "profile",
+          "type_desc": "np.ndarray",
+          "constraints": "1D (length=period)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(data: np.ndarray, period: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "snr",
+      "parent_id": "pulsar_pipeline_root",
+      "name": "SNR",
+      "description": "Calculate Signal-to-Noise Ratio of the 1D pulse profile.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "arr",
+          "type_desc": "np.ndarray",
+          "constraints": "1D"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "snr",
+          "type_desc": "float",
+          "constraints": "non-negative"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(arr: np.ndarray) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "de_disperse",
+      "target_id": "fold_signal",
+      "output_name": "dedispersed",
+      "input_name": "data",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "fold_signal",
+      "target_id": "snr",
+      "output_name": "profile",
+      "input_name": "arr",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "pulsar_pipeline"
+  }
+}
