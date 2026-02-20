@@ -56,43 +56,6 @@ def array(
     Returns:
         An array object satisfying the specified requirements.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "N-Dimensional Tensor Constructor",
-        "conceptual_transform": "Initializes a structured tensor representation from a raw sequence of elements or another compatible data structure. It defines the initial memory layout, data type, and minimal dimensionality of the resulting tensor.",
-        "abstract_inputs": [
-            {
-                "name": "object",
-                "description": "A raw sequence, nested collection, or existing tensor to be converted."
-            },
-            {
-                "name": "dtype",
-                "description": "A categorical identifier for the numerical representation."
-            },
-            {
-                "name": "ndmin",
-                "description": "An integer specifying the minimum rank of the resulting tensor."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A structured N-dimensional tensor satisfying the specified constraints."
-            }
-        ],
-        "algorithmic_properties": [
-            "data-conversion",
-            "memory-allocation",
-            "deterministic"
-        ],
-        "cross_disciplinary_applications": [
-            "Converting raw sensor measurements into a vector for signal processing.",
-            "Loading experimental results into a matrix for statistical analysis.",
-            "Initializing a grid of spatial coordinates for a physical simulation."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.array(
         object,
@@ -118,39 +81,6 @@ def zeros(shape: ShapeLike, dtype: DTypeLike = float, order: str = "C") -> np.nd
     Returns:
         Array of zeros with the given shape, dtype, and order.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Null-Initialized Tensor Generator",
-        "conceptual_transform": "Allocates and initializes a new N-dimensional tensor of a specified shape and type where every element is set to the additive identity (zero).",
-        "abstract_inputs": [
-            {
-                "name": "shape",
-                "description": "A tuple of integers defining the size of each dimension."
-            },
-            {
-                "name": "dtype",
-                "description": "The desired numerical representation."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor of the specified shape populated with null values."
-            }
-        ],
-        "algorithmic_properties": [
-            "tensor-initialization",
-            "memory-allocation",
-            "deterministic"
-        ],
-        "cross_disciplinary_applications": [
-            "Initializing an empty accumulator for a numerical integration task.",
-            "Allocating a buffer for pre-calculating state transitions in a model.",
-            "Creating a baseline 'dark frame' for an image sensor calibration."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.zeros(shape, dtype=dtype, order=order)
 
@@ -173,39 +103,6 @@ def dot(a: ArrayLike, b: ArrayLike, out: np.ndarray | None = None) -> Any:
         scalars or both 1-D arrays then a scalar is returned;
         otherwise an array is returned.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Multi-Dimensional Inner Product Resolver",
-        "conceptual_transform": "Computes the generalized inner product of two tensors. For 1D tensors, it calculates the scalar sum of element-wise products; for 2D tensors, it performs standard linear operator composition.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "The first input tensor."
-            },
-            {
-                "name": "b",
-                "description": "The second input tensor, whose leading dimension must match the trailing dimension of 'a'."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "The resulting scalar or tensor representing the combined interaction of 'a' and 'b'."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-operator",
-            "reduction",
-            "algebraic-composition"
-        ],
-        "cross_disciplinary_applications": [
-            "Applying a linear transformation to a state vector in control theory.",
-            "Calculating the similarity between two high-dimensional feature vectors.",
-            "Projecting a physical force vector onto a specific axis of motion."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.dot(a, b, out=out)
 
@@ -233,35 +130,6 @@ def vstack(
         The array formed by stacking the given arrays, which will be
         at least 2-D.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Primary-Dimension Tensor Concatenator",
-        "conceptual_transform": "Joins a sequence of tensors along their first dimension, effectively stacking them 'vertically'. It requires all input tensors to have compatible secondary dimensions.",
-        "abstract_inputs": [
-            {
-                "name": "tup",
-                "description": "A sequence of compatible tensors."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A single tensor whose first dimension size is the sum of the input dimensions."
-            }
-        ],
-        "algorithmic_properties": [
-            "structural-aggregation",
-            "data-join",
-            "shape-manipulation"
-        ],
-        "cross_disciplinary_applications": [
-            "Combining multiple independent sensor logs into a single unified dataset.",
-            "Stacking individual image frames into a video volume.",
-            "Aggregating multiple sub-models into a larger composite system."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.vstack(tup, dtype=dtype, casting=casting)
 
@@ -286,38 +154,5 @@ def reshape(a: np.ndarray, newshape: ShapeLike, order: str = "C") -> np.ndarray:
         This will be a new view object if possible; otherwise, it will
         be a copy.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Topological Dimension Reinterpreter",
-        "conceptual_transform": "Changes the dimensional interpretation (shape) of a tensor without modifying the underlying elements or their relative order. It maps the same set of elements to a new coordinate system.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "The source tensor."
-            },
-            {
-                "name": "newshape",
-                "description": "The target dimensional structure (tuple of integers)."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor with the same total number of elements but a different rank or shape."
-            }
-        ],
-        "algorithmic_properties": [
-            "view-transformation",
-            "shape-reinterpretation",
-            "data-reformatting"
-        ],
-        "cross_disciplinary_applications": [
-            "Flattening a 2D image into a 1D vector for machine learning input.",
-            "Re-interpreting a long sensor stream as a series of fixed-width windowed segments.",
-            "Converting a 3D volume into a 2D slice representation."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.reshape(a, newshape, order=order)

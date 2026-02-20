@@ -33,39 +33,6 @@ def solve(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     Returns:
         Solution to the system a x = b. Shape matches b.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Linear System Resolver",
-        "conceptual_transform": "Finds the exact state configuration that maps to a given observation through a known linear operator, effectively computing the pre-image of a vector under a matrix transformation.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A 2D square tensor representing the linear operator or constraint graph."
-            },
-            {
-                "name": "b",
-                "description": "A 1D or 2D tensor representing the target observation or boundary conditions."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor of the same shape as the target representing the resolved state configuration."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "exact-solution",
-            "matrix-inversion-equivalent"
-        ],
-        "cross_disciplinary_applications": [
-            "Finding equilibrium currents in a complex resistor network.",
-            "Solving steady-state temperature distributions in heat transfer models.",
-            "Determining optimal resource allocation weights under linear equality constraints."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.linalg.solve(a, b)
 
@@ -83,35 +50,6 @@ def inv(a: np.ndarray) -> np.ndarray:
     Returns:
         Inverse of the matrix a. Shape matches a.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Linear Operator Inverter",
-        "conceptual_transform": "Computes the unique linear operator that perfectly reverses the effect of a given full-rank square linear operator, transforming an affine mapping into its inverse mapping.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A 2D square tensor representing the forward linear operator."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 2D square tensor representing the inverse linear operator."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "matrix-inversion",
-            "reversible"
-        ],
-        "cross_disciplinary_applications": [
-            "Reversing 3D spatial transformations in computer graphics and robotics.",
-            "Computing the precision matrix from a covariance matrix in multivariate statistics.",
-            "Undoing cross-talk interference between parallel communication channels."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.linalg.inv(a)
 
@@ -127,35 +65,6 @@ def det(a: np.ndarray) -> Any:
     Returns:
         Determinant of a.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "N-Dimensional Volume Scaling Factor",
-        "conceptual_transform": "Calculates the scalar value representing how much a given linear operator expands or contracts the volume of an N-dimensional region, and whether it preserves or reverses orientation.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A tensor with at least 2 dimensions where the last two are square, representing a linear operator or a batch of linear operators."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A scalar or an array of scalars representing the volume scaling factor(s)."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "scalar-reduction",
-            "volume-measure"
-        ],
-        "cross_disciplinary_applications": [
-            "Checking for singular configurations in robotic arm kinematics (Jacobian determinant).",
-            "Normalizing probability density functions of multivariate Gaussian distributions.",
-            "Determining if a system of equations has a unique solution in control theory."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.linalg.det(a)
 
@@ -190,46 +99,5 @@ def norm(
     Returns:
         Norm of the matrix or vector.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Multi-Dimensional Magnitude Metric",
-        "conceptual_transform": "Reduces a tensor (or specific dimensions of a tensor) into a single non-negative scalar value that quantifies its overall 'size', 'length', or 'magnitude' according to a specified distance metric.",
-        "abstract_inputs": [
-            {
-                "name": "x",
-                "description": "An N-dimensional tensor whose magnitude is to be measured."
-            },
-            {
-                "name": "ord",
-                "description": "A parameter defining the specific distance metric (e.g., Euclidean, Manhattan, maximum absolute value)."
-            },
-            {
-                "name": "axis",
-                "description": "An optional integer or tuple specifying which dimensions to reduce."
-            },
-            {
-                "name": "keepdims",
-                "description": "A boolean indicating whether to retain the reduced dimensions as size 1."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A non-negative scalar or tensor of magnitudes."
-            }
-        ],
-        "algorithmic_properties": [
-            "reduction",
-            "distance-metric",
-            "non-negative"
-        ],
-        "cross_disciplinary_applications": [
-            "Measuring the error between predicted and actual values in machine learning (Loss functions).",
-            "Normalizing term frequency vectors in natural language processing (TF-IDF).",
-            "Quantifying the total energy of a wave function in quantum mechanics."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return np.linalg.norm(x, ord=ord, axis=axis, keepdims=keepdims)

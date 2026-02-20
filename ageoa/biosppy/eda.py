@@ -34,40 +34,6 @@ def _safe_lowpass(signal: np.ndarray, sampling_rate: float, cutoff_hz: float) ->
 @icontract.ensure(lambda result: result.size == 0 or bool(np.all(np.diff(result) > 0)), "Onset indices must be strictly increasing")
 def gamboa_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
     """Detect transient onset events in a low-frequency signal via derivative peak analysis.
-
-<!-- conceptual_profile -->
-{
-    "abstract_name": "Phasic Rise Onset Detector",
-    "conceptual_transform": "Identifies the starting points of significant upward transitions in a low-frequency signal by analyzing its derivative peaks. It maps a continuous slow-moving sequence to a discrete set of indices where a new 'rise' event begins.",
-    "abstract_inputs": [
-        {
-            "name": "signal",
-            "description": "A 1D tensor representing a continuous physical measurement with slow baseline changes and superimposed fast transients."
-        },
-        {
-            "name": "sampling_rate",
-            "description": "A scalar representing the temporal resolution."
-        }
-    ],
-    "abstract_outputs": [
-        {
-            "name": "result",
-            "description": "A 1D tensor of integer indices representing the onsets of detected transient rises."
-        }
-    ],
-    "algorithmic_properties": [
-        "derivative-based",
-        "thresholding",
-        "peak-finding",
-        "event-delimiting"
-    ],
-    "cross_disciplinary_applications": [
-        "Detecting the onset of thermal expansion events in a temperature monitoring system.",
-        "Identifying the beginning of sudden pressure increases in a chemical reactor.",
-        "Locating the start of slow-onset structural shifts in geomechanical sensors."
-    ]
-}
-<!-- /conceptual_profile -->
     """
     x = np.asarray(signal, dtype=np.float64)
 
@@ -118,51 +84,6 @@ def eda_feature_extraction(
     sampling_rate: float = 1000.0,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Extract amplitude, rise-time, and half-recovery decay-time for each onset.
-
-<!-- conceptual_profile -->
-{
-    "abstract_name": "Transient Event Morphology Characterizer",
-    "conceptual_transform": "Quantifies the structural properties (magnitude, growth rate, and decay rate) of localized transient events following identified onsets. It transforms event indices and the raw signal into a structured representation of event dynamics.",
-    "abstract_inputs": [
-        {
-            "name": "signal",
-            "description": "A 1D tensor representing the source signal."
-        },
-        {
-            "name": "onsets",
-            "description": "A 1D tensor of event starting indices."
-        },
-        {
-            "name": "sampling_rate",
-            "description": "A scalar representing temporal resolution."
-        }
-    ],
-    "abstract_outputs": [
-        {
-            "name": "amplitudes",
-            "description": "A 1D tensor representing the peak magnitude of each event relative to its onset baseline."
-        },
-        {
-            "name": "rise_times",
-            "description": "A 1D tensor representing the duration from onset to peak magnitude."
-        },
-        {
-            "name": "decay_times",
-            "description": "A 1D tensor representing the duration for the event to return to a half-magnitude state."
-        }
-    ],
-    "algorithmic_properties": [
-        "feature-extraction",
-        "temporal-analysis",
-        "event-characterization"
-    ],
-    "cross_disciplinary_applications": [
-        "Characterizing the heating and cooling profiles of individual pulses in a laser material process.",
-        "Analyzing the rise and fall times of individual power surge events in an electrical grid.",
-        "Measuring the kinetics of transient chemical concentration spikes in a microfluidic channel."
-    ]
-}
-<!-- /conceptual_profile -->
     """
     x = np.asarray(signal, dtype=np.float64)
     onset_idx = np.asarray(onsets, dtype=np.int64)

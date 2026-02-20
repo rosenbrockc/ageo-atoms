@@ -43,53 +43,6 @@ def discover_equations(
 
     Returns:
         EquationResult with the parsed discovered equations and parameter values.
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Sparsity-Promoting Symbolic Model Generator",
-        "conceptual_transform": "Identifies a minimal set of non-linear basis functions that best describe the relationship between observed state variables and their derivatives. It applies an Occam's razor heuristic (sparsity penalty) to find the simplest mathematical model that fits the data. It maps raw observation tensors to a set of symbolic algebraic expressions.",
-        "abstract_inputs": [
-            {
-                "name": "X",
-                "description": "A 2D tensor of observed state measurements (features x samples)."
-            },
-            {
-                "name": "Y",
-                "description": "A 2D tensor of target derivatives or function values (targets x samples)."
-            },
-            {
-                "name": "variable_names",
-                "description": "A list of strings defining the symbolic identifiers for each state variable."
-            },
-            {
-                "name": "max_degree",
-                "description": "An integer specifying the maximum polynomial degree of the candidate basis functions."
-            },
-            {
-                "name": "lambda_val",
-                "description": "A scalar representing the sparsity penalty (Occam's razor parameter) to favor simpler models."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "An object containing a list of discovered symbolic equations and their corresponding parameter values."
-            }
-        ],
-        "algorithmic_properties": [
-            "symbolic-regression",
-            "sparsity-promoting",
-            "heuristic-driven",
-            "nonlinear-identification"
-        ],
-        "cross_disciplinary_applications": [
-            "Reconstructing the underlying differential equations of fluid flow from sparse velocity measurements.",
-            "Identifying the core drivers of asset price volatility in complex financial markets.",
-            "Discovering the governing laws of a gene regulatory network from time-series expression data.",
-            "Extracting the simplified physical laws of a robotic system's joint dynamics from telemetry."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     if X.shape[0] != len(variable_names):
         raise ValueError(f"X feature dimension {X.shape[0]} does not match number of variable names {len(variable_names)}")

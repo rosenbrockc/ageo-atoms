@@ -64,48 +64,6 @@ def rk4(
 
     Returns:
         The final state vector after one integration step (t0 -> tf).
-
-    <!-- conceptual_profile
-    {
-        "abstract_name": "Fourth-Order Differential State Integrator",
-        "conceptual_transform": "Approximates the future state of a dynamic system by numerically integrating its first-order ordinary differential equations. It uses a weighted average of four derivative estimates (slopes) to minimize local truncation error.",
-        "abstract_inputs": [
-            {
-                "name": "func",
-                "description": "A functional mapping that defines the system's rate of change (derivative) given a state and a parameter (e.g., time)."
-            },
-            {
-                "name": "x0",
-                "description": "A 1D tensor representing the initial state of the system."
-            },
-            {
-                "name": "t0",
-                "description": "A scalar representing the initial value of the integration parameter."
-            },
-            {
-                "name": "tf",
-                "description": "A scalar representing the final value of the integration parameter."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 1D tensor representing the estimated state of the system after the integration interval."
-            }
-        ],
-        "algorithmic_properties": [
-            "numerical-integration",
-            "fixed-step",
-            "deterministic",
-            "fourth-order-accuracy"
-        ],
-        "cross_disciplinary_applications": [
-            "Simulating the chemical kinetics of a multi-step reaction.",
-            "Modeling the population dynamics of a predator-prey system in ecology.",
-            "Propagating orbital state vectors through gravitational dynamics."
-        ]
-    }
-    /conceptual_profile -->
     """
     dim = int(x0.shape[0])
     lib = _get_lib()

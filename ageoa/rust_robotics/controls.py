@@ -75,52 +75,6 @@ def pure_pursuit(
 
     Returns:
         Curvature-based heading correction in radians.
-
-    <!-- conceptual_profile
-    {
-        "abstract_name": "Geometric Path Pursuit Controller",
-        "conceptual_transform": "Computes the required steering adjustment to intercept a target point on a desired trajectory. It maps the relative spatial relationship between a current state (position and orientation) and a future target state into a single control curvature.",
-        "abstract_inputs": [
-            {
-                "name": "position_current",
-                "description": "A 2D coordinate representing the current spatial location of the agent."
-            },
-            {
-                "name": "position_target",
-                "description": "A 2D coordinate representing the lookahead target point to be intercepted."
-            },
-            {
-                "name": "yaw_current",
-                "description": "A scalar representing the current orientation (heading) of the agent."
-            },
-            {
-                "name": "target_distance",
-                "description": "A scalar representing the radius of the search circle (lookahead distance)."
-            },
-            {
-                "name": "wheelbase",
-                "description": "A scalar representing the characteristic length scale of the agent's steering geometry."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A scalar representing the required curvature or heading correction to reach the target."
-            }
-        ],
-        "algorithmic_properties": [
-            "geometric-control",
-            "look-ahead",
-            "deterministic",
-            "curvature-based"
-        ],
-        "cross_disciplinary_applications": [
-            "Guiding an autonomous submersible along a planned trajectory.",
-            "Steering a tool tip along a planned curve in automated manufacturing.",
-            "Navigating a mobile platform along predefined cleaning paths."
-        ]
-    }
-    /conceptual_profile -->
     """
     lib = _get_lib()
     return float(

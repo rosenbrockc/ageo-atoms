@@ -23,40 +23,6 @@ def polyval(x: Any, c: CoefficientLike) -> Any:
     Returns:
         The values of the polynomial at points x.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Rational Function Basis Evaluator",
-        "conceptual_transform": "Computes the output of a model defined as a linear combination of power-basis functions (1, x, x^2, ...) at specified evaluation points. It maps a parameter vector (coefficients) to a set of outputs based on input coordinates.",
-        "abstract_inputs": [
-            {
-                "name": "x",
-                "description": "A tensor of coordinates at which to evaluate the model."
-            },
-            {
-                "name": "c",
-                "description": "A 1D tensor of weights (coefficients) for each power-basis function."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor of the same shape as the coordinates containing the model outputs."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-combination",
-            "power-basis",
-            "deterministic",
-            "model-evaluation"
-        ],
-        "cross_disciplinary_applications": [
-            "Predicting future values from a fitted growth model in biology.",
-            "Evaluating a calibrated calibration curve in analytical chemistry.",
-            "Calculating the trajectory of a projectile from its motion coefficients."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyval(x, c)
 
@@ -77,44 +43,6 @@ def polyfit(x: ArrayLike, y: ArrayLike, deg: int) -> np.ndarray:
     Returns:
         Polynomial coefficients ordered from low to high.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Power-Basis Least-Squares Optimizer",
-        "conceptual_transform": "Finds the optimal set of weights for a power-basis expansion that minimizes the sum of squared residuals relative to a provided set of observation pairs. It performs a linear regression in a higher-dimensional feature space.",
-        "abstract_inputs": [
-            {
-                "name": "x",
-                "description": "A 1D tensor of independent variable observations."
-            },
-            {
-                "name": "y",
-                "description": "A 1D tensor of dependent variable observations."
-            },
-            {
-                "name": "deg",
-                "description": "An integer specifying the maximum power to include in the basis (model complexity)."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 1D tensor of optimized weights ordered from lowest to highest power."
-            }
-        ],
-        "algorithmic_properties": [
-            "least-squares",
-            "linear-regression",
-            "parameter-optimization",
-            "model-fitting"
-        ],
-        "cross_disciplinary_applications": [
-            "Fitting a smooth trend curve to noisy sequential measurements from a physical sensor.",
-            "Calibrating a sensor by finding the best polynomial mapping from raw voltage to physical units.",
-            "Characterizing the non-linear response of a material under increasing stress."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyfit(x, y, deg)
 
@@ -132,39 +60,6 @@ def polyder(c: CoefficientLike, m: int = 1) -> np.ndarray:
     Returns:
         Coefficients of the derivative.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Polynomial Operator Differentiator",
-        "conceptual_transform": "Transforms the coefficients of a power-basis expansion to represent its instantaneous rate of change (derivative) with respect to the independent variable. It performs a linear shift and scaling in the coefficient space.",
-        "abstract_inputs": [
-            {
-                "name": "c",
-                "description": "A 1D tensor of weights for the original model."
-            },
-            {
-                "name": "m",
-                "description": "An integer specifying the number of successive differentiations to perform."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 1D tensor of weights for the derivative model."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-operator",
-            "calculus-derivative",
-            "structural-transform"
-        ],
-        "cross_disciplinary_applications": [
-            "Calculating velocity and acceleration from a position-time polynomial model.",
-            "Computing the instantaneous rate of change from a polynomial model of cumulative throughput.",
-            "Analyzing the slope of a fitted calibration curve for sensitivity analysis."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyder(c, m=m)
 
@@ -184,44 +79,6 @@ def polyint(c: CoefficientLike, m: int = 1, k: ArrayLike | float = 0) -> np.ndar
     Returns:
         Coefficients of the integral.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Polynomial Operator Integrator",
-        "conceptual_transform": "Transforms the coefficients of a power-basis expansion to represent its accumulation (integral) with respect to the independent variable. It introduces a constant of integration and performs a linear shift/scaling in the coefficient space.",
-        "abstract_inputs": [
-            {
-                "name": "c",
-                "description": "A 1D tensor of weights for the original model."
-            },
-            {
-                "name": "m",
-                "description": "An integer specifying the number of successive integrations to perform."
-            },
-            {
-                "name": "k",
-                "description": "A scalar or array defining the integration constants (boundary conditions)."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 1D tensor of weights for the integrated model."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-operator",
-            "calculus-integral",
-            "structural-transform",
-            "boundary-condition-dependent"
-        ],
-        "cross_disciplinary_applications": [
-            "Calculating total distance traveled from an acceleration-time polynomial model.",
-            "Estimating total resource accumulation from a rate-of-consumption model.",
-            "Finding the potential energy field from a polynomial force-field representation."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyint(c, m=m, k=k)
 
@@ -239,38 +96,6 @@ def polyadd(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
     Returns:
         Coefficients of the sum.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Power-Basis Model Adder",
-        "conceptual_transform": "Computes the coefficients of a new model that is the linear sum of two existing power-basis models. It performs an element-wise addition of weights corresponding to the same basis functions.",
-        "abstract_inputs": [
-            {
-                "name": "c1",
-                "description": "Weights for the first model."
-            },
-            {
-                "name": "c2",
-                "description": "Weights for the second model."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "Weights for the summed model."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-operation",
-            "additive-synthesis"
-        ],
-        "cross_disciplinary_applications": [
-            "Combining multiple independent physical influences into a single superposed model.",
-            "Aggregating sub-models in a multi-component statistical analysis.",
-            "Superimposing different noise and trend components in a time-series model."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyadd(c1, c2)
 
@@ -288,39 +113,6 @@ def polymul(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
     Returns:
         Coefficients of the product.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Power-Basis Model Convolver",
-        "conceptual_transform": "Computes the coefficients of a new model that is the product of two existing power-basis models. It performs a discrete convolution of the weight vectors, representing the interaction of all basis terms.",
-        "abstract_inputs": [
-            {
-                "name": "c1",
-                "description": "Weights for the first model."
-            },
-            {
-                "name": "c2",
-                "description": "Weights for the second model."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "Weights for the product model."
-            }
-        ],
-        "algorithmic_properties": [
-            "convolutional",
-            "multiplicative-interaction",
-            "structural-transform"
-        ],
-        "cross_disciplinary_applications": [
-            "Modeling the interaction of multiple independent factors in a physical system.",
-            "Constructing high-order filters from simpler second-order stages in the coefficient domain.",
-            "Calculating the joint distribution of independent random variables in probability theory."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polymul(c1, c2)
 
@@ -335,34 +127,5 @@ def polyroots(c: CoefficientLike) -> np.ndarray:
     Returns:
         Roots of the polynomial.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Model Zero-Crossing Finder",
-        "conceptual_transform": "Identifies the input coordinates where the output of a power-basis model is exactly zero. It solves for the fundamental equilibrium points of the model representation.",
-        "abstract_inputs": [
-            {
-                "name": "c",
-                "description": "A 1D tensor of weights defining the model."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 1D tensor of coordinates (potentially complex) where the model evaluates to zero."
-            }
-        ],
-        "algorithmic_properties": [
-            "root-finding",
-            "eigenvalue-equivalent",
-            "non-linear-solver"
-        ],
-        "cross_disciplinary_applications": [
-            "Finding the equilibrium points in a dynamic physical system.",
-            "Finding the zero-crossing points of a polynomial model describing net energy balance.",
-            "Solving for the resonance frequencies in a structural vibration model."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return poly.polyroots(c)

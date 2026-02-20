@@ -42,39 +42,6 @@ def solve(
     Returns:
         Solution to the system a @ x == b. Shape matches b.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Linear Constraint System Resolver",
-        "conceptual_transform": "Finds the unique state configuration that satisfies a set of linear constraints defined by a transformation matrix and a target observation vector. It effectively calculates the pre-image of a vector under a specific linear mapping.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A 2D square tensor representing the linear transformation or constraint matrix."
-            },
-            {
-                "name": "b",
-                "description": "A 1D or 2D tensor representing the target state or boundary conditions."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor of the same shape as the target, representing the resolved state configuration."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "exact-solution",
-            "matrix-inversion-equivalent"
-        ],
-        "cross_disciplinary_applications": [
-            "Finding equilibrium currents in a resistor network.",
-            "Solving steady-state temperature in heat transfer models.",
-            "Determining optimal resource allocation weights under linear equality constraints."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return scipy.linalg.solve(
         a,
@@ -105,35 +72,6 @@ def inv(
     Returns:
         Inverse of the matrix a.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Linear Operator Inverter",
-        "conceptual_transform": "Computes the unique linear operator that perfectly reverses the effect of a given full-rank square linear mapping.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A 2D square tensor representing the forward linear operator."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A 2D square tensor representing the inverse linear operator."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "matrix-inversion",
-            "reversible"
-        ],
-        "cross_disciplinary_applications": [
-            "Reversing 3D spatial transformations in robotics.",
-            "Computing precision matrices in multivariate statistics.",
-            "Undoing interference in communication channels."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return scipy.linalg.inv(a, overwrite_a=overwrite_a, check_finite=check_finite)
 
@@ -154,35 +92,6 @@ def det(a: ArrayLike, overwrite_a: bool = False, check_finite: bool = True) -> f
     Returns:
         Determinant of a.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "N-Dimensional Volume Scaling Factor",
-        "conceptual_transform": "Calculates the scalar representing the volume expansion or contraction factor of a linear transformation, and whether it preserves or reverses orientation.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A tensor with at least 2 dimensions where the last two are square, representing a linear operator."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A scalar representing the volume scaling factor."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "scalar-reduction",
-            "volume-measure"
-        ],
-        "cross_disciplinary_applications": [
-            "Checking for singular configurations in robotic arm kinematics.",
-            "Normalizing probability density functions.",
-            "Determining unique solution existence in control theory."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return float(scipy.linalg.det(a, overwrite_a=overwrite_a, check_finite=check_finite))
 
@@ -210,35 +119,6 @@ def lu_factor(
         Tuple of (lu, piv) where lu is the LU factor matrix of shape
         (n, n) and piv is the pivot index array of shape (n,).
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Pivoted Linear Factorization Decomposer",
-        "conceptual_transform": "Decomposes a square linear operator into a product of lower and upper triangular structures, incorporating a permutation to ensure numerical stability. This provides an intermediate representation for efficient system resolution and determinant calculation.",
-        "abstract_inputs": [
-            {
-                "name": "a",
-                "description": "A 2D square tensor representing the linear operator."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tuple containing the combined triangular factors and the permutation indices."
-            }
-        ],
-        "algorithmic_properties": [
-            "matrix-factorization",
-            "numerical-stability-optimized",
-            "intermediate-representation"
-        ],
-        "cross_disciplinary_applications": [
-            "Preprocessing complex structural matrices for rapid stress analysis.",
-            "Efficiently computing determinants of large-scale systems.",
-            "Solving multiple systems with the same coefficient structure."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return scipy.linalg.lu_factor(a, overwrite_a=overwrite_a, check_finite=check_finite)
 
@@ -268,39 +148,6 @@ def lu_solve(
     Returns:
         Solution to the system a @ x = b.
     
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Factorized Linear System Resolver",
-        "conceptual_transform": "Efficiently resolves a linear constraint system using a pre-computed triangular factorization. It leverages the simplified structure of the factorized operator to find the solution via forward and backward substitution.",
-        "abstract_inputs": [
-            {
-                "name": "lu_and_piv",
-                "description": "A tuple containing the pre-computed triangular factors and permutation indices."
-            },
-            {
-                "name": "b",
-                "description": "A 1D or 2D tensor representing the target state."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "result",
-                "description": "A tensor representing the resolved state configuration."
-            }
-        ],
-        "algorithmic_properties": [
-            "linear-algebraic",
-            "substitution-based",
-            "efficiency-optimized"
-        ],
-        "cross_disciplinary_applications": [
-            "Rapidly solving for time-varying loads in mechanical systems.",
-            "Processing real-time signals through a fixed linear filter.",
-            "Updating state estimates in an iterative optimization loop."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     return scipy.linalg.lu_solve(
         lu_and_piv,

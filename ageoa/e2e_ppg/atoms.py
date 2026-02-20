@@ -27,46 +27,6 @@ def process_ppg(
     state: PPGState,
 ) -> Tuple[np.ndarray[Any, Any], PPGState]:
     """Process new signal samples with sliding-window quality refinement and deterministic fallback.
-
-    <!-- conceptual_profile -->
-    {
-        "abstract_name": "Sliding-Window Signal Quality Refiner",
-        "conceptual_transform": "Processes an incoming temporal sequence by appending it to a persistent buffer and applying an adaptive quality assessment and reconstruction heuristic. It transforms a potentially noisy measurement stream into a refined, reconstructed version by identifying and interpolating unreliable segments based on local statistical priors.",
-        "abstract_inputs": [
-            {
-                "name": "new_samples",
-                "description": "A 1D tensor representing the latest batch of temporal measurements."
-            },
-            {
-                "name": "state",
-                "description": "A state object tracking the persistent buffer, sampling resolution, and quality metadata."
-            }
-        ],
-        "abstract_outputs": [
-            {
-                "name": "window",
-                "description": "A 1D tensor representing the processed and potentially reconstructed version of the input batch."
-            },
-            {
-                "name": "next_state",
-                "description": "The updated state object with new buffer contents and quality flags."
-            }
-        ],
-        "algorithmic_properties": [
-            "sliding-window",
-            "state-dependent",
-            "anomaly-aware",
-            "reconstruction-based",
-            "heuristic-driven"
-        ],
-        "cross_disciplinary_applications": [
-            "Refining noisy telemetry data from remote communication channels.",
-            "Reconstructing missing samples in a high-frequency acoustic monitoring system.",
-            "Cleaning and interpolating corrupted sensor streams in a robotic industrial environment.",
-            "Processing intermittent signal strength data to provide a smooth connectivity metric."
-        ]
-    }
-    <!-- /conceptual_profile -->
     """
     current_buffer = (state.buffer or []) + new_samples.tolist()
     max_size = 30 * (state.sampling_rate or 20)
