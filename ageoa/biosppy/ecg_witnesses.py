@@ -25,7 +25,7 @@ def witness_bandpass_filter(signal: AbstractSignal) -> AbstractSignal:
 
 
 def witness_r_peak_detection(filtered: AbstractSignal) -> AbstractSignal:
-    """R-peak detection returns index-domain sample positions."""
+    """Ghost witness for Adaptive Periodic Peak Detection."""
     filtered.assert_domain("time")
     return AbstractSignal(
         shape=(0,),
@@ -79,7 +79,7 @@ def witness_template_extraction(
 
 
 def witness_heart_rate_computation(rpeaks: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
-    """Heart-rate computation returns (indices, bpm_values)."""
+    """Ghost witness for Inter-Event Rate Calculation."""
     rpeaks.assert_domain("index")
 
     n = max(0, (rpeaks.shape[0] - 1) if len(rpeaks.shape) > 0 else 0)

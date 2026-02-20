@@ -19,6 +19,36 @@ def sqrt(x: ArrayLike) -> Any:
     Returns:
         The square root of x. If x was a scalar, so is the result,
         otherwise an array is returned.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Geometric Scale Bisector",
+        "conceptual_transform": "Computes the value that, when self-interacted via multiplication, yields the original input. It automatically expands the numerical range into the complex domain to handle negative inputs while maintaining functional consistency.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "A scalar or tensor of values whose geometric bisector is required."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The computed bisector, potentially complex-valued."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-operator",
+            "domain-expanding",
+            "invertible-composition"
+        ],
+        "cross_disciplinary_applications": [
+            "Calculating the standard deviation from a variance measurement.",
+            "Determining the characteristic length scale of a 2D area.",
+            "Computing the magnitude of a 2D vector in Euclidean space."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.emath.sqrt(x)
 
@@ -37,6 +67,36 @@ def log(x: ArrayLike) -> Any:
     Returns:
         The log of x. If x was a scalar, so is the result,
         otherwise an array is returned.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Natural Exponential Magnitude Resolver",
+        "conceptual_transform": "Determines the exponent required to reach a target value from an irrational constant base (e). It maps exponential growth scales to a linear magnitude representation, handling negative target values via complex projection.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "A scalar or tensor representing target magnitudes."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The resolved exponential magnitudes (natural logarithms)."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-reduction",
+            "domain-expanding",
+            "scale-linearization"
+        ],
+        "cross_disciplinary_applications": [
+            "Calculating the half-life of a radioactive decay process.",
+            "Measuring the information entropy of a probability distribution.",
+            "Analyzing the growth rate of a population under ideal conditions."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.emath.log(x)
 
@@ -55,6 +115,36 @@ def log10(x: ArrayLike) -> Any:
     Returns:
         The log base 10 of x. If x was a scalar, so is the result,
         otherwise an array is returned.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Decadal Magnitude Resolver",
+        "conceptual_transform": "Maps target values to a power-of-ten scale, providing a linear representation of order-of-magnitude variations. It facilitates the analysis of phenomena spanning multiple scales of intensity.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "A scalar or tensor of intensity measurements."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The resolved decadal magnitudes."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-reduction",
+            "scale-linearization",
+            "order-of-magnitude-mapping"
+        ],
+        "cross_disciplinary_applications": [
+            "Measuring acoustic intensity on a decibel scale.",
+            "Analyzing the pH levels of a chemical solution.",
+            "Representing the magnitude of seismic events on a Richter-equivalent scale."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.emath.log10(x)
 
@@ -74,6 +164,40 @@ def logn(n: Numeric, x: ArrayLike) -> Any:
     Returns:
         The log base n of x. If x was a scalar, so is the result,
         otherwise an array is returned.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Arbitrary-Base Magnitude Resolver",
+        "conceptual_transform": "Determines the linear magnitude of a target value relative to a specified reference growth base. It provides a generalized coordinate system for exponential scaling.",
+        "abstract_inputs": [
+            {
+                "name": "n",
+                "description": "A scalar representing the reference growth base."
+            },
+            {
+                "name": "x",
+                "description": "A scalar or tensor of target values."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The resolved magnitudes in the specified base."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-reduction",
+            "generalized-scaling",
+            "coordinate-transform"
+        ],
+        "cross_disciplinary_applications": [
+            "Calculating the depth of a balanced search tree in computer science (Base 2).",
+            "Analyzing the number of generations in a binary fission process.",
+            "Determining the required steps in a hierarchical decision process."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.emath.logn(n, x)
 
@@ -89,6 +213,39 @@ def power(x: ArrayLike, p: Any) -> Any:
         p: The exponent(s).
 
     Returns:
-        The bases x raised to the probabilities p.
+        The bases x raised to the exponents p.
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Exponential Growth Operator",
+        "conceptual_transform": "Applies repeated self-interaction to a base value according to an exponent, representing non-linear scaling or growth. It automatically handles transitions into the complex domain for negative bases with fractional exponents.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "A scalar or tensor representing the base values."
+            },
+            {
+                "name": "p",
+                "description": "A scalar or tensor representing the exponential growth factors."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The resulting growth magnitudes."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-transformation",
+            "domain-expanding",
+            "growth-modeling"
+        ],
+        "cross_disciplinary_applications": [
+            "Modeling exponential amplification or decay in cascaded gain stages.",
+            "Modeling the intensity of light attenuation through a medium (Beer-Lambert law).",
+            "Calculating the gravitational force between two masses (Inverse-square law)."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.emath.power(x, p)

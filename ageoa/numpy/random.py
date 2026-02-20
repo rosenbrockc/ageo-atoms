@@ -20,6 +20,36 @@ def rand(size: ShapeLike | None = None) -> Union[float, np.ndarray]:
 
     Returns:
         Random values.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Standard Uniform Stochastic Tensor Generator",
+        "conceptual_transform": "Generates an N-dimensional tensor populated with independent samples from a standard uniform probability distribution [0, 1). It provides a source of raw stochastic entropy for simulation and modeling.",
+        "abstract_inputs": [
+            {
+                "name": "size",
+                "description": "An optional tuple of integers defining the output dimensional structure."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A tensor of the specified shape (or a scalar) containing stochastic values."
+            }
+        ],
+        "algorithmic_properties": [
+            "stochastic-generative",
+            "uniform-distribution",
+            "entropy-source"
+        ],
+        "cross_disciplinary_applications": [
+            "Generating initial random weights for a neural network.",
+            "Simulating random noise in a communication channel model.",
+            "Monte Carlo sampling for approximating high-dimensional integrals."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     if size is None:
         return np.random.rand()
@@ -51,6 +81,44 @@ def uniform(
 
     Returns:
         Drawn samples from the parameterized uniform distribution.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Parameterized Uniform Stochastic Tensor Generator",
+        "conceptual_transform": "Generates an N-dimensional tensor populated with independent samples from a uniform probability distribution within a specified range [low, high). It scales and shifts standard stochastic entropy to a target interval.",
+        "abstract_inputs": [
+            {
+                "name": "low",
+                "description": "A scalar representing the lower bound of the distribution."
+            },
+            {
+                "name": "high",
+                "description": "A scalar representing the upper bound of the distribution."
+            },
+            {
+                "name": "size",
+                "description": "An optional tuple of integers defining the output dimensional structure."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A tensor containing stochastic values within the requested range."
+            }
+        ],
+        "algorithmic_properties": [
+            "stochastic-generative",
+            "uniform-distribution",
+            "scaled-entropy"
+        ],
+        "cross_disciplinary_applications": [
+            "Modeling uncertain sensor parameters within a known tolerance range.",
+            "Randomizing the initial positions of agents in a spatial simulation.",
+            "Generating test cases for an algorithm with bounded numerical inputs."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.random.uniform(low, high, size)
 
@@ -65,5 +133,35 @@ def default_rng(seed: SeedLike = None) -> np.random.Generator:
 
     Returns:
         The initialized generator object.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "High-Quality Stochastic Entropy Engine Constructor",
+        "conceptual_transform": "Initializes a state-of-the-art pseudo-random number generator (PRNG) using a specified seed or OS-provided entropy. It provides a deterministic or non-deterministic root for all subsequent stochastic transformations.",
+        "abstract_inputs": [
+            {
+                "name": "seed",
+                "description": "An optional integer or entropy sequence used to initialize the internal PRNG state."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A generator object capable of producing high-quality stochastic sequences."
+            }
+        ],
+        "algorithmic_properties": [
+            "prng-initialization",
+            "stateful-entropy-source",
+            "deterministic-if-seeded"
+        ],
+        "cross_disciplinary_applications": [
+            "Ensuring reproducible results in a stochastic scientific simulation.",
+            "Initializing a secure sequence generator.",
+            "Providing a central entropy root for a multi-threaded parallel simulation."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return np.random.default_rng(seed)

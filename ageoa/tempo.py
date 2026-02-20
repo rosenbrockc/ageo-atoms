@@ -49,7 +49,38 @@ def _get_tai2tt_bcast() -> Any:
 @register_atom(witness_offset_tt2tdb)
 @singledispatch
 def offset_tt2tdb(seconds: Any) -> Any:
-    """Calculate the offset between TT and TDB in seconds."""
+    """Compute the offset between two related time coordinate systems using a Fairhead & Bretagnon series expansion.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Relational Temporal Coordinate Transformer",
+        "conceptual_transform": "Computes the relative offset between two related time coordinate scales at specified points in time. It resolves relativistic and gravitational effects to align local measurement frames with a global reference frame.",
+        "abstract_inputs": [
+            {
+                "name": "seconds",
+                "description": "A scalar or tensor representing coordinates in the source temporal frame."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The computed offset values required to align with the target temporal frame."
+            }
+        ],
+        "algorithmic_properties": [
+            "coordinate-transform",
+            "relativistic-alignment",
+            "deterministic",
+            "vectorized-capable"
+        ],
+        "cross_disciplinary_applications": [
+            "Aligning measurements taken in different reference frames in distributed sensor networks.",
+            "Correcting for propagation-delay differences between synchronized clock domains.",
+            "Converting between coordinate time representations in relativistic simulation frameworks."
+        ]
+    }
+    /conceptual_profile -->
+    """
     raise NotImplementedError(f"Unsupported type: {type(seconds)}")
 
 
@@ -80,7 +111,38 @@ def _(seconds: np.ndarray) -> np.ndarray:
 @register_atom(witness_offset_tai2tdb)
 @singledispatch
 def offset_tai2tdb(seconds: Any) -> Any:
-    """Calculate the offset from TAI to TDB in seconds."""
+    """Compute the composite offset between two time coordinate systems via an intermediate scale.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Composite Multi-Scale Temporal Resolver",
+        "conceptual_transform": "Calculates the cumulative offset between two time coordinate systems via a fixed intermediate offset and a series-expansion correction. It performs a series of nested coordinate transformations to resolve the total temporal displacement between a local reference and a global dynamical reference.",
+        "abstract_inputs": [
+            {
+                "name": "seconds",
+                "description": "A scalar or tensor of coordinates in the initial temporal frame."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The resolved cumulative offset values."
+            }
+        ],
+        "algorithmic_properties": [
+            "nested-transform",
+            "cumulative-offset-resolution",
+            "deterministic",
+            "vectorized-capable"
+        ],
+        "cross_disciplinary_applications": [
+            "Synchronizing distributed clock references across heterogeneous timing domains.",
+            "Resolving micro-second timing differences in distributed particle physics experiments.",
+            "Standardizing high-precision timestamps for international metrology."
+        ]
+    }
+    /conceptual_profile -->
+    """
     raise NotImplementedError(f"Unsupported type: {type(seconds)}")
 
 

@@ -35,9 +35,51 @@ _lib.ekf_update_state.restype = None
 @icontract.ensure(lambda result: result.vec.shape == (21,))
 @icontract.ensure(lambda result: result.quat.shape == (4,))
 def ekf_update(state: EKFState, gyro: np.ndarray, accel: np.ndarray, dt: float) -> EKFState:
-    """Predicts next EKF state using rigid body kinematics.
-    
+    """Propagate an extended Kalman filter state estimate through a nonlinear dynamics model.
+
     Provides a pure stateless Python CDG node tracking C++ memory safely via FFI.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Non-Linear Rigid-Body State Propagator",
+        "conceptual_transform": "Propagates the high-dimensional state of a rigid body (position, velocity, orientation, and sensor biases) through a small time increment using angular velocity and linear acceleration inputs. It implements a non-linear motion model that maintains the integrity of orientation representations (quaternions).",
+        "abstract_inputs": [
+            {
+                "name": "state",
+                "description": "An object containing the current 21-element state vector and orientation quaternion."
+            },
+            {
+                "name": "gyro",
+                "description": "A 3-element vector representing instantaneous angular velocity."
+            },
+            {
+                "name": "accel",
+                "description": "A 3-element vector representing instantaneous linear acceleration."
+            },
+            {
+                "name": "dt",
+                "description": "A scalar representing the integration time step."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An object containing the predicted future state and orientation."
+            }
+        ],
+        "algorithmic_properties": [
+            "non-linear-integration",
+            "state-propagation",
+            "rigid-body-kinematics",
+            "quaternion-based"
+        ],
+        "cross_disciplinary_applications": [
+            "Fusing inertial measurement streams with position fixes for mobile platform state estimation.",
+            "Tracking the evolving state of an orbiting body from sparse range observations.",
+            "Estimating pose in reference-denied environments using proprioceptive sensor fusion."
+        ]
+    }
+    /conceptual_profile -->
     """
     vec_c = state.vec.astype(np.float64, copy=True)
     quat_c = state.quat.astype(np.float64, copy=True)
@@ -76,7 +118,49 @@ def contact_classifier_update(
     left_contact_strong: bool,
     right_contact_strong: bool
 ) -> int:
-    """Probabilistic Contact Gating heuristic."""
+    """Probabilistic Contact Gating heuristic.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Probabilistic Boundary Interaction Classifier",
+        "conceptual_transform": "Updates the classification of discrete boundary interaction events based on a stream of temporal measurements and heuristic strength indicators. It maintains a probabilistic internal state to resolve whether a specific interface is in an active contact or released state.",
+        "abstract_inputs": [
+            {
+                "name": "classifier_ptr",
+                "description": "An integer handle to a persistent internal classifier state."
+            },
+            {
+                "name": "utime",
+                "description": "A temporal coordinate (timestamp)."
+            },
+            {
+                "name": "left_contact",
+                "description": "Boolean indicator of potential interface contact (left/primary)."
+            },
+            {
+                "name": "right_contact",
+                "description": "Boolean indicator of potential interface contact (right/secondary)."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An integer representing the resolved classification state."
+            }
+        ],
+        "algorithmic_properties": [
+            "stateful-classification",
+            "heuristic-fusion",
+            "temporal-event-detection"
+        ],
+        "cross_disciplinary_applications": [
+            "Detecting discrete contact events in a multi-limbed articulated mechanism.",
+            "Classifying grasp states in an automated pick-and-place system.",
+            "Identifying the engagement/disengagement states of a mechanical coupling."
+        ]
+    }
+    /conceptual_profile -->
+    """
     result = _lib.foot_contact_classifier_update(
         ctypes.c_void_p(classifier_ptr),
         ctypes.c_int64(utime),

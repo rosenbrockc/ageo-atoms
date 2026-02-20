@@ -59,6 +59,53 @@ def dct(
 
     Returns:
         The DCT of the input array, real-valued, with shape preserved.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Real-Valued Spectral Decomposer",
+        "conceptual_transform": "Projects an N-dimensional real-valued spatial or temporal signal onto a basis of real orthogonal cosine functions, summarizing its frequency content without complex arithmetic.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "An N-dimensional tensor containing real-valued measurements."
+            },
+            {
+                "name": "type",
+                "description": "An integer specifying the boundary conditions and symmetry of the basis functions."
+            },
+            {
+                "name": "n",
+                "description": "An optional integer specifying the length of the projection window."
+            },
+            {
+                "name": "axis",
+                "description": "An integer specifying the dimension to project."
+            },
+            {
+                "name": "norm",
+                "description": "An optional string indicating whether the basis functions are normalized."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An N-dimensional tensor representing the amplitudes of the real-valued frequency components."
+            }
+        ],
+        "algorithmic_properties": [
+            "spectral",
+            "real-valued",
+            "orthogonal-projection",
+            "invertible"
+        ],
+        "cross_disciplinary_applications": [
+            "Compressing high-resolution 2D image tiles (JPEG compression).",
+            "Extracting acoustic features (MFCCs) for pattern recognition models operating on sequential feature vectors.",
+            "Solving boundary value problems in computational fluid dynamics."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return scipy.fft.dct(x, type=type, n=n, axis=axis, norm=norm, overwrite_x=overwrite_x)
 
@@ -103,5 +150,52 @@ def idct(
 
     Returns:
         The IDCT of the input array, real-valued, with shape preserved.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Real-Valued Spatial Synthesizer",
+        "conceptual_transform": "Reconstructs an N-dimensional real-valued spatial or temporal signal from its projection coefficients on a basis of real orthogonal cosine functions.",
+        "abstract_inputs": [
+            {
+                "name": "x",
+                "description": "An N-dimensional tensor containing real-valued spectral amplitudes."
+            },
+            {
+                "name": "type",
+                "description": "An integer specifying the boundary conditions and symmetry of the basis functions."
+            },
+            {
+                "name": "n",
+                "description": "An optional integer specifying the length of the reconstruction window."
+            },
+            {
+                "name": "axis",
+                "description": "An integer specifying the dimension to reconstruct."
+            },
+            {
+                "name": "norm",
+                "description": "An optional string indicating whether the basis functions are normalized."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An N-dimensional tensor representing the reconstructed real-valued spatial or temporal signal."
+            }
+        ],
+        "algorithmic_properties": [
+            "spectral-synthesis",
+            "real-valued",
+            "orthogonal-projection",
+            "invertible"
+        ],
+        "cross_disciplinary_applications": [
+            "Reconstructing spatial data blocks from compressed spectral coefficients.",
+            "Re-synthesizing temporal waveforms from compressed latent representations.",
+            "Reconstructing physical fields from spectral domain solutions."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return scipy.fft.idct(x, type=type, n=n, axis=axis, norm=norm, overwrite_x=overwrite_x)

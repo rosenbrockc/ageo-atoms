@@ -16,10 +16,10 @@ def _offset_output(seconds: Any) -> AbstractArray | AbstractScalar:
 
 
 def witness_offset_tt2tdb(seconds: Any) -> AbstractArray | AbstractScalar:
-    """TT->TDB offset keeps structural shape while converting to float64."""
+    """Time-coordinate offset preserves structural shape while converting to float64."""
     return _offset_output(seconds)
 
 
 def witness_offset_tai2tdb(seconds: Any) -> AbstractArray | AbstractScalar:
-    """TAI->TDB offset keeps structural shape while converting to float64."""
+    """Composite time-coordinate offset preserves structural shape while converting to float64."""
     return _offset_output(seconds)

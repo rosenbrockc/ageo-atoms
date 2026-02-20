@@ -8,7 +8,7 @@ except ImportError:
     pass
 
 def witness_gamboa_segmenter(signal: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Gamboa Phasic Response Detection.
+    """Ghost witness for Derivative-Based Onset Detection.
     
     Postconditions:
         - Output is a 1D array of onset indices.
@@ -24,7 +24,7 @@ def witness_gamboa_segmenter(signal: AbstractSignal) -> AbstractSignal:
     )
 
 def witness_eda_feature_extraction(signal: AbstractSignal, onsets: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal, AbstractSignal]:
-    """Ghost witness for EDA feature extraction.
+    """Ghost witness for Transient Feature Extraction.
     
     Postconditions:
         - Returns (amplitudes, rise_times, decay_times).

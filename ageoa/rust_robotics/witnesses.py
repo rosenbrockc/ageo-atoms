@@ -14,7 +14,7 @@ def witness_pure_pursuit(
     target_distance: AbstractScalar,
     wheelbase: AbstractScalar,
 ) -> AbstractScalar:
-    """Pure pursuit outputs a scalar steering angle."""
+    """Ghost witness for geometric path-tracking curvature computation."""
     del yaw_current, target_distance, wheelbase
     if position_current.shape != (2,):
         raise ValueError("position_current must be a 2-vector in abstract simulation")

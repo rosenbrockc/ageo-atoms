@@ -47,6 +47,49 @@ def quad(
     Returns:
         y: The integral of func from a to b.
         abserr: An estimate of the absolute error in the result.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Adaptive Deterministic Sequence Accumulator",
+        "conceptual_transform": "Computes the total accumulated value (definite integral) of a continuous functional mapping over a specified interval. It uses an adaptive numerical technique to focus computational effort on regions with high variation, ensuring a specified error tolerance.",
+        "abstract_inputs": [
+            {
+                "name": "func",
+                "description": "A functional mapping from a scalar input to a scalar output."
+            },
+            {
+                "name": "a",
+                "description": "A scalar representing the starting point of the integration interval."
+            },
+            {
+                "name": "b",
+                "description": "A scalar representing the end point of the integration interval."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "y",
+                "description": "A scalar representing the total accumulated value."
+            },
+            {
+                "name": "abserr",
+                "description": "A scalar representing the estimated absolute error in the accumulation."
+            }
+        ],
+        "algorithmic_properties": [
+            "numerical-integration",
+            "adaptive-quadrature",
+            "deterministic",
+            "error-bounded"
+        ],
+        "cross_disciplinary_applications": [
+            "Calculating the total probability of an event over a continuous range of outcomes.",
+            "Determining the total work done by a variable force field over a distance.",
+            "Computing the total mass of a non-uniform object from its density function."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return scipy.integrate.quad(
         func,
@@ -95,6 +138,45 @@ def solve_ivp(
 
     Returns:
         OdeResult object with solution information.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Multi-Step Differential State Propagator",
+        "conceptual_transform": "Propagates the state of a dynamic system from a known initial condition through a specified interval by numerically integrating its first-order ordinary differential equations. It handles complex, potentially multi-dimensional state transitions over a continuous parameter.",
+        "abstract_inputs": [
+            {
+                "name": "fun",
+                "description": "A functional mapping defining the system's rate of change (derivative) given a state and a parameter."
+            },
+            {
+                "name": "t_span",
+                "description": "A tuple (t0, tf) defining the start and end of the propagation interval."
+            },
+            {
+                "name": "y0",
+                "description": "A 1D tensor representing the initial state vector."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A structured object containing the final state vector, intermediate states (if requested), and solver metadata."
+            }
+        ],
+        "algorithmic_properties": [
+            "numerical-integration",
+            "initial-value-problem-solver",
+            "adaptive-step-size",
+            "deterministic"
+        ],
+        "cross_disciplinary_applications": [
+            "Simulating the trajectory of a spacecraft influenced by multiple planetary gravitational fields.",
+            "Predicting the long-term concentrations of reactants and products in a complex chemical network.",
+            "Modeling the spread of a disease through a population using differential transmission equations."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return scipy.integrate.solve_ivp(
         fun,
@@ -127,5 +209,44 @@ def simpson(
 
     Returns:
         Definite integral of y(x).
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Composite Geometric Sequence Integrator",
+        "conceptual_transform": "Computes the total accumulated value of a sampled sequence by approximating the underlying function with a series of quadratic parabolas. It provides a more accurate accumulation than simple trapezoidal methods for well-sampled smooth data.",
+        "abstract_inputs": [
+            {
+                "name": "y",
+                "description": "A 1D tensor of sampled values to be integrated."
+            },
+            {
+                "name": "x",
+                "description": "An optional 1D tensor of coordinates for each sample (defaults to uniform spacing)."
+            },
+            {
+                "name": "dx",
+                "description": "A scalar representing the constant spacing between samples if x is not provided."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A scalar representing the total accumulated value."
+            }
+        ],
+        "algorithmic_properties": [
+            "numerical-integration",
+            "composite-rule",
+            "quadratic-approximation",
+            "sample-based"
+        ],
+        "cross_disciplinary_applications": [
+            "Estimating the cumulative displacement of a moving body from discrete velocity samples",
+            "Estimating the total energy consumed from a series of power meter readings.",
+            "Computing the area of a cross-section from a set of discrete height measurements."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return scipy.integrate.simpson(y, x=x, dx=dx, axis=axis)

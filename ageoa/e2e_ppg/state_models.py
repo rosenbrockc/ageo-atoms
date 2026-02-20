@@ -2,7 +2,7 @@ from __future__ import annotations
 from pydantic import BaseModel, ConfigDict, Field
 
 class PPGState(BaseModel):
-    """State for windowed PPG processing and reconstruction."""
+    """State for windowed signal processing and reconstruction."""
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     sampling_rate: int | None = Field(default=None)

@@ -15,7 +15,7 @@ def witness_discover_equations(
     max_degree: int = 4,
     lambda_val: float = 0.1
 ) -> AbstractEquationResult:
-    """Ghost witness for SINDy Occam's Razor sparsity-promoting heuristic."""
+    """Ghost witness for Sparsity-Promoting Symbolic Model Generation."""
     # The witness ensures that the input dimensions align with the variables requested,
     # and outputs a structural representation indicating that equations will be returned.
     

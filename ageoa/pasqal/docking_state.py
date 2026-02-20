@@ -3,7 +3,7 @@ import networkx as nx  # type: ignore
 from pydantic import BaseModel, ConfigDict, Field
 
 class MolecularDockingState(BaseModel):
-    """State for Divide-and-Conquer molecular docking."""
+    """State for Divide-and-Conquer graph matching."""
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     graph: nx.Graph | None = Field(default=None)

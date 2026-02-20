@@ -12,7 +12,7 @@ def witness_de_disperse(
     width: float,
     tsamp: float,
 ) -> AbstractSignal:
-    """Ghost witness for dedispersion preserving 2D spectrogram structure."""
+    """Ghost witness for frequency-dependent delay correction preserving 2D spectrogram structure."""
     data.assert_domain("time")
     return AbstractSignal(
         shape=data.shape,
@@ -46,5 +46,5 @@ def witness_snr(arr: AbstractSignal) -> AbstractScalar:
 
 
 def witness_delay_from_dm(DM: float, freq_emitted: float) -> AbstractScalar:
-    """Ghost witness for DM delay calculation."""
+    """Ghost witness for dispersive delay calculation."""
     return AbstractScalar(dtype="float64", min_val=0.0)

@@ -75,6 +75,40 @@ def graph_laplacian(
 
     Returns:
         The graph Laplacian as a sparse matrix of shape (n, n).
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Relational Divergence Operator Generator",
+        "conceptual_transform": "Computes the discrete Laplacian operator for a weighted relational system. It encodes the local connectivity and weight distribution into a second-order differential matrix, capturing the divergence-like properties of the graph topology.",
+        "abstract_inputs": [
+            {
+                "name": "W",
+                "description": "A symmetric sparse tensor representing the weighted connectivity (adjacency) of the system."
+            },
+            {
+                "name": "normed",
+                "description": "A boolean indicating whether to normalize the operator by the local connectivity density."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A sparse square tensor representing the graph Laplacian operator."
+            }
+        ],
+        "algorithmic_properties": [
+            "differential-operator",
+            "topological-encoding",
+            "positive-semi-definite"
+        ],
+        "cross_disciplinary_applications": [
+            "Analyzing the vibrational modes of a molecular structure.",
+            "Quantifying the robustness of a communications network topology.",
+            "Computing the structural equilibrium of a multi-component truss system."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     result = scipy.sparse.csgraph.laplacian(W, normed=normed, return_diag=return_diag)
     if return_diag:
@@ -112,6 +146,52 @@ def graph_fourier_transform(
         Tuple of (x_hat, eigenvalues, eigenvectors) where x_hat are the
         GFT coefficients, eigenvalues are the graph frequencies, and
         eigenvectors are the GFT basis vectors.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Irregular Domain Spectral Projector",
+        "conceptual_transform": "Generalizes spectral analysis to irregular relational domains by projecting signals onto the intrinsic basis functions (eigenvectors) of the system's topological operator. It reveals the 'frequency' components of a signal as they relate to the underlying connectivity.",
+        "abstract_inputs": [
+            {
+                "name": "L",
+                "description": "A square tensor representing the topological divergence operator (Laplacian)."
+            },
+            {
+                "name": "x",
+                "description": "A 1D tensor representing a signal defined on the nodes of the graph."
+            },
+            {
+                "name": "k",
+                "description": "An optional integer specifying the number of lower-frequency components to compute."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "x_hat",
+                "description": "A 1D tensor of spectral amplitudes corresponding to the graph frequencies."
+            },
+            {
+                "name": "eigenvalues",
+                "description": "A 1D tensor representing the graph frequencies (eigenvalues)."
+            },
+            {
+                "name": "eigenvectors",
+                "description": "A 2D tensor representing the spectral basis functions."
+            }
+        ],
+        "algorithmic_properties": [
+            "spectral-projection",
+            "domain-generalized",
+            "basis-transformation"
+        ],
+        "cross_disciplinary_applications": [
+            "Analyzing the spread of influence in a social network spectral domain.",
+            "Detecting localized structural anomalies in a complex mesh geometry.",
+            "Compressing signal data defined on irregular sensor network topologies."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     n = L.shape[0]
     if k is None or k >= n - 1:
@@ -143,6 +223,40 @@ def inverse_graph_fourier_transform(
 
     Returns:
         Reconstructed graph signal of length n.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Irregular Domain Spectral Synthesizer",
+        "conceptual_transform": "Reconstructs a signal on an irregular relational domain from its spectral representation. It performs a linear combination of topological basis functions weighted by their spectral amplitudes.",
+        "abstract_inputs": [
+            {
+                "name": "x_hat",
+                "description": "A 1D tensor of spectral amplitudes."
+            },
+            {
+                "name": "eigenvectors",
+                "description": "A 2D tensor representing the topological basis functions."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The reconstructed signal in the original relational domain."
+            }
+        ],
+        "algorithmic_properties": [
+            "spectral-synthesis",
+            "linear-reconstruction",
+            "basis-combination"
+        ],
+        "cross_disciplinary_applications": [
+            "Synthesizing smooth fields over complex 3D mesh surfaces.",
+            "Reconstructing missing sensor values in an irregular network from spectral priors.",
+            "Visualizing low-frequency trends in a high-dimensional relational dataset."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     return eigenvectors @ x_hat
 
@@ -178,6 +292,49 @@ def heat_kernel_diffusion(
 
     Returns:
         The diffused graph signal of length n.
+    
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Relational Low-Pass Smoothing Transformer",
+        "conceptual_transform": "Simulates a diffusion process (heat flow) over a relational topology to smooth local signal fluctuations while preserving the underlying structure. It acts as a low-pass filter in the graph spectral domain, exponentially suppressing high-frequency components over time.",
+        "abstract_inputs": [
+            {
+                "name": "L",
+                "description": "A square tensor representing the topological divergence operator."
+            },
+            {
+                "name": "x",
+                "description": "A 1D tensor representing the initial signal distribution."
+            },
+            {
+                "name": "t",
+                "description": "A non-negative scalar representing the diffusion time (smoothing magnitude)."
+            },
+            {
+                "name": "k",
+                "description": "An optional integer for low-rank approximation of the diffusion process."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The diffused (smoothed) signal distribution."
+            }
+        ],
+        "algorithmic_properties": [
+            "diffusion-based",
+            "low-pass-filtering",
+            "variation-reducing",
+            "topological-smoothing"
+        ],
+        "cross_disciplinary_applications": [
+            "Smoothing noisy measurements over a geographic sensor network.",
+            "Modeling the propagation of influence or perturbation through a networked population of agents.",
+            "Extracting stable features from a noisy 3D mesh for shape recognition."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     n = L.shape[0]
     if k is None or k >= n - 1:

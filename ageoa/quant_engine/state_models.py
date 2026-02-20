@@ -2,7 +2,7 @@ from __future__ import annotations
 from pydantic import BaseModel, ConfigDict, Field
 
 class LimitQueueState(BaseModel):
-    """State for HFT execution engine."""
+    """State for queue-priority execution engine."""
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     strategy: str | None = Field(default=None)

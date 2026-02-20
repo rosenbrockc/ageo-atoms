@@ -5,7 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class MINTProcessingState(BaseModel):
-    """State for multimeric protein sequence processing."""
+    """State for composite categorical sequence processing."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 

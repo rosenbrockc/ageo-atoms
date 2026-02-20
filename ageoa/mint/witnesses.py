@@ -4,7 +4,7 @@ from ageoa.ghost.abstract import AbstractArray
 
 
 def witness_multimer_collator(sequences: list[str]) -> tuple[AbstractArray, AbstractArray]:
-    """Ghost witness for Multimer Collator."""
+    """Ghost witness for Composite Sequence Collation."""
     total_len = sum(len(s) + 2 for s in sequences)  # +2 for cls/eos
     n_chains = max(1, len(sequences))
 
@@ -14,7 +14,7 @@ def witness_multimer_collator(sequences: list[str]) -> tuple[AbstractArray, Abst
 
 
 def witness_protein_transformer(tokens: AbstractArray, chain_ids: AbstractArray) -> AbstractArray:
-    """Ghost witness for Protein Transformer."""
+    """Ghost witness for Stochastic Sequence Transformer."""
     if tokens.shape != chain_ids.shape:
         raise ValueError(f"Tokens and chain_ids shape mismatch: {tokens.shape} vs {chain_ids.shape}")
 
@@ -27,7 +27,7 @@ def witness_chain_level_contextualizer(
     tokens: AbstractArray,
     chain_ids: AbstractArray,
 ) -> AbstractArray:
-    """Ghost witness for Chain-level Contextualizer."""
+    """Ghost witness for Segment-Level Contextualizer."""
     if representations.shape[:2] != tokens.shape:
         raise ValueError(
             f"Representations/tokens mismatch: {representations.shape} vs {tokens.shape}"

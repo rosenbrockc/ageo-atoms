@@ -24,7 +24,7 @@ def witness_shannon_energy(signal: AbstractSignal) -> AbstractSignal:
     )
 
 def witness_pcg_segmentation(envelope: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
-    """Ghost witness for PCG heart sound segmentation (S1/S2).
+    """Ghost witness for Cyclic Event Segmentation.
     
     Postconditions:
         - Returns (s1_indices, s2_indices).

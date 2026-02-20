@@ -22,7 +22,41 @@ from ageoa.pulsar.witnesses import (
 @icontract.require(lambda freq_emitted: freq_emitted >= 0, "Frequency must be non-negative")
 @icontract.ensure(lambda result: result >= 0, "Delay must be non-negative")
 def delay_from_DM(DM: float, freq_emitted: float) -> float:
-    """Calculate time delay for a given DM and emission frequency."""
+    """Compute frequency-dependent propagation delay from a medium's dispersive constant.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Inverse-Square Frequency Offset Resolver",
+        "conceptual_transform": "Computes the temporal delay of a signal as an inverse-square function of its emission frequency, scaled by a dispersive constant. It models frequency-dependent arrival times in a dispersive medium.",
+        "abstract_inputs": [
+            {
+                "name": "DM",
+                "description": "A scalar representing the cumulative dispersive property of the medium."
+            },
+            {
+                "name": "freq_emitted",
+                "description": "A scalar representing the emission frequency."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "The computed temporal delay (non-negative scalar)."
+            }
+        ],
+        "algorithmic_properties": [
+            "nonlinear-scaling",
+            "frequency-dependent",
+            "deterministic"
+        ],
+        "cross_disciplinary_applications": [
+            "Modeling group velocity dispersion in optical fibers.",
+            "Correcting ionospheric delays in GPS signals.",
+            "Calculating frequency-dependent timing shifts in acoustic underwater propagation."
+        ]
+    }
+    /conceptual_profile -->
+    """
     if freq_emitted > 0.0:
         return DM / (0.000241 * freq_emitted * freq_emitted)
     return 0.0
@@ -40,7 +74,53 @@ def de_disperse(
     width: float,
     tsamp: float,
 ) -> np.ndarray[Any, Any]:
-    """Apply dedispersion to 2D spectrogram data."""
+    """Apply frequency-dependent delay correction to align a 2D spectrogram across channels.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Multi-Channel Frequency-Dependent Temporal Shifter",
+        "conceptual_transform": "Re-aligns a 2D spectrogram by applying frequency-specific temporal shifts to each spectral channel based on a dispersive model. It transforms a skewed spectrogram into a time-aligned representation by compensating for group velocity variation.",
+        "abstract_inputs": [
+            {
+                "name": "data",
+                "description": "A 2D tensor representing a spectrogram (Time x Frequency)."
+            },
+            {
+                "name": "DM",
+                "description": "A scalar representing the dispersive magnitude."
+            },
+            {
+                "name": "fchan",
+                "description": "A scalar representing the base frequency of the first channel."
+            },
+            {
+                "name": "width",
+                "description": "A scalar representing the frequency width of each channel."
+            },
+            {
+                "name": "tsamp",
+                "description": "A scalar representing the temporal resolution."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A 2D tensor of the same shape as the input with re-aligned spectral channels."
+            }
+        ],
+        "algorithmic_properties": [
+            "channel-wise-shift",
+            "spectrogram-alignment",
+            "medium-compensation"
+        ],
+        "cross_disciplinary_applications": [
+            "De-blurring frequency-chirped pulses in radar signal processing.",
+            "Correcting dispersion in high-speed optical communication links.",
+            "Aligning arrivals in seismological spectrograms from dispersive earth layers."
+        ]
+    }
+    /conceptual_profile -->
+    """
     clean = np.array(data, copy=True)
     n_time, n_chans = clean.shape
 
@@ -63,7 +143,41 @@ def de_disperse(
 @icontract.require(lambda period: period > 0, "Folding period must be positive")
 @icontract.ensure(lambda result, period: result.shape == (period,), "Profile length must match period")
 def fold_signal(data: np.ndarray[Any, Any], period: int) -> np.ndarray[Any, Any]:
-    """Fold the 2D data into a 1D pulse profile given a period."""
+    """Fold a 1D signal at a known period to build a phase-averaged periodic profile.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Cyclic Phase-Coherent Averager",
+        "conceptual_transform": "Aggregates periodic segments of a multi-channel sequence into a single 1D profile by phase-coherent accumulation. It enhances periodically recurring structural features while suppressing non-periodic stochastic noise.",
+        "abstract_inputs": [
+            {
+                "name": "data",
+                "description": "A 2D tensor representing the time-frequency sequence."
+            },
+            {
+                "name": "period",
+                "description": "An integer specifying the fundamental cycle length (in samples)."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A 1D tensor representing the mean cycle profile."
+            }
+        ],
+        "algorithmic_properties": [
+            "coherent-integration",
+            "noise-suppression",
+            "cyclic-reduction"
+        ],
+        "cross_disciplinary_applications": [
+            "Extracting a clean heartbeat template from a long ECG recording.",
+            "Averaging periodic signals in environmental monitoring sensor data.",
+            "Isolating repeating mechanical faults from vibrating machinery sensor data."
+        ]
+    }
+    /conceptual_profile -->
+    """
     n_time = data.shape[0]
     n_chans = data.shape[1]
     multiples = n_time // period
@@ -84,7 +198,37 @@ def fold_signal(data: np.ndarray[Any, Any], period: int) -> np.ndarray[Any, Any]
 @icontract.require(lambda arr: len(arr) > 0, "Input array must not be empty")
 @icontract.ensure(lambda result: result >= 0, "SNR must be non-negative")
 def SNR(arr: np.ndarray[Any, Any]) -> float:
-    """Calculate log SNR of a 1D pulse profile."""
+    """Compute signal-to-noise ratio of a periodic profile.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Logarithmic Peak-to-Mean Intensity Metric",
+        "conceptual_transform": "Quantifies the prominence of the maximum peak in a 1D sequence relative to its average background intensity. It provides a dimensionless logarithmic measure of signal integrity against a noise floor.",
+        "abstract_inputs": [
+            {
+                "name": "arr",
+                "description": "A 1D tensor of intensity measurements."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A non-negative scalar representing the logarithmic magnitude ratio."
+            }
+        ],
+        "algorithmic_properties": [
+            "intensity-metric",
+            "statistical-prominence",
+            "logarithmic-scaling"
+        ],
+        "cross_disciplinary_applications": [
+            "Measuring the signal-to-noise ratio of a communication link.",
+            "Quantifying the reliability of a detected transient event in physics.",
+            "Assessing the quality of an automated peak detection in analytical chemistry."
+        ]
+    }
+    /conceptual_profile -->
+    """
     if np.all(arr == 0):
         return 0.0
 

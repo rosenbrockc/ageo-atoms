@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class ECGPipelineState(BaseModel):
-    """Intermediate ECG state carried between decomposition stages."""
+    """Intermediate pipeline state carrying the band-filtered signal and detected peak indices between processing stages."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 

@@ -66,7 +66,23 @@ def bandpass_filter(
     highcut: float = 45.0,
     order: int = 4,
 ) -> np.ndarray:
-    """Bandpass-filter ECG to suppress baseline wander and high-frequency noise."""
+    """Apply a finite impulse response bandpass filter to isolate a target frequency band from a uniformly sampled 1D signal.
+
+    <!-- conceptual_profile -->
+    {
+      "abstract_name": "Frequency-Band Isolator",
+      "conceptual_transform": "Attenuates spectral components outside a specified passband in a uniformly sampled 1D real-valued sequence, preserving structure within the target frequency range while suppressing both low-frequency drift and high-frequency noise.",
+      "abstract_inputs": ["A 1D array of uniformly sampled real-valued measurements"],
+      "abstract_outputs": ["A 1D array of the same length with spectral content restricted to the target frequency band"],
+      "algorithmic_properties": ["linear", "deterministic", "finite-impulse-response", "band-selective"],
+      "cross_disciplinary_applications": [
+        "Isolating mechanical resonance frequencies from vibration sensor data",
+        "Extracting periodic components from environmental monitoring time series",
+        "Removing drift and high-frequency interference from geophysical recordings"
+      ]
+    }
+    <!-- /conceptual_profile -->
+    """
     x = np.asarray(signal, dtype=np.float64)
     nyq = 0.5 * sampling_rate
     b, a = scipy.signal.butter(order, [lowcut / nyq, highcut / nyq], btype="band")
@@ -86,7 +102,23 @@ def bandpass_filter(
 @icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "R-peaks must be integer indices")
 @icontract.ensure(lambda result: result.size == 0 or bool(np.all(np.diff(result) > 0)), "R-peaks must be strictly increasing")
 def r_peak_detection(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect R-peaks from a pre-filtered ECG signal."""
+    """Detect dominant periodic peaks in a filtered 1D signal using adaptive thresholding.
+
+    <!-- conceptual_profile -->
+    {
+      "abstract_name": "Adaptive Periodic Peak Detector",
+      "conceptual_transform": "Identifies the locations of dominant recurring amplitude peaks in a band-limited 1D signal by applying an adaptive threshold based on recent peak amplitudes and signal statistics.",
+      "abstract_inputs": ["A 1D array of bandpass-filtered real-valued measurements", "A scalar sampling rate in Hz"],
+      "abstract_outputs": ["A 1D integer array of sample indices corresponding to detected peak locations"],
+      "algorithmic_properties": ["adaptive-thresholding", "sequential", "stateful-windowed", "event-detection"],
+      "cross_disciplinary_applications": [
+        "Detecting periodic impulse events in mechanical vibration data",
+        "Identifying recurring transient peaks in seismic waveforms",
+        "Locating periodic trigger points in pulsed laser intensity measurements"
+      ]
+    }
+    <!-- /conceptual_profile -->
+    """
     x = np.asarray(filtered, dtype=np.float64)
     return _peak_indices(
         x,
@@ -109,7 +141,23 @@ def peak_correction(
     sampling_rate: float = 1000.0,
     tolerance_sec: float = 0.05,
 ) -> np.ndarray:
-    """Snap each detected peak to the local maximum in a fixed tolerance window."""
+    """Refine detected peak locations to the nearest local maximum within a tolerance window.
+
+    <!-- conceptual_profile -->
+    {
+      "abstract_name": "Local Maximum Refinement",
+      "conceptual_transform": "Adjusts candidate peak positions by searching within a symmetric tolerance window for the true local maximum, correcting for detection latency or quantization offset.",
+      "abstract_inputs": ["A 1D real-valued signal array", "A 1D integer array of candidate peak indices", "A scalar tolerance in samples"],
+      "abstract_outputs": ["A 1D integer array of corrected peak indices aligned to true local maxima"],
+      "algorithmic_properties": ["local-search", "deterministic", "refinement", "windowed"],
+      "cross_disciplinary_applications": [
+        "Refining event timestamps in acoustic emission monitoring",
+        "Correcting trigger alignment in high-speed oscilloscope captures",
+        "Adjusting detected peak positions in chromatography elution curves"
+      ]
+    }
+    <!-- /conceptual_profile -->
+    """
     x = np.asarray(filtered, dtype=np.float64)
     n = x.size
     peaks = np.asarray(rpeaks, dtype=np.int64)
@@ -149,7 +197,23 @@ def template_extraction(
     before_sec: float = 0.2,
     after_sec: float = 0.4,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Extract fixed-width heartbeat templates around each valid R-peak."""
+    """Extract windowed waveform segments centered on detected peak locations.
+
+    <!-- conceptual_profile -->
+    {
+      "abstract_name": "Peak-Centered Segment Extractor",
+      "conceptual_transform": "Extracts fixed-length sub-sequences from a 1D signal, each centered on a detected peak location with configurable before and after margins, producing a 2D matrix of aligned waveform templates.",
+      "abstract_inputs": ["A 1D real-valued signal array", "A 1D integer array of peak indices", "Scalar before/after window sizes in samples"],
+      "abstract_outputs": ["A 2D array of shape (n_peaks, window_length) containing aligned signal segments"],
+      "algorithmic_properties": ["slicing", "deterministic", "alignment", "template-generation"],
+      "cross_disciplinary_applications": [
+        "Extracting impact waveform templates from structural health monitoring data",
+        "Isolating individual pulse shapes from radar return signals",
+        "Segmenting recurring transient events in industrial process sensor streams"
+      ]
+    }
+    <!-- /conceptual_profile -->
+    """
     x = np.asarray(filtered, dtype=np.float64)
     peaks = np.asarray(rpeaks, dtype=np.int64)
 
@@ -186,7 +250,23 @@ def heart_rate_computation(
     sampling_rate: float = 1000.0,
     smooth: bool = True,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Compute instantaneous BPM from RR intervals."""
+    """Compute instantaneous event rate from inter-event intervals with optional smoothing.
+
+    <!-- conceptual_profile -->
+    {
+      "abstract_name": "Inter-Event Rate Calculator",
+      "conceptual_transform": "Converts a sequence of event timestamps into instantaneous event rates by computing reciprocal inter-event intervals, with optional temporal smoothing to reduce measurement noise.",
+      "abstract_inputs": ["A 1D array of event occurrence times in seconds"],
+      "abstract_outputs": ["A 1D array of instantaneous event rates (events per minute)", "A 1D array of corresponding time points"],
+      "algorithmic_properties": ["reciprocal-transform", "rate-estimation", "optional-smoothing", "deterministic"],
+      "cross_disciplinary_applications": [
+        "Computing firing rates from neural spike train timestamps",
+        "Estimating machine cycle rates from trigger pulse intervals",
+        "Calculating seismic event recurrence rates from catalog timestamps"
+      ]
+    }
+    <!-- /conceptual_profile -->
+    """
     peaks = np.asarray(rpeaks, dtype=np.int64)
     if peaks.size < 2:
         return np.empty((0,), dtype=np.int64), np.empty((0,), dtype=np.float64)

@@ -36,6 +36,39 @@ def binary_search(arr: np.ndarray, key: Any) -> int:
     """Binary search: O(log n) search in sorted array.
 
     Returns index of key if found, -1 otherwise.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Ordered Sequence Bisector",
+        "conceptual_transform": "Locates the position of a specific target element within a monotonically ordered sequence by iteratively halving the search space.",
+        "abstract_inputs": [
+            {
+                "name": "arr",
+                "description": "A 1D tensor representing a strictly ordered sequence of elements."
+            },
+            {
+                "name": "key",
+                "description": "A scalar representing the target element to locate."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An integer representing the positional index of the target, or a negative value if not found."
+            }
+        ],
+        "algorithmic_properties": [
+            "logarithmic-time",
+            "divide-and-conquer",
+            "requires-ordering"
+        ],
+        "cross_disciplinary_applications": [
+            "Finding an exact timestamp in a sorted log file.",
+            "Locating threshold boundaries in sorted calibration tables.",
+            "Resolving spatial coordinates in a discretized grid search."
+        ]
+    }
+    /conceptual_profile -->
     """
     idx = np.searchsorted(arr, key)
     if idx < len(arr) and arr[idx] == key:
@@ -58,6 +91,39 @@ def linear_search(arr: np.ndarray, key: Any) -> int:
     """Linear search: O(n) search in unsorted array.
 
     Returns index of first occurrence of key, -1 if not found.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Sequential Exhaustive Matcher",
+        "conceptual_transform": "Scans an unordered sequence element-by-element until a condition matching the target element is satisfied.",
+        "abstract_inputs": [
+            {
+                "name": "arr",
+                "description": "A 1D tensor representing an unordered sequence of elements."
+            },
+            {
+                "name": "key",
+                "description": "A scalar representing the target element to locate."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An integer representing the positional index of the first target occurrence, or a negative value if not found."
+            }
+        ],
+        "algorithmic_properties": [
+            "linear-time",
+            "exhaustive",
+            "order-independent"
+        ],
+        "cross_disciplinary_applications": [
+            "Finding a specific anomalous reading in an unsorted sensor stream.",
+            "Scanning a biological sequence for a unique base pair exact match.",
+            "Identifying the first failure state in a chronological test record."
+        ]
+    }
+    /conceptual_profile -->
     """
     matches = np.where(arr == key)[0]
     if len(matches) > 0:
@@ -86,6 +152,40 @@ def hash_lookup(arr: np.ndarray, key: Any) -> int:
 
     Builds a hash table from array values to indices. Returns the
     index of the first occurrence of key, or -1 if not found.
+
+    <!-- conceptual_profile
+    {
+        "abstract_name": "Constant-Time Key-Value Indexer",
+        "conceptual_transform": "Constructs a randomized, directly-addressable mapping of elements to their positions, allowing amortized constant-time retrieval of location given an element.",
+        "abstract_inputs": [
+            {
+                "name": "arr",
+                "description": "A 1D tensor representing an unordered sequence of elements."
+            },
+            {
+                "name": "key",
+                "description": "A scalar representing the target element to locate."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "An integer representing the positional index of the target, or a negative value if not found."
+            }
+        ],
+        "algorithmic_properties": [
+            "constant-time",
+            "hash-mapping",
+            "memory-intensive",
+            "order-independent"
+        ],
+        "cross_disciplinary_applications": [
+            "Rapidly querying a cache of precomputed aerodynamic coefficients.",
+            "Resolving MAC addresses from a highly active network switch table.",
+            "Retrieving user session states in a high-throughput web application."
+        ]
+    }
+    /conceptual_profile -->
     """
     table = {}
     for i, v in enumerate(arr):

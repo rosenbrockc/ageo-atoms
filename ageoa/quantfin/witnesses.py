@@ -13,7 +13,7 @@ def witness_run_simulation_anti(
     trials: int,
     simulator_name: str,
 ) -> AbstractScalar:
-    """Ghost witness for Antithetic Variates Monte Carlo heuristic."""
+    """Ghost witness for Antithetic Variates Monte Carlo Estimation."""
     del model, claim, seed, simulator_name
     if trials <= 0:
         raise ValueError("trials must be positive")
@@ -25,7 +25,7 @@ def witness_quick_sim_anti(
     trials: int,
     simulator_name: str,
 ) -> AbstractScalar:
-    """Ghost witness for quick Antithetic Variates Monte Carlo heuristic."""
+    """Ghost witness for Antithetic Variates Monte Carlo Estimation (convenience)."""
     del model, claim, simulator_name
     if trials <= 0:
         raise ValueError("trials must be positive")

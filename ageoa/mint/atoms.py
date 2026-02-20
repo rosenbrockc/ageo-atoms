@@ -46,6 +46,7 @@ PROTEIN_ALPHABET = {
 
 
 def tokenize_protein(seq: str) -> List[int]:
+    """Tokenize a categorical sequence into integer indices using a fixed vocabulary."""
     return [PROTEIN_ALPHABET.get(aa, PROTEIN_ALPHABET["<unk>"]) for aa in seq.upper()]
 
 
@@ -57,7 +58,46 @@ def multimer_collator(
     sequences: List[str],
     state: MINTProcessingState,
 ) -> Tuple[Tuple[torch.Tensor, torch.Tensor], MINTProcessingState]:
-    """Tokenize and concatenate chains into a single multimeric sample."""
+    """Tokenize and concatenate multiple categorical sub-sequences into a single composite sample.
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Sequential Multichannel Stream Aggregator",
+        "conceptual_transform": "Combines multiple independent sequences of discrete categorical tokens into a single unified stream, while maintaining unique identifiers for each source channel. It transforms a list of variable-length sequences into a structured, multichannel representation.",
+        "abstract_inputs": [
+            {
+                "name": "sequences",
+                "description": "A list of strings, each representing a sequence of categorical elements."
+            },
+            {
+                "name": "state",
+                "description": "A state object tracking the current processing context."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "result",
+                "description": "A tuple containing the concatenated token tensor and a corresponding channel-ID tensor."
+            },
+            {
+                "name": "new_state",
+                "description": "The updated processing state object."
+            }
+        ],
+        "algorithmic_properties": [
+            "data-collation",
+            "tokenization",
+            "multichannel-encoding",
+            "deterministic"
+        ],
+        "cross_disciplinary_applications": [
+            "Aggregating log streams from multiple independent microservices for joint analysis.",
+            "Combining telemetry data from multiple sensors into a single time-aligned training sample.",
+            "Merging linguistic sequences from different speakers in a multi-party conversation model."
+        ]
+    }
+    <!-- /conceptual_profile -->
+    """
     encoded_chains = []
     for seq in sequences:
         tokens = [PROTEIN_ALPHABET["<cls>"]] + tokenize_protein(seq) + [PROTEIN_ALPHABET["<eos>"]]
@@ -94,6 +134,52 @@ def protein_transformer(
 
     Randomness is preserved, but controlled via `(rng_seed, rng_counter)` in
     state or an explicit `seed` override so runs are reproducible.
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Stochastic Contextual Sequence Embedding Generator",
+        "conceptual_transform": "Generates a high-dimensional contextual representation for each element in a multichannel categorical sequence. It uses a stochastic transformation controlled by a deterministic seed to ensure reproducibility while providing rich, learned feature embeddings.",
+        "abstract_inputs": [
+            {
+                "name": "tokens",
+                "description": "A 2D tensor of categorical token identifiers."
+            },
+            {
+                "name": "chain_ids",
+                "description": "A 2D tensor of channel identifiers matching the tokens."
+            },
+            {
+                "name": "state",
+                "description": "A state object containing RNG seed and counter for reproducibility."
+            },
+            {
+                "name": "seed",
+                "description": "An optional integer to override the default stochastic seed."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "representations",
+                "description": "A 3D tensor representing the learned contextual features for each token."
+            },
+            {
+                "name": "new_state",
+                "description": "The updated processing state with advanced RNG counter."
+            }
+        ],
+        "algorithmic_properties": [
+            "contextual-embedding",
+            "stochastic-but-reproducible",
+            "transformer-based",
+            "generative-latent-space"
+        ],
+        "cross_disciplinary_applications": [
+            "Generating contextual embeddings for multi-sensor industrial telemetry to detect anomalies.",
+            "Creating feature representations for multi-user transaction logs in fraud detection.",
+            "Embedding multi-modal sequence data for downstream predictive tasks in robotics."
+        ]
+    }
+    <!-- /conceptual_profile -->
     """
     batch_size, seq_len = tokens.shape
     embed_dim = 1280
@@ -133,7 +219,54 @@ def chain_level_contextualizer(
     chain_ids: torch.Tensor,
     state: MINTProcessingState,
 ) -> Tuple[torch.Tensor, MINTProcessingState]:
-    """Apply masking and per-chain mean pooling to get chain-level embeddings."""
+    """Apply masking and per-segment mean pooling to get segment-level embeddings.
+
+    <!-- conceptual_profile -->
+    {
+        "abstract_name": "Channel-Aware Global Feature Pooler",
+        "conceptual_transform": "Aggregates fine-grained contextual embeddings into a single global representation for each source channel by applying a selective masking and mean-pooling operation. It reduces sequence-level detail into channel-level descriptors.",
+        "abstract_inputs": [
+            {
+                "name": "representations",
+                "description": "A 3D tensor of fine-grained contextual features."
+            },
+            {
+                "name": "tokens",
+                "description": "A 2D tensor of source tokens used for masking metadata."
+            },
+            {
+                "name": "chain_ids",
+                "description": "A 2D tensor identifying which features belong to which source channel."
+            },
+            {
+                "name": "state",
+                "description": "A state object tracking the current processing context."
+            }
+        ],
+        "abstract_outputs": [
+            {
+                "name": "contextualized",
+                "description": "A 2D tensor containing the global feature vectors for each source channel."
+            },
+            {
+                "name": "state",
+                "description": "The current processing state object."
+            }
+        ],
+        "algorithmic_properties": [
+            "global-pooling",
+            "channel-aware",
+            "masking-transformation",
+            "dimension-reduction"
+        ],
+        "cross_disciplinary_applications": [
+            "Summarizing per-sensor telemetry into a single status vector for each sensor in a factory.",
+            "Pooling word-level embeddings into sentence-level representations in a multi-document summarizer.",
+            "Aggregating fine-grained transaction features into a single profile for each user account."
+        ]
+    }
+    <!-- /conceptual_profile -->
+    """
     mask = (
         (~tokens.eq(PROTEIN_ALPHABET["<cls>"]))
         & (~tokens.eq(PROTEIN_ALPHABET["<eos>"]))
