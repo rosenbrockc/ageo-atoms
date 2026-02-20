@@ -15,6 +15,7 @@ from . import numpy
 from . import rust_robotics
 from . import scipy
 from . import tempo
+from . import quantfin
 
 def _maybe_import(submodule: str) -> None:
     try:
@@ -41,4 +42,5 @@ __all__ = [
     "quant_engine",
     "rust_robotics",
     "tempo",
+    "quantfin",
 ]
