@@ -14,7 +14,7 @@ from . import ghost
 from . import numpy
 from . import rust_robotics
 from . import scipy
-
+from . import tempo
 
 def _maybe_import(submodule: str) -> None:
     try:
@@ -40,4 +40,5 @@ __all__ = [
     "e2e_ppg",
     "quant_engine",
     "rust_robotics",
+    "tempo",
 ]

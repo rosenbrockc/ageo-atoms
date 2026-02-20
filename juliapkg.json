@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "Tempo": {
+      "uuid": "c33777b2-e695-4fae-9135-aeae8855dd81",
+      "url": "https://github.com/JuliaSpaceMissionDesign/Tempo.jl.git"
+    }
+  }
+}
