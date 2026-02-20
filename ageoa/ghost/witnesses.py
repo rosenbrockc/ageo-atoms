@@ -16,7 +16,14 @@ from __future__ import annotations
 
 from typing import Tuple
 
-from ageoa.ghost.abstract import AbstractSignal, AbstractBeatPool
+from ageoa.ghost.abstract import (
+    AbstractSignal,
+    AbstractBeatPool,
+    AbstractDistribution,
+    AbstractMCMCTrace,
+    AbstractRNGState,
+    CONJUGATE_PAIRS,
+)
 from ageoa.ghost.registry import register_atom
 
 
@@ -552,3 +559,198 @@ def witness_matrix_op(A: "AbstractArray", B: "AbstractArray") -> "AbstractArray"
 def witness_identity(x):
     """Pass-through witness for atoms with no structural constraints."""
     return x
+
+
+# ---------------------------------------------------------------------------
+# Bayesian / probabilistic inference witnesses
+# ---------------------------------------------------------------------------
+
+
+def witness_prior_init(
+    event_shape: tuple[int, ...],
+    family: str = "normal",
+    rng: AbstractRNGState | None = None,
+) -> AbstractDistribution:
+    """Ghost witness for prior distribution initialization.
+
+    Validates that the distribution family is known and event shape is
+    non-empty, then returns an AbstractDistribution.
+
+    Preconditions:
+        - family must be a recognized distribution family.
+        - event_shape must be non-empty.
+    Postconditions:
+        - Returns an AbstractDistribution with correct family and shape.
+    """
+    from ageoa.ghost.abstract import DISTRIBUTION_FAMILIES
+
+    if family not in DISTRIBUTION_FAMILIES:
+        raise ValueError(
+            f"Unknown distribution family '{family}'. "
+            f"Known families: {sorted(DISTRIBUTION_FAMILIES)}"
+        )
+    if not event_shape or any(d <= 0 for d in event_shape):
+        raise ValueError(
+            f"event_shape must be non-empty with positive dims, got {event_shape}"
+        )
+
+    is_discrete = family in {"categorical", "bernoulli", "poisson"}
+    support_lower = 0.0 if family in {
+        "gamma", "exponential", "poisson", "log_normal",
+    } else None
+    support_upper = 1.0 if family in {"beta", "bernoulli"} else None
+    if family == "beta":
+        support_lower = 0.0
+
+    return AbstractDistribution(
+        family=family,
+        event_shape=event_shape,
+        is_discrete=is_discrete,
+        support_lower=support_lower,
+        support_upper=support_upper,
+    )
+
+
+def witness_log_prob(
+    dist: AbstractDistribution,
+    samples: AbstractArray,
+) -> AbstractScalar:
+    """Ghost witness for log-probability evaluation.
+
+    Given a distribution and a batch of samples, validates that sample
+    dimensions match the distribution's event shape and returns an
+    AbstractScalar representing the log-probability.
+
+    Preconditions:
+        - Trailing dimensions of samples must match dist.event_shape.
+    Postconditions:
+        - Returns a scalar with dtype float64, range (-inf, 0].
+    """
+    from ageoa.ghost.abstract import AbstractArray, AbstractScalar
+
+    # Last len(event_shape) dims of samples must match event_shape
+    n_event = len(dist.event_shape)
+    if n_event > 0:
+        sample_tail = samples.shape[-n_event:]
+        if sample_tail != dist.event_shape:
+            raise ValueError(
+                f"Sample trailing dims {sample_tail} don't match "
+                f"distribution event_shape {dist.event_shape}"
+            )
+
+    return AbstractScalar(
+        dtype="float64",
+        max_val=0.0,  # log-prob is <= 0
+    )
+
+
+def witness_mcmc_step(
+    trace: AbstractMCMCTrace,
+    log_prob_fn: AbstractDistribution,
+    rng: AbstractRNGState,
+    step_size: float = 0.01,
+) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
+    """Ghost witness for a generic MCMC step (Metropolis-Hastings / HMC).
+
+    Validates dimensionality compatibility between the trace's parameter
+    space and the target distribution, checks that RNG state is available,
+    and returns an updated trace and advanced RNG state.
+
+    Preconditions:
+        - trace.param_dims must match log_prob_fn.event_shape.
+        - step_size must be positive.
+    Postconditions:
+        - Trace n_samples incremented by 1.
+        - Warmup status updated.
+        - RNG state advanced (1 draw consumed per step).
+    """
+    # Dimensionality check: param space must match target distribution
+    if trace.param_dims != log_prob_fn.event_shape:
+        raise ValueError(
+            f"MCMC parameter dims {trace.param_dims} don't match "
+            f"target distribution event_shape {log_prob_fn.event_shape}"
+        )
+
+    if step_size <= 0:
+        raise ValueError(f"step_size must be positive, got {step_size}")
+
+    # Advance trace by one step (assume accepted for ghost purposes)
+    new_trace = trace.step(accepted=True)
+
+    # Advance RNG state (one draw per MCMC step)
+    new_rng = rng.advance(n_draws=1)
+
+    return new_trace, new_rng
+
+
+def witness_posterior_update(
+    prior: AbstractDistribution,
+    likelihood: AbstractDistribution,
+    data_shape: tuple[int, ...],
+) -> AbstractDistribution:
+    """Ghost witness for a conjugate Bayesian posterior update.
+
+    Validates that the prior-likelihood pair is conjugate and that data
+    dimensions are compatible, then returns an AbstractDistribution
+    representing the posterior (same family as the prior for conjugate
+    updates).
+
+    Preconditions:
+        - prior must be conjugate to the likelihood.
+        - data trailing dims must match likelihood.event_shape.
+    Postconditions:
+        - Posterior family matches prior family (conjugate closure).
+        - Posterior event_shape matches prior event_shape.
+    """
+    # Validate conjugacy
+    prior.assert_conjugate_to(likelihood)
+
+    # Validate data dimensions match likelihood
+    n_event = len(likelihood.event_shape)
+    if n_event > 0 and len(data_shape) >= n_event:
+        data_tail = data_shape[-n_event:]
+        if data_tail != likelihood.event_shape:
+            raise ValueError(
+                f"Data trailing dims {data_tail} don't match "
+                f"likelihood event_shape {likelihood.event_shape}"
+            )
+
+    # Conjugate update: posterior is same family as prior
+    return AbstractDistribution(
+        family=prior.family,
+        event_shape=prior.event_shape,
+        batch_shape=prior.batch_shape,
+        support_lower=prior.support_lower,
+        support_upper=prior.support_upper,
+        is_discrete=prior.is_discrete,
+    )
+
+
+def witness_vi_elbo(
+    q_dist: AbstractDistribution,
+    p_dist: AbstractDistribution,
+    n_samples: int = 1,
+) -> AbstractScalar:
+    """Ghost witness for variational inference ELBO computation.
+
+    Validates that the variational approximation q and the target p have
+    compatible event shapes, and that the number of MC samples is positive.
+
+    Preconditions:
+        - q_dist.event_shape must match p_dist.event_shape.
+        - n_samples must be positive.
+    Postconditions:
+        - Returns a scalar (the ELBO estimate) with dtype float64.
+    """
+    from ageoa.ghost.abstract import AbstractScalar
+
+    if q_dist.event_shape != p_dist.event_shape:
+        raise ValueError(
+            f"Variational q event_shape {q_dist.event_shape} doesn't match "
+            f"target p event_shape {p_dist.event_shape}"
+        )
+
+    if n_samples <= 0:
+        raise ValueError(f"n_samples must be positive, got {n_samples}")
+
+    return AbstractScalar(dtype="float64")

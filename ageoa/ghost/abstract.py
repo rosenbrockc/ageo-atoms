@@ -124,3 +124,171 @@ class AbstractBeatPool(BaseModel):
             is_calibrated=new_size >= self.calibration_threshold,
             calibration_threshold=self.calibration_threshold,
         )
+
+
+# ---------------------------------------------------------------------------
+# Bayesian / probabilistic inference types
+# ---------------------------------------------------------------------------
+
+# Supported distribution families for AbstractDistribution.family
+DISTRIBUTION_FAMILIES = frozenset({
+    "normal", "multivariate_normal", "categorical", "dirichlet",
+    "beta", "gamma", "exponential", "poisson", "bernoulli",
+    "uniform", "log_normal", "student_t", "wishart", "inverse_wishart",
+})
+
+# Conjugate prior pairs: (likelihood_family, prior_family)
+CONJUGATE_PAIRS = frozenset({
+    ("normal", "normal"),               # Normal-Normal (known variance)
+    ("normal", "inverse_wishart"),       # Normal-InverseWishart (unknown variance)
+    ("bernoulli", "beta"),              # Bernoulli-Beta
+    ("categorical", "dirichlet"),       # Categorical-Dirichlet
+    ("poisson", "gamma"),               # Poisson-Gamma
+    ("exponential", "gamma"),           # Exponential-Gamma
+    ("normal", "gamma"),                # Normal-Gamma (precision)
+})
+
+
+class AbstractDistribution(BaseModel):
+    """Abstract representation of a probability distribution.
+
+    Carries family, shape, and support metadata without storing actual
+    parameter values.  Witnesses use this to verify that Bayesian pipelines
+    wire distributions of compatible shapes and families.
+    """
+
+    family: str = Field(
+        ..., description="Distribution family, e.g. 'normal', 'dirichlet'"
+    )
+    event_shape: Tuple[int, ...] = Field(
+        ..., description="Shape of a single draw, e.g. (3,) for 3D normal"
+    )
+    batch_shape: Tuple[int, ...] = Field(
+        default=(), description="Shape of independent distributions, e.g. (100,)"
+    )
+    support_lower: float | None = Field(
+        default=None, description="Lower bound of support (None = unbounded)"
+    )
+    support_upper: float | None = Field(
+        default=None, description="Upper bound of support (None = unbounded)"
+    )
+    is_discrete: bool = Field(
+        default=False, description="Whether the distribution is discrete"
+    )
+
+    def assert_family(self, expected: str) -> None:
+        """Assert the distribution belongs to the expected family."""
+        if self.family != expected:
+            raise ValueError(
+                f"Distribution family mismatch: expected '{expected}', "
+                f"got '{self.family}'"
+            )
+
+    def assert_event_shape(self, expected: Tuple[int, ...]) -> None:
+        """Assert the event shape matches."""
+        if self.event_shape != expected:
+            raise ValueError(
+                f"Event shape mismatch: expected {expected}, "
+                f"got {self.event_shape}"
+            )
+
+    def assert_conjugate_to(self, likelihood: "AbstractDistribution") -> None:
+        """Assert this distribution is a valid conjugate prior for the likelihood."""
+        pair = (likelihood.family, self.family)
+        if pair not in CONJUGATE_PAIRS:
+            raise ValueError(
+                f"'{self.family}' is not a conjugate prior for "
+                f"'{likelihood.family}' likelihood. "
+                f"Known conjugate pairs: {sorted(CONJUGATE_PAIRS)}"
+            )
+
+
+class AbstractRNGState(BaseModel):
+    """Abstract representation of a random number generator state.
+
+    Tracks seed lineage and consumption count so that witnesses can
+    verify that RNG states are properly split/forked and never reused.
+    """
+
+    seed: int = Field(..., description="Initial seed or key")
+    consumed: int = Field(
+        default=0, ge=0, description="Number of draws consumed from this state"
+    )
+    is_split: bool = Field(
+        default=False,
+        description="Whether this state was produced by a split/fork operation",
+    )
+
+    def advance(self, n_draws: int) -> "AbstractRNGState":
+        """Return a new state after consuming n_draws."""
+        if n_draws <= 0:
+            raise ValueError(f"n_draws must be positive, got {n_draws}")
+        return AbstractRNGState(
+            seed=self.seed,
+            consumed=self.consumed + n_draws,
+            is_split=self.is_split,
+        )
+
+    def split(self) -> Tuple["AbstractRNGState", "AbstractRNGState"]:
+        """Return two independent child states (JAX-style key splitting)."""
+        return (
+            AbstractRNGState(seed=self.seed, consumed=self.consumed, is_split=True),
+            AbstractRNGState(seed=self.seed + 1, consumed=self.consumed, is_split=True),
+        )
+
+
+class AbstractMCMCTrace(BaseModel):
+    """Abstract representation of an MCMC chain trace.
+
+    Carries the structural metadata of accumulated samples without
+    storing actual parameter values.  Witnesses verify dimensionality
+    and chain health.
+    """
+
+    n_samples: int = Field(default=0, ge=0, description="Number of samples drawn so far")
+    n_chains: int = Field(default=1, ge=1, description="Number of parallel chains")
+    param_dims: Tuple[int, ...] = Field(
+        ..., description="Shape of each parameter sample, e.g. (3,) for 3D"
+    )
+    warmup_steps: int = Field(default=0, ge=0, description="Number of warmup/burn-in steps")
+    is_warmed_up: bool = Field(
+        default=False, description="Whether warmup phase is complete"
+    )
+    accept_rate: float = Field(
+        default=0.0, ge=0.0, le=1.0,
+        description="Running acceptance rate (0 before first sample)",
+    )
+
+    def assert_warmed_up(self) -> None:
+        """Assert that the chain has completed warmup."""
+        if not self.is_warmed_up:
+            raise ValueError(
+                f"Chain not warmed up: {self.n_samples} samples drawn, "
+                f"{self.warmup_steps} warmup steps required"
+            )
+
+    def assert_param_dims(self, expected: Tuple[int, ...]) -> None:
+        """Assert parameter dimensions match."""
+        if self.param_dims != expected:
+            raise ValueError(
+                f"Parameter dimension mismatch: expected {expected}, "
+                f"got {self.param_dims}"
+            )
+
+    def step(self, accepted: bool = True) -> "AbstractMCMCTrace":
+        """Return a new trace after one MCMC step.
+
+        Updates sample count, warmup status, and running acceptance rate
+        using an exponential moving average.
+        """
+        new_n = self.n_samples + 1
+        alpha = 2.0 / (new_n + 1)
+        new_rate = alpha * (1.0 if accepted else 0.0) + (1 - alpha) * self.accept_rate
+        return AbstractMCMCTrace(
+            n_samples=new_n,
+            n_chains=self.n_chains,
+            param_dims=self.param_dims,
+            warmup_steps=self.warmup_steps,
+            is_warmed_up=new_n >= self.warmup_steps,
+            accept_rate=round(new_rate, 6),
+        )
