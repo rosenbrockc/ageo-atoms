@@ -12,6 +12,8 @@ from .montecarlo import (
     run_simulation,
     run_simulation_anti,
     quick_sim_anti,
+    register_simulator,
+    list_simulators,
 )
 
 __all__ = [
@@ -25,4 +27,6 @@ __all__ = [
     "run_simulation",
     "run_simulation_anti",
     "quick_sim_anti",
+    "register_simulator",
+    "list_simulators",
 ]

@@ -1,9 +1,15 @@
+from __future__ import annotations
+
+from typing import Any, Callable, Dict, List, Protocol, runtime_checkable
+
 import numpy as np
-from pydantic import BaseModel, Field
-from typing import Callable, List, Dict, Any, Union
+from pydantic import BaseModel, ConfigDict, Field, SerializeAsAny
 
 class YieldCurve(BaseModel):
     """Abstract base class for yield curves."""
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     def disc(self, t: float) -> float:
         raise NotImplementedError("Subclasses must implement disc")
 
@@ -22,8 +28,8 @@ class FlatCurve(YieldCurve):
 
 class NetYC(YieldCurve):
     """YieldCurve representing the difference between two YieldCurves."""
-    yc1: YieldCurve
-    yc2: YieldCurve
+    yc1: SerializeAsAny[YieldCurve]
+    yc2: SerializeAsAny[YieldCurve]
 
     def disc(self, t: float) -> float:
         return self.yc1.disc(t) / self.yc2.disc(t)
@@ -34,17 +40,38 @@ class CashFlow(BaseModel):
 
 class CCProcessor(BaseModel):
     monitor_time: float = Field(..., ge=0.0)
-    payout_funcs: List[Callable[[Dict[float, Any]], CashFlow]]
+    payout_func_names: List[str] = Field(
+        default_factory=list,
+        description="Deterministic identifiers for payout functions",
+    )
+    payout_funcs: List[Callable[[Dict[float, Any]], CashFlow]] = Field(
+        default_factory=list,
+        exclude=True,
+        repr=False,
+    )
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 class ContingentClaim(BaseModel):
     processors: List[CCProcessor] = Field(default_factory=list)
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 class DiscretizeModel(BaseModel):
     """Interface for models that can be discretized for MC simulation."""
-    pass
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+
+@runtime_checkable
+class SeededMonteCarloSimulator(Protocol):
+    """Deterministic simulator boundary using an explicit seeded RNG."""
+
+    def __call__(
+        self,
+        model: DiscretizeModel,
+        claim: ContingentClaim,
+        rng: np.random.Generator,
+        trials: int,
+        anti: bool,
+    ) -> float:
+        ...

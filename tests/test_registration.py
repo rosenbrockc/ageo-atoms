@@ -1,8 +1,4 @@
-"""Tests verifying that @register_atom wiring is correct.
-
-Importing the atom modules must cause all 16 DSP atoms to appear in the
-ghost witness REGISTRY with valid witness callables.
-"""
+"""Tests verifying that @register_atom wiring is correct."""
 
 import pytest
 
@@ -14,6 +10,9 @@ import ageoa.numpy.fft
 import ageoa.scipy.fft
 import ageoa.scipy.signal
 import ageoa.scipy.sparse_graph
+import ageoa.rust_robotics
+import ageoa.tempo
+import ageoa.quantfin
 
 
 EXPECTED_ATOMS = [
@@ -22,6 +21,9 @@ EXPECTED_ATOMS = [
     "butter", "cheby1", "cheby2", "firwin",
     "sosfilt", "lfilter", "freqz",
     "graph_laplacian", "graph_fourier_transform", "heat_kernel_diffusion",
+    "pure_pursuit", "rk4",
+    "offset_tt2tdb", "offset_tai2tdb",
+    "run_simulation_anti", "quick_sim_anti",
 ]
 
 
@@ -30,7 +32,7 @@ class TestRegistration:
 
     def test_all_16_atoms_registered(self):
         registered = list_registered()
-        assert len(registered) >= 16
+        assert len(registered) >= len(EXPECTED_ATOMS)
 
     @pytest.mark.parametrize("atom_name", EXPECTED_ATOMS)
     def test_atom_in_registry(self, atom_name):

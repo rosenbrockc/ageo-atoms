@@ -1,8 +1,11 @@
 import ctypes
 import pathlib
-import numpy as np
+
 import icontract
 from pydantic import BaseModel, Field
+
+from ageoa.ghost.registry import register_atom
+from ageoa.rust_robotics.witnesses import witness_pure_pursuit
 
 class Point2D(BaseModel):
     """Pydantic BaseModel representing a 2D Point (equivalent to na::Point2)."""
@@ -16,18 +19,37 @@ class RecordPoint(BaseModel):
     y: float = Field(..., description="y coordinate")
     z: float = Field(..., description="z coordinate")
 
-# Load the shared library
-_lib_path = pathlib.Path(__file__).parent / "librust_robotics.dylib"
-_lib = ctypes.CDLL(str(_lib_path))
+_lib: ctypes.CDLL | None = None
+_pure_pursuit_signature_configured = False
 
-# C signature for pure_pursuit_ffi:
-_lib.pure_pursuit_ffi.argtypes = [
-    ctypes.c_double, ctypes.c_double,
-    ctypes.c_double, ctypes.c_double,
-    ctypes.c_double, ctypes.c_double, ctypes.c_double
-]
-_lib.pure_pursuit_ffi.restype = ctypes.c_double
 
+def _get_lib() -> ctypes.CDLL:
+    global _lib, _pure_pursuit_signature_configured
+    if _lib is None:
+        lib_path = pathlib.Path(__file__).parent / "librust_robotics.dylib"
+        try:
+            _lib = ctypes.CDLL(str(lib_path))
+        except OSError as exc:
+            raise RuntimeError(
+                f"Unable to load rust_robotics shared library at '{lib_path}'"
+            ) from exc
+
+    if not _pure_pursuit_signature_configured:
+        _lib.pure_pursuit_ffi.argtypes = [
+            ctypes.c_double,
+            ctypes.c_double,
+            ctypes.c_double,
+            ctypes.c_double,
+            ctypes.c_double,
+            ctypes.c_double,
+            ctypes.c_double,
+        ]
+        _lib.pure_pursuit_ffi.restype = ctypes.c_double
+        _pure_pursuit_signature_configured = True
+
+    return _lib
+
+@register_atom(witness_pure_pursuit)
 @icontract.require(lambda position_current: position_current is not None, "position_current must be non-null")
 @icontract.require(lambda position_target: position_target is not None, "position_target must be non-null")
 @icontract.require(lambda target_distance: target_distance > 0, "target_distance must be strictly positive")
@@ -54,8 +76,9 @@ def pure_pursuit(
     Returns:
         Steering angle in radians.
     """
+    lib = _get_lib()
     return float(
-        _lib.pure_pursuit_ffi(
+        lib.pure_pursuit_ffi(
             float(position_current.x),
             float(position_current.y),
             float(position_target.x),

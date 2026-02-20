@@ -12,10 +12,7 @@ import importlib
 from . import biosppy
 from . import ghost
 from . import numpy
-from . import rust_robotics
 from . import scipy
-from . import tempo
-from . import quantfin
 from . import datadriven
 
 def _maybe_import(submodule: str) -> None:
@@ -26,7 +23,17 @@ def _maybe_import(submodule: str) -> None:
         pass
 
 
-for _name in ("pasqal", "pulsar", "mint", "alphafold", "e2e_ppg", "quant_engine"):
+for _name in (
+    "pasqal",
+    "pulsar",
+    "mint",
+    "alphafold",
+    "e2e_ppg",
+    "quant_engine",
+    "rust_robotics",
+    "tempo",
+    "quantfin",
+):
     _maybe_import(_name)
 
 
@@ -45,4 +52,5 @@ __all__ = [
     "tempo",
     "quantfin",
     "datadriven",
+    "pronto",
 ]
