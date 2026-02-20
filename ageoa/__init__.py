@@ -12,6 +12,7 @@ import importlib
 from . import biosppy
 from . import ghost
 from . import numpy
+from . import rust_robotics
 from . import scipy
 
 
@@ -38,4 +39,5 @@ __all__ = [
     "alphafold",
     "e2e_ppg",
     "quant_engine",
+    "rust_robotics",
 ]
