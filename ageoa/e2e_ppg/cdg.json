@@ -44,7 +44,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(new_samples: np.ndarray, state: PPGState) -> tuple[np.ndarray, PPGState]",
+      "type_signature": "Callable[[np.ndarray], np.ndarray]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
