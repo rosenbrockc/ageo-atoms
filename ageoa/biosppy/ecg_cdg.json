@@ -287,6 +287,33 @@
       "requires_glue": false
     },
     {
+      "source_id": "r_peak_detection",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
       "source_id": "peak_correction",
       "target_id": "heart_rate_computation",
       "output_name": "rpeaks",
@@ -305,44 +332,8 @@
       "requires_glue": false
     },
     {
-      "source_id": "r_peak_detection",
-      "target_id": "heart_rate_computation",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "peak_correction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "template_extraction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
       "source_id": "bandpass_filter",
       "target_id": "template_extraction",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "bandpass_filter",
-      "target_id": "peak_correction",
       "output_name": "filtered",
       "input_name": "filtered",
       "source_type": "ECGPipelineState",
@@ -352,6 +343,15 @@
     {
       "source_id": "bandpass_filter",
       "target_id": "r_peak_detection",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
       "output_name": "filtered",
       "input_name": "filtered",
       "source_type": "ECGPipelineState",

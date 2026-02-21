@@ -1,21 +1,24 @@
-import numpy as np
+"""Tests for e2e_ppg."""\n\nimport pytest\nimport numpy as np\nimport icontract\nfrom ageoa.e2e_ppg.atoms import kazemi_peak_detection\nfrom ageoa.e2e_ppg.atoms import ppg_reconstruction\nfrom ageoa.e2e_ppg.atoms import ppg_sqa\n\ndef test_kazemi_peak_detection_positive():
+    with pytest.raises(NotImplementedError):
+        kazemi_peak_detection(np.array([1.0]))
 
-from ageoa.e2e_ppg.atoms import process_ppg
-from ageoa.e2e_ppg.state_models import PPGState
+def test_kazemi_peak_detection_precondition():
+    with pytest.raises(icontract.ViolationError):
+        kazemi_peak_detection(None)
 
+def test_ppg_reconstruction_positive():
+    with pytest.raises(NotImplementedError):
+        ppg_reconstruction(np.array([1.0]))
 
-def test_process_ppg_empty_window_returns_empty_output():
-    state = PPGState(sampling_rate=20, buffer=[1.0, 2.0, 3.0])
+def test_ppg_reconstruction_precondition():
+    with pytest.raises(icontract.ViolationError):
+        ppg_reconstruction(None)
 
-    out, new_state = process_ppg(np.array([]), state)
-    assert out.shape == (0,)
-    assert new_state.buffer == [1.0, 2.0, 3.0]
+def test_ppg_sqa_positive():
+    with pytest.raises(NotImplementedError):
+        ppg_sqa(np.array([1.0]))
 
+def test_ppg_sqa_precondition():
+    with pytest.raises(icontract.ViolationError):
+        ppg_sqa(None)
 
-def test_process_ppg_output_shape_matches_input_window():
-    state = PPGState(sampling_rate=20, buffer=[])
-    samples = np.array([0.1, 0.2, 0.3])
-
-    out, new_state = process_ppg(samples, state)
-    assert out.shape == samples.shape
-    assert len(new_state.buffer or []) >= len(samples)

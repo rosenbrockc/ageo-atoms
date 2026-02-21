@@ -1,32 +1,8 @@
-"""Ghost witnesses for QuantFin atoms."""
+"""Ghost witnesses."""\n\nfrom ageoa.ghost.abstract import AbstractArray\n\ndef witness_functional_monte_carlo(data: AbstractArray) -> AbstractArray:
+    """Witness for functional_monte_carlo."""
+    return AbstractArray(shape=data.shape, dtype=data.dtype)
 
-from __future__ import annotations
+def witness_volatility_surface_modeling(data: AbstractArray) -> AbstractArray:
+    """Witness for volatility_surface_modeling."""
+    return AbstractArray(shape=data.shape, dtype=data.dtype)
 
-from typing import Any
-
-from ageoa.ghost.abstract import AbstractScalar
-
-def witness_run_simulation_anti(
-    model: Any,
-    claim: Any,
-    seed: int,
-    trials: int,
-    simulator_name: str,
-) -> AbstractScalar:
-    """Ghost witness for Antithetic Variates Monte Carlo Estimation."""
-    del model, claim, seed, simulator_name
-    if trials <= 0:
-        raise ValueError("trials must be positive")
-    return AbstractScalar(dtype="float64")
-
-def witness_quick_sim_anti(
-    model: Any,
-    claim: Any,
-    trials: int,
-    simulator_name: str,
-) -> AbstractScalar:
-    """Ghost witness for Antithetic Variates Monte Carlo Estimation (convenience)."""
-    del model, claim, simulator_name
-    if trials <= 0:
-        raise ValueError("trials must be positive")
-    return AbstractScalar(dtype="float64")

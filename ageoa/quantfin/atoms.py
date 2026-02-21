@@ -1,8 +1,8 @@
-"""Auto-generated verified atom wrapper."""\n\nimport numpy as np\nimport icontract\nfrom ageoa.ghost.registry import register_atom\nfrom ageoa.mint.witnesses import witness_axial_attention\nfrom ageoa.mint.witnesses import witness_rotary_positional_embeddings\n\n@register_atom(witness_axial_attention)
+"""Auto-generated verified atom wrapper."""\n\nimport numpy as np\nimport icontract\nfrom ageoa.ghost.registry import register_atom\nfrom ageoa.quantfin.witnesses import witness_functional_monte_carlo\nfrom ageoa.quantfin.witnesses import witness_volatility_surface_modeling\n\n@register_atom(witness_functional_monte_carlo)
 @icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def axial_attention(data: np.ndarray) -> np.ndarray:
-    """Implements factorized attention over 2D sequence alignments.
+def functional_monte_carlo(data: np.ndarray) -> np.ndarray:
+    """Generates stochastic paths and evaluates contingent claims using functional constraints.
 
     Args:
         data: Input N-dimensional tensor or 1D scalar array.
@@ -12,11 +12,11 @@ def axial_attention(data: np.ndarray) -> np.ndarray:
     """
     raise NotImplementedError("Skeleton for future ingestion.")
 
-@register_atom(witness_rotary_positional_embeddings)
+@register_atom(witness_volatility_surface_modeling)
 @icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def rotary_positional_embeddings(data: np.ndarray) -> np.ndarray:
-    """Encodes relative position into a tensor using rotary transformations.
+def volatility_surface_modeling(data: np.ndarray) -> np.ndarray:
+    """Interpolates and calibrates an implied variance surface.
 
     Args:
         data: Input N-dimensional tensor or 1D scalar array.

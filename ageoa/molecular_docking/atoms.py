@@ -1,8 +1,8 @@
-"""Auto-generated verified atom wrapper."""\n\nimport numpy as np\nimport icontract\nfrom ageoa.ghost.registry import register_atom\nfrom ageoa.mint.witnesses import witness_axial_attention\nfrom ageoa.mint.witnesses import witness_rotary_positional_embeddings\n\n@register_atom(witness_axial_attention)
+"""Auto-generated verified atom wrapper."""\n\nimport numpy as np\nimport icontract\nfrom ageoa.ghost.registry import register_atom\nfrom ageoa.molecular_docking.witnesses import witness_quantum_mwis_solver\nfrom ageoa.molecular_docking.witnesses import witness_greedy_lattice_mapping\n\n@register_atom(witness_quantum_mwis_solver)
 @icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def axial_attention(data: np.ndarray) -> np.ndarray:
-    """Implements factorized attention over 2D sequence alignments.
+def quantum_mwis_solver(data: np.ndarray) -> np.ndarray:
+    """Solves the Maximum Weight Independent Set problem on a graph using quantum heuristics.
 
     Args:
         data: Input N-dimensional tensor or 1D scalar array.
@@ -12,11 +12,11 @@ def axial_attention(data: np.ndarray) -> np.ndarray:
     """
     raise NotImplementedError("Skeleton for future ingestion.")
 
-@register_atom(witness_rotary_positional_embeddings)
+@register_atom(witness_greedy_lattice_mapping)
 @icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def rotary_positional_embeddings(data: np.ndarray) -> np.ndarray:
-    """Encodes relative position into a tensor using rotary transformations.
+def greedy_lattice_mapping(data: np.ndarray) -> np.ndarray:
+    """Maps abstract interaction graphs onto physical 2D lattices under hardware constraints.
 
     Args:
         data: Input N-dimensional tensor or 1D scalar array.
