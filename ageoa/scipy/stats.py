@@ -2,10 +2,19 @@ import numpy as np
 import scipy.stats
 import icontract
 from typing import Union, Any, Tuple, Optional, Sequence
+from ageoa.ghost.registry import register_atom
+from ageoa.scipy.witnesses import (
+    witness_scipy_describe,
+    witness_scipy_norm,
+    witness_scipy_pearsonr,
+    witness_scipy_spearmanr,
+    witness_scipy_ttest_ind,
+)
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
 
+@register_atom(witness_scipy_describe, name="scipy.stats.describe")
 @icontract.require(lambda a: a is not None, "Input data must not be None")
 @icontract.require(lambda a: len(np.asarray(a)) > 0, "Input data must not be empty")
 @icontract.ensure(lambda result: result is not None, "Description result must not be None")
@@ -39,6 +48,7 @@ def describe(
         nan_policy=nan_policy,
     )
 
+@register_atom(witness_scipy_ttest_ind, name="scipy.stats.ttest_ind")
 @icontract.require(lambda a, b: a is not None and b is not None, "Input samples must not be None")
 @icontract.ensure(lambda result: len(result) >= 2, "Result must be a tuple of (statistic, pvalue)")
 def ttest_ind(
@@ -84,6 +94,7 @@ def ttest_ind(
         trim=trim,
     )
 
+@register_atom(witness_scipy_pearsonr, name="scipy.stats.pearsonr")
 @icontract.require(lambda x, y: len(np.asarray(x)) == len(np.asarray(y)), "x and y must have the same length")
 @icontract.require(lambda x: len(np.asarray(x)) >= 2, "Need at least two observations")
 @icontract.ensure(lambda result: -1 <= result[0] <= 1, "Correlation coefficient must be between -1 and 1")
@@ -101,6 +112,7 @@ def pearsonr(x: ArrayLike, y: ArrayLike) -> Any:
     """
     return scipy.stats.pearsonr(x, y)
 
+@register_atom(witness_scipy_spearmanr, name="scipy.stats.spearmanr")
 @icontract.require(lambda x, y: len(np.asarray(x)) == len(np.asarray(y)), "x and y must have the same length")
 @icontract.ensure(lambda result: -1 <= result[0] <= 1, "Correlation coefficient must be between -1 and 1")
 def spearmanr(
@@ -132,6 +144,7 @@ def spearmanr(
         alternative=alternative,
     )
 
+@register_atom(witness_scipy_norm, name="scipy.stats.norm")
 @icontract.require(lambda loc, scale: scale > 0, "Scale must be positive")
 @icontract.ensure(lambda result: result is not None, "Normal distribution object must not be None")
 def norm(loc: float = 0, scale: float = 1) -> Any:

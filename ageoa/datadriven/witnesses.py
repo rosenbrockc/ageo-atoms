@@ -1,12 +1,10 @@
 """Ghost witnesses for DataDriven atoms."""
 
+from __future__ import annotations
+
 from typing import List
 
-class AbstractEquationResult:
-    """Lightweight metadata for equation discovery results."""
-    def __init__(self, num_equations: int):
-        self.num_equations = num_equations
-        self.is_symbolic = True
+from ageoa.ghost.abstract import AbstractScalar
 
 def witness_discover_equations(
     X,
@@ -14,8 +12,10 @@ def witness_discover_equations(
     variable_names: List[str],
     max_degree: int = 4,
     lambda_val: float = 0.1
-) -> AbstractEquationResult:
+) -> AbstractScalar:
     """Ghost witness for Sparsity-Promoting Symbolic Model Generation."""
+    del max_degree
+
     # The witness ensures that the input dimensions align with the variables requested,
     # and outputs a structural representation indicating that equations will be returned.
     
@@ -31,8 +31,6 @@ def witness_discover_equations(
         
     if lambda_val <= 0:
         raise ValueError("Sparsity penalty lambda_val must be positive")
-        
-    # By convention, SINDy produces an equation for each target dimension in Y
-    return AbstractEquationResult(
-        num_equations=Y.shape[0]
-    )
+
+    # Represent the equation-count metadata as a non-negative scalar bound.
+    return AbstractScalar(dtype="int64", min_val=0, max_val=float(Y.shape[0]))

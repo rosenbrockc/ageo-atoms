@@ -27,6 +27,22 @@ class TestRand:
         assert isinstance(r, float)
         assert 0 <= r < 1
 
+    def test_fixed_seed_is_deterministic(self):
+        r1 = ag_random.rand((2, 3), seed=123)
+        r2 = ag_random.rand((2, 3), seed=123)
+        np.testing.assert_array_equal(r1, r2)
+
+    def test_rng_argument_is_deterministic(self):
+        rng1 = np.random.default_rng(99)
+        rng2 = np.random.default_rng(99)
+        r1 = ag_random.rand((4,), rng=rng1)
+        r2 = ag_random.rand((4,), rng=rng2)
+        np.testing.assert_array_equal(r1, r2)
+
+    def test_seed_and_rng_conflict(self):
+        with pytest.raises(icontract.ViolationError, match="Provide at most one of seed/rng"):
+            ag_random.rand(3, seed=1, rng=np.random.default_rng(2))
+
     def test_matches_upstream(self):
         # np.random.rand doesn't take size as a tuple like our atom, 
         # so we check behavior on single int
@@ -63,6 +79,22 @@ class TestUniform:
     def test_default_range(self):
         u = ag_random.uniform(size=100)
         assert np.all(u >= 0) and np.all(u < 1)
+
+    def test_uniform_fixed_seed_is_deterministic(self):
+        u1 = ag_random.uniform(0, 10, size=(5,), seed=777)
+        u2 = ag_random.uniform(0, 10, size=(5,), seed=777)
+        np.testing.assert_array_equal(u1, u2)
+
+    def test_uniform_rng_argument_is_deterministic(self):
+        rng1 = np.random.default_rng(7)
+        rng2 = np.random.default_rng(7)
+        u1 = ag_random.uniform(-2.0, 2.0, size=8, rng=rng1)
+        u2 = ag_random.uniform(-2.0, 2.0, size=8, rng=rng2)
+        np.testing.assert_array_equal(u1, u2)
+
+    def test_uniform_seed_and_rng_conflict(self):
+        with pytest.raises(icontract.ViolationError, match="Provide at most one of seed/rng"):
+            ag_random.uniform(0, 1, size=3, seed=1, rng=np.random.default_rng(2))
 
     def test_matches_upstream(self):
         np.random.seed(42)

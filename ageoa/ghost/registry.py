@@ -16,7 +16,7 @@ from typing import Any, Callable, Dict
 REGISTRY: Dict[str, Dict[str, Any]] = {}
 
 
-def register_atom(witness: Callable) -> Callable:
+def register_atom(witness: Callable, *, name: str | None = None) -> Callable:
     """Decorator that binds a heavy implementation to a Ghost Witness.
 
     The heavy function is stored in the registry alongside its witness.
@@ -26,6 +26,8 @@ def register_atom(witness: Callable) -> Callable:
     Args:
         witness: A callable that accepts and returns abstract value types
             (e.g. ``AbstractSignal``).  Must have type annotations.
+        name: Optional explicit registry key. If omitted, the heavy function
+            name is used.
 
     Returns:
         A decorator that registers the heavy function and returns it
@@ -42,13 +44,15 @@ def register_atom(witness: Callable) -> Callable:
             return np.fft.fft(a, ...)
     """
     def decorator(heavy_func: Callable) -> Callable:
-        REGISTRY[heavy_func.__name__] = {
+        atom_name = name or heavy_func.__name__
+        REGISTRY[atom_name] = {
             "impl": heavy_func,
             "witness": witness,
             "doc": heavy_func.__doc__ or "",
             "signature": dict(witness.__annotations__),
             "heavy_signature": dict(heavy_func.__annotations__),
             "module": getattr(heavy_func, "__module__", ""),
+            "name": atom_name,
         }
         return heavy_func
     return decorator

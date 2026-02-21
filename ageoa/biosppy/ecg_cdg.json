@@ -21,6 +21,8 @@
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -28,7 +30,7 @@
       "node_id": "bandpass_filter",
       "parent_id": "ECGProcessor_root",
       "name": "Bandpass Filter",
-      "description": "Apply Butterworth bandpass filtering (default 3-45 Hz) to suppress baseline wander and high-frequency noise",
+      "description": "Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal",
       "concept_type": "signal_filter",
       "inputs": [
         {
@@ -47,10 +49,12 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(signal: np.ndarray, sampling_rate: float = 1000.0, lowcut: float = 3.0, highcut: float = 45.0, order: int = 4) -> np.ndarray",
+      "type_signature": "(signal: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "Bandpass Filter",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -58,7 +62,7 @@
       "node_id": "r_peak_detection",
       "parent_id": "ECGProcessor_root",
       "name": "R-Peak Detection",
-      "description": "Detect R-peak sample indices from the filtered ECG signal",
+      "description": "Detect R-peak locations in the filtered ECG signal using the Hamilton segmenter algorithm",
       "concept_type": "custom",
       "inputs": [
         {
@@ -77,10 +81,12 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray",
+      "type_signature": "(filtered: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "R-Peak Detection",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -88,7 +94,7 @@
       "node_id": "peak_correction",
       "parent_id": "ECGProcessor_root",
       "name": "Peak Correction",
-      "description": "Correct each detected peak to the nearest local maximum inside a bounded tolerance window",
+      "description": "Correct R-peak locations to the nearest local maximum within a tolerance window",
       "concept_type": "custom",
       "inputs": [
         {
@@ -112,10 +118,12 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, tolerance_sec: float = 0.05) -> np.ndarray",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "Peak Correction",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -123,7 +131,7 @@
       "node_id": "template_extraction",
       "parent_id": "ECGProcessor_root",
       "name": "Template Extraction",
-      "description": "Extract fixed-width beat templates around corrected R-peaks",
+      "description": "Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows",
       "concept_type": "custom",
       "inputs": [
         {
@@ -146,16 +154,18 @@
         {
           "name": "rpeaks_final",
           "type_desc": "np.ndarray",
-          "constraints": "kept R-peak indices after boundary checks"
+          "constraints": "final R-peak indices after template extraction"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray, sampling_rate: float = 1000.0, before_sec: float = 0.2, after_sec: float = 0.4) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "Template Extraction",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -163,20 +173,20 @@
       "node_id": "heart_rate_computation",
       "parent_id": "ECGProcessor_root",
       "name": "Heart Rate Computation",
-      "description": "Compute instantaneous bpm from corrected R-R intervals with optional smoothing",
+      "description": "Compute instantaneous heart rate in bpm from R-R intervals with optional smoothing",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "corrected R-peak sample indices"
+          "constraints": "R-peak sample indices"
         }
       ],
       "outputs": [
         {
           "name": "hr_idx",
           "type_desc": "np.ndarray",
-          "constraints": "indices for heart-rate values"
+          "constraints": "time indices for heart rate values"
         },
         {
           "name": "heart_rate",
@@ -187,10 +197,12 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(rpeaks: np.ndarray, sampling_rate: float = 1000.0, smooth: bool = True) -> tuple[np.ndarray, np.ndarray]",
+      "type_signature": "(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "conceptual_summary": "Heart Rate Computation",
       "critic_notes": "",
       "decomposition_rationale": ""
     }
@@ -248,6 +260,96 @@
       "input_name": "rpeaks",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "r_peak_detection",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "template_extraction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "template_extraction",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "template_extraction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
       "requires_glue": false
     }
   ],

@@ -1,11 +1,20 @@
 import numpy as np
 import icontract
 from typing import Union, Any
+from ageoa.ghost.registry import register_atom
+from ageoa.numpy.witnesses import (
+    witness_np_emath_log,
+    witness_np_emath_log10,
+    witness_np_emath_logn,
+    witness_np_emath_power,
+    witness_np_emath_sqrt,
+)
 
 # Types
 Numeric = Union[float, int, complex, np.number]
 ArrayLike = Union[np.ndarray, list, tuple, Numeric]
 
+@register_atom(witness_np_emath_sqrt, name="numpy.emath.sqrt")
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.ensure(lambda result, x: np.allclose(np.square(result), x), "Result squared must be approximately x")
 def sqrt(x: ArrayLike) -> Any:
@@ -23,6 +32,7 @@ def sqrt(x: ArrayLike) -> Any:
     """
     return np.emath.sqrt(x)
 
+@register_atom(witness_np_emath_log, name="numpy.emath.log")
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
 @icontract.ensure(lambda result, x: np.allclose(np.exp(result), x), "Exp of result must be approximately x")
@@ -42,6 +52,7 @@ def log(x: ArrayLike) -> Any:
     """
     return np.emath.log(x)
 
+@register_atom(witness_np_emath_log10, name="numpy.emath.log10")
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
 @icontract.ensure(lambda result, x: np.allclose(np.power(10, result), x), "10 to the power of result must be approximately x")
@@ -61,6 +72,7 @@ def log10(x: ArrayLike) -> Any:
     """
     return np.emath.log10(x)
 
+@register_atom(witness_np_emath_logn, name="numpy.emath.logn")
 @icontract.require(lambda n, x: n is not None and x is not None, "Base n and value x must not be None")
 @icontract.require(lambda n: np.all(np.asarray(n) > 0) and np.all(np.asarray(n) != 1), "Base n must be positive and not equal to 1")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
@@ -81,6 +93,7 @@ def logn(n: Numeric, x: ArrayLike) -> Any:
     """
     return np.emath.logn(n, x)
 
+@register_atom(witness_np_emath_power, name="numpy.emath.power")
 @icontract.require(lambda x, p: x is not None and p is not None, "Input x and power p must not be None")
 def power(x: ArrayLike, p: Any) -> Any:
     """Return x to the power p (x**p).

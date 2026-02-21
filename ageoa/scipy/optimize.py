@@ -2,10 +2,18 @@ import numpy as np
 import scipy.optimize
 import icontract
 from typing import Union, Any, Callable, Sequence, Dict, Optional, Tuple
+from ageoa.ghost.registry import register_atom
+from ageoa.scipy.witnesses import (
+    witness_scipy_curve_fit,
+    witness_scipy_linprog,
+    witness_scipy_minimize,
+    witness_scipy_root,
+)
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
 
+@register_atom(witness_scipy_minimize, name="scipy.optimize.minimize")
 @icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Objective function and initial guess must not be None")
 @icontract.ensure(lambda result: result is not None, "Optimization result must not be None")
 def minimize(
@@ -57,6 +65,7 @@ def minimize(
         options=options,
     )
 
+@register_atom(witness_scipy_root, name="scipy.optimize.root")
 @icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Function and initial guess must not be None")
 @icontract.ensure(lambda result: result is not None, "Root finding result must not be None")
 def root(
@@ -97,6 +106,7 @@ def root(
         options=options,
     )
 
+@register_atom(witness_scipy_linprog, name="scipy.optimize.linprog")
 @icontract.require(lambda c: c is not None, "Coefficients of the linear objective function must not be None")
 @icontract.ensure(lambda result: result is not None, "Linear programming result must not be None")
 def linprog(
@@ -145,6 +155,7 @@ def linprog(
         x0=x0,
     )
 
+@register_atom(witness_scipy_curve_fit, name="scipy.optimize.curve_fit")
 @icontract.require(lambda f, xdata, ydata: len(xdata) == len(ydata), "xdata and ydata must have the same length")
 @icontract.ensure(lambda result: len(result) == 2, "Result must be a tuple of (popt, pcov)")
 def curve_fit(

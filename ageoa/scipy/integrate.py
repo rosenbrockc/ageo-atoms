@@ -2,10 +2,17 @@ import numpy as np
 import scipy.integrate
 import icontract
 from typing import Union, Any, Callable, Sequence, Tuple, Optional
+from ageoa.ghost.registry import register_atom
+from ageoa.scipy.witnesses import (
+    witness_scipy_quad,
+    witness_scipy_simpson,
+    witness_scipy_solve_ivp,
+)
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
 
+@register_atom(witness_scipy_quad, name="scipy.integrate.quad")
 @icontract.require(lambda func: func is not None, "Function must not be None")
 @icontract.ensure(lambda result: len(result) >= 2, "Result must be a tuple containing at least (y, abserr)")
 def quad(
@@ -66,6 +73,7 @@ def quad(
         limlst=limlst,
     )
 
+@register_atom(witness_scipy_solve_ivp, name="scipy.integrate.solve_ivp")
 @icontract.require(lambda fun, t_span, y0: fun is not None and t_span is not None and y0 is not None, "ODE function, time span, and initial condition must not be None")
 @icontract.ensure(lambda result: result is not None, "ODE solution result must not be None")
 def solve_ivp(
@@ -111,6 +119,7 @@ def solve_ivp(
         **options,
     )
 
+@register_atom(witness_scipy_simpson, name="scipy.integrate.simpson")
 @icontract.require(lambda y: len(np.asarray(y)) > 0, "Input y must not be empty")
 def simpson(
     y: ArrayLike,

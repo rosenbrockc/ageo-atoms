@@ -13,14 +13,13 @@ from . import biosppy
 from . import ghost
 from . import numpy
 from . import scipy
-from . import datadriven
 
 def _maybe_import(submodule: str) -> None:
     try:
         globals()[submodule] = importlib.import_module(f"{__name__}.{submodule}")
     except Exception:
         # Optional module: missing dependency or environment constraint.
-        pass
+        globals()[submodule] = None
 
 
 for _name in (
@@ -33,6 +32,8 @@ for _name in (
     "rust_robotics",
     "tempo",
     "quantfin",
+    "datadriven",
+    "pronto",
 ):
     _maybe_import(_name)
 
