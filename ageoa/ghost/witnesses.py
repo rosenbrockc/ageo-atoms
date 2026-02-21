@@ -22,6 +22,7 @@ from ageoa.ghost.abstract import (
     AbstractDistribution,
     AbstractMCMCTrace,
     AbstractRNGState,
+    AbstractMatrix,
     CONJUGATE_PAIRS,
 )
 from ageoa.ghost.registry import register_atom
@@ -727,8 +728,8 @@ def witness_posterior_update(
 
 
 def witness_vi_elbo(
-    q_dist: AbstractDistribution,
-    p_dist: AbstractDistribution,
+    q_dist: AbstractDistribution | tuple[AbstractDistribution, Any],
+    p_dist: AbstractDistribution | tuple[AbstractDistribution, Any],
     n_samples: int = 1,
 ) -> AbstractScalar:
     """Ghost witness for variational inference ELBO computation.
@@ -744,13 +745,92 @@ def witness_vi_elbo(
     """
     from ageoa.ghost.abstract import AbstractScalar
 
-    if q_dist.event_shape != p_dist.event_shape:
+    # Extract distribution if passed as (dist, jacobian) tuple
+    q = q_dist[0] if isinstance(q_dist, tuple) else q_dist
+    p = p_dist[0] if isinstance(p_dist, tuple) else p_dist
+
+    if q.event_shape != p.event_shape:
         raise ValueError(
-            f"Variational q event_shape {q_dist.event_shape} doesn't match "
-            f"target p event_shape {p_dist.event_shape}"
+            f"Variational q event_shape {q.event_shape} doesn't match "
+            f"target p event_shape {p.event_shape}"
         )
 
     if n_samples <= 0:
         raise ValueError(f"n_samples must be positive, got {n_samples}")
 
     return AbstractScalar(dtype="float64")
+
+
+# ---------------------------------------------------------------------------
+# Advanced Bayesian / Filter witnesses
+# ---------------------------------------------------------------------------
+
+def witness_kalman_gain(
+    P: AbstractMatrix,
+    H: AbstractMatrix,
+) -> AbstractMatrix:
+    """Ghost witness for the Kalman Gain calculation.
+
+    Simulates the matrix product K = P H^T (H P H^T + R)^{-1}.
+    Preconditions:
+        - P must be square (N, N).
+        - H must be (M, N) to align with P's inner dimension.
+    Postconditions:
+        - Output gain K is (N, M).
+    """
+    if P.shape[0] != P.shape[1]:
+        raise ValueError(f"Covariance P must be square, got {P.shape}")
+    if H.shape[1] != P.shape[0]:
+        raise ValueError(
+            f"Inner dimension mismatch: H {H.shape} cannot multiply P {P.shape}"
+        )
+    return AbstractMatrix(shape=(P.shape[0], H.shape[0]), dtype=P.dtype)
+
+
+def witness_bijector_transform(
+    dist: AbstractDistribution,
+) -> tuple[AbstractDistribution, AbstractSignal]:
+    """Ghost witness for a bijector transformation (e.g., Logit/Exp).
+
+    Transforms a constrained distribution into an unconstrained one
+    while tracking the log-determinant Jacobian.
+
+    Postconditions:
+        - Returns unconstrained AbstractDistribution.
+        - Returns AbstractSignal for the Jacobian log-determinant.
+    """
+    unconstrained = AbstractDistribution(
+        family=dist.family,
+        event_shape=dist.event_shape,
+        batch_shape=dist.batch_shape,
+        support="unconstrained",
+        is_discrete=dist.is_discrete,
+    )
+    # Jacobian signal: shape matches the batch_shape or event_shape depending on transform
+    # Here we use the event_shape for simplicity as a ghost signal.
+    jacobian = AbstractSignal(
+        shape=dist.event_shape,
+        dtype="float64",
+        sampling_rate=1.0,
+        domain="index",
+        units="log-determinant",
+    )
+    return unconstrained, jacobian
+
+
+@register_atom(witness_kalman_gain)
+def kalman_gain(P: AbstractMatrix, H: AbstractMatrix) -> AbstractMatrix:
+    """Heavy atom for Kalman Gain (placeholder)."""
+    pass
+
+
+@register_atom(witness_bijector_transform)
+def bijector_transform(dist: AbstractDistribution) -> tuple[AbstractDistribution, AbstractSignal]:
+    """Heavy atom for bijector transform (placeholder)."""
+    pass
+
+
+@register_atom(witness_vi_elbo)
+def vi_elbo(q_dist: AbstractDistribution, p_dist: AbstractDistribution, n_samples: int = 1) -> AbstractScalar:
+    """Heavy atom for VI ELBO (placeholder)."""
+    pass

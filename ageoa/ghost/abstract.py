@@ -98,6 +98,18 @@ class AbstractScalar(BaseModel):
     is_index: bool = Field(default=False, description="Whether this is an array index")
 
 
+class AbstractMatrix(BaseModel):
+    """Abstract representation of a matrix with symbolic dimensions.
+
+    Handles generic dimensions like "N", "M" for shape-checking in atoms
+    like Kalman filters where exact sizes are unknown until runtime but
+    inner dimensions must align.
+    """
+
+    shape: Tuple[str, str] = Field(..., description="Symbolic shape, e.g. ('N', 'M')")
+    dtype: str = Field(default="float64", description="NumPy dtype string")
+
+
 class AbstractBeatPool(BaseModel):
     """Abstract state for accumulative beat detection / SQI pipelines.
 
@@ -165,6 +177,9 @@ class AbstractDistribution(BaseModel):
     )
     batch_shape: Tuple[int, ...] = Field(
         default=(), description="Shape of independent distributions, e.g. (100,)"
+    )
+    support: str = Field(
+        default="unconstrained", description="Distribution support: 'positive', 'simplex', 'unconstrained', etc."
     )
     support_lower: float | None = Field(
         default=None, description="Lower bound of support (None = unbounded)"
