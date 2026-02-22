@@ -15,9 +15,9 @@ from ageoa.scipy.witnesses import (
 ArrayLike = Union[np.ndarray, list, tuple]
 
 @register_atom(witness_scipy_describe, name="scipy.stats.describe")
-@icontract.require(lambda a: a is not None, "Input data must not be None")
-@icontract.require(lambda a: np.asarray(a).ndim >= 1, "Input data must be at least 1D")
 @icontract.require(lambda a: len(np.asarray(a)) > 0, "Input data must not be empty")
+@icontract.require(lambda a: np.asarray(a).ndim >= 1, "Input data must be at least 1D")
+@icontract.require(lambda a: a is not None, "Input data must not be None")
 @icontract.ensure(lambda result: result is not None, "Description result must not be None")
 def describe(
     a: ArrayLike,
@@ -52,18 +52,16 @@ def describe(
     )
 
 @register_atom(witness_scipy_ttest_ind, name="scipy.stats.ttest_ind")
-@icontract.require(lambda a, b: a is not None and b is not None, "Input samples must not be None")
 @icontract.require(lambda a: np.asarray(a).ndim >= 1, "Input sample a must be at least 1D")
 @icontract.require(lambda b: np.asarray(b).ndim >= 1, "Input sample b must be at least 1D")
-@icontract.ensure(lambda result: len(result) >= 2, "Result must be a tuple of (statistic, pvalue)")
+@icontract.require(lambda a, b: a is not None and b is not None, "Input samples must not be None")
+@icontract.ensure(lambda result: hasattr(result, 'statistic') and hasattr(result, 'pvalue'), "Result must have statistic and pvalue")
 def ttest_ind(
     a: ArrayLike,
     b: ArrayLike,
     axis: int = 0,
     equal_var: bool = True,
     nan_policy: str = "propagate",
-    permutations: float | None = None,
-    random_state: int | np.random.Generator | np.random.RandomState | None = None,
     alternative: str = "two-sided",
     trim: float = 0,
 ) -> Any:
@@ -77,15 +75,12 @@ def ttest_ind(
         equal_var: If True, perform a standard independent 2 sample
             test that assumes equal population variances.
         nan_policy: Defines how to handle input NaNs.
-        permutations: The number of permutations of the data used to
-            estimate p-values.
-        random_state: Generator or seed used for permutations.
         alternative: Defines the alternative hypothesis.
         trim: If non-zero, performs a trimmed (Yuen's) t-test.
 
     Returns:
         Ttest_indResult object with statistic and pvalue.
-    
+
     """
     return scipy.stats.ttest_ind(
         a,
@@ -93,8 +88,6 @@ def ttest_ind(
         axis=axis,
         equal_var=equal_var,
         nan_policy=nan_policy,
-        permutations=permutations,
-        random_state=random_state,
         alternative=alternative,
         trim=trim,
     )

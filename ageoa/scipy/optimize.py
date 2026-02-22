@@ -14,8 +14,8 @@ from ageoa.scipy.witnesses import (
 ArrayLike = Union[np.ndarray, list, tuple]
 
 @register_atom(witness_scipy_minimize, name="scipy.optimize.minimize")
-@icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Objective function and initial guess must not be None")
 @icontract.require(lambda x0: np.asarray(x0).ndim >= 1, "Initial guess x0 must be at least 1D")
+@icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Objective function and initial guess must not be None")
 @icontract.ensure(lambda result: result is not None, "Optimization result must not be None")
 def minimize(
     fun: Callable,
@@ -70,7 +70,6 @@ def minimize(
 
 @register_atom(witness_scipy_root, name="scipy.optimize.root")
 @icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Function and initial guess must not be None")
-@icontract.require(lambda x0: np.asarray(x0).ndim >= 1, "Initial guess x0 must be at least 1D")
 @icontract.ensure(lambda result: result is not None, "Root finding result must not be None")
 def root(
     fun: Callable,
@@ -112,8 +111,8 @@ def root(
     )
 
 @register_atom(witness_scipy_linprog, name="scipy.optimize.linprog")
-@icontract.require(lambda c: c is not None, "Coefficients of the linear objective function must not be None")
 @icontract.require(lambda c: np.asarray(c).ndim >= 1, "Objective coefficients c must be at least 1D")
+@icontract.require(lambda c: c is not None, "Coefficients of the linear objective function must not be None")
 @icontract.ensure(lambda result: result is not None, "Linear programming result must not be None")
 def linprog(
     c: ArrayLike,

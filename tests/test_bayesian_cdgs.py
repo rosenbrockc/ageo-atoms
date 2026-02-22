@@ -8,7 +8,23 @@ import pytest
 from unittest.mock import MagicMock
 from ageoa.ghost.simulator import SimNode, PlanError
 from ageoa.ghost.abstract import AbstractDistribution, AbstractSignal, AbstractMatrix
-from ageom.synthesizer.ghost_sim import run_ghost_simulation
+
+try:
+    from ageom.synthesizer.ghost_sim import run_ghost_simulation
+
+    # Verify that the installed ageom exposes the witness_overrides API
+    import inspect as _inspect
+    _sig = _inspect.signature(run_ghost_simulation)
+    _ageom_compatible = "witness_overrides" in _sig.parameters
+    del _inspect, _sig
+except (ModuleNotFoundError, ImportError):
+    run_ghost_simulation = None
+    _ageom_compatible = False
+
+_requires_ageom = pytest.mark.skipif(
+    run_ghost_simulation is None or not _ageom_compatible,
+    reason="ageom package not installed or incompatible version",
+)
 
 
 class TestConjugateBypass:
@@ -37,6 +53,7 @@ class TestConjugateBypass:
         assert cdg[2].function_name == "witness_posterior_update"
 
 
+@_requires_ageom
 class TestOracleIsolation:
     def test_oracle_isolation(self):
         """Verify that ORACLE nodes in MCMC have no state-mutation dependencies."""
@@ -89,6 +106,7 @@ class TestOracleIsolation:
         assert "Oracle nodes must be stateless" in str(excinfo.value)
 
 
+@_requires_ageom
 class TestVIELBOProvenance:
     def test_vi_elbo_provenance(self):
         """Verify VI ELBO provenance check (reparameterization/jacobian)."""
