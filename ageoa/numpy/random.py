@@ -110,7 +110,7 @@ def uniform(
 @icontract.require(lambda seed: seed is None or isinstance(seed, (int, np.random.SeedSequence, np.random.BitGenerator, np.random.Generator)) or (isinstance(seed, Sequence) and not isinstance(seed, str)), "Invalid seed type")
 @icontract.ensure(lambda result: isinstance(result, np.random.Generator), "Result must be a numpy Generator")
 def default_rng(seed: SeedLike = None) -> np.random.Generator:
-    """Construct a new Generator with the default BitGenerator (PCG64).
+    """Construct a new Generator with the default BitGenerator (Permuted Congruential Generator 64-bit (PCG64)).
 
     Args:
         seed: Reseed the BitGenerator. If None, then fresh,

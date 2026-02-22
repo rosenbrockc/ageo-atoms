@@ -22,12 +22,23 @@ from ageoa.pasqal.docking_witnesses import (
 
 @register_atom(witness_sub_graph_embedder)
 @icontract.require(lambda subgraph_quantity: subgraph_quantity > 0, "subgraph_quantity must be positive")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Result must be a (mappings, state) tuple")
+@icontract.ensure(lambda result: isinstance(result[0], list), "First element must be a list of mappings")
 def sub_graph_embedder(
     current_graph: nx.Graph,
     subgraph_quantity: int,
     state: MolecularDockingState,
 ) -> tuple[list[dict[int, int]], MolecularDockingState]:
     """Extract deterministic embeddable node mappings from a graph.
+
+    Args:
+        current_graph: Input networkx Graph.
+        subgraph_quantity: Maximum number of subgraph mappings to extract.
+        state: Current MolecularDockingState.
+
+    Returns:
+        Tuple of (mappings, new_state) where mappings is a list of
+        node-to-index dictionaries.
     """
     nodes = sorted(current_graph.nodes())
     limit = min(subgraph_quantity, len(nodes))
@@ -42,6 +53,8 @@ def sub_graph_embedder(
 
 @register_atom(witness_graph_transformer)
 @icontract.require(lambda mapping: len(mapping) > 0, "mapping must not be empty")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Result must be a (graph, state) tuple")
+@icontract.ensure(lambda result: isinstance(result[0], nx.Graph), "First element must be a networkx Graph")
 def graph_transformer(
     current_graph: nx.Graph,
     lattice: nx.Graph,
@@ -49,6 +62,16 @@ def graph_transformer(
     state: MolecularDockingState,
 ) -> tuple[nx.Graph, MolecularDockingState]:
     """Map a subgraph onto lattice coordinates deterministically.
+
+    Args:
+        current_graph: Source networkx Graph.
+        lattice: Target lattice networkx Graph.
+        mapping: Dictionary mapping source node IDs to lattice node IDs.
+        state: Current MolecularDockingState.
+
+    Returns:
+        Tuple of (transformed_graph, new_state) where transformed_graph
+        is a new networkx Graph with nodes mapped to lattice coordinates.
     """
     transformed = nx.Graph()
 
@@ -79,13 +102,25 @@ def graph_transformer(
 
 @register_atom(witness_quantum_mwis_solver)
 @icontract.require(lambda mis_sample_quantity: mis_sample_quantity > 0, "mis_sample_quantity must be positive")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "Result must be a (solutions, state) tuple")
+@icontract.ensure(lambda result: isinstance(result[0], list), "First element must be a list of independent sets")
 def quantum_mwis_solver(
     graph: nx.Graph,
     lattice_id_coord_dic: dict[int, tuple[float, float]],
     mis_sample_quantity: int,
     state: MolecularDockingState,
 ) -> tuple[list[set[int]], MolecularDockingState]:
-    """Deterministic MWIS heuristic used as a combinatorial optimization solver placeholder.
+    """Deterministic Maximum Weight Independent Set (MWIS) heuristic used as a combinatorial optimization solver placeholder.
+
+    Args:
+        graph: Input networkx Graph.
+        lattice_id_coord_dic: Dictionary mapping lattice node IDs to (x, y) coordinates.
+        mis_sample_quantity: Number of independent set samples to generate.
+        state: Current MolecularDockingState.
+
+    Returns:
+        Tuple of (solutions, new_state) where solutions is a list of
+        sets of node IDs forming independent sets.
     """
     # Greedy independent set by (degree, node_id).
     ordered_nodes = sorted(graph.nodes(), key=lambda n: (graph.degree[n], n))

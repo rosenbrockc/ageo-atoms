@@ -88,7 +88,7 @@ def solve_ivp(
     args: tuple | None = None,
     **options: Any,
 ) -> Any:
-    """Solve an initial value problem for a system of ODEs.
+    """Solve an Initial Value Problem (IVP) for a system of Ordinary Differential Equations (ODEs).
 
     Args:
         fun: Right-hand side of the system.
@@ -120,6 +120,7 @@ def solve_ivp(
     )
 
 @register_atom(witness_scipy_simpson, name="scipy.integrate.simpson")
+@icontract.require(lambda y: np.asarray(y).ndim >= 1, "Input y must be at least 1D")
 @icontract.require(lambda y: len(np.asarray(y)) > 0, "Input y must not be empty")
 def simpson(
     y: ArrayLike,

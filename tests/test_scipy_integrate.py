@@ -17,6 +17,11 @@ class TestQuad:
         with pytest.raises(icontract.ViolationError, match="not be None"):
             ag_integrate.quad(None, 0, 1)
 
+    def test_upstream_parity(self):
+        expected, _ = scipy.integrate.quad(lambda x: x**2, 0, 1)
+        actual, _ = ag_integrate.quad(lambda x: x**2, 0, 1)
+        assert np.allclose(actual, expected)
+
 class TestSolveIvp:
     """Tests for the solve_ivp atom."""
 
@@ -29,6 +34,12 @@ class TestSolveIvp:
     def test_require_non_null(self):
         with pytest.raises(icontract.ViolationError, match="not be None"):
             ag_integrate.solve_ivp(None, (0, 1), [1])
+
+    def test_upstream_parity(self):
+        def f(t, y): return -y
+        expected = scipy.integrate.solve_ivp(f, (0, 3), [2.0])
+        actual = ag_integrate.solve_ivp(f, (0, 3), [2.0])
+        assert np.allclose(actual.y[0][-1], expected.y[0][-1])
 
 class TestSimpson:
     """Tests for the simpson atom."""
@@ -43,3 +54,21 @@ class TestSimpson:
     def test_require_non_empty(self):
         with pytest.raises(icontract.ViolationError, match="not be empty"):
             ag_integrate.simpson([])
+
+    def test_precondition_single_element(self):
+        # Single element is valid, should not raise
+        res = ag_integrate.simpson([5.0])
+        assert np.isfinite(res)
+
+    def test_edge_case_large_values(self):
+        x = np.linspace(0, 1, 101)
+        y = x * 1e12
+        res = ag_integrate.simpson(y, x)
+        assert np.allclose(res, 0.5e12, rtol=1e-2)
+
+    def test_upstream_parity(self):
+        x = np.linspace(0, 2, 21)
+        y = np.sin(x)
+        expected = scipy.integrate.simpson(y, x=x)
+        actual = ag_integrate.simpson(y, x)
+        assert np.allclose(actual, expected)

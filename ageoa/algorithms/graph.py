@@ -66,8 +66,23 @@ def _witness_traversal(adj: AbstractArray) -> AbstractArray:
     lambda adj: adj.ndim == 2 and adj.shape[0] == adj.shape[1],
     "Adjacency matrix must be square",
 )
+@icontract.ensure(
+    lambda result, adj: result.shape == (adj.shape[0],),
+    "BFS result must have one entry per node",
+)
+@icontract.ensure(
+    lambda result: result.ndim == 1,
+    "BFS result must be 1D",
+)
 def bfs(adj: np.ndarray, source: int = 0) -> np.ndarray:
     """Breadth-first search: returns BFS order of node indices.
+
+    Args:
+        adj: Square 2D adjacency matrix of shape (n, n).
+        source: Starting node index. Default is 0.
+
+    Returns:
+        1D array of length n with BFS visit order; unreachable nodes are -1.
     """
     from scipy.sparse.csgraph import breadth_first_order
     from scipy.sparse import csr_matrix
@@ -84,8 +99,23 @@ def bfs(adj: np.ndarray, source: int = 0) -> np.ndarray:
     lambda adj: adj.ndim == 2 and adj.shape[0] == adj.shape[1],
     "Adjacency matrix must be square",
 )
+@icontract.ensure(
+    lambda result, adj: result.shape == (adj.shape[0],),
+    "DFS result must have one entry per node",
+)
+@icontract.ensure(
+    lambda result: result.ndim == 1,
+    "DFS result must be 1D",
+)
 def dfs(adj: np.ndarray, source: int = 0) -> np.ndarray:
     """Depth-first search: returns DFS order of node indices.
+
+    Args:
+        adj: Square 2D adjacency matrix of shape (n, n).
+        source: Starting node index. Default is 0.
+
+    Returns:
+        1D array of length n with DFS visit order; unreachable nodes are -1.
     """
     from scipy.sparse.csgraph import depth_first_order
     from scipy.sparse import csr_matrix
@@ -112,6 +142,13 @@ def dfs(adj: np.ndarray, source: int = 0) -> np.ndarray:
 )
 def dijkstra(adj: np.ndarray, source: int = 0) -> np.ndarray:
     """Dijkstra's shortest paths from a single source.
+
+    Args:
+        adj: Square 2D adjacency matrix of shape (n, n) with non-negative weights.
+        source: Starting node index. Default is 0.
+
+    Returns:
+        1D array of shortest distances from source to each node.
     """
     from scipy.sparse.csgraph import dijkstra as sp_dijkstra
     from scipy.sparse import csr_matrix
@@ -126,8 +163,23 @@ def dijkstra(adj: np.ndarray, source: int = 0) -> np.ndarray:
     lambda adj: adj.ndim == 2 and adj.shape[0] == adj.shape[1],
     "Adjacency matrix must be square",
 )
+@icontract.ensure(
+    lambda result, adj: result.shape == (adj.shape[0],),
+    "Bellman-Ford result must have one entry per node",
+)
+@icontract.ensure(
+    lambda result: result.ndim == 1,
+    "Bellman-Ford result must be 1D",
+)
 def bellman_ford(adj: np.ndarray, source: int = 0) -> np.ndarray:
     """Bellman-Ford shortest paths (handles negative weights).
+
+    Args:
+        adj: Square 2D adjacency matrix of shape (n, n).
+        source: Starting node index. Default is 0.
+
+    Returns:
+        1D array of shortest distances from source to each node.
     """
     from scipy.sparse.csgraph import bellman_ford as sp_bf
     from scipy.sparse import csr_matrix
@@ -142,8 +194,22 @@ def bellman_ford(adj: np.ndarray, source: int = 0) -> np.ndarray:
     lambda adj: adj.ndim == 2 and adj.shape[0] == adj.shape[1],
     "Adjacency matrix must be square",
 )
+@icontract.ensure(
+    lambda result, adj: result.shape == (adj.shape[0], adj.shape[1]),
+    "Floyd-Warshall result must be square with same dimensions as input",
+)
+@icontract.ensure(
+    lambda result: result.ndim == 2,
+    "Floyd-Warshall result must be 2D",
+)
 def floyd_warshall(adj: np.ndarray) -> np.ndarray:
     """Floyd-Warshall all-pairs shortest paths.
+
+    Args:
+        adj: Square 2D adjacency matrix of shape (n, n).
+
+    Returns:
+        2D array of shape (n, n) with shortest distances between all pairs.
     """
     from scipy.sparse.csgraph import floyd_warshall as sp_fw
     from scipy.sparse import csr_matrix

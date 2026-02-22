@@ -1,4 +1,4 @@
-"""DataDrivenDiffEq SINDy Macro-Atoms."""
+"""DataDrivenDiffEq Sparse Identification of Nonlinear Dynamics (SINDy) Macro-Atoms."""
 
 from __future__ import annotations
 

@@ -20,6 +20,9 @@
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -51,10 +54,13 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[float, float], float]",
+      "type_signature": "(DM: float, freq_emitted: float) -> float",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Delay From DM",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -73,22 +79,27 @@
         {
           "name": "DM",
           "type_desc": "float",
-          "constraints": ""
+          "constraints": "non-negative"
         },
         {
           "name": "fchan",
           "type_desc": "float",
-          "constraints": ""
+          "constraints": "channel frequency"
         },
         {
           "name": "width",
           "type_desc": "float",
-          "constraints": ""
+          "constraints": "channel bandwidth"
         },
         {
           "name": "tsamp",
           "type_desc": "float",
-          "constraints": ""
+          "constraints": "sampling interval"
+        },
+        {
+          "name": "delay",
+          "type_desc": "float",
+          "constraints": "precomputed time delay from DM"
         }
       ],
       "outputs": [
@@ -101,10 +112,13 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[np.ndarray, float, float, float, float], np.ndarray]",
+      "type_signature": "(data: np.ndarray, DM: float, fchan: float, width: float, tsamp: float, delay: float) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Dedisperse",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -136,10 +150,13 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[np.ndarray, int], np.ndarray]",
+      "type_signature": "(data: np.ndarray, period: int) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Fold Signal",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -166,15 +183,27 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[np.ndarray], float]",
+      "type_signature": "(arr: np.ndarray) -> float",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "SNR",
       "critic_notes": "",
       "decomposition_rationale": ""
     }
   ],
   "edges": [
+    {
+      "source_id": "delay_from_dm",
+      "target_id": "de_disperse",
+      "output_name": "delay",
+      "input_name": "delay",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
     {
       "source_id": "de_disperse",
       "target_id": "fold_signal",

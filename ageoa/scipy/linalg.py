@@ -115,7 +115,7 @@ def lu_factor(
     overwrite_a: bool = False,
     check_finite: bool = True,
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """Compute pivoted LU decomposition of a square matrix.
+    """Compute pivoted Lower-Upper triangular decomposition (LU) of a square matrix.
 
     The decomposition satisfies A = P @ L @ U where P is a permutation
     matrix derived from the pivot indices.
@@ -145,7 +145,7 @@ def lu_solve(
     overwrite_b: bool = False,
     check_finite: bool = True,
 ) -> np.ndarray:
-    """Solve an equation system, a @ x = b, given the LU factorization of a.
+    """Solve an equation system, a @ x = b, given the Lower-Upper triangular decomposition (LU) factorization of a.
 
     Args:
         lu_and_piv: Factorization of the coefficient matrix a, as given

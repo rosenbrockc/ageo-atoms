@@ -36,6 +36,13 @@ def binary_search(arr: np.ndarray, key: Any) -> int:
     """Binary search: O(log n) search in sorted array.
 
     Returns index of key if found, -1 otherwise.
+
+    Args:
+        arr: Non-empty sorted 1D input array.
+        key: Value to search for.
+
+    Returns:
+        Index of key if found, -1 otherwise.
     """
     idx = np.searchsorted(arr, key)
     if idx < len(arr) and arr[idx] == key:
@@ -58,6 +65,13 @@ def linear_search(arr: np.ndarray, key: Any) -> int:
     """Linear search: O(n) search in unsorted array.
 
     Returns index of first occurrence of key, -1 if not found.
+
+    Args:
+        arr: Non-empty 1D input array.
+        key: Value to search for.
+
+    Returns:
+        Index of first occurrence of key, or -1 if not found.
     """
     matches = np.where(arr == key)[0]
     if len(matches) > 0:
@@ -86,6 +100,13 @@ def hash_lookup(arr: np.ndarray, key: Any) -> int:
 
     Builds a hash table from array values to indices. Returns the
     index of the first occurrence of key, or -1 if not found.
+
+    Args:
+        arr: Non-empty 1D input array.
+        key: Value to search for.
+
+    Returns:
+        Index of first occurrence of key, or -1 if not found.
     """
     table = {}
     for i, v in enumerate(arr):

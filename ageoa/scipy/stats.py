@@ -16,6 +16,7 @@ ArrayLike = Union[np.ndarray, list, tuple]
 
 @register_atom(witness_scipy_describe, name="scipy.stats.describe")
 @icontract.require(lambda a: a is not None, "Input data must not be None")
+@icontract.require(lambda a: np.asarray(a).ndim >= 1, "Input data must be at least 1D")
 @icontract.require(lambda a: len(np.asarray(a)) > 0, "Input data must not be empty")
 @icontract.ensure(lambda result: result is not None, "Description result must not be None")
 def describe(
@@ -31,13 +32,15 @@ def describe(
         a: Input data.
         axis: Axis along which statistics are calculated. Default is 0.
         ddof: Degrees of freedom adjustment for variance.
-        bias: If False, skewness and kurtosis are corrected for
-            statistical bias.
+        bias: If False, skewness (measure of distribution asymmetry)
+            and kurtosis (measure of distribution tail heaviness) are
+            corrected for statistical bias.
         nan_policy: Defines how to handle input NaNs.
 
     Returns:
         DescribeResult object containing nobs, minmax, mean, variance,
-        skewness, and kurtosis.
+        skewness (measure of distribution asymmetry), and kurtosis
+        (measure of distribution tail heaviness).
     
     """
     return scipy.stats.describe(
@@ -50,6 +53,8 @@ def describe(
 
 @register_atom(witness_scipy_ttest_ind, name="scipy.stats.ttest_ind")
 @icontract.require(lambda a, b: a is not None and b is not None, "Input samples must not be None")
+@icontract.require(lambda a: np.asarray(a).ndim >= 1, "Input sample a must be at least 1D")
+@icontract.require(lambda b: np.asarray(b).ndim >= 1, "Input sample b must be at least 1D")
 @icontract.ensure(lambda result: len(result) >= 2, "Result must be a tuple of (statistic, pvalue)")
 def ttest_ind(
     a: ArrayLike,
@@ -113,7 +118,7 @@ def pearsonr(x: ArrayLike, y: ArrayLike) -> Any:
     return scipy.stats.pearsonr(x, y)
 
 @register_atom(witness_scipy_spearmanr, name="scipy.stats.spearmanr")
-@icontract.require(lambda x, y: len(np.asarray(x)) == len(np.asarray(y)), "x and y must have the same length")
+@icontract.require(lambda a, b: len(np.asarray(a)) == len(np.asarray(b)), "a and b must have the same length")
 @icontract.ensure(lambda result: -1 <= result[0] <= 1, "Correlation coefficient must be between -1 and 1")
 def spearmanr(
     a: ArrayLike,

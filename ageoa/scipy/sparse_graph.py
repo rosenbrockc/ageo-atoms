@@ -9,6 +9,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from ageoa.ghost.witnesses import (
     witness_graph_laplacian, witness_graph_fourier_transform,
+    witness_inverse_graph_fourier_transform,
     witness_heat_kernel_diffusion,
 )
 
@@ -102,7 +103,7 @@ def graph_fourier_transform(
     """Compute the Graph Fourier Transform of a signal on a graph.
 
     Projects the signal x onto the eigenvectors of the graph Laplacian L.
-    The GFT generalizes the classical DFT to irregular graph domains.
+    The Graph Fourier Transform (GFT) generalizes the classical DFT to irregular graph domains.
 
     Args:
         L: Graph Laplacian, sparse matrix of shape (n, n).
@@ -129,6 +130,7 @@ def graph_fourier_transform(
     return x_hat, eigenvalues, eigenvectors
 
 
+@register_atom(witness_inverse_graph_fourier_transform)
 @icontract.require(lambda x_hat, eigenvectors: x_hat.shape[0] == eigenvectors.shape[1], "Coefficient count must match number of eigenvectors")
 @icontract.ensure(lambda result, eigenvectors: result.shape[0] == eigenvectors.shape[0], "Output length must equal graph size")
 def inverse_graph_fourier_transform(

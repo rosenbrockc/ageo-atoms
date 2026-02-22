@@ -18,6 +18,7 @@ from ageoa.biosppy.ecg_witnesses import (
     witness_heart_rate_computation,
     witness_ssf_segmenter,
     witness_christov_segmenter,
+    witness_hamilton_segmenter,
 )
 from ageoa.ghost.registry import register_atom
 
@@ -66,7 +67,17 @@ def bandpass_filter(
     highcut: float = 45.0,
     order: int = 4,
 ) -> np.ndarray:
-    """Apply a finite impulse response bandpass filter to isolate a target frequency band from a uniformly sampled 1D signal.
+    """Apply an Infinite Impulse Response (IIR) Butterworth bandpass filter to isolate a target frequency band from a uniformly sampled 1D signal.
+
+    Args:
+        signal: 1D input signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+        lowcut: Lower cutoff frequency in Hz. Default is 3.0.
+        highcut: Upper cutoff frequency in Hz. Default is 45.0.
+        order: Filter order. Default is 4.
+
+    Returns:
+        Filtered 1D signal array with the same shape as input.
     """
     x = np.asarray(signal, dtype=np.float64)
     nyq = 0.5 * sampling_rate
@@ -88,6 +99,13 @@ def bandpass_filter(
 @icontract.ensure(lambda result: result.size == 0 or bool(np.all(np.diff(result) > 0)), "R-peaks must be strictly increasing")
 def r_peak_detection(filtered: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
     """Detect dominant periodic peaks in a filtered 1D signal using adaptive thresholding.
+
+    Args:
+        filtered: 1D filtered signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        1D integer array of strictly increasing peak indices.
     """
     x = np.asarray(filtered, dtype=np.float64)
     return _peak_indices(
@@ -112,6 +130,15 @@ def peak_correction(
     tolerance_sec: float = 0.05,
 ) -> np.ndarray:
     """Refine detected peak locations to the nearest local maximum within a tolerance window.
+
+    Args:
+        filtered: 1D filtered signal array.
+        rpeaks: 1D integer array of detected peak indices.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+        tolerance_sec: Search window radius in seconds. Default is 0.05.
+
+    Returns:
+        1D integer array of corrected peak indices with the same shape as rpeaks.
     """
     x = np.asarray(filtered, dtype=np.float64)
     n = x.size
@@ -153,6 +180,18 @@ def template_extraction(
     after_sec: float = 0.4,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Extract windowed waveform segments centered on detected peak locations.
+
+    Args:
+        filtered: 1D filtered signal array.
+        rpeaks: 1D integer array of detected peak indices.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+        before_sec: Window extent before each peak in seconds. Default is 0.2.
+        after_sec: Window extent after each peak in seconds. Default is 0.4.
+
+    Returns:
+        Tuple of (templates, rpeaks_final) where templates is a 2D array of
+        shape (n_kept, window_width) and rpeaks_final is a 1D integer array
+        of the kept peak indices.
     """
     x = np.asarray(filtered, dtype=np.float64)
     peaks = np.asarray(rpeaks, dtype=np.int64)
@@ -191,6 +230,15 @@ def heart_rate_computation(
     smooth: bool = True,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Compute instantaneous event rate from inter-event intervals with optional smoothing.
+
+    Args:
+        rpeaks: 1D integer array of detected peak indices.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+        smooth: If True, apply a 3-point smoothing kernel. Default is True.
+
+    Returns:
+        Tuple of (hr_idx, heart_rate) where hr_idx is a 1D integer array of
+        indices and heart_rate is a 1D float array of beats per minute.
     """
     peaks = np.asarray(rpeaks, dtype=np.int64)
     if peaks.size < 2:
@@ -215,7 +263,15 @@ def heart_rate_computation(
 @icontract.ensure(lambda result: result.ndim == 1, "peaks must be 1D")
 @icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "peaks must be integer indices")
 def ssf_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect periodic spikes in a 1D time-series scalar array using slope-sum thresholding."""
+    """Detect periodic spikes in a 1D time-series scalar array using Slope Sum Function (SSF) thresholding.
+
+    Args:
+        signal: 1D input signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        1D integer array of detected peak indices.
+    """
     filtered = bandpass_filter(signal, sampling_rate=sampling_rate)
     slope = np.diff(filtered, prepend=filtered[0])
     ssf = np.square(np.maximum(slope, 0.0))
@@ -244,7 +300,15 @@ def ssf_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarr
 @icontract.ensure(lambda result: result.ndim == 1, "peaks must be 1D")
 @icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "peaks must be integer indices")
 def christov_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Isolate discrete events in a 1D time-series scalar array via adaptive envelope thresholding."""
+    """Isolate discrete events in a 1D time-series scalar array via adaptive envelope thresholding.
+
+    Args:
+        signal: 1D input signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        1D integer array of detected peak indices.
+    """
     filtered = bandpass_filter(
         signal,
         sampling_rate=sampling_rate,
@@ -282,13 +346,21 @@ def christov_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.
     return np.asarray(peaks, dtype=np.int64)
 
 
-@register_atom(witness_ssf_segmenter)  # Assuming same witness structure for simplicity
+@register_atom(witness_hamilton_segmenter)
 @icontract.require(lambda signal: signal.ndim == 1, "Signal must be 1D")
 @icontract.require(lambda signal: signal.size > 0, "Signal must not be empty")
 @icontract.require(lambda sampling_rate: sampling_rate > 0, "Sampling rate must be positive")
 @icontract.ensure(lambda result: result.ndim == 1, "peaks must be 1D")
 @icontract.ensure(lambda result: np.issubdtype(result.dtype, np.integer), "peaks must be integer indices")
 def hamilton_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
-    """Detect periodic spikes in a 1D time-series scalar array using bandpass filtering and moving averages."""
+    """Detect periodic spikes in a 1D time-series scalar array using bandpass filtering and moving averages.
+
+    Args:
+        signal: 1D input signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        1D integer array of detected peak indices.
+    """
     # Dummy skeleton implementation, as requested for manual ingestion without original code
     raise NotImplementedError("Skeleton for future ingestion.")

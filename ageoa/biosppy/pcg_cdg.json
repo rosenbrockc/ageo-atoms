@@ -16,6 +16,11 @@
       "depth": 0,
       "type_signature": "",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -44,6 +49,11 @@
       "depth": 1,
       "type_signature": "(signal: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Shannon Energy",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -77,6 +87,11 @@
       "depth": 1,
       "type_signature": "(envelope: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "PCG Segmentation",
       "critic_notes": "",
       "decomposition_rationale": ""
     }

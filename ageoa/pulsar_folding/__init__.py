@@ -1,1 +1,3 @@
-from .atoms import dm_can_brute_force, spline_bandpass_correction\n\n__all__ = ['dm_can_brute_force', 'spline_bandpass_correction']\n
+from .atoms import dm_can_brute_force, spline_bandpass_correction
+
+__all__ = ['dm_can_brute_force', 'spline_bandpass_correction']

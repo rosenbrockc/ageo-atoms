@@ -1,4 +1,4 @@
-"""EDA atoms ingested via the Smart Ingester."""
+"""Electrodermal Activity (EDA) atoms ingested via the Smart Ingester."""
 
 from __future__ import annotations
 
@@ -34,6 +34,13 @@ def _safe_lowpass(signal: np.ndarray, sampling_rate: float, cutoff_hz: float) ->
 @icontract.ensure(lambda result: result.size == 0 or bool(np.all(np.diff(result) > 0)), "Onset indices must be strictly increasing")
 def gamboa_segmenter(signal: np.ndarray, sampling_rate: float = 1000.0) -> np.ndarray:
     """Detect transient onset events in a low-frequency signal via derivative peak analysis.
+
+    Args:
+        signal: 1D input signal array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        1D integer array of strictly increasing onset indices.
     """
     x = np.asarray(signal, dtype=np.float64)
 
@@ -84,6 +91,15 @@ def eda_feature_extraction(
     sampling_rate: float = 1000.0,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Extract amplitude, rise-time, and half-recovery decay-time for each onset.
+
+    Args:
+        signal: 1D input signal array.
+        onsets: 1D integer array of onset indices.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        Tuple of (amplitudes, rise_times, decay_times), each a 1D float
+        array with the same shape as onsets.
     """
     x = np.asarray(signal, dtype=np.float64)
     onset_idx = np.asarray(onsets, dtype=np.int64)

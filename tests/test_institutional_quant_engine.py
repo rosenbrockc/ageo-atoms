@@ -1,32 +1,83 @@
-"""Tests for institutional_quant_engine."""\n\nimport pytest\nimport numpy as np\nimport icontract\nfrom ageoa.institutional_quant_engine.atoms import market_making_avellaneda\nfrom ageoa.institutional_quant_engine.atoms import almgren_chriss_execution\nfrom ageoa.institutional_quant_engine.atoms import pin_informed_trading\nfrom ageoa.institutional_quant_engine.atoms import limit_order_queue_estimator\n\ndef test_market_making_avellaneda_positive():
-    with pytest.raises(NotImplementedError):
-        market_making_avellaneda(np.array([1.0]))
+"""Tests for institutional_quant_engine."""
 
-def test_market_making_avellaneda_precondition():
-    with pytest.raises(icontract.ViolationError):
-        market_making_avellaneda(None)
+import pytest
+import numpy as np
+import icontract
+from ageoa.institutional_quant_engine.atoms import (
+    market_making_avellaneda,
+    almgren_chriss_execution,
+    pin_informed_trading,
+    limit_order_queue_estimator,
+)
 
-def test_almgren_chriss_execution_positive():
-    with pytest.raises(NotImplementedError):
-        almgren_chriss_execution(np.array([1.0]))
 
-def test_almgren_chriss_execution_precondition():
-    with pytest.raises(icontract.ViolationError):
-        almgren_chriss_execution(None)
+class TestMarketMakingAvellaneda:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            market_making_avellaneda(np.array([1.0, 2.0, 3.0]))
 
-def test_pin_informed_trading_positive():
-    with pytest.raises(NotImplementedError):
-        pin_informed_trading(np.array([1.0]))
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            market_making_avellaneda(None)
 
-def test_pin_informed_trading_precondition():
-    with pytest.raises(icontract.ViolationError):
-        pin_informed_trading(None)
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            market_making_avellaneda(np.array([]))
 
-def test_limit_order_queue_estimator_positive():
-    with pytest.raises(NotImplementedError):
-        limit_order_queue_estimator(np.array([1.0]))
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            market_making_avellaneda(np.array([np.nan]))
 
-def test_limit_order_queue_estimator_precondition():
-    with pytest.raises(icontract.ViolationError):
-        limit_order_queue_estimator(None)
 
+class TestAlmgrenChrissExecution:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            almgren_chriss_execution(np.array([1.0, 2.0, 3.0]))
+
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            almgren_chriss_execution(None)
+
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            almgren_chriss_execution(np.array([]))
+
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            almgren_chriss_execution(np.array([np.inf]))
+
+
+class TestPINInformedTrading:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            pin_informed_trading(np.array([1.0, 2.0, 3.0]))
+
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            pin_informed_trading(None)
+
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            pin_informed_trading(np.array([]))
+
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            pin_informed_trading(np.array([np.nan]))
+
+
+class TestLimitOrderQueueEstimator:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            limit_order_queue_estimator(np.array([1.0, 2.0, 3.0]))
+
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            limit_order_queue_estimator(None)
+
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            limit_order_queue_estimator(np.array([]))
+
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            limit_order_queue_estimator(np.array([np.inf]))

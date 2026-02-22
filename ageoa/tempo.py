@@ -49,7 +49,7 @@ def _get_tai2tt_bcast() -> Any:
 @register_atom(witness_offset_tt2tdb)
 @singledispatch
 def offset_tt2tdb(seconds: Any) -> Any:
-    """Compute the offset between two related time coordinate systems using a Fairhead & Bretagnon series expansion.
+    """Compute the offset from Terrestrial Time (TT) to Barycentric Dynamical Time (TDB) using a Fairhead & Bretagnon series expansion.
     """
     raise NotImplementedError(f"Unsupported type: {type(seconds)}")
 
@@ -81,7 +81,7 @@ def _(seconds: np.ndarray) -> np.ndarray:
 @register_atom(witness_offset_tai2tdb)
 @singledispatch
 def offset_tai2tdb(seconds: Any) -> Any:
-    """Compute the composite offset between two time coordinate systems via an intermediate scale.
+    """Compute the composite offset from International Atomic Time (TAI) to Barycentric Dynamical Time (TDB) via an intermediate Terrestrial Time (TT) scale.
     """
     raise NotImplementedError(f"Unsupported type: {type(seconds)}")
 

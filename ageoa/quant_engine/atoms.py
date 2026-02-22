@@ -30,7 +30,19 @@ def calculate_ofi(
     trade_qty: int,
     state: LimitQueueState,
 ) -> Tuple[float, LimitQueueState]:
-    """Calculate net directional pressure from competing bid/ask flow levels and append to state stream.
+    """Calculate Order Flow Imbalance (OFI), the net directional pressure from competing bid/ask flow levels, and append to state stream.
+
+    Args:
+        bid_px: Best bid price.
+        bid_qty: Bid quantity (non-negative).
+        ask_px: Best ask price.
+        ask_qty: Ask quantity (non-negative).
+        trade_qty: Trade quantity.
+        state: Current LimitQueueState.
+
+    Returns:
+        Tuple of (ofi_value, new_state) where ofi_value is the computed
+        order flow imbalance and new_state has the updated ofi_stream.
     """
     ofi = float(bid_qty - ask_qty) * 0.5
 
@@ -45,7 +57,14 @@ def calculate_ofi(
 @icontract.require(lambda trade_qty: trade_qty > 0, "Trade quantity must be positive")
 @icontract.ensure(lambda result: (result[1].my_qty or 0) >= 0, "Inventory must remain non-negative")
 def execute_vwap(trade_qty: int, state: LimitQueueState) -> Tuple[None, LimitQueueState]:
-    """Volume-weighted average execution strategy logic.
+    """Volume-Weighted Average Price (VWAP) execution strategy logic.
+
+    Args:
+        trade_qty: Trade quantity (must be positive).
+        state: Current LimitQueueState.
+
+    Returns:
+        Tuple of (None, new_state) with updated inventory.
     """
     participation_rate = 0.1
     current_qty = _non_negative(state.my_qty or 0)
@@ -61,7 +80,14 @@ def execute_vwap(trade_qty: int, state: LimitQueueState) -> Tuple[None, LimitQue
 @icontract.ensure(lambda result: (result[1].my_qty or 0) >= 0, "Inventory must remain non-negative")
 @icontract.ensure(lambda result: (result[1].orders_ahead or 0) >= 0, "orders_ahead must remain non-negative")
 def execute_pov(trade_qty: int, state: LimitQueueState) -> Tuple[None, LimitQueueState]:
-    """Proportional participation execution strategy logic.
+    """Percentage of Volume (POV) proportional participation execution strategy logic.
+
+    Args:
+        trade_qty: Trade quantity (must be positive).
+        state: Current LimitQueueState.
+
+    Returns:
+        Tuple of (None, new_state) with updated inventory and queue position.
     """
     orders_ahead = _non_negative(state.orders_ahead or 0)
     my_qty = _non_negative(state.my_qty or 0)
@@ -86,6 +112,13 @@ def execute_pov(trade_qty: int, state: LimitQueueState) -> Tuple[None, LimitQueu
 @icontract.ensure(lambda result: (result[1].orders_ahead or 0) >= 0, "orders_ahead must remain non-negative")
 def execute_passive(trade_qty: int, state: LimitQueueState) -> Tuple[None, LimitQueueState]:
     """Default queue-priority execution logic.
+
+    Args:
+        trade_qty: Trade quantity (must be positive).
+        state: Current LimitQueueState.
+
+    Returns:
+        Tuple of (None, new_state) with updated inventory and queue position.
     """
     orders_ahead = _non_negative(state.orders_ahead or 0)
     my_qty = _non_negative(state.my_qty or 0)

@@ -15,6 +15,7 @@ ArrayLike = Union[np.ndarray, list, tuple]
 
 @register_atom(witness_scipy_minimize, name="scipy.optimize.minimize")
 @icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Objective function and initial guess must not be None")
+@icontract.require(lambda x0: np.asarray(x0).ndim >= 1, "Initial guess x0 must be at least 1D")
 @icontract.ensure(lambda result: result is not None, "Optimization result must not be None")
 def minimize(
     fun: Callable,
@@ -37,8 +38,10 @@ def minimize(
         x0: Initial guess.
         args: Extra arguments passed to the objective function.
         method: Type of solver.
-        jac: Method for computing the gradient vector.
-        hess: Method for computing the Hessian matrix.
+        jac: Method for computing the Jacobian (matrix of first partial
+            derivatives), used here as the gradient vector.
+        hess: Method for computing the Hessian (matrix of second partial
+            derivatives) matrix.
         hessp: Hessian of objective function times an arbitrary vector p.
         bounds: Bounds on variables.
         constraints: Constraints definition.
@@ -67,6 +70,7 @@ def minimize(
 
 @register_atom(witness_scipy_root, name="scipy.optimize.root")
 @icontract.require(lambda fun, x0: fun is not None and x0 is not None, "Function and initial guess must not be None")
+@icontract.require(lambda x0: np.asarray(x0).ndim >= 1, "Initial guess x0 must be at least 1D")
 @icontract.ensure(lambda result: result is not None, "Root finding result must not be None")
 def root(
     fun: Callable,
@@ -86,7 +90,8 @@ def root(
         args: Extra arguments passed to the objective function and its
             Jacobian.
         method: Type of solver.
-        jac: Method for computing the Jacobian.
+        jac: Method for computing the Jacobian (matrix of first partial
+            derivatives).
         tol: Tolerance for termination.
         callback: Optional callback function.
         options: A dictionary of solver options.
@@ -108,6 +113,7 @@ def root(
 
 @register_atom(witness_scipy_linprog, name="scipy.optimize.linprog")
 @icontract.require(lambda c: c is not None, "Coefficients of the linear objective function must not be None")
+@icontract.require(lambda c: np.asarray(c).ndim >= 1, "Objective coefficients c must be at least 1D")
 @icontract.ensure(lambda result: result is not None, "Linear programming result must not be None")
 def linprog(
     c: ArrayLike,
@@ -187,8 +193,9 @@ def curve_fit(
         bounds: Lower and upper bounds on parameters.
         method: Method to use for optimization.
         jac: Function with signature jac(x, ...) which computes the
-            Jacobian matrix of the model function with respect to
-            parameters as a dense array_like structure.
+            Jacobian (matrix of first partial derivatives) of the model
+            function with respect to parameters as a dense array_like
+            structure.
 
     Returns:
         popt: Optimal values for the parameters so that the sum of the

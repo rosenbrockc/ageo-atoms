@@ -26,9 +26,19 @@ def invariant_point_attention(
     frames: Any,
     state: AlphaFoldStructuralState
 ) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
-    """Equivariant attention mechanism over structured 3D point sets.
+    """Equivariant (i.e., the output transforms consistently under rotations and translations of the input) attention mechanism over structured 3D point sets.
 
     Processes 3D points and orientation frames.
+
+    Args:
+        nodes: Node feature array of shape (n_res, d_node).
+        pairs: Pair feature array of shape (n_res, n_res, d_pair).
+        frames: Rigid frame representations for each residue.
+        state: Current AlphaFoldStructuralState.
+
+    Returns:
+        Tuple of (updated_nodes, new_state) where updated_nodes has the
+        same shape as the input nodes.
     """
     # Placeholder for actual IPA logic
     # In a real scenario, this would call hk.Module methods
@@ -39,12 +49,21 @@ def invariant_point_attention(
 
 @register_atom(witness_equivariant_frame_update)
 @icontract.require(lambda frames, nodes: len(nodes.shape) >= 1, "Nodes must have at least one dimension")
+@icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (frames, state) tuple")
 def equivariant_frame_update(
     frames: Any,
     nodes: jnp.ndarray,
     state: AlphaFoldStructuralState
 ) -> Tuple[Any, AlphaFoldStructuralState]:
     """Updates 3D rigid frames using predicted gradients.
+
+    Args:
+        frames: Current rigid frame representations.
+        nodes: Node feature array with at least one dimension.
+        state: Current AlphaFoldStructuralState.
+
+    Returns:
+        Tuple of (updated_frames, new_state).
     """
     # Placeholder for frame update logic (rotation/translation)
     updated_frames = frames
@@ -54,12 +73,22 @@ def equivariant_frame_update(
 
 @register_atom(witness_coordinate_reconstruction)
 @icontract.require(lambda torsions: torsions.shape[-1] == 2, "Torsions must be represented as (sin, cos) pairs")
+@icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (coords, state) tuple")
+@icontract.ensure(lambda result: result[0].ndim == 3 and result[0].shape[-1] == 3, "Coordinates must have shape (n_res, n_atoms, 3)")
 def coordinate_reconstruction(
     frames: Any,
     torsions: jnp.ndarray,
     state: AlphaFoldStructuralState
 ) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
-    """Converts rigid frames and torsion angles into full 3D coordinates.
+    """Converts rigid frames and torsion angles (dihedral angles between four consecutive atoms that define the protein backbone geometry) into full 3D coordinates.
+
+    Args:
+        frames: Rigid frame representations for each residue.
+        torsions: Array of shape (n_res, n_torsions, 2) with (sin, cos) pairs.
+        state: Current AlphaFoldStructuralState.
+
+    Returns:
+        Tuple of (coords, state) where coords has shape (n_res, n_atoms, 3).
     """
     # Placeholder for coordinate reconstruction
     n_res = torsions.shape[0]

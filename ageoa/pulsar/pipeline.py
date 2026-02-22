@@ -1,4 +1,4 @@
-"""Pulsar Folding atoms implementing DM-trial dedispersion and signal folding."""
+"""Pulsar Folding atoms implementing Dispersion Measure (DM)-trial dedispersion and signal folding."""
 
 from __future__ import annotations
 
@@ -22,7 +22,14 @@ from ageoa.pulsar.witnesses import (
 @icontract.require(lambda freq_emitted: freq_emitted >= 0, "Frequency must be non-negative")
 @icontract.ensure(lambda result: result >= 0, "Delay must be non-negative")
 def delay_from_DM(DM: float, freq_emitted: float) -> float:
-    """Compute frequency-dependent propagation delay from a medium's dispersive constant.
+    """Compute frequency-dependent propagation delay from a medium's Dispersion Measure (DM).
+
+    Args:
+        DM: Dispersion measure value (non-negative).
+        freq_emitted: Emission frequency (non-negative).
+
+    Returns:
+        Non-negative propagation delay in seconds.
     """
     if freq_emitted > 0.0:
         return DM / (0.000241 * freq_emitted * freq_emitted)
@@ -42,6 +49,16 @@ def de_disperse(
     tsamp: float,
 ) -> np.ndarray[Any, Any]:
     """Apply frequency-dependent delay correction to align a 2D spectrogram across channels.
+
+    Args:
+        data: 2D input array of shape (time, frequency).
+        DM: Dispersion Measure value.
+        fchan: Frequency of the first channel.
+        width: Channel bandwidth.
+        tsamp: Sampling interval in seconds (must be positive).
+
+    Returns:
+        De-dispersed 2D array with the same shape as input.
     """
     clean = np.array(data, copy=True)
     n_time, n_chans = clean.shape
@@ -66,6 +83,13 @@ def de_disperse(
 @icontract.ensure(lambda result, period: result.shape == (period,), "Profile length must match period")
 def fold_signal(data: np.ndarray[Any, Any], period: int) -> np.ndarray[Any, Any]:
     """Fold a 1D signal at a known period to build a phase-averaged periodic profile.
+
+    Args:
+        data: 2D input array of shape (time, frequency).
+        period: Folding period in samples (must be positive).
+
+    Returns:
+        1D array of length period containing the phase-averaged profile.
     """
     n_time = data.shape[0]
     n_chans = data.shape[1]
@@ -87,7 +111,13 @@ def fold_signal(data: np.ndarray[Any, Any], period: int) -> np.ndarray[Any, Any]
 @icontract.require(lambda arr: len(arr) > 0, "Input array must not be empty")
 @icontract.ensure(lambda result: result >= 0, "SNR must be non-negative")
 def SNR(arr: np.ndarray[Any, Any]) -> float:
-    """Compute signal-to-noise ratio of a periodic profile.
+    """Compute Signal-to-Noise Ratio (SNR) of a periodic profile.
+
+    Args:
+        arr: 1D input array representing the periodic profile.
+
+    Returns:
+        Non-negative SNR value (log of peak-to-mean ratio).
     """
     if np.all(arr == 0):
         return 0.0

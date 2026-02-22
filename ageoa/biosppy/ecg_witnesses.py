@@ -123,3 +123,15 @@ def witness_christov_segmenter(signal: AbstractSignal) -> AbstractSignal:
         domain="index",
         units="samples",
     )
+
+
+def witness_hamilton_segmenter(signal: AbstractSignal) -> AbstractSignal:
+    """Hamilton detector maps time-domain signal to index-domain peaks."""
+    signal.assert_domain("time")
+    return AbstractSignal(
+        shape=(0,),
+        dtype="int64",
+        sampling_rate=signal.sampling_rate,
+        domain="index",
+        units="samples",
+    )

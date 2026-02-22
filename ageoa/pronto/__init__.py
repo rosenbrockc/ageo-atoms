@@ -1,1 +1,3 @@
-from .atoms import rbis_state_estimation\n\n__all__ = ['rbis_state_estimation']\n
+from .atoms import rbis_state_estimation
+
+__all__ = ['rbis_state_estimation']

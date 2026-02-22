@@ -46,7 +46,7 @@ def dct(
     """Compute the Discrete Cosine Transform.
 
     Computes the DCT of the input array along the specified axis.
-    The DCT is a real-valued transform related to the DFT.
+    The DCT is a real-valued transform related to the Discrete Fourier Transform (DFT).
 
     Args:
         x: Input array, must be real-valued.

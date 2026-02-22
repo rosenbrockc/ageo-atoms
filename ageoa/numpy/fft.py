@@ -6,6 +6,7 @@ from typing import Sequence, Union
 
 from ageoa.ghost.registry import register_atom
 from ageoa.ghost.witnesses import witness_fft, witness_ifft, witness_rfft, witness_irfft
+from ageoa.numpy.witnesses import witness_np_fftfreq, witness_np_fftshift
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
@@ -125,8 +126,10 @@ def rfft(
 
     This function computes the one-dimensional n-point discrete Fourier
     Transform of a real-valued array using the FFT algorithm. Since the
-    input is real, the output is Hermitian-symmetric and only the
-    positive-frequency half is returned.
+    input is real, the output is Hermitian-symmetric (i.e., symmetric under
+    conjugation, meaning the negative-frequency components are conjugates of
+    the positive-frequency components) and only the positive-frequency half
+    is returned.
 
     Args:
         a: Input array, must be real-valued.
@@ -164,7 +167,9 @@ def irfft(
     discrete Fourier Transform of real input computed by rfft.
 
     Args:
-        a: Input array, the output of rfft (complex, Hermitian-symmetric).
+        a: Input array, the output of rfft (complex, Hermitian-symmetric,
+            i.e., symmetric under conjugation, meaning the negative-frequency
+            components are conjugates of the positive-frequency components).
         n: Length of the transformed axis of the output. For n output
             points, n//2+1 input points are necessary. If n is not
             given, it is determined from the length of the input.
@@ -178,6 +183,7 @@ def irfft(
     return np.fft.irfft(a, n=n, axis=axis, norm=norm)
 
 
+@register_atom(witness_np_fftfreq)
 @icontract.require(lambda n: n > 0, "n must be positive")
 @icontract.require(lambda d: d > 0, "d must be positive")
 @icontract.ensure(lambda result, n: result.shape == (n,), "Result shape must match n")
@@ -198,6 +204,7 @@ def fftfreq(n: int, d: float = 1.0) -> np.ndarray:
     return np.fft.fftfreq(n, d=d)
 
 
+@register_atom(witness_np_fftshift)
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.ensure(lambda result, x: result.shape == np.asarray(x).shape, "Result shape must match input shape")
 def fftshift(x: ArrayLike, axes: int | Sequence[int] | None = None) -> np.ndarray:

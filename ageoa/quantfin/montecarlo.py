@@ -9,7 +9,7 @@ from ageoa.quantfin.models import (
     DiscretizeModel,
     SeededMonteCarloSimulator,
 )
-from ageoa.quantfin.witnesses import witness_run_simulation_anti, witness_quick_sim_anti
+from ageoa.quantfin.witnesses import witness_run_simulation, witness_run_simulation_anti, witness_quick_sim_anti
 
 SIMULATOR_REGISTRY: Dict[str, SeededMonteCarloSimulator] = {}
 
@@ -31,6 +31,7 @@ def _resolve_simulator(simulator_name: str) -> SeededMonteCarloSimulator:
     return SIMULATOR_REGISTRY[simulator_name]
 
 
+@register_atom(witness_run_simulation)
 @icontract.require(lambda trials: trials > 0)
 @icontract.require(lambda seed: seed >= 0, "seed must be non-negative")
 @icontract.require(lambda simulator_name: isinstance(simulator_name, str) and simulator_name.strip() != "", "simulator_name must be non-empty")
@@ -65,8 +66,9 @@ def run_simulation_anti(
 ) -> float:
     """Like 'run_simulation', but splits the trials in two and does antithetic variates.
 
-    Applies antithetic variates to reduce Monte Carlo estimator variance by pairing
-    each random trajectory with its mirror.
+    Applies antithetic variates (a variance-reduction technique that pairs each
+    random sample with its complement) to reduce Monte Carlo estimator variance
+    by pairing each random trajectory with its mirror.
     """
     half_trials = trials // 2
     res_anti = run_simulation(model, claim, seed, half_trials, True, simulator_name)

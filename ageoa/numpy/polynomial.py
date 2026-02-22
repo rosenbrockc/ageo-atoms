@@ -97,7 +97,7 @@ def polyint(c: CoefficientLike, m: int = 1, k: ArrayLike | float = 0) -> np.ndar
     return poly.polyint(c, m=m, k=k)
 
 @register_atom(witness_np_polyadd, name="numpy.polynomial.polyadd")
-@icontract.require(lambda c1, c2: True, "Placeholder for polyadd")
+@icontract.require(lambda c1, c2: len(np.asarray(c1)) > 0 and len(np.asarray(c2)) > 0, "Coefficients must not be empty")
 @icontract.ensure(lambda result, c1, c2: len(result) == max(len(c1), len(c2)), "Result length must match maximum of input lengths")
 def polyadd(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
     """Add one polynomial to another.
@@ -115,7 +115,7 @@ def polyadd(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
     return poly.polyadd(c1, c2)
 
 @register_atom(witness_np_polymul, name="numpy.polynomial.polymul")
-@icontract.require(lambda c1, c2: True, "Placeholder for polymul")
+@icontract.require(lambda c1, c2: len(np.asarray(c1)) > 0 and len(np.asarray(c2)) > 0, "Coefficients must not be empty")
 @icontract.ensure(lambda result, c1, c2: len(result) == len(c1) + len(c2) - 1 if len(c1) > 0 and len(c2) > 0 else 0, "Result length must match product of input lengths")
 def polymul(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
     """Multiply one polynomial by another.

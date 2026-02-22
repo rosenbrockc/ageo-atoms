@@ -1,4 +1,4 @@
-"""PCG atoms ingested via the Smart Ingester."""
+"""Phonocardiogram (PCG) atoms ingested via the Smart Ingester."""
 
 from __future__ import annotations
 
@@ -31,6 +31,13 @@ def _safe_lowpass(signal: np.ndarray, sampling_rate: float, cutoff_hz: float) ->
 @icontract.ensure(lambda result: np.all(result >= 0), "Shannon energy must be non-negative")
 def shannon_energy(signal: np.ndarray) -> np.ndarray:
     """Compute normalized Shannon energy envelope for a quasi-periodic signal.
+
+    Args:
+        signal: 1D input signal array.
+
+    Returns:
+        1D non-negative float array of Shannon energy values with the
+        same shape as input.
     """
     x = np.asarray(signal, dtype=np.float64)
     max_abs = float(np.max(np.abs(x)))
@@ -52,6 +59,13 @@ def shannon_energy(signal: np.ndarray) -> np.ndarray:
 @icontract.ensure(lambda result: np.issubdtype(result[1].dtype, np.integer), "S2 indices must be integer")
 def pcg_segmentation(envelope: np.ndarray, sampling_rate: float = 1000.0) -> tuple[np.ndarray, np.ndarray]:
     """Segment a cyclic signal into alternating event classes from an energy envelope.
+
+    Args:
+        envelope: 1D energy envelope array.
+        sampling_rate: Sampling rate in Hz. Default is 1000.0.
+
+    Returns:
+        Tuple of (S1, S2) where each is a 1D integer array of event indices.
     """
     x = np.asarray(envelope, dtype=np.float64)
     smooth_envelope = _safe_lowpass(x, sampling_rate=sampling_rate, cutoff_hz=20.0)

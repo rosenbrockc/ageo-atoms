@@ -383,3 +383,34 @@ def witness_np_uniform(
 def witness_np_default_rng(seed: Any = None) -> AbstractRNGState:
     seed_value = seed if isinstance(seed, int) else 0
     return AbstractRNGState(seed=seed_value, consumed=0, is_split=False)
+
+
+def witness_np_fftfreq(
+    n: int,
+    d: float = 1.0,
+) -> AbstractArray:
+    """Ghost witness for numpy.fft.fftfreq.
+
+    Postconditions:
+        - Output shape is (n,).
+        - Output dtype is float64.
+    """
+    if n <= 0:
+        raise ValueError(f"n must be positive, got {n}")
+    if d <= 0:
+        raise ValueError(f"d must be positive, got {d}")
+    return AbstractArray(shape=(n,), dtype="float64")
+
+
+def witness_np_fftshift(
+    x: AbstractArray,
+    axes: int | Sequence[int] | None = None,
+) -> AbstractArray:
+    """Ghost witness for numpy.fft.fftshift.
+
+    Postconditions:
+        - Output shape matches input shape.
+        - Output dtype matches input dtype.
+    """
+    _ = axes
+    return AbstractArray(shape=x.shape, dtype=x.dtype)

@@ -463,6 +463,27 @@ def witness_graph_fourier_transform(
     )
 
 
+def witness_inverse_graph_fourier_transform(
+    sig: AbstractSignal,
+    graph: AbstractGraphMeta,
+) -> AbstractSignal:
+    """Ghost witness for inverse_graph_fourier_transform.
+
+    Preconditions:
+        - Coefficient count must match number of eigenvectors.
+    Postconditions:
+        - Output length equals graph node count.
+        - Domain switches to 'time'.
+    """
+    return AbstractSignal(
+        shape=(graph.n_nodes,),
+        dtype="float64",
+        sampling_rate=sig.sampling_rate,
+        domain="time",
+        units=sig.units,
+    )
+
+
 def witness_heat_kernel_diffusion(
     graph: AbstractGraphMeta,
     sig: AbstractSignal,

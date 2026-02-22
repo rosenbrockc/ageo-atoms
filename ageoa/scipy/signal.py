@@ -182,7 +182,7 @@ def firwin(
     scale: bool = True,
     fs: float | None = None,
 ) -> np.ndarray:
-    """Design an FIR filter using the window method.
+    """Design a Finite Impulse Response (FIR) filter using the window method.
 
     Compute the coefficients of a finite impulse response filter using
     the window method.
@@ -224,7 +224,7 @@ def sosfilt(
 ) -> np.ndarray:
     """Filter data along one dimension using cascaded second-order sections.
 
-    Apply a digital filter in second-order sections (SOS) format to the
+    Apply a digital filter in Second-Order Sections (SOS) format to the
     input signal.
 
     Args:
@@ -257,7 +257,7 @@ def lfilter(
     axis: int = -1,
     zi: np.ndarray | None = None,
 ) -> np.ndarray:
-    """Filter data along one-dimension with an IIR or FIR filter.
+    """Filter data along one-dimension with an Infinite Impulse Response (IIR) or Finite Impulse Response (FIR) filter.
 
     Filter a data sequence x using a digital filter described by the
     numerator and denominator coefficient vectors b and a.

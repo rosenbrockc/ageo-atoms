@@ -28,6 +28,12 @@ from ageoa.ghost.witnesses import witness_sort
 )
 def merge_sort(a: np.ndarray) -> np.ndarray:
     """Merge sort: O(n log n) stable comparison sort.
+
+    Args:
+        a: Non-empty 1D input array to sort.
+
+    Returns:
+        Sorted copy of the input array.
     """
     return np.sort(a, kind="mergesort")
 
@@ -44,6 +50,12 @@ def merge_sort(a: np.ndarray) -> np.ndarray:
 )
 def quicksort(a: np.ndarray) -> np.ndarray:
     """Quicksort: O(n log n) average-case comparison sort.
+
+    Args:
+        a: Non-empty 1D input array to sort.
+
+    Returns:
+        Sorted copy of the input array.
     """
     return np.sort(a, kind="quicksort")
 
@@ -60,6 +72,12 @@ def quicksort(a: np.ndarray) -> np.ndarray:
 )
 def heapsort(a: np.ndarray) -> np.ndarray:
     """Heapsort: O(n log n) in-place comparison sort.
+
+    Args:
+        a: Non-empty 1D input array to sort.
+
+    Returns:
+        Sorted copy of the input array.
     """
     return np.sort(a, kind="heapsort")
 
@@ -90,6 +108,12 @@ def _witness_counting_sort(x: AbstractArray) -> AbstractArray:
 )
 def counting_sort(a: np.ndarray) -> np.ndarray:
     """Counting sort: O(n + k) non-comparison sort for integer arrays.
+
+    Args:
+        a: Non-empty 1D integer input array to sort.
+
+    Returns:
+        Sorted copy of the input array.
     """
     if len(a) == 0:
         return a.copy()
@@ -121,6 +145,12 @@ def counting_sort(a: np.ndarray) -> np.ndarray:
 )
 def radix_sort(a: np.ndarray) -> np.ndarray:
     """Radix sort: O(d * n) non-comparison sort for non-negative integers.
+
+    Args:
+        a: Non-empty 1D array of non-negative integers to sort.
+
+    Returns:
+        Sorted copy of the input array.
     """
     if len(a) == 0:
         return a.copy()

@@ -1,1 +1,3 @@
-from .atoms import kazemi_peak_detection, ppg_reconstruction, ppg_sqa\n\n__all__ = ['kazemi_peak_detection', 'ppg_reconstruction', 'ppg_sqa']\n
+from .atoms import kazemi_peak_detection, ppg_reconstruction, ppg_sqa
+
+__all__ = ['kazemi_peak_detection', 'ppg_reconstruction', 'ppg_sqa']

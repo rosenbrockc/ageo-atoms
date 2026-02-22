@@ -1,24 +1,56 @@
-"""Tests for e2e_ppg."""\n\nimport pytest\nimport numpy as np\nimport icontract\nfrom ageoa.e2e_ppg.atoms import kazemi_peak_detection\nfrom ageoa.e2e_ppg.atoms import ppg_reconstruction\nfrom ageoa.e2e_ppg.atoms import ppg_sqa\n\ndef test_kazemi_peak_detection_positive():
-    with pytest.raises(NotImplementedError):
-        kazemi_peak_detection(np.array([1.0]))
+"""Tests for e2e_ppg."""
 
-def test_kazemi_peak_detection_precondition():
-    with pytest.raises(icontract.ViolationError):
-        kazemi_peak_detection(None)
+import pytest
+import numpy as np
+import icontract
+from ageoa.e2e_ppg.atoms import kazemi_peak_detection, ppg_reconstruction, ppg_sqa
 
-def test_ppg_reconstruction_positive():
-    with pytest.raises(NotImplementedError):
-        ppg_reconstruction(np.array([1.0]))
 
-def test_ppg_reconstruction_precondition():
-    with pytest.raises(icontract.ViolationError):
-        ppg_reconstruction(None)
+class TestKazemiPeakDetection:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            kazemi_peak_detection(np.array([1.0, 2.0, 3.0]))
 
-def test_ppg_sqa_positive():
-    with pytest.raises(NotImplementedError):
-        ppg_sqa(np.array([1.0]))
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            kazemi_peak_detection(None)
 
-def test_ppg_sqa_precondition():
-    with pytest.raises(icontract.ViolationError):
-        ppg_sqa(None)
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            kazemi_peak_detection(np.array([]))
 
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            kazemi_peak_detection(np.array([1.0, np.nan, 3.0]))
+
+
+class TestPPGReconstruction:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            ppg_reconstruction(np.array([1.0, 2.0, 3.0]))
+
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            ppg_reconstruction(None)
+
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            ppg_reconstruction(np.array([]))
+
+
+class TestPPGSQA:
+    def test_raises_not_implemented(self):
+        with pytest.raises(NotImplementedError):
+            ppg_sqa(np.array([1.0, 2.0, 3.0]))
+
+    def test_precondition_none(self):
+        with pytest.raises(icontract.ViolationError):
+            ppg_sqa(None)
+
+    def test_precondition_empty(self):
+        with pytest.raises(icontract.ViolationError):
+            ppg_sqa(np.array([]))
+
+    def test_precondition_non_finite(self):
+        with pytest.raises(icontract.ViolationError):
+            ppg_sqa(np.array([np.inf]))
