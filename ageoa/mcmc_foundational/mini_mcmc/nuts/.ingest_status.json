@@ -1,0 +1,17 @@
+{
+  "run_id": "9644ad75d041475f8f52c9a88bbfad38",
+  "state": "failed",
+  "phase": "startup",
+  "current_step": "init",
+  "source_path": "third_party/mini-mcmc/src/nuts.rs",
+  "class_name": "NUTS",
+  "procedural": false,
+  "llm_provider": "anthropic",
+  "llm_model": "claude-sonnet-4-5-20250929",
+  "max_depth": 12,
+  "started_at": 1771968767.890477,
+  "last_heartbeat_at": 1771968767.89075,
+  "llm_call_inflight": null,
+  "error": "AGEOM_ANTHROPIC_API_KEY not set",
+  "ended_at": 1771968767.89075
+}

@@ -1,0 +1,332 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "find_reasonable_epsilon",
+      "statement": "(position: Any, mom: Any, gradient_target: Any) -> T",
+      "informal_desc": "",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "find_reasonable_epsilon",
+          "type_signature": "(position: Any, mom: Any, gradient_target: Any) -> T",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "find_reasonable_epsilon",
+          "type_signature": "(position: Any, mom: Any, gradient_target: Any) -> T",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "find_reasonable_epsilon",
+            "type_signature": "(position: Any, mom: Any, gradient_target: Any) -> T",
+            "docstring": "",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "build_tree",
+      "statement": "(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any",
+      "informal_desc": "",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "build_tree",
+          "type_signature": "(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "build_tree",
+          "type_signature": "(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "build_tree",
+            "type_signature": "(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any",
+            "docstring": "",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "all_real",
+      "statement": "(x: Any) -> Any",
+      "informal_desc": "",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "all_real",
+          "type_signature": "(x: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "all_real",
+          "type_signature": "(x: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "all_real",
+            "type_signature": "(x: Any) -> Any",
+            "docstring": "",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "stop_criterion",
+      "statement": "(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any",
+      "informal_desc": "",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "stop_criterion",
+          "type_signature": "(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "stop_criterion",
+          "type_signature": "(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "stop_criterion",
+            "type_signature": "(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any",
+            "docstring": "",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "leapfrog",
+      "statement": "(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any",
+      "informal_desc": "",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "leapfrog",
+          "type_signature": "(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "leapfrog",
+          "type_signature": "(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any",
+          "docstring": "",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "leapfrog",
+            "type_signature": "(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any",
+            "docstring": "",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

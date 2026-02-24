@@ -1,0 +1,291 @@
+{
+  "nodes": [
+    {
+      "node_id": "NUTS_root",
+      "parent_id": null,
+      "name": "NUTS",
+      "description": "Ingested pipeline from NUTS",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "find_reasonable_epsilon",
+        "build_tree",
+        "all_real",
+        "stop_criterion",
+        "leapfrog"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_reasonable_epsilon",
+      "parent_id": "NUTS_root",
+      "name": "Find Reasonable Epsilon",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "position",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "mom",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "gradient_target",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "T",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(position: Any, mom: Any, gradient_target: Any) -> T",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_tree",
+      "parent_id": "NUTS_root",
+      "name": "Build Tree",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "position",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "mom",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "grad",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "logu",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "j",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "epsilon",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "gradient_target",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "joint_0",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "all_real",
+      "parent_id": "NUTS_root",
+      "name": "All Real",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stop_criterion",
+      "parent_id": "NUTS_root",
+      "name": "Stop Criterion",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "position_minus",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "position_plus",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "mom_minus",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "mom_plus",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "leapfrog",
+      "parent_id": "NUTS_root",
+      "name": "Leapfrog",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "position",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "mom",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "grad",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "epsilon",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "gradient_target",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "NUTS"
+  }
+}
