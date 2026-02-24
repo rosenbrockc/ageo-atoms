@@ -1,0 +1,1650 @@
+{
+  "nodes": [
+    {
+      "node_id": "Trajectory_root",
+      "parent_id": null,
+      "name": "Trajectory",
+      "description": "Ingested pipeline from Trajectory",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "show",
+        "slicets",
+        "multinomialts",
+        "combine",
+        "combine",
+        "combine",
+        "combine",
+        "mh_accept",
+        "show",
+        "transition",
+        "transition",
+        "accept_phasepoint!",
+        "accept_phasepoint!",
+        "sample_phasepoint",
+        "randcat",
+        "randcat",
+        "sample_phasepoint",
+        "generalisednouturn",
+        "turnstatistic",
+        "show",
+        "termination",
+        "termination",
+        "isterminated",
+        "isterminated",
+        "isterminated",
+        "check_left_subtree",
+        "check_right_subtree",
+        "generalised_uturn_criterion",
+        "isterminated",
+        "build_tree",
+        "transition",
+        "a",
+        "find_good_stepsize",
+        "find_good_stepsize",
+        "mh_accept_ratio",
+        "mh_accept_ratio"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "show",
+      "parent_id": "Trajectory_root",
+      "name": "Show",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "io",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(io: Any, s: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "slicets",
+      "parent_id": "Trajectory_root",
+      "name": "Slicets",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H0",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "zcand",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "multinomialts",
+      "parent_id": "Trajectory_root",
+      "name": "Multinomialts",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H0",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "zcand",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combine",
+      "parent_id": "Trajectory_root",
+      "name": "Combine",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combine",
+      "parent_id": "Trajectory_root",
+      "name": "Combine",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "zcand",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combine",
+      "parent_id": "Trajectory_root",
+      "name": "Combine",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combine",
+      "parent_id": "Trajectory_root",
+      "name": "Combine",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "zcand",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "mh_accept",
+      "parent_id": "Trajectory_root",
+      "name": "Mh Accept",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s\u2032",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, s: Any, s\u2032: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "show",
+      "parent_id": "Trajectory_root",
+      "name": "Show",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "io",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(io: Any, \u03c4: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "transition",
+      "parent_id": "Trajectory_root",
+      "name": "Transition",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, \u03c4: Any, z: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "transition",
+      "parent_id": "Trajectory_root",
+      "name": "Transition",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, h: Any, \u03c4: Any, z: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "accept_phasepoint!",
+      "parent_id": "Trajectory_root",
+      "name": "Accept Phasepoint!",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z\u2032",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "is_accept",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "accept_phasepoint!",
+      "parent_id": "Trajectory_root",
+      "name": "Accept Phasepoint!",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z\u2032",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "is_accept",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "sample_phasepoint",
+      "parent_id": "Trajectory_root",
+      "name": "Sample Phasepoint",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "randcat",
+      "parent_id": "Trajectory_root",
+      "name": "Randcat",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "zs",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "unnorm_\u2113p",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, zs: Any, unnorm_\u2113p: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "randcat",
+      "parent_id": "Trajectory_root",
+      "name": "Randcat",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "zs",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "unnorm_\u2113P",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, zs: Any, unnorm_\u2113P: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "sample_phasepoint",
+      "parent_id": "Trajectory_root",
+      "name": "Sample Phasepoint",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "generalisednouturn",
+      "parent_id": "Trajectory_root",
+      "name": "Generalisednouturn",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "tc",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(tc: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "turnstatistic",
+      "parent_id": "Trajectory_root",
+      "name": "Turnstatistic",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(z: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "show",
+      "parent_id": "Trajectory_root",
+      "name": "Show",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "io",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "d",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(io: Any, d: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "termination",
+      "parent_id": "Trajectory_root",
+      "name": "Termination",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "nt",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H0",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H\u2032",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "termination",
+      "parent_id": "Trajectory_root",
+      "name": "Termination",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "nt",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H0",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H\u2032",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "isterminated",
+      "parent_id": "Trajectory_root",
+      "name": "Isterminated",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, t: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "isterminated",
+      "parent_id": "Trajectory_root",
+      "name": "Isterminated",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, t: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "isterminated",
+      "parent_id": "Trajectory_root",
+      "name": "Isterminated",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "tc",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tleft",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tright",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(tc: Any, h: Any, t: Any, tleft: Any, tright: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "check_left_subtree",
+      "parent_id": "Trajectory_root",
+      "name": "Check Left Subtree",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tleft",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tright",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "check_right_subtree",
+      "parent_id": "Trajectory_root",
+      "name": "Check Right Subtree",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tleft",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tright",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "generalised_uturn_criterion",
+      "parent_id": "Trajectory_root",
+      "name": "Generalised Uturn Criterion",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rho",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "p_sharp_minus",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "p_sharp_plus",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rho: Any, p_sharp_minus: Any, p_sharp_plus: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "isterminated",
+      "parent_id": "Trajectory_root",
+      "name": "Isterminated",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "tc",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "_tleft",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "_tright",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(tc: Any, h: Any, t: Any, _tleft: Any, _tright: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_tree",
+      "parent_id": "Trajectory_root",
+      "name": "Build Tree",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "nt",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "sampler",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "j",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "H0",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, nt: Any, h: Any, z: Any, sampler: Any, v: Any, j: Any, H0: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "transition",
+      "parent_id": "Trajectory_root",
+      "name": "Transition",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03c4",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z0",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, h: Any, \u03c4: Any, z0: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "a",
+      "parent_id": "Trajectory_root",
+      "name": "A",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03f5",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, z: Any, \u03f5: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_good_stepsize",
+      "parent_id": "Trajectory_root",
+      "name": "Find Good Stepsize",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03b8",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, h: Any, \u03b8: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_good_stepsize",
+      "parent_id": "Trajectory_root",
+      "name": "Find Good Stepsize",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "\u03b8",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, \u03b8: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "mh_accept_ratio",
+      "parent_id": "Trajectory_root",
+      "name": "Mh Accept Ratio",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "Horiginal",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "Hproposal",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "mh_accept_ratio",
+      "parent_id": "Trajectory_root",
+      "name": "Mh Accept Ratio",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rng",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "Horiginal",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "Hproposal",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "Trajectory"
+  }
+}
