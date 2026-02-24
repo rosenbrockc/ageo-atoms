@@ -1,7 +1,9 @@
 # Ingestion Agent Prompt
 
-Primary task: run `ageom ingest` to ingest a Python class into the atom framework.
+Primary task: run `ageom ingest` to ingest source code into the atom framework.
 Secondary task: verify and validate the generated atoms, witnesses, CDG, and tests.
+
+The ingester supports **Python, Rust, C++, and Julia** source files. The same `ageom ingest` command is used for all languages — the ingester auto-detects the language from the file extension and selects the appropriate parser. All languages produce the same output: Python atom wrappers (with FFI bindings for non-Python sources), ghost witnesses, and a CDG.
 
 ---
 
@@ -13,34 +15,117 @@ Secondary task: verify and validate the generated atoms, witnesses, CDG, and tes
 ageom ingest <source_file> --class <ClassName> --output <output_dir> [options]
 ```
 
+**Always use `ageom ingest`** regardless of source language. The ingester detects the language from the file extension and applies the correct parser.
+
+### Supported languages and file extensions
+
+| Language | Extensions | Parser | FFI binding |
+|---|---|---|---|
+| Python | `.py` | Python AST (+ JAXpr for JAX code) | None (native) |
+| Rust | `.rs` | Tree-sitter | `ctypes` |
+| C++ | `.cpp`, `.cc`, `.cxx`, `.h`, `.hpp` | Tree-sitter | `ctypes` |
+| Julia | `.jl` | Tree-sitter | `juliacall` |
+
+The language is determined automatically from the file extension. You do not need to specify the language explicitly.
+
 ### Required arguments
 
 | Arg | Description |
 |---|---|
-| `<source_file>` | Path to the Python source file containing the class |
-| `--class <ClassName>` | Name of the class to ingest |
+| `<source_file>` | Path to the source file (`.py`, `.rs`, `.jl`, `.cpp`, etc.) |
+| `--class <ClassName>` | Name of the class, struct, module, or top-level entry to ingest |
 | `--output <dir>` | Output directory for generated files (default: `output/<ClassName>`) |
 
 ### Optional arguments
 
 | Flag | Description |
 |---|---|
-| `--procedural` | Use deterministic procedural extraction instead of LLM chunking |
+| `--procedural` | Use deterministic procedural extraction (SSA-based) instead of LLM chunking. Works for all languages. |
 | `--llm-provider <p>` | Override LLM provider (`anthropic`, `llama_cpp`, `claude_cli`, `codex_cli`, `gemini_cli`) |
 | `--llm-model <m>` | Override LLM model |
 | `--trace` | Write pipeline event trace to `{output_dir}/trace.jsonl` |
 
-### Example
+### Examples by language
 
 ```bash
-# Ingest the EDAProcessor class from biosppy
-ageom ingest ~/personal/ageo-atoms/ageoa/biosppy/eda.py \
+# ── Python ──
+# Ingest a Python class (LLM-based chunking)
+ageom ingest ~/ageo-atoms/ageoa/biosppy/eda.py \
   --class EDAProcessor \
-  --output ~/personal/ageo-atoms/ageoa/biosppy
+  --output ~/ageo-atoms/ageoa/biosppy
 
-# Procedural mode (no LLM, deterministic)
-ageom ingest path/to/source.py --class MyClass --procedural --output output/MyClass
+# Python procedural mode (no LLM, deterministic SSA extraction)
+ageom ingest path/to/pipeline.py --class MyPipeline --procedural --output output/MyPipeline
+
+# ── Rust ──
+# Ingest a Rust struct (tree-sitter parsing, ctypes FFI bindings generated)
+ageom ingest ~/ageo-atoms/ageoa/rust_robotics/src/lib.rs \
+  --class RobotController \
+  --output ~/ageo-atoms/ageoa/rust_robotics
+
+# Rust procedural mode
+ageom ingest path/to/lib.rs --class my_module --procedural --output output/my_module
+
+# ── Julia ──
+# Ingest a Julia module (tree-sitter parsing, juliacall FFI bindings generated)
+ageom ingest ~/ageo-atoms/ageoa/tempo_jl/src/Tempo.jl \
+  --class TempoModule \
+  --output ~/ageo-atoms/ageoa/tempo_jl
+
+# Julia procedural mode (extracts free/module-level functions)
+ageom ingest path/to/module.jl --class MyModule --procedural --output output/MyModule
+
+# ── C++ ──
+# Ingest a C++ class (tree-sitter parsing, ctypes FFI bindings generated)
+ageom ingest ~/ageo-atoms/ageoa/molecular_docking/src/docking.cpp \
+  --class DockingEngine \
+  --output ~/ageo-atoms/ageoa/molecular_docking
+
+# C++ procedural mode
+ageom ingest path/to/solver.cpp --class Solver --procedural --output output/Solver
 ```
+
+### Recursive decomposition (max-depth)
+
+The ingester supports recursive decomposition of complex atoms into sub-atoms. This is controlled by two config settings:
+
+| Config | Default | Purpose |
+|---|---|---|
+| `AGEOM_INGESTER_MAX_DEPTH` | `1` | Max CDG depth. `1` = flat (no recursion). `2`+ enables recursive decomposition. |
+| `AGEOM_INGESTER_DECOMPOSE_LINE_THRESHOLD` | `30` | Method line count that triggers sub-decomposition. |
+
+**Recursive decomposition works for all languages.** After the language-specific extractor produces a `RawDataFlowGraph`, the decomposition pipeline operates on that language-agnostic representation. An atom is considered complex (and recursed into) when any of:
+- Combined method source exceeds the line threshold
+- Methods call 3+ internal sub-functions
+- Any method body is a `NotImplementedError` skeleton stub
+
+To enable recursive decomposition, set `AGEOM_INGESTER_MAX_DEPTH` in `.env` or export it:
+
+```bash
+# Enable 3-level deep recursive decomposition
+export AGEOM_INGESTER_MAX_DEPTH=3
+
+# Then run ingestion as normal (any language)
+ageom ingest path/to/source.rs --class MyStruct --output output/MyStruct
+```
+
+When `max_depth > 1`, the CDG will contain decomposed parent nodes with `status: "decomposed"` and `children` referencing their sub-atoms. Leaf nodes remain `status: "atomic"`. The `depth` field on each node tracks its level in the decomposition tree (0 = root).
+
+### How non-Python ingestion works
+
+For Rust, C++, and Julia sources, the ingester pipeline is:
+
+1. **Extraction** — Tree-sitter parses the source into a language-agnostic `RawDataFlowGraph`. Language-specific features are detected:
+   - **Rust**: trait bounds, lifetime annotations, oracle function detection
+   - **Julia**: typed dispatch (multiple dispatch signatures), Bijectors.jl constraints
+   - **C++**: function pointer patterns, template specializations
+2. **Chunking** — LLM-based (default) or procedural (SSA-based with `--procedural`). Identical for all languages since it operates on the `RawDataFlowGraph`.
+3. **Recursive decomposition** — If `max_depth > 1`, complex atoms are recursively split. Language-agnostic.
+4. **Code generation** — Python atom wrappers are generated with:
+   - `@register_atom` and `@icontract` decorators (same as Python atoms)
+   - FFI import block for the source language (`ctypes` for Rust/C++, `juliacall` for Julia)
+   - Skeleton bodies that call through to the foreign implementation
+5. **Verification** — mypy type-checking and ghost simulation run on the generated Python wrappers.
 
 ### Output files
 
@@ -48,7 +133,7 @@ The ingester generates these files in `<output_dir>/`:
 
 | File | Contents |
 |---|---|
-| `atoms.py` | Atom wrapper functions with `@register_atom`, `@icontract` decorators |
+| `atoms.py` | Python atom wrappers with `@register_atom`, `@icontract` decorators. For non-Python sources, includes FFI bindings. |
 | `witnesses.py` | Ghost witness functions using abstract types |
 | `state_models.py` | State model classes (if the pipeline is stateful) |
 | `cdg.json` | Conceptual Dependency Graph describing the pipeline |
@@ -74,7 +159,7 @@ Both `mypy passed` and `Ghost sim passed` should be `True`. If either is `False`
 
 ## Task 2: Verify and Validate
 
-After ingestion, validate that every generated artifact meets the requirements below. Fix any violations before considering the ingestion complete.
+After ingestion, validate that every generated artifact meets the requirements below. Fix any violations before considering the ingestion complete. These requirements apply equally to atoms generated from any source language — the output is always Python.
 
 ### 2.1 Atom requirements (`atoms.py`)
 
@@ -82,6 +167,12 @@ After ingestion, validate that every generated artifact meets the requirements b
 - All parameters and return type annotated. No `Any`, no `*args`, no `**kwargs`.
 - Return type annotation present on every atom.
 - Use concrete types (`np.ndarray`, `bool`, `tuple[...]`), not `Any`.
+
+#### FFI atoms (Rust, C++, Julia)
+- FFI import block must be present at the top of the file (`ctypes` for Rust/C++, `juliacall` for Julia).
+- Atom bodies call through to the foreign implementation via the FFI layer.
+- Skeleton atoms raise `NotImplementedError("Skeleton for future ingestion.")` when the FFI binding is not yet available.
+- All the same contract, witness, and docstring rules apply as for native Python atoms.
 
 #### Decorator ordering (bottom-up execution)
 `@icontract.require` decorators closest to `def` run **first**. Order must be:
@@ -159,6 +250,14 @@ Placeholder atoms that raise `NotImplementedError("Skeleton for future ingestion
 
 CDG JSON structure: `{ "nodes": [...], "edges": [...], "metadata": {...} }`.
 
+#### Recursive decomposition validation
+When `max_depth > 1`, verify:
+- Decomposed parent nodes have `status: "decomposed"` and non-empty `children` lists.
+- Leaf nodes have `status: "atomic"` and empty `children` lists.
+- `depth` field is consistent: root = 0, children = parent depth + 1.
+- No leaf exceeds `max_depth - 1`.
+- Parent-child edges exist for every decomposed node.
+
 #### Atomic leaf requirements
 - `description` must be non-empty.
 - `type_signature` must be non-empty; format: `(param: type) -> return_type` (not `Callable[...]`).
@@ -189,7 +288,7 @@ CDG JSON structure: `{ "nodes": [...], "edges": [...], "metadata": {...} }`.
 ### 2.5 Verification commands
 
 ```bash
-# Type-check the generated atoms
+# Type-check the generated atoms (all languages produce Python wrappers)
 mypy <output_dir>/atoms.py
 
 # Run ghost simulation (via the ingester's built-in check)
@@ -197,6 +296,9 @@ mypy <output_dir>/atoms.py
 
 # After placing files in the ageoa package, verify imports work
 python -c "import ageoa.<domain>"
+
+# For non-Python atoms, verify FFI bindings load
+python -c "from ageoa.<domain>.atoms import <atom_name>"
 
 # Upsert CDG into Neo4j graph store (optional)
 ageom upsert-cdg <repo_path> --repo-name <domain>
@@ -213,6 +315,17 @@ Ingester output:
   [ ] mypy passed: True
   [ ] Ghost sim passed: True
   [ ] CDG has expected number of nodes and edges
+
+Source language:
+  [ ] Correct parser was selected (check trace or output for language detection)
+  [ ] For non-Python: FFI import block present in atoms.py
+  [ ] For non-Python: atom bodies call through FFI or raise NotImplementedError
+
+Recursive decomposition (if max_depth > 1):
+  [ ] Decomposed nodes have status: "decomposed" and non-empty children
+  [ ] Leaf nodes have status: "atomic" and empty children
+  [ ] depth field is consistent (root=0, children=parent+1)
+  [ ] No leaf exceeds max_depth - 1
 
 Atoms (atoms.py):
   [ ] All parameters and return types annotated (no Any, no *args, no **kwargs)
