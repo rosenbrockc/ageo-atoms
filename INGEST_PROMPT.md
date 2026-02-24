@@ -40,7 +40,7 @@ The language is determined automatically from the file extension. You do not nee
 
 | Flag | Description |
 |---|---|
-| `--procedural` | Use deterministic procedural extraction (SSA-based) instead of LLM chunking. Works for all languages. |
+| `--procedural` | Use deterministic procedural extraction (SSA-based) instead of LLM chunking. Works for all languages. Skips recursive decomposition (`max_depth` has no effect). |
 | `--llm-provider <p>` | Override LLM provider (`anthropic`, `llama_cpp`, `claude_cli`, `codex_cli`, `gemini_cli`) |
 | `--llm-model <m>` | Override LLM model |
 | `--trace` | Write pipeline event trace to `{output_dir}/trace.jsonl` |
@@ -94,7 +94,9 @@ The ingester supports recursive decomposition of complex atoms into sub-atoms. T
 | `AGEOM_INGESTER_MAX_DEPTH` | `1` | Max CDG depth. `1` = flat (no recursion). `2`+ enables recursive decomposition. |
 | `AGEOM_INGESTER_DECOMPOSE_LINE_THRESHOLD` | `30` | Method line count that triggers sub-decomposition. |
 
-**Recursive decomposition works for all languages.** After the language-specific extractor produces a `RawDataFlowGraph`, the decomposition pipeline operates on that language-agnostic representation. An atom is considered complex (and recursed into) when any of:
+**Recursive decomposition only applies to LLM-based ingestion (the default).** The `--procedural` flag skips the chunker entirely (where decomposition lives), so `max_depth` has no effect in procedural mode. If you need recursive decomposition, do not use `--procedural`.
+
+After the language-specific extractor produces a `RawDataFlowGraph`, the decomposition pipeline operates on that language-agnostic representation — so it works for all languages. An atom is considered complex (and recursed into) when any of:
 - Combined method source exceeds the line threshold
 - Methods call 3+ internal sub-functions
 - Any method body is a `NotImplementedError` skeleton stub
