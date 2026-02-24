@@ -1,0 +1,6 @@
+{
+  "run_id": "aee1459de2554705b03a77c8cfd1f946",
+  "failed_at": 1771970087.0430012,
+  "phase": "repair_types",
+  "error": "Error code: 405 - {'detail': 'Method Not Allowed'}"
+}
