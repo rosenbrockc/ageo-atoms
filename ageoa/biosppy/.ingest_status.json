@@ -1,17 +1,17 @@
 {
-  "run_id": "c0c33ea4e88146adae4ba056bffc9ccc",
+  "run_id": "9aff99f72b784242aa82e779565e2767",
   "state": "failed",
   "phase": "repair_types",
   "current_step": "llm_fix_type",
-  "source_path": "ageoa/biosppy/eda.py",
-  "class_name": "EDAProcessor",
+  "source_path": "ageoa/biosppy/ecg.py",
+  "class_name": "ECGProcessor",
   "procedural": false,
   "llm_provider": "codex_cli",
   "llm_model": "claude-sonnet-4-5-20250929",
   "max_depth": 12,
-  "started_at": 1771970088.374846,
-  "last_heartbeat_at": 1771970088.6813598,
+  "started_at": 1771970089.217364,
+  "last_heartbeat_at": 1771970089.494493,
   "llm_call_inflight": null,
   "error": "Error code: 405 - {'detail': 'Method Not Allowed'}",
-  "ended_at": 1771970088.6813598
+  "ended_at": 1771970089.494493
 }
