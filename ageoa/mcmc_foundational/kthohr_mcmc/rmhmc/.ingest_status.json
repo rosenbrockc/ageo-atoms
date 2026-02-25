@@ -1,29 +1,28 @@
 {
-  "run_id": "1d7ebcdc664e4dd7a75609189891372b",
+  "run_id": "32d7319cc04f40199a6ac27f49ff7072",
   "state": "completed",
   "phase": "procedural_emit",
   "current_step": "ok",
-  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/AdvancedHMC.jl/src/integrator.jl",
-  "class_name": "AbstractIntegrator",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mcmc/include/mcmc/rmhmc.hpp",
+  "class_name": "rmhmc",
   "procedural": true,
   "llm_provider": "codex_cli",
   "llm_model": "sonnet",
   "max_depth": 12,
-  "started_at": 1771987882.7667189,
-  "last_heartbeat_at": 1771987883.016948,
+  "started_at": 1771987882.783625,
+  "last_heartbeat_at": 1771987882.8983,
   "llm_call_inflight": null,
   "error": "",
-  "ended_at": 1771987883.016948,
+  "ended_at": 1771987882.8983,
   "summary": {
-    "cdg_nodes": 9,
+    "cdg_nodes": 1,
     "cdg_edges": 0,
-    "matches": 8,
+    "matches": 0,
     "mypy_passed": false,
     "ghost_sim_passed": false,
     "published_files": [
       "atoms.py",
       "cdg.json",
-      "matches.json",
       "witnesses.py"
     ]
   }

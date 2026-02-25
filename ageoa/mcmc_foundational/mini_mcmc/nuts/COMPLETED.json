@@ -1,0 +1,17 @@
+{
+  "run_id": "8f79e5f7474a4301b216e20f9e5fcff2",
+  "completed_at": 1771988235.309643,
+  "summary": {
+    "cdg_nodes": 9,
+    "cdg_edges": 8,
+    "matches": 7,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

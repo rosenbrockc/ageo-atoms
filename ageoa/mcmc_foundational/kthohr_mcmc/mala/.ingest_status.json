@@ -1,29 +1,28 @@
 {
-  "run_id": "29212ac0af784a0fb878780e40024e39",
+  "run_id": "51a28bafb9384ef0bd9bf32f5fa84968",
   "state": "completed",
   "phase": "procedural_emit",
   "current_step": "ok",
-  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/AdvancedHMC.jl/src/trajectory.jl",
-  "class_name": "Trajectory",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mcmc/include/mcmc/mala.hpp",
+  "class_name": "mala",
   "procedural": true,
   "llm_provider": "gemini_cli",
   "llm_model": "sonnet",
   "max_depth": 12,
-  "started_at": 1771987882.88449,
-  "last_heartbeat_at": 1771987883.049572,
+  "started_at": 1771987882.878259,
+  "last_heartbeat_at": 1771987882.906657,
   "llm_call_inflight": null,
   "error": "",
-  "ended_at": 1771987883.049572,
+  "ended_at": 1771987882.906657,
   "summary": {
-    "cdg_nodes": 37,
+    "cdg_nodes": 1,
     "cdg_edges": 0,
-    "matches": 36,
+    "matches": 0,
     "mypy_passed": false,
     "ghost_sim_passed": false,
     "published_files": [
       "atoms.py",
       "cdg.json",
-      "matches.json",
       "witnesses.py"
     ]
   }

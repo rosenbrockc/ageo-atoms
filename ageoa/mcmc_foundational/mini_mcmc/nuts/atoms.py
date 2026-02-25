@@ -19,37 +19,40 @@ from pathlib import Path
 
 # Witness functions should be imported from the generated witnesses module
 
-@register_atom(witness_find_reasonable_epsilon)
-@icontract.require(lambda position: position is not None, "position cannot be None")
-@icontract.require(lambda mom: mom is not None, "mom cannot be None")
-@icontract.require(lambda gradient_target: gradient_target is not None, "gradient_target cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Find Reasonable Epsilon output must not be None")
-def find_reasonable_epsilon(position: Any, mom: Any, gradient_target: Any) -> T:
+@register_atom(witness_initializesampler)
+@icontract.require(lambda target_accept_p: isinstance(target_accept_p, (float, int, np.number)), "target_accept_p must be numeric")
+@icontract.ensure(lambda result, **kwargs: result is not None, "InitializeSampler output must not be None")
+def initializesampler(target: Callable, initial_positions: ArrayLike, target_accept_p: float, seed: int) -> SamplerState:
+    """Initializes the NUTS sampler state, including the random seed, initial positions, and target acceptance probability.
+
+    Args:
+        target: A function that computes the log-probability (and its gradient) of the target distribution.
+        initial_positions: The starting point(s) for the MCMC chain(s).
+        target_accept_p: The target acceptance probability for adapting the step size, typically between 0 and 1.
+        seed: Seed for the pseudo-random number generator.
+
+    Returns:
+        An immutable object containing the initial position, PRNG key, and other sampler parameters.
+    """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(witness_build_tree)
-@icontract.ensure(lambda result, **kwargs: result is not None, "Build Tree output must not be None")
-def build_tree(position: Any, mom: Any, grad: Any, logu: Any, v: Any, j: Any, epsilon: Any, gradient_target: Any, joint_0: Any, rng: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
+@register_atom(witness_runsampler)
+@icontract.require(lambda initial_sampler_state: initial_sampler_state is not None, "initial_sampler_state cannot be None")
+@icontract.require(lambda n_collect: n_collect is not None, "n_collect cannot be None")
+@icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "RunSampler all outputs must not be None")
+def runsampler(initial_sampler_state: SamplerState, n_collect: int, n_discard: int) -> tuple[ArrayLike, SamplerState]:
+    """Runs the NUTS MCMC sampler by repeatedly applying its transition kernel to generate a chain of samples, after discarding a specified number of burn-in steps.
 
-@register_atom(witness_all_real)
-@icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "All Real output must not be None")
-def all_real(x: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
+    Args:
+        initial_sampler_state: The initial state from which to start the sampling process.
+        n_collect: The number of samples to collect and return.
+        n_discard: The number of initial (burn-in) samples to discard.
 
-@register_atom(witness_stop_criterion)
-@icontract.require(lambda position_minus: position_minus is not None, "position_minus cannot be None")
-@icontract.require(lambda position_plus: position_plus is not None, "position_plus cannot be None")
-@icontract.require(lambda mom_minus: mom_minus is not None, "mom_minus cannot be None")
-@icontract.require(lambda mom_plus: mom_plus is not None, "mom_plus cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Stop Criterion output must not be None")
-def stop_criterion(position_minus: Any, position_plus: Any, mom_minus: Any, mom_plus: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_leapfrog)
-@icontract.ensure(lambda result, **kwargs: result is not None, "Leapfrog output must not be None")
-def leapfrog(position: Any, mom: Any, grad: Any, epsilon: Any, gradient_target: Any) -> Any:
+    Returns:
+        collected_samples: The collected samples from the posterior distribution.
+        final_sampler_state: The final state of the sampler after the run.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -62,52 +65,22 @@ import ctypes.util
 from pathlib import Path
 
 
-def find_reasonable_epsilon_ffi(position, mom, gradient_target):
-    """FFI bridge to Rust implementation of Find Reasonable Epsilon."""
+def initializesampler_ffi(target, initial_positions, target_accept_p, seed):
+    """FFI bridge to Rust implementation of InitializeSampler."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'find_reasonable_epsilon'
-    _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
-    _func.restype = ctypes.c_void_p
-    return _func(position, mom, gradient_target)
-
-def build_tree_ffi(position, mom, grad, logu, v, j, epsilon, gradient_target, joint_0, rng):
-    """FFI bridge to Rust implementation of Build Tree."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'build_tree'
-    _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
-    _func.restype = ctypes.c_void_p
-    return _func(position, mom, grad, logu, v, j, epsilon, gradient_target, joint_0, rng)
-
-def all_real_ffi(x):
-    """FFI bridge to Rust implementation of All Real."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'all_real'
-    _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p]
-    _func.restype = ctypes.c_void_p
-    return _func(x)
-
-def stop_criterion_ffi(position_minus, position_plus, mom_minus, mom_plus):
-    """FFI bridge to Rust implementation of Stop Criterion."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'stop_criterion'
+    _func_name = atom.method_names[0] if atom.method_names else 'initializesampler'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(position_minus, position_plus, mom_minus, mom_plus)
+    return _func(target, initial_positions, target_accept_p, seed)
 
-def leapfrog_ffi(position, mom, grad, epsilon, gradient_target):
-    """FFI bridge to Rust implementation of Leapfrog."""
+def runsampler_ffi(initial_sampler_state, n_collect, n_discard):
+    """FFI bridge to Rust implementation of RunSampler."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'leapfrog'
+    _func_name = atom.method_names[0] if atom.method_names else 'runsampler'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(position, mom, grad, epsilon, gradient_target)
+    return _func(initial_sampler_state, n_collect, n_discard)

@@ -11,45 +11,23 @@ import networkx as nx  # type: ignore
 
 try:
     from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
+    from ageoa.ghost.abstract import AbstractDistribution
+    from ageoa.ghost.abstract import AbstractMCMCTrace
+    from ageoa.ghost.abstract import AbstractRNGState
 except ImportError:
     pass
 
-def witness_find_reasonable_epsilon(position: AbstractArray, mom: AbstractArray, gradient_target: AbstractArray) -> AbstractArray:
-    """Ghost witness for Find Reasonable Epsilon."""
-    result = AbstractArray(
-        shape=position.shape,
-        dtype="float64",
+def witness_initializesampler(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
+    """Ghost witness for prior init: InitializeSampler."""
+    return AbstractDistribution(
+        family=family,
+        event_shape=event_shape,
     )
-    return result
 
-def witness_build_tree(position: AbstractArray, mom: AbstractArray, grad: AbstractArray, logu: AbstractArray, v: AbstractArray, j: AbstractArray, epsilon: AbstractArray, gradient_target: AbstractArray, joint_0: AbstractArray, rng: AbstractArray) -> AbstractArray:
-    """Ghost witness for Build Tree."""
-    result = AbstractArray(
-        shape=position.shape,
-        dtype="float64",
-    )
-    return result
-
-def witness_all_real(x: AbstractArray) -> AbstractArray:
-    """Ghost witness for All Real."""
-    result = AbstractArray(
-        shape=x.shape,
-        dtype="float64",
-    )
-    return result
-
-def witness_stop_criterion(position_minus: AbstractArray, position_plus: AbstractArray, mom_minus: AbstractArray, mom_plus: AbstractArray) -> AbstractArray:
-    """Ghost witness for Stop Criterion."""
-    result = AbstractArray(
-        shape=position_minus.shape,
-        dtype="float64",
-    )
-    return result
-
-def witness_leapfrog(position: AbstractArray, mom: AbstractArray, grad: AbstractArray, epsilon: AbstractArray, gradient_target: AbstractArray) -> AbstractArray:
-    """Ghost witness for Leapfrog."""
-    result = AbstractArray(
-        shape=position.shape,
-        dtype="float64",
-    )
-    return result
+def witness_runsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
+    """Ghost witness for MCMC sampler: RunSampler."""
+    if trace.param_dims != target.event_shape:
+        raise ValueError(
+            f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
+        )
+    return trace.step(accepted=True), rng.advance(n_draws=1)
