@@ -1,0 +1,112 @@
+{
+  "nodes": [
+    {
+      "node_id": "posterior_canon_root",
+      "parent_id": null,
+      "name": "posterior_canon",
+      "description": "Analytical closed-form parameter folding via sufficient statistics for a scalar location-precision model with conjugate hyperparameter tuple.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "aggregate_sufficient_statistics",
+        "closed_form_parameter_fold"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Two-stage analytical closed-form parameter folding via sufficient statistics for scalar location-precision models. First extracts and aggregates observation moments into a compact sufficient-statistics tuple, then folds those moments into the prior location-precision hyperparameter tuple to produce updated parameters within the same parametric family.",
+      "critic_notes": "",
+      "decomposition_rationale": "Decouples data reduction (sufficient statistics extraction) from the algebraic hyperparameter update, enabling independent testing and reuse of each stage."
+    },
+    {
+      "node_id": "aggregate_sufficient_statistics",
+      "parent_id": "posterior_canon_root",
+      "name": "aggregate_sufficient_statistics",
+      "description": "Extracts and aggregates observation moments (sample count tw, sum s, sum of squared deviations s2, sample mean m) from raw data into a compact sufficient-statistics tuple.",
+      "concept_type": "conjugate_update",
+      "inputs": [
+        {
+          "name": "data",
+          "type_desc": "array<float>",
+          "constraints": "Real-valued observations."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sufficient_stats",
+          "type_desc": "sufficient-statistics tuple",
+          "constraints": "Contains (tw, s, s2, m): sample count, sum, sum of squared deviations, sample mean."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(data: array<float>) -> sufficient-statistics tuple",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Sufficient_Statistics_Aggregator. Reduces an array of real-valued observations into a compact moment tuple (sample count, sum, sum of squared deviations, sample mean). The operation is pure, deterministic, and lossless with respect to the information needed by the downstream parameter fold. is_conjugate: true.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "closed_form_parameter_fold",
+      "parent_id": "posterior_canon_root",
+      "name": "closed_form_parameter_fold",
+      "description": "Analytical closed-form parameter folding via sufficient statistics. Fuses prior pseudo-evidence with observation moments: \u03bc_post, \u03bd_post, \u03b1_post, \u03b2_post computed from exact algebraic formulas.",
+      "concept_type": "conjugate_update",
+      "inputs": [
+        {
+          "name": "prior",
+          "type_desc": "location-precision hyperparameter tuple",
+          "constraints": "Valid hyperparameters (positive precision/shape/scale terms)."
+        },
+        {
+          "name": "sufficient_stats",
+          "type_desc": "sufficient-statistics tuple",
+          "constraints": "Contains the moments/count terms required by the conjugate fold formula."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "updated_params",
+          "type_desc": "location-precision hyperparameter tuple",
+          "constraints": "Returned as a new immutable object; input prior is not mutated."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(prior: location-precision hyperparameter tuple, sufficient_stats: sufficient-statistics tuple) -> location-precision hyperparameter tuple",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Closed_Form_Parameter_Fold. Maps a prior location-precision hyperparameter tuple and aggregated observation moments into an updated hyperparameter tuple within the same parametric family. The update fuses prior pseudo-evidence with sample count and low-order moments using exact algebraic formulas, so no sampling or numerical optimisation is required. The operation is pure: it returns a new parameter object without mutating inputs. is_conjugate: true. Applications: Online calibration of scalar sensor bias/noise parameters in embedded monitoring systems using streamed summary moments. Adaptive estimation of voxel-wise intensity baselines and uncertainty in volumetric imaging reconstruction pipelines. Incremental quality-control modeling of manufactured part measurements where only batch summary statistics are retained. Real-time inference of per-link delay distributions in communication networks from aggregated telemetry counters.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source": "aggregate_sufficient_statistics",
+      "target": "closed_form_parameter_fold",
+      "edge_type": "sufficient_stats",
+      "description": "Sufficient statistics (tw, s, s2, m) flow from aggregation to parameter fold."
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "posterior_canon",
+    "is_conjugate": true
+  }
+}
