@@ -1,0 +1,884 @@
+{
+  "nodes": [
+    {
+      "node_id": "optimize_advi_mean_field_root",
+      "parent_id": null,
+      "name": "optimize_advi_mean_field",
+      "description": "Ingested pipeline from optimize_advi_mean_field",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "meanfieldvariationalfit",
+        "posteriordrawsampling"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "meanfieldvariationalfit",
+      "parent_id": "optimize_advi_mean_field_root",
+      "name": "MeanFieldVariationalFit",
+      "description": "Builds a stochastic divergence-minimization objective from prior/likelihood oracles and optimizes mean-field variational parameters as immutable variational state (latent mean and latent scale). Private objective construction helper is grouped with the optimizer entrypoint.",
+      "concept_type": "surrogate_optimization",
+      "inputs": [
+        {
+          "name": "theta_shape_dict",
+          "type_desc": "dict[str, tuple[int,...]]",
+          "constraints": "Defines latent parameter block shapes."
+        },
+        {
+          "name": "log_prior_fun",
+          "type_desc": "callable",
+          "constraints": "Pure log-probability oracle; no persistent state writes."
+        },
+        {
+          "name": "log_lik_fun",
+          "type_desc": "callable",
+          "constraints": "Pure likelihood/log-likelihood oracle; no persistent state writes."
+        },
+        {
+          "name": "M",
+          "type_desc": "int",
+          "constraints": "Monte Carlo sample count, M > 0."
+        },
+        {
+          "name": "constrain_fun_dict",
+          "type_desc": "dict[str, callable]",
+          "constraints": "Maps unconstrained variational coordinates to constrained parameter space."
+        },
+        {
+          "name": "seed",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Explicit stochastic input; treated as immutable RNG state."
+        },
+        {
+          "name": "var_param_inits",
+          "type_desc": "dict | None",
+          "constraints": "Optional initial latent mean/scale values."
+        },
+        {
+          "name": "opt_method",
+          "type_desc": "str",
+          "constraints": "Optimization algorithm selection."
+        },
+        {
+          "name": "verbose",
+          "type_desc": "bool",
+          "constraints": "Logging flag only; does not alter statistical semantics."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, array]",
+          "constraints": "Optimized latent mean parameters."
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, array]",
+          "constraints": "Optimized latent standard deviations; strictly positive."
+        },
+        {
+          "name": "objective_fun",
+          "type_desc": "callable",
+          "constraints": "Pure divergence-minimization objective closure."
+        },
+        {
+          "name": "rng_state_out",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Advanced RNG state returned as new immutable value."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "summarize_latent_layout",
+        "prepare_stochastic_divergence_objective",
+        "initialize_variational_state",
+        "optimize_variational_objective",
+        "decode_optimized_free_parameters",
+        "assemble_fit_artifacts",
+        "attach_posterior_draws_if_requested"
+      ],
+      "depth": 1,
+      "type_signature": "(theta_shape_dict: dict[str, tuple[int,...]], log_prior_fun: callable, log_lik_fun: callable, M: int, constrain_fun_dict: dict[str, callable], seed: int | PRNGKey-like RNG state, var_param_inits: dict | None, opt_method: str, verbose: bool) -> tuple[dict[str, array], dict[str, array], callable, int | PRNGKey-like RNG state]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Factorized Stochastic Surrogate Fitting. Constructs a deterministic divergence-minimization objective by combining two pure scoring oracles through Monte Carlo expectations over a factorized latent surrogate distribution. The surrogate is parameterized by per-block location and strictly positive scale in an unconstrained coordinate system, then mapped through constraint transforms before scoring. An optimizer iteratively updates these surrogate parameters while treating randomness as explicit immutable state and returning an updated random-state value.. Applications: Calibrating uncertain parameters in multiscale materials simulation from noisy sensor-derived observables, Inferring latent neural population states from high-dimensional electrophysiology recordings, Estimating hidden reaction-rate fields in chemical process digital twins under partial observations, Recovering uncertain subsurface property tensors in geophysical inverse modeling with sparse measurements",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "summarize_latent_layout",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "summarize_latent_layout",
+      "description": "Builds placeholder latent tensors from shape specs and derives flatten/reconstruction metadata for a single unconstrained latent vector.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "theta_shape_dict",
+          "type_desc": "dict[str, tuple[int, ...]]",
+          "constraints": "Each shape is fully specified and consistent with target latent structure."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "flat_theta_template",
+          "type_desc": "jnp.ndarray",
+          "constraints": "1D unconstrained latent template; length defines latent_dim."
+        },
+        {
+          "name": "shape_summary",
+          "type_desc": "flatten/reconstruct metadata",
+          "constraints": "Compatible with reconstruct(..., summary, jnp.reshape)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(theta_shape_dict: dict[str, tuple[int, ...]]) -> tuple[jnp.ndarray, flatten/reconstruct metadata]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "prepare_stochastic_divergence_objective",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "prepare_stochastic_divergence_objective",
+      "description": "Uses the seed to generate fixed standard-normal Monte Carlo noise and curries a stochastic divergence-minimization objective callable over model-specific components.",
+      "concept_type": "divergence_minimization",
+      "inputs": [
+        {
+          "name": "flat_theta_template",
+          "type_desc": "jnp.ndarray",
+          "constraints": "Provides latent_dim for noise shape."
+        },
+        {
+          "name": "shape_summary",
+          "type_desc": "flatten/reconstruct metadata",
+          "constraints": "Passed through to objective evaluation."
+        },
+        {
+          "name": "constrain_fun_dict",
+          "type_desc": "dict[str, callable]",
+          "constraints": "Each callable returns (constrained_value, log_abs_det_jacobian)."
+        },
+        {
+          "name": "log_lik_fun",
+          "type_desc": "callable",
+          "constraints": "Accepts parameter dict and returns scalar log likelihood."
+        },
+        {
+          "name": "log_prior_fun",
+          "type_desc": "callable",
+          "constraints": "Accepts parameter dict and returns scalar log prior."
+        },
+        {
+          "name": "seed",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Deterministically initializes Monte Carlo draws."
+        },
+        {
+          "name": "M",
+          "type_desc": "int",
+          "constraints": "M > 0."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "objective_fun",
+          "type_desc": "callable",
+          "constraints": "Maps flattened variational parameters to scalar objective."
+        },
+        {
+          "name": "rng_state_after_objective_init",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Represents RNG progression after fixed-noise generation."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(flat_theta_template: jnp.ndarray, shape_summary: flatten/reconstruct metadata, constrain_fun_dict: dict[str, callable], log_lik_fun: callable, log_prior_fun: callable, seed: int | PRNGKey-like RNG state, M: int) -> tuple[callable, int | PRNGKey-like RNG state]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialize_variational_state",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "initialize_variational_state",
+      "description": "Samples initial mean-field variational parameters (means and log standard deviations) and flattens them for optimization.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "flat_theta_template",
+          "type_desc": "jnp.ndarray",
+          "constraints": "Determines latent_dim."
+        },
+        {
+          "name": "var_param_inits",
+          "type_desc": "dict[str, tuple[float, float]]",
+          "constraints": "Contains normal init specs for 'mean' and 'log_sd'."
+        },
+        {
+          "name": "rng_state_after_objective_init",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Used as RNG source for initialization draws."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "init_var_params_flat",
+          "type_desc": "np.ndarray",
+          "constraints": "Shape (2 * latent_dim,); row-stacked [means, log_sds]."
+        },
+        {
+          "name": "rng_state_out",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Represents RNG progression after variational init sampling."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(flat_theta_template: jnp.ndarray, var_param_inits: dict[str, tuple[float, float]], rng_state_after_objective_init: int | PRNGKey-like RNG state) -> tuple[np.ndarray, int | PRNGKey-like RNG state]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "optimize_variational_objective",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "optimize_variational_objective",
+      "description": "Chooses optimizer backend by method name and minimizes the stochastic objective over flattened variational parameters.",
+      "concept_type": "surrogate_optimization",
+      "inputs": [
+        {
+          "name": "objective_fun",
+          "type_desc": "callable",
+          "constraints": "Differentiable objective over flattened variational parameters."
+        },
+        {
+          "name": "init_var_params_flat",
+          "type_desc": "np.ndarray",
+          "constraints": "Initial point for optimization."
+        },
+        {
+          "name": "opt_method",
+          "type_desc": "str",
+          "constraints": "Uses Jacobian optimizer for 'L-BFGS-B'; otherwise HVP optimizer."
+        },
+        {
+          "name": "verbose",
+          "type_desc": "bool",
+          "constraints": "Controls optimization logging/diagnostics."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opt_result",
+          "type_desc": "optimizer result object",
+          "constraints": "Must expose optimized vector in .x."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(objective_fun: callable, init_var_params_flat: np.ndarray, opt_method: str, verbose: bool) -> optimizer result object",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "decode_optimized_free_parameters",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "decode_optimized_free_parameters",
+      "description": "Splits optimized vector into mean and log-scale blocks, exponentiates scales, and reconstructs structured free parameters.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "opt_result",
+          "type_desc": "optimizer result object",
+          "constraints": "opt_result.x reshape-compatible with (2, latent_dim)."
+        },
+        {
+          "name": "shape_summary",
+          "type_desc": "flatten/reconstruct metadata",
+          "constraints": "Used to map flat vectors back to parameter dicts."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": "Unconstrained posterior means in original parameter shapes."
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": "Positive unconstrained posterior standard deviations."
+        },
+        {
+          "name": "final_var_params_flat",
+          "type_desc": "np.ndarray",
+          "constraints": "Optimized flattened variational vector (same as opt_result.x)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(opt_result: optimizer result object, shape_summary: flatten/reconstruct metadata) -> tuple[dict[str, jnp.ndarray], dict[str, jnp.ndarray], np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_fit_artifacts",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "assemble_fit_artifacts",
+      "description": "Packages optimized variational state and objective metadata into the base return payload.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": ""
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": ""
+        },
+        {
+          "name": "opt_result",
+          "type_desc": "optimizer result object",
+          "constraints": ""
+        },
+        {
+          "name": "objective_fun",
+          "type_desc": "callable",
+          "constraints": ""
+        },
+        {
+          "name": "shape_summary",
+          "type_desc": "flatten/reconstruct metadata",
+          "constraints": ""
+        },
+        {
+          "name": "final_var_params_flat",
+          "type_desc": "np.ndarray",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fit_result_base",
+          "type_desc": "dict[str, Any]",
+          "constraints": "Contains free_means, free_sds, opt_result, objective_fun, shape_summary, final_var_params_flat."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], opt_result: optimizer result object, objective_fun: callable, shape_summary: flatten/reconstruct metadata, final_var_params_flat: np.ndarray) -> dict[str, Any]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "attach_posterior_draws_if_requested",
+      "parent_id": "meanfieldvariationalfit",
+      "name": "attach_posterior_draws_if_requested",
+      "description": "Conditionally augments the result payload with constrained posterior draws sampled from the fitted mean-field distribution.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "fit_result_base",
+          "type_desc": "dict[str, Any]",
+          "constraints": "Base result dictionary."
+        },
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": "Used as draw location parameters."
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, jnp.ndarray]",
+          "constraints": "Used as draw scale parameters."
+        },
+        {
+          "name": "constrain_fun_dict",
+          "type_desc": "dict[str, callable]",
+          "constraints": "Transforms unconstrained draws to constrained space."
+        },
+        {
+          "name": "n_draws",
+          "type_desc": "int | None",
+          "constraints": "If None, no sampling is performed."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fit_result",
+          "type_desc": "dict[str, Any]",
+          "constraints": "Final return payload; may include 'draws'."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(fit_result_base: dict[str, Any], free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], constrain_fun_dict: dict[str, callable], n_draws: int | None) -> dict[str, Any]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "posteriordrawsampling",
+      "parent_id": "optimize_advi_mean_field_root",
+      "name": "PosteriorDrawSampling",
+      "description": "Samples from the fitted mean-field posterior using latent mean/scale state, applies constraint transforms, and optionally applies a post-processing function.",
+      "concept_type": "conjugate_update",
+      "inputs": [
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, array]",
+          "constraints": "Latent mean state from variational fit."
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, array]",
+          "constraints": "Latent scale state from variational fit; positive."
+        },
+        {
+          "name": "constrain_fun_dict",
+          "type_desc": "dict[str, callable]",
+          "constraints": "Coordinate-wise transforms to constrained space."
+        },
+        {
+          "name": "n_draws",
+          "type_desc": "int",
+          "constraints": "Number of posterior draws; n_draws >= 0."
+        },
+        {
+          "name": "fun_to_apply",
+          "type_desc": "callable | None",
+          "constraints": "Optional pure transformation over sampled draws."
+        },
+        {
+          "name": "rng_state_in",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Explicit stochastic input for reproducible sampling."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_draws",
+          "type_desc": "array | dict[str, array]",
+          "constraints": "Samples in constrained parameter space (or transformed output)."
+        },
+        {
+          "name": "rng_state_out",
+          "type_desc": "int | PRNGKey-like RNG state",
+          "constraints": "Advanced RNG state returned as new immutable value."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "samplefreespaceposteriordraws",
+        "createperdrawconstraintandpostprocesstransform",
+        "vectorizetransformoveralldraws"
+      ],
+      "depth": 1,
+      "type_signature": "(free_means: dict[str, array], free_sds: dict[str, array], constrain_fun_dict: dict[str, callable], n_draws: int, fun_to_apply: callable | None, rng_state_in: int | PRNGKey-like RNG state) -> tuple[array | dict[str, array], int | PRNGKey-like RNG state]",
+      "matched_primitive": null,
+      "is_optional": true,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "FactorizedLatentDrawAndConstraintMap. Generates i.i.d. samples from a factorized latent distribution parameterized by coordinate-wise location and positive scale tensors, using an explicit pseudo-random state as input. Each sampled coordinate block is pushed through a corresponding constraint-enforcing transform to map from unconstrained latent space into a valid target manifold, then optionally composed with a user-supplied pure function. The random-state transition is returned as an explicit immutable output for reproducible state threading.. Applications: Robotics: sample feasible controller parameter tensors from latent uncertainty, then map to actuator-safe bounded domains before rollout evaluation., Computational materials: generate constrained microstructure parameter fields from a latent surrogate model for Monte Carlo property estimation., Communications engineering: draw latent channel-model coefficients and transform them to physically valid ranges for stochastic link simulation., Computational neuroscience: sample latent dynamical-system parameters and enforce stability/positivity constraints prior to neural population simulation.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "samplefreespaceposteriordraws",
+      "parent_id": "posteriordrawsampling",
+      "name": "SampleFreeSpacePosteriorDraws",
+      "description": "Generate independent Gaussian draws for each latent parameter in unconstrained space, using parameter-wise mean/scale and preserving each parameter's original shape under a leading draw axis.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "free_means",
+          "type_desc": "dict[str, np.ndarray]",
+          "constraints": "Keys define latent parameters; each value is the mean tensor."
+        },
+        {
+          "name": "free_sds",
+          "type_desc": "dict[str, np.ndarray]",
+          "constraints": "Must share keys/shapes with free_means; values are positive scales."
+        },
+        {
+          "name": "n_draws",
+          "type_desc": "int",
+          "constraints": "n_draws > 0."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "draws",
+          "type_desc": "dict[str, np.ndarray]",
+          "constraints": "For each key x: shape is (n_draws, *free_means[x].shape)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(free_means: dict[str, np.ndarray], free_sds: dict[str, np.ndarray], n_draws: int) -> dict[str, np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "createperdrawconstraintandpostprocesstransform",
+      "parent_id": "posteriordrawsampling",
+      "name": "CreatePerDrawConstraintAndPostprocessTransform",
+      "description": "Construct a per-draw transform that first maps one unconstrained draw dict into constrained parameter space via apply_constraints, then computes the requested derived quantity via fun_to_apply.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "constrain_fun_dict",
+          "type_desc": "dict[str, callable]",
+          "constraints": "Constraint functions compatible with apply_constraints."
+        },
+        {
+          "name": "fun_to_apply",
+          "type_desc": "callable",
+          "constraints": "Callable on constrained draw dict; identity by default."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "per_draw_transform_fn",
+          "type_desc": "callable",
+          "constraints": "Maps cur_draw -> transformed result (array or dict)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(constrain_fun_dict: dict[str, callable], fun_to_apply: callable) -> callable",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "vectorizetransformoveralldraws",
+      "parent_id": "posteriordrawsampling",
+      "name": "VectorizeTransformOverAllDraws",
+      "description": "Apply the per-draw transform across the draw axis with vmap to produce final posterior draws in constrained/derived space.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "draws",
+          "type_desc": "dict[str, np.ndarray]",
+          "constraints": "Leading axis indexes draws."
+        },
+        {
+          "name": "per_draw_transform_fn",
+          "type_desc": "callable",
+          "constraints": "Pure per-draw mapping from unconstrained draw dict to output representation."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_draws",
+          "type_desc": "np.ndarray | dict[str, np.ndarray]",
+          "constraints": "Structure depends on fun_to_apply output."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(draws: dict[str, np.ndarray], per_draw_transform_fn: callable) -> np.ndarray | dict[str, np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "summarize_latent_layout",
+      "target_id": "prepare_stochastic_divergence_objective",
+      "output_name": "flat_theta_template",
+      "input_name": "flat_theta_template",
+      "source_type": "jnp.ndarray",
+      "target_type": "jnp.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "summarize_latent_layout",
+      "target_id": "prepare_stochastic_divergence_objective",
+      "output_name": "shape_summary",
+      "input_name": "shape_summary",
+      "source_type": "flatten/reconstruct metadata",
+      "target_type": "flatten/reconstruct metadata",
+      "requires_glue": false
+    },
+    {
+      "source_id": "summarize_latent_layout",
+      "target_id": "initialize_variational_state",
+      "output_name": "flat_theta_template",
+      "input_name": "flat_theta_template",
+      "source_type": "jnp.ndarray",
+      "target_type": "jnp.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepare_stochastic_divergence_objective",
+      "target_id": "initialize_variational_state",
+      "output_name": "rng_state_after_objective_init",
+      "input_name": "rng_state_after_objective_init",
+      "source_type": "int | PRNGKey-like RNG state",
+      "target_type": "int | PRNGKey-like RNG state",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepare_stochastic_divergence_objective",
+      "target_id": "optimize_variational_objective",
+      "output_name": "objective_fun",
+      "input_name": "objective_fun",
+      "source_type": "callable",
+      "target_type": "callable",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_variational_state",
+      "target_id": "optimize_variational_objective",
+      "output_name": "init_var_params_flat",
+      "input_name": "init_var_params_flat",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimize_variational_objective",
+      "target_id": "decode_optimized_free_parameters",
+      "output_name": "opt_result",
+      "input_name": "opt_result",
+      "source_type": "optimizer result object",
+      "target_type": "optimizer result object",
+      "requires_glue": false
+    },
+    {
+      "source_id": "summarize_latent_layout",
+      "target_id": "decode_optimized_free_parameters",
+      "output_name": "shape_summary",
+      "input_name": "shape_summary",
+      "source_type": "flatten/reconstruct metadata",
+      "target_type": "flatten/reconstruct metadata",
+      "requires_glue": false
+    },
+    {
+      "source_id": "decode_optimized_free_parameters",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "free_means",
+      "input_name": "free_means",
+      "source_type": "dict[str, jnp.ndarray]",
+      "target_type": "dict[str, jnp.ndarray]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "decode_optimized_free_parameters",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "free_sds",
+      "input_name": "free_sds",
+      "source_type": "dict[str, jnp.ndarray]",
+      "target_type": "dict[str, jnp.ndarray]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "decode_optimized_free_parameters",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "final_var_params_flat",
+      "input_name": "final_var_params_flat",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimize_variational_objective",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "opt_result",
+      "input_name": "opt_result",
+      "source_type": "optimizer result object",
+      "target_type": "optimizer result object",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepare_stochastic_divergence_objective",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "objective_fun",
+      "input_name": "objective_fun",
+      "source_type": "callable",
+      "target_type": "callable",
+      "requires_glue": false
+    },
+    {
+      "source_id": "summarize_latent_layout",
+      "target_id": "assemble_fit_artifacts",
+      "output_name": "shape_summary",
+      "input_name": "shape_summary",
+      "source_type": "flatten/reconstruct metadata",
+      "target_type": "flatten/reconstruct metadata",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_fit_artifacts",
+      "target_id": "attach_posterior_draws_if_requested",
+      "output_name": "fit_result_base",
+      "input_name": "fit_result_base",
+      "source_type": "dict[str, Any]",
+      "target_type": "dict[str, Any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "decode_optimized_free_parameters",
+      "target_id": "attach_posterior_draws_if_requested",
+      "output_name": "free_means",
+      "input_name": "free_means",
+      "source_type": "dict[str, jnp.ndarray]",
+      "target_type": "dict[str, jnp.ndarray]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "decode_optimized_free_parameters",
+      "target_id": "attach_posterior_draws_if_requested",
+      "output_name": "free_sds",
+      "input_name": "free_sds",
+      "source_type": "dict[str, jnp.ndarray]",
+      "target_type": "dict[str, jnp.ndarray]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "samplefreespaceposteriordraws",
+      "target_id": "vectorizetransformoveralldraws",
+      "output_name": "draws",
+      "input_name": "draws",
+      "source_type": "dict[str, np.ndarray]",
+      "target_type": "dict[str, np.ndarray]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "createperdrawconstraintandpostprocesstransform",
+      "target_id": "vectorizetransformoveralldraws",
+      "output_name": "per_draw_transform_fn",
+      "input_name": "per_draw_transform_fn",
+      "source_type": "callable",
+      "target_type": "callable",
+      "requires_glue": false
+    },
+    {
+      "source_id": "meanfieldvariationalfit",
+      "target_id": "posteriordrawsampling",
+      "output_name": "free_means",
+      "input_name": "free_means",
+      "source_type": "dict[str, array]",
+      "target_type": "dict[str, array]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "meanfieldvariationalfit",
+      "target_id": "posteriordrawsampling",
+      "output_name": "free_sds",
+      "input_name": "free_sds",
+      "source_type": "dict[str, array]",
+      "target_type": "dict[str, array]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "meanfieldvariationalfit",
+      "target_id": "posteriordrawsampling",
+      "output_name": "rng_state_out",
+      "input_name": "rng_state_in",
+      "source_type": "int | PRNGKey-like RNG state",
+      "target_type": "int | PRNGKey-like RNG state",
+      "requires_glue": false
+    },
+    {
+      "source_id": "posteriordrawsampling",
+      "target_id": "meanfieldvariationalfit",
+      "output_name": "posterior_draws",
+      "input_name": "log_prior_fun",
+      "source_type": "array | dict[str, array]",
+      "target_type": "callable",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "optimize_advi_mean_field"
+  }
+}

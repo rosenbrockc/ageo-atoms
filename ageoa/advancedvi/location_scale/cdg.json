@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "node_id": "logpdf_root",
+      "parent_id": null,
+      "name": "logpdf",
+      "description": "Ingested pipeline from logpdf",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "evaluate_log_probability_density"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluate_log_probability_density",
+      "parent_id": "logpdf_root",
+      "name": "evaluate_log_probability_density",
+      "description": "Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.",
+      "concept_type": "log_prob",
+      "inputs": [
+        {
+          "name": "q",
+          "type_desc": "Unknown",
+          "constraints": "Input parameter for the logpdf calculation."
+        },
+        {
+          "name": "z",
+          "type_desc": "Unknown",
+          "constraints": "Input parameter for the logpdf calculation."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "log_density",
+          "type_desc": "float",
+          "constraints": "The resulting log-probability density."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(q: Unknown, z: Unknown) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "evaluate_logarithmic_potential. Maps a point in an N-dimensional state space to a scalar value. This value represents the logarithmic potential (or likelihood) of that state, according to a predefined but implicit mathematical function. This transformation is often used to convert multiplicative scoring systems into additive ones, improving numerical stability.. Applications: In computational physics, calculating the potential energy of a particle configuration in a force field (e.g., Lennard-Jones potential), where systems evolve towards states of minimum energy., In information theory, computing the 'surprisal' or information content of a specific event or message given a probabilistic model. A higher log-probability corresponds to a less surprising event., In geospatial analysis, modeling the suitability of a geographic location for a purpose (e.g., crop growth) based on various input factors (elevation, soil type), where the output represents a composite suitability score.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "logpdf"
+  }
+}
