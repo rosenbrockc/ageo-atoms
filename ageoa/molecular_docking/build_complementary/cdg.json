@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "node_id": "build_complementary_graph_root",
+      "parent_id": null,
+      "name": "build_complementary_graph",
+      "description": "Ingested pipeline from build_complementary_graph",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "constructcomplementarygraph"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "constructcomplementarygraph",
+      "parent_id": "build_complementary_graph_root",
+      "name": "ConstructComplementaryGraph",
+      "description": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+      "concept_type": "set_theory",
+      "inputs": [
+        {
+          "name": "graph",
+          "type_desc": "Graph",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "complementary_graph",
+          "type_desc": "Graph",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(graph: Graph) -> Graph",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "build_complementary_graph"
+  }
+}

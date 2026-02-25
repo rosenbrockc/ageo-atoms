@@ -1,0 +1,30 @@
+{
+  "run_id": "25f763515fd5450ba70add165c8580f0",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/rust_robotics/src/models/ground_vehicles/longitudinal_dynamics.rs",
+  "class_name": "Model",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.6795928,
+  "last_heartbeat_at": 1771984024.090252,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771984024.090252,
+  "summary": {
+    "cdg_nodes": 9,
+    "cdg_edges": 0,
+    "matches": 8,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "run_id": "fd3311ff81104ae0a17bb2a7ae1c11cb",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/emg.py",
+  "class_name": "solnik_onset_detector",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983691.1226711,
+  "last_heartbeat_at": 1771983836.156723,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983836.156723,
+  "summary": {
+    "cdg_nodes": 8,
+    "cdg_edges": 11,
+    "matches": 6,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

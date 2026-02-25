@@ -1,0 +1,29 @@
+{
+  "run_id": "1c3d65ed6fbb466cb6727f20cde14c98",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/pronto/pronto_quadruped/include/pronto_quadruped/FlexEstimator.hpp",
+  "class_name": "FlexEstimator",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771985189.8234491,
+  "last_heartbeat_at": 1771985218.598491,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771985218.598491,
+  "summary": {
+    "cdg_nodes": 1,
+    "cdg_edges": 0,
+    "matches": 0,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "witnesses.py"
+    ]
+  }
+}

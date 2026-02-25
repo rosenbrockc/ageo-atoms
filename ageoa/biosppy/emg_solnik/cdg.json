@@ -1,0 +1,470 @@
+{
+  "nodes": [
+    {
+      "node_id": "solnik_onset_detector_root",
+      "parent_id": null,
+      "name": "solnik_onset_detector",
+      "description": "Ingested pipeline from solnik_onset_detector",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "threshold_based_onset_detection"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "threshold_based_onset_detection",
+      "parent_id": "solnik_onset_detector_root",
+      "name": "Threshold-Based Onset Detection",
+      "description": "Detects activation onset points in a signal by comparing against a rest-derived baseline and enforcing a minimum active-state duration.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "1D time-series samples"
+        },
+        {
+          "name": "rest",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "baseline/rest segment used to calibrate detection"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "> 0, samples per second"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "activation cutoff relative to baseline/rest statistics"
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "minimum sustained active duration (seconds or equivalent sample window)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_indices",
+          "type_desc": "array-like integer indices",
+          "constraints": "indices marking detected onsets that satisfy threshold and duration criteria"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validate_required_inputs",
+        "estimate_rest_baseline_statistics",
+        "remove_signal_baseline_offset",
+        "compute_detection_threshold",
+        "derive_energy_trace_and_state_transitions",
+        "merge_transition_indices"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: array-like numeric sequence, rest: array-like numeric sequence, sampling_rate: float, threshold: float, active_state_duration: float) -> array-like integer indices",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Baseline-Calibrated Persistent Excursion Onset Extraction. A reference segment is used to estimate baseline statistics, then a 1D numeric sequence is thresholded relative to that baseline to form a binary active/inactive mask. A minimum persistence constraint is applied so only supra-threshold runs with sufficient length are retained, removing short transient crossings. The output is the set of rising-edge indices (inactive to active transitions) of the retained runs.. Applications: Seismology: detect onset times of sustained waveform excursions relative to quiet-earth baseline segments., Industrial condition monitoring: detect start of persistent anomalous vibration regimes in rotating machinery streams., Neuroscience: detect burst onset events in electrophysiological traces using pre-activity calibration windows., Network telemetry: detect onset of sustained traffic-load excursions above baseline fluctuation levels.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validate_required_inputs",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "validate_required_inputs",
+      "description": "Validate mandatory arguments and expose normalized inputs for downstream computation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "must not be null"
+        },
+        {
+          "name": "rest",
+          "type_desc": "array-like or dict",
+          "constraints": "must not be null"
+        },
+        {
+          "name": "threshold_scale",
+          "type_desc": "float",
+          "constraints": "must not be null"
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "int",
+          "constraints": "must not be null; positive"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "accepted but not used in downstream logic"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "non-null"
+        },
+        {
+          "name": "validated_rest",
+          "type_desc": "array-like or dict",
+          "constraints": "non-null"
+        },
+        {
+          "name": "validated_threshold_scale",
+          "type_desc": "float",
+          "constraints": "non-null"
+        },
+        {
+          "name": "validated_active_duration",
+          "type_desc": "int",
+          "constraints": "non-null; positive"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like numeric sequence, rest: array-like or dict, threshold_scale: float, active_state_duration: int, sampling_rate: float) -> tuple[array-like numeric sequence, array-like or dict, float, int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "estimate_rest_baseline_statistics",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "estimate_rest_baseline_statistics",
+      "description": "Resolve rest specification (segment indices, full rest samples, or precomputed dict) and produce baseline mean/std used for thresholding.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "validated_rest",
+          "type_desc": "array-like or dict",
+          "constraints": "if array/list: length >= 2; if dict: keys mean and std_dev"
+        },
+        {
+          "name": "validated_signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "required when rest is a [start, end] segment spec"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mean_rest",
+          "type_desc": "float",
+          "constraints": "scalar baseline mean"
+        },
+        {
+          "name": "std_dev_rest",
+          "type_desc": "float",
+          "constraints": "scalar baseline standard deviation"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_rest: array-like or dict, validated_signal: array-like numeric sequence) -> tuple[float, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "remove_signal_baseline_offset",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "remove_signal_baseline_offset",
+      "description": "Center the input signal by subtracting its global mean before energy-operator processing.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "non-empty numeric sequence"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "signal_zero_mean",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "same length as input"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_signal: array-like numeric sequence) -> array-like numeric sequence",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_detection_threshold",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "compute_detection_threshold",
+      "description": "Convert rest statistics and user scale factor into an absolute detection threshold.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "mean_rest",
+          "type_desc": "float",
+          "constraints": "scalar"
+        },
+        {
+          "name": "std_dev_rest",
+          "type_desc": "float",
+          "constraints": "scalar; typically non-negative"
+        },
+        {
+          "name": "validated_threshold_scale",
+          "type_desc": "float",
+          "constraints": "user-provided multiplier"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "threshold_value",
+          "type_desc": "float",
+          "constraints": "scalar threshold for state tests"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(mean_rest: float, std_dev_rest: float, validated_threshold_scale: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "derive_energy_trace_and_state_transitions",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "derive_energy_trace_and_state_transitions",
+      "description": "Compute rectified Teager-Kaiser energy per sample and run a state machine that records onset/offset alarms only after sustained active/inactive durations.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal_zero_mean",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "length >= 3 for k-1,k,k+1 access"
+        },
+        {
+          "name": "threshold_value",
+          "type_desc": "float",
+          "constraints": "scalar comparison threshold"
+        },
+        {
+          "name": "validated_active_duration",
+          "type_desc": "int",
+          "constraints": "minimum consecutive samples required to confirm state"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tf_sequence",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "length len(signal_zero_mean)-2; non-negative due to abs"
+        },
+        {
+          "name": "onset_time_list",
+          "type_desc": "array-like integer indices",
+          "constraints": "indices where active-state onset confirmed"
+        },
+        {
+          "name": "offset_time_list",
+          "type_desc": "array-like integer indices",
+          "constraints": "indices where inactive-state offset confirmed"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal_zero_mean: array-like numeric sequence, threshold_value: float, validated_active_duration: int) -> tuple[array-like numeric sequence, array-like integer indices, array-like integer indices]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "merge_transition_indices",
+      "parent_id": "threshold_based_onset_detection",
+      "name": "merge_transition_indices",
+      "description": "Combine detected onset and offset indices into a sorted unique index set.",
+      "concept_type": "set_theory",
+      "inputs": [
+        {
+          "name": "onset_time_list",
+          "type_desc": "array-like integer indices",
+          "constraints": "may be empty"
+        },
+        {
+          "name": "offset_time_list",
+          "type_desc": "array-like integer indices",
+          "constraints": "may be empty"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_indices",
+          "type_desc": "array-like integer indices",
+          "constraints": "sorted unique union of both lists"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(onset_time_list: array-like integer indices, offset_time_list: array-like integer indices) -> array-like integer indices",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validate_required_inputs",
+      "target_id": "estimate_rest_baseline_statistics",
+      "output_name": "validated_rest",
+      "input_name": "validated_rest",
+      "source_type": "array-like or dict",
+      "target_type": "array-like or dict",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_inputs",
+      "target_id": "estimate_rest_baseline_statistics",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "array-like numeric sequence",
+      "target_type": "array-like numeric sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_inputs",
+      "target_id": "remove_signal_baseline_offset",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "array-like numeric sequence",
+      "target_type": "array-like numeric sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimate_rest_baseline_statistics",
+      "target_id": "compute_detection_threshold",
+      "output_name": "mean_rest",
+      "input_name": "mean_rest",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimate_rest_baseline_statistics",
+      "target_id": "compute_detection_threshold",
+      "output_name": "std_dev_rest",
+      "input_name": "std_dev_rest",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_inputs",
+      "target_id": "compute_detection_threshold",
+      "output_name": "validated_threshold_scale",
+      "input_name": "validated_threshold_scale",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "remove_signal_baseline_offset",
+      "target_id": "derive_energy_trace_and_state_transitions",
+      "output_name": "signal_zero_mean",
+      "input_name": "signal_zero_mean",
+      "source_type": "array-like numeric sequence",
+      "target_type": "array-like numeric sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_detection_threshold",
+      "target_id": "derive_energy_trace_and_state_transitions",
+      "output_name": "threshold_value",
+      "input_name": "threshold_value",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_inputs",
+      "target_id": "derive_energy_trace_and_state_transitions",
+      "output_name": "validated_active_duration",
+      "input_name": "validated_active_duration",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derive_energy_trace_and_state_transitions",
+      "target_id": "merge_transition_indices",
+      "output_name": "onset_time_list",
+      "input_name": "onset_time_list",
+      "source_type": "array-like integer indices",
+      "target_type": "array-like integer indices",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derive_energy_trace_and_state_transitions",
+      "target_id": "merge_transition_indices",
+      "output_name": "offset_time_list",
+      "input_name": "offset_time_list",
+      "source_type": "array-like integer indices",
+      "target_type": "array-like integer indices",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "solnik_onset_detector"
+  }
+}

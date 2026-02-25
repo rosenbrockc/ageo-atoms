@@ -1,0 +1,30 @@
+{
+  "run_id": "7a7b86a0541d48aa9a0b9d0b212900fa",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mint/mint/data.py",
+  "class_name": "FastaBatchedDataset",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771986783.367917,
+  "last_heartbeat_at": 1771986976.198901,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771986976.198901,
+  "summary": {
+    "cdg_nodes": 10,
+    "cdg_edges": 10,
+    "matches": 8,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

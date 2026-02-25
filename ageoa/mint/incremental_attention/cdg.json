@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "node_id": "with_incremental_state_root",
+      "parent_id": null,
+      "name": "with_incremental_state",
+      "description": "Ingested pipeline from with_incremental_state",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "enable_incremental_state_configuration"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "enable_incremental_state_configuration",
+      "parent_id": "with_incremental_state_root",
+      "name": "enable_incremental_state_configuration",
+      "description": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "cls",
+          "type_desc": "type",
+          "constraints": "Base class object."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "incremental_state_cls",
+          "type_desc": "type",
+          "constraints": "Configured class/object representing incremental-state behavior without hidden mutation."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(cls: type) -> type",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "deterministic_type_lifting_for_incremental_transition_semantics. Maps a base type descriptor to a derived type descriptor that supports explicit incremental state transitions. The mapping is applied at class-definition level, so behavior is extended structurally rather than by hidden runtime mutation. The original type remains unchanged, and the transform behaves as a referentially transparent type-to-type constructor.. Applications: Robotics: convert control-module definitions into stepwise update variants that consume sensor deltas and emit explicit next-state artifacts., Numerical simulation: lift solver classes into timestep-incremental forms for reproducible checkpoint-to-checkpoint field evolution., Signal processing: transform batch filter definitions into streaming operators with explicit carried state across data chunks., Distributed systems: adapt protocol handlers into event-incremental processors that externalize state progression for replay and auditing.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "with_incremental_state"
+  }
+}

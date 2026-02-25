@@ -1,0 +1,30 @@
+{
+  "run_id": "be55d60d196e45eb8ecc3f00a8bdee0d",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/rust_robotics/src/models/ground_vehicles/bicycle_kinematic.rs",
+  "class_name": "Model",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983691.291329,
+  "last_heartbeat_at": 1771984066.435874,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771984066.435874,
+  "summary": {
+    "cdg_nodes": 16,
+    "cdg_edges": 19,
+    "matches": 13,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{"timestamp": 1771983690.707701, "round": "ingester", "phase": "startup", "event_type": "INGEST_START", "node_id": "", "payload": {"run_id": "b56ccc56099b4027bbbba5882a9ffb60", "state": "running", "phase": "startup", "current_step": "init", "source_path": "/Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/abp.py", "class_name": "find_onsets_zong2003", "procedural": false, "llm_provider": "codex_cli", "llm_model": "sonnet", "max_depth": 12, "started_at": 1771983690.7074702, "last_heartbeat_at": 1771983690.7074702, "llm_call_inflight": null, "error": ""}, "duration_ms": null}
+{"timestamp": 1771983690.7966259, "round": "ingester", "phase": "phase1_extract", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "extract"}, "duration_ms": null}
+{"timestamp": 1771983690.815274, "round": "ingester", "phase": "phase1_extract", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "ok"}, "duration_ms": null}
+{"timestamp": 1771983690.8162282, "round": "ingester", "phase": "phase2_chunk", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "chunk"}, "duration_ms": null}
+{"timestamp": 1771983690.9997811, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_chunk"}, "duration_ms": null}
+{"timestamp": 1771983702.6164632, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_chunk", "ok": true, "error": ""}, "duration_ms": 11619.548082351685}
+{"timestamp": 1771983702.619953, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_decompose"}, "duration_ms": null}
+{"timestamp": 1771983761.039337, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_decompose", "ok": true, "error": ""}, "duration_ms": 58419.025897979736}
+{"timestamp": 1771983761.041404, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_abstract"}, "duration_ms": null}
+{"timestamp": 1771983773.961327, "round": "ingester", "phase": "phase2_chunk", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_abstract", "ok": true, "error": ""}, "duration_ms": 12919.703006744385}
+{"timestamp": 1771983773.962312, "round": "ingester", "phase": "phase2_chunk", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "ok"}, "duration_ms": null}
+{"timestamp": 1771983773.963068, "round": "ingester", "phase": "phase2_conjugate_heuristics", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "heuristics"}, "duration_ms": null}
+{"timestamp": 1771983773.963422, "round": "ingester", "phase": "phase2_conjugate_heuristics", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "ok"}, "duration_ms": null}
+{"timestamp": 1771983773.964013, "round": "ingester", "phase": "phase3_emit", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "emit"}, "duration_ms": null}
+{"timestamp": 1771983773.9645061, "round": "ingester", "phase": "phase3_emit", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "ok"}, "duration_ms": null}
+{"timestamp": 1771983773.965039, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771983774.12956, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771983774.1312718, "round": "ingester", "phase": "repair_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "llm_fix_type"}, "duration_ms": null}
+{"timestamp": 1771983774.13153, "round": "ingester", "phase": "repair_types", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_fix_type"}, "duration_ms": null}
+{"timestamp": 1771983787.5901911, "round": "ingester", "phase": "repair_types", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_fix_type", "ok": true, "error": ""}, "duration_ms": 13458.477973937988}
+{"timestamp": 1771983787.5904949, "round": "ingester", "phase": "repair_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "patched"}, "duration_ms": null}
+{"timestamp": 1771983787.5913332, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771983788.813382, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771983788.814452, "round": "ingester", "phase": "repair_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "llm_fix_type"}, "duration_ms": null}
+{"timestamp": 1771983788.8146849, "round": "ingester", "phase": "repair_types", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_fix_type"}, "duration_ms": null}
+{"timestamp": 1771983832.706123, "round": "ingester", "phase": "repair_types", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_fix_type", "ok": true, "error": ""}, "duration_ms": 43891.24917984009}
+{"timestamp": 1771983832.706422, "round": "ingester", "phase": "repair_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "patched"}, "duration_ms": null}
+{"timestamp": 1771983832.707157, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771983833.9302661, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "passed"}, "duration_ms": null}
+{"timestamp": 1771983833.9316301, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "ghost_sim"}, "duration_ms": null}
+{"timestamp": 1771983834.537483, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771983834.538718, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "llm_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771983834.538988, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771983959.5498, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost", "ok": true, "error": ""}, "duration_ms": 125010.57600975037}
+{"timestamp": 1771983959.550084, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "patched"}, "duration_ms": null}
+{"timestamp": 1771983959.550875, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771983960.793875, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "passed"}, "duration_ms": null}
+{"timestamp": 1771983960.795028, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "ghost_sim"}, "duration_ms": null}
+{"timestamp": 1771983960.79535, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771983960.796033, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "llm_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771983960.7962902, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771984070.8943439, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost", "ok": true, "error": ""}, "duration_ms": 110097.83124923706}
+{"timestamp": 1771984070.8946502, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "patched"}, "duration_ms": null}
+{"timestamp": 1771984070.89539, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771984072.070902, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "passed"}, "duration_ms": null}
+{"timestamp": 1771984072.072285, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "ghost_sim"}, "duration_ms": null}
+{"timestamp": 1771984072.072654, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771984072.073508, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "llm_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771984072.073771, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_START", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost"}, "duration_ms": null}
+{"timestamp": 1771984112.473954, "round": "ingester", "phase": "repair_ghost", "event_type": "LLM_CALL_END", "node_id": "", "payload": {"prompt_key": "ingester_fix_ghost", "ok": true, "error": ""}, "duration_ms": 40399.813175201416}
+{"timestamp": 1771984112.474318, "round": "ingester", "phase": "repair_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "patched"}, "duration_ms": null}
+{"timestamp": 1771984112.475255, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "mypy"}, "duration_ms": null}
+{"timestamp": 1771984112.899018, "round": "ingester", "phase": "verify_types", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "passed"}, "duration_ms": null}
+{"timestamp": 1771984112.900162, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_START", "node_id": "", "payload": {"step": "ghost_sim"}, "duration_ms": null}
+{"timestamp": 1771984112.900501, "round": "ingester", "phase": "verify_ghost", "event_type": "PHASE_END", "node_id": "", "payload": {"step": "failed"}, "duration_ms": null}
+{"timestamp": 1771984112.903397, "round": "ingester", "phase": "verify_ghost", "event_type": "INGEST_COMPLETE", "node_id": "", "payload": {"cdg_nodes": 10, "cdg_edges": 23, "matches": 8, "mypy_passed": false, "ghost_sim_passed": false, "published_files": ["atoms.py", "cdg.json", "matches.json", "witnesses.py"]}, "duration_ms": null}

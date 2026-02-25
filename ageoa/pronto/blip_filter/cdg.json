@@ -1,0 +1,276 @@
+{
+  "nodes": [
+    {
+      "node_id": "BlipFilter_root",
+      "parent_id": null,
+      "name": "BlipFilter",
+      "description": "Ingested pipeline from BlipFilter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "bandpass_filter",
+        "r_peak_detection",
+        "peak_correction",
+        "template_extraction",
+        "heart_rate_computation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bandpass_filter",
+      "parent_id": "BlipFilter_root",
+      "name": "Bandpass Filter",
+      "description": "Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1D raw ECG signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "bandpass-filtered ECG"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Frequency Band Isolation Transform. A transformation on a 1D ordered numerical vector that attenuates signal components whose frequencies lie outside a specified range. It functions as a selective sieve, preserving cyclical patterns within a target periodicity band while suppressing both low-frequency drifts and high-frequency noise.. Applications: Isolating specific seismic wave frequencies from raw seismograph readings to identify earthquake epicenters., Extracting the frequency range of a specific instrument or voice from a complex audio mix for audio engineering., Detrending financial time-series data by removing long-term market cycles and short-term noise to analyze mid-term business cycle volatility., Filtering radio telescope data to isolate the spectral emission lines of specific chemical elements, removing background cosmic noise and instrumental drift.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "r_peak_detection",
+      "parent_id": "BlipFilter_root",
+      "name": "R-Peak Detection",
+      "description": "Detect R-peak locations in the filtered ECG signal using the Hamilton segmenter algorithm.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "R-peak sample indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "adaptive_threshold_peak_detector_1d. Identifies indices of prominent, positive-going local maxima within a 1D numerical sequence. The process involves calculating a rolling first-order difference to detect sharp increases, followed by an adaptive thresholding mechanism. This threshold is dynamically updated based on the amplitudes of previously identified peaks, allowing the detector to adjust to variations in the signal's baseline and noise levels.. Applications: Geophysics: Detecting the arrival times of seismic P-waves or S-waves from seismograph sensor data., Astrophysics: Identifying transient events like pulsars or fast radio bursts in time-series data from radio telescopes., Materials Science: Pinpointing fracture or acoustic emission events in sensor readings during stress testing of materials., Financial Engineering: Detecting sudden volume spikes in high-frequency trading data to signal significant market events.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "peak_correction",
+      "parent_id": "BlipFilter_root",
+      "name": "Peak Correction",
+      "description": "Correct R-peak locations to the nearest local maximum within a tolerance window.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        },
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "initial R-peak indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks_corrected",
+          "type_desc": "np.ndarray",
+          "constraints": "corrected R-peak indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Local Extremum Refinement. Refines a set of discrete indices by shifting each point to the location of the maximum value within a localized search window of a corresponding 1D numerical series. This operation improves the precision of event markers by aligning them with the nearest local optima, effectively correcting for initial estimation errors.. Applications: Astronomy: Pinpointing the exact centroid of a star from a noisy telescopic image by refining an initial approximate detection to the pixel of maximum luminosity., Genomics: Adjusting the predicted location of a transcription factor binding site in a ChIP-seq dataset to the specific base pair with the highest read-count peak., Materials Science: Identifying the precise point of material failure in stress-strain data by moving from a general region of interest to the exact data point of maximum stress before a drop., Financial Analysis: Correcting the timestamp of a detected stock price peak in high-frequency data to the precise millisecond of the local maximum before a reversal.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "template_extraction",
+      "parent_id": "BlipFilter_root",
+      "name": "Template Extraction",
+      "description": "Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filtered",
+          "type_desc": "np.ndarray",
+          "constraints": "filtered ECG signal"
+        },
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "corrected R-peak indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "templates",
+          "type_desc": "np.ndarray",
+          "constraints": "2D array of heartbeat templates"
+        },
+        {
+          "name": "rpeaks_final",
+          "type_desc": "np.ndarray",
+          "constraints": "final R-peak indices after template extraction"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Event-Triggered Signal Epoching. Segments a 1D numerical series into a collection of fixed-length subsequences (epochs). Each subsequence is centered around a corresponding index provided in a separate list of 'event' markers. This operation effectively transforms a continuous signal into a stacked 2D array of discrete, event-aligned segments, while filtering out event markers that are too close to the signal's boundaries to form a complete epoch.. Applications: Geophysics: Extracting seismic P-wave and S-wave arrival waveforms from a continuous seismogram based on automatically detected arrival times., Finance: Isolating asset price fluctuations from a time-series immediately following discrete market events, such as earnings announcements or policy changes., Neuroscience: Aligning and averaging Event-Related Potentials (ERPs) from continuous EEG data, time-locked to the onset of external stimuli., Astrophysics: Segmenting light curve data from a star around periodic transit events (e.g., exoplanet transits or pulsar signals) to stack and enhance signal-to-noise ratio.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "heart_rate_computation",
+      "parent_id": "BlipFilter_root",
+      "name": "Heart Rate Computation",
+      "description": "Compute instantaneous heart rate in bpm from R-R intervals with optional smoothing.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "R-peak sample indices"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hr_idx",
+          "type_desc": "np.ndarray",
+          "constraints": "time indices for heart rate values"
+        },
+        {
+          "name": "heart_rate",
+          "type_desc": "np.ndarray",
+          "constraints": "instantaneous heart rate in bpm"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "SequenceToInstantaneousRate. Given a monotonically increasing 1D sequence of event indices, this operation computes the instantaneous frequency for each interval between consecutive events. It first calculates the deltas (differences) between adjacent indices, then computes the reciprocal of each delta to yield a rate. The resulting rate values are indexed to the midpoint of the interval from which they were derived.. Applications: Neuroscience: Calculating the instantaneous firing rate of a neuron from a series of recorded spike timestamps., Mechanical Engineering: Determining the instantaneous rotational speed (RPM) of a shaft from the sequence of pulses generated by a rotary encoder., Geophysics: Estimating the frequency of aftershocks or other seismic events based on their discrete arrival times., Finance: Analyzing the instantaneous rate of high-frequency trades for a security from their transaction timestamps.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "r_peak_detection",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "template_extraction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks_corrected",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks_corrected",
+      "input_name": "rpeaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "BlipFilter"
+  }
+}

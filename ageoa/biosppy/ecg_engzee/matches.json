@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "prepare_engzee_parameters",
+      "statement": "(sampling_rate: float, threshold: float) -> dict",
+      "informal_desc": "Calculates algorithm-specific time-window constants and gain factors from the sampling rate and initial threshold.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "prepare_engzee_parameters",
+          "type_signature": "(sampling_rate: float, threshold: float) -> dict",
+          "docstring": "Calculates algorithm-specific time-window constants and gain factors from the sampling rate and initial threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "prepare_engzee_parameters",
+          "type_signature": "(sampling_rate: float, threshold: float) -> dict",
+          "docstring": "Calculates algorithm-specific time-window constants and gain factors from the sampling rate and initial threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "prepare_engzee_parameters",
+            "type_signature": "(sampling_rate: float, threshold: float) -> dict",
+            "docstring": "Calculates algorithm-specific time-window constants and gain factors from the sampling rate and initial threshold.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "apply_qrs_bandpass_filter",
+      "statement": "(signal: np.ndarray) -> np.ndarray",
+      "informal_desc": "Applies a differentiator (high-pass) and a subsequent low-pass filter to the raw signal, effectively creating a band-pass filter to isolate QRS frequency content.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "apply_qrs_bandpass_filter",
+          "type_signature": "(signal: np.ndarray) -> np.ndarray",
+          "docstring": "Applies a differentiator (high-pass) and a subsequent low-pass filter to the raw signal, effectively creating a band-pass filter to isolate QRS frequency content.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "apply_qrs_bandpass_filter",
+          "type_signature": "(signal: np.ndarray) -> np.ndarray",
+          "docstring": "Applies a differentiator (high-pass) and a subsequent low-pass filter to the raw signal, effectively creating a band-pass filter to isolate QRS frequency content.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "apply_qrs_bandpass_filter",
+            "type_signature": "(signal: np.ndarray) -> np.ndarray",
+            "docstring": "Applies a differentiator (high-pass) and a subsequent low-pass filter to the raw signal, effectively creating a band-pass filter to isolate QRS frequency content.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "scan_for_rpeaks",
+      "statement": "(raw_signal: np.ndarray, qrs_enhanced_signal: np.ndarray, algo_params: dict) -> list[int]",
+      "informal_desc": "Performs the core iterative detection. It scans the filtered signal, dynamically updates high and low thresholds, finds threshold crossings, validates them against timing and morphology criteria, and pinpoints the final peak in the original signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "scan_for_rpeaks",
+          "type_signature": "(raw_signal: np.ndarray, qrs_enhanced_signal: np.ndarray, algo_params: dict) -> list[int]",
+          "docstring": "Performs the core iterative detection. It scans the filtered signal, dynamically updates high and low thresholds, finds threshold crossings, validates them against timing and morphology criteria, and pinpoints the final peak in the original signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "scan_for_rpeaks",
+          "type_signature": "(raw_signal: np.ndarray, qrs_enhanced_signal: np.ndarray, algo_params: dict) -> list[int]",
+          "docstring": "Performs the core iterative detection. It scans the filtered signal, dynamically updates high and low thresholds, finds threshold crossings, validates them against timing and morphology criteria, and pinpoints the final peak in the original signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "scan_for_rpeaks",
+            "type_signature": "(raw_signal: np.ndarray, qrs_enhanced_signal: np.ndarray, algo_params: dict) -> list[int]",
+            "docstring": "Performs the core iterative detection. It scans the filtered signal, dynamically updates high and low thresholds, finds threshold crossings, validates them against timing and morphology criteria, and pinpoints the final peak in the original signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "postprocess_peaks",
+      "statement": "(detected_peaks: list[int]) -> np.ndarray",
+      "informal_desc": "Sorts the detected R-peak locations and removes any duplicate entries.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "postprocess_peaks",
+          "type_signature": "(detected_peaks: list[int]) -> np.ndarray",
+          "docstring": "Sorts the detected R-peak locations and removes any duplicate entries.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "postprocess_peaks",
+          "type_signature": "(detected_peaks: list[int]) -> np.ndarray",
+          "docstring": "Sorts the detected R-peak locations and removes any duplicate entries.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "postprocess_peaks",
+            "type_signature": "(detected_peaks: list[int]) -> np.ndarray",
+            "docstring": "Sorts the detected R-peak locations and removes any duplicate entries.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

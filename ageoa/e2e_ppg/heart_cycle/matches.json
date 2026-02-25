@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_ppg_signal",
+      "statement": "(ppg: np.ndarray) -> np.ndarray",
+      "informal_desc": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+          "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+          "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_ppg_signal",
+            "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+            "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "upsample_ppg_signal",
+      "statement": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+      "informal_desc": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+          "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+          "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "upsample_ppg_signal",
+            "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+            "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_systolic_peaks",
+      "statement": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+      "informal_desc": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_systolic_peaks",
+            "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+            "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "segment_beat_cycles",
+      "statement": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+      "informal_desc": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "segment_beat_cycles",
+          "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+          "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "segment_beat_cycles",
+          "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+          "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "segment_beat_cycles",
+            "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+            "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "run_id": "596956bc8e1d4984a6187e00068e4c2f",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/derivatives_pricing/30_stochastic_volatility_heston.py",
+  "class_name": "HestonModel",
+  "procedural": true,
+  "llm_provider": "claude_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983691.1367722,
+  "last_heartbeat_at": 1771983691.461041,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983691.461041,
+  "summary": {
+    "cdg_nodes": 1,
+    "cdg_edges": 0,
+    "matches": 0,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "witnesses.py"
+    ]
+  }
+}

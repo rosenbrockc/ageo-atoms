@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "node_id": "RotaryEmbedding_root",
+      "parent_id": null,
+      "name": "RotaryEmbedding",
+      "description": "Ingested pipeline from RotaryEmbedding",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "rotaryembedding"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "rotaryembedding",
+      "parent_id": "RotaryEmbedding_root",
+      "name": "RotaryEmbedding",
+      "description": "Opaque DL boundary: RotaryEmbedding",
+      "concept_type": "neural_network",
+      "inputs": [
+        {
+          "name": "q",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type_desc": "Tuple[torch.Tensor, torch.Tensor]",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": true,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "RotaryEmbedding"
+  }
+}

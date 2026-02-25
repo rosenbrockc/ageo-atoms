@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "node_id": "TorqueAdjustment_root",
+      "parent_id": null,
+      "name": "TorqueAdjustment",
+      "description": "Ingested pipeline from TorqueAdjustment",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "torqueadjustmentidentitystage"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "torqueadjustmentidentitystage",
+      "parent_id": "TorqueAdjustment_root",
+      "name": "TorqueAdjustmentIdentityStage",
+      "description": "Represents the entry-point stage with no observable computation, state access, or side effects.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "() -> None",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "NullaryIdentityStage. Implements an identity morphism at a pipeline boundary: execution occurs, but no data is consumed, produced, or mutated. It preserves global system state and observable behavior exactly, serving only as a structural anchor for composition, scheduling, or replacement.. Applications: Compiler engineering: placeholder transformation pass used to preserve pass-order scaffolding before optimization logic is introduced., Workflow orchestration in laboratory automation: explicit start node that enforces graph structure without altering any measurement stream., Distributed systems testing: inert stage inserted to validate tracing, scheduling, and dependency wiring independently of functional computation., Control-system simulation: baseline stage representing zero control action to isolate plant dynamics from controller effects.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "TorqueAdjustment"
+  }
+}

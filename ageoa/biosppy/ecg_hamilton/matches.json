@@ -1,0 +1,398 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_parameters_and_buffers",
+      "statement": "(signal: np.ndarray, sampling_rate: float) -> tuple[dict, np.ndarray, np.ndarray, np.ndarray]",
+      "informal_desc": "Validates inputs, calculates algorithm parameters from the sampling rate (e.g., window sizes, refractory periods), and initializes empty buffers for storing peak amplitudes and RR intervals.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_parameters_and_buffers",
+          "type_signature": "(signal: np.ndarray, sampling_rate: float) -> tuple[dict, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Validates inputs, calculates algorithm parameters from the sampling rate (e.g., window sizes, refractory periods), and initializes empty buffers for storing peak amplitudes and RR intervals.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_parameters_and_buffers",
+          "type_signature": "(signal: np.ndarray, sampling_rate: float) -> tuple[dict, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Validates inputs, calculates algorithm parameters from the sampling rate (e.g., window sizes, refractory periods), and initializes empty buffers for storing peak amplitudes and RR intervals.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_parameters_and_buffers",
+            "type_signature": "(signal: np.ndarray, sampling_rate: float) -> tuple[dict, np.ndarray, np.ndarray, np.ndarray]",
+            "docstring": "Validates inputs, calculates algorithm parameters from the sampling rate (e.g., window sizes, refractory periods), and initializes empty buffers for storing peak amplitudes and RR intervals.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "preprocess_signal",
+      "statement": "(signal: np.ndarray, sampling_rate: float, sm_size: int) -> np.ndarray",
+      "informal_desc": "Applies band-pass filtering, differentiation, and smoothing to the raw ECG signal to create a feature signal where QRS complexes are prominent.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "preprocess_signal",
+          "type_signature": "(signal: np.ndarray, sampling_rate: float, sm_size: int) -> np.ndarray",
+          "docstring": "Applies band-pass filtering, differentiation, and smoothing to the raw ECG signal to create a feature signal where QRS complexes are prominent.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "preprocess_signal",
+          "type_signature": "(signal: np.ndarray, sampling_rate: float, sm_size: int) -> np.ndarray",
+          "docstring": "Applies band-pass filtering, differentiation, and smoothing to the raw ECG signal to create a feature signal where QRS complexes are prominent.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "preprocess_signal",
+            "type_signature": "(signal: np.ndarray, sampling_rate: float, sm_size: int) -> np.ndarray",
+            "docstring": "Applies band-pass filtering, differentiation, and smoothing to the raw ECG signal to create a feature signal where QRS complexes are prominent.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "estimate_initial_detection_threshold",
+      "statement": "(feature_signal: np.ndarray, params: dict, qrs_peak_buffer: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]",
+      "informal_desc": "Finds all peaks in the feature signal, bootstraps the detection process by analyzing the initial signal segment to populate the QRS peak buffer, and computes the first detection threshold.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "estimate_initial_detection_threshold",
+          "type_signature": "(feature_signal: np.ndarray, params: dict, qrs_peak_buffer: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]",
+          "docstring": "Finds all peaks in the feature signal, bootstraps the detection process by analyzing the initial signal segment to populate the QRS peak buffer, and computes the first detection threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "estimate_initial_detection_threshold",
+          "type_signature": "(feature_signal: np.ndarray, params: dict, qrs_peak_buffer: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]",
+          "docstring": "Finds all peaks in the feature signal, bootstraps the detection process by analyzing the initial signal segment to populate the QRS peak buffer, and computes the first detection threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "estimate_initial_detection_threshold",
+            "type_signature": "(feature_signal: np.ndarray, params: dict, qrs_peak_buffer: np.ndarray) -> tuple[np.ndarray, np.ndarray, float]",
+            "docstring": "Finds all peaks in the feature signal, bootstraps the detection process by analyzing the initial signal segment to populate the QRS peak buffer, and computes the first detection threshold.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "iteratively_classify_peaks",
+      "statement": "(signal: np.ndarray, feature_signal: np.ndarray, all_peaks: np.ndarray, initial_detection_threshold: float, qrs_peak_buffer: np.ndarray, noise_peak_buffer: np.ndarray, rr_interval_buffer: np.ndarray, params: dict) -> np.ndarray",
+      "informal_desc": "Performs core QRS detection by iterating through all candidate peaks. It applies rules to classify peaks, reject artifacts (e.g., T-waves), search for missed beats, and dynamically updates the detection threshold.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "iteratively_classify_peaks",
+          "type_signature": "(signal: np.ndarray, feature_signal: np.ndarray, all_peaks: np.ndarray, initial_detection_threshold: float, qrs_peak_buffer: np.ndarray, noise_peak_buffer: np.ndarray, rr_interval_buffer: np.ndarray, params: dict) -> np.ndarray",
+          "docstring": "Performs core QRS detection by iterating through all candidate peaks. It applies rules to classify peaks, reject artifacts (e.g., T-waves), search for missed beats, and dynamically updates the detection threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "iteratively_classify_peaks",
+          "type_signature": "(signal: np.ndarray, feature_signal: np.ndarray, all_peaks: np.ndarray, initial_detection_threshold: float, qrs_peak_buffer: np.ndarray, noise_peak_buffer: np.ndarray, rr_interval_buffer: np.ndarray, params: dict) -> np.ndarray",
+          "docstring": "Performs core QRS detection by iterating through all candidate peaks. It applies rules to classify peaks, reject artifacts (e.g., T-waves), search for missed beats, and dynamically updates the detection threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "iteratively_classify_peaks",
+            "type_signature": "(signal: np.ndarray, feature_signal: np.ndarray, all_peaks: np.ndarray, initial_detection_threshold: float, qrs_peak_buffer: np.ndarray, noise_peak_buffer: np.ndarray, rr_interval_buffer: np.ndarray, params: dict) -> np.ndarray",
+            "docstring": "Performs core QRS detection by iterating through all candidate peaks. It applies rules to classify peaks, reject artifacts (e.g., T-waves), search for missed beats, and dynamically updates the detection threshold.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "refine_r_peak_locations",
+      "statement": "(beat_indices: np.ndarray, signal: np.ndarray, params: dict) -> list[int]",
+      "informal_desc": "Corrects the location of each detected beat by analyzing the morphology of the raw signal in a local window, identifying the true R-peak as the most significant local extremum.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "refine_r_peak_locations",
+          "type_signature": "(beat_indices: np.ndarray, signal: np.ndarray, params: dict) -> list[int]",
+          "docstring": "Corrects the location of each detected beat by analyzing the morphology of the raw signal in a local window, identifying the true R-peak as the most significant local extremum.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "refine_r_peak_locations",
+          "type_signature": "(beat_indices: np.ndarray, signal: np.ndarray, params: dict) -> list[int]",
+          "docstring": "Corrects the location of each detected beat by analyzing the morphology of the raw signal in a local window, identifying the true R-peak as the most significant local extremum.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "refine_r_peak_locations",
+            "type_signature": "(beat_indices: np.ndarray, signal: np.ndarray, params: dict) -> list[int]",
+            "docstring": "Corrects the location of each detected beat by analyzing the morphology of the raw signal in a local window, identifying the true R-peak as the most significant local extremum.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "format_output_peaks",
+      "statement": "(refined_r_peaks: list[int]) -> np.ndarray",
+      "informal_desc": "Takes the list of refined R-peak locations, removes duplicates, sorts them chronologically, and returns the final result as a NumPy array of integers.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "format_output_peaks",
+          "type_signature": "(refined_r_peaks: list[int]) -> np.ndarray",
+          "docstring": "Takes the list of refined R-peak locations, removes duplicates, sorts them chronologically, and returns the final result as a NumPy array of integers.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "format_output_peaks",
+          "type_signature": "(refined_r_peaks: list[int]) -> np.ndarray",
+          "docstring": "Takes the list of refined R-peak locations, removes duplicates, sorts them chronologically, and returns the final result as a NumPy array of integers.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "format_output_peaks",
+            "type_signature": "(refined_r_peaks: list[int]) -> np.ndarray",
+            "docstring": "Takes the list of refined R-peak locations, removes duplicates, sorts them chronologically, and returns the final result as a NumPy array of integers.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

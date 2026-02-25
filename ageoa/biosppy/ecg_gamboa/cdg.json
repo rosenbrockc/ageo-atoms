@@ -1,0 +1,365 @@
+{
+  "nodes": [
+    {
+      "node_id": "gamboa_segmenter_root",
+      "parent_id": null,
+      "name": "gamboa_segmenter",
+      "description": "Ingested pipeline from gamboa_segmenter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "gamboa_segmentation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "gamboa_segmentation",
+      "parent_id": "gamboa_segmenter_root",
+      "name": "gamboa_segmentation",
+      "description": "Segments a signal into isoelectric and non-isoelectric regions based on the Gamboa (2008) method. This algorithm identifies segments by analyzing the standard deviation of the signal within a moving window.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1D array representing the signal."
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "The sampling frequency of the signal in Hz."
+        },
+        {
+          "name": "tol",
+          "type_desc": "float",
+          "constraints": "The tolerance for the segmentation, typically a small value like 0.001."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "segments",
+          "type_desc": "np.ndarray",
+          "constraints": "An array of indices indicating the start and end points of the identified segments."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "convert_time_windows_to_samples",
+        "estimate_signal_amplitude_range",
+        "normalize_signal",
+        "find_concave_candidate_peaks",
+        "filter_and_refine_peaks",
+        "finalize_rpeaks"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, sampling_rate: float, tol: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "local_variance_partitioner. Partitions an ordered 1D numerical sequence into contiguous subsequences. This is achieved by moving a sliding window across the sequence and calculating the standard deviation within it. Regions where this local standard deviation is below a specified tolerance are classified differently from regions where it is above, producing a set of boundaries that delineate these contiguous segments of low and high variance.. Applications: In finance, to segment a time-series of asset prices into periods of high volatility (risk) and low volatility (stability)., In materials science, to analyze sensor data from a manufacturing process to detect anomalies, where a change in output variance could indicate a flaw or process deviation., In genomics, to identify conserved (low-variance) versus hypervariable (high-variance) regions within a multiple sequence alignment, which can imply structural or functional importance.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "convert_time_windows_to_samples",
+      "parent_id": "gamboa_segmentation",
+      "name": "convert_time_windows_to_samples",
+      "description": "Converts time durations in milliseconds to the equivalent number of samples based on the sampling rate.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "Must be a positive number."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "window_100ms",
+          "type_desc": "int",
+          "constraints": "Number of samples in a 100ms window."
+        },
+        {
+          "name": "window_300ms",
+          "type_desc": "int",
+          "constraints": "Number of samples in a 300ms window."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate: float) -> tuple[int, int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "estimate_signal_amplitude_range",
+      "parent_id": "gamboa_segmentation",
+      "name": "estimate_signal_amplitude_range",
+      "description": "Calculates the effective amplitude range of the signal by creating a histogram and identifying the boundaries that exclude the top and bottom 1% of the signal distribution, effectively ignoring outliers.",
+      "concept_type": "set_theory",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1D array of signal values."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "amplitude_thresholds",
+          "type_desc": "tuple[float, float]",
+          "constraints": "A tuple containing the lower (v0) and upper (v1) amplitude boundaries."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: np.ndarray) -> tuple[float, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "normalize_signal",
+      "parent_id": "gamboa_segmentation",
+      "name": "normalize_signal",
+      "description": "Normalizes the input signal to a [-1, 1] range based on the maximum absolute value of the estimated amplitude thresholds.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "Original 1D signal array."
+        },
+        {
+          "name": "amplitude_thresholds",
+          "type_desc": "tuple[float, float]",
+          "constraints": "The lower and upper amplitude boundaries."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "normalized_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "Signal with values scaled to the [-1, 1] range."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: np.ndarray, amplitude_thresholds: tuple[float, float]) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_concave_candidate_peaks",
+      "parent_id": "gamboa_segmentation",
+      "name": "find_concave_candidate_peaks",
+      "description": "Identifies candidate R-peaks by finding points of high concavity in the normalized signal. This is achieved by locating the peaks of the inverted second derivative of the signal that exceed a given tolerance.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "normalized_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The normalized signal array."
+        },
+        {
+          "name": "tolerance",
+          "type_desc": "float",
+          "constraints": "The minimum concavity magnitude to be considered a candidate peak."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "candidate_peak_indices",
+          "type_desc": "np.ndarray",
+          "constraints": "An array of indices corresponding to potential R-peaks."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(normalized_signal: np.ndarray, tolerance: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "filter_and_refine_peaks",
+      "parent_id": "gamboa_segmentation",
+      "name": "filter_and_refine_peaks",
+      "description": "Filters the candidate peaks by enforcing a minimum time separation between them (a refractory period of 300ms). For each valid candidate, it refines the peak location by finding the absolute maximum in the original signal within a 100ms window following the candidate index.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "candidate_peak_indices",
+          "type_desc": "np.ndarray",
+          "constraints": "Indices of candidate peaks."
+        },
+        {
+          "name": "original_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The unprocessed input signal."
+        },
+        {
+          "name": "refractory_period_samples",
+          "type_desc": "int",
+          "constraints": "The minimum number of samples between consecutive R-peaks (from 300ms window)."
+        },
+        {
+          "name": "search_window_samples",
+          "type_desc": "int",
+          "constraints": "The number of samples in the forward search window for refining the peak (from 100ms window)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_rpeaks",
+          "type_desc": "list[int]",
+          "constraints": "A list of refined R-peak indices."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(candidate_peak_indices: np.ndarray, original_signal: np.ndarray, refractory_period_samples: int, search_window_samples: int) -> list[int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "finalize_rpeaks",
+      "parent_id": "gamboa_segmentation",
+      "name": "finalize_rpeaks",
+      "description": "Ensures the final list of R-peak indices is unique and sorted in chronological order, then converts it to an integer numpy array.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "filtered_rpeaks",
+          "type_desc": "list[int]",
+          "constraints": "The list of R-peak indices, potentially with duplicates or out of order."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "A sorted array of unique R-peak indices."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(filtered_rpeaks: list[int]) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "convert_time_windows_to_samples",
+      "target_id": "filter_and_refine_peaks",
+      "output_name": "window_100ms",
+      "input_name": "search_window_samples",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "convert_time_windows_to_samples",
+      "target_id": "filter_and_refine_peaks",
+      "output_name": "window_300ms",
+      "input_name": "refractory_period_samples",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimate_signal_amplitude_range",
+      "target_id": "normalize_signal",
+      "output_name": "amplitude_thresholds",
+      "input_name": "amplitude_thresholds",
+      "source_type": "tuple[float, float]",
+      "target_type": "tuple[float, float]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "normalize_signal",
+      "target_id": "find_concave_candidate_peaks",
+      "output_name": "normalized_signal",
+      "input_name": "normalized_signal",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "find_concave_candidate_peaks",
+      "target_id": "filter_and_refine_peaks",
+      "output_name": "candidate_peak_indices",
+      "input_name": "candidate_peak_indices",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_and_refine_peaks",
+      "target_id": "finalize_rpeaks",
+      "output_name": "filtered_rpeaks",
+      "input_name": "filtered_rpeaks",
+      "source_type": "list[int]",
+      "target_type": "list[int]",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "gamboa_segmenter"
+  }
+}

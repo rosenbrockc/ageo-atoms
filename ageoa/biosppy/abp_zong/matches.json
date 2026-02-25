@@ -1,0 +1,530 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "validate_required_signal",
+      "statement": "(signal: 1D numeric array or null) -> 1D numeric array",
+      "informal_desc": "Ensure an input signal is provided before any computation; fail fast if missing.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "validate_required_signal",
+          "type_signature": "(signal: 1D numeric array or null) -> 1D numeric array",
+          "docstring": "Ensure an input signal is provided before any computation; fail fast if missing.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "validate_required_signal",
+          "type_signature": "(signal: 1D numeric array or null) -> 1D numeric array",
+          "docstring": "Ensure an input signal is provided before any computation; fail fast if missing.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "validate_required_signal",
+            "type_signature": "(signal: 1D numeric array or null) -> 1D numeric array",
+            "docstring": "Ensure an input signal is provided before any computation; fail fast if missing.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "resolve_sample_domain_parameters",
+      "statement": "(sampling_rate: number, sm_size: number or null, size: number or null, wrange: number or null, d2_th: number or null, alpha: number, d1_th: number) -> tuple[integer, integer, integer, integer, number, number]",
+      "informal_desc": "Apply defaults and convert time-based parameters from seconds to integer sample counts.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "resolve_sample_domain_parameters",
+          "type_signature": "(sampling_rate: number, sm_size: number or null, size: number or null, wrange: number or null, d2_th: number or null, alpha: number, d1_th: number) -> tuple[integer, integer, integer, integer, number, number]",
+          "docstring": "Apply defaults and convert time-based parameters from seconds to integer sample counts.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "resolve_sample_domain_parameters",
+          "type_signature": "(sampling_rate: number, sm_size: number or null, size: number or null, wrange: number or null, d2_th: number or null, alpha: number, d1_th: number) -> tuple[integer, integer, integer, integer, number, number]",
+          "docstring": "Apply defaults and convert time-based parameters from seconds to integer sample counts.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "resolve_sample_domain_parameters",
+            "type_signature": "(sampling_rate: number, sm_size: number or null, size: number or null, wrange: number or null, d2_th: number or null, alpha: number, d1_th: number) -> tuple[integer, integer, integer, integer, number, number]",
+            "docstring": "Apply defaults and convert time-based parameters from seconds to integer sample counts.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "build_positive_slope_sum_signal",
+      "statement": "(validated_signal: 1D numeric array, sm_size_samples: integer) -> tuple[1D numeric array, integer]",
+      "informal_desc": "Compute positive first derivative and smooth it with a boxcar kernel to obtain the slope-sum function.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "build_positive_slope_sum_signal",
+          "type_signature": "(validated_signal: 1D numeric array, sm_size_samples: integer) -> tuple[1D numeric array, integer]",
+          "docstring": "Compute positive first derivative and smooth it with a boxcar kernel to obtain the slope-sum function.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "build_positive_slope_sum_signal",
+          "type_signature": "(validated_signal: 1D numeric array, sm_size_samples: integer) -> tuple[1D numeric array, integer]",
+          "docstring": "Compute positive first derivative and smooth it with a boxcar kernel to obtain the slope-sum function.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "build_positive_slope_sum_signal",
+            "type_signature": "(validated_signal: 1D numeric array, sm_size_samples: integer) -> tuple[1D numeric array, integer]",
+            "docstring": "Compute positive first derivative and smooth it with a boxcar kernel to obtain the slope-sum function.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_scan_state",
+      "statement": "(signal_length: integer, window_size_samples: integer) -> object",
+      "informal_desc": "Create initial sliding-window scan state and empty onset accumulator.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_scan_state",
+          "type_signature": "(signal_length: integer, window_size_samples: integer) -> object",
+          "docstring": "Create initial sliding-window scan state and empty onset accumulator.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_scan_state",
+          "type_signature": "(signal_length: integer, window_size_samples: integer) -> object",
+          "docstring": "Create initial sliding-window scan state and empty onset accumulator.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_scan_state",
+            "type_signature": "(signal_length: integer, window_size_samples: integer) -> object",
+            "docstring": "Create initial sliding-window scan state and empty onset accumulator.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "extract_window_derivative_peaks",
+      "statement": "(validated_signal: 1D numeric array, ssf: 1D numeric array, scan_state: object, wrange_samples: integer, alpha_out: number) -> tuple[1D numeric array, 1D integer array]",
+      "informal_desc": "For the current window, normalize signal segment, compute enhanced derivative-of-SSF feature, and locate positive local maxima candidates.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "extract_window_derivative_peaks",
+          "type_signature": "(validated_signal: 1D numeric array, ssf: 1D numeric array, scan_state: object, wrange_samples: integer, alpha_out: number) -> tuple[1D numeric array, 1D integer array]",
+          "docstring": "For the current window, normalize signal segment, compute enhanced derivative-of-SSF feature, and locate positive local maxima candidates.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "extract_window_derivative_peaks",
+          "type_signature": "(validated_signal: 1D numeric array, ssf: 1D numeric array, scan_state: object, wrange_samples: integer, alpha_out: number) -> tuple[1D numeric array, 1D integer array]",
+          "docstring": "For the current window, normalize signal segment, compute enhanced derivative-of-SSF feature, and locate positive local maxima candidates.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "extract_window_derivative_peaks",
+            "type_signature": "(validated_signal: 1D numeric array, ssf: 1D numeric array, scan_state: object, wrange_samples: integer, alpha_out: number) -> tuple[1D numeric array, 1D integer array]",
+            "docstring": "For the current window, normalize signal segment, compute enhanced derivative-of-SSF feature, and locate positive local maxima candidates.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "accept_onsets_from_peak_intervals",
+      "statement": "(window_signal: 1D numeric array, peak_breakpoints: 1D integer array, scan_state: object, d1_th_out: number, d2_th_samples: integer) -> tuple[1D integer array, boolean]",
+      "informal_desc": "Evaluate each interval between derivative-peak breakpoints, find dominant max/min pair, and keep intervals satisfying amplitude and temporal thresholds.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "accept_onsets_from_peak_intervals",
+          "type_signature": "(window_signal: 1D numeric array, peak_breakpoints: 1D integer array, scan_state: object, d1_th_out: number, d2_th_samples: integer) -> tuple[1D integer array, boolean]",
+          "docstring": "Evaluate each interval between derivative-peak breakpoints, find dominant max/min pair, and keep intervals satisfying amplitude and temporal thresholds.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "accept_onsets_from_peak_intervals",
+          "type_signature": "(window_signal: 1D numeric array, peak_breakpoints: 1D integer array, scan_state: object, d1_th_out: number, d2_th_samples: integer) -> tuple[1D integer array, boolean]",
+          "docstring": "Evaluate each interval between derivative-peak breakpoints, find dominant max/min pair, and keep intervals satisfying amplitude and temporal thresholds.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "accept_onsets_from_peak_intervals",
+            "type_signature": "(window_signal: 1D numeric array, peak_breakpoints: 1D integer array, scan_state: object, d1_th_out: number, d2_th_samples: integer) -> tuple[1D integer array, boolean]",
+            "docstring": "Evaluate each interval between derivative-peak breakpoints, find dominant max/min pair, and keep intervals satisfying amplitude and temporal thresholds.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "advance_or_terminate_scan",
+      "statement": "(scan_state: object, new_onsets: 1D integer array, detected_flag: boolean, wrange_samples: integer, window_size_samples: integer, signal_length: integer) -> tuple[object, boolean]",
+      "informal_desc": "Merge newly detected onsets, update start/stop for next iteration, and emit termination condition.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "advance_or_terminate_scan",
+          "type_signature": "(scan_state: object, new_onsets: 1D integer array, detected_flag: boolean, wrange_samples: integer, window_size_samples: integer, signal_length: integer) -> tuple[object, boolean]",
+          "docstring": "Merge newly detected onsets, update start/stop for next iteration, and emit termination condition.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "advance_or_terminate_scan",
+          "type_signature": "(scan_state: object, new_onsets: 1D integer array, detected_flag: boolean, wrange_samples: integer, window_size_samples: integer, signal_length: integer) -> tuple[object, boolean]",
+          "docstring": "Merge newly detected onsets, update start/stop for next iteration, and emit termination condition.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "advance_or_terminate_scan",
+            "type_signature": "(scan_state: object, new_onsets: 1D integer array, detected_flag: boolean, wrange_samples: integer, window_size_samples: integer, signal_length: integer) -> tuple[object, boolean]",
+            "docstring": "Merge newly detected onsets, update start/stop for next iteration, and emit termination condition.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "finalize_onset_array",
+      "statement": "(next_scan_state: object) -> 1D integer array",
+      "informal_desc": "Convert accumulated onset indices to integer array and return as onsets output.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "finalize_onset_array",
+          "type_signature": "(next_scan_state: object) -> 1D integer array",
+          "docstring": "Convert accumulated onset indices to integer array and return as onsets output.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "finalize_onset_array",
+          "type_signature": "(next_scan_state: object) -> 1D integer array",
+          "docstring": "Convert accumulated onset indices to integer array and return as onsets output.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "finalize_onset_array",
+            "type_signature": "(next_scan_state: object) -> 1D integer array",
+            "docstring": "Convert accumulated onset indices to integer array and return as onsets output.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

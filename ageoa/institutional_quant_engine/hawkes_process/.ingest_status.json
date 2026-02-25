@@ -1,0 +1,30 @@
+{
+  "run_id": "39171a72e49546829d21bd27a00ef285",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/research_math/35_hawkes_process_arrival.py",
+  "class_name": "simulate_hawkes",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.2369971,
+  "last_heartbeat_at": 1771983751.297447,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983751.297447,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

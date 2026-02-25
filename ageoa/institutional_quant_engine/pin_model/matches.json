@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "pinlikelihoodevaluation",
+      "statement": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+      "informal_desc": "Computes the likelihood of observed inputs under the provided parameterization.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "pinlikelihoodevaluation",
+          "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+          "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+          "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "pinlikelihoodevaluation",
+          "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+          "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+          "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "pinlikelihoodevaluation",
+            "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+            "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+            "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

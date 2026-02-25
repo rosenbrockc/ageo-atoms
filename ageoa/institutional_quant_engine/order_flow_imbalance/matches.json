@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "orderflowimbalanceevaluation",
+      "statement": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+      "informal_desc": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "orderflowimbalanceevaluation",
+          "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+          "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+          "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "orderflowimbalanceevaluation",
+          "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+          "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+          "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "orderflowimbalanceevaluation",
+            "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+            "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+            "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

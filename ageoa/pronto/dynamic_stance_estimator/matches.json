@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initializefilter",
+      "statement": "(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]",
+      "informal_desc": "Initializes the state-space model with prior state, covariance, and static model parameters.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializefilter",
+          "type_signature": "(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]",
+          "docstring": "Initializes the state-space model with prior state, covariance, and static model parameters.",
+          "conceptual_summary": "InitializeLinearDynamicalSystem. Instantiates the parameters for a discrete-time linear dynamical system. This operation partitions the system's definition into two components: the initial conditions (a state vector and its associated uncertainty matrix) and the static operators that govern the system's evolution. The static operators define the deterministic state transition, the projection from state to measurement, and the covariance structures of both process and measurement noise.. Applications: Robotics: Initializing a filter to track a moving object's position and velocity from noisy sensor (e.g., radar) readings., Econometrics: Defining a model to estimate the latent 'true' value of a financial asset based on its fluctuating, noisy market price., Neuroscience: Setting up a model of a single neuron's membrane potential dynamics, relating the unobserved internal voltage to observable spike train data., Chemical Engineering: Establishing the initial parameters for a state-observer that estimates reactant concentrations within a continuously stirred-tank reactor from periodic, noisy sensor measurements.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializefilter",
+          "type_signature": "(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]",
+          "docstring": "Initializes the state-space model with prior state, covariance, and static model parameters.",
+          "conceptual_summary": "InitializeLinearDynamicalSystem. Instantiates the parameters for a discrete-time linear dynamical system. This operation partitions the system's definition into two components: the initial conditions (a state vector and its associated uncertainty matrix) and the static operators that govern the system's evolution. The static operators define the deterministic state transition, the projection from state to measurement, and the covariance structures of both process and measurement noise.. Applications: Robotics: Initializing a filter to track a moving object's position and velocity from noisy sensor (e.g., radar) readings., Econometrics: Defining a model to estimate the latent 'true' value of a financial asset based on its fluctuating, noisy market price., Neuroscience: Setting up a model of a single neuron's membrane potential dynamics, relating the unobserved internal voltage to observable spike train data., Chemical Engineering: Establishing the initial parameters for a state-observer that estimates reactant concentrations within a continuously stirred-tank reactor from periodic, noisy sensor measurements.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializefilter",
+            "type_signature": "(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]",
+            "docstring": "Initializes the state-space model with prior state, covariance, and static model parameters.",
+            "conceptual_summary": "InitializeLinearDynamicalSystem. Instantiates the parameters for a discrete-time linear dynamical system. This operation partitions the system's definition into two components: the initial conditions (a state vector and its associated uncertainty matrix) and the static operators that govern the system's evolution. The static operators define the deterministic state transition, the projection from state to measurement, and the covariance structures of both process and measurement noise.. Applications: Robotics: Initializing a filter to track a moving object's position and velocity from noisy sensor (e.g., radar) readings., Econometrics: Defining a model to estimate the latent 'true' value of a financial asset based on its fluctuating, noisy market price., Neuroscience: Setting up a model of a single neuron's membrane potential dynamics, relating the unobserved internal voltage to observable spike train data., Chemical Engineering: Establishing the initial parameters for a state-observer that estimates reactant concentrations within a continuously stirred-tank reactor from periodic, noisy sensor measurements.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "predictstep",
+      "statement": "(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec",
+      "informal_desc": "Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "predictstep",
+          "type_signature": "(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec",
+          "docstring": "Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).",
+          "conceptual_summary": "LinearStateProjectionWithNoise. Projects a system's current state vector and its associated uncertainty (covariance) forward by one discrete step. The projection uses a linear transformation for the state vector and a congruent transformation for the covariance matrix, with an added noise term to model intrinsic system unpredictability.. Applications: Economic Forecasting: Projecting a vector of key economic indicators (e.g., inflation, unemployment) and their inter-dependencies into the next fiscal quarter using a linearized macroeconomic model., Neural Population Dynamics: Estimating the future activity state and firing rate covariance of a group of neurons based on a linear model of synaptic connections and intrinsic neural noise., Climate Modeling: Predicting a vector of atmospheric variables (temperature, pressure) for a specific grid cell at a future time point, propagating the current estimate and its uncertainty forward with a linearized atmospheric model., Supply Chain Management: Forecasting inventory levels for multiple products and their variance based on a linear model of consumption rates, lead times, and demand volatility.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "predictstep",
+          "type_signature": "(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec",
+          "docstring": "Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).",
+          "conceptual_summary": "LinearStateProjectionWithNoise. Projects a system's current state vector and its associated uncertainty (covariance) forward by one discrete step. The projection uses a linear transformation for the state vector and a congruent transformation for the covariance matrix, with an added noise term to model intrinsic system unpredictability.. Applications: Economic Forecasting: Projecting a vector of key economic indicators (e.g., inflation, unemployment) and their inter-dependencies into the next fiscal quarter using a linearized macroeconomic model., Neural Population Dynamics: Estimating the future activity state and firing rate covariance of a group of neurons based on a linear model of synaptic connections and intrinsic neural noise., Climate Modeling: Predicting a vector of atmospheric variables (temperature, pressure) for a specific grid cell at a future time point, propagating the current estimate and its uncertainty forward with a linearized atmospheric model., Supply Chain Management: Forecasting inventory levels for multiple products and their variance based on a linear model of consumption rates, lead times, and demand volatility.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "predictstep",
+            "type_signature": "(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec",
+            "docstring": "Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).",
+            "conceptual_summary": "LinearStateProjectionWithNoise. Projects a system's current state vector and its associated uncertainty (covariance) forward by one discrete step. The projection uses a linear transformation for the state vector and a congruent transformation for the covariance matrix, with an added noise term to model intrinsic system unpredictability.. Applications: Economic Forecasting: Projecting a vector of key economic indicators (e.g., inflation, unemployment) and their inter-dependencies into the next fiscal quarter using a linearized macroeconomic model., Neural Population Dynamics: Estimating the future activity state and firing rate covariance of a group of neurons based on a linear model of synaptic connections and intrinsic neural noise., Climate Modeling: Predicting a vector of atmospheric variables (temperature, pressure) for a specific grid cell at a future time point, propagating the current estimate and its uncertainty forward with a linearized atmospheric model., Supply Chain Management: Forecasting inventory levels for multiple products and their variance based on a linear model of consumption rates, lead times, and demand volatility.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "updatestep",
+      "statement": "(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec",
+      "informal_desc": "Updates the state and covariance based on a new measurement (update step of Kalman filter).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "updatestep",
+          "type_signature": "(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec",
+          "docstring": "Updates the state and covariance based on a new measurement (update step of Kalman filter).",
+          "conceptual_summary": "BeliefCorrectionFromObservation. Combines a probabilistic state estimate (a mean vector and a covariance matrix) with a new observation to produce a refined, maximum-likelihood state estimate. It computes the discrepancy between the observation and the state's predicted projection into the observation space. This discrepancy, weighted by the relative uncertainties of the state estimate and the observation model, is used to adjust the initial state, yielding a posterior estimate with optimally reduced uncertainty.. Applications: Economics: Estimating the 'true' daily volatility of a financial asset by treating the noisy daily squared returns as measurements of an underlying stochastic volatility process., Neuroscience: Tracking the firing rate of a neuron in real-time, where the prior belief about the rate is updated based on discrete spike train observations, which act as noisy measurements., Climate Science: Assimilating satellite temperature readings (measurements) into a numerical weather prediction model, where the model's grid-point forecasts (predicted state) are corrected to better match the real-world data.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "updatestep",
+          "type_signature": "(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec",
+          "docstring": "Updates the state and covariance based on a new measurement (update step of Kalman filter).",
+          "conceptual_summary": "BeliefCorrectionFromObservation. Combines a probabilistic state estimate (a mean vector and a covariance matrix) with a new observation to produce a refined, maximum-likelihood state estimate. It computes the discrepancy between the observation and the state's predicted projection into the observation space. This discrepancy, weighted by the relative uncertainties of the state estimate and the observation model, is used to adjust the initial state, yielding a posterior estimate with optimally reduced uncertainty.. Applications: Economics: Estimating the 'true' daily volatility of a financial asset by treating the noisy daily squared returns as measurements of an underlying stochastic volatility process., Neuroscience: Tracking the firing rate of a neuron in real-time, where the prior belief about the rate is updated based on discrete spike train observations, which act as noisy measurements., Climate Science: Assimilating satellite temperature readings (measurements) into a numerical weather prediction model, where the model's grid-point forecasts (predicted state) are corrected to better match the real-world data.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "updatestep",
+            "type_signature": "(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec",
+            "docstring": "Updates the state and covariance based on a new measurement (update step of Kalman filter).",
+            "conceptual_summary": "BeliefCorrectionFromObservation. Combines a probabilistic state estimate (a mean vector and a covariance matrix) with a new observation to produce a refined, maximum-likelihood state estimate. It computes the discrepancy between the observation and the state's predicted projection into the observation space. This discrepancy, weighted by the relative uncertainties of the state estimate and the observation model, is used to adjust the initial state, yielding a posterior estimate with optimally reduced uncertainty.. Applications: Economics: Estimating the 'true' daily volatility of a financial asset by treating the noisy daily squared returns as measurements of an underlying stochastic volatility process., Neuroscience: Tracking the firing rate of a neuron in real-time, where the prior belief about the rate is updated based on discrete spike train observations, which act as noisy measurements., Climate Science: Assimilating satellite temperature readings (measurements) into a numerical weather prediction model, where the model's grid-point forecasts (predicted state) are corrected to better match the real-world data.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "querystance",
+      "statement": "(current_state: StateModelSpec) -> float",
+      "informal_desc": "Extracts the stance (position) from the state vector.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "querystance",
+          "type_signature": "(current_state: StateModelSpec) -> float",
+          "docstring": "Extracts the stance (position) from the state vector.",
+          "conceptual_summary": "ExtractPrimaryComponent. Selects and returns a single scalar component from a multi-dimensional state vector. This operation projects the state onto a single axis, isolating a specific quantity of interest from the broader system representation, which may include associated uncertainty or covariance data.. Applications: Extracting the estimated inflation rate from a state-space model of a national economy., Retrieving the activation value of a specific neuron from a layer's state tensor in an artificial neural network., Isolating the measured temperature from a multi-parameter vector describing a physical system's state (e.g., pressure, volume, temperature)., Determining a satellite's current altitude from its full 6D pose vector (position and orientation).",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "querystance",
+          "type_signature": "(current_state: StateModelSpec) -> float",
+          "docstring": "Extracts the stance (position) from the state vector.",
+          "conceptual_summary": "ExtractPrimaryComponent. Selects and returns a single scalar component from a multi-dimensional state vector. This operation projects the state onto a single axis, isolating a specific quantity of interest from the broader system representation, which may include associated uncertainty or covariance data.. Applications: Extracting the estimated inflation rate from a state-space model of a national economy., Retrieving the activation value of a specific neuron from a layer's state tensor in an artificial neural network., Isolating the measured temperature from a multi-parameter vector describing a physical system's state (e.g., pressure, volume, temperature)., Determining a satellite's current altitude from its full 6D pose vector (position and orientation).",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "querystance",
+            "type_signature": "(current_state: StateModelSpec) -> float",
+            "docstring": "Extracts the stance (position) from the state vector.",
+            "conceptual_summary": "ExtractPrimaryComponent. Selects and returns a single scalar component from a multi-dimensional state vector. This operation projects the state onto a single axis, isolating a specific quantity of interest from the broader system representation, which may include associated uncertainty or covariance data.. Applications: Extracting the estimated inflation rate from a state-space model of a national economy., Retrieving the activation value of a specific neuron from a layer's state tensor in an artificial neural network., Isolating the measured temperature from a multi-parameter vector describing a physical system's state (e.g., pressure, volume, temperature)., Determining a satellite's current altitude from its full 6D pose vector (position and orientation).",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

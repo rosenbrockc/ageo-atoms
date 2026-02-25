@@ -1,0 +1,29 @@
+{
+  "run_id": "c1d053b639ee45e2ab91518d506586db",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/research_math/19_triangular_arbitrage_graph.py",
+  "class_name": "TriangularArbitrage",
+  "procedural": true,
+  "llm_provider": "claude_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.362655,
+  "last_heartbeat_at": 1771983690.620044,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983690.620044,
+  "summary": {
+    "cdg_nodes": 1,
+    "cdg_edges": 0,
+    "matches": 0,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "witnesses.py"
+    ]
+  }
+}

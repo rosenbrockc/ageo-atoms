@@ -1,0 +1,30 @@
+{
+  "run_id": "3bb6dca7e80c42b1b36c77354c9e6543",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/graph/mapping.py",
+  "class_name": "add_quantum_link",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.639791,
+  "last_heartbeat_at": 1771983990.665314,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983990.665314,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

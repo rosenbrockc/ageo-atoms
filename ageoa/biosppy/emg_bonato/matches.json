@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "calculate_rest_variance",
+      "statement": "(signal: np.ndarray, rest: Union[np.ndarray, list, dict]) -> float",
+      "informal_desc": "Calculates the signal variance during a specified rest period. The rest period can be given as a signal segment, start/end indices, or pre-calculated statistics.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "calculate_rest_variance",
+          "type_signature": "(signal: np.ndarray, rest: Union[np.ndarray, list, dict]) -> float",
+          "docstring": "Calculates the signal variance during a specified rest period. The rest period can be given as a signal segment, start/end indices, or pre-calculated statistics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "calculate_rest_variance",
+          "type_signature": "(signal: np.ndarray, rest: Union[np.ndarray, list, dict]) -> float",
+          "docstring": "Calculates the signal variance during a specified rest period. The rest period can be given as a signal segment, start/end indices, or pre-calculated statistics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "calculate_rest_variance",
+            "type_signature": "(signal: np.ndarray, rest: Union[np.ndarray, list, dict]) -> float",
+            "docstring": "Calculates the signal variance during a specified rest period. The rest period can be given as a signal segment, start/end indices, or pre-calculated statistics.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "center_signal_at_zero",
+      "statement": "(signal: np.ndarray) -> np.ndarray",
+      "informal_desc": "Removes the DC offset from the signal by subtracting its mean value.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "center_signal_at_zero",
+          "type_signature": "(signal: np.ndarray) -> np.ndarray",
+          "docstring": "Removes the DC offset from the signal by subtracting its mean value.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "center_signal_at_zero",
+          "type_signature": "(signal: np.ndarray) -> np.ndarray",
+          "docstring": "Removes the DC offset from the signal by subtracting its mean value.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "center_signal_at_zero",
+            "type_signature": "(signal: np.ndarray) -> np.ndarray",
+            "docstring": "Removes the DC offset from the signal by subtracting its mean value.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_events_with_state_machine",
+      "statement": "(centered_signal: np.ndarray, rest_variance: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> tuple[List[int], List[int], List[float]]",
+      "informal_desc": "Calculates a test function over the signal and uses a state machine with dual thresholds and duration criteria to detect onset and offset event times.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_events_with_state_machine",
+          "type_signature": "(centered_signal: np.ndarray, rest_variance: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> tuple[List[int], List[int], List[float]]",
+          "docstring": "Calculates a test function over the signal and uses a state machine with dual thresholds and duration criteria to detect onset and offset event times.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_events_with_state_machine",
+          "type_signature": "(centered_signal: np.ndarray, rest_variance: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> tuple[List[int], List[int], List[float]]",
+          "docstring": "Calculates a test function over the signal and uses a state machine with dual thresholds and duration criteria to detect onset and offset event times.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_events_with_state_machine",
+            "type_signature": "(centered_signal: np.ndarray, rest_variance: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> tuple[List[int], List[int], List[float]]",
+            "docstring": "Calculates a test function over the signal and uses a state machine with dual thresholds and duration criteria to detect onset and offset event times.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "finalize_onsets",
+      "statement": "(onset_times: List[int], offset_times: List[int]) -> np.ndarray",
+      "informal_desc": "Merges the separate onset and offset time lists into a single, sorted array of event indices and scales them to match the original signal's sampling.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "finalize_onsets",
+          "type_signature": "(onset_times: List[int], offset_times: List[int]) -> np.ndarray",
+          "docstring": "Merges the separate onset and offset time lists into a single, sorted array of event indices and scales them to match the original signal's sampling.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "finalize_onsets",
+          "type_signature": "(onset_times: List[int], offset_times: List[int]) -> np.ndarray",
+          "docstring": "Merges the separate onset and offset time lists into a single, sorted array of event indices and scales them to match the original signal's sampling.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "finalize_onsets",
+            "type_signature": "(onset_times: List[int], offset_times: List[int]) -> np.ndarray",
+            "docstring": "Merges the separate onset and offset time lists into a single, sorted array of event indices and scales them to match the original signal's sampling.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

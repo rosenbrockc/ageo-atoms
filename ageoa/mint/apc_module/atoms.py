@@ -1,0 +1,29 @@
+"""Auto-generated atom wrappers following the ageoa pattern."""
+
+from __future__ import annotations
+from typing import Any
+import numpy as np
+import torch
+import jax
+import jax.numpy as jnp
+import haiku as hk
+
+import networkx as nx  # type: ignore
+import icontract
+from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+
+witness_apccoreevaluation = lambda *_args, **_kwargs: True
+
+@register_atom(witness_apccoreevaluation)  # type: ignore[untyped-decorator]
+@icontract.require(lambda x: x is not None, "x cannot be None")
+@icontract.ensure(lambda result, **kwargs: result is not None, "ApcCoreEvaluation output must not be None")
+def apccoreevaluation(x: Any) -> Any:
+    """Executes the standalone APC computation as a pure stateless function of the input.
+
+    Args:
+        x: Direct method argument; no stated structural constraints.
+
+    Returns:
+        Return value produced solely from x with no persistent state.
+    """
+    raise NotImplementedError("Wire to original implementation")

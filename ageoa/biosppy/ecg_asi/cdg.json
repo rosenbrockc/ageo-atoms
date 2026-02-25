@@ -1,0 +1,360 @@
+{
+  "nodes": [
+    {
+      "node_id": "ASI_segmenter_root",
+      "parent_id": null,
+      "name": "ASI_segmenter",
+      "description": "Ingested pipeline from ASI_segmenter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "thresholdbasedsignalsegmentation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "thresholdbasedsignalsegmentation",
+      "parent_id": "ASI_segmenter_root",
+      "name": "ThresholdBasedSignalSegmentation",
+      "description": "Segments the input signal into activity regions using the provided sampling rate and decision threshold.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "1-D or compatible signal shape; finite values preferred"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "must be > 0"
+        },
+        {
+          "name": "Pth",
+          "type_desc": "float",
+          "constraints": "threshold parameter used for segmentation decision"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "segments",
+          "type_desc": "segmentation result (e.g., intervals, labels, or mask)",
+          "constraints": "derived deterministically from inputs"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "computedetectionkernelparameters",
+        "enhanceqrswithsquareddoubledifference",
+        "integrateenergyovermovingwindow",
+        "detectrpeakswithadaptivethreestatefsm",
+        "packagerpeakoutput"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: array-like numeric sequence, sampling_rate: float, Pth: float) -> segmentation result (e.g., intervals, labels, or mask)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Threshold-Driven Sequence Partitioning. Applies a scalar decision boundary to a sampled numeric sequence to classify each sample as active or inactive, then merges contiguous active samples into contiguous regions. The positive sampling density parameter maps sample indices to a continuous coordinate system so region boundaries can be expressed as index ranges or coordinate intervals. The output is a deterministic partition of the sequence into above-threshold and non-above-threshold regions.. Applications: Structural health monitoring: partition vibration traces into transient-event regions versus baseline dynamics, Neuroscience: isolate high-activation epochs in electrophysiology recordings for event-rate analysis, Network engineering: segment throughput/latency telemetry into congestion episodes and nominal intervals, Astrophysics: detect burst intervals in photon-count time series above background intensity",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computedetectionkernelparameters",
+      "parent_id": "thresholdbasedsignalsegmentation",
+      "name": "ComputeDetectionKernelParameters",
+      "description": "Derive window sizes and loop bounds from sampling rate and signal length for derivative, refractory, and stop conditions.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "length >= 2"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "sampling_rate > 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "N",
+          "type_desc": "int",
+          "constraints": "N = round(3 * sampling_rate / 128), N >= 1"
+        },
+        {
+          "name": "Nd",
+          "type_desc": "int",
+          "constraints": "Nd = N - 1"
+        },
+        {
+          "name": "Rmin",
+          "type_desc": "float",
+          "constraints": "fixed at 0.26 seconds"
+        },
+        {
+          "name": "stop_index",
+          "type_desc": "int",
+          "constraints": "stop_index = len(signal) - sampling_rate"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like numeric sequence, sampling_rate: float) -> tuple[int, int, float, int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "enhanceqrswithsquareddoubledifference",
+      "parent_id": "thresholdbasedsignalsegmentation",
+      "name": "EnhanceQRSWithSquaredDoubleDifference",
+      "description": "Transform ECG into a high-energy feature emphasizing rapid QRS changes using lagged difference, first difference, and squaring.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like numeric sequence",
+          "constraints": "length > Nd + 1"
+        },
+        {
+          "name": "Nd",
+          "type_desc": "int",
+          "constraints": "Nd >= 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "squared_ddiff",
+          "type_desc": "1D numeric array",
+          "constraints": "non-negative values"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like numeric sequence, Nd: int) -> 1D numeric array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "integrateenergyovermovingwindow",
+      "parent_id": "thresholdbasedsignalsegmentation",
+      "name": "IntegrateEnergyOverMovingWindow",
+      "description": "Apply moving-window integration (FIR with ones kernel) to smooth and accumulate transformed energy.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "squared_ddiff",
+          "type_desc": "1D numeric array",
+          "constraints": "finite values"
+        },
+        {
+          "name": "N",
+          "type_desc": "int",
+          "constraints": "N >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "processed_ecg",
+          "type_desc": "1D numeric array",
+          "constraints": "same length as squared_ddiff after lfilter"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(squared_ddiff: 1D numeric array, N: int) -> 1D numeric array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detectrpeakswithadaptivethreestatefsm",
+      "parent_id": "thresholdbasedsignalsegmentation",
+      "name": "DetectRPeaksWithAdaptiveThreeStateFSM",
+      "description": "Iteratively detect peaks by cycling through local-max search, post-peak waiting window, and exponentially decaying threshold re-entry, while maintaining adaptive amplitude memory.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "processed_ecg",
+          "type_desc": "1D numeric array",
+          "constraints": "indexable over detection range"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "sampling_rate > 0"
+        },
+        {
+          "name": "Pth",
+          "type_desc": "float",
+          "constraints": "used in exp(-Pth / sampling_rate)"
+        },
+        {
+          "name": "Rmin",
+          "type_desc": "float",
+          "constraints": "minimum search span in seconds"
+        },
+        {
+          "name": "stop_index",
+          "type_desc": "int",
+          "constraints": "upper bound for main detection loop"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "list of int",
+          "constraints": "detected peak indices in ascending append order"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(processed_ecg: 1D numeric array, sampling_rate: float, Pth: float, Rmin: float, stop_index: int) -> list of int",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "packagerpeakoutput",
+      "parent_id": "thresholdbasedsignalsegmentation",
+      "name": "PackageRPeakOutput",
+      "description": "Convert detected indices into the function\u2019s structured return format.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "list of int",
+          "constraints": "possibly empty"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "segments",
+          "type_desc": "ReturnTuple-like object containing rpeaks",
+          "constraints": "field name is 'rpeaks'"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(rpeaks: list of int) -> ReturnTuple-like object containing rpeaks",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "computedetectionkernelparameters",
+      "target_id": "enhanceqrswithsquareddoubledifference",
+      "output_name": "Nd",
+      "input_name": "Nd",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computedetectionkernelparameters",
+      "target_id": "integrateenergyovermovingwindow",
+      "output_name": "N",
+      "input_name": "N",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "enhanceqrswithsquareddoubledifference",
+      "target_id": "integrateenergyovermovingwindow",
+      "output_name": "squared_ddiff",
+      "input_name": "squared_ddiff",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "integrateenergyovermovingwindow",
+      "target_id": "detectrpeakswithadaptivethreestatefsm",
+      "output_name": "processed_ecg",
+      "input_name": "processed_ecg",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computedetectionkernelparameters",
+      "target_id": "detectrpeakswithadaptivethreestatefsm",
+      "output_name": "Rmin",
+      "input_name": "Rmin",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computedetectionkernelparameters",
+      "target_id": "detectrpeakswithadaptivethreestatefsm",
+      "output_name": "stop_index",
+      "input_name": "stop_index",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detectrpeakswithadaptivethreestatefsm",
+      "target_id": "packagerpeakoutput",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ASI_segmenter"
+  }
+}

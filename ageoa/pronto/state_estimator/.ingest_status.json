@@ -1,0 +1,29 @@
+{
+  "run_id": "b212ce1242304ace90a4e8de4b49ad05",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/pronto/pronto_core/include/pronto_core/state_est.hpp",
+  "class_name": "StateEstimator",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771985189.9299269,
+  "last_heartbeat_at": 1771985205.373405,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771985205.373405,
+  "summary": {
+    "cdg_nodes": 1,
+    "cdg_edges": 0,
+    "matches": 0,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "witnesses.py"
+    ]
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "nodes": [
+    {
+      "node_id": "bonato_onset_detector_root",
+      "parent_id": null,
+      "name": "bonato_onset_detector",
+      "description": "Ingested pipeline from bonato_onset_detector",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "bonato_onset_detection"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bonato_onset_detection",
+      "parent_id": "bonato_onset_detector_root",
+      "name": "bonato_onset_detection",
+      "description": "Detects activity onsets in a signal using the Bonato double-threshold algorithm. It identifies points where the signal exceeds a defined threshold for a minimum duration.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "Input signal trace as a 1D numpy array."
+        },
+        {
+          "name": "rest",
+          "type_desc": "np.ndarray",
+          "constraints": "Signal segment corresponding to a rest period, used for noise estimation."
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "The signal's sampling frequency in Hz."
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "The amplitude threshold for marking a potential onset."
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "The minimum duration (in seconds) an active state must be maintained to be confirmed."
+        },
+        {
+          "name": "samples_above_fail",
+          "type_desc": "int",
+          "constraints": "Number of consecutive samples that must be above the threshold to initiate an active state."
+        },
+        {
+          "name": "fail_size",
+          "type_desc": "int",
+          "constraints": "Size of the window (in samples) to check for validation after a potential onset."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "List[int]",
+          "constraints": "A list of integer indices corresponding to the detected onset locations in the signal."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "calculate_rest_variance",
+        "center_signal_at_zero",
+        "detect_events_with_state_machine",
+        "finalize_onsets"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, rest: np.ndarray, sampling_rate: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> List[int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "persistent_threshold_event_detector. This algorithm identifies indices within a 1D numerical sequence that signify the start of a sustained state transition. It functions as a dual-criteria filter, first detecting when the sequence's magnitude exceeds a specified amplitude threshold, and then validating this transition only if the magnitude remains elevated for a minimum required duration. This distinguishes meaningful, persistent events from transient, noisy fluctuations.. Applications: Geophysics: Detecting the onset of seismic tremors in seismograph data, distinguishing them from transient ground noise by requiring the signal to remain above a threshold for a minimum duration., Finance: Identifying the start of a sustained period of high market volatility from a price time-series, filtering out insignificant single-tick price jumps., Manufacturing: Pinpointing the beginning of a machine malfunction (e.g., excessive vibration, temperature increase) from sensor data, ignoring brief, benign fluctuations., Network Security: Detecting the start of a persistent denial-of-service attack by analyzing incoming packet rates, differentiating it from a short-lived, coincidental traffic spike.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "calculate_rest_variance",
+      "parent_id": "bonato_onset_detection",
+      "name": "calculate_rest_variance",
+      "description": "Calculates the signal variance during a specified rest period. The rest period can be given as a signal segment, start/end indices, or pre-calculated statistics.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The full signal array, used if 'rest' provides indices."
+        },
+        {
+          "name": "rest",
+          "type_desc": "Union[np.ndarray, list, dict]",
+          "constraints": "Defines the rest period."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rest_variance",
+          "type_desc": "float",
+          "constraints": "The variance of the signal during the rest period."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: np.ndarray, rest: Union[np.ndarray, list, dict]) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "center_signal_at_zero",
+      "parent_id": "bonato_onset_detection",
+      "name": "center_signal_at_zero",
+      "description": "Removes the DC offset from the signal by subtracting its mean value.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The input signal."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "centered_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The signal with its mean subtracted."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_events_with_state_machine",
+      "parent_id": "bonato_onset_detection",
+      "name": "detect_events_with_state_machine",
+      "description": "Calculates a test function over the signal and uses a state machine with dual thresholds and duration criteria to detect onset and offset event times.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "centered_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "The zero-mean input signal."
+        },
+        {
+          "name": "rest_variance",
+          "type_desc": "float",
+          "constraints": "Variance of the rest signal, used to normalize the test function."
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "The threshold for the test function to trigger a state change."
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "Minimum duration (in samples) for a state to be considered stable."
+        },
+        {
+          "name": "samples_above_fail",
+          "type_desc": "int",
+          "constraints": "Tolerable number of samples crossing the threshold during an opposing state."
+        },
+        {
+          "name": "fail_size",
+          "type_desc": "int",
+          "constraints": "The window size to check for 'samples_above_fail'."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_times",
+          "type_desc": "List[int]",
+          "constraints": "List of detected onset time indices."
+        },
+        {
+          "name": "offset_times",
+          "type_desc": "List[int]",
+          "constraints": "List of detected offset time indices."
+        },
+        {
+          "name": "test_function_values",
+          "type_desc": "List[float]",
+          "constraints": "The calculated test function for each step."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(centered_signal: np.ndarray, rest_variance: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> tuple[List[int], List[int], List[float]]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "finalize_onsets",
+      "parent_id": "bonato_onset_detection",
+      "name": "finalize_onsets",
+      "description": "Merges the separate onset and offset time lists into a single, sorted array of event indices and scales them to match the original signal's sampling.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "onset_times",
+          "type_desc": "List[int]",
+          "constraints": "List of detected onset time indices."
+        },
+        {
+          "name": "offset_times",
+          "type_desc": "List[int]",
+          "constraints": "List of detected offset time indices."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "A sorted array of all event indices, scaled correctly."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(onset_times: List[int], offset_times: List[int]) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "calculate_rest_variance",
+      "target_id": "detect_events_with_state_machine",
+      "output_name": "rest_variance",
+      "input_name": "rest_variance",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "center_signal_at_zero",
+      "target_id": "detect_events_with_state_machine",
+      "output_name": "centered_signal",
+      "input_name": "centered_signal",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_events_with_state_machine",
+      "target_id": "finalize_onsets",
+      "output_name": "onset_times",
+      "input_name": "onset_times",
+      "source_type": "List[int]",
+      "target_type": "List[int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_events_with_state_machine",
+      "target_id": "finalize_onsets",
+      "output_name": "offset_times",
+      "input_name": "offset_times",
+      "source_type": "List[int]",
+      "target_type": "List[int]",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "bonato_onset_detector"
+  }
+}

@@ -1,0 +1,139 @@
+"""Auto-generated atom wrappers following the ageoa pattern."""
+
+from __future__ import annotations
+
+import numpy as np
+import torch
+import jax
+import jax.numpy as jnp
+import haiku as hk
+
+import networkx as nx  # type: ignore
+import icontract
+from ageoa.ghost.registry import register_atom
+
+import ctypes
+import ctypes.util
+from pathlib import Path
+
+
+# Witness functions should be imported from the generated witnesses module
+
+@register_atom(witness_initializefilter)
+@icontract.require(lambda initial_x: initial_x is not None, "initial_x cannot be None")
+@icontract.require(lambda initial_P: initial_P is not None, "initial_P cannot be None")
+@icontract.require(lambda A: A is not None, "A cannot be None")
+@icontract.require(lambda H: H is not None, "H cannot be None")
+@icontract.require(lambda Q: Q is not None, "Q cannot be None")
+@icontract.require(lambda R: R is not None, "R cannot be None")
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeFilter all outputs must not be None")
+def initializefilter(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]:
+    """Initializes the state-space model with prior state, covariance, and static model parameters.
+
+    Args:
+        initial_x: Shape [2, 1]
+        initial_P: Shape [2, 2]
+        A: State transition matrix, shape [2, 2]
+        H: Measurement matrix, shape [1, 2]
+        Q: Process noise covariance, shape [2, 2]
+        R: Measurement noise covariance, shape [1, 1]
+
+    Returns:
+        initial_state: Contains initial x and P
+        model_params: Contains A, H, Q, R
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+@register_atom(witness_predictstep)
+@icontract.require(lambda dt: isinstance(dt, (float, int, np.number)), "dt must be numeric")
+@icontract.ensure(lambda result, **kwargs: result is not None, "PredictStep output must not be None")
+def predictstep(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec:
+    """Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).
+
+    Args:
+        current_state: Current state (x, P)
+        model_params: Contains A, Q
+        dt: Time step
+
+    Returns:
+        Predicted state (x_prior, P_prior)
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+@register_atom(witness_updatestep)
+@icontract.require(lambda predicted_state: predicted_state is not None, "predicted_state cannot be None")
+@icontract.require(lambda model_params: model_params is not None, "model_params cannot be None")
+@icontract.require(lambda z: z is not None, "z cannot be None")
+@icontract.ensure(lambda result, **kwargs: result is not None, "UpdateStep output must not be None")
+def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec:
+    """Updates the state and covariance based on a new measurement (update step of Kalman filter).
+
+    Args:
+        predicted_state: Predicted state (x_prior, P_prior)
+        model_params: Contains H, R
+        z: Measurement
+
+    Returns:
+        Updated state (x_posterior, P_posterior)
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+@register_atom(witness_querystance)
+@icontract.require(lambda current_state: current_state is not None, "current_state cannot be None")
+@icontract.ensure(lambda result, **kwargs: result is not None, "QueryStance output must not be None")
+def querystance(current_state: StateModelSpec) -> float:
+    """Extracts the stance (position) from the state vector.
+
+    Args:
+        current_state: Current state (x, P)
+
+    Returns:
+        The estimated position
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+
+"""Auto-generated FFI bindings for cpp implementations."""
+
+from __future__ import annotations
+
+import ctypes
+import ctypes.util
+from pathlib import Path
+
+
+def initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
+    """FFI bridge to C++ implementation of InitializeFilter."""
+    _lib = ctypes.CDLL("./initializefilter.so")
+    _func_name = atom.method_names[0] if atom.method_names else 'initializefilter'
+    _func = _lib[_func_name]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.restype = ctypes.c_void_p
+    return _func(initial_x, initial_P, A, H, Q, R)
+
+def predictstep_ffi(current_state, model_params, dt):
+    """FFI bridge to C++ implementation of PredictStep."""
+    _lib = ctypes.CDLL("./predictstep.so")
+    _func_name = atom.method_names[0] if atom.method_names else 'predictstep'
+    _func = _lib[_func_name]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.restype = ctypes.c_void_p
+    return _func(current_state, model_params, dt)
+
+def updatestep_ffi(predicted_state, model_params, z):
+    """FFI bridge to C++ implementation of UpdateStep."""
+    _lib = ctypes.CDLL("./updatestep.so")
+    _func_name = atom.method_names[0] if atom.method_names else 'updatestep'
+    _func = _lib[_func_name]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.restype = ctypes.c_void_p
+    return _func(predicted_state, model_params, z)
+
+def querystance_ffi(current_state):
+    """FFI bridge to C++ implementation of QueryStance."""
+    _lib = ctypes.CDLL("./querystance.so")
+    _func_name = atom.method_names[0] if atom.method_names else 'querystance'
+    _func = _lib[_func_name]
+    _func.argtypes = [ctypes.c_void_p]
+    _func.restype = ctypes.c_void_p
+    return _func(current_state)

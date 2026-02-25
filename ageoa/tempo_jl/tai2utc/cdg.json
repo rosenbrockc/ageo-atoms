@@ -1,0 +1,631 @@
+{
+  "nodes": [
+    {
+      "node_id": "tai2utc_root",
+      "parent_id": null,
+      "name": "tai2utc",
+      "description": "Ingested pipeline from tai2utc",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "isleapyear",
+        "find_dayinyear",
+        "find_year",
+        "find_month",
+        "find_day",
+        "lastj2000dayofyear",
+        "hms2fd",
+        "fd2hms",
+        "fd2hmsf",
+        "cal2jd",
+        "calhms2jd",
+        "jd2cal",
+        "jd2calhms",
+        "utc2tai",
+        "tai2utc"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "isleapyear",
+      "parent_id": "tai2utc_root",
+      "name": "Isleapyear",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "year",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(year: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_dayinyear",
+      "parent_id": "tai2utc_root",
+      "name": "Find Dayinyear",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "month",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "day",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "isleap",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(month: Any, day: Any, isleap: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_year",
+      "parent_id": "tai2utc_root",
+      "name": "Find Year",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "d",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(d: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_month",
+      "parent_id": "tai2utc_root",
+      "name": "Find Month",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "dayinyear",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "isleap",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(dayinyear: Any, isleap: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_day",
+      "parent_id": "tai2utc_root",
+      "name": "Find Day",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "dayinyear",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "month",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "isleap",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(dayinyear: Any, month: Any, isleap: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "lastj2000dayofyear",
+      "parent_id": "tai2utc_root",
+      "name": "Lastj2000Dayofyear",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "year",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(year: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "hms2fd",
+      "parent_id": "tai2utc_root",
+      "name": "Hms2Fd",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "m",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(h: Any, m: Any, s: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "fd2hms",
+      "parent_id": "tai2utc_root",
+      "name": "Fd2Hms",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "fd",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(fd: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "fd2hmsf",
+      "parent_id": "tai2utc_root",
+      "name": "Fd2Hmsf",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "fd",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(fd: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "cal2jd",
+      "parent_id": "tai2utc_root",
+      "name": "Cal2Jd",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "Y",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "M",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "D",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(Y: Any, M: Any, D: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "calhms2jd",
+      "parent_id": "tai2utc_root",
+      "name": "Calhms2Jd",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "Y",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "M",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "D",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "h",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "m",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "sec",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(Y: Any, M: Any, D: Any, h: Any, m: Any, sec: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "jd2cal",
+      "parent_id": "tai2utc_root",
+      "name": "Jd2Cal",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "dj1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "dj2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(dj1: Any, dj2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "jd2calhms",
+      "parent_id": "tai2utc_root",
+      "name": "Jd2Calhms",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "dj1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "dj2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(dj1: Any, dj2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "utc2tai",
+      "parent_id": "tai2utc_root",
+      "name": "Utc2Tai",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "utc1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "utc2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(utc1: Any, utc2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "tai2utc",
+      "parent_id": "tai2utc_root",
+      "name": "Tai2Utc",
+      "description": "",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "tai1",
+          "type_desc": "Any",
+          "constraints": ""
+        },
+        {
+          "name": "tai2",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(tai1: Any, tai2: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "tai2utc"
+  }
+}
