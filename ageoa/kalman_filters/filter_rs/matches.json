@@ -1,0 +1,1190 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initializestateandsystemmatrices",
+      "statement": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimZ, DimX>, MatrixMN<F, DimZ, DimZ>, F]",
+      "informal_desc": "Construct default latent state, covariance, transition, observation, and noise matrices along with the fading factor.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializestateandsystemmatrices",
+          "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimZ, DimX>, MatrixMN<F, DimZ, DimZ>, F]",
+          "docstring": "Construct default latent state, covariance, transition, observation, and noise matrices along with the fading factor.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializestateandsystemmatrices",
+          "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimZ, DimX>, MatrixMN<F, DimZ, DimZ>, F]",
+          "docstring": "Construct default latent state, covariance, transition, observation, and noise matrices along with the fading factor.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializestateandsystemmatrices",
+            "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimZ, DimX>, MatrixMN<F, DimZ, DimZ>, F]",
+            "docstring": "Construct default latent state, covariance, transition, observation, and noise matrices along with the fading factor.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "initializeobservationupdatebuffers",
+      "statement": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[Option<VectorN<F, DimZ>>, MatrixMN<F, DimX, DimZ>, VectorN<F, DimZ>, MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+      "informal_desc": "Create default placeholders for observation and update intermediates used during measurement incorporation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializeobservationupdatebuffers",
+          "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[Option<VectorN<F, DimZ>>, MatrixMN<F, DimX, DimZ>, VectorN<F, DimZ>, MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+          "docstring": "Create default placeholders for observation and update intermediates used during measurement incorporation.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializeobservationupdatebuffers",
+          "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[Option<VectorN<F, DimZ>>, MatrixMN<F, DimX, DimZ>, VectorN<F, DimZ>, MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+          "docstring": "Create default placeholders for observation and update intermediates used during measurement incorporation.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializeobservationupdatebuffers",
+            "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[Option<VectorN<F, DimZ>>, MatrixMN<F, DimX, DimZ>, VectorN<F, DimZ>, MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+            "docstring": "Create default placeholders for observation and update intermediates used during measurement incorporation.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "snapshotinitialbeliefstates",
+      "statement": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, VectorN<F, DimX>, MatrixMN<F, DimX, DimX>]",
+      "informal_desc": "Clone the initial latent mean and covariance into prior and posterior snapshots for consistent filter bookkeeping.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "snapshotinitialbeliefstates",
+          "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, VectorN<F, DimX>, MatrixMN<F, DimX, DimX>]",
+          "docstring": "Clone the initial latent mean and covariance into prior and posterior snapshots for consistent filter bookkeeping.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "snapshotinitialbeliefstates",
+          "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, VectorN<F, DimX>, MatrixMN<F, DimX, DimX>]",
+          "docstring": "Clone the initial latent mean and covariance into prior and posterior snapshots for consistent filter bookkeeping.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "snapshotinitialbeliefstates",
+            "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, VectorN<F, DimX>, MatrixMN<F, DimX, DimX>]",
+            "docstring": "Clone the initial latent mean and covariance into prior and posterior snapshots for consistent filter bookkeeping.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "composekalmanfilterstatemodel",
+      "statement": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>, x_prior: VectorN<F, DimX>, P_prior: MatrixMN<F, DimX, DimX>, x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, z: Option<VectorN<F, DimZ>>, R: MatrixMN<F, DimZ, DimZ>, Q: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, H: MatrixMN<F, DimZ, DimX>, y: VectorN<F, DimZ>, K: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>, SI: MatrixMN<F, DimZ, DimZ>, alpha_sq: F) -> KalmanFilter<F, DimX, DimZ>",
+      "informal_desc": "Assemble the immutable initial KalmanFilter state model from initialized state, model parameters, update buffers, and snapshots.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "composekalmanfilterstatemodel",
+          "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>, x_prior: VectorN<F, DimX>, P_prior: MatrixMN<F, DimX, DimX>, x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, z: Option<VectorN<F, DimZ>>, R: MatrixMN<F, DimZ, DimZ>, Q: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, H: MatrixMN<F, DimZ, DimX>, y: VectorN<F, DimZ>, K: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>, SI: MatrixMN<F, DimZ, DimZ>, alpha_sq: F) -> KalmanFilter<F, DimX, DimZ>",
+          "docstring": "Assemble the immutable initial KalmanFilter state model from initialized state, model parameters, update buffers, and snapshots.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "composekalmanfilterstatemodel",
+          "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>, x_prior: VectorN<F, DimX>, P_prior: MatrixMN<F, DimX, DimX>, x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, z: Option<VectorN<F, DimZ>>, R: MatrixMN<F, DimZ, DimZ>, Q: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, H: MatrixMN<F, DimZ, DimX>, y: VectorN<F, DimZ>, K: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>, SI: MatrixMN<F, DimZ, DimZ>, alpha_sq: F) -> KalmanFilter<F, DimX, DimZ>",
+          "docstring": "Assemble the immutable initial KalmanFilter state model from initialized state, model parameters, update buffers, and snapshots.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "composekalmanfilterstatemodel",
+            "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>, x_prior: VectorN<F, DimX>, P_prior: MatrixMN<F, DimX, DimX>, x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, z: Option<VectorN<F, DimZ>>, R: MatrixMN<F, DimZ, DimZ>, Q: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, H: MatrixMN<F, DimZ, DimX>, y: VectorN<F, DimZ>, K: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>, SI: MatrixMN<F, DimZ, DimZ>, alpha_sq: F) -> KalmanFilter<F, DimX, DimZ>",
+            "docstring": "Assemble the immutable initial KalmanFilter state model from initialized state, model parameters, update buffers, and snapshots.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "resolveeffectivepredictinputs",
+      "statement": "(state_F: MatrixMN<F, DimX, DimX>, state_Q: MatrixMN<F, DimX, DimX>, state_B_opt: Option<MatrixMN<F, DimX, DimU>>, F_override_opt: Option<MatrixMN<F, DimX, DimX>>, Q_override_opt: Option<MatrixMN<F, DimX, DimX>>, B_override_opt: Option<MatrixMN<F, DimX, DimU>>) -> tuple[MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, Option<MatrixMN<F, DimX, DimU>>]",
+      "informal_desc": "Select effective transition, process-noise, and control matrices by applying call-site overrides and falling back to state defaults.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "resolveeffectivepredictinputs",
+          "type_signature": "(state_F: MatrixMN<F, DimX, DimX>, state_Q: MatrixMN<F, DimX, DimX>, state_B_opt: Option<MatrixMN<F, DimX, DimU>>, F_override_opt: Option<MatrixMN<F, DimX, DimX>>, Q_override_opt: Option<MatrixMN<F, DimX, DimX>>, B_override_opt: Option<MatrixMN<F, DimX, DimU>>) -> tuple[MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, Option<MatrixMN<F, DimX, DimU>>]",
+          "docstring": "Select effective transition, process-noise, and control matrices by applying call-site overrides and falling back to state defaults.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "resolveeffectivepredictinputs",
+          "type_signature": "(state_F: MatrixMN<F, DimX, DimX>, state_Q: MatrixMN<F, DimX, DimX>, state_B_opt: Option<MatrixMN<F, DimX, DimU>>, F_override_opt: Option<MatrixMN<F, DimX, DimX>>, Q_override_opt: Option<MatrixMN<F, DimX, DimX>>, B_override_opt: Option<MatrixMN<F, DimX, DimU>>) -> tuple[MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, Option<MatrixMN<F, DimX, DimU>>]",
+          "docstring": "Select effective transition, process-noise, and control matrices by applying call-site overrides and falling back to state defaults.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "resolveeffectivepredictinputs",
+            "type_signature": "(state_F: MatrixMN<F, DimX, DimX>, state_Q: MatrixMN<F, DimX, DimX>, state_B_opt: Option<MatrixMN<F, DimX, DimU>>, F_override_opt: Option<MatrixMN<F, DimX, DimX>>, Q_override_opt: Option<MatrixMN<F, DimX, DimX>>, B_override_opt: Option<MatrixMN<F, DimX, DimU>>) -> tuple[MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, Option<MatrixMN<F, DimX, DimU>>]",
+            "docstring": "Select effective transition, process-noise, and control matrices by applying call-site overrides and falling back to state defaults.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "computepredictedlatentmean",
+      "statement": "(x_prev: VectorN<F, DimX>, F_eff: MatrixMN<F, DimX, DimX>, B_eff_opt: Option<MatrixMN<F, DimX, DimU>>, control_u_opt: Option<VectorN<F, DimU>>) -> VectorN<F, DimX>",
+      "informal_desc": "Propagate latent mean forward using linear dynamics and optionally add the control contribution when both B and u are present.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computepredictedlatentmean",
+          "type_signature": "(x_prev: VectorN<F, DimX>, F_eff: MatrixMN<F, DimX, DimX>, B_eff_opt: Option<MatrixMN<F, DimX, DimU>>, control_u_opt: Option<VectorN<F, DimU>>) -> VectorN<F, DimX>",
+          "docstring": "Propagate latent mean forward using linear dynamics and optionally add the control contribution when both B and u are present.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computepredictedlatentmean",
+          "type_signature": "(x_prev: VectorN<F, DimX>, F_eff: MatrixMN<F, DimX, DimX>, B_eff_opt: Option<MatrixMN<F, DimX, DimU>>, control_u_opt: Option<VectorN<F, DimU>>) -> VectorN<F, DimX>",
+          "docstring": "Propagate latent mean forward using linear dynamics and optionally add the control contribution when both B and u are present.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computepredictedlatentmean",
+            "type_signature": "(x_prev: VectorN<F, DimX>, F_eff: MatrixMN<F, DimX, DimX>, B_eff_opt: Option<MatrixMN<F, DimX, DimU>>, control_u_opt: Option<VectorN<F, DimU>>) -> VectorN<F, DimX>",
+            "docstring": "Propagate latent mean forward using linear dynamics and optionally add the control contribution when both B and u are present.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "computepredictedcovariance",
+      "statement": "(P_prev: MatrixMN<F, DimX, DimX>, F_eff: MatrixMN<F, DimX, DimX>, Q_eff: MatrixMN<F, DimX, DimX>, alpha_sq: F) -> MatrixMN<F, DimX, DimX>",
+      "informal_desc": "Propagate covariance with linear dynamics and process noise inflation using alpha scaling.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computepredictedcovariance",
+          "type_signature": "(P_prev: MatrixMN<F, DimX, DimX>, F_eff: MatrixMN<F, DimX, DimX>, Q_eff: MatrixMN<F, DimX, DimX>, alpha_sq: F) -> MatrixMN<F, DimX, DimX>",
+          "docstring": "Propagate covariance with linear dynamics and process noise inflation using alpha scaling.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computepredictedcovariance",
+          "type_signature": "(P_prev: MatrixMN<F, DimX, DimX>, F_eff: MatrixMN<F, DimX, DimX>, Q_eff: MatrixMN<F, DimX, DimX>, alpha_sq: F) -> MatrixMN<F, DimX, DimX>",
+          "docstring": "Propagate covariance with linear dynamics and process noise inflation using alpha scaling.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computepredictedcovariance",
+            "type_signature": "(P_prev: MatrixMN<F, DimX, DimX>, F_eff: MatrixMN<F, DimX, DimX>, Q_eff: MatrixMN<F, DimX, DimX>, alpha_sq: F) -> MatrixMN<F, DimX, DimX>",
+            "docstring": "Propagate covariance with linear dynamics and process noise inflation using alpha scaling.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildpredictedstatewithpriors",
+      "statement": "(x_pred: VectorN<F, DimX>, P_pred: MatrixMN<F, DimX, DimX>, model_static: StateModelSpec{F, B, H, Q, R}) -> StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+      "informal_desc": "Construct the predicted state object and mirror predicted mean/covariance into prior snapshot fields for downstream filtering steps.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildpredictedstatewithpriors",
+          "type_signature": "(x_pred: VectorN<F, DimX>, P_pred: MatrixMN<F, DimX, DimX>, model_static: StateModelSpec{F, B, H, Q, R}) -> StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+          "docstring": "Construct the predicted state object and mirror predicted mean/covariance into prior snapshot fields for downstream filtering steps.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildpredictedstatewithpriors",
+          "type_signature": "(x_pred: VectorN<F, DimX>, P_pred: MatrixMN<F, DimX, DimX>, model_static: StateModelSpec{F, B, H, Q, R}) -> StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+          "docstring": "Construct the predicted state object and mirror predicted mean/covariance into prior snapshot fields for downstream filtering steps.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildpredictedstatewithpriors",
+            "type_signature": "(x_pred: VectorN<F, DimX>, P_pred: MatrixMN<F, DimX, DimX>, model_static: StateModelSpec{F, B, H, Q, R}) -> StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+            "docstring": "Construct the predicted state object and mirror predicted mean/covariance into prior snapshot fields for downstream filtering steps.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "predictlatentstatesteadystate",
+      "statement": "(state_in: SteadyStateModelSpec{latent_mean x, fixed covariance/gain, F, B}, u: control vector, B: control matrix override (optional)) -> SteadyStateModelSpec{latent_mean x_pred, fixed covariance/gain, F, B, H, R}",
+      "informal_desc": "Steady-state predict kernel variant where covariance/gain are treated as fixed and only the latent mean transition is applied.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "predictlatentstatesteadystate",
+          "type_signature": "(state_in: SteadyStateModelSpec{latent_mean x, fixed covariance/gain, F, B}, u: control vector, B: control matrix override (optional)) -> SteadyStateModelSpec{latent_mean x_pred, fixed covariance/gain, F, B, H, R}",
+          "docstring": "Steady-state predict kernel variant where covariance/gain are treated as fixed and only the latent mean transition is applied.",
+          "conceptual_summary": "AffineStatePropagationWithFrozenUncertainty. Performs a one-step affine evolution of an internal state vector using a linear transition operator and an optional external actuation term. Only the first moment is propagated: all second-order/statistical tensors and precomputed correction operators are treated as constants and passed through unchanged. The result is a new immutable state specification with updated vector component and preserved fixed parameters.. Applications: Real-time robotics: propagate a reduced-order pose/velocity latent vector with fixed uncertainty calibration between sensor corrections, Computational neuroscience: evolve low-dimensional neural population activity state under known stimulation with fixed decoder statistics, Chemical process engineering: advance a linearized reactor state estimate under control actions while holding noise/correction operators constant, Power systems operation: short-horizon grid state propagation with fixed estimator tuning during quasi-stationary operating windows",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "predictlatentstatesteadystate",
+          "type_signature": "(state_in: SteadyStateModelSpec{latent_mean x, fixed covariance/gain, F, B}, u: control vector, B: control matrix override (optional)) -> SteadyStateModelSpec{latent_mean x_pred, fixed covariance/gain, F, B, H, R}",
+          "docstring": "Steady-state predict kernel variant where covariance/gain are treated as fixed and only the latent mean transition is applied.",
+          "conceptual_summary": "AffineStatePropagationWithFrozenUncertainty. Performs a one-step affine evolution of an internal state vector using a linear transition operator and an optional external actuation term. Only the first moment is propagated: all second-order/statistical tensors and precomputed correction operators are treated as constants and passed through unchanged. The result is a new immutable state specification with updated vector component and preserved fixed parameters.. Applications: Real-time robotics: propagate a reduced-order pose/velocity latent vector with fixed uncertainty calibration between sensor corrections, Computational neuroscience: evolve low-dimensional neural population activity state under known stimulation with fixed decoder statistics, Chemical process engineering: advance a linearized reactor state estimate under control actions while holding noise/correction operators constant, Power systems operation: short-horizon grid state propagation with fixed estimator tuning during quasi-stationary operating windows",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "predictlatentstatesteadystate",
+            "type_signature": "(state_in: SteadyStateModelSpec{latent_mean x, fixed covariance/gain, F, B}, u: control vector, B: control matrix override (optional)) -> SteadyStateModelSpec{latent_mean x_pred, fixed covariance/gain, F, B, H, R}",
+            "docstring": "Steady-state predict kernel variant where covariance/gain are treated as fixed and only the latent mean transition is applied.",
+            "conceptual_summary": "AffineStatePropagationWithFrozenUncertainty. Performs a one-step affine evolution of an internal state vector using a linear transition operator and an optional external actuation term. Only the first moment is propagated: all second-order/statistical tensors and precomputed correction operators are treated as constants and passed through unchanged. The result is a new immutable state specification with updated vector component and preserved fixed parameters.. Applications: Real-time robotics: propagate a reduced-order pose/velocity latent vector with fixed uncertainty calibration between sensor corrections, Computational neuroscience: evolve low-dimensional neural population activity state under known stimulation with fixed decoder statistics, Chemical process engineering: advance a linearized reactor state estimate under control actions while holding noise/correction operators constant, Power systems operation: short-horizon grid state propagation with fixed estimator tuning during quasi-stationary operating windows",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "evaluatemeasurementoracle",
+      "statement": "(x: latent mean vector, z: measurement vector, H: measurement matrix) -> tuple[predicted measurement vector, residual vector]",
+      "informal_desc": "Pure observation oracle that maps latent state to predicted measurement and innovation residual; performs no persistent state writes.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "evaluatemeasurementoracle",
+          "type_signature": "(x: latent mean vector, z: measurement vector, H: measurement matrix) -> tuple[predicted measurement vector, residual vector]",
+          "docstring": "Pure observation oracle that maps latent state to predicted measurement and innovation residual; performs no persistent state writes.",
+          "conceptual_summary": "Linear Observation Projection and Residual Oracle. Applies a linear operator to an internal state vector to generate an expected observation in a separate measurement space. It then computes an innovation vector as the elementwise difference between the observed vector and the projected expectation. The operation is purely evaluative and produces outputs without mutating persistent state.. Applications: Robotics: project configuration-space estimates into sensor-space expectations and compute discrepancy for closed-loop correction., Medical imaging: map latent reconstruction coefficients to expected detector readings and compute residuals for iterative refinement., Power systems: project grid state estimates to meter-space predictions and compute innovation vectors for anomaly localization., Acoustics: map source-parameter estimates to microphone-array observations and compute residuals for model calibration.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "evaluatemeasurementoracle",
+          "type_signature": "(x: latent mean vector, z: measurement vector, H: measurement matrix) -> tuple[predicted measurement vector, residual vector]",
+          "docstring": "Pure observation oracle that maps latent state to predicted measurement and innovation residual; performs no persistent state writes.",
+          "conceptual_summary": "Linear Observation Projection and Residual Oracle. Applies a linear operator to an internal state vector to generate an expected observation in a separate measurement space. It then computes an innovation vector as the elementwise difference between the observed vector and the projected expectation. The operation is purely evaluative and produces outputs without mutating persistent state.. Applications: Robotics: project configuration-space estimates into sensor-space expectations and compute discrepancy for closed-loop correction., Medical imaging: map latent reconstruction coefficients to expected detector readings and compute residuals for iterative refinement., Power systems: project grid state estimates to meter-space predictions and compute innovation vectors for anomaly localization., Acoustics: map source-parameter estimates to microphone-array observations and compute residuals for model calibration.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "evaluatemeasurementoracle",
+            "type_signature": "(x: latent mean vector, z: measurement vector, H: measurement matrix) -> tuple[predicted measurement vector, residual vector]",
+            "docstring": "Pure observation oracle that maps latent state to predicted measurement and innovation residual; performs no persistent state writes.",
+            "conceptual_summary": "Linear Observation Projection and Residual Oracle. Applies a linear operator to an internal state vector to generate an expected observation in a separate measurement space. It then computes an innovation vector as the elementwise difference between the observed vector and the projected expectation. The operation is purely evaluative and produces outputs without mutating persistent state.. Applications: Robotics: project configuration-space estimates into sensor-space expectations and compute discrepancy for closed-loop correction., Medical imaging: map latent reconstruction coefficients to expected detector readings and compute residuals for iterative refinement., Power systems: project grid state estimates to meter-space predictions and compute innovation vectors for anomaly localization., Acoustics: map source-parameter estimates to microphone-array observations and compute residuals for model calibration.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "resolveeffectivemeasurementmodel",
+      "statement": "(R_pred: MatrixMN<F, DimZ, DimZ>, H_pred: MatrixMN<F, DimZ, DimX>, R_override: Option<MatrixMN<F, DimZ, DimZ>>, H_override: Option<MatrixMN<F, DimZ, DimX>>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimX>]",
+      "informal_desc": "Select the measurement covariance and measurement matrix to use for this update by applying optional overrides to predicted defaults.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "resolveeffectivemeasurementmodel",
+          "type_signature": "(R_pred: MatrixMN<F, DimZ, DimZ>, H_pred: MatrixMN<F, DimZ, DimX>, R_override: Option<MatrixMN<F, DimZ, DimZ>>, H_override: Option<MatrixMN<F, DimZ, DimX>>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimX>]",
+          "docstring": "Select the measurement covariance and measurement matrix to use for this update by applying optional overrides to predicted defaults.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "resolveeffectivemeasurementmodel",
+          "type_signature": "(R_pred: MatrixMN<F, DimZ, DimZ>, H_pred: MatrixMN<F, DimZ, DimX>, R_override: Option<MatrixMN<F, DimZ, DimZ>>, H_override: Option<MatrixMN<F, DimZ, DimX>>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimX>]",
+          "docstring": "Select the measurement covariance and measurement matrix to use for this update by applying optional overrides to predicted defaults.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "resolveeffectivemeasurementmodel",
+            "type_signature": "(R_pred: MatrixMN<F, DimZ, DimZ>, H_pred: MatrixMN<F, DimZ, DimX>, R_override: Option<MatrixMN<F, DimZ, DimZ>>, H_override: Option<MatrixMN<F, DimZ, DimX>>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimX>]",
+            "docstring": "Select the measurement covariance and measurement matrix to use for this update by applying optional overrides to predicted defaults.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deriveinnovationresidual",
+      "statement": "(z: VectorN<F, DimZ>, x_pred: VectorN<F, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, innovation_override: Option<VectorN<F, DimZ>>) -> VectorN<F, DimZ>",
+      "informal_desc": "Compute (or accept explicit) innovation residual between measurement and predicted observation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deriveinnovationresidual",
+          "type_signature": "(z: VectorN<F, DimZ>, x_pred: VectorN<F, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, innovation_override: Option<VectorN<F, DimZ>>) -> VectorN<F, DimZ>",
+          "docstring": "Compute (or accept explicit) innovation residual between measurement and predicted observation.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deriveinnovationresidual",
+          "type_signature": "(z: VectorN<F, DimZ>, x_pred: VectorN<F, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, innovation_override: Option<VectorN<F, DimZ>>) -> VectorN<F, DimZ>",
+          "docstring": "Compute (or accept explicit) innovation residual between measurement and predicted observation.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deriveinnovationresidual",
+            "type_signature": "(z: VectorN<F, DimZ>, x_pred: VectorN<F, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, innovation_override: Option<VectorN<F, DimZ>>) -> VectorN<F, DimZ>",
+            "docstring": "Compute (or accept explicit) innovation residual between measurement and predicted observation.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "forminnovationstatistics",
+      "statement": "(P_pred: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimX, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+      "informal_desc": "Build cross-covariance and innovation covariance required for the Kalman gain.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "forminnovationstatistics",
+          "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimX, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+          "docstring": "Build cross-covariance and innovation covariance required for the Kalman gain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "forminnovationstatistics",
+          "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimX, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+          "docstring": "Build cross-covariance and innovation covariance required for the Kalman gain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "forminnovationstatistics",
+            "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimX, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+            "docstring": "Build cross-covariance and innovation covariance required for the Kalman gain.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "derivekalmangainfrominnovation",
+      "statement": "(PHT: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimX, DimZ>]",
+      "informal_desc": "Invert innovation covariance and compute Kalman gain.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "derivekalmangainfrominnovation",
+          "type_signature": "(PHT: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimX, DimZ>]",
+          "docstring": "Invert innovation covariance and compute Kalman gain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "derivekalmangainfrominnovation",
+          "type_signature": "(PHT: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimX, DimZ>]",
+          "docstring": "Invert innovation covariance and compute Kalman gain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "derivekalmangainfrominnovation",
+            "type_signature": "(PHT: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimX, DimZ>]",
+            "docstring": "Invert innovation covariance and compute Kalman gain.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "fuseinnovationintostatemean",
+      "statement": "(x_pred: VectorN<F, DimX>, K: MatrixMN<F, DimX, DimZ>, y: VectorN<F, DimZ>) -> VectorN<F, DimX>",
+      "informal_desc": "Apply the gain-weighted innovation to produce posterior latent mean.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "fuseinnovationintostatemean",
+          "type_signature": "(x_pred: VectorN<F, DimX>, K: MatrixMN<F, DimX, DimZ>, y: VectorN<F, DimZ>) -> VectorN<F, DimX>",
+          "docstring": "Apply the gain-weighted innovation to produce posterior latent mean.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "fuseinnovationintostatemean",
+          "type_signature": "(x_pred: VectorN<F, DimX>, K: MatrixMN<F, DimX, DimZ>, y: VectorN<F, DimZ>) -> VectorN<F, DimX>",
+          "docstring": "Apply the gain-weighted innovation to produce posterior latent mean.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "fuseinnovationintostatemean",
+            "type_signature": "(x_pred: VectorN<F, DimX>, K: MatrixMN<F, DimX, DimZ>, y: VectorN<F, DimZ>) -> VectorN<F, DimX>",
+            "docstring": "Apply the gain-weighted innovation to produce posterior latent mean.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "contractposteriorcovariancejosephform",
+      "statement": "(P_pred: MatrixMN<F, DimX, DimX>, K: MatrixMN<F, DimX, DimZ>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> MatrixMN<F, DimX, DimX>",
+      "informal_desc": "Update covariance using the Joseph stabilized form to preserve symmetry and numerical robustness.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "contractposteriorcovariancejosephform",
+          "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, K: MatrixMN<F, DimX, DimZ>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> MatrixMN<F, DimX, DimX>",
+          "docstring": "Update covariance using the Joseph stabilized form to preserve symmetry and numerical robustness.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "contractposteriorcovariancejosephform",
+          "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, K: MatrixMN<F, DimX, DimZ>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> MatrixMN<F, DimX, DimX>",
+          "docstring": "Update covariance using the Joseph stabilized form to preserve symmetry and numerical robustness.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "contractposteriorcovariancejosephform",
+            "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, K: MatrixMN<F, DimX, DimZ>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> MatrixMN<F, DimX, DimX>",
+            "docstring": "Update covariance using the Joseph stabilized form to preserve symmetry and numerical robustness.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildposteriorstateoutput",
+      "statement": "(x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, B: Option<Matrix>, Q: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>, z: VectorN<F, DimZ>, y: VectorN<F, DimZ>, S: MatrixMN<F, DimZ, DimZ>, S_inv: MatrixMN<F, DimZ, DimZ>, K: MatrixMN<F, DimX, DimZ>) -> tuple[StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}, {z, y, S, S_inv, K, x_post, P_post}]",
+      "informal_desc": "Assemble posterior state object and update diagnostics from computed posterior statistics.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildposteriorstateoutput",
+          "type_signature": "(x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, B: Option<Matrix>, Q: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>, z: VectorN<F, DimZ>, y: VectorN<F, DimZ>, S: MatrixMN<F, DimZ, DimZ>, S_inv: MatrixMN<F, DimZ, DimZ>, K: MatrixMN<F, DimX, DimZ>) -> tuple[StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}, {z, y, S, S_inv, K, x_post, P_post}]",
+          "docstring": "Assemble posterior state object and update diagnostics from computed posterior statistics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildposteriorstateoutput",
+          "type_signature": "(x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, B: Option<Matrix>, Q: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>, z: VectorN<F, DimZ>, y: VectorN<F, DimZ>, S: MatrixMN<F, DimZ, DimZ>, S_inv: MatrixMN<F, DimZ, DimZ>, K: MatrixMN<F, DimX, DimZ>) -> tuple[StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}, {z, y, S, S_inv, K, x_post, P_post}]",
+          "docstring": "Assemble posterior state object and update diagnostics from computed posterior statistics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildposteriorstateoutput",
+            "type_signature": "(x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, B: Option<Matrix>, Q: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>, z: VectorN<F, DimZ>, y: VectorN<F, DimZ>, S: MatrixMN<F, DimZ, DimZ>, S_inv: MatrixMN<F, DimZ, DimZ>, K: MatrixMN<F, DimX, DimZ>) -> tuple[StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}, {z, y, S, S_inv, K, x_post, P_post}]",
+            "docstring": "Assemble posterior state object and update diagnostics from computed posterior statistics.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "updateposteriorstatesteadystate",
+      "statement": "(predicted_state_steady: SteadyStateModelSpec{latent_mean x_pred, fixed gain/covariance, H, R}, z: measurement vector, innovation: measurement residual (optional explicit input)) -> SteadyStateModelSpec{latent_mean x_post, fixed gain/covariance, F, B, H, R}",
+      "informal_desc": "Steady-state update kernel variant using fixed gain/covariance assumptions; returns a new posterior latent state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "updateposteriorstatesteadystate",
+          "type_signature": "(predicted_state_steady: SteadyStateModelSpec{latent_mean x_pred, fixed gain/covariance, H, R}, z: measurement vector, innovation: measurement residual (optional explicit input)) -> SteadyStateModelSpec{latent_mean x_post, fixed gain/covariance, F, B, H, R}",
+          "docstring": "Steady-state update kernel variant using fixed gain/covariance assumptions; returns a new posterior latent state.",
+          "conceptual_summary": "Fixed-Parameter Linear Latent-State Correction. Applies a single-step affine correction to a predicted latent vector using an observation-space discrepancy and a precomputed constant gain matrix. If the discrepancy is not provided, it is recomputed as the difference between the observed vector and the predicted observation projection. The operation updates only the latent mean while reusing fixed structural matrices and uncertainty assumptions, yielding a new immutable state descriptor.. Applications: Real-time correction of a reduced-order fluid-dynamics state using sparse sensor snapshots in computational physics., Incremental alignment of latent pose estimates in autonomous navigation using streaming geometric measurements., Online refinement of hidden neural population activity vectors from electrophysiology observations in neuroscience., Adaptive correction of reactor internal-state estimates from process instrumentation in chemical engineering.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "updateposteriorstatesteadystate",
+          "type_signature": "(predicted_state_steady: SteadyStateModelSpec{latent_mean x_pred, fixed gain/covariance, H, R}, z: measurement vector, innovation: measurement residual (optional explicit input)) -> SteadyStateModelSpec{latent_mean x_post, fixed gain/covariance, F, B, H, R}",
+          "docstring": "Steady-state update kernel variant using fixed gain/covariance assumptions; returns a new posterior latent state.",
+          "conceptual_summary": "Fixed-Parameter Linear Latent-State Correction. Applies a single-step affine correction to a predicted latent vector using an observation-space discrepancy and a precomputed constant gain matrix. If the discrepancy is not provided, it is recomputed as the difference between the observed vector and the predicted observation projection. The operation updates only the latent mean while reusing fixed structural matrices and uncertainty assumptions, yielding a new immutable state descriptor.. Applications: Real-time correction of a reduced-order fluid-dynamics state using sparse sensor snapshots in computational physics., Incremental alignment of latent pose estimates in autonomous navigation using streaming geometric measurements., Online refinement of hidden neural population activity vectors from electrophysiology observations in neuroscience., Adaptive correction of reactor internal-state estimates from process instrumentation in chemical engineering.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "updateposteriorstatesteadystate",
+            "type_signature": "(predicted_state_steady: SteadyStateModelSpec{latent_mean x_pred, fixed gain/covariance, H, R}, z: measurement vector, innovation: measurement residual (optional explicit input)) -> SteadyStateModelSpec{latent_mean x_post, fixed gain/covariance, F, B, H, R}",
+            "docstring": "Steady-state update kernel variant using fixed gain/covariance assumptions; returns a new posterior latent state.",
+            "conceptual_summary": "Fixed-Parameter Linear Latent-State Correction. Applies a single-step affine correction to a predicted latent vector using an observation-space discrepancy and a precomputed constant gain matrix. If the discrepancy is not provided, it is recomputed as the difference between the observed vector and the predicted observation projection. The operation updates only the latent mean while reusing fixed structural matrices and uncertainty assumptions, yielding a new immutable state descriptor.. Applications: Real-time correction of a reduced-order fluid-dynamics state using sparse sensor snapshots in computational physics., Incremental alignment of latent pose estimates in autonomous navigation using streaming geometric measurements., Online refinement of hidden neural population activity vectors from electrophysiology observations in neuroscience., Adaptive correction of reactor internal-state estimates from process instrumentation in chemical engineering.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

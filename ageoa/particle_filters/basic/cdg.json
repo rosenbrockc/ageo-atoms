@@ -1,0 +1,376 @@
+{
+  "nodes": [
+    {
+      "node_id": "update_root",
+      "parent_id": null,
+      "name": "update",
+      "description": "Ingested pipeline from update",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "filter_step_preparation_and_dispatch",
+        "hypothesis_propagation_kernel",
+        "likelihood_reweight_kernel",
+        "resample_and_hypothesis_distribution_projection"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "filter_step_preparation_and_dispatch",
+      "parent_id": "update_root",
+      "name": "Filter Step Preparation And Dispatch",
+      "description": "Entry-point orchestration for one SMC step: normalize raw inputs and expose immutable state-space components for downstream pure kernels.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "up",
+          "type_desc": "WeightedDiscreteStateHypothesisSwarm",
+          "constraints": "Immutable prior state carrying state hypotheses, weights, optional ancestors, and PRNGKey/RNG state."
+        },
+        {
+          "name": "b",
+          "type_desc": "StateModelSpec",
+          "constraints": "Transition and likelihood model definitions used by predict/reweight."
+        },
+        {
+          "name": "a",
+          "type_desc": "ControlInput",
+          "constraints": "Control/action at current step; may be empty for uncontrolled dynamics."
+        },
+        {
+          "name": "o",
+          "type_desc": "Observation",
+          "constraints": "Measurement for current time index."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prior_state",
+          "type_desc": "WeightedDiscreteStateHypothesisSwarm",
+          "constraints": "Unmodified prior state object."
+        },
+        {
+          "name": "model_spec",
+          "type_desc": "StateModelSpec",
+          "constraints": "Pure model bundle forwarded unchanged."
+        },
+        {
+          "name": "control_t",
+          "type_desc": "ControlInput",
+          "constraints": "Preprocessed control/action."
+        },
+        {
+          "name": "observation_t",
+          "type_desc": "Observation",
+          "constraints": "Preprocessed observation."
+        },
+        {
+          "name": "rng_key",
+          "type_desc": "PRNGKey",
+          "constraints": "Explicit stochastic key threaded to kernels; never implicit global mutation."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(up: WeightedDiscreteStateHypothesisSwarm, b: StateModelSpec, a: ControlInput, o: Observation) -> tuple[WeightedDiscreteStateHypothesisSwarm, StateModelSpec, ControlInput, Observation, PRNGKey]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Immutable Step Context Canonicalization and Kernel Dispatch. Transforms heterogeneous step-level inputs into a canonical, strongly typed tuple and forwards invariant structures without mutation. The operation separates normalization from computation by exposing immutable state, immutable model operators, normalized exogenous inputs, and an explicit stochastic seed handle for downstream pure functions. This creates a reproducible execution boundary where all randomness and data dependencies are passed explicitly rather than through hidden global state.. Applications: Robotics: prepare immutable hypothesis-distribution-map state, actuator command vector, and sensor frame for pure localization/update kernels, Computational biology: stage population-level latent-state ensembles, intervention metadata, and assay readouts for reproducible inference steps, Distributed systems reliability: normalize node-state snapshots, fault-injection controls, and telemetry packets before pure risk-propagation kernels, Additive manufacturing control: canonicalize process-state ensembles, machine command inputs, and in-situ metrology streams for downstream predictive correction kernels",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "hypothesis_propagation_kernel",
+      "parent_id": "update_root",
+      "name": "Hypothesis Propagation Kernel",
+      "description": "Pure transition/proposal kernel that propagates state hypotheses from prior to proposed latent state and returns a split RNG key.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "prior_state",
+          "type_desc": "WeightedDiscreteStateHypothesisSwarm",
+          "constraints": "Reads state hypotheses/weights only; does not mutate input."
+        },
+        {
+          "name": "model_spec",
+          "type_desc": "StateModelSpec",
+          "constraints": "Provides transition dynamics."
+        },
+        {
+          "name": "control_t",
+          "type_desc": "ControlInput",
+          "constraints": "Current control/action."
+        },
+        {
+          "name": "rng_key",
+          "type_desc": "PRNGKey",
+          "constraints": "Must be consumed and split functionally."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "proposed_state_hypotheses",
+          "type_desc": "Array[N, D_latent]",
+          "constraints": "New latent hypothesis set at time t."
+        },
+        {
+          "name": "carry_weights",
+          "type_desc": "Array[N]",
+          "constraints": "Prior weights carried forward for reweighting."
+        },
+        {
+          "name": "rng_key_next",
+          "type_desc": "PRNGKey",
+          "constraints": "New key object after split."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(prior_state: WeightedDiscreteStateHypothesisSwarm, model_spec: StateModelSpec, control_t: ControlInput, rng_key: PRNGKey) -> tuple[Array[N, D_latent], Array[N], PRNGKey]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Weighted Ensemble One-Step Transition Sampler. Applies a stochastic one-step transition operator to each element of a weighted ensemble in latent space, conditioned on a contemporaneous exogenous signal. The operation generates a proposed ensemble for the next step without altering the incoming weight vector, so weighting is deferred to a later stage. Randomness is consumed functionally by splitting an immutable generator state and returning a new generator state for downstream computation.. Applications: Sequential data assimilation in geophysical field reconstruction, where latent field hypotheses are propagated under physics-informed dynamics before likelihood weighting., Pose/hypothesis propagation in autonomous navigation, where an ensemble of latent kinematic states is advanced under control inputs prior to sensor correction., Hidden-state trajectory inference in systems biology, where candidate intracellular state vectors are forward-simulated under experimental perturbations before observation matching., Adaptive reliability forecasting in power systems, where latent grid condition hypotheses are propagated under load/control signals before evidence-based reweighting.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "likelihood_reweight_kernel",
+      "parent_id": "update_root",
+      "name": "Likelihood Reweight Kernel",
+      "description": "Computes observation likelihoods/log-probs for proposed state hypotheses and performs immutable SMC weight update/normalization.",
+      "concept_type": "smc_reweight",
+      "inputs": [
+        {
+          "name": "proposed_state_hypotheses",
+          "type_desc": "Array[N, D_latent]",
+          "constraints": "State hypotheses output by propagation kernel."
+        },
+        {
+          "name": "carry_weights",
+          "type_desc": "Array[N]",
+          "constraints": "Prior importance weights."
+        },
+        {
+          "name": "observation_t",
+          "type_desc": "Observation",
+          "constraints": "Current measurement."
+        },
+        {
+          "name": "model_spec",
+          "type_desc": "StateModelSpec",
+          "constraints": "Provides measurement likelihood function."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "normalized_weights",
+          "type_desc": "Array[N]",
+          "constraints": "Posterior normalized weights (sum to 1)."
+        },
+        {
+          "name": "log_likelihood",
+          "type_desc": "float",
+          "constraints": "Aggregate log-likelihood / evidence contribution for the step."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(proposed_state_hypotheses: Array[N, D_latent], carry_weights: Array[N], observation_t: Observation, model_spec: StateModelSpec) -> tuple[Array[N], float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Hypothesis-Set Evidence Reweight and Normalization Operator. Maps each latent hypothesis vector to a log-compatibility score with incoming evidence via a user-supplied scoring functional. Combines these scores with prior importance mass in log-space, then applies a stable partition normalization (e.g., log-sum-exp) to produce a posterior probability simplex over hypotheses. Simultaneously returns the log-partition increment, which is the stepwise evidence contribution of the new data.. Applications: Robotic state estimation: reweight latent pose hypotheses using incoming sensor frames, Atmospheric data assimilation: reweight ensemble simulation states using new satellite measurements, Computational biology: reweight latent conformational hypotheses using experimental assay readouts, Wireless systems: reweight channel-state hypotheses using received pilot-symbol evidence",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resample_and_hypothesis_distribution_projection",
+      "parent_id": "update_root",
+      "name": "Resample And Hypothesis Distribution Projection",
+      "description": "Builds a new WeightedDiscreteStateHypothesisSwarm, performs postprocessing summaries, and emits immutable posterior state with explicit state hypotheses/weights/ancestors and latent moments.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "proposed_state_hypotheses",
+          "type_desc": "Array[N, D_latent]",
+          "constraints": "Candidate state hypotheses before/after resampling."
+        },
+        {
+          "name": "normalized_weights",
+          "type_desc": "Array[N]",
+          "constraints": "Updated importance weights."
+        },
+        {
+          "name": "rng_key_next",
+          "type_desc": "PRNGKey",
+          "constraints": "Used for any stochastic resampling; must be threaded out."
+        },
+        {
+          "name": "log_likelihood",
+          "type_desc": "float",
+          "constraints": "Diagnostic scalar to include in trace/postprocess output."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_state",
+          "type_desc": "WeightedDiscreteStateHypothesisSwarm",
+          "constraints": "New object containing state hypotheses, weights, optional ancestors, latent_mean/latent_variance, and updated PRNGKey."
+        },
+        {
+          "name": "trace",
+          "type_desc": "FilterTrace",
+          "constraints": "Optional diagnostics/history emitted by postprocess."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(proposed_state_hypotheses: Array[N, D_latent], normalized_weights: Array[N], rng_key_next: PRNGKey, log_likelihood: float) -> tuple[WeightedDiscreteStateHypothesisSwarm, FilterTrace]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Stochastic Weighted-Sample State Projection. Consumes a finite set of candidate state vectors with normalized coefficients and constructs an immutable posterior sample-based state representation. Optionally applies stochastic resampling (with explicit random-state threading) and preserves lineage indices to encode how output samples map to prior candidates. It then projects the empirical sample distribution into low-order summary statistics (e.g., coordinate-wise first and second moments) and emits both the posterior state and diagnostic trace metadata.. Applications: Real-time pose estimation in autonomous navigation using weighted trajectory hypotheses, Hidden-state inference in molecular conformation tracking from noisy sensor streams, Data assimilation for geophysical field reconstruction from sparse, uncertain measurements, Online fault-state estimation in industrial process control with non-Gaussian uncertainty",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "hypothesis_propagation_kernel",
+      "output_name": "prior_state",
+      "input_name": "prior_state",
+      "source_type": "WeightedDiscreteStateHypothesisSwarm",
+      "target_type": "WeightedDiscreteStateHypothesisSwarm",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "hypothesis_propagation_kernel",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "hypothesis_propagation_kernel",
+      "output_name": "control_t",
+      "input_name": "control_t",
+      "source_type": "ControlInput",
+      "target_type": "ControlInput",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "hypothesis_propagation_kernel",
+      "output_name": "rng_key",
+      "input_name": "rng_key",
+      "source_type": "PRNGKey",
+      "target_type": "PRNGKey",
+      "requires_glue": false
+    },
+    {
+      "source_id": "hypothesis_propagation_kernel",
+      "target_id": "likelihood_reweight_kernel",
+      "output_name": "proposed_state_hypotheses",
+      "input_name": "proposed_state_hypotheses",
+      "source_type": "Array[N, D_latent]",
+      "target_type": "Array[N, D_latent]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "hypothesis_propagation_kernel",
+      "target_id": "likelihood_reweight_kernel",
+      "output_name": "carry_weights",
+      "input_name": "carry_weights",
+      "source_type": "Array[N]",
+      "target_type": "Array[N]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "likelihood_reweight_kernel",
+      "output_name": "observation_t",
+      "input_name": "observation_t",
+      "source_type": "Observation",
+      "target_type": "Observation",
+      "requires_glue": false
+    },
+    {
+      "source_id": "filter_step_preparation_and_dispatch",
+      "target_id": "likelihood_reweight_kernel",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "hypothesis_propagation_kernel",
+      "target_id": "resample_and_hypothesis_distribution_projection",
+      "output_name": "proposed_state_hypotheses",
+      "input_name": "proposed_state_hypotheses",
+      "source_type": "Array[N, D_latent]",
+      "target_type": "Array[N, D_latent]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "likelihood_reweight_kernel",
+      "target_id": "resample_and_hypothesis_distribution_projection",
+      "output_name": "normalized_weights",
+      "input_name": "normalized_weights",
+      "source_type": "Array[N]",
+      "target_type": "Array[N]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "hypothesis_propagation_kernel",
+      "target_id": "resample_and_hypothesis_distribution_projection",
+      "output_name": "rng_key_next",
+      "input_name": "rng_key_next",
+      "source_type": "PRNGKey",
+      "target_type": "PRNGKey",
+      "requires_glue": false
+    },
+    {
+      "source_id": "likelihood_reweight_kernel",
+      "target_id": "resample_and_hypothesis_distribution_projection",
+      "output_name": "log_likelihood",
+      "input_name": "log_likelihood",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "update"
+  }
+}

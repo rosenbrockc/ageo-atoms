@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "filter_step_preparation_and_dispatch",
+      "statement": "(up: WeightedParticleBeliefState, b: StateModelSpec, a: ControlInput, o: Observation) -> tuple[WeightedParticleBeliefState, StateModelSpec, ControlInput, Observation, PRNGKey]",
+      "informal_desc": "Entry-point orchestration for one SMC step: normalize raw inputs and expose immutable state-space components for downstream pure kernels.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "filter_step_preparation_and_dispatch",
+          "type_signature": "(up: WeightedParticleBeliefState, b: StateModelSpec, a: ControlInput, o: Observation) -> tuple[WeightedParticleBeliefState, StateModelSpec, ControlInput, Observation, PRNGKey]",
+          "docstring": "Entry-point orchestration for one SMC step: normalize raw inputs and expose immutable state-space components for downstream pure kernels.",
+          "conceptual_summary": "Immutable Step Context Canonicalization and Kernel Dispatch. Transforms heterogeneous step-level inputs into a canonical, strongly typed tuple and forwards invariant structures without mutation. The operation separates normalization from computation by exposing immutable state, immutable model operators, normalized exogenous inputs, and an explicit stochastic seed handle for downstream pure functions. This creates a reproducible execution boundary where all randomness and data dependencies are passed explicitly rather than through hidden global state.. Applications: Robotics: prepare immutable belief-map state, actuator command vector, and sensor frame for pure localization/update kernels, Computational biology: stage population-level latent-state ensembles, intervention metadata, and assay readouts for reproducible inference steps, Distributed systems reliability: normalize node-state snapshots, fault-injection controls, and telemetry packets before pure risk-propagation kernels, Additive manufacturing control: canonicalize process-state ensembles, machine command inputs, and in-situ metrology streams for downstream predictive correction kernels",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "filter_step_preparation_and_dispatch",
+          "type_signature": "(up: WeightedParticleBeliefState, b: StateModelSpec, a: ControlInput, o: Observation) -> tuple[WeightedParticleBeliefState, StateModelSpec, ControlInput, Observation, PRNGKey]",
+          "docstring": "Entry-point orchestration for one SMC step: normalize raw inputs and expose immutable state-space components for downstream pure kernels.",
+          "conceptual_summary": "Immutable Step Context Canonicalization and Kernel Dispatch. Transforms heterogeneous step-level inputs into a canonical, strongly typed tuple and forwards invariant structures without mutation. The operation separates normalization from computation by exposing immutable state, immutable model operators, normalized exogenous inputs, and an explicit stochastic seed handle for downstream pure functions. This creates a reproducible execution boundary where all randomness and data dependencies are passed explicitly rather than through hidden global state.. Applications: Robotics: prepare immutable belief-map state, actuator command vector, and sensor frame for pure localization/update kernels, Computational biology: stage population-level latent-state ensembles, intervention metadata, and assay readouts for reproducible inference steps, Distributed systems reliability: normalize node-state snapshots, fault-injection controls, and telemetry packets before pure risk-propagation kernels, Additive manufacturing control: canonicalize process-state ensembles, machine command inputs, and in-situ metrology streams for downstream predictive correction kernels",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "filter_step_preparation_and_dispatch",
+            "type_signature": "(up: WeightedParticleBeliefState, b: StateModelSpec, a: ControlInput, o: Observation) -> tuple[WeightedParticleBeliefState, StateModelSpec, ControlInput, Observation, PRNGKey]",
+            "docstring": "Entry-point orchestration for one SMC step: normalize raw inputs and expose immutable state-space components for downstream pure kernels.",
+            "conceptual_summary": "Immutable Step Context Canonicalization and Kernel Dispatch. Transforms heterogeneous step-level inputs into a canonical, strongly typed tuple and forwards invariant structures without mutation. The operation separates normalization from computation by exposing immutable state, immutable model operators, normalized exogenous inputs, and an explicit stochastic seed handle for downstream pure functions. This creates a reproducible execution boundary where all randomness and data dependencies are passed explicitly rather than through hidden global state.. Applications: Robotics: prepare immutable belief-map state, actuator command vector, and sensor frame for pure localization/update kernels, Computational biology: stage population-level latent-state ensembles, intervention metadata, and assay readouts for reproducible inference steps, Distributed systems reliability: normalize node-state snapshots, fault-injection controls, and telemetry packets before pure risk-propagation kernels, Additive manufacturing control: canonicalize process-state ensembles, machine command inputs, and in-situ metrology streams for downstream predictive correction kernels",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "particle_propagation_kernel",
+      "statement": "(prior_state: WeightedParticleBeliefState, model_spec: StateModelSpec, control_t: ControlInput, rng_key: PRNGKey) -> tuple[Array[N, D_latent], Array[N], PRNGKey]",
+      "informal_desc": "Pure transition/proposal kernel that propagates particles from prior to proposed latent state and returns a split RNG key.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "particle_propagation_kernel",
+          "type_signature": "(prior_state: WeightedParticleBeliefState, model_spec: StateModelSpec, control_t: ControlInput, rng_key: PRNGKey) -> tuple[Array[N, D_latent], Array[N], PRNGKey]",
+          "docstring": "Pure transition/proposal kernel that propagates particles from prior to proposed latent state and returns a split RNG key.",
+          "conceptual_summary": "Weighted Ensemble One-Step Transition Sampler. Applies a stochastic one-step transition operator to each element of a weighted ensemble in latent space, conditioned on a contemporaneous exogenous signal. The operation generates a proposed ensemble for the next step without altering the incoming weight vector, so weighting is deferred to a later stage. Randomness is consumed functionally by splitting an immutable generator state and returning a new generator state for downstream computation.. Applications: Sequential data assimilation in geophysical field reconstruction, where latent field hypotheses are propagated under physics-informed dynamics before likelihood weighting., Pose/hypothesis propagation in autonomous navigation, where an ensemble of latent kinematic states is advanced under control inputs prior to sensor correction., Hidden-state trajectory inference in systems biology, where candidate intracellular state vectors are forward-simulated under experimental perturbations before observation matching., Adaptive reliability forecasting in power systems, where latent grid condition hypotheses are propagated under load/control signals before evidence-based reweighting.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "particle_propagation_kernel",
+          "type_signature": "(prior_state: WeightedParticleBeliefState, model_spec: StateModelSpec, control_t: ControlInput, rng_key: PRNGKey) -> tuple[Array[N, D_latent], Array[N], PRNGKey]",
+          "docstring": "Pure transition/proposal kernel that propagates particles from prior to proposed latent state and returns a split RNG key.",
+          "conceptual_summary": "Weighted Ensemble One-Step Transition Sampler. Applies a stochastic one-step transition operator to each element of a weighted ensemble in latent space, conditioned on a contemporaneous exogenous signal. The operation generates a proposed ensemble for the next step without altering the incoming weight vector, so weighting is deferred to a later stage. Randomness is consumed functionally by splitting an immutable generator state and returning a new generator state for downstream computation.. Applications: Sequential data assimilation in geophysical field reconstruction, where latent field hypotheses are propagated under physics-informed dynamics before likelihood weighting., Pose/hypothesis propagation in autonomous navigation, where an ensemble of latent kinematic states is advanced under control inputs prior to sensor correction., Hidden-state trajectory inference in systems biology, where candidate intracellular state vectors are forward-simulated under experimental perturbations before observation matching., Adaptive reliability forecasting in power systems, where latent grid condition hypotheses are propagated under load/control signals before evidence-based reweighting.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "particle_propagation_kernel",
+            "type_signature": "(prior_state: WeightedParticleBeliefState, model_spec: StateModelSpec, control_t: ControlInput, rng_key: PRNGKey) -> tuple[Array[N, D_latent], Array[N], PRNGKey]",
+            "docstring": "Pure transition/proposal kernel that propagates particles from prior to proposed latent state and returns a split RNG key.",
+            "conceptual_summary": "Weighted Ensemble One-Step Transition Sampler. Applies a stochastic one-step transition operator to each element of a weighted ensemble in latent space, conditioned on a contemporaneous exogenous signal. The operation generates a proposed ensemble for the next step without altering the incoming weight vector, so weighting is deferred to a later stage. Randomness is consumed functionally by splitting an immutable generator state and returning a new generator state for downstream computation.. Applications: Sequential data assimilation in geophysical field reconstruction, where latent field hypotheses are propagated under physics-informed dynamics before likelihood weighting., Pose/hypothesis propagation in autonomous navigation, where an ensemble of latent kinematic states is advanced under control inputs prior to sensor correction., Hidden-state trajectory inference in systems biology, where candidate intracellular state vectors are forward-simulated under experimental perturbations before observation matching., Adaptive reliability forecasting in power systems, where latent grid condition hypotheses are propagated under load/control signals before evidence-based reweighting.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "likelihood_reweight_kernel",
+      "statement": "(proposed_particles: Array[N, D_latent], carry_weights: Array[N], observation_t: Observation, model_spec: StateModelSpec) -> tuple[Array[N], float]",
+      "informal_desc": "Computes observation likelihoods/log-probs for proposed particles and performs immutable SMC weight update/normalization.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "likelihood_reweight_kernel",
+          "type_signature": "(proposed_particles: Array[N, D_latent], carry_weights: Array[N], observation_t: Observation, model_spec: StateModelSpec) -> tuple[Array[N], float]",
+          "docstring": "Computes observation likelihoods/log-probs for proposed particles and performs immutable SMC weight update/normalization.",
+          "conceptual_summary": "Hypothesis-Set Evidence Reweight and Normalization Operator. Maps each latent hypothesis vector to a log-compatibility score with incoming evidence via a user-supplied scoring functional. Combines these scores with prior importance mass in log-space, then applies a stable partition normalization (e.g., log-sum-exp) to produce a posterior probability simplex over hypotheses. Simultaneously returns the log-partition increment, which is the stepwise evidence contribution of the new data.. Applications: Robotic state estimation: reweight latent pose hypotheses using incoming sensor frames, Atmospheric data assimilation: reweight ensemble simulation states using new satellite measurements, Computational biology: reweight latent conformational hypotheses using experimental assay readouts, Wireless systems: reweight channel-state hypotheses using received pilot-symbol evidence",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "likelihood_reweight_kernel",
+          "type_signature": "(proposed_particles: Array[N, D_latent], carry_weights: Array[N], observation_t: Observation, model_spec: StateModelSpec) -> tuple[Array[N], float]",
+          "docstring": "Computes observation likelihoods/log-probs for proposed particles and performs immutable SMC weight update/normalization.",
+          "conceptual_summary": "Hypothesis-Set Evidence Reweight and Normalization Operator. Maps each latent hypothesis vector to a log-compatibility score with incoming evidence via a user-supplied scoring functional. Combines these scores with prior importance mass in log-space, then applies a stable partition normalization (e.g., log-sum-exp) to produce a posterior probability simplex over hypotheses. Simultaneously returns the log-partition increment, which is the stepwise evidence contribution of the new data.. Applications: Robotic state estimation: reweight latent pose hypotheses using incoming sensor frames, Atmospheric data assimilation: reweight ensemble simulation states using new satellite measurements, Computational biology: reweight latent conformational hypotheses using experimental assay readouts, Wireless systems: reweight channel-state hypotheses using received pilot-symbol evidence",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "likelihood_reweight_kernel",
+            "type_signature": "(proposed_particles: Array[N, D_latent], carry_weights: Array[N], observation_t: Observation, model_spec: StateModelSpec) -> tuple[Array[N], float]",
+            "docstring": "Computes observation likelihoods/log-probs for proposed particles and performs immutable SMC weight update/normalization.",
+            "conceptual_summary": "Hypothesis-Set Evidence Reweight and Normalization Operator. Maps each latent hypothesis vector to a log-compatibility score with incoming evidence via a user-supplied scoring functional. Combines these scores with prior importance mass in log-space, then applies a stable partition normalization (e.g., log-sum-exp) to produce a posterior probability simplex over hypotheses. Simultaneously returns the log-partition increment, which is the stepwise evidence contribution of the new data.. Applications: Robotic state estimation: reweight latent pose hypotheses using incoming sensor frames, Atmospheric data assimilation: reweight ensemble simulation states using new satellite measurements, Computational biology: reweight latent conformational hypotheses using experimental assay readouts, Wireless systems: reweight channel-state hypotheses using received pilot-symbol evidence",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "resample_and_belief_projection",
+      "statement": "(proposed_particles: Array[N, D_latent], normalized_weights: Array[N], rng_key_next: PRNGKey, log_likelihood: float) -> tuple[WeightedParticleBeliefState, FilterTrace]",
+      "informal_desc": "Builds a new WeightedParticleBelief, performs postprocessing summaries, and emits immutable posterior state with explicit particles/weights/ancestors and latent moments.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "resample_and_belief_projection",
+          "type_signature": "(proposed_particles: Array[N, D_latent], normalized_weights: Array[N], rng_key_next: PRNGKey, log_likelihood: float) -> tuple[WeightedParticleBeliefState, FilterTrace]",
+          "docstring": "Builds a new WeightedParticleBelief, performs postprocessing summaries, and emits immutable posterior state with explicit particles/weights/ancestors and latent moments.",
+          "conceptual_summary": "Stochastic Weighted-Sample State Projection. Consumes a finite set of candidate state vectors with normalized coefficients and constructs an immutable posterior sample-based state representation. Optionally applies stochastic resampling (with explicit random-state threading) and preserves lineage indices to encode how output samples map to prior candidates. It then projects the empirical sample distribution into low-order summary statistics (e.g., coordinate-wise first and second moments) and emits both the posterior state and diagnostic trace metadata.. Applications: Real-time pose estimation in autonomous navigation using weighted trajectory hypotheses, Hidden-state inference in molecular conformation tracking from noisy sensor streams, Data assimilation for geophysical field reconstruction from sparse, uncertain measurements, Online fault-state estimation in industrial process control with non-Gaussian uncertainty",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "resample_and_belief_projection",
+          "type_signature": "(proposed_particles: Array[N, D_latent], normalized_weights: Array[N], rng_key_next: PRNGKey, log_likelihood: float) -> tuple[WeightedParticleBeliefState, FilterTrace]",
+          "docstring": "Builds a new WeightedParticleBelief, performs postprocessing summaries, and emits immutable posterior state with explicit particles/weights/ancestors and latent moments.",
+          "conceptual_summary": "Stochastic Weighted-Sample State Projection. Consumes a finite set of candidate state vectors with normalized coefficients and constructs an immutable posterior sample-based state representation. Optionally applies stochastic resampling (with explicit random-state threading) and preserves lineage indices to encode how output samples map to prior candidates. It then projects the empirical sample distribution into low-order summary statistics (e.g., coordinate-wise first and second moments) and emits both the posterior state and diagnostic trace metadata.. Applications: Real-time pose estimation in autonomous navigation using weighted trajectory hypotheses, Hidden-state inference in molecular conformation tracking from noisy sensor streams, Data assimilation for geophysical field reconstruction from sparse, uncertain measurements, Online fault-state estimation in industrial process control with non-Gaussian uncertainty",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "resample_and_belief_projection",
+            "type_signature": "(proposed_particles: Array[N, D_latent], normalized_weights: Array[N], rng_key_next: PRNGKey, log_likelihood: float) -> tuple[WeightedParticleBeliefState, FilterTrace]",
+            "docstring": "Builds a new WeightedParticleBelief, performs postprocessing summaries, and emits immutable posterior state with explicit particles/weights/ancestors and latent moments.",
+            "conceptual_summary": "Stochastic Weighted-Sample State Projection. Consumes a finite set of candidate state vectors with normalized coefficients and constructs an immutable posterior sample-based state representation. Optionally applies stochastic resampling (with explicit random-state threading) and preserves lineage indices to encode how output samples map to prior candidates. It then projects the empirical sample distribution into low-order summary statistics (e.g., coordinate-wise first and second moments) and emits both the posterior state and diagnostic trace metadata.. Applications: Real-time pose estimation in autonomous navigation using weighted trajectory hypotheses, Hidden-state inference in molecular conformation tracking from noisy sensor streams, Data assimilation for geophysical field reconstruction from sparse, uncertain measurements, Online fault-state estimation in industrial process control with non-Gaussian uncertainty",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

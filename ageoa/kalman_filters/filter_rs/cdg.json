@@ -1,0 +1,1657 @@
+{
+  "nodes": [
+    {
+      "node_id": "KalmanFilter_root",
+      "parent_id": null,
+      "name": "KalmanFilter",
+      "description": "Ingested pipeline from Linear-Gaussian State Estimator",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initializekalmanstatemodel",
+        "predictlatentstateandcovariance",
+        "predictlatentstatesteadystate",
+        "evaluatemeasurementoracle",
+        "updateposteriorstateandcovariance",
+        "updateposteriorstatesteadystate"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializekalmanstatemodel",
+      "parent_id": "KalmanFilter_root",
+      "name": "InitializeKalmanStateModel",
+      "description": "Create the initial immutable StateModelSpec for filtering, including latent mean/covariance and noise/observation model parameters.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "init_config",
+          "type_desc": "object containing x0, P0, F, B, H, Q, R",
+          "constraints": "P0, Q, R are symmetric positive semidefinite"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_model",
+          "type_desc": "StateModelSpec{latent_mean x, covariance P, F, B, H, Q, R}",
+          "constraints": "immutable object; no hidden mutation"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "initializestateandsystemmatrices",
+        "initializeobservationupdatebuffers",
+        "snapshotinitialbeliefstates",
+        "composekalmanfilterstatemodel"
+      ],
+      "depth": 1,
+      "type_signature": "(init_config: object containing x0, P0, F, B, H, Q, R) -> StateModelSpec{latent_mean x, covariance P, F, B, H, Q, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Linear-Gaussian State-Space Prior Constructor. Builds an immutable parameter object that defines the initial condition and transition/observation operators for a discrete-time latent-variable system. It maps a configuration of vectors and matrices into a canonical state representation containing a latent mean, latent covariance, and additive uncertainty models for transition and observation channels. No inference step is executed; this is a deterministic structural initialization that prepares later recursive estimation.. Applications: Bootstrapping multi-sensor pose estimation in autonomous robotics before sequential sensor updates, Initializing latent physiological-state tracking from wearable streams in biomedical monitoring, Defining starting conditions for closed-loop industrial process estimation and control, Setting initial covariance and dynamics for geophysical data assimilation in atmosphere/ocean modeling",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializestateandsystemmatrices",
+      "parent_id": "initializekalmanstatemodel",
+      "name": "InitializeStateAndSystemMatrices",
+      "description": "Construct default latent state, covariance, transition, observation, and noise matrices along with the fading factor.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "default_ctx",
+          "type_desc": "Type-level context (F, DimX, DimZ) with zero/one identities",
+          "constraints": "F supports one() and zero(); dimensions are compile-time fixed"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "All elements initialized to one"
+        },
+        {
+          "name": "P",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Identity matrix"
+        },
+        {
+          "name": "Q",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Identity matrix"
+        },
+        {
+          "name": "F",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Identity matrix"
+        },
+        {
+          "name": "H",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": "All elements initialized to zero"
+        },
+        {
+          "name": "R",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "Identity matrix"
+        },
+        {
+          "name": "alpha_sq",
+          "type_desc": "F",
+          "constraints": "Initialized to one"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, MatrixMN<F, DimZ, DimX>, MatrixMN<F, DimZ, DimZ>, F]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializeobservationupdatebuffers",
+      "parent_id": "initializekalmanstatemodel",
+      "name": "InitializeObservationUpdateBuffers",
+      "description": "Create default placeholders for observation and update intermediates used during measurement incorporation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "default_ctx",
+          "type_desc": "Type-level context (F, DimX, DimZ) with zero/one identities",
+          "constraints": "F supports one() and zero(); dimensions are compile-time fixed"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "z",
+          "type_desc": "Option<VectorN<F, DimZ>>",
+          "constraints": "Initialized as None"
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": "All elements initialized to zero"
+        },
+        {
+          "name": "y",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": "All elements initialized to one"
+        },
+        {
+          "name": "S",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "All elements initialized to zero"
+        },
+        {
+          "name": "SI",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "All elements initialized to zero"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(default_ctx: Type-level context (F, DimX, DimZ) with zero/one identities) -> tuple[Option<VectorN<F, DimZ>>, MatrixMN<F, DimX, DimZ>, VectorN<F, DimZ>, MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "snapshotinitialbeliefstates",
+      "parent_id": "initializekalmanstatemodel",
+      "name": "SnapshotInitialBeliefStates",
+      "description": "Clone the initial latent mean and covariance into prior and posterior snapshots for consistent filter bookkeeping.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "Initialized latent mean"
+        },
+        {
+          "name": "P",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Initialized latent covariance"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_prior",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "Clone of x"
+        },
+        {
+          "name": "P_prior",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Clone of P"
+        },
+        {
+          "name": "x_post",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "Clone of x"
+        },
+        {
+          "name": "P_post",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Clone of P"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>) -> tuple[VectorN<F, DimX>, MatrixMN<F, DimX, DimX>, VectorN<F, DimX>, MatrixMN<F, DimX, DimX>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "composekalmanfilterstatemodel",
+      "parent_id": "initializekalmanstatemodel",
+      "name": "ComposeKalmanFilterStateModel",
+      "description": "Assemble the immutable initial Linear-Gaussian State Estimator state model from initialized state, model parameters, update buffers, and snapshots.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "P",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "x_prior",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "P_prior",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "x_post",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "P_post",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "z",
+          "type_desc": "Option<VectorN<F, DimZ>>",
+          "constraints": ""
+        },
+        {
+          "name": "R",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "Q",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "F",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "H",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "y",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "S",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "SI",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "alpha_sq",
+          "type_desc": "F",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_model",
+          "type_desc": "KalmanFilter<F, DimX, DimZ>",
+          "constraints": "B is set to None in the assembled struct"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x: VectorN<F, DimX>, P: MatrixMN<F, DimX, DimX>, x_prior: VectorN<F, DimX>, P_prior: MatrixMN<F, DimX, DimX>, x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, z: Option<VectorN<F, DimZ>>, R: MatrixMN<F, DimZ, DimZ>, Q: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, H: MatrixMN<F, DimZ, DimX>, y: VectorN<F, DimZ>, K: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>, SI: MatrixMN<F, DimZ, DimZ>, alpha_sq: F) -> KalmanFilter<F, DimX, DimZ>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "predictlatentstateandcovariance",
+      "parent_id": "KalmanFilter_root",
+      "name": "PredictLatentStateAndCovariance",
+      "description": "Recursive state estimation predict kernel for full-covariance filtering; propagates latent mean and covariance forward in time and returns a new state object.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "state_in",
+          "type_desc": "StateModelSpec{latent_mean x, covariance P, F, B, Q}",
+          "constraints": "immutable input state"
+        },
+        {
+          "name": "u",
+          "type_desc": "control vector",
+          "constraints": "dimension compatible with B"
+        },
+        {
+          "name": "B",
+          "type_desc": "control matrix override (optional)",
+          "constraints": "if provided, shape compatible with u and x"
+        },
+        {
+          "name": "F",
+          "type_desc": "transition matrix override (optional)",
+          "constraints": "square, shape compatible with x"
+        },
+        {
+          "name": "Q",
+          "type_desc": "process covariance override (optional)",
+          "constraints": "symmetric positive semidefinite"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predicted_state",
+          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, F, B, H, Q, R}",
+          "constraints": "new immutable object; x_pred and P_pred updated"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "resolveeffectivepredictinputs",
+        "computepredictedlatentmean",
+        "computepredictedcovariance",
+        "buildpredictedstatewithpriors"
+      ],
+      "depth": 1,
+      "type_signature": "(state_in: StateModelSpec{latent_mean x, covariance P, F, B, Q}, u: control vector, B: control matrix override (optional), F: transition matrix override (optional), Q: process covariance override (optional)) -> StateModelSpec{latent_mean x_pred, covariance P_pred, F, B, H, Q, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Affine Latent Moment Propagation. Applies a linear-affine transition to a hidden vector state and propagates second-order uncertainty through the same transform. The mean is advanced via matrix-vector mapping plus optional control injection, while the covariance is advanced via congruence transform and additive process noise. Optional operator overrides allow runtime substitution of transition, control, and noise models without mutating the input container.. Applications: Inertial navigation drift propagation between intermittent correction events in autonomous mobility systems, Latent physiological state forecasting in continuous biosignal monitoring pipelines, Background concentration field evolution in environmental sensor-network data assimilation, Hidden factor evolution for predictive maintenance in industrial cyber-physical systems",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolveeffectivepredictinputs",
+      "parent_id": "predictlatentstateandcovariance",
+      "name": "ResolveEffectivePredictInputs",
+      "description": "Select effective transition, process-noise, and control matrices by applying call-site overrides and falling back to state defaults.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "state_F",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Square transition matrix from current state"
+        },
+        {
+          "name": "state_Q",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Square process covariance from current state"
+        },
+        {
+          "name": "state_B_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "constraints": "May be None when control model is absent"
+        },
+        {
+          "name": "F_override_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimX>>",
+          "constraints": "If Some, must match DimX x DimX"
+        },
+        {
+          "name": "Q_override_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimX>>",
+          "constraints": "If Some, must match DimX x DimX"
+        },
+        {
+          "name": "B_override_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "constraints": "If Some, must match DimX x DimU"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "F_eff",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Always defined"
+        },
+        {
+          "name": "Q_eff",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Always defined"
+        },
+        {
+          "name": "B_eff_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "constraints": "Some only when either override or state B exists"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(state_F: MatrixMN<F, DimX, DimX>, state_Q: MatrixMN<F, DimX, DimX>, state_B_opt: Option<MatrixMN<F, DimX, DimU>>, F_override_opt: Option<MatrixMN<F, DimX, DimX>>, Q_override_opt: Option<MatrixMN<F, DimX, DimX>>, B_override_opt: Option<MatrixMN<F, DimX, DimU>>) -> tuple[MatrixMN<F, DimX, DimX>, MatrixMN<F, DimX, DimX>, Option<MatrixMN<F, DimX, DimU>>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computepredictedlatentmean",
+      "parent_id": "predictlatentstateandcovariance",
+      "name": "ComputePredictedLatentMean",
+      "description": "Propagate latent mean forward using linear dynamics and optionally add the control contribution when both B and u are present.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "x_prev",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "Current latent mean"
+        },
+        {
+          "name": "F_eff",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Compatible with x_prev"
+        },
+        {
+          "name": "B_eff_opt",
+          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "constraints": "Used only if control_u_opt is Some"
+        },
+        {
+          "name": "control_u_opt",
+          "type_desc": "Option<VectorN<F, DimU>>",
+          "constraints": "Used only if B_eff_opt is Some"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_pred",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "Predicted latent mean"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x_prev: VectorN<F, DimX>, F_eff: MatrixMN<F, DimX, DimX>, B_eff_opt: Option<MatrixMN<F, DimX, DimU>>, control_u_opt: Option<VectorN<F, DimU>>) -> VectorN<F, DimX>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computepredictedcovariance",
+      "parent_id": "predictlatentstateandcovariance",
+      "name": "ComputePredictedCovariance",
+      "description": "Propagate covariance with linear dynamics and process noise inflation using alpha scaling.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "P_prev",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Current covariance"
+        },
+        {
+          "name": "F_eff",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Compatible with P_prev"
+        },
+        {
+          "name": "Q_eff",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Additive process covariance"
+        },
+        {
+          "name": "alpha_sq",
+          "type_desc": "F",
+          "constraints": "Scalar covariance inflation factor"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "P_pred",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Predicted covariance"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(P_prev: MatrixMN<F, DimX, DimX>, F_eff: MatrixMN<F, DimX, DimX>, Q_eff: MatrixMN<F, DimX, DimX>, alpha_sq: F) -> MatrixMN<F, DimX, DimX>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "buildpredictedstatewithpriors",
+      "parent_id": "predictlatentstateandcovariance",
+      "name": "BuildPredictedStateWithPriors",
+      "description": "Construct the predicted state object and mirror predicted mean/covariance into prior snapshot fields for downstream filtering steps.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x_pred",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": "From prediction step"
+        },
+        {
+          "name": "P_pred",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "From covariance prediction step"
+        },
+        {
+          "name": "model_static",
+          "type_desc": "StateModelSpec{F, B, H, Q, R}",
+          "constraints": "Carried forward unchanged from input state"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predicted_state",
+          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+          "constraints": "Fully materialized predicted filter state"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x_pred: VectorN<F, DimX>, P_pred: MatrixMN<F, DimX, DimX>, model_static: StateModelSpec{F, B, H, Q, R}) -> StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "predictlatentstatesteadystate",
+      "parent_id": "KalmanFilter_root",
+      "name": "PredictLatentStateSteadyState",
+      "description": "Steady-state predict kernel variant where covariance/blending factor are treated as fixed and only the latent mean transition is applied.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "state_in",
+          "type_desc": "SteadyStateModelSpec{latent_mean x, fixed covariance/blending factor, F, B}",
+          "constraints": "fixed covariance/blending factor assumed precomputed"
+        },
+        {
+          "name": "u",
+          "type_desc": "control vector",
+          "constraints": "dimension compatible with B"
+        },
+        {
+          "name": "B",
+          "type_desc": "control matrix override (optional)",
+          "constraints": "if provided, shape compatible with u and x"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predicted_state_steady",
+          "type_desc": "SteadyStateModelSpec{latent_mean x_pred, fixed covariance/blending factor, F, B, H, R}",
+          "constraints": "new immutable object"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(state_in: SteadyStateModelSpec{latent_mean x, fixed covariance/blending factor, F, B}, u: control vector, B: control matrix override (optional)) -> SteadyStateModelSpec{latent_mean x_pred, fixed covariance/blending factor, F, B, H, R}",
+      "matched_primitive": null,
+      "is_optional": true,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "AffineStatePropagationWithFrozenUncertainty. Performs a one-step affine evolution of an internal state vector using a linear transition operator and an optional external actuation term. Only the first moment is propagated: all second-order/statistical tensors and precomputed correction operators are treated as constants and passed through unchanged. The result is a new immutable state specification with updated vector component and preserved fixed parameters.. Applications: Real-time robotics: propagate a reduced-order pose/velocity latent vector with fixed uncertainty calibration between sensor corrections, Computational neuroscience: evolve low-dimensional neural population activity state under known stimulation with fixed decoder statistics, Chemical process engineering: advance a linearized reactor state estimate under control actions while holding noise/correction operators constant, Power systems operation: short-horizon grid state propagation with fixed estimator tuning during quasi-stationary operating windows",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluatemeasurementoracle",
+      "parent_id": "KalmanFilter_root",
+      "name": "EvaluateMeasurementOracle",
+      "description": "Pure observation oracle that maps latent state to predicted measurement and measurement residual; performs no persistent state writes.",
+      "concept_type": "probabilistic_oracle",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "latent mean vector",
+          "constraints": "shape compatible with H"
+        },
+        {
+          "name": "z",
+          "type_desc": "measurement vector",
+          "constraints": "shape compatible with Hx"
+        },
+        {
+          "name": "H",
+          "type_desc": "measurement matrix",
+          "constraints": "maps latent space to measurement space"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "z_pred",
+          "type_desc": "predicted measurement vector",
+          "constraints": "z_pred = Hx"
+        },
+        {
+          "name": "measurement_residual",
+          "type_desc": "residual vector",
+          "constraints": "measurement_residual = z - z_pred"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: latent mean vector, z: measurement vector, H: measurement matrix) -> tuple[predicted measurement vector, residual vector]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Linear Observation Projection and Residual Oracle. Applies a linear operator to an internal state vector to generate an expected observation in a separate measurement space. It then computes a measurement residual vector as the elementwise difference between the observed vector and the projected expectation. The operation is purely evaluative and produces outputs without mutating persistent state.. Applications: Robotics: project configuration-space estimates into sensor-space expectations and compute discrepancy for closed-loop correction., Medical imaging: map latent reconstruction coefficients to expected detector readings and compute residuals for iterative refinement., Power systems: project grid state estimates to meter-space predictions and compute residual vectors for anomaly localization., Acoustics: map source-parameter estimates to microphone-array observations and compute residuals for model calibration.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updateposteriorstateandcovariance",
+      "parent_id": "KalmanFilter_root",
+      "name": "UpdatePosteriorStateAndCovariance",
+      "description": "Recursive state estimation update kernel for full-covariance filtering; fuses measurement with predicted state and returns a new posterior state object.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "predicted_state",
+          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, H, R}",
+          "constraints": "immutable predicted state"
+        },
+        {
+          "name": "z",
+          "type_desc": "measurement vector",
+          "constraints": "shape compatible with H"
+        },
+        {
+          "name": "R",
+          "type_desc": "measurement covariance override (optional)",
+          "constraints": "symmetric positive semidefinite"
+        },
+        {
+          "name": "H",
+          "type_desc": "measurement matrix override (optional)",
+          "constraints": "shape compatible with x_pred and z"
+        },
+        {
+          "name": "measurement_residual",
+          "type_desc": "measurement residual (optional explicit input)",
+          "constraints": "if omitted, recomputed internally from z and Hx_pred"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_state",
+          "type_desc": "StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
+          "constraints": "new immutable object; x_post and P_post updated"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "resolveeffectivemeasurementmodel",
+        "derivemeasurementresidual",
+        "formresidualstatistics",
+        "deriveprecisionweightedblendingfactor",
+        "fuseresidualintostatemean",
+        "contractposteriorcovariancejosephform",
+        "buildposteriorstateoutput"
+      ],
+      "depth": 1,
+      "type_signature": "(predicted_state: StateModelSpec{latent_mean x_pred, covariance P_pred, H, R}, z: measurement vector, R: measurement covariance override (optional), H: measurement matrix override (optional), measurement_residual: measurement residual (optional explicit input)) -> StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Linear-Gaussian Latent Belief Fusion. Combines a prior latent Gaussian belief with new evidence through a linear observation operator to produce a posterior Gaussian belief in closed form. It computes a measurement residual (observed-minus-predicted evidence), scales it by a precision-weighted blending factor, updates the latent mean, and contracts/reshapes the covariance to reflect information gained. Optional operator/noise/residual overrides allow the same update rule to run under dynamically changing observation models.. Applications: Real-time pose and velocity estimation in autonomous systems from heterogeneous sensor vectors, Fusion of multimodal biomedical signals to estimate latent physiological state trajectories, Geophysical data assimilation for latent field estimation from sparse, noisy spatial observations, Adaptive estimation of hidden network/system performance states from noisy telemetry streams",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolveeffectivemeasurementmodel",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "ResolveEffectiveMeasurementModel",
+      "description": "Select the measurement covariance and measurement matrix to use for this update by applying optional overrides to predicted defaults.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "R_pred",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "H_pred",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "R_override",
+          "type_desc": "Option<MatrixMN<F, DimZ, DimZ>>",
+          "constraints": "If None, use R_pred"
+        },
+        {
+          "name": "H_override",
+          "type_desc": "Option<MatrixMN<F, DimZ, DimX>>",
+          "constraints": "If None, use H_pred"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "R_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "Positive semi-definite measurement covariance"
+        },
+        {
+          "name": "H_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(R_pred: MatrixMN<F, DimZ, DimZ>, H_pred: MatrixMN<F, DimZ, DimX>, R_override: Option<MatrixMN<F, DimZ, DimZ>>, H_override: Option<MatrixMN<F, DimZ, DimX>>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimZ, DimX>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "derivemeasurementresidual",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "DeriveMeasurementResidual",
+      "description": "Compute (or accept explicit) measurement residual between measurement and predicted observation.",
+      "concept_type": "likelihood_evaluation",
+      "inputs": [
+        {
+          "name": "z",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "x_pred",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "H_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "residual_override",
+          "type_desc": "Option<VectorN<F, DimZ>>",
+          "constraints": "If provided, use directly; else compute z - H_eff * x_pred"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "y",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": "Measurement residual"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(z: VectorN<F, DimZ>, x_pred: VectorN<F, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, residual_override: Option<VectorN<F, DimZ>>) -> VectorN<F, DimZ>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "formresidualstatistics",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "FormResidualStatistics",
+      "description": "Build cross-covariance and residual covariance required for the precision-weighted blending factor.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "P_pred",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Symmetric positive semi-definite"
+        },
+        {
+          "name": "H_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "R_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PHT",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": "Cross-covariance P_pred * H_eff^T"
+        },
+        {
+          "name": "S",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "Residual covariance H_eff * PHT + R_eff"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimX, DimZ>, MatrixMN<F, DimZ, DimZ>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deriveprecisionweightedblendingfactor",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "DerivePrecisionWeightedBlendingFactor",
+      "description": "Invert residual covariance and compute precision-weighted blending factor.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "PHT",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "S",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "Must be invertible"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "S_inv",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "S^-1"
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": "Precision-weighted blending factor PHT * S_inv"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(PHT: MatrixMN<F, DimX, DimZ>, S: MatrixMN<F, DimZ, DimZ>) -> tuple[MatrixMN<F, DimZ, DimZ>, MatrixMN<F, DimX, DimZ>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "fuseresidualintostatemean",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "FuseResidualIntoStateMean",
+      "description": "Apply the precision-weighted blending factor to the measurement residual to produce posterior latent mean.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "x_pred",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "y",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_post",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x_pred: VectorN<F, DimX>, K: MatrixMN<F, DimX, DimZ>, y: VectorN<F, DimZ>) -> VectorN<F, DimX>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "contractposteriorcovariancejosephform",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "ContractPosteriorCovarianceJosephForm",
+      "description": "Update covariance using the Joseph stabilized form to preserve symmetry and numerical robustness.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "P_pred",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "H_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "R_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "P_post",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Symmetric positive semi-definite (up to numeric error)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(P_pred: MatrixMN<F, DimX, DimX>, K: MatrixMN<F, DimX, DimZ>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>) -> MatrixMN<F, DimX, DimX>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "buildposteriorstateoutput",
+      "parent_id": "updateposteriorstateandcovariance",
+      "name": "BuildPosteriorStateOutput",
+      "description": "Assemble posterior state object and update diagnostics from computed posterior statistics.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x_post",
+          "type_desc": "VectorN<F, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "P_post",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": ""
+        },
+        {
+          "name": "F",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Passed through unchanged"
+        },
+        {
+          "name": "B",
+          "type_desc": "Option<Matrix>",
+          "constraints": "Passed through unchanged"
+        },
+        {
+          "name": "Q",
+          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "constraints": "Passed through unchanged"
+        },
+        {
+          "name": "H_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "constraints": "Measurement model used in this update"
+        },
+        {
+          "name": "R_eff",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": "Measurement covariance used in this update"
+        },
+        {
+          "name": "z",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "y",
+          "type_desc": "VectorN<F, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "S",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "S_inv",
+          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "constraints": ""
+        },
+        {
+          "name": "K",
+          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "constraints": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_state",
+          "type_desc": "StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
+          "constraints": ""
+        },
+        {
+          "name": "update_cache",
+          "type_desc": "{z, y, S, S_inv, K, x_post, P_post}",
+          "constraints": "Optional diagnostic/stateful cache for mutable API"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x_post: VectorN<F, DimX>, P_post: MatrixMN<F, DimX, DimX>, F: MatrixMN<F, DimX, DimX>, B: Option<Matrix>, Q: MatrixMN<F, DimX, DimX>, H_eff: MatrixMN<F, DimZ, DimX>, R_eff: MatrixMN<F, DimZ, DimZ>, z: VectorN<F, DimZ>, y: VectorN<F, DimZ>, S: MatrixMN<F, DimZ, DimZ>, S_inv: MatrixMN<F, DimZ, DimZ>, K: MatrixMN<F, DimX, DimZ>) -> tuple[StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}, {z, y, S, S_inv, K, x_post, P_post}]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updateposteriorstatesteadystate",
+      "parent_id": "KalmanFilter_root",
+      "name": "UpdatePosteriorStateSteadyState",
+      "description": "Steady-state update kernel variant using fixed blending factor/covariance assumptions; returns a new posterior latent state.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "predicted_state_steady",
+          "type_desc": "SteadyStateModelSpec{latent_mean x_pred, fixed blending factor/covariance, H, R}",
+          "constraints": "immutable predicted steady-state object"
+        },
+        {
+          "name": "z",
+          "type_desc": "measurement vector",
+          "constraints": "shape compatible with H"
+        },
+        {
+          "name": "measurement_residual",
+          "type_desc": "measurement residual (optional explicit input)",
+          "constraints": "if omitted, recomputed internally"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_state_steady",
+          "type_desc": "SteadyStateModelSpec{latent_mean x_post, fixed blending factor/covariance, F, B, H, R}",
+          "constraints": "new immutable object"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(predicted_state_steady: SteadyStateModelSpec{latent_mean x_pred, fixed blending factor/covariance, H, R}, z: measurement vector, measurement_residual: measurement residual (optional explicit input)) -> SteadyStateModelSpec{latent_mean x_post, fixed blending factor/covariance, F, B, H, R}",
+      "matched_primitive": null,
+      "is_optional": true,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Fixed-Parameter Linear Latent-State Correction. Applies a single-step affine correction to a predicted latent vector using an observation-space discrepancy and a precomputed constant gain matrix. If the discrepancy is not provided, it is recomputed as the difference between the observed vector and the predicted observation projection. The operation updates only the latent mean while reusing fixed structural matrices and uncertainty assumptions, yielding a new immutable state descriptor.. Applications: Real-time correction of a reduced-order fluid-dynamics state using sparse sensor snapshots in computational physics., Incremental alignment of latent pose estimates in autonomous navigation using streaming geometric measurements., Online refinement of hidden neural population activity vectors from electrophysiology observations in neuroscience., Adaptive correction of reactor internal-state estimates from process instrumentation in chemical engineering.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "snapshotinitialbeliefstates",
+      "output_name": "x",
+      "input_name": "x",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "snapshotinitialbeliefstates",
+      "output_name": "P",
+      "input_name": "P",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "x",
+      "input_name": "x",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "P",
+      "input_name": "P",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "Q",
+      "input_name": "Q",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "F",
+      "input_name": "F",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "H",
+      "input_name": "H",
+      "source_type": "MatrixMN<F, DimZ, DimX>",
+      "target_type": "MatrixMN<F, DimZ, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "R",
+      "input_name": "R",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializestateandsystemmatrices",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "alpha_sq",
+      "input_name": "alpha_sq",
+      "source_type": "F",
+      "target_type": "F",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeobservationupdatebuffers",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "z",
+      "input_name": "z",
+      "source_type": "Option<VectorN<F, DimZ>>",
+      "target_type": "Option<VectorN<F, DimZ>>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeobservationupdatebuffers",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "K",
+      "input_name": "K",
+      "source_type": "MatrixMN<F, DimX, DimZ>",
+      "target_type": "MatrixMN<F, DimX, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeobservationupdatebuffers",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "y",
+      "input_name": "y",
+      "source_type": "VectorN<F, DimZ>",
+      "target_type": "VectorN<F, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeobservationupdatebuffers",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "S",
+      "input_name": "S",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeobservationupdatebuffers",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "SI",
+      "input_name": "SI",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "snapshotinitialbeliefstates",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "x_prior",
+      "input_name": "x_prior",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "snapshotinitialbeliefstates",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "P_prior",
+      "input_name": "P_prior",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "snapshotinitialbeliefstates",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "x_post",
+      "input_name": "x_post",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "snapshotinitialbeliefstates",
+      "target_id": "composekalmanfilterstatemodel",
+      "output_name": "P_post",
+      "input_name": "P_post",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivepredictinputs",
+      "target_id": "computepredictedlatentmean",
+      "output_name": "F_eff",
+      "input_name": "F_eff",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivepredictinputs",
+      "target_id": "computepredictedlatentmean",
+      "output_name": "B_eff_opt",
+      "input_name": "B_eff_opt",
+      "source_type": "Option<MatrixMN<F, DimX, DimU>>",
+      "target_type": "Option<MatrixMN<F, DimX, DimU>>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivepredictinputs",
+      "target_id": "computepredictedcovariance",
+      "output_name": "F_eff",
+      "input_name": "F_eff",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivepredictinputs",
+      "target_id": "computepredictedcovariance",
+      "output_name": "Q_eff",
+      "input_name": "Q_eff",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computepredictedlatentmean",
+      "target_id": "buildpredictedstatewithpriors",
+      "output_name": "x_pred",
+      "input_name": "x_pred",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computepredictedcovariance",
+      "target_id": "buildpredictedstatewithpriors",
+      "output_name": "P_pred",
+      "input_name": "P_pred",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "derivemeasurementresidual",
+      "output_name": "H_eff",
+      "input_name": "H_eff",
+      "source_type": "MatrixMN<F, DimZ, DimX>",
+      "target_type": "MatrixMN<F, DimZ, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "formresidualstatistics",
+      "output_name": "H_eff",
+      "input_name": "H_eff",
+      "source_type": "MatrixMN<F, DimZ, DimX>",
+      "target_type": "MatrixMN<F, DimZ, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "formresidualstatistics",
+      "output_name": "R_eff",
+      "input_name": "R_eff",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "formresidualstatistics",
+      "target_id": "deriveprecisionweightedblendingfactor",
+      "output_name": "PHT",
+      "input_name": "PHT",
+      "source_type": "MatrixMN<F, DimX, DimZ>",
+      "target_type": "MatrixMN<F, DimX, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "formresidualstatistics",
+      "target_id": "deriveprecisionweightedblendingfactor",
+      "output_name": "S",
+      "input_name": "S",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derivemeasurementresidual",
+      "target_id": "fuseresidualintostatemean",
+      "output_name": "y",
+      "input_name": "y",
+      "source_type": "VectorN<F, DimZ>",
+      "target_type": "VectorN<F, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveprecisionweightedblendingfactor",
+      "target_id": "fuseresidualintostatemean",
+      "output_name": "K",
+      "input_name": "K",
+      "source_type": "MatrixMN<F, DimX, DimZ>",
+      "target_type": "MatrixMN<F, DimX, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveprecisionweightedblendingfactor",
+      "target_id": "contractposteriorcovariancejosephform",
+      "output_name": "K",
+      "input_name": "K",
+      "source_type": "MatrixMN<F, DimX, DimZ>",
+      "target_type": "MatrixMN<F, DimX, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "contractposteriorcovariancejosephform",
+      "output_name": "H_eff",
+      "input_name": "H_eff",
+      "source_type": "MatrixMN<F, DimZ, DimX>",
+      "target_type": "MatrixMN<F, DimZ, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "contractposteriorcovariancejosephform",
+      "output_name": "R_eff",
+      "input_name": "R_eff",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "fuseresidualintostatemean",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "x_post",
+      "input_name": "x_post",
+      "source_type": "VectorN<F, DimX>",
+      "target_type": "VectorN<F, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "contractposteriorcovariancejosephform",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "P_post",
+      "input_name": "P_post",
+      "source_type": "MatrixMN<F, DimX, DimX>",
+      "target_type": "MatrixMN<F, DimX, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "H_eff",
+      "input_name": "H_eff",
+      "source_type": "MatrixMN<F, DimZ, DimX>",
+      "target_type": "MatrixMN<F, DimZ, DimX>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolveeffectivemeasurementmodel",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "R_eff",
+      "input_name": "R_eff",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derivemeasurementresidual",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "y",
+      "input_name": "y",
+      "source_type": "VectorN<F, DimZ>",
+      "target_type": "VectorN<F, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "formresidualstatistics",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "S",
+      "input_name": "S",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveprecisionweightedblendingfactor",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "S_inv",
+      "input_name": "S_inv",
+      "source_type": "MatrixMN<F, DimZ, DimZ>",
+      "target_type": "MatrixMN<F, DimZ, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveprecisionweightedblendingfactor",
+      "target_id": "buildposteriorstateoutput",
+      "output_name": "K",
+      "input_name": "K",
+      "source_type": "MatrixMN<F, DimX, DimZ>",
+      "target_type": "MatrixMN<F, DimX, DimZ>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializekalmanstatemodel",
+      "target_id": "predictlatentstateandcovariance",
+      "output_name": "state_model",
+      "input_name": "state_in",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializekalmanstatemodel",
+      "target_id": "predictlatentstatesteadystate",
+      "output_name": "state_model",
+      "input_name": "state_in",
+      "source_type": "StateModelSpec",
+      "target_type": "SteadyStateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstateandcovariance",
+      "target_id": "evaluatemeasurementoracle",
+      "output_name": "predicted_state",
+      "input_name": "x",
+      "source_type": "StateModelSpec",
+      "target_type": "latent_mean",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluatemeasurementoracle",
+      "target_id": "updateposteriorstateandcovariance",
+      "output_name": "measurement_residual",
+      "input_name": "measurement_residual",
+      "source_type": "vector",
+      "target_type": "vector",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstateandcovariance",
+      "target_id": "updateposteriorstateandcovariance",
+      "output_name": "predicted_state",
+      "input_name": "predicted_state",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updateposteriorstateandcovariance",
+      "target_id": "predictlatentstateandcovariance",
+      "output_name": "posterior_state",
+      "input_name": "state_in",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstatesteadystate",
+      "target_id": "evaluatemeasurementoracle",
+      "output_name": "predicted_state_steady",
+      "input_name": "x",
+      "source_type": "SteadyStateModelSpec",
+      "target_type": "latent_mean",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluatemeasurementoracle",
+      "target_id": "updateposteriorstatesteadystate",
+      "output_name": "measurement_residual",
+      "input_name": "measurement_residual",
+      "source_type": "vector",
+      "target_type": "vector",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstatesteadystate",
+      "target_id": "updateposteriorstatesteadystate",
+      "output_name": "predicted_state_steady",
+      "input_name": "predicted_state_steady",
+      "source_type": "SteadyStateModelSpec",
+      "target_type": "SteadyStateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updateposteriorstatesteadystate",
+      "target_id": "predictlatentstatesteadystate",
+      "output_name": "posterior_state_steady",
+      "input_name": "state_in",
+      "source_type": "SteadyStateModelSpec",
+      "target_type": "SteadyStateModelSpec",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "KalmanFilter"
+  }
+}

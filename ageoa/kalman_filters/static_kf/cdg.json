@@ -1,0 +1,304 @@
+{
+  "nodes": [
+    {
+      "node_id": "StaticKalmanFilter_root",
+      "parent_id": null,
+      "name": "StaticKalmanFilter",
+      "description": "Ingested pipeline from StaticKalmanFilter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initializelineargaussianstatemodel",
+        "predictlatentstate",
+        "updatewithmeasurement",
+        "exposelatentmean",
+        "exposecovariance"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializelineargaussianstatemodel",
+      "parent_id": "StaticKalmanFilter_root",
+      "name": "InitializeLinearGaussianStateModel",
+      "description": "Create the immutable linear-Gaussian state-space model with latent mean and covariance plus fixed system/noise matrices.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "initial_state",
+          "type_desc": "SVector<T, N>",
+          "constraints": "Compile-time dimension N; T: RealField"
+        },
+        {
+          "name": "initial_covariance",
+          "type_desc": "SMatrix<T, N, N>",
+          "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
+        },
+        {
+          "name": "transition_matrix",
+          "type_desc": "SMatrix<T, N, N>",
+          "constraints": "Compile-time shape N x N"
+        },
+        {
+          "name": "process_noise",
+          "type_desc": "SMatrix<T, N, N>",
+          "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
+        },
+        {
+          "name": "observation_matrix",
+          "type_desc": "SMatrix<T, M, N>",
+          "constraints": "Compile-time shape M x N"
+        },
+        {
+          "name": "measurement_noise",
+          "type_desc": "SMatrix<T, M, M>",
+          "constraints": "Compile-time shape M x M; symmetric positive semi-definite"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_model",
+          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "constraints": "Immutable object; no hidden mutation"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(initial_state: SVector<T, N>, initial_covariance: SMatrix<T, N, N>, transition_matrix: SMatrix<T, N, N>, process_noise: SMatrix<T, N, N>, observation_matrix: SMatrix<T, M, N>, measurement_noise: SMatrix<T, M, M>) -> StateModelSpec{x: SVector<T, N>, P: SMatrix<T, N, N>, F: SMatrix<T, N, N>, Q: SMatrix<T, N, N>, H: SMatrix<T, M, N>, R: SMatrix<T, M, M>}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Immutable Linear-Gaussian Dynamical System Specification. Binds an initial latent mean vector and covariance matrix with linear evolution and linear projection operators, plus additive noise covariances, into a single formal model specification. The operation does not propagate or update state; it only maps raw numerical tensors into an immutable typed object that encodes first-order Markov and Gaussian assumptions for later recursive estimation.. Applications: Multisensor robot pose tracking with uncertain motion and observation channels, Neural time-series latent trajectory decoding from noisy electrode measurements, Geophysical data assimilation for evolving spatial fields with partial observations, Industrial process digital twins for hidden system-state monitoring and anomaly detection",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "predictlatentstate",
+      "parent_id": "StaticKalmanFilter_root",
+      "name": "PredictLatentState",
+      "description": "Apply the linear-Gaussian predict transition kernel to propagate latent mean/covariance forward in time.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "state_model",
+          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "constraints": "Immutable prior/posterior from previous step"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predicted_state_model",
+          "type_desc": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+          "constraints": "New object with updated x and P only"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(state_model: StateModelSpec{x, P, F, Q, H, R}) -> StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Linear-Gaussian State Moment Propagation. Maps a hidden state distribution one discrete step forward using a linear transition operator and additive noise. The mean is transformed as x_pred = F x, and the covariance is transformed as P_pred = F P F^T + Q, while non-updated model components are passed through unchanged. This is the prediction half of a recursive estimator that propagates first- and second-order moments under a first-order Markov assumption.. Applications: Forecasting hidden kinematic variables in autonomous motion estimation from noisy inertial streams., Propagating unobserved compartment intensities in stochastic population-dynamics monitoring between measurement times., Predicting internal thermofluid process states in industrial control loops before new sensor assimilation., Tracking latent neural population activity trajectories in brain-signal decoding pipelines.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updatewithmeasurement",
+      "parent_id": "StaticKalmanFilter_root",
+      "name": "UpdateWithMeasurement",
+      "description": "Apply the linear-Gaussian recursive update kernel to incorporate a measurement and produce posterior latent mean/covariance.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "predicted_state_model",
+          "type_desc": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+          "constraints": "Output of predict kernel"
+        },
+        {
+          "name": "measurement",
+          "type_desc": "SVector<T, M>",
+          "constraints": "Compile-time dimension M; compatible with H and R"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_state_model",
+          "type_desc": "StateModelSpec{x_post, P_post, F, Q, H, R}",
+          "constraints": "New object; analytical Bayesian posterior update"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(predicted_state_model: StateModelSpec{x_pred: SVector<T, N>, P_pred: SMatrix<T, N, N>, F, Q, H, R}, measurement: SVector<T, M>) -> StateModelSpec{x_post: SVector<T, N>, P_post: SMatrix<T, N, N>, F, Q, H, R}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Linear-Gaussian Belief Conditioning Step. Combines a predicted multivariate Gaussian latent estimate with a new observation vector through a linear observation operator and additive Gaussian noise model. It computes a measurement residual term, weights that measurement residual by a precision-weighted blending factor, and produces an analytically updated latent mean and covariance. The result is a posterior estimate that balances prior dynamics with new evidence in minimum-variance closed form under linear-Gaussian assumptions.. Applications: Assimilating sparse remote-sensing observations into geophysical field-state estimates in environmental simulation., Updating latent neural population dynamics from partial electrode readouts in computational neuroscience., Correcting internal electrochemical state estimates from voltage/current observations in energy-storage management., Conditioning compartmental latent dynamics using delayed incidence observations in epidemiological inference.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "exposelatentmean",
+      "parent_id": "StaticKalmanFilter_root",
+      "name": "ExposeLatentMean",
+      "description": "Read out the current latent state mean estimate from immutable filter state.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "current_state_model",
+          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "constraints": "Can be initialized, predicted, or updated state"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent_mean",
+          "type_desc": "SVector<T, N>",
+          "constraints": "Compile-time dimension N"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_state_model: StateModelSpec{x, P, F, Q, H, R}) -> SVector<T, N>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Latent State Mean Projection. Extracts the central tendency vector from a composite latent-state specification without modifying any component of that specification. The operation is a direct structural projection from a state tuple to its mean element, preserving dimensionality and numeric values exactly.. Applications: Mobile autonomy: expose the current pose/velocity latent estimate from a probabilistic motion-state container for downstream planning., Neuroscience signal inference: read the inferred hidden neural activity mean from a state-space estimator at each timestep., Atmospheric or oceanic data assimilation: retrieve the current analyzed latent field mean from a sequential estimator state., Industrial process monitoring: extract current hidden process-condition mean from a dynamical estimator for control logic.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "exposecovariance",
+      "parent_id": "StaticKalmanFilter_root",
+      "name": "ExposeCovariance",
+      "description": "Read out the current latent covariance estimate from immutable filter state.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "current_state_model",
+          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "constraints": "Can be initialized, predicted, or updated state"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_covariance",
+          "type_desc": "SMatrix<T, N, N>",
+          "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_state_model: StateModelSpec{x, P, F, Q, H, R}) -> SMatrix<T, N, N>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Latent Uncertainty Matrix Projection. Selects and returns the second-order uncertainty component from an immutable estimator-state tuple without altering any state variables. The operation is an identity-level projection from a composite structured object to its covariance substructure, preserving matrix values and topology. The result is the current symmetric positive semi-definite pairwise uncertainty representation over latent dimensions.. Applications: Robot localization pipelines extracting current pose-uncertainty structure for motion-planning risk bounds, Atmospheric data assimilation systems exposing uncertainty coupling between latent grid variables, Neural signal decoding frameworks retrieving latent-state uncertainty for adaptive stimulation control, Manufacturing process monitoring engines reading uncertainty matrices to trigger tolerance-aware interventions",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "initializelineargaussianstatemodel",
+      "target_id": "predictlatentstate",
+      "output_name": "state_model",
+      "input_name": "state_model",
+      "source_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstate",
+      "target_id": "updatewithmeasurement",
+      "output_name": "predicted_state_model",
+      "input_name": "predicted_state_model",
+      "source_type": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+      "target_type": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializelineargaussianstatemodel",
+      "target_id": "exposelatentmean",
+      "output_name": "state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstate",
+      "target_id": "exposelatentmean",
+      "output_name": "predicted_state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updatewithmeasurement",
+      "target_id": "exposelatentmean",
+      "output_name": "posterior_state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x_post, P_post, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializelineargaussianstatemodel",
+      "target_id": "exposecovariance",
+      "output_name": "state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "predictlatentstate",
+      "target_id": "exposecovariance",
+      "output_name": "predicted_state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updatewithmeasurement",
+      "target_id": "exposecovariance",
+      "output_name": "posterior_state_model",
+      "input_name": "current_state_model",
+      "source_type": "StateModelSpec{x_post, P_post, F, Q, H, R}",
+      "target_type": "StateModelSpec{x, P, F, Q, H, R}",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "StaticKalmanFilter"
+  }
+}
