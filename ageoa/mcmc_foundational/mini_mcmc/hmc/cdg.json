@@ -10,10 +10,10 @@
       "outputs": [],
       "status": "decomposed",
       "children": [
-        "initializesamplerandrngstate",
-        "integratehamiltonianproposal",
-        "applyhmcacceptrejectkernel",
-        "collectposteriorsamples"
+        "initializehmcstate",
+        "leapfrogproposalkernel",
+        "metropolishmctransition",
+        "runsamplingloop"
       ],
       "depth": 0,
       "type_signature": "",
@@ -27,21 +27,21 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "initializesamplerandrngstate",
+      "node_id": "initializehmcstate",
       "parent_id": "HMC_root",
-      "name": "InitializeSamplerAndRNGState",
-      "description": "Construct immutable HMC sampler state and initialize explicit RNG/PRNGKey state.",
-      "concept_type": "sampler",
+      "name": "InitializeHMCState",
+      "description": "Construct immutable HMC state and static kernel parameters, including explicit RNG state (PRNGKey/seed-derived state).",
+      "concept_type": "custom",
       "inputs": [
         {
-          "name": "target_log_prob_fn",
-          "type_desc": "callable(position) -> log_prob and/or gradient",
-          "constraints": "pure oracle; no persistent mutation"
+          "name": "target",
+          "type_desc": "callable log_prob oracle",
+          "constraints": "stateless density/gradient evaluator"
         },
         {
           "name": "initial_positions",
-          "type_desc": "vector or tensor",
-          "constraints": "finite numeric values"
+          "type_desc": "array[float]",
+          "constraints": "shape fixed for chain state"
         },
         {
           "name": "step_size",
@@ -56,141 +56,165 @@
         {
           "name": "seed",
           "type_desc": "int",
-          "constraints": "used to create RNG state / PRNGKey"
+          "constraints": "optional; when provided initializes RNG state"
         }
       ],
       "outputs": [
         {
-          "name": "hmc_state",
-          "type_desc": "StateModelSpec{position, logp_current, gradient, step_size, n_leapfrog, mass_matrix}",
-          "constraints": "immutable state object"
+          "name": "hmc_state_0",
+          "type_desc": "StateModelSpec",
+          "constraints": "contains positions, logp_current, gradient, rng_state, trace"
         },
         {
-          "name": "rng_state",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "threaded explicitly as input/output"
-        },
-        {
-          "name": "log_prob_oracle",
-          "type_desc": "pure log-probability/gradient evaluator",
-          "constraints": "stateless oracle"
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "contains target, step_size, n_leapfrog, mass_matrix (implicit or explicit)"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(target_log_prob_fn: callable(position) -> log_prob and/or gradient, initial_positions: vector or tensor, step_size: float, n_leapfrog: int, seed: int) -> tuple[StateModelSpec{position, logp_current, gradient, step_size, n_leapfrog, mass_matrix}, RNG state or jax.random.PRNGKey, pure log-probability/gradient evaluator]",
+      "type_signature": "(target: callable log_prob oracle, initial_positions: array[float], step_size: float, n_leapfrog: int, seed: int) -> tuple[StateModelSpec, object]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Immutable Stochastic State Bootstrap. Creates an initial immutable state for a gradient-informed stochastic transition system from a numeric starting tensor and fixed hyperparameters. It evaluates a pure scalar-field oracle (and optional derivative) at the initial tensor to cache local energy and slope information, then packages these with integration controls and metric structure into a state record. In parallel, it deterministically maps an integer seed to an explicit pseudorandom state token that must be threaded through future transitions.. Applications: Initializing stochastic trajectory proposals in robot motion planning over continuous configuration spaces, Bootstrapping gradient-based random exploration of molecular conformation landscapes in computational chemistry, Seeding uncertainty-aware parameter-space exploration for geophysical inverse models, Starting constrained stochastic search in high-dimensional engineering design optimization",
+      "conceptual_summary": "Reproducible Gradient-Kernel State Bootstrap. Builds an immutable initial state for a gradient-informed iterative transition process by evaluating a differentiable scalar-field oracle at an initial tensor point and storing the point, scalar value, local derivative, random generator state, and trace container. In parallel, it factorizes constant transition hyperparameters into a static kernel object so per-iteration updates can reuse fixed settings without reconfiguration. If a seed is provided, stochastic behavior is made exactly replayable under identical inputs and numeric conditions.. Applications: Computational chemistry: initializing reproducible trajectory-based exploration of high-dimensional energy landscapes for molecular conformations., Geophysical inverse modeling: bootstrapping iterative state transitions for parameter-field reconstruction from indirect sensor measurements., Robotics system identification: initializing gradient-informed stochastic search over dynamic model parameters with replayable randomness., Medical image reconstruction: setting up reproducible iterative posterior exploration for latent volume parameters under differentiable forward models.",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
     {
-      "node_id": "integratehamiltonianproposal",
+      "node_id": "leapfrogproposalkernel",
       "parent_id": "HMC_root",
-      "name": "IntegrateHamiltonianProposal",
-      "description": "Generate deterministic HMC proposal by leapfrog integration over position and momenta using mass matrix and log-probability gradients.",
+      "name": "LeapfrogProposalKernel",
+      "description": "Pure Hamiltonian proposal transition: consumes current position/momenta and returns proposed position/momenta plus refreshed log-probability gradient.",
       "concept_type": "mcmc_proposal",
       "inputs": [
         {
-          "name": "state_in",
-          "type_desc": "StateModelSpec{position, momenta, gradient, step_size, n_leapfrog, mass_matrix}",
-          "constraints": "immutable input state"
+          "name": "proposal_state_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "contains pos, momenta, gradient, logp"
+        },
+        {
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "uses step_size and n_leapfrog"
         },
         {
           "name": "log_prob_oracle",
-          "type_desc": "callable(position) -> log_prob and gradient",
-          "constraints": "pure oracle evaluation"
+          "type_desc": "callable",
+          "constraints": "pure evaluator for logp/gradient"
         }
       ],
       "outputs": [
         {
-          "name": "proposal_state",
-          "type_desc": "StateModelSpec{proposed_position, proposed_momenta, proposed_logp, proposed_gradient}",
-          "constraints": "new object; no in-place updates"
+          "name": "proposal_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "new pos, new momenta, updated logp, updated gradient"
         }
       ],
       "status": "decomposed",
       "children": [
-        "integrateleapfrogdynamics",
-        "evaluateproposallogprobability",
-        "recoverproposalgradient",
-        "assembledetachedproposalstate"
+        "preparedifferentiablestateandfirsthalfkick",
+        "driftpositionbyfullstep",
+        "recomputegradienthalfkickcontribution",
+        "completemomentumkickandrefreshcarry",
+        "computeterminallogprobandemitproposal"
       ],
       "depth": 1,
-      "type_signature": "(state_in: StateModelSpec{position, momenta, gradient, step_size, n_leapfrog, mass_matrix}, log_prob_oracle: callable(position) -> log_prob and gradient) -> StateModelSpec{proposed_position, proposed_momenta, proposed_logp, proposed_gradient}",
+      "type_signature": "(proposal_state_in: StateModelSpec, kernel_static: object, log_prob_oracle: callable) -> StateModelSpec",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Symplectic Gradient Flow Proposal Integrator. Transforms an initial augmented state \\((x, v, \\nabla f(x))\\) into a new augmented state by alternately applying half-step updates to the auxiliary vector and full-step updates to the primary vector under a positive-definite metric tensor. The transform performs a fixed number of explicit, gradient-driven leapfrog steps using oracle evaluations of a scalar potential and its gradient, yielding a deterministic proposal map. The resulting map approximates continuous Hamiltonian flow while preserving phase-space volume and reversibility structure.. Applications: Posterior exploration in PDE-constrained inverse problems (e.g., recovering latent spatial fields from indirect measurements), Sampling high-dimensional latent trajectories in systems biology state-space models, Uncertainty quantification for calibrated parameters in climate or fluid simulation surrogates, Probabilistic inference over robot morphology/control parameters in model-based design spaces",
+      "conceptual_summary": "Symplectic Latent-State Integrator. Applies a fixed number of leapfrog integration steps to a coupled state made of a primary vector and an auxiliary velocity-like vector, using gradients from a scalar potential oracle. Each step alternates half/full updates so the map is approximately energy-conserving while remaining explicit and numerically stable for moderate step sizes. The result is a deterministically transformed state with the scalar potential value and gradient recomputed at the terminal primary vector.. Applications: Molecular simulation: integrating particle configuration and velocity states under differentiable force fields., Robotics trajectory optimization: proposing dynamically consistent perturbations in high-dimensional configuration spaces., Bayesian neural parameter exploration: generating long-range proposals in weight space for posterior sampling., Inverse imaging/geophysics: traversing latent model spaces with gradient-informed, low-random-walk state transitions.",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
     {
-      "node_id": "integrateleapfrogdynamics",
-      "parent_id": "integratehamiltonianproposal",
-      "name": "IntegrateLeapfrogDynamics",
-      "description": "Run the leapfrog recurrence for `n_leapfrog` steps using kick-drift-kick updates: AD-enable position, apply half-step momentum update from cached gradient summands, drift position by full step, evaluate log-probability gradient at new position, apply second half-step momentum update, and carry forward the new gradient summands.",
-      "concept_type": "custom",
+      "node_id": "preparedifferentiablestateandfirsthalfkick",
+      "parent_id": "leapfrogproposalkernel",
+      "name": "PrepareDifferentiableStateAndFirstHalfKick",
+      "description": "For one leapfrog iteration, re-enable AD tracking on position and apply the first half-step momentum update using the carried gradient summands from the previous state.",
+      "concept_type": "mcmc_proposal",
       "inputs": [
         {
-          "name": "initial_position",
+          "name": "position_in",
           "type_desc": "Tensor<B, 2>",
-          "constraints": "Batch of positions."
+          "constraints": "Current position carry"
         },
         {
-          "name": "initial_momenta",
+          "name": "momentum_in",
           "type_desc": "Tensor<B, 2>",
-          "constraints": "Same shape as position."
+          "constraints": "Current momentum carry"
         },
         {
-          "name": "initial_grad_summands",
+          "name": "last_grad_summands",
           "type_desc": "Tensor<B, 2>",
-          "constraints": "Represents previous `(step_size * 0.5) * gradient`."
+          "constraints": "Scaled gradient half-step from previous state"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "position_ad",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Detached and require_grad-enabled"
+        },
+        {
+          "name": "momentum_half_kicked",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "After first half-step kick"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(position_in: Tensor<B, 2>, momentum_in: Tensor<B, 2>, last_grad_summands: Tensor<B, 2>) -> tuple[Tensor<B, 2>, Tensor<B, 2>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "driftpositionbyfullstep",
+      "parent_id": "leapfrogproposalkernel",
+      "name": "DriftPositionByFullStep",
+      "description": "Advance position by a full drift step using the half-kicked momentum and re-enable AD tracking on the new position.",
+      "concept_type": "mcmc_proposal",
+      "inputs": [
+        {
+          "name": "position_ad",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "AD-enabled position from current iteration"
+        },
+        {
+          "name": "momentum_half_kicked",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Momentum after first half-kick"
         },
         {
           "name": "step_size",
           "type_desc": "T",
-          "constraints": "Scalar integration step size."
-        },
-        {
-          "name": "n_leapfrog",
-          "type_desc": "usize",
-          "constraints": "Number of leapfrog steps; may be zero."
-        },
-        {
-          "name": "log_prob_oracle",
-          "type_desc": "callable(position) -> {log_prob: Tensor<B,1>, gradient: Tensor<B,2>}",
-          "constraints": "Differentiable target density evaluator."
+          "constraints": "Leapfrog integration step size"
         }
       ],
       "outputs": [
         {
-          "name": "integrated_position",
+          "name": "position_advanced",
           "type_desc": "Tensor<B, 2>",
-          "constraints": "Position after final leapfrog step."
-        },
-        {
-          "name": "integrated_momenta",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Momenta after final leapfrog step."
-        },
-        {
-          "name": "final_grad_summands",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Latest `(step_size * 0.5) * gradient` at integrated position."
+          "constraints": "Full-step updated, detached, require_grad-enabled"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(initial_position: Tensor<B, 2>, initial_momenta: Tensor<B, 2>, initial_grad_summands: Tensor<B, 2>, step_size: T, n_leapfrog: usize, log_prob_oracle: callable(position) -> {log_prob: Tensor<B,1>, gradient: Tensor<B,2>}) -> tuple[Tensor<B, 2>, Tensor<B, 2>, Tensor<B, 2>]",
+      "type_signature": "(position_ad: Tensor<B, 2>, momentum_half_kicked: Tensor<B, 2>, step_size: T) -> Tensor<B, 2>",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -201,337 +225,44 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "evaluateproposallogprobability",
-      "parent_id": "integratehamiltonianproposal",
-      "name": "EvaluateProposalLogProbability",
-      "description": "Evaluate target log-probability at the integrated position.",
-      "concept_type": "likelihood_evaluation",
-      "inputs": [
-        {
-          "name": "integrated_position",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Output of leapfrog integration."
-        },
-        {
-          "name": "log_prob_oracle",
-          "type_desc": "callable(position) -> {log_prob: Tensor<B,1>, gradient: Tensor<B,2>}",
-          "constraints": "Same oracle used during integration."
-        }
-      ],
-      "outputs": [
-        {
-          "name": "proposed_logp",
-          "type_desc": "Tensor<B, 1>",
-          "constraints": "Final unnormalized log-probability."
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(integrated_position: Tensor<B, 2>, log_prob_oracle: callable(position) -> {log_prob: Tensor<B,1>, gradient: Tensor<B,2>}) -> Tensor<B, 1>",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "recoverproposalgradient",
-      "parent_id": "integratehamiltonianproposal",
-      "name": "RecoverProposalGradient",
-      "description": "Convert scaled gradient summands back to raw gradient at the proposal position.",
-      "concept_type": "arithmetic",
-      "inputs": [
-        {
-          "name": "final_grad_summands",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Equals `(step_size * 0.5) * proposed_gradient`."
-        },
-        {
-          "name": "step_size",
-          "type_desc": "T",
-          "constraints": "Must be non-zero."
-        }
-      ],
-      "outputs": [
-        {
-          "name": "proposed_gradient",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Gradient of log-probability at integrated position."
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(final_grad_summands: Tensor<B, 2>, step_size: T) -> Tensor<B, 2>",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "assembledetachedproposalstate",
-      "parent_id": "integratehamiltonianproposal",
-      "name": "AssembleDetachedProposalState",
-      "description": "Detach integrated tensors from AD graph and assemble final proposal state fields.",
-      "concept_type": "custom",
-      "inputs": [
-        {
-          "name": "integrated_position",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "From leapfrog dynamics."
-        },
-        {
-          "name": "integrated_momenta",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "From leapfrog dynamics."
-        },
-        {
-          "name": "proposed_logp",
-          "type_desc": "Tensor<B, 1>",
-          "constraints": "From final log-probability evaluation."
-        },
-        {
-          "name": "proposed_gradient",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Recovered from final grad summands."
-        }
-      ],
-      "outputs": [
-        {
-          "name": "proposed_position",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Detached proposal position."
-        },
-        {
-          "name": "proposed_momenta",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Detached proposal momenta."
-        },
-        {
-          "name": "proposal_logp",
-          "type_desc": "Tensor<B, 1>",
-          "constraints": "Detached proposal log-probability."
-        },
-        {
-          "name": "proposal_gradient",
-          "type_desc": "Tensor<B, 2>",
-          "constraints": "Detached proposal gradient."
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(integrated_position: Tensor<B, 2>, integrated_momenta: Tensor<B, 2>, proposed_logp: Tensor<B, 1>, proposed_gradient: Tensor<B, 2>) -> tuple[Tensor<B, 2>, Tensor<B, 2>, Tensor<B, 1>, Tensor<B, 2>]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "applyhmcacceptrejectkernel",
-      "parent_id": "HMC_root",
-      "name": "ApplyHMCAcceptRejectKernel",
-      "description": "Perform one HMC transition kernel step: consume current state, evaluate proposal, and return accepted/rejected next state with updated gradient.",
-      "concept_type": "mcmc_kernel",
-      "inputs": [
-        {
-          "name": "state_in",
-          "type_desc": "StateModelSpec{position, logp_current, gradient, mass_matrix}",
-          "constraints": "immutable chain state"
-        },
-        {
-          "name": "proposal_state",
-          "type_desc": "StateModelSpec{proposed_position, proposed_momenta, proposed_logp, proposed_gradient}",
-          "constraints": "from leapfrog proposal atom"
-        },
-        {
-          "name": "rng_state_in",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "must be explicitly consumed/split"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "state_out",
-          "type_desc": "StateModelSpec{position, logp_current, gradient, mass_matrix}",
-          "constraints": "new immutable state"
-        },
-        {
-          "name": "rng_state_out",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "advanced key/state"
-        },
-        {
-          "name": "transition_stats",
-          "type_desc": "TraceEvent{accept_prob, accepted}",
-          "constraints": "appended to trace externally"
-        }
-      ],
-      "status": "decomposed",
-      "children": [
-        "derivechaindimensions",
-        "sampleinitialmomenta",
-        "evaluatecurrentlogdensityandhalfstepgradient",
-        "computecurrenthamiltonian",
-        "integrateleapfrogproposal",
-        "computelogacceptanceandprobability",
-        "advancehostrngstateperchain",
-        "drawuniformthresholdsandacceptancemask",
-        "assemblenextstateandtransitionstats"
-      ],
-      "depth": 1,
-      "type_signature": "(state_in: StateModelSpec{position, logp_current, gradient, mass_matrix}, proposal_state: StateModelSpec{proposed_position, proposed_momenta, proposed_logp, proposed_gradient}, rng_state_in: RNG state or jax.random.PRNGKey) -> tuple[StateModelSpec{position, logp_current, gradient, mass_matrix}, RNG state or jax.random.PRNGKey, TraceEvent{accept_prob, accepted}]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "Energy-Consistent Stochastic Proposal Filter. Consumes a current immutable state tuple and a deterministic candidate tuple, then performs a probabilistic accept/reject gate using an energy-difference-derived acceptance probability. If accepted, the candidate position and local derivative information become the next state; otherwise the prior state is retained. This creates a one-step Markov transition that corrects proposal bias while threading and advancing explicit random-state input.. Applications: Uncertainty-aware parameter estimation in nonlinear PDE-constrained inverse problems (e.g., geophysical field reconstruction), Conformation-space exploration for high-dimensional molecular or materials simulations, Posterior sampling in medical image reconstruction with physics-based forward operators, Probabilistic calibration of complex agent-based or climate-scale simulation models",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "derivechaindimensions",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "DeriveChainDimensions",
-      "description": "Extract chain count and latent dimensionality from the current position tensor shape.",
-      "concept_type": "custom",
-      "inputs": [
-        {
-          "name": "state_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "n_chains",
-          "type_desc": "usize",
-          "constraints": "n_chains > 0"
-        },
-        {
-          "name": "dim",
-          "type_desc": "usize",
-          "constraints": "dim > 0"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(state_position: Tensor[B,2]) -> tuple[usize, usize]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "sampleinitialmomenta",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "SampleInitialMomenta",
-      "description": "Sample initial Gaussian momenta for each chain and advance tracked RNG state.",
-      "concept_type": "sampler",
-      "inputs": [
-        {
-          "name": "n_chains",
-          "type_desc": "usize",
-          "constraints": "from DeriveChainDimensions"
-        },
-        {
-          "name": "dim",
-          "type_desc": "usize",
-          "constraints": "from DeriveChainDimensions"
-        },
-        {
-          "name": "rng_state_in",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "valid RNG state"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "momentum_0",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim], iid N(0,1)"
-        },
-        {
-          "name": "rng_state_after_momentum",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "advanced from rng_state_in"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(n_chains: usize, dim: usize, rng_state_in: RNG state or PRNGKey) -> tuple[Tensor[B,2], RNG state or PRNGKey]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "evaluatecurrentlogdensityandhalfstepgradient",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "EvaluateCurrentLogDensityAndHalfStepGradient",
-      "description": "Evaluate current batch log-density and its gradient, then scale gradient for leapfrog half-step momentum update.",
+      "node_id": "recomputegradienthalfkickcontribution",
+      "parent_id": "leapfrogproposalkernel",
+      "name": "RecomputeGradientHalfKickContribution",
+      "description": "Evaluate target log-probability at the advanced position, backpropagate to obtain gradient, and scale it into the next half-step momentum contribution.",
       "concept_type": "oracle_gradient",
       "inputs": [
         {
-          "name": "state_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "position_advanced",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "AD-enabled post-drift position"
         },
         {
-          "name": "target_logp_fn",
-          "type_desc": "fn(Tensor[B,2]) -> Tensor[B,1]",
-          "constraints": "differentiable wrt position"
+          "name": "log_prob_oracle",
+          "type_desc": "callable",
+          "constraints": "Computes unnormalized batch log-probability"
         },
         {
           "name": "step_size",
-          "type_desc": "scalar T",
-          "constraints": "step_size > 0"
+          "type_desc": "T",
+          "constraints": "Leapfrog integration step size"
         }
       ],
       "outputs": [
         {
-          "name": "logp_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
+          "name": "logp_step",
+          "type_desc": "Tensor<B, 1>",
+          "constraints": "Log-probability at advanced position"
         },
         {
-          "name": "gradient_current",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
-        },
-        {
-          "name": "half_step_grad_summands",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "0.5 * step_size * gradient_current"
+          "name": "grad_summands",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Gradient scaled by step_size * 0.5"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(state_position: Tensor[B,2], target_logp_fn: fn(Tensor[B,2]) -> Tensor[B,1], step_size: scalar T) -> tuple[Tensor[B,1], Tensor[B,2], Tensor[B,2]]",
+      "type_signature": "(position_advanced: Tensor<B, 2>, log_prob_oracle: callable, step_size: T) -> tuple[Tensor<B, 1>, Tensor<B, 2>]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -542,107 +273,49 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "computecurrenthamiltonian",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "ComputeCurrentHamiltonian",
-      "description": "Compute current kinetic energy and Hamiltonian from initial momentum and current log-density.",
-      "concept_type": "arithmetic",
-      "inputs": [
-        {
-          "name": "momentum_0",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
-        },
-        {
-          "name": "logp_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "kinetic_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "0.5 * sum_d momentum_0^2"
-        },
-        {
-          "name": "h_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "-logp_current + kinetic_current"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(momentum_0: Tensor[B,2], logp_current: Tensor[B,1]) -> tuple[Tensor[B,1], Tensor[B,1]]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "integrateleapfrogproposal",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "IntegrateLeapfrogProposal",
-      "description": "Run leapfrog dynamics to produce proposed position, momentum, and target log-density (and proposal gradient if available).",
+      "node_id": "completemomentumkickandrefreshcarry",
+      "parent_id": "leapfrogproposalkernel",
+      "name": "CompleteMomentumKickAndRefreshCarry",
+      "description": "Apply the second half-step momentum kick using the newly computed gradient summands and emit the next iteration carry state.",
       "concept_type": "mcmc_proposal",
       "inputs": [
         {
-          "name": "state_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "position_advanced",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Post-drift position"
         },
         {
-          "name": "momentum_0",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "momentum_half_kicked",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Momentum after first half-kick"
         },
         {
-          "name": "half_step_grad_summands",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
-        },
-        {
-          "name": "mass_matrix",
-          "type_desc": "mass matrix descriptor",
-          "constraints": "compatible with dim"
-        },
-        {
-          "name": "target_logp_fn",
-          "type_desc": "fn(Tensor[B,2]) -> Tensor[B,1]",
-          "constraints": "same target as current density"
+          "name": "grad_summands",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "New scaled gradient half-step"
         }
       ],
       "outputs": [
         {
-          "name": "proposed_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "position_out",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Position carry for next leapfrog iteration"
         },
         {
-          "name": "proposed_momenta",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "momentum_out",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Momentum carry for next leapfrog iteration"
         },
         {
-          "name": "proposed_logp",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
-        },
-        {
-          "name": "proposed_gradient",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim], if computed by integrator"
+          "name": "last_grad_summands_out",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Gradient carry for next leapfrog iteration"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(state_position: Tensor[B,2], momentum_0: Tensor[B,2], half_step_grad_summands: Tensor[B,2], mass_matrix: mass matrix descriptor, target_logp_fn: fn(Tensor[B,2]) -> Tensor[B,1]) -> tuple[Tensor[B,2], Tensor[B,2], Tensor[B,1], Tensor[B,2]]",
+      "type_signature": "(position_advanced: Tensor<B, 2>, momentum_half_kicked: Tensor<B, 2>, grad_summands: Tensor<B, 2>) -> tuple[Tensor<B, 2>, Tensor<B, 2>, Tensor<B, 2>]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -653,54 +326,39 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "computelogacceptanceandprobability",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "ComputeLogAcceptanceAndProbability",
-      "description": "Compute proposed Hamiltonian, log acceptance ratio, and acceptance probability per chain.",
-      "concept_type": "log_prob",
+      "node_id": "computeterminallogprobandemitproposal",
+      "parent_id": "leapfrogproposalkernel",
+      "name": "ComputeTerminalLogProbAndEmitProposal",
+      "description": "After repeating the leapfrog transition exactly n_leapfrog times, compute final log-probability at the terminal position and return detached proposal tensors.",
+      "concept_type": "likelihood_evaluation",
       "inputs": [
         {
-          "name": "h_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
+          "name": "position_final",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Output position after final iteration"
         },
         {
-          "name": "proposed_momenta",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "shape=[n_chains, dim]"
+          "name": "momentum_final",
+          "type_desc": "Tensor<B, 2>",
+          "constraints": "Output momentum after final iteration"
         },
         {
-          "name": "proposed_logp",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
+          "name": "log_prob_oracle",
+          "type_desc": "callable",
+          "constraints": "Computes unnormalized batch log-probability"
         }
       ],
       "outputs": [
         {
-          "name": "kinetic_proposed",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "0.5 * sum_d proposed_momenta^2"
-        },
-        {
-          "name": "h_proposed",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "-proposed_logp + kinetic_proposed"
-        },
-        {
-          "name": "accept_logp",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "h_current - h_proposed"
-        },
-        {
-          "name": "accept_prob",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "exp(min(0, accept_logp))"
+          "name": "proposal_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "Contains detached position, detached momentum, detached final log-probability"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(h_current: Tensor[B,1], proposed_momenta: Tensor[B,2], proposed_logp: Tensor[B,1]) -> tuple[Tensor[B,1], Tensor[B,1], Tensor[B,1], Tensor[B,1]]",
+      "type_signature": "(position_final: Tensor<B, 2>, momentum_final: Tensor<B, 2>, log_prob_oracle: callable) -> StateModelSpec",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -711,287 +369,97 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "advancehostrngstateperchain",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "AdvanceHostRngStatePerChain",
-      "description": "Advance host RNG by drawing one scalar per chain (matching the explicit loop side-effect), without using drawn values.",
-      "concept_type": "sampler",
-      "inputs": [
-        {
-          "name": "rng_state_after_momentum",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "valid tracked host RNG"
-        },
-        {
-          "name": "n_chains",
-          "type_desc": "usize",
-          "constraints": "from DeriveChainDimensions"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "rng_state_after_host_draw",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "advanced by n_chains draws"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(rng_state_after_momentum: RNG state or PRNGKey, n_chains: usize) -> RNG state or PRNGKey",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "drawuniformthresholdsandacceptancemask",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "DrawUniformThresholdsAndAcceptanceMask",
-      "description": "Sample uniform thresholds for each chain, compare in log-space with accept_logp, and broadcast acceptance mask across dimensions.",
+      "node_id": "metropolishmctransition",
+      "parent_id": "HMC_root",
+      "name": "MetropolisHMCTransition",
+      "description": "Single pure HMC kernel step: samples fresh momenta from RNG state, invokes leapfrog proposal, performs accept/reject, and returns new immutable chain state.",
       "concept_type": "mcmc_kernel",
       "inputs": [
         {
-          "name": "n_chains",
-          "type_desc": "usize",
-          "constraints": "from DeriveChainDimensions"
+          "name": "chain_state_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "contains positions, logp_current, gradient, rng_state, trace"
         },
         {
-          "name": "dim",
-          "type_desc": "usize",
-          "constraints": "from DeriveChainDimensions"
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "contains target/integrator parameters"
         },
         {
-          "name": "accept_logp",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains]"
+          "name": "proposal_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "from leapfrog proposal"
         }
       ],
       "outputs": [
         {
-          "name": "uniform",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "shape=[n_chains], each in (0,1)"
-        },
-        {
-          "name": "ln_u",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "log(uniform)"
-        },
-        {
-          "name": "accepted",
-          "type_desc": "Tensor[B,1,Bool]",
-          "constraints": "accepted[i] = (accept_logp[i] >= ln_u[i])"
-        },
-        {
-          "name": "accepted_broadcast",
-          "type_desc": "Tensor[B,2,Bool]",
-          "constraints": "shape=[n_chains, dim], broadcast of accepted"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(n_chains: usize, dim: usize, accept_logp: Tensor[B,1]) -> tuple[Tensor[B,1], Tensor[B,1], Tensor[B,1,Bool], Tensor[B,2,Bool]]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "assemblenextstateandtransitionstats",
-      "parent_id": "applyhmcacceptrejectkernel",
-      "name": "AssembleNextStateAndTransitionStats",
-      "description": "Select accepted/rejected chain-wise fields to form next state, propagate RNG state, and emit transition statistics.",
-      "concept_type": "mcmc_kernel",
-      "inputs": [
-        {
-          "name": "state_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "current position shape=[n_chains, dim]"
-        },
-        {
-          "name": "logp_current",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "current logp shape=[n_chains]"
-        },
-        {
-          "name": "gradient_current",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "current gradient shape=[n_chains, dim]"
-        },
-        {
-          "name": "mass_matrix",
-          "type_desc": "mass matrix descriptor",
-          "constraints": "carried unchanged"
-        },
-        {
-          "name": "proposed_position",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "proposal position shape=[n_chains, dim]"
-        },
-        {
-          "name": "proposed_logp",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "proposal logp shape=[n_chains]"
-        },
-        {
-          "name": "proposed_gradient",
-          "type_desc": "Tensor[B,2]",
-          "constraints": "proposal gradient shape=[n_chains, dim]"
-        },
-        {
-          "name": "accepted",
-          "type_desc": "Tensor[B,1,Bool]",
-          "constraints": "chain-level accept flags"
-        },
-        {
-          "name": "accepted_broadcast",
-          "type_desc": "Tensor[B,2,Bool]",
-          "constraints": "position/gradient broadcast mask"
-        },
-        {
-          "name": "accept_prob",
-          "type_desc": "Tensor[B,1]",
-          "constraints": "per-chain acceptance probability"
-        },
-        {
-          "name": "rng_state_after_host_draw",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "final tracked RNG state"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "state_out",
-          "type_desc": "StateModelSpec{position, logp_current, gradient, mass_matrix}",
-          "constraints": "accepted chains take proposal; rejected chains keep current"
-        },
-        {
-          "name": "rng_state_out",
-          "type_desc": "RNG state or PRNGKey",
-          "constraints": "equals rng_state_after_host_draw"
+          "name": "chain_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "updated positions/logp_current/gradient/rng_state"
         },
         {
           "name": "transition_stats",
-          "type_desc": "TraceEvent{accept_prob, accepted}",
-          "constraints": "per-chain values"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(state_position: Tensor[B,2], logp_current: Tensor[B,1], gradient_current: Tensor[B,2], mass_matrix: mass matrix descriptor, proposed_position: Tensor[B,2], proposed_logp: Tensor[B,1], proposed_gradient: Tensor[B,2], accepted: Tensor[B,1,Bool], accepted_broadcast: Tensor[B,2,Bool], accept_prob: Tensor[B,1], rng_state_after_host_draw: RNG state or PRNGKey) -> tuple[StateModelSpec{position, logp_current, gradient, mass_matrix}, RNG state or PRNGKey, TraceEvent{accept_prob, accepted}]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "collectposteriorsamples",
-      "parent_id": "HMC_root",
-      "name": "CollectPosteriorSamples",
-      "description": "Run burn-in and collection loops, repeatedly applying the HMC kernel and accumulating sample trace.",
-      "concept_type": "sampler",
-      "inputs": [
-        {
-          "name": "state_in",
-          "type_desc": "StateModelSpec",
-          "constraints": "immutable chain state at loop start"
-        },
-        {
-          "name": "rng_state_in",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "explicit stochastic state flow"
-        },
-        {
-          "name": "n_collect",
-          "type_desc": "int",
-          "constraints": ">= 0"
-        },
-        {
-          "name": "n_discard",
-          "type_desc": "int",
-          "constraints": ">= 0"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "samples_trace",
-          "type_desc": "Trace{samples, log_probs, acceptance_stats}",
-          "constraints": "immutable aggregated trace"
-        },
-        {
-          "name": "final_state",
-          "type_desc": "StateModelSpec",
-          "constraints": "latest immutable chain state"
-        },
-        {
-          "name": "final_rng_state",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "latest explicit stochastic state"
+          "type_desc": "object",
+          "constraints": "accept flag, acceptance prob, Hamiltonian delta"
         }
       ],
       "status": "decomposed",
       "children": [
-        "initializecollectionlayout",
-        "runburnintransitions",
-        "rolloutsamplingtrajectory",
-        "canonicalizesampleaxisorder",
-        "assembleposteriortraceandterminalstate"
+        "infer_chain_geometry",
+        "sample_initial_momenta",
+        "evaluate_current_logp_and_halfstep_gradient",
+        "compute_current_hamiltonian",
+        "propose_state_with_leapfrog",
+        "compute_proposed_hamiltonian",
+        "sample_log_uniform_thresholds",
+        "apply_metropolis_accept_reject",
+        "assemble_transition_result"
       ],
       "depth": 1,
-      "type_signature": "(state_in: StateModelSpec, rng_state_in: RNG state or jax.random.PRNGKey, n_collect: int, n_discard: int) -> tuple[Trace{samples, log_probs, acceptance_stats}, StateModelSpec, RNG state or jax.random.PRNGKey]",
+      "type_signature": "(chain_state_in: StateModelSpec, kernel_static: object, proposal_state_out: StateModelSpec) -> tuple[StateModelSpec, object]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Two-Phase Markov Trace Collector. Iteratively applies a stochastic state-transition operator to an immutable chain state while threading an explicit random-state object through each step. The first phase executes a configurable number of transient iterations without retention to reduce initialization bias in downstream summaries. The second phase executes additional iterations and immutably accumulates selected per-step observables into a structured trace, then returns the terminal state and terminal random state.. Applications: Computational chemistry: generate equilibrium conformational ensembles of molecular systems after discarding initial transient dynamics., Robotics and control: sample latent trajectory hypotheses in a probabilistic state-estimation pipeline while logging acceptance and score diagnostics., Geophysics: explore high-dimensional subsurface parameter fields with transition diagnostics for uncertainty quantification., Systems biology: sample kinetic-parameter configurations for dynamical network models while separating warm-up and retained draws.",
+      "conceptual_summary": "Gradient-Guided Symplectic Metropolis Transition. Consumes an immutable Markov state containing a continuous parameter vector, local energy value, energy gradient, and pseudorandom generator state, then draws an auxiliary momentum vector from a reference distribution. It combines this momentum with a precomputed symplectic proposal to form a candidate state and applies a Metropolis accept/reject test using the Hamiltonian difference to preserve the target invariant measure. The output is a new immutable state (candidate or retained previous state) plus diagnostic transition statistics.. Applications: Sampling high-dimensional molecular conformation states in computational chemistry from an energy-defined distribution., Posterior exploration of latent field parameters in geophysical or climate inverse models with differentiable forward operators., Bayesian system identification for nonlinear dynamical models in robotics or control, where gradients of trajectory likelihood are available., Probabilistic reconstruction in medical imaging (e.g., differentiable tomography) by drawing from constrained high-dimensional posterior densities.",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
     {
-      "node_id": "initializecollectionlayout",
-      "parent_id": "collectposteriorsamples",
-      "name": "InitializeCollectionLayout",
-      "description": "Infer chain and latent dimensions from the incoming state and define the collection buffer layout for n_collect draws.",
+      "node_id": "infer_chain_geometry",
+      "parent_id": "metropolishmctransition",
+      "name": "infer_chain_geometry",
+      "description": "Extract chain count and latent dimension from the current position tensor shape.",
       "concept_type": "custom",
       "inputs": [
         {
-          "name": "state_in",
+          "name": "chain_state_in",
           "type_desc": "StateModelSpec",
-          "constraints": "Must contain current positions with shape [n_chains, dim]"
-        },
-        {
-          "name": "n_collect",
-          "type_desc": "int",
-          "constraints": ">= 0"
+          "constraints": "contains positions tensor with shape [n_chains, dim]"
         }
       ],
       "outputs": [
         {
-          "name": "trace_spec",
-          "type_desc": "TraceLayoutSpec{n_collect, n_chains, dim}",
-          "constraints": "Defines collection-major sample layout [n_collect, n_chains, dim]"
+          "name": "n_chains",
+          "type_desc": "usize",
+          "constraints": "> 0"
+        },
+        {
+          "name": "dim",
+          "type_desc": "usize",
+          "constraints": "> 0"
+        },
+        {
+          "name": "positions_current",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(state_in: StateModelSpec, n_collect: int) -> TraceLayoutSpec{n_collect, n_chains, dim}",
+      "type_signature": "(chain_state_in: StateModelSpec) -> tuple[usize, usize, Tensor<B,2>]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -1002,21 +470,420 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "runburnintransitions",
-      "parent_id": "collectposteriorsamples",
-      "name": "RunBurnInTransitions",
-      "description": "Advance the Markov state through n_discard burn-in transitions without recording samples.",
+      "node_id": "sample_initial_momenta",
+      "parent_id": "metropolishmctransition",
+      "name": "sample_initial_momenta",
+      "description": "Sample fresh Gaussian momenta for each chain and dimension.",
       "concept_type": "sampler",
       "inputs": [
         {
-          "name": "state_in",
-          "type_desc": "StateModelSpec",
-          "constraints": "Valid HMC state"
+          "name": "n_chains",
+          "type_desc": "usize",
+          "constraints": "matches positions batch size"
         },
         {
-          "name": "rng_state_in",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "Valid random state"
+          "name": "dim",
+          "type_desc": "usize",
+          "constraints": "matches positions feature size"
+        },
+        {
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "provides tensor backend/device and RNG source"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "momentum_0",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim], iid Normal(0,1)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(n_chains: usize, dim: usize, kernel_static: object) -> Tensor<B,2>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluate_current_logp_and_halfstep_gradient",
+      "parent_id": "metropolishmctransition",
+      "name": "evaluate_current_logp_and_halfstep_gradient",
+      "description": "Evaluate current unnormalized log-density and compute the half-step gradient summands used by leapfrog.",
+      "concept_type": "oracle_gradient",
+      "inputs": [
+        {
+          "name": "positions_current",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "contains target.unnorm_logp_batch and step_size"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "logp_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "grad_summands",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim], equals 0.5*step_size*grad(logp_current)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(positions_current: Tensor<B,2>, kernel_static: object) -> tuple[Tensor<B,1>, Tensor<B,2>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_current_hamiltonian",
+      "parent_id": "metropolishmctransition",
+      "name": "compute_current_hamiltonian",
+      "description": "Compute kinetic energy from sampled momenta and form current Hamiltonian H = -logp + KE.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "momentum_0",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "logp_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ke_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains], 0.5*sum_d p_d^2"
+        },
+        {
+          "name": "h_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(momentum_0: Tensor<B,2>, logp_current: Tensor<B,1>) -> tuple[Tensor<B,1>, Tensor<B,1>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "propose_state_with_leapfrog",
+      "parent_id": "metropolishmctransition",
+      "name": "propose_state_with_leapfrog",
+      "description": "Run leapfrog integration from current positions and sampled momenta to obtain proposed state and proposed log-density.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "positions_current",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "momentum_0",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "grad_summands",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "half-step gradient term needed by integrator state"
+        },
+        {
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "contains leapfrog hyperparameters and target model"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "proposed_positions",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "proposed_momenta",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "logp_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(positions_current: Tensor<B,2>, momentum_0: Tensor<B,2>, grad_summands: Tensor<B,2>, kernel_static: object) -> tuple[Tensor<B,2>, Tensor<B,2>, Tensor<B,1>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_proposed_hamiltonian",
+      "parent_id": "metropolishmctransition",
+      "name": "compute_proposed_hamiltonian",
+      "description": "Compute proposed kinetic energy and proposed Hamiltonian for Metropolis acceptance.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "proposed_momenta",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "logp_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ke_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "h_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(proposed_momenta: Tensor<B,2>, logp_proposed: Tensor<B,1>) -> tuple[Tensor<B,1>, Tensor<B,1>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "sample_log_uniform_thresholds",
+      "parent_id": "metropolishmctransition",
+      "name": "sample_log_uniform_thresholds",
+      "description": "Draw one uniform variate per chain and convert to log-space acceptance thresholds.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "n_chains",
+          "type_desc": "usize",
+          "constraints": "number of chains"
+        },
+        {
+          "name": "kernel_static",
+          "type_desc": "object",
+          "constraints": "provides RNG/backend random sampler"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ln_u",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains], ln(u), u~Uniform(0,1)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(n_chains: usize, kernel_static: object) -> Tensor<B,1>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "apply_metropolis_accept_reject",
+      "parent_id": "metropolishmctransition",
+      "name": "apply_metropolis_accept_reject",
+      "description": "Compute acceptance log-ratio, build mask, and select accepted proposed positions against current positions.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "h_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "h_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "ln_u",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "positions_current",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "proposed_positions",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positions_next",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "accept_mask",
+          "type_desc": "Tensor<B,1,Bool>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "accept_logp",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains], equals h_current - h_proposed"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(h_current: Tensor<B,1>, h_proposed: Tensor<B,1>, ln_u: Tensor<B,1>, positions_current: Tensor<B,2>, proposed_positions: Tensor<B,2>) -> tuple[Tensor<B,2>, Tensor<B,1,Bool>, Tensor<B,1>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_transition_result",
+      "parent_id": "metropolishmctransition",
+      "name": "assemble_transition_result",
+      "description": "Return the immutable next chain state and transition diagnostics.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "chain_state_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "pre-step state"
+        },
+        {
+          "name": "positions_next",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "shape [n_chains, dim]"
+        },
+        {
+          "name": "grad_summands",
+          "type_desc": "Tensor<B,2>",
+          "constraints": "cached gradient half-step term"
+        },
+        {
+          "name": "accept_mask",
+          "type_desc": "Tensor<B,1,Bool>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "accept_logp",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "h_current",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        },
+        {
+          "name": "h_proposed",
+          "type_desc": "Tensor<B,1>",
+          "constraints": "shape [n_chains]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "chain_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "same structure as input with updated positions and cached grad state"
+        },
+        {
+          "name": "transition_stats",
+          "type_desc": "object",
+          "constraints": "contains per-chain acceptance diagnostics"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(chain_state_in: StateModelSpec, positions_next: Tensor<B,2>, grad_summands: Tensor<B,2>, accept_mask: Tensor<B,1,Bool>, accept_logp: Tensor<B,1>, h_current: Tensor<B,1>, h_proposed: Tensor<B,1>) -> tuple[StateModelSpec, object]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "runsamplingloop",
+      "parent_id": "HMC_root",
+      "name": "RunSamplingLoop",
+      "description": "Drive warmup/discard and collection iterations by repeatedly applying the HMC transition kernel; produces trace and collected samples.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "hmc_state_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "immutable state threaded across iterations"
+        },
+        {
+          "name": "n_collect",
+          "type_desc": "int",
+          "constraints": ">= 0"
         },
         {
           "name": "n_discard",
@@ -1026,20 +893,69 @@
       ],
       "outputs": [
         {
-          "name": "state_after_burnin",
-          "type_desc": "StateModelSpec",
-          "constraints": "State after n_discard kernel applications"
+          "name": "samples",
+          "type_desc": "array[float]",
+          "constraints": "length n_collect"
         },
         {
-          "name": "rng_state_after_burnin",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "Advanced RNG state"
+          "name": "trace",
+          "type_desc": "object",
+          "constraints": "diagnostics over all iterations"
+        },
+        {
+          "name": "hmc_state_out",
+          "type_desc": "StateModelSpec",
+          "constraints": "final positions/logp_current/gradient/rng_state"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "derivesamplingshape",
+        "allocatecollectionbuffer",
+        "applyburnintransitions",
+        "collectpostburnintrajectory",
+        "finalizeoutputs"
+      ],
+      "depth": 1,
+      "type_signature": "(hmc_state_in: StateModelSpec, n_collect: int, n_discard: int) -> tuple[array[float], object, StateModelSpec]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Two-Phase Markov State Evolution and Sample Extraction Loop. Iteratively propagates an immutable state through a stochastic transition operator for a fixed number of steps, splitting execution into a non-retained adaptation phase and a retained measurement phase. At each step, the full state is updated and threaded forward, while selected scalar/vector components are conditionally recorded only during the collection window. The procedure returns both the retained sequence and an aggregate diagnostic record spanning all iterations.. Applications: Molecular configuration exploration: discard transient equilibration steps, then retain configurations for ensemble property estimation., Power-grid uncertainty analysis: run state-transition simulations, ignore initialization transients, and retain steady-regime trajectories for risk metrics., Autonomous navigation belief propagation: evolve probabilistic state beliefs, drop early convergence steps, and collect posterior samples for planning., Climate system parameter inference: execute stochastic parameter-state updates, discard burn-in, and retain draws for credible interval construction.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "derivesamplingshape",
+      "parent_id": "runsamplingloop",
+      "name": "DeriveSamplingShape",
+      "description": "Read chain count and latent dimension from the incoming HMC state to define tensor geometry for collection.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "hmc_state_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "contains current positions with shape [n_chains, dim]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "n_chains",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        },
+        {
+          "name": "dim",
+          "type_desc": "int",
+          "constraints": ">= 1"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(state_in: StateModelSpec, rng_state_in: RNG state or jax.random.PRNGKey, n_discard: int) -> tuple[StateModelSpec, RNG state or jax.random.PRNGKey]",
+      "type_signature": "(hmc_state_in: StateModelSpec) -> tuple[int, int]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -1050,21 +966,102 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "rolloutsamplingtrajectory",
-      "parent_id": "collectposteriorsamples",
-      "name": "RollOutSamplingTrajectory",
-      "description": "Run n_collect HMC transitions and accumulate per-step samples, log-probabilities, and acceptance statistics in collection order.",
+      "node_id": "allocatecollectionbuffer",
+      "parent_id": "runsamplingloop",
+      "name": "AllocateCollectionBuffer",
+      "description": "Create an empty collection tensor to hold all post-burn-in states before final layout conversion.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "n_collect",
+          "type_desc": "int",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "n_chains",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        },
+        {
+          "name": "dim",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "buffer_raw",
+          "type_desc": "Tensor[float; n_collect, n_chains, dim]",
+          "constraints": "uninitialized/empty values to be filled stepwise"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(n_collect: int, n_chains: int, dim: int) -> Tensor[float; n_collect, n_chains, dim]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "applyburnintransitions",
+      "parent_id": "runsamplingloop",
+      "name": "ApplyBurnInTransitions",
+      "description": "Advance the HMC kernel for discard iterations and return the post-burn-in state.",
       "concept_type": "sampler",
       "inputs": [
         {
-          "name": "state_start",
+          "name": "hmc_state_in",
           "type_desc": "StateModelSpec",
-          "constraints": "Typically output of burn-in"
+          "constraints": "valid kernel state"
         },
         {
-          "name": "rng_state_start",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "Typically output of burn-in"
+          "name": "n_discard",
+          "type_desc": "int",
+          "constraints": ">= 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hmc_state_burned_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "state after exactly n_discard transitions"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(hmc_state_in: StateModelSpec, n_discard: int) -> StateModelSpec",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "collectpostburnintrajectory",
+      "parent_id": "runsamplingloop",
+      "name": "CollectPostBurnInTrajectory",
+      "description": "Run n_collect HMC transitions, write each state into the collection buffer, and accumulate per-step trace metrics.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "hmc_state_burned_in",
+          "type_desc": "StateModelSpec",
+          "constraints": "starting state for collection"
+        },
+        {
+          "name": "buffer_raw",
+          "type_desc": "Tensor[float; n_collect, n_chains, dim]",
+          "constraints": "preallocated to full collection shape"
         },
         {
           "name": "n_collect",
@@ -1072,42 +1069,37 @@
           "constraints": ">= 0"
         },
         {
-          "name": "trace_spec",
-          "type_desc": "TraceLayoutSpec{n_collect, n_chains, dim}",
-          "constraints": "Must match state dimensionality"
+          "name": "n_chains",
+          "type_desc": "int",
+          "constraints": "matches state geometry"
+        },
+        {
+          "name": "dim",
+          "type_desc": "int",
+          "constraints": "matches state geometry"
         }
       ],
       "outputs": [
         {
-          "name": "samples_collect_major",
-          "type_desc": "Tensor[n_collect, n_chains, dim]",
-          "constraints": "One state snapshot per collection step"
+          "name": "buffer_filled",
+          "type_desc": "Tensor[float; n_collect, n_chains, dim]",
+          "constraints": "row i contains positions after i-th collection transition"
         },
         {
-          "name": "log_probs",
-          "type_desc": "Tensor[n_collect, n_chains] or equivalent",
-          "constraints": "Per-step log density values"
+          "name": "trace_raw",
+          "type_desc": "object",
+          "constraints": "per-step diagnostics (e.g., accept-prob/rhat updates, warning events)"
         },
         {
-          "name": "acceptance_stats",
-          "type_desc": "AcceptanceTrace",
-          "constraints": "Per-step acceptance indicators/probabilities"
-        },
-        {
-          "name": "final_state",
+          "name": "hmc_state_out",
           "type_desc": "StateModelSpec",
-          "constraints": "Terminal state after collection loop"
-        },
-        {
-          "name": "final_rng_state",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "RNG after final transition"
+          "constraints": "final state after burn-in + collection transitions"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(state_start: StateModelSpec, rng_state_start: RNG state or jax.random.PRNGKey, n_collect: int, trace_spec: TraceLayoutSpec{n_collect, n_chains, dim}) -> tuple[Tensor[n_collect, n_chains, dim], Tensor[n_collect, n_chains] or equivalent, AcceptanceTrace, StateModelSpec, RNG state or jax.random.PRNGKey]",
+      "type_signature": "(hmc_state_burned_in: StateModelSpec, buffer_raw: Tensor[float; n_collect, n_chains, dim], n_collect: int, n_chains: int, dim: int) -> tuple[Tensor[float; n_collect, n_chains, dim], object, StateModelSpec]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -1118,92 +1110,39 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "canonicalizesampleaxisorder",
-      "parent_id": "collectposteriorsamples",
-      "name": "CanonicalizeSampleAxisOrder",
-      "description": "Convert collected sample tensor from collection-major order to chain-major order expected by downstream consumers.",
-      "concept_type": "custom",
+      "node_id": "finalizeoutputs",
+      "parent_id": "runsamplingloop",
+      "name": "FinalizeOutputs",
+      "description": "Convert collected tensor to chain-major layout and derive final run trace/statistics object.",
+      "concept_type": "analysis",
       "inputs": [
         {
-          "name": "samples_collect_major",
-          "type_desc": "Tensor[n_collect, n_chains, dim]",
-          "constraints": "Produced by collection rollout"
+          "name": "buffer_filled",
+          "type_desc": "Tensor[float; n_collect, n_chains, dim]",
+          "constraints": "fully populated"
+        },
+        {
+          "name": "trace_raw",
+          "type_desc": "object",
+          "constraints": "may include partial diagnostics and errors"
         }
       ],
       "outputs": [
         {
-          "name": "samples_chain_major",
-          "type_desc": "Tensor[n_chains, n_collect, dim]",
-          "constraints": "Axis permutation equivalent to permute([1,0,2])"
+          "name": "samples",
+          "type_desc": "Tensor[float; n_chains, n_collect, dim]",
+          "constraints": "chain-major output (permute [1,0,2])"
+        },
+        {
+          "name": "trace",
+          "type_desc": "object",
+          "constraints": "finalized diagnostics/stats for the run"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(samples_collect_major: Tensor[n_collect, n_chains, dim]) -> Tensor[n_chains, n_collect, dim]",
-      "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "assembleposteriortraceandterminalstate",
-      "parent_id": "collectposteriorsamples",
-      "name": "AssemblePosteriorTraceAndTerminalState",
-      "description": "Package reordered samples with log-probability and acceptance traces into the final trace object and expose terminal state outputs.",
-      "concept_type": "custom",
-      "inputs": [
-        {
-          "name": "samples_chain_major",
-          "type_desc": "Tensor[n_chains, n_collect, dim]",
-          "constraints": "Canonical sample ordering"
-        },
-        {
-          "name": "log_probs",
-          "type_desc": "Tensor[n_collect, n_chains] or equivalent",
-          "constraints": "Aligned with collection steps"
-        },
-        {
-          "name": "acceptance_stats",
-          "type_desc": "AcceptanceTrace",
-          "constraints": "Aligned with collection steps"
-        },
-        {
-          "name": "final_state",
-          "type_desc": "StateModelSpec",
-          "constraints": "Terminal state from rollout"
-        },
-        {
-          "name": "final_rng_state",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "Terminal RNG state from rollout"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "samples_trace",
-          "type_desc": "Trace{samples, log_probs, acceptance_stats}",
-          "constraints": "Consistent step alignment across fields"
-        },
-        {
-          "name": "final_state_out",
-          "type_desc": "StateModelSpec",
-          "constraints": "Alias of terminal state"
-        },
-        {
-          "name": "final_rng_state_out",
-          "type_desc": "RNG state or jax.random.PRNGKey",
-          "constraints": "Alias of terminal RNG state"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(samples_chain_major: Tensor[n_chains, n_collect, dim], log_probs: Tensor[n_collect, n_chains] or equivalent, acceptance_stats: AcceptanceTrace, final_state: StateModelSpec, final_rng_state: RNG state or jax.random.PRNGKey) -> tuple[Trace{samples, log_probs, acceptance_stats}, StateModelSpec, RNG state or jax.random.PRNGKey]",
+      "type_signature": "(buffer_filled: Tensor[float; n_collect, n_chains, dim], trace_raw: object) -> tuple[Tensor[float; n_chains, n_collect, dim], object]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -1216,62 +1155,107 @@
   ],
   "edges": [
     {
-      "source_id": "integrateleapfrogdynamics",
-      "target_id": "evaluateproposallogprobability",
-      "output_name": "integrated_position",
-      "input_name": "integrated_position",
+      "source_id": "preparedifferentiablestateandfirsthalfkick",
+      "target_id": "driftpositionbyfullstep",
+      "output_name": "position_ad",
+      "input_name": "position_ad",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogdynamics",
-      "target_id": "recoverproposalgradient",
-      "output_name": "final_grad_summands",
-      "input_name": "final_grad_summands",
+      "source_id": "preparedifferentiablestateandfirsthalfkick",
+      "target_id": "driftpositionbyfullstep",
+      "output_name": "momentum_half_kicked",
+      "input_name": "momentum_half_kicked",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogdynamics",
-      "target_id": "assembledetachedproposalstate",
-      "output_name": "integrated_position",
-      "input_name": "integrated_position",
+      "source_id": "driftpositionbyfullstep",
+      "target_id": "recomputegradienthalfkickcontribution",
+      "output_name": "position_advanced",
+      "input_name": "position_advanced",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogdynamics",
-      "target_id": "assembledetachedproposalstate",
-      "output_name": "integrated_momenta",
-      "input_name": "integrated_momenta",
+      "source_id": "preparedifferentiablestateandfirsthalfkick",
+      "target_id": "completemomentumkickandrefreshcarry",
+      "output_name": "momentum_half_kicked",
+      "input_name": "momentum_half_kicked",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
     },
     {
-      "source_id": "evaluateproposallogprobability",
-      "target_id": "assembledetachedproposalstate",
-      "output_name": "proposed_logp",
-      "input_name": "proposed_logp",
-      "source_type": "Tensor<B, 1>",
-      "target_type": "Tensor<B, 1>",
-      "requires_glue": false
-    },
-    {
-      "source_id": "recoverproposalgradient",
-      "target_id": "assembledetachedproposalstate",
-      "output_name": "proposed_gradient",
-      "input_name": "proposed_gradient",
+      "source_id": "driftpositionbyfullstep",
+      "target_id": "completemomentumkickandrefreshcarry",
+      "output_name": "position_advanced",
+      "input_name": "position_advanced",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
     },
     {
-      "source_id": "derivechaindimensions",
-      "target_id": "sampleinitialmomenta",
+      "source_id": "recomputegradienthalfkickcontribution",
+      "target_id": "completemomentumkickandrefreshcarry",
+      "output_name": "grad_summands",
+      "input_name": "grad_summands",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "completemomentumkickandrefreshcarry",
+      "target_id": "preparedifferentiablestateandfirsthalfkick",
+      "output_name": "position_out",
+      "input_name": "position_in",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "completemomentumkickandrefreshcarry",
+      "target_id": "preparedifferentiablestateandfirsthalfkick",
+      "output_name": "momentum_out",
+      "input_name": "momentum_in",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "completemomentumkickandrefreshcarry",
+      "target_id": "preparedifferentiablestateandfirsthalfkick",
+      "output_name": "last_grad_summands_out",
+      "input_name": "last_grad_summands",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "completemomentumkickandrefreshcarry",
+      "target_id": "computeterminallogprobandemitproposal",
+      "output_name": "position_out",
+      "input_name": "position_final",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "completemomentumkickandrefreshcarry",
+      "target_id": "computeterminallogprobandemitproposal",
+      "output_name": "momentum_out",
+      "input_name": "momentum_final",
+      "source_type": "Tensor<B, 2>",
+      "target_type": "Tensor<B, 2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infer_chain_geometry",
+      "target_id": "sample_initial_momenta",
       "output_name": "n_chains",
       "input_name": "n_chains",
       "source_type": "usize",
@@ -1279,8 +1263,8 @@
       "requires_glue": false
     },
     {
-      "source_id": "derivechaindimensions",
-      "target_id": "sampleinitialmomenta",
+      "source_id": "infer_chain_geometry",
+      "target_id": "sample_initial_momenta",
       "output_name": "dim",
       "input_name": "dim",
       "source_type": "usize",
@@ -1288,363 +1272,309 @@
       "requires_glue": false
     },
     {
-      "source_id": "derivechaindimensions",
-      "target_id": "advancehostrngstateperchain",
-      "output_name": "n_chains",
-      "input_name": "n_chains",
-      "source_type": "usize",
-      "target_type": "usize",
+      "source_id": "infer_chain_geometry",
+      "target_id": "evaluate_current_logp_and_halfstep_gradient",
+      "output_name": "positions_current",
+      "input_name": "positions_current",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
       "requires_glue": false
     },
     {
-      "source_id": "derivechaindimensions",
-      "target_id": "drawuniformthresholdsandacceptancemask",
-      "output_name": "n_chains",
-      "input_name": "n_chains",
-      "source_type": "usize",
-      "target_type": "usize",
-      "requires_glue": false
-    },
-    {
-      "source_id": "derivechaindimensions",
-      "target_id": "drawuniformthresholdsandacceptancemask",
-      "output_name": "dim",
-      "input_name": "dim",
-      "source_type": "usize",
-      "target_type": "usize",
-      "requires_glue": false
-    },
-    {
-      "source_id": "sampleinitialmomenta",
-      "target_id": "computecurrenthamiltonian",
+      "source_id": "sample_initial_momenta",
+      "target_id": "compute_current_hamiltonian",
       "output_name": "momentum_0",
       "input_name": "momentum_0",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
       "requires_glue": false
     },
     {
-      "source_id": "sampleinitialmomenta",
-      "target_id": "integrateleapfrogproposal",
+      "source_id": "evaluate_current_logp_and_halfstep_gradient",
+      "target_id": "compute_current_hamiltonian",
+      "output_name": "logp_current",
+      "input_name": "logp_current",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infer_chain_geometry",
+      "target_id": "propose_state_with_leapfrog",
+      "output_name": "positions_current",
+      "input_name": "positions_current",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "sample_initial_momenta",
+      "target_id": "propose_state_with_leapfrog",
       "output_name": "momentum_0",
       "input_name": "momentum_0",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
       "requires_glue": false
     },
     {
-      "source_id": "sampleinitialmomenta",
-      "target_id": "advancehostrngstateperchain",
-      "output_name": "rng_state_after_momentum",
-      "input_name": "rng_state_after_momentum",
-      "source_type": "RNG state or PRNGKey",
-      "target_type": "RNG state or PRNGKey",
+      "source_id": "evaluate_current_logp_and_halfstep_gradient",
+      "target_id": "propose_state_with_leapfrog",
+      "output_name": "grad_summands",
+      "input_name": "grad_summands",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
       "requires_glue": false
     },
     {
-      "source_id": "evaluatecurrentlogdensityandhalfstepgradient",
-      "target_id": "computecurrenthamiltonian",
-      "output_name": "logp_current",
-      "input_name": "logp_current",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "evaluatecurrentlogdensityandhalfstepgradient",
-      "target_id": "integrateleapfrogproposal",
-      "output_name": "half_step_grad_summands",
-      "input_name": "half_step_grad_summands",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "evaluatecurrentlogdensityandhalfstepgradient",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "logp_current",
-      "input_name": "logp_current",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "evaluatecurrentlogdensityandhalfstepgradient",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "gradient_current",
-      "input_name": "gradient_current",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "computecurrenthamiltonian",
-      "target_id": "computelogacceptanceandprobability",
-      "output_name": "h_current",
-      "input_name": "h_current",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "integrateleapfrogproposal",
-      "target_id": "computelogacceptanceandprobability",
+      "source_id": "propose_state_with_leapfrog",
+      "target_id": "compute_proposed_hamiltonian",
       "output_name": "proposed_momenta",
       "input_name": "proposed_momenta",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogproposal",
-      "target_id": "computelogacceptanceandprobability",
-      "output_name": "proposed_logp",
-      "input_name": "proposed_logp",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
+      "source_id": "propose_state_with_leapfrog",
+      "target_id": "compute_proposed_hamiltonian",
+      "output_name": "logp_proposed",
+      "input_name": "logp_proposed",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogproposal",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "proposed_position",
-      "input_name": "proposed_position",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
+      "source_id": "infer_chain_geometry",
+      "target_id": "sample_log_uniform_thresholds",
+      "output_name": "n_chains",
+      "input_name": "n_chains",
+      "source_type": "usize",
+      "target_type": "usize",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogproposal",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "proposed_logp",
-      "input_name": "proposed_logp",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
+      "source_id": "compute_current_hamiltonian",
+      "target_id": "apply_metropolis_accept_reject",
+      "output_name": "h_current",
+      "input_name": "h_current",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "integrateleapfrogproposal",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "proposed_gradient",
-      "input_name": "proposed_gradient",
-      "source_type": "Tensor[B,2]",
-      "target_type": "Tensor[B,2]",
+      "source_id": "compute_proposed_hamiltonian",
+      "target_id": "apply_metropolis_accept_reject",
+      "output_name": "h_proposed",
+      "input_name": "h_proposed",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "computelogacceptanceandprobability",
-      "target_id": "drawuniformthresholdsandacceptancemask",
+      "source_id": "sample_log_uniform_thresholds",
+      "target_id": "apply_metropolis_accept_reject",
+      "output_name": "ln_u",
+      "input_name": "ln_u",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infer_chain_geometry",
+      "target_id": "apply_metropolis_accept_reject",
+      "output_name": "positions_current",
+      "input_name": "positions_current",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "propose_state_with_leapfrog",
+      "target_id": "apply_metropolis_accept_reject",
+      "output_name": "proposed_positions",
+      "input_name": "proposed_positions",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "apply_metropolis_accept_reject",
+      "target_id": "assemble_transition_result",
+      "output_name": "positions_next",
+      "input_name": "positions_next",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluate_current_logp_and_halfstep_gradient",
+      "target_id": "assemble_transition_result",
+      "output_name": "grad_summands",
+      "input_name": "grad_summands",
+      "source_type": "Tensor<B,2>",
+      "target_type": "Tensor<B,2>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "apply_metropolis_accept_reject",
+      "target_id": "assemble_transition_result",
+      "output_name": "accept_mask",
+      "input_name": "accept_mask",
+      "source_type": "Tensor<B,1,Bool>",
+      "target_type": "Tensor<B,1,Bool>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "apply_metropolis_accept_reject",
+      "target_id": "assemble_transition_result",
       "output_name": "accept_logp",
       "input_name": "accept_logp",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "computelogacceptanceandprobability",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "accept_prob",
-      "input_name": "accept_prob",
-      "source_type": "Tensor[B,1]",
-      "target_type": "Tensor[B,1]",
+      "source_id": "compute_current_hamiltonian",
+      "target_id": "assemble_transition_result",
+      "output_name": "h_current",
+      "input_name": "h_current",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "advancehostrngstateperchain",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "rng_state_after_host_draw",
-      "input_name": "rng_state_after_host_draw",
-      "source_type": "RNG state or PRNGKey",
-      "target_type": "RNG state or PRNGKey",
+      "source_id": "compute_proposed_hamiltonian",
+      "target_id": "assemble_transition_result",
+      "output_name": "h_proposed",
+      "input_name": "h_proposed",
+      "source_type": "Tensor<B,1>",
+      "target_type": "Tensor<B,1>",
       "requires_glue": false
     },
     {
-      "source_id": "drawuniformthresholdsandacceptancemask",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "accepted",
-      "input_name": "accepted",
-      "source_type": "Tensor[B,1,Bool]",
-      "target_type": "Tensor[B,1,Bool]",
+      "source_id": "derivesamplingshape",
+      "target_id": "allocatecollectionbuffer",
+      "output_name": "n_chains",
+      "input_name": "n_chains",
+      "source_type": "int",
+      "target_type": "int",
       "requires_glue": false
     },
     {
-      "source_id": "drawuniformthresholdsandacceptancemask",
-      "target_id": "assemblenextstateandtransitionstats",
-      "output_name": "accepted_broadcast",
-      "input_name": "accepted_broadcast",
-      "source_type": "Tensor[B,2,Bool]",
-      "target_type": "Tensor[B,2,Bool]",
+      "source_id": "derivesamplingshape",
+      "target_id": "allocatecollectionbuffer",
+      "output_name": "dim",
+      "input_name": "dim",
+      "source_type": "int",
+      "target_type": "int",
       "requires_glue": false
     },
     {
-      "source_id": "initializecollectionlayout",
-      "target_id": "rolloutsamplingtrajectory",
-      "output_name": "trace_spec",
-      "input_name": "trace_spec",
-      "source_type": "TraceLayoutSpec{n_collect, n_chains, dim}",
-      "target_type": "TraceLayoutSpec{n_collect, n_chains, dim}",
+      "source_id": "allocatecollectionbuffer",
+      "target_id": "collectpostburnintrajectory",
+      "output_name": "buffer_raw",
+      "input_name": "buffer_raw",
+      "source_type": "Tensor[float; n_collect, n_chains, dim]",
+      "target_type": "Tensor[float; n_collect, n_chains, dim]",
       "requires_glue": false
     },
     {
-      "source_id": "runburnintransitions",
-      "target_id": "rolloutsamplingtrajectory",
-      "output_name": "state_after_burnin",
-      "input_name": "state_start",
+      "source_id": "derivesamplingshape",
+      "target_id": "collectpostburnintrajectory",
+      "output_name": "n_chains",
+      "input_name": "n_chains",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derivesamplingshape",
+      "target_id": "collectpostburnintrajectory",
+      "output_name": "dim",
+      "input_name": "dim",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "applyburnintransitions",
+      "target_id": "collectpostburnintrajectory",
+      "output_name": "hmc_state_burned_in",
+      "input_name": "hmc_state_burned_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
-      "source_id": "runburnintransitions",
-      "target_id": "rolloutsamplingtrajectory",
-      "output_name": "rng_state_after_burnin",
-      "input_name": "rng_state_start",
-      "source_type": "RNG state or jax.random.PRNGKey",
-      "target_type": "RNG state or jax.random.PRNGKey",
+      "source_id": "collectpostburnintrajectory",
+      "target_id": "finalizeoutputs",
+      "output_name": "buffer_filled",
+      "input_name": "buffer_filled",
+      "source_type": "Tensor[float; n_collect, n_chains, dim]",
+      "target_type": "Tensor[float; n_collect, n_chains, dim]",
       "requires_glue": false
     },
     {
-      "source_id": "rolloutsamplingtrajectory",
-      "target_id": "canonicalizesampleaxisorder",
-      "output_name": "samples_collect_major",
-      "input_name": "samples_collect_major",
-      "source_type": "Tensor[n_collect, n_chains, dim]",
-      "target_type": "Tensor[n_collect, n_chains, dim]",
+      "source_id": "collectpostburnintrajectory",
+      "target_id": "finalizeoutputs",
+      "output_name": "trace_raw",
+      "input_name": "trace_raw",
+      "source_type": "object",
+      "target_type": "object",
       "requires_glue": false
     },
     {
-      "source_id": "canonicalizesampleaxisorder",
-      "target_id": "assembleposteriortraceandterminalstate",
-      "output_name": "samples_chain_major",
-      "input_name": "samples_chain_major",
-      "source_type": "Tensor[n_chains, n_collect, dim]",
-      "target_type": "Tensor[n_chains, n_collect, dim]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "rolloutsamplingtrajectory",
-      "target_id": "assembleposteriortraceandterminalstate",
-      "output_name": "log_probs",
-      "input_name": "log_probs",
-      "source_type": "Tensor[n_collect, n_chains] or equivalent",
-      "target_type": "Tensor[n_collect, n_chains] or equivalent",
-      "requires_glue": false
-    },
-    {
-      "source_id": "rolloutsamplingtrajectory",
-      "target_id": "assembleposteriortraceandterminalstate",
-      "output_name": "acceptance_stats",
-      "input_name": "acceptance_stats",
-      "source_type": "AcceptanceTrace",
-      "target_type": "AcceptanceTrace",
-      "requires_glue": false
-    },
-    {
-      "source_id": "rolloutsamplingtrajectory",
-      "target_id": "assembleposteriortraceandterminalstate",
-      "output_name": "final_state",
-      "input_name": "final_state",
+      "source_id": "initializehmcstate",
+      "target_id": "runsamplingloop",
+      "output_name": "hmc_state_0",
+      "input_name": "hmc_state_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
-      "source_id": "rolloutsamplingtrajectory",
-      "target_id": "assembleposteriortraceandterminalstate",
-      "output_name": "final_rng_state",
-      "input_name": "final_rng_state",
-      "source_type": "RNG state or jax.random.PRNGKey",
-      "target_type": "RNG state or jax.random.PRNGKey",
+      "source_id": "initializehmcstate",
+      "target_id": "metropolishmctransition",
+      "output_name": "kernel_static",
+      "input_name": "kernel_static",
+      "source_type": "object",
+      "target_type": "object",
       "requires_glue": false
     },
     {
-      "source_id": "initializesamplerandrngstate",
-      "target_id": "collectposteriorsamples",
-      "output_name": "hmc_state",
-      "input_name": "state_in",
+      "source_id": "runsamplingloop",
+      "target_id": "metropolishmctransition",
+      "output_name": "hmc_state_in",
+      "input_name": "chain_state_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
-      "source_id": "initializesamplerandrngstate",
-      "target_id": "collectposteriorsamples",
-      "output_name": "rng_state",
-      "input_name": "rng_state_in",
-      "source_type": "RNG state or PRNGKey",
-      "target_type": "RNG state or PRNGKey",
-      "requires_glue": false
-    },
-    {
-      "source_id": "initializesamplerandrngstate",
-      "target_id": "integratehamiltonianproposal",
-      "output_name": "log_prob_oracle",
-      "input_name": "log_prob_oracle",
-      "source_type": "callable",
-      "target_type": "callable",
-      "requires_glue": false
-    },
-    {
-      "source_id": "collectposteriorsamples",
-      "target_id": "applyhmcacceptrejectkernel",
-      "output_name": "state_in",
-      "input_name": "state_in",
+      "source_id": "metropolishmctransition",
+      "target_id": "leapfrogproposalkernel",
+      "output_name": "chain_state_in",
+      "input_name": "proposal_state_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
-      "source_id": "collectposteriorsamples",
-      "target_id": "applyhmcacceptrejectkernel",
-      "output_name": "rng_state_in",
-      "input_name": "rng_state_in",
-      "source_type": "RNG state or PRNGKey",
-      "target_type": "RNG state or PRNGKey",
-      "requires_glue": false
-    },
-    {
-      "source_id": "applyhmcacceptrejectkernel",
-      "target_id": "integratehamiltonianproposal",
-      "output_name": "state_in",
-      "input_name": "state_in",
-      "source_type": "StateModelSpec{position, momenta, gradient, mass_matrix}",
-      "target_type": "StateModelSpec{position, momenta, gradient, mass_matrix}",
-      "requires_glue": false
-    },
-    {
-      "source_id": "integratehamiltonianproposal",
-      "target_id": "applyhmcacceptrejectkernel",
-      "output_name": "proposal_state",
-      "input_name": "proposal_state",
+      "source_id": "leapfrogproposalkernel",
+      "target_id": "metropolishmctransition",
+      "output_name": "proposal_state_out",
+      "input_name": "proposal_state_out",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
-      "source_id": "applyhmcacceptrejectkernel",
-      "target_id": "collectposteriorsamples",
-      "output_name": "state_out",
-      "input_name": "state_in",
+      "source_id": "metropolishmctransition",
+      "target_id": "runsamplingloop",
+      "output_name": "chain_state_out",
+      "input_name": "hmc_state_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
-      "requires_glue": false
-    },
-    {
-      "source_id": "applyhmcacceptrejectkernel",
-      "target_id": "collectposteriorsamples",
-      "output_name": "rng_state_out",
-      "input_name": "rng_state_in",
-      "source_type": "RNG state or PRNGKey",
-      "target_type": "RNG state or PRNGKey",
-      "requires_glue": false
-    },
-    {
-      "source_id": "applyhmcacceptrejectkernel",
-      "target_id": "collectposteriorsamples",
-      "output_name": "transition_stats",
-      "input_name": "samples_trace",
-      "source_type": "TraceEvent",
-      "target_type": "Trace",
       "requires_glue": false
     }
   ],

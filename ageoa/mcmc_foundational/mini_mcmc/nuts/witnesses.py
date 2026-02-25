@@ -12,22 +12,20 @@ import networkx as nx  # type: ignore
 try:
     from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
     from ageoa.ghost.abstract import AbstractDistribution
-    from ageoa.ghost.abstract import AbstractMCMCTrace
-    from ageoa.ghost.abstract import AbstractRNGState
 except ImportError:
     pass
 
-def witness_initializesampler(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
-    """Ghost witness for prior init: InitializeSampler."""
+def witness_initialize_sampler(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
+    """Ghost witness for prior init: initialize_sampler."""
     return AbstractDistribution(
         family=family,
         event_shape=event_shape,
     )
 
-def witness_runsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for MCMC sampler: RunSampler."""
-    if trace.param_dims != target.event_shape:
-        raise ValueError(
-            f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
-        )
-    return trace.step(accepted=True), rng.advance(n_draws=1)
+def witness_run_mcmc_sampler(sampler_state_in: AbstractArray, n_collect: AbstractArray, n_discard: AbstractArray) -> AbstractArray:
+    """Ghost witness for run_mcmc_sampler."""
+    result = AbstractArray(
+        shape=sampler_state_in.shape,
+        dtype="float64",
+    )
+    return result

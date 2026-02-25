@@ -1,19 +1,19 @@
 [
   {
     "pdg_node": {
-      "predicate_id": "initializesampler",
-      "statement": "(target: Callable, initial_positions: ArrayLike, target_accept_p: float, seed: int) -> SamplerState",
-      "informal_desc": "Initializes the NUTS sampler state, including the random seed, initial positions, and target acceptance probability.",
+      "predicate_id": "initialize_sampler",
+      "statement": "(target: Callable[[Array], float], initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+      "informal_desc": "Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "initializesampler",
-          "type_signature": "(target: Callable, initial_positions: ArrayLike, target_accept_p: float, seed: int) -> SamplerState",
-          "docstring": "Initializes the NUTS sampler state, including the random seed, initial positions, and target acceptance probability.",
-          "conceptual_summary": "InitializeStochasticProcessState. Packages an initial state vector, a potential function defining a high-dimensional landscape, a seed for a pseudo-random number generator, and adaptive control parameters into a single, self-contained initial state object. This object serves as the t=0 configuration for an iterative, stochastic process designed to traverse the landscape.. Applications: Initializing a molecular dynamics simulation with starting atomic coordinates, a force-field potential, and a random seed for the thermostat., Seeding the initial population and fitness function for an evolutionary algorithm searching a complex solution space., Configuring the initial state estimate and system model for a Kalman filter in autonomous vehicle navigation., Setting the starting parameters and random seed for training a generative adversarial network (GAN).",
+          "name": "initialize_sampler",
+          "type_signature": "(target: Callable[[Array], float], initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+          "docstring": "Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.",
+          "conceptual_summary": "initialize_stochastic_traversal. Configures and encapsulates the initial conditions for a stateful, iterative search or sampling process. It bundles a scalar potential function (oracle), initial search coordinates, a randomness source (PRNG), and adaptive algorithm parameters into a single, immutable state object, preparing for a subsequent traversal of a high-dimensional space.. Applications: Robotics: Initializing a motion planning search where the oracle scores paths based on collision avoidance and energy cost, and initial coordinates represent different starting joint configurations., Materials Science: Configuring a molecular dynamics simulation to find stable protein folds, where the oracle is an energy potential function and initial coordinates are starting atomic positions., Operations Research: Setting up a metaheuristic solver for a logistics problem, where the oracle scores the efficiency of a given solution and initial coordinates are randomly generated starting solutions., Generative Design: Seeding a search for optimal structural designs (e.g., for an airplane wing), where the oracle is a finite element analysis simulation that scores designs based on stress tolerance and weight, and initial coordinates are starting parameters for the geometry.",
           "source_lib": "ingester",
           "prover": "python",
           "raw_code": ""
@@ -30,10 +30,10 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "initializesampler",
-          "type_signature": "(target: Callable, initial_positions: ArrayLike, target_accept_p: float, seed: int) -> SamplerState",
-          "docstring": "Initializes the NUTS sampler state, including the random seed, initial positions, and target acceptance probability.",
-          "conceptual_summary": "InitializeStochasticProcessState. Packages an initial state vector, a potential function defining a high-dimensional landscape, a seed for a pseudo-random number generator, and adaptive control parameters into a single, self-contained initial state object. This object serves as the t=0 configuration for an iterative, stochastic process designed to traverse the landscape.. Applications: Initializing a molecular dynamics simulation with starting atomic coordinates, a force-field potential, and a random seed for the thermostat., Seeding the initial population and fitness function for an evolutionary algorithm searching a complex solution space., Configuring the initial state estimate and system model for a Kalman filter in autonomous vehicle navigation., Setting the starting parameters and random seed for training a generative adversarial network (GAN).",
+          "name": "initialize_sampler",
+          "type_signature": "(target: Callable[[Array], float], initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+          "docstring": "Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.",
+          "conceptual_summary": "initialize_stochastic_traversal. Configures and encapsulates the initial conditions for a stateful, iterative search or sampling process. It bundles a scalar potential function (oracle), initial search coordinates, a randomness source (PRNG), and adaptive algorithm parameters into a single, immutable state object, preparing for a subsequent traversal of a high-dimensional space.. Applications: Robotics: Initializing a motion planning search where the oracle scores paths based on collision avoidance and energy cost, and initial coordinates represent different starting joint configurations., Materials Science: Configuring a molecular dynamics simulation to find stable protein folds, where the oracle is an energy potential function and initial coordinates are starting atomic positions., Operations Research: Setting up a metaheuristic solver for a logistics problem, where the oracle scores the efficiency of a given solution and initial coordinates are randomly generated starting solutions., Generative Design: Seeding a search for optimal structural designs (e.g., for an airplane wing), where the oracle is a finite element analysis simulation that scores designs based on stress tolerance and weight, and initial coordinates are starting parameters for the geometry.",
           "source_lib": "ingester",
           "prover": "python",
           "raw_code": ""
@@ -46,10 +46,10 @@
       {
         "candidate": {
           "declaration": {
-            "name": "initializesampler",
-            "type_signature": "(target: Callable, initial_positions: ArrayLike, target_accept_p: float, seed: int) -> SamplerState",
-            "docstring": "Initializes the NUTS sampler state, including the random seed, initial positions, and target acceptance probability.",
-            "conceptual_summary": "InitializeStochasticProcessState. Packages an initial state vector, a potential function defining a high-dimensional landscape, a seed for a pseudo-random number generator, and adaptive control parameters into a single, self-contained initial state object. This object serves as the t=0 configuration for an iterative, stochastic process designed to traverse the landscape.. Applications: Initializing a molecular dynamics simulation with starting atomic coordinates, a force-field potential, and a random seed for the thermostat., Seeding the initial population and fitness function for an evolutionary algorithm searching a complex solution space., Configuring the initial state estimate and system model for a Kalman filter in autonomous vehicle navigation., Setting the starting parameters and random seed for training a generative adversarial network (GAN).",
+            "name": "initialize_sampler",
+            "type_signature": "(target: Callable[[Array], float], initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+            "docstring": "Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.",
+            "conceptual_summary": "initialize_stochastic_traversal. Configures and encapsulates the initial conditions for a stateful, iterative search or sampling process. It bundles a scalar potential function (oracle), initial search coordinates, a randomness source (PRNG), and adaptive algorithm parameters into a single, immutable state object, preparing for a subsequent traversal of a high-dimensional space.. Applications: Robotics: Initializing a motion planning search where the oracle scores paths based on collision avoidance and energy cost, and initial coordinates represent different starting joint configurations., Materials Science: Configuring a molecular dynamics simulation to find stable protein folds, where the oracle is an energy potential function and initial coordinates are starting atomic positions., Operations Research: Setting up a metaheuristic solver for a logistics problem, where the oracle scores the efficiency of a given solution and initial coordinates are randomly generated starting solutions., Generative Design: Seeding a search for optimal structural designs (e.g., for an airplane wing), where the oracle is a finite element analysis simulation that scores designs based on stress tolerance and weight, and initial coordinates are starting parameters for the geometry.",
             "source_lib": "ingester",
             "prover": "python",
             "raw_code": ""
@@ -68,8 +68,8 @@
   {
     "pdg_node": {
       "predicate_id": "create_progress_channels",
-      "statement": "(n_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
-      "informal_desc": "Initializes a set of sender/receiver pairs (channels) for inter-thread communication, one for each MCMC chain, to report progress statistics.",
+      "statement": "(num_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
+      "informal_desc": "Initializes sender/receiver pairs for each MCMC chain to communicate progress statistics.",
       "prover": "python",
       "context": {}
     },
@@ -77,8 +77,8 @@
       "candidate": {
         "declaration": {
           "name": "create_progress_channels",
-          "type_signature": "(n_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
-          "docstring": "Initializes a set of sender/receiver pairs (channels) for inter-thread communication, one for each MCMC chain, to report progress statistics.",
+          "type_signature": "(num_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
+          "docstring": "Initializes sender/receiver pairs for each MCMC chain to communicate progress statistics.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -97,8 +97,8 @@
       {
         "declaration": {
           "name": "create_progress_channels",
-          "type_signature": "(n_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
-          "docstring": "Initializes a set of sender/receiver pairs (channels) for inter-thread communication, one for each MCMC chain, to report progress statistics.",
+          "type_signature": "(num_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
+          "docstring": "Initializes sender/receiver pairs for each MCMC chain to communicate progress statistics.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -113,8 +113,8 @@
         "candidate": {
           "declaration": {
             "name": "create_progress_channels",
-            "type_signature": "(n_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
-            "docstring": "Initializes a set of sender/receiver pairs (channels) for inter-thread communication, one for each MCMC chain, to report progress statistics.",
+            "type_signature": "(num_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
+            "docstring": "Initializes sender/receiver pairs for each MCMC chain to communicate progress statistics.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -133,18 +133,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "launch_progress_monitor",
-      "statement": "(receivers: Vec<Receiver<ChainStats>>, n_collect: int, n_discard: int) -> ThreadHandle",
-      "informal_desc": "Spawns a background thread to aggregate progress statistics from all chains and display them using a multi-progress bar. It calculates and shows live metrics like acceptance probability and R-hat.",
+      "predicate_id": "spawn_progress_monitor_thread",
+      "statement": "(progress_receivers: Vec<Receiver<ChainStats>>, total_steps_per_chain: int) -> JoinHandle",
+      "informal_desc": "Launches a background thread that aggregates ChainStats, displays multi-bar progress, and computes real-time diagnostics like average acceptance probability and R-hat.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "launch_progress_monitor",
-          "type_signature": "(receivers: Vec<Receiver<ChainStats>>, n_collect: int, n_discard: int) -> ThreadHandle",
-          "docstring": "Spawns a background thread to aggregate progress statistics from all chains and display them using a multi-progress bar. It calculates and shows live metrics like acceptance probability and R-hat.",
+          "name": "spawn_progress_monitor_thread",
+          "type_signature": "(progress_receivers: Vec<Receiver<ChainStats>>, total_steps_per_chain: int) -> JoinHandle",
+          "docstring": "Launches a background thread that aggregates ChainStats, displays multi-bar progress, and computes real-time diagnostics like average acceptance probability and R-hat.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -162,9 +162,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "launch_progress_monitor",
-          "type_signature": "(receivers: Vec<Receiver<ChainStats>>, n_collect: int, n_discard: int) -> ThreadHandle",
-          "docstring": "Spawns a background thread to aggregate progress statistics from all chains and display them using a multi-progress bar. It calculates and shows live metrics like acceptance probability and R-hat.",
+          "name": "spawn_progress_monitor_thread",
+          "type_signature": "(progress_receivers: Vec<Receiver<ChainStats>>, total_steps_per_chain: int) -> JoinHandle",
+          "docstring": "Launches a background thread that aggregates ChainStats, displays multi-bar progress, and computes real-time diagnostics like average acceptance probability and R-hat.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -178,9 +178,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "launch_progress_monitor",
-            "type_signature": "(receivers: Vec<Receiver<ChainStats>>, n_collect: int, n_discard: int) -> ThreadHandle",
-            "docstring": "Spawns a background thread to aggregate progress statistics from all chains and display them using a multi-progress bar. It calculates and shows live metrics like acceptance probability and R-hat.",
+            "name": "spawn_progress_monitor_thread",
+            "type_signature": "(progress_receivers: Vec<Receiver<ChainStats>>, total_steps_per_chain: int) -> JoinHandle",
+            "docstring": "Launches a background thread that aggregates ChainStats, displays multi-bar progress, and computes real-time diagnostics like average acceptance probability and R-hat.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -199,18 +199,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "run_chains_in_parallel",
-      "statement": "(chains: Vec<Chain>, senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor>",
-      "informal_desc": "Executes multiple MCMC chains concurrently in separate threads. Each chain runs a sampler for a specified number of steps and sends progress updates through its designated channel.",
+      "predicate_id": "execute_chains_in_parallel",
+      "statement": "(chains: &mut [Chain], progress_senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor<B, 2>>",
+      "informal_desc": "Spawns a scoped thread for each MCMC chain, running the sampler and piping progress statistics to the monitor thread.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "run_chains_in_parallel",
-          "type_signature": "(chains: Vec<Chain>, senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor>",
-          "docstring": "Executes multiple MCMC chains concurrently in separate threads. Each chain runs a sampler for a specified number of steps and sends progress updates through its designated channel.",
+          "name": "execute_chains_in_parallel",
+          "type_signature": "(chains: &mut [Chain], progress_senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor<B, 2>>",
+          "docstring": "Spawns a scoped thread for each MCMC chain, running the sampler and piping progress statistics to the monitor thread.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -228,9 +228,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "run_chains_in_parallel",
-          "type_signature": "(chains: Vec<Chain>, senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor>",
-          "docstring": "Executes multiple MCMC chains concurrently in separate threads. Each chain runs a sampler for a specified number of steps and sends progress updates through its designated channel.",
+          "name": "execute_chains_in_parallel",
+          "type_signature": "(chains: &mut [Chain], progress_senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor<B, 2>>",
+          "docstring": "Spawns a scoped thread for each MCMC chain, running the sampler and piping progress statistics to the monitor thread.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -244,9 +244,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "run_chains_in_parallel",
-            "type_signature": "(chains: Vec<Chain>, senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor>",
-            "docstring": "Executes multiple MCMC chains concurrently in separate threads. Each chain runs a sampler for a specified number of steps and sends progress updates through its designated channel.",
+            "name": "execute_chains_in_parallel",
+            "type_signature": "(chains: &mut [Chain], progress_senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor<B, 2>>",
+            "docstring": "Spawns a scoped thread for each MCMC chain, running the sampler and piping progress statistics to the monitor thread.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -266,8 +266,8 @@
   {
     "pdg_node": {
       "predicate_id": "stack_chain_samples",
-      "statement": "(chain_samples: Vec<Tensor>) -> Tensor",
-      "informal_desc": "Merges the list of 2D sample tensors from individual chains into a single 3D tensor, where the first dimension represents the chain index.",
+      "statement": "(collected_samples: Vec<Tensor<B, 2>>) -> Tensor<B, 3>",
+      "informal_desc": "Combines the list of 2D sample tensors from each chain into a single 3D tensor, with the first dimension representing the chain index.",
       "prover": "python",
       "context": {}
     },
@@ -275,8 +275,8 @@
       "candidate": {
         "declaration": {
           "name": "stack_chain_samples",
-          "type_signature": "(chain_samples: Vec<Tensor>) -> Tensor",
-          "docstring": "Merges the list of 2D sample tensors from individual chains into a single 3D tensor, where the first dimension represents the chain index.",
+          "type_signature": "(collected_samples: Vec<Tensor<B, 2>>) -> Tensor<B, 3>",
+          "docstring": "Combines the list of 2D sample tensors from each chain into a single 3D tensor, with the first dimension representing the chain index.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -295,8 +295,8 @@
       {
         "declaration": {
           "name": "stack_chain_samples",
-          "type_signature": "(chain_samples: Vec<Tensor>) -> Tensor",
-          "docstring": "Merges the list of 2D sample tensors from individual chains into a single 3D tensor, where the first dimension represents the chain index.",
+          "type_signature": "(collected_samples: Vec<Tensor<B, 2>>) -> Tensor<B, 3>",
+          "docstring": "Combines the list of 2D sample tensors from each chain into a single 3D tensor, with the first dimension representing the chain index.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -311,8 +311,8 @@
         "candidate": {
           "declaration": {
             "name": "stack_chain_samples",
-            "type_signature": "(chain_samples: Vec<Tensor>) -> Tensor",
-            "docstring": "Merges the list of 2D sample tensors from individual chains into a single 3D tensor, where the first dimension represents the chain index.",
+            "type_signature": "(collected_samples: Vec<Tensor<B, 2>>) -> Tensor<B, 3>",
+            "docstring": "Combines the list of 2D sample tensors from each chain into a single 3D tensor, with the first dimension representing the chain index.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -331,18 +331,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "calculate_run_statistics",
-      "statement": "(stacked_samples: Tensor) -> RunStats",
-      "informal_desc": "Computes summary statistics, such as the R-hat convergence diagnostic, from the final stacked sample tensor across all chains.",
+      "predicate_id": "calculate_run_diagnostics",
+      "statement": "(posterior_samples: Tensor<B, 3>) -> RunStats",
+      "informal_desc": "Computes post-run diagnostic statistics, including the Gelman-Rubin convergence diagnostic (R-hat), from the final stacked posterior samples.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "calculate_run_statistics",
-          "type_signature": "(stacked_samples: Tensor) -> RunStats",
-          "docstring": "Computes summary statistics, such as the R-hat convergence diagnostic, from the final stacked sample tensor across all chains.",
+          "name": "calculate_run_diagnostics",
+          "type_signature": "(posterior_samples: Tensor<B, 3>) -> RunStats",
+          "docstring": "Computes post-run diagnostic statistics, including the Gelman-Rubin convergence diagnostic (R-hat), from the final stacked posterior samples.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -360,9 +360,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "calculate_run_statistics",
-          "type_signature": "(stacked_samples: Tensor) -> RunStats",
-          "docstring": "Computes summary statistics, such as the R-hat convergence diagnostic, from the final stacked sample tensor across all chains.",
+          "name": "calculate_run_diagnostics",
+          "type_signature": "(posterior_samples: Tensor<B, 3>) -> RunStats",
+          "docstring": "Computes post-run diagnostic statistics, including the Gelman-Rubin convergence diagnostic (R-hat), from the final stacked posterior samples.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -376,9 +376,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "calculate_run_statistics",
-            "type_signature": "(stacked_samples: Tensor) -> RunStats",
-            "docstring": "Computes summary statistics, such as the R-hat convergence diagnostic, from the final stacked sample tensor across all chains.",
+            "name": "calculate_run_diagnostics",
+            "type_signature": "(posterior_samples: Tensor<B, 3>) -> RunStats",
+            "docstring": "Computes post-run diagnostic statistics, including the Gelman-Rubin convergence diagnostic (R-hat), from the final stacked posterior samples.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -397,18 +397,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "finalize_run",
-      "statement": "(stacked_samples: Tensor, run_stats: RunStats, progress_handle: ThreadHandle) -> tuple[Tensor, RunStats]",
-      "informal_desc": "Waits for the progress monitoring thread to complete its execution and packages the final samples and run statistics into a single result object.",
+      "predicate_id": "join_monitor_thread",
+      "statement": "(monitor_thread_handle: JoinHandle) -> None",
+      "informal_desc": "Blocks execution until the progress monitor thread finishes, ensuring all progress reporting is complete before returning.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "finalize_run",
-          "type_signature": "(stacked_samples: Tensor, run_stats: RunStats, progress_handle: ThreadHandle) -> tuple[Tensor, RunStats]",
-          "docstring": "Waits for the progress monitoring thread to complete its execution and packages the final samples and run statistics into a single result object.",
+          "name": "join_monitor_thread",
+          "type_signature": "(monitor_thread_handle: JoinHandle) -> None",
+          "docstring": "Blocks execution until the progress monitor thread finishes, ensuring all progress reporting is complete before returning.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -426,9 +426,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "finalize_run",
-          "type_signature": "(stacked_samples: Tensor, run_stats: RunStats, progress_handle: ThreadHandle) -> tuple[Tensor, RunStats]",
-          "docstring": "Waits for the progress monitoring thread to complete its execution and packages the final samples and run statistics into a single result object.",
+          "name": "join_monitor_thread",
+          "type_signature": "(monitor_thread_handle: JoinHandle) -> None",
+          "docstring": "Blocks execution until the progress monitor thread finishes, ensuring all progress reporting is complete before returning.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -442,9 +442,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "finalize_run",
-            "type_signature": "(stacked_samples: Tensor, run_stats: RunStats, progress_handle: ThreadHandle) -> tuple[Tensor, RunStats]",
-            "docstring": "Waits for the progress monitoring thread to complete its execution and packages the final samples and run statistics into a single result object.",
+            "name": "join_monitor_thread",
+            "type_signature": "(monitor_thread_handle: JoinHandle) -> None",
+            "docstring": "Blocks execution until the progress monitor thread finishes, ensuring all progress reporting is complete before returning.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",

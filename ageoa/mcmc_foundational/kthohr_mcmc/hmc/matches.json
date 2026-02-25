@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "buildhmckernelfromlogdensityoracle",
+      "statement": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+      "informal_desc": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildhmckernelfromlogdensityoracle",
+          "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+          "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+          "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildhmckernelfromlogdensityoracle",
+          "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+          "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+          "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildhmckernelfromlogdensityoracle",
+            "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+            "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+            "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

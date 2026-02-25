@@ -10,108 +10,66 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom
+from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
-from juliacall import Main as jl
+from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
-# Witness functions should be imported from the generated witnesses module
-
-@register_atom(witness_temper)
-@icontract.require(lambda lf: lf is not None, "lf cannot be None")
-@icontract.require(lambda r: r is not None, "r cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Temper output must not be None")
-def temper(lf: Any, r: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_show)
-@icontract.require(lambda io: io is not None, "io cannot be None")
-@icontract.require(lambda l: l is not None, "l cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Show output must not be None")
-def show(io: Any, l: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_show)
-@icontract.require(lambda io: io is not None, "io cannot be None")
-@icontract.require(lambda l: l is not None, "l cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Show output must not be None")
-def show(io: Any, l: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_jitter)
-@icontract.require(lambda rng: rng is not None, "rng cannot be None")
-@icontract.require(lambda lf: lf is not None, "lf cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Jitter output must not be None")
-def jitter(rng: Any, lf: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_jitter)
-@icontract.require(lambda rng: rng is not None, "rng cannot be None")
-@icontract.require(lambda lf: lf is not None, "lf cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Jitter output must not be None")
-def jitter(rng: Any, lf: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_show)
-@icontract.require(lambda io: io is not None, "io cannot be None")
-@icontract.require(lambda l: l is not None, "l cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Show output must not be None")
-def show(io: Any, l: Any) -> Any:
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_temper)
+witness_temperingfactorcomputation = lambda *args, **kwargs: True
+witness_hamiltonianphasepointtransition = lambda *args, **kwargs: True
+@register_atom(witness_temperingfactorcomputation)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
 @icontract.require(lambda r: r is not None, "r cannot be None")
 @icontract.require(lambda step: step is not None, "step cannot be None")
 @icontract.require(lambda n_steps: n_steps is not None, "n_steps cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Temper output must not be None")
-def temper(lf: Any, r: Any, step: Any, n_steps: Any) -> Any:
+@icontract.ensure(lambda result, **kwargs: result is not None, "TemperingFactorComputation output must not be None")
+def temperingfactorcomputation(lf: object, r: object, step: object, n_steps: object) -> object:
+    """Computes a deterministic tempering multiplier across sub-steps (with bounds checking) to scale the transition strength.
+
+    Args:
+        lf: Read-only; no persistent mutation
+        r: Finite
+        step: 0 <= step <= n_steps
+        n_steps: Positive
+
+    Returns:
+        Deterministic function of inputs
+    """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(witness_step)
+@register_atom(witness_hamiltonianphasepointtransition)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
 @icontract.require(lambda h: h is not None, "h cannot be None")
 @icontract.require(lambda z: z is not None, "z cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Step output must not be None")
-def step(lf: Any, h: Any, z: Any) -> Any:
+@icontract.require(lambda tempering_scale: tempering_scale is not None, "tempering_scale cannot be None")
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "HamiltonianPhasepointTransition all outputs must not be None")
+def hamiltonianphasepointtransition(lf: object, h: object, z: object, tempering_scale: object) -> object:
+    """Executes one pure Hamiltonian transition kernel step by computing derivatives, applying step-size/tempering, and returning a new phase-point state.
+
+def hamiltonianphasepointtransition(lf, h, z, tempering_scale):
+        lf: Read-only; no persistent mutation
+        h: Immutable input state
+        z: Finite where required
+        tempering_scale: Provided by tempering computation
+
+    Returns:
+        h_next: New immutable state object (state_out)
+        is_valid: True iff finite/valid transition
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
+# duplicate future import removed
 
-from juliacall import Main as jl
+from juliacall import Main as jl  # type: ignore[import-untyped]
+# removed duplicate future import (already declared at top of file)
 
+def temperingfactorcomputation_ffi(lf: object, r: object, step: object, n_steps: object) -> object:
+    """FFI bridge to Julia implementation of TemperingFactorComputation."""
+    return jl.eval("temperingfactorcomputation(lf, r, step, n_steps)")
 
-def temper_ffi(lf, r):
-    """FFI bridge to Julia implementation of Temper."""
-    return jl.eval("temper(lf, r)")
-
-def show_ffi(io, l):
-    """FFI bridge to Julia implementation of Show."""
-    return jl.eval("show(io, l)")
-
-def show_ffi(io, l):
-    """FFI bridge to Julia implementation of Show."""
-    return jl.eval("show(io, l)")
-
-def jitter_ffi(rng, lf):
-    """FFI bridge to Julia implementation of Jitter."""
-    return jl.eval("jitter(rng, lf)")
-
-def jitter_ffi(rng, lf):
-    """FFI bridge to Julia implementation of Jitter."""
-    return jl.eval("jitter(rng, lf)")
-
-def show_ffi(io, l):
-    """FFI bridge to Julia implementation of Show."""
-    return jl.eval("show(io, l)")
-
-def temper_ffi(lf, r, step, n_steps):
-    """FFI bridge to Julia implementation of Temper."""
-    return jl.eval("temper(lf, r, step, n_steps)")
-
-def step_ffi(lf, h, z):
-    """FFI bridge to Julia implementation of Step."""
-    return jl.eval("step(lf, h, z)")
+def hamiltonianphasepointtransition_ffi(lf: object, h: object, z: object, tempering_scale: object) -> object:
+    """FFI bridge to Julia implementation of HamiltonianPhasepointTransition."""
+    return jl.eval("hamiltonianphasepointtransition(lf, h, z, tempering_scale)")

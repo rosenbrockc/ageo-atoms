@@ -9,7 +9,9 @@
       "inputs": [],
       "outputs": [],
       "status": "decomposed",
-      "children": [],
+      "children": [
+        "buildhmckernelfromlogdensityoracle"
+      ],
       "depth": 0,
       "type_signature": "",
       "matched_primitive": null,
@@ -18,6 +20,39 @@
       "is_external": false,
       "parallelizable": false,
       "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "buildhmckernelfromlogdensityoracle",
+      "parent_id": "hmc_root",
+      "name": "BuildHMCKernelFromLogDensityOracle",
+      "description": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+      "concept_type": "mcmc_kernel",
+      "inputs": [
+        {
+          "name": "target_log_kernel",
+          "type_desc": "Callable[[position], log_prob]",
+          "constraints": "Stateless oracle; no persistent writes; deterministic for fixed input."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "hmc_transition_kernel",
+          "type_desc": "Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+          "constraints": "Pure transition; consumes and returns new PRNGKey; HMCState is immutable state_in->state_out and may include position, momentum, mass_matrix, and trace diagnostics."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
       "critic_notes": "",
       "decomposition_rationale": ""
     }

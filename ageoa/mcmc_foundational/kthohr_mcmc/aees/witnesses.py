@@ -1,15 +1,13 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
+def witness_metropolishastingstransitionkernel(temper_val: AbstractArray, target_log_kernel: object, rng_key_in: AbstractArray) -> AbstractSignal:
+    """Ghost witness for MetropolisHastingsTransitionKernel.
 
-from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
+    `target_log_kernel` is a static oracle descriptor, not a streamed signal.
+    """
+    result = AbstractSignal(
+        shape=temper_val.shape,
+        dtype="float64",
+        sampling_rate=1.0,
+        domain="iteration",
+        units="state",
+    )
+    return result

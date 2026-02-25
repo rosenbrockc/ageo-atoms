@@ -1,7 +1,7 @@
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 from __future__ import annotations
-
+from typing import Any, Callable
 import numpy as np
 import torch
 import jax
@@ -15,143 +15,133 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 import ctypes
 import ctypes.util
 from pathlib import Path
-from typing import Any, Callable, TypeVar, cast
+
 
 # Witness functions should be imported from the generated witnesses module
-witness_initializesamplerandrngstate: object = object()
-witness_applyhmcacceptrejectkernel: object = object()
-witness_collectposteriorsamples: object = object()
-def initializesamplerandrngstate(target_log_prob_fn: Any, initial_positions: Any, step_size: float, n_leapfrog: int, seed: int) -> tuple[Any, Any, Any]:
-F = TypeVar("F", bound=Callable[..., Any])
 
-
-def _typed_register_atom(witness: object) -> Callable[[F], F]:
-    return cast(Callable[[F], F], register_atom(witness))
-
-@register_atom(witness_initializesamplerandrngstate)
+@register_atom(witness_initializehmcstate)  # type: ignore[name-defined, untyped-decorator]
+@icontract.require(lambda initial_positions: isinstance(initial_positions, (float, int, np.number)), "initial_positions must be numeric")
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeSamplerAndRNGState all outputs must not be None")
-def initializesamplerandrngstate(target_log_prob_fn, initial_positions, step_size: float, n_leapfrog: int, seed: int):
-    """Construct immutable HMC sampler state and initialize explicit RNG/PRNGKey state.
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeHMCState all outputs must not be None")
+def initializehmcstate(target: Callable[..., Any], initial_positions: Any, step_size: float, n_leapfrog: int, seed: int) -> tuple[Any, object]:
+    """Construct immutable HMC state and static kernel parameters, including explicit RNG state (PRNGKey/seed-derived state).
 
     Args:
-        target_log_prob_fn: pure oracle; no persistent mutation
-        initial_positions: finite numeric values
+        target: stateless density/gradient evaluator
+        initial_positions: shape fixed for chain state
         step_size: > 0
-@_typed_register_atom(witness_integratehamiltonianproposal)
-        seed: used to create RNG state / PRNGKey
+        n_leapfrog: >= 1
+        seed: optional; when provided initializes RNG state
 
     Returns:
-def integratehamiltonianproposal(state_in: Any, log_prob_oracle: Any) -> Any:
-        rng_state: threaded explicitly as input/output
-        log_prob_oracle: stateless oracle
+        hmc_state_0: contains positions, logp_current, gradient, rng_state, trace
+        kernel_static: contains target, step_size, n_leapfrog, mass_matrix (implicit or explicit)
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(witness_integratehamiltonianproposal)
-@icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
+@register_atom(witness_leapfrogproposalkernel)  # type: ignore[name-defined, untyped-decorator]
+@icontract.require(lambda proposal_state_in: proposal_state_in is not None, "proposal_state_in cannot be None")
+@icontract.require(lambda kernel_static: kernel_static is not None, "kernel_static cannot be None")
 @icontract.require(lambda log_prob_oracle: log_prob_oracle is not None, "log_prob_oracle cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "IntegrateHamiltonianProposal output must not be None")
-def integratehamiltonianproposal(state_in, log_prob_oracle):
-    """Generate deterministic HMC proposal by leapfrog integration over position and momenta using mass matrix and log-probability gradients.
-@_typed_register_atom(witness_applyhmcacceptrejectkernel)
-    Args:
-        state_in: immutable input state
-        log_prob_oracle: pure oracle evaluation
-
-def applyhmcacceptrejectkernel(state_in: Any, proposal_state: Any, rng_state_in: Any) -> tuple[Any, Any, Any]:
-        new object; no in-place updates
-    """
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_applyhmcacceptrejectkernel)
-@icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
-@icontract.require(lambda proposal_state: proposal_state is not None, "proposal_state cannot be None")
-@icontract.require(lambda rng_state_in: rng_state_in is not None, "rng_state_in cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "ApplyHMCAcceptRejectKernel all outputs must not be None")
-def applyhmcacceptrejectkernel(state_in, proposal_state, rng_state_in):
-    """Perform one HMC transition kernel step: consume current state, evaluate proposal, and return accepted/rejected next state with updated gradient.
+@icontract.ensure(lambda result, **kwargs: result is not None, "LeapfrogProposalKernel output must not be None")
+def leapfrogproposalkernel(proposal_state_in: Any, kernel_static: object, log_prob_oracle: Callable[..., Any]) -> Any:
+    """Pure Hamiltonian proposal transition: consumes current position/momenta and returns proposed position/momenta plus refreshed log-probability gradient.
 
     Args:
-        state_in: immutable chain state
-@_typed_register_atom(witness_collectposteriorsamples)
-        rng_state_in: must be explicitly consumed/split
+        proposal_state_in: contains pos, momenta, gradient, logp
+        kernel_static: uses step_size and n_leapfrog
+        log_prob_oracle: pure evaluator for logp/gradient
 
     Returns:
-        state_out: new immutable state
-        rng_state_out: advanced key/state
-def collectposteriorsamples(state_in: Any, rng_state_in: Any, n_collect: int, n_discard: int) -> tuple[Any, Any, Any]:
+        new pos, new momenta, updated logp, updated gradient
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(witness_collectposteriorsamples)
-@icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
-@icontract.require(lambda rng_state_in: rng_state_in is not None, "rng_state_in cannot be None")
+@register_atom(witness_metropolishmctransition)  # type: ignore[name-defined, untyped-decorator]
+@icontract.require(lambda chain_state_in: chain_state_in is not None, "chain_state_in cannot be None")
+@icontract.require(lambda kernel_static: kernel_static is not None, "kernel_static cannot be None")
+@icontract.require(lambda proposal_state_out: proposal_state_out is not None, "proposal_state_out cannot be None")
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "MetropolisHMCTransition all outputs must not be None")
+def metropolishmctransition(chain_state_in: Any, kernel_static: object, proposal_state_out: Any) -> tuple[Any, object]:
+    """Single pure HMC kernel step: samples fresh momenta from RNG state, invokes leapfrog proposal, performs accept/reject, and returns new immutable chain state.
+
+    Args:
+        chain_state_in: contains positions, logp_current, gradient, rng_state, trace
+        kernel_static: contains target/integrator parameters
+        proposal_state_out: from leapfrog proposal
+
+    Returns:
+        chain_state_out: updated positions/logp_current/gradient/rng_state
+        transition_stats: accept flag, acceptance prob, Hamiltonian delta
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+@register_atom(witness_runsamplingloop)  # type: ignore[name-defined, untyped-decorator]
+@icontract.require(lambda hmc_state_in: hmc_state_in is not None, "hmc_state_in cannot be None")
 @icontract.require(lambda n_collect: n_collect is not None, "n_collect cannot be None")
 @icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "CollectPosteriorSamples all outputs must not be None")
-def collectposteriorsamples(state_in, rng_state_in, n_collect: int, n_discard: int):
-    """Run burn-in and collection loops, repeatedly applying the HMC kernel and accumulating sample trace.
+@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "RunSamplingLoop all outputs must not be None")
+def runsamplingloop(hmc_state_in: Any, n_collect: int, n_discard: int) -> tuple[Any, object, Any]:
+    """Drive warmup/discard and collection iterations by repeatedly applying the HMC transition kernel; produces trace and collected samples.
 
     Args:
-        state_in: immutable chain state at loop start
-        rng_state_in: explicit stochastic state flow
+        hmc_state_in: immutable state threaded across iterations
         n_collect: >= 0
         n_discard: >= 0
 
     Returns:
-        samples_trace: immutable aggregated trace
-        final_state: latest immutable chain state
-        final_rng_state: latest explicit stochastic state
+        samples: length n_collect
+        trace: diagnostics over all iterations
+        hmc_state_out: final positions/logp_current/gradient/rng_state
     """
     raise NotImplementedError("Wire to original implementation")
 
-def initializesamplerandrngstate_ffi(target_log_prob_fn: Any, initial_positions: Any, step_size: Any, n_leapfrog: Any, seed: Any) -> Any:
+
 """Auto-generated FFI bindings for rust implementations."""
 
-# from __future__ import annotations
-    _func_name = "initializesamplerandrngstate"
+from __future__ import annotations
+
 import ctypes
 import ctypes.util
 from pathlib import Path
 
 
-def integratehamiltonianproposal_ffi(state_in: Any, log_prob_oracle: Any) -> Any:
-    """FFI bridge to Rust implementation of InitializeSamplerAndRNGState."""
+def initializehmcstate_ffi(target: Any, initial_positions: Any, step_size: Any, n_leapfrog: Any, seed: Any) -> Any:
+    """FFI bridge to Rust implementation of InitializeHMCState."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = "integratehamiltonianproposal"
+    _func_name = 'initializehmcstate'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(target_log_prob_fn, initial_positions, step_size, n_leapfrog, seed)
+    return _func(target, initial_positions, step_size, n_leapfrog, seed)
 
-def applyhmcacceptrejectkernel_ffi(state_in: Any, proposal_state: Any, rng_state_in: Any) -> Any:
-    """FFI bridge to Rust implementation of IntegrateHamiltonianProposal."""
+def leapfrogproposalkernel_ffi(proposal_state_in: Any, kernel_static: Any, log_prob_oracle: Any) -> Any:
+    """FFI bridge to Rust implementation of LeapfrogProposalKernel."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = "applyhmcacceptrejectkernel"
-    _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
-    _func.restype = ctypes.c_void_p
-    return _func(state_in, log_prob_oracle)
-
-def collectposteriorsamples_ffi(state_in: Any, rng_state_in: Any, n_collect: Any, n_discard: Any) -> Any:
-    """FFI bridge to Rust implementation of ApplyHMCAcceptRejectKernel."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = "collectposteriorsamples"
+    _func_name = 'leapfrogproposalkernel'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(state_in, proposal_state, rng_state_in)
+    return _func(proposal_state_in, kernel_static, log_prob_oracle)
 
-def collectposteriorsamples_ffi(state_in, rng_state_in, n_collect, n_discard):
-    """FFI bridge to Rust implementation of CollectPosteriorSamples."""
+def metropolishmctransition_ffi(chain_state_in: Any, kernel_static: Any, proposal_state_out: Any) -> Any:
+    """FFI bridge to Rust implementation of MetropolisHMCTransition."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'collectposteriorsamples'
+    _func_name = 'metropolishmctransition'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(state_in, rng_state_in, n_collect, n_discard)
+    return _func(chain_state_in, kernel_static, proposal_state_out)
+
+def runsamplingloop_ffi(hmc_state_in: Any, n_collect: Any, n_discard: Any) -> Any:
+    """FFI bridge to Rust implementation of RunSamplingLoop."""
+    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
+    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
+    _func_name = 'runsamplingloop'
+    _func = _lib[_func_name]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.restype = ctypes.c_void_p
+    return _func(hmc_state_in, n_collect, n_discard)

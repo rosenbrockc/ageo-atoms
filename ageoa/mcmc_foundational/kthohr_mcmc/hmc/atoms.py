@@ -10,19 +10,33 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom
+from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
 from pathlib import Path
+from typing import Any, Callable
 
+# Witness functions should be imported from the generated witnesses module
+witness_buildhmckernelfromlogdensityoracle: object = object()
+
+@register_atom(witness_buildhmckernelfromlogdensityoracle)  # type: ignore[untyped-decorator]
+@icontract.ensure(lambda result, **kwargs: result is not None, "BuildHMCKernelFromLogDensityOracle output must not be None")
+def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[Any], Any]) -> Callable[[Any, Any], tuple[Any, Any]]:
+    """Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.
+
+    Args:
+        target_log_kernel: Stateless oracle; no persistent writes; deterministic for fixed input.
+
+    Returns:
+        Pure transition; consumes and returns new PRNGKey; HMCState is immutable state_in->state_out and may include position, momentum, mass_matrix, and trace diagnostics.
+    """
+    raise NotImplementedError("Wire to original implementation")
 
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
+"""Auto-generated FFI bindings for cpp implementations."""
 
-import ctypes
-import ctypes.util
-from pathlib import Path
-
+def buildhmckernelfromlogdensityoracle_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
+    return target_log_kernel

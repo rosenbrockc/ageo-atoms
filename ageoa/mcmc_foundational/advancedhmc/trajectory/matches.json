@@ -1,18 +1,18 @@
 [
   {
     "pdg_node": {
-      "predicate_id": "show",
-      "statement": "(io: Any, s: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "build_initial_trajectory_segment",
+      "statement": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, start_state: PhasePoint, sampler: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+      "informal_desc": "Recursively constructs the first half of the trajectory tree for the current depth `j`. This is the first of two recursive calls that implement the doubling mechanism.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, s: Any) -> Any",
-          "docstring": "",
+          "name": "build_initial_trajectory_segment",
+          "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, start_state: PhasePoint, sampler: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+          "docstring": "Recursively constructs the first half of the trajectory tree for the current depth `j`. This is the first of two recursive calls that implement the doubling mechanism.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -30,9 +30,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, s: Any) -> Any",
-          "docstring": "",
+          "name": "build_initial_trajectory_segment",
+          "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, start_state: PhasePoint, sampler: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+          "docstring": "Recursively constructs the first half of the trajectory tree for the current depth `j`. This is the first of two recursive calls that implement the doubling mechanism.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -46,9 +46,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "show",
-            "type_signature": "(io: Any, s: Any) -> Any",
-            "docstring": "",
+            "name": "build_initial_trajectory_segment",
+            "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, start_state: PhasePoint, sampler: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+            "docstring": "Recursively constructs the first half of the trajectory tree for the current depth `j`. This is the first of two recursive calls that implement the doubling mechanism.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -67,18 +67,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "slicets",
-      "statement": "(s: Any, H0: Any, zcand: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "build_expansion_trajectory_segment",
+      "statement": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, initial_tree: BinaryTree, sampler_after_initial_build: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+      "informal_desc": "If the initial segment did not terminate, this recursively constructs the second half of the trajectory, starting from the edge of the first, to double the total length.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "slicets",
-          "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-          "docstring": "",
+          "name": "build_expansion_trajectory_segment",
+          "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, initial_tree: BinaryTree, sampler_after_initial_build: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+          "docstring": "If the initial segment did not terminate, this recursively constructs the second half of the trajectory, starting from the edge of the first, to double the total length.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -96,9 +96,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "slicets",
-          "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-          "docstring": "",
+          "name": "build_expansion_trajectory_segment",
+          "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, initial_tree: BinaryTree, sampler_after_initial_build: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+          "docstring": "If the initial segment did not terminate, this recursively constructs the second half of the trajectory, starting from the edge of the first, to double the total length.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -112,9 +112,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "slicets",
-            "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-            "docstring": "",
+            "name": "build_expansion_trajectory_segment",
+            "type_signature": "(rng: AbstractRNG, trajectory_params: Trajectory, hamiltonian: Hamiltonian, initial_tree: BinaryTree, sampler_after_initial_build: AbstractTrajectorySampler, direction: Int, depth: Int, initial_energy: AbstractFloat) -> tuple[BinaryTree, AbstractTrajectorySampler, Termination]",
+            "docstring": "If the initial segment did not terminate, this recursively constructs the second half of the trajectory, starting from the edge of the first, to double the total length.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -133,18 +133,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "multinomialts",
-      "statement": "(s: Any, H0: Any, zcand: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "orient_trajectory_segments",
+      "statement": "(initial_tree: BinaryTree, expansion_tree: BinaryTree, direction: Int) -> tuple[BinaryTree, BinaryTree]",
+      "informal_desc": "Determines the order of the two trajectory segments (initial and expansion) based on the direction of traversal.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "multinomialts",
-          "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-          "docstring": "",
+          "name": "orient_trajectory_segments",
+          "type_signature": "(initial_tree: BinaryTree, expansion_tree: BinaryTree, direction: Int) -> tuple[BinaryTree, BinaryTree]",
+          "docstring": "Determines the order of the two trajectory segments (initial and expansion) based on the direction of traversal.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -162,9 +162,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "multinomialts",
-          "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-          "docstring": "",
+          "name": "orient_trajectory_segments",
+          "type_signature": "(initial_tree: BinaryTree, expansion_tree: BinaryTree, direction: Int) -> tuple[BinaryTree, BinaryTree]",
+          "docstring": "Determines the order of the two trajectory segments (initial and expansion) based on the direction of traversal.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -178,9 +178,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "multinomialts",
-            "type_signature": "(s: Any, H0: Any, zcand: Any) -> Any",
-            "docstring": "",
+            "name": "orient_trajectory_segments",
+            "type_signature": "(initial_tree: BinaryTree, expansion_tree: BinaryTree, direction: Int) -> tuple[BinaryTree, BinaryTree]",
+            "docstring": "Determines the order of the two trajectory segments (initial and expansion) based on the direction of traversal.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -199,18 +199,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "combine",
-      "statement": "(rng: Any, s1: Any, s2: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "merge_trajectory_segments",
+      "statement": "(left_tree: BinaryTree, right_tree: BinaryTree, rng: AbstractRNG, sampler_after_initial_build: AbstractTrajectorySampler, sampler_after_expansion: AbstractTrajectorySampler) -> tuple[BinaryTree, AbstractTrajectorySampler]",
+      "informal_desc": "Combines the left and right trajectory subtrees into a single, larger binary tree and merges their corresponding samplers.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "merge_trajectory_segments",
+          "type_signature": "(left_tree: BinaryTree, right_tree: BinaryTree, rng: AbstractRNG, sampler_after_initial_build: AbstractTrajectorySampler, sampler_after_expansion: AbstractTrajectorySampler) -> tuple[BinaryTree, AbstractTrajectorySampler]",
+          "docstring": "Combines the left and right trajectory subtrees into a single, larger binary tree and merges their corresponding samplers.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -228,9 +228,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "merge_trajectory_segments",
+          "type_signature": "(left_tree: BinaryTree, right_tree: BinaryTree, rng: AbstractRNG, sampler_after_initial_build: AbstractTrajectorySampler, sampler_after_expansion: AbstractTrajectorySampler) -> tuple[BinaryTree, AbstractTrajectorySampler]",
+          "docstring": "Combines the left and right trajectory subtrees into a single, larger binary tree and merges their corresponding samplers.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -244,9 +244,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "combine",
-            "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-            "docstring": "",
+            "name": "merge_trajectory_segments",
+            "type_signature": "(left_tree: BinaryTree, right_tree: BinaryTree, rng: AbstractRNG, sampler_after_initial_build: AbstractTrajectorySampler, sampler_after_expansion: AbstractTrajectorySampler) -> tuple[BinaryTree, AbstractTrajectorySampler]",
+            "docstring": "Combines the left and right trajectory subtrees into a single, larger binary tree and merges their corresponding samplers.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -265,18 +265,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "combine",
-      "statement": "(zcand: Any, s1: Any, s2: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "evaluate_termination_conditions",
+      "statement": "(termination_after_initial_build: Termination, termination_after_expansion: Termination, trajectory_params: Trajectory, hamiltonian: Hamiltonian, combined_tree: BinaryTree, left_tree: BinaryTree, right_tree: BinaryTree) -> Termination",
+      "informal_desc": "Checks the No-U-Turn condition across the combined tree and aggregates this with the termination statuses from the two sub-builds.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "evaluate_termination_conditions",
+          "type_signature": "(termination_after_initial_build: Termination, termination_after_expansion: Termination, trajectory_params: Trajectory, hamiltonian: Hamiltonian, combined_tree: BinaryTree, left_tree: BinaryTree, right_tree: BinaryTree) -> Termination",
+          "docstring": "Checks the No-U-Turn condition across the combined tree and aggregates this with the termination statuses from the two sub-builds.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -294,9 +294,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "evaluate_termination_conditions",
+          "type_signature": "(termination_after_initial_build: Termination, termination_after_expansion: Termination, trajectory_params: Trajectory, hamiltonian: Hamiltonian, combined_tree: BinaryTree, left_tree: BinaryTree, right_tree: BinaryTree) -> Termination",
+          "docstring": "Checks the No-U-Turn condition across the combined tree and aggregates this with the termination statuses from the two sub-builds.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -310,9 +310,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "combine",
-            "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-            "docstring": "",
+            "name": "evaluate_termination_conditions",
+            "type_signature": "(termination_after_initial_build: Termination, termination_after_expansion: Termination, trajectory_params: Trajectory, hamiltonian: Hamiltonian, combined_tree: BinaryTree, left_tree: BinaryTree, right_tree: BinaryTree) -> Termination",
+            "docstring": "Checks the No-U-Turn condition across the combined tree and aggregates this with the termination statuses from the two sub-builds.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -331,18 +331,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "combine",
-      "statement": "(rng: Any, s1: Any, s2: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "initialize_nuts_state",
+      "statement": "(z0: PhasePoint, h: Hamiltonian, \u03c4: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
+      "informal_desc": "Initializes the state for a NUTS transition, including the initial energy, the root of the trajectory tree, the trajectory sampler, and termination criteria.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "initialize_nuts_state",
+          "type_signature": "(z0: PhasePoint, h: Hamiltonian, \u03c4: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
+          "docstring": "Initializes the state for a NUTS transition, including the initial energy, the root of the trajectory tree, the trajectory sampler, and termination criteria.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -360,9 +360,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "initialize_nuts_state",
+          "type_signature": "(z0: PhasePoint, h: Hamiltonian, \u03c4: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
+          "docstring": "Initializes the state for a NUTS transition, including the initial energy, the root of the trajectory tree, the trajectory sampler, and termination criteria.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -376,9 +376,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "combine",
-            "type_signature": "(rng: Any, s1: Any, s2: Any) -> Any",
-            "docstring": "",
+            "name": "initialize_nuts_state",
+            "type_signature": "(z0: PhasePoint, h: Hamiltonian, \u03c4: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
+            "docstring": "Initializes the state for a NUTS transition, including the initial energy, the root of the trajectory tree, the trajectory sampler, and termination criteria.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -397,18 +397,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "combine",
-      "statement": "(zcand: Any, s1: Any, s2: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "iteratively_build_proposal_tree",
+      "statement": "(rng: AbstractRNG, h: Hamiltonian, \u03c4: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
+      "informal_desc": "Executes the core NUTS logic by iteratively expanding a binary tree of states. It builds sub-trees in random directions and continues until a termination condition is met, updating a candidate state at each depth via a Metropolis-Hastings acceptance step.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "iteratively_build_proposal_tree",
+          "type_signature": "(rng: AbstractRNG, h: Hamiltonian, \u03c4: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
+          "docstring": "Executes the core NUTS logic by iteratively expanding a binary tree of states. It builds sub-trees in random directions and continues until a termination condition is met, updating a candidate state at each depth via a Metropolis-Hastings acceptance step.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -426,9 +426,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "combine",
-          "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-          "docstring": "",
+          "name": "iteratively_build_proposal_tree",
+          "type_signature": "(rng: AbstractRNG, h: Hamiltonian, \u03c4: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
+          "docstring": "Executes the core NUTS logic by iteratively expanding a binary tree of states. It builds sub-trees in random directions and continues until a termination condition is met, updating a candidate state at each depth via a Metropolis-Hastings acceptance step.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -442,9 +442,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "combine",
-            "type_signature": "(zcand: Any, s1: Any, s2: Any) -> Any",
-            "docstring": "",
+            "name": "iteratively_build_proposal_tree",
+            "type_signature": "(rng: AbstractRNG, h: Hamiltonian, \u03c4: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
+            "docstring": "Executes the core NUTS logic by iteratively expanding a binary tree of states. It builds sub-trees in random directions and continues until a termination condition is met, updating a candidate state at each depth via a Metropolis-Hastings acceptance step.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -463,18 +463,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "mh_accept",
-      "statement": "(rng: Any, s: Any, s\u2032: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "compute_nuts_transition_stats",
+      "statement": "(final_zcand: PhasePoint, final_tree: BinaryTree, H0: Real, final_depth: Int, final_termination: Termination, h: Hamiltonian, integrator_stats: dict) -> dict",
+      "informal_desc": "Computes the final energy of the chosen candidate state and aggregates all relevant statistics for the NUTS transition, such as acceptance rate, energy error, tree depth, and numerical errors.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "mh_accept",
-          "type_signature": "(rng: Any, s: Any, s\u2032: Any) -> Any",
-          "docstring": "",
+          "name": "compute_nuts_transition_stats",
+          "type_signature": "(final_zcand: PhasePoint, final_tree: BinaryTree, H0: Real, final_depth: Int, final_termination: Termination, h: Hamiltonian, integrator_stats: dict) -> dict",
+          "docstring": "Computes the final energy of the chosen candidate state and aggregates all relevant statistics for the NUTS transition, such as acceptance rate, energy error, tree depth, and numerical errors.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -492,9 +492,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "mh_accept",
-          "type_signature": "(rng: Any, s: Any, s\u2032: Any) -> Any",
-          "docstring": "",
+          "name": "compute_nuts_transition_stats",
+          "type_signature": "(final_zcand: PhasePoint, final_tree: BinaryTree, H0: Real, final_depth: Int, final_termination: Termination, h: Hamiltonian, integrator_stats: dict) -> dict",
+          "docstring": "Computes the final energy of the chosen candidate state and aggregates all relevant statistics for the NUTS transition, such as acceptance rate, energy error, tree depth, and numerical errors.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -508,9 +508,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "mh_accept",
-            "type_signature": "(rng: Any, s: Any, s\u2032: Any) -> Any",
-            "docstring": "",
+            "name": "compute_nuts_transition_stats",
+            "type_signature": "(final_zcand: PhasePoint, final_tree: BinaryTree, H0: Real, final_depth: Int, final_termination: Termination, h: Hamiltonian, integrator_stats: dict) -> dict",
+            "docstring": "Computes the final energy of the chosen candidate state and aggregates all relevant statistics for the NUTS transition, such as acceptance rate, energy error, tree depth, and numerical errors.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
@@ -529,18 +529,18 @@
   },
   {
     "pdg_node": {
-      "predicate_id": "show",
-      "statement": "(io: Any, \u03c4: Any) -> Any",
-      "informal_desc": "",
+      "predicate_id": "create_nuts_transition",
+      "statement": "(final_zcand: PhasePoint, transition_stats: dict) -> Transition",
+      "informal_desc": "Packages the final selected state and the computed statistics into a transition object, representing the result of one NUTS step.",
       "prover": "python",
       "context": {}
     },
     "verified_match": {
       "candidate": {
         "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, \u03c4: Any) -> Any",
-          "docstring": "",
+          "name": "create_nuts_transition",
+          "type_signature": "(final_zcand: PhasePoint, transition_stats: dict) -> Transition",
+          "docstring": "Packages the final selected state and the computed statistics into a transition object, representing the result of one NUTS step.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -558,9 +558,9 @@
     "all_candidates": [
       {
         "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, \u03c4: Any) -> Any",
-          "docstring": "",
+          "name": "create_nuts_transition",
+          "type_signature": "(final_zcand: PhasePoint, transition_stats: dict) -> Transition",
+          "docstring": "Packages the final selected state and the computed statistics into a transition object, representing the result of one NUTS step.",
           "conceptual_summary": "",
           "source_lib": "ingester",
           "prover": "python",
@@ -574,1791 +574,9 @@
       {
         "candidate": {
           "declaration": {
-            "name": "show",
-            "type_signature": "(io: Any, \u03c4: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "transition",
-      "statement": "(h: Any, \u03c4: Any, z: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(h: Any, \u03c4: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(h: Any, \u03c4: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "transition",
-            "type_signature": "(h: Any, \u03c4: Any, z: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "transition",
-      "statement": "(rng: Any, h: Any, \u03c4: Any, z: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(rng: Any, h: Any, \u03c4: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(rng: Any, h: Any, \u03c4: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "transition",
-            "type_signature": "(rng: Any, h: Any, \u03c4: Any, z: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "accept_phasepoint!",
-      "statement": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "accept_phasepoint!",
-          "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "accept_phasepoint!",
-          "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "accept_phasepoint!",
-            "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "accept_phasepoint!",
-      "statement": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "accept_phasepoint!",
-          "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "accept_phasepoint!",
-          "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "accept_phasepoint!",
-            "type_signature": "(z: Any, z\u2032: Any, is_accept: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "sample_phasepoint",
-      "statement": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "sample_phasepoint",
-          "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "sample_phasepoint",
-          "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "sample_phasepoint",
-            "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "randcat",
-      "statement": "(rng: Any, zs: Any, unnorm_\u2113p: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "randcat",
-          "type_signature": "(rng: Any, zs: Any, unnorm_\u2113p: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "randcat",
-          "type_signature": "(rng: Any, zs: Any, unnorm_\u2113p: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "randcat",
-            "type_signature": "(rng: Any, zs: Any, unnorm_\u2113p: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "randcat",
-      "statement": "(rng: Any, zs: Any, unnorm_\u2113P: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "randcat",
-          "type_signature": "(rng: Any, zs: Any, unnorm_\u2113P: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "randcat",
-          "type_signature": "(rng: Any, zs: Any, unnorm_\u2113P: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "randcat",
-            "type_signature": "(rng: Any, zs: Any, unnorm_\u2113P: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "sample_phasepoint",
-      "statement": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "sample_phasepoint",
-          "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "sample_phasepoint",
-          "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "sample_phasepoint",
-            "type_signature": "(rng: Any, \u03c4: Any, h: Any, z: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "generalisednouturn",
-      "statement": "(tc: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "generalisednouturn",
-          "type_signature": "(tc: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "generalisednouturn",
-          "type_signature": "(tc: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "generalisednouturn",
-            "type_signature": "(tc: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "turnstatistic",
-      "statement": "(z: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "turnstatistic",
-          "type_signature": "(z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "turnstatistic",
-          "type_signature": "(z: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "turnstatistic",
-            "type_signature": "(z: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "show",
-      "statement": "(io: Any, d: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, d: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "show",
-          "type_signature": "(io: Any, d: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "show",
-            "type_signature": "(io: Any, d: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "termination",
-      "statement": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "termination",
-          "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "termination",
-          "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "termination",
-            "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "termination",
-      "statement": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "termination",
-          "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "termination",
-          "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "termination",
-            "type_signature": "(s: Any, nt: Any, H0: Any, H\u2032: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "isterminated",
-      "statement": "(h: Any, t: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(h: Any, t: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(h: Any, t: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "isterminated",
-            "type_signature": "(h: Any, t: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "isterminated",
-      "statement": "(h: Any, t: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(h: Any, t: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(h: Any, t: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "isterminated",
-            "type_signature": "(h: Any, t: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "isterminated",
-      "statement": "(tc: Any, h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(tc: Any, h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(tc: Any, h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "isterminated",
-            "type_signature": "(tc: Any, h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "check_left_subtree",
-      "statement": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "check_left_subtree",
-          "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "check_left_subtree",
-          "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "check_left_subtree",
-            "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "check_right_subtree",
-      "statement": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "check_right_subtree",
-          "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "check_right_subtree",
-          "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "check_right_subtree",
-            "type_signature": "(h: Any, t: Any, tleft: Any, tright: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "generalised_uturn_criterion",
-      "statement": "(rho: Any, p_sharp_minus: Any, p_sharp_plus: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "generalised_uturn_criterion",
-          "type_signature": "(rho: Any, p_sharp_minus: Any, p_sharp_plus: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "generalised_uturn_criterion",
-          "type_signature": "(rho: Any, p_sharp_minus: Any, p_sharp_plus: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "generalised_uturn_criterion",
-            "type_signature": "(rho: Any, p_sharp_minus: Any, p_sharp_plus: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "isterminated",
-      "statement": "(tc: Any, h: Any, t: Any, _tleft: Any, _tright: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(tc: Any, h: Any, t: Any, _tleft: Any, _tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "isterminated",
-          "type_signature": "(tc: Any, h: Any, t: Any, _tleft: Any, _tright: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "isterminated",
-            "type_signature": "(tc: Any, h: Any, t: Any, _tleft: Any, _tright: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "build_tree",
-      "statement": "(rng: Any, nt: Any, h: Any, z: Any, sampler: Any, v: Any, j: Any, H0: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "build_tree",
-          "type_signature": "(rng: Any, nt: Any, h: Any, z: Any, sampler: Any, v: Any, j: Any, H0: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "build_tree",
-          "type_signature": "(rng: Any, nt: Any, h: Any, z: Any, sampler: Any, v: Any, j: Any, H0: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "build_tree",
-            "type_signature": "(rng: Any, nt: Any, h: Any, z: Any, sampler: Any, v: Any, j: Any, H0: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "transition",
-      "statement": "(rng: Any, h: Any, \u03c4: Any, z0: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(rng: Any, h: Any, \u03c4: Any, z0: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "transition",
-          "type_signature": "(rng: Any, h: Any, \u03c4: Any, z0: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "transition",
-            "type_signature": "(rng: Any, h: Any, \u03c4: Any, z0: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "a",
-      "statement": "(h: Any, z: Any, \u03f5: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "a",
-          "type_signature": "(h: Any, z: Any, \u03f5: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "a",
-          "type_signature": "(h: Any, z: Any, \u03f5: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "a",
-            "type_signature": "(h: Any, z: Any, \u03f5: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "find_good_stepsize",
-      "statement": "(rng: Any, h: Any, \u03b8: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "find_good_stepsize",
-          "type_signature": "(rng: Any, h: Any, \u03b8: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "find_good_stepsize",
-          "type_signature": "(rng: Any, h: Any, \u03b8: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "find_good_stepsize",
-            "type_signature": "(rng: Any, h: Any, \u03b8: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "find_good_stepsize",
-      "statement": "(h: Any, \u03b8: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "find_good_stepsize",
-          "type_signature": "(h: Any, \u03b8: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "find_good_stepsize",
-          "type_signature": "(h: Any, \u03b8: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "find_good_stepsize",
-            "type_signature": "(h: Any, \u03b8: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "mh_accept_ratio",
-      "statement": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "mh_accept_ratio",
-          "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "mh_accept_ratio",
-          "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "mh_accept_ratio",
-            "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-            "docstring": "",
-            "conceptual_summary": "",
-            "source_lib": "ingester",
-            "prover": "python",
-            "raw_code": ""
-          },
-          "score": 1.0,
-          "retrieval_method": "ingester"
-        },
-        "verified": true,
-        "compiler_output": "",
-        "proof_term": "",
-        "error_message": "",
-        "verification_level": "type_checked"
-      }
-    ]
-  },
-  {
-    "pdg_node": {
-      "predicate_id": "mh_accept_ratio",
-      "statement": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-      "informal_desc": "",
-      "prover": "python",
-      "context": {}
-    },
-    "verified_match": {
-      "candidate": {
-        "declaration": {
-          "name": "mh_accept_ratio",
-          "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      },
-      "verified": true,
-      "compiler_output": "",
-      "proof_term": "",
-      "error_message": "",
-      "verification_level": "type_checked"
-    },
-    "all_candidates": [
-      {
-        "declaration": {
-          "name": "mh_accept_ratio",
-          "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-          "docstring": "",
-          "conceptual_summary": "",
-          "source_lib": "ingester",
-          "prover": "python",
-          "raw_code": ""
-        },
-        "score": 1.0,
-        "retrieval_method": "ingester"
-      }
-    ],
-    "all_verifications": [
-      {
-        "candidate": {
-          "declaration": {
-            "name": "mh_accept_ratio",
-            "type_signature": "(rng: Any, Horiginal: Any, Hproposal: Any) -> Any",
-            "docstring": "",
+            "name": "create_nuts_transition",
+            "type_signature": "(final_zcand: PhasePoint, transition_stats: dict) -> Transition",
+            "docstring": "Packages the final selected state and the computed statistics into a transition object, representing the result of one NUTS step.",
             "conceptual_summary": "",
             "source_lib": "ingester",
             "prover": "python",
