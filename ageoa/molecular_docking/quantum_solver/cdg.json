@@ -110,7 +110,7 @@
       "inputs": [
         {
           "name": "graph",
-          "type_desc": "nx.Graph",
+          "type_desc": "object",
           "constraints": "Graph with 'weight' attribute on nodes."
         }
       ],
@@ -244,7 +244,7 @@
         },
         {
           "name": "graph",
-          "type_desc": "nx.Graph",
+          "type_desc": "object",
           "constraints": "The problem graph defining connectivity."
         }
       ],

@@ -38,12 +38,12 @@
         },
         {
           "name": "target_log_kernel",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure function handle used for target log-kernel evaluation."
         },
         {
           "name": "rng_key_in",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Thread explicitly for purity when stochastic proposal/acceptance draws are used."
         }
       ],
@@ -55,7 +55,7 @@
         },
         {
           "name": "rng_key_out",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "New key/state after any random draws."
         }
       ],
@@ -96,7 +96,7 @@
       "outputs": [
         {
           "name": "n_vals",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "Equals BMO_MATOPS_SIZE(X_prev)."
         }
       ],
@@ -122,12 +122,12 @@
       "inputs": [
         {
           "name": "n_vals",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "Positive dimension for the perturbation vector."
         },
         {
           "name": "rng_key_in",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Deterministic RNG state input."
         }
       ],
@@ -139,7 +139,7 @@
         },
         {
           "name": "rng_key_after_normal",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Updated RNG state after normal draw."
         }
       ],
@@ -170,7 +170,7 @@
         },
         {
           "name": "temper_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Must be > 0 for sqrt and division."
         },
         {
@@ -213,12 +213,12 @@
       "inputs": [
         {
           "name": "target_log_kernel",
-          "type_desc": "callable (ColVec_t, void*) -> fp_t",
+          "type_desc": "Callable",
           "constraints": "Deterministic for same inputs."
         },
         {
           "name": "target_data",
-          "type_desc": "void*",
+          "type_desc": "object",
           "constraints": "Opaque context passed through unchanged."
         },
         {
@@ -235,12 +235,12 @@
       "outputs": [
         {
           "name": "val_new",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "target_log_kernel(X_new, target_data)."
         },
         {
           "name": "val_prev",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "target_log_kernel(X_prev, target_data)."
         }
       ],
@@ -266,24 +266,24 @@
       "inputs": [
         {
           "name": "val_new",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Log-kernel at proposal."
         },
         {
           "name": "val_prev",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Log-kernel at current state."
         },
         {
           "name": "temper_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Must be > 0."
         }
       ],
       "outputs": [
         {
           "name": "comp_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "min(0.01, (val_new - val_prev) / temper_val)."
         }
       ],
@@ -309,19 +309,19 @@
       "inputs": [
         {
           "name": "rng_key_in",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "RNG state after normal draw."
         }
       ],
       "outputs": [
         {
           "name": "z",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Uniform random variate in [0, 1)."
         },
         {
           "name": "rng_key_out",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Updated RNG state after uniform draw."
         }
       ],
@@ -347,12 +347,12 @@
       "inputs": [
         {
           "name": "z",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Uniform threshold."
         },
         {
           "name": "comp_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Clipped log-acceptance score."
         },
         {
@@ -367,19 +367,19 @@
         },
         {
           "name": "val_new",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Log-kernel at proposed state."
         },
         {
           "name": "val_prev",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "Log-kernel at current state."
         }
       ],
       "outputs": [
         {
           "name": "mh_step_state_out",
-          "type_desc": "object { x_next: ColVec_t, log_kernel_val: fp_t, accepted: bool }",
+          "type_desc": "object",
           "constraints": "If z < exp(comp_val): {X_new, val_new, true}; else {X_prev, val_prev, false}."
         }
       ],

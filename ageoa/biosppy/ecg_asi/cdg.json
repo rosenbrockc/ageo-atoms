@@ -32,7 +32,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "1-D or compatible signal shape; finite values preferred"
         },
         {
@@ -49,7 +49,7 @@
       "outputs": [
         {
           "name": "segments",
-          "type_desc": "segmentation result (e.g., intervals, labels, or mask)",
+          "type_desc": "object",
           "constraints": "derived deterministically from inputs"
         }
       ],
@@ -81,7 +81,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "length >= 2"
         },
         {
@@ -134,7 +134,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "length > Nd + 1"
         },
         {
@@ -146,7 +146,7 @@
       "outputs": [
         {
           "name": "squared_ddiff",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "non-negative values"
         }
       ],
@@ -172,7 +172,7 @@
       "inputs": [
         {
           "name": "squared_ddiff",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "finite values"
         },
         {
@@ -184,7 +184,7 @@
       "outputs": [
         {
           "name": "processed_ecg",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "same length as squared_ddiff after lfilter"
         }
       ],
@@ -210,7 +210,7 @@
       "inputs": [
         {
           "name": "processed_ecg",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "indexable over detection range"
         },
         {
@@ -237,7 +237,7 @@
       "outputs": [
         {
           "name": "rpeaks",
-          "type_desc": "list of int",
+          "type_desc": "list[int]",
           "constraints": "detected peak indices in ascending append order"
         }
       ],
@@ -263,14 +263,14 @@
       "inputs": [
         {
           "name": "rpeaks",
-          "type_desc": "list of int",
+          "type_desc": "list[int]",
           "constraints": "possibly empty"
         }
       ],
       "outputs": [
         {
           "name": "segments",
-          "type_desc": "ReturnTuple-like object containing rpeaks",
+          "type_desc": "object",
           "constraints": "field name is 'rpeaks'"
         }
       ],

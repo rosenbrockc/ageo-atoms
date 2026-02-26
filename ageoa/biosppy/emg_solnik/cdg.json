@@ -32,12 +32,12 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "1D time-series samples"
         },
         {
           "name": "rest",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "baseline/rest segment used to calibrate detection"
         },
         {
@@ -59,7 +59,7 @@
       "outputs": [
         {
           "name": "onset_indices",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "indices marking detected onsets that satisfy threshold and duration criteria"
         }
       ],
@@ -92,12 +92,12 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "must not be null"
         },
         {
           "name": "rest",
-          "type_desc": "array-like or dict",
+          "type_desc": "object",
           "constraints": "must not be null"
         },
         {
@@ -119,12 +119,12 @@
       "outputs": [
         {
           "name": "validated_signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "non-null"
         },
         {
           "name": "validated_rest",
-          "type_desc": "array-like or dict",
+          "type_desc": "object",
           "constraints": "non-null"
         },
         {
@@ -160,12 +160,12 @@
       "inputs": [
         {
           "name": "validated_rest",
-          "type_desc": "array-like or dict",
+          "type_desc": "object",
           "constraints": "if array/list: length >= 2; if dict: keys mean and std_dev"
         },
         {
           "name": "validated_signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "required when rest is a [start, end] segment spec"
         }
       ],
@@ -203,14 +203,14 @@
       "inputs": [
         {
           "name": "validated_signal",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "non-empty numeric sequence"
         }
       ],
       "outputs": [
         {
           "name": "signal_zero_mean",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "same length as input"
         }
       ],
@@ -279,7 +279,7 @@
       "inputs": [
         {
           "name": "signal_zero_mean",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "length >= 3 for k-1,k,k+1 access"
         },
         {
@@ -296,17 +296,17 @@
       "outputs": [
         {
           "name": "tf_sequence",
-          "type_desc": "array-like numeric sequence",
+          "type_desc": "np.ndarray",
           "constraints": "length len(signal_zero_mean)-2; non-negative due to abs"
         },
         {
           "name": "onset_time_list",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "indices where active-state onset confirmed"
         },
         {
           "name": "offset_time_list",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "indices where inactive-state offset confirmed"
         }
       ],
@@ -332,19 +332,19 @@
       "inputs": [
         {
           "name": "onset_time_list",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "may be empty"
         },
         {
           "name": "offset_time_list",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "may be empty"
         }
       ],
       "outputs": [
         {
           "name": "onset_indices",
-          "type_desc": "array-like integer indices",
+          "type_desc": "np.ndarray",
           "constraints": "sorted unique union of both lists"
         }
       ],

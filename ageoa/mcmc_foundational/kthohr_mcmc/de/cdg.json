@@ -32,14 +32,14 @@
       "inputs": [
         {
           "name": "target_log_kernel",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Stateless log-density oracle; no persistent state mutation."
         }
       ],
       "outputs": [
         {
           "name": "de_kernel",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure transition function; any stochastic state (e.g., RNG/PRNGKey) must be explicit input/output."
         }
       ],

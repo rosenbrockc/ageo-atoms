@@ -33,19 +33,19 @@
       "inputs": [
         {
           "name": "prediction",
-          "type_desc": "model prediction input",
+          "type_desc": "object",
           "constraints": "isinstance(x, dict)"
         },
         {
           "name": "raw_signal",
-          "type_desc": "raw signal input",
+          "type_desc": "np.ndarray",
           "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "wrapper_output",
-          "type_desc": "computed wrapper result",
+          "type_desc": "object",
           "constraints": "Deterministic for identical inputs"
         }
       ],
@@ -76,14 +76,14 @@
       "inputs": [
         {
           "name": "prediction",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "1D numeric sequence"
         }
       ],
       "outputs": [
         {
           "name": "normalized_prediction",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "same length as prediction"
         }
       ],
@@ -109,12 +109,12 @@
       "inputs": [
         {
           "name": "normalized_prediction",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "1D normalized scores"
         },
         {
           "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "same length as normalized_prediction"
         }
       ],
@@ -152,7 +152,7 @@
         },
         {
           "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "indexable at candidate positions"
         }
       ],
@@ -190,14 +190,14 @@
         },
         {
           "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "indexable at all provided indices"
         }
       ],
       "outputs": [
         {
           "name": "wrapper_output",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "final positive-amplitude peak indices"
         }
       ],
@@ -223,14 +223,14 @@
       "inputs": [
         {
           "name": "arr",
-          "type_desc": "array-like numeric values",
+          "type_desc": "np.ndarray",
           "constraints": "Finite numeric values"
         }
       ],
       "outputs": [
         {
           "name": "normalized_arr",
-          "type_desc": "array-like numeric values",
+          "type_desc": "np.ndarray",
           "constraints": "Same shape as input"
         }
       ],

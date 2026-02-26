@@ -38,12 +38,12 @@
         },
         {
           "name": "log_prior_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure log-probability oracle; no persistent state writes."
         },
         {
           "name": "log_lik_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure likelihood/log-likelihood oracle; no persistent state writes."
         },
         {
@@ -58,12 +58,12 @@
         },
         {
           "name": "seed",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Explicit stochastic input; treated as immutable RNG state."
         },
         {
           "name": "var_param_inits",
-          "type_desc": "dict | None",
+          "type_desc": "Optional[dict]",
           "constraints": "Optional initial latent mean/scale values."
         },
         {
@@ -90,12 +90,12 @@
         },
         {
           "name": "objective_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure divergence-minimization objective closure."
         },
         {
           "name": "rng_state_out",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Advanced RNG state returned as new immutable value."
         }
       ],
@@ -136,12 +136,12 @@
       "outputs": [
         {
           "name": "flat_theta_template",
-          "type_desc": "jnp.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "1D unconstrained latent template; length defines latent_dim."
         },
         {
           "name": "shape_summary",
-          "type_desc": "flatten/reconstruct metadata",
+          "type_desc": "object",
           "constraints": "Compatible with reconstruct(..., summary, jnp.reshape)."
         }
       ],
@@ -167,12 +167,12 @@
       "inputs": [
         {
           "name": "flat_theta_template",
-          "type_desc": "jnp.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Provides latent_dim for noise shape."
         },
         {
           "name": "shape_summary",
-          "type_desc": "flatten/reconstruct metadata",
+          "type_desc": "object",
           "constraints": "Passed through to objective evaluation."
         },
         {
@@ -182,17 +182,17 @@
         },
         {
           "name": "log_lik_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Accepts parameter dict and returns scalar log likelihood."
         },
         {
           "name": "log_prior_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Accepts parameter dict and returns scalar log prior."
         },
         {
           "name": "seed",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Deterministically initializes Monte Carlo draws."
         },
         {
@@ -204,12 +204,12 @@
       "outputs": [
         {
           "name": "objective_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Maps flattened variational parameters to scalar objective."
         },
         {
           "name": "rng_state_after_objective_init",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Represents RNG progression after fixed-noise generation."
         }
       ],
@@ -235,7 +235,7 @@
       "inputs": [
         {
           "name": "flat_theta_template",
-          "type_desc": "jnp.ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Determines latent_dim."
         },
         {
@@ -245,7 +245,7 @@
         },
         {
           "name": "rng_state_after_objective_init",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Used as RNG source for initialization draws."
         }
       ],
@@ -257,7 +257,7 @@
         },
         {
           "name": "rng_state_out",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Represents RNG progression after variational init sampling."
         }
       ],
@@ -283,7 +283,7 @@
       "inputs": [
         {
           "name": "objective_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Differentiable objective over flattened variational parameters."
         },
         {
@@ -305,7 +305,7 @@
       "outputs": [
         {
           "name": "opt_result",
-          "type_desc": "optimizer result object",
+          "type_desc": "object",
           "constraints": "Must expose optimized vector in .x."
         }
       ],
@@ -331,12 +331,12 @@
       "inputs": [
         {
           "name": "opt_result",
-          "type_desc": "optimizer result object",
+          "type_desc": "object",
           "constraints": "opt_result.x reshape-compatible with (2, latent_dim)."
         },
         {
           "name": "shape_summary",
-          "type_desc": "flatten/reconstruct metadata",
+          "type_desc": "object",
           "constraints": "Used to map flat vectors back to parameter dicts."
         }
       ],
@@ -389,17 +389,17 @@
         },
         {
           "name": "opt_result",
-          "type_desc": "optimizer result object",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "objective_fun",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "callable(x)"
         },
         {
           "name": "shape_summary",
-          "type_desc": "flatten/reconstruct metadata",
+          "type_desc": "object",
           "constraints": "isinstance(x, str)"
         },
         {
@@ -457,7 +457,7 @@
         },
         {
           "name": "n_draws",
-          "type_desc": "int | None",
+          "type_desc": "Optional[int]",
           "constraints": "If None, no sampling is performed."
         }
       ],
@@ -510,24 +510,24 @@
         },
         {
           "name": "fun_to_apply",
-          "type_desc": "callable | None",
+          "type_desc": "Optional[Callable]",
           "constraints": "Optional pure transformation over sampled draws."
         },
         {
           "name": "rng_state_in",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Explicit stochastic input for reproducible sampling."
         }
       ],
       "outputs": [
         {
           "name": "posterior_draws",
-          "type_desc": "array | dict[str, array]",
+          "type_desc": "object",
           "constraints": "Samples in constrained parameter space (or transformed output)."
         },
         {
           "name": "rng_state_out",
-          "type_desc": "int | PRNGKey-like RNG state",
+          "type_desc": "object",
           "constraints": "Advanced RNG state returned as new immutable value."
         }
       ],
@@ -605,14 +605,14 @@
         },
         {
           "name": "fun_to_apply",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Callable on constrained draw dict; identity by default."
         }
       ],
       "outputs": [
         {
           "name": "per_draw_transform_fn",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Maps cur_draw -> transformed result (array or dict)."
         }
       ],
@@ -643,14 +643,14 @@
         },
         {
           "name": "per_draw_transform_fn",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure per-draw mapping from unconstrained draw dict to output representation."
         }
       ],
       "outputs": [
         {
           "name": "posterior_draws",
-          "type_desc": "np.ndarray | dict[str, np.ndarray]",
+          "type_desc": "object",
           "constraints": "Structure depends on fun_to_apply output."
         }
       ],

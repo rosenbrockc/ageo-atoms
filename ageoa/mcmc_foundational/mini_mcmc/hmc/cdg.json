@@ -35,12 +35,12 @@
       "inputs": [
         {
           "name": "target",
-          "type_desc": "callable log_prob oracle",
+          "type_desc": "Callable",
           "constraints": "stateless density/gradient evaluator"
         },
         {
           "name": "initial_positions",
-          "type_desc": "array[float]",
+          "type_desc": "np.ndarray",
           "constraints": "shape fixed for chain state"
         },
         {
@@ -103,7 +103,7 @@
         },
         {
           "name": "log_prob_oracle",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "pure evaluator for logp/gradient"
         }
       ],
@@ -142,29 +142,29 @@
       "inputs": [
         {
           "name": "position_in",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Current position carry"
         },
         {
           "name": "momentum_in",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Current momentum carry"
         },
         {
           "name": "last_grad_summands",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Scaled gradient half-step from previous state"
         }
       ],
       "outputs": [
         {
           "name": "position_ad",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Detached and require_grad-enabled"
         },
         {
           "name": "momentum_half_kicked",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "After first half-step kick"
         }
       ],
@@ -190,24 +190,24 @@
       "inputs": [
         {
           "name": "position_ad",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "AD-enabled position from current iteration"
         },
         {
           "name": "momentum_half_kicked",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Momentum after first half-kick"
         },
         {
           "name": "step_size",
-          "type_desc": "T",
+          "type_desc": "float",
           "constraints": "Leapfrog integration step size"
         }
       ],
       "outputs": [
         {
           "name": "position_advanced",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Full-step updated, detached, require_grad-enabled"
         }
       ],
@@ -233,29 +233,29 @@
       "inputs": [
         {
           "name": "position_advanced",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "AD-enabled post-drift position"
         },
         {
           "name": "log_prob_oracle",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Computes unnormalized batch log-probability"
         },
         {
           "name": "step_size",
-          "type_desc": "T",
+          "type_desc": "float",
           "constraints": "Leapfrog integration step size"
         }
       ],
       "outputs": [
         {
           "name": "logp_step",
-          "type_desc": "Tensor<B, 1>",
+          "type_desc": "Tensor",
           "constraints": "Log-probability at advanced position"
         },
         {
           "name": "grad_summands",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Gradient scaled by step_size * 0.5"
         }
       ],
@@ -281,34 +281,34 @@
       "inputs": [
         {
           "name": "position_advanced",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Post-drift position"
         },
         {
           "name": "momentum_half_kicked",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Momentum after first half-kick"
         },
         {
           "name": "grad_summands",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "New scaled gradient half-step"
         }
       ],
       "outputs": [
         {
           "name": "position_out",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Position carry for next leapfrog iteration"
         },
         {
           "name": "momentum_out",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Momentum carry for next leapfrog iteration"
         },
         {
           "name": "last_grad_summands_out",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Gradient carry for next leapfrog iteration"
         }
       ],
@@ -334,17 +334,17 @@
       "inputs": [
         {
           "name": "position_final",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Output position after final iteration"
         },
         {
           "name": "momentum_final",
-          "type_desc": "Tensor<B, 2>",
+          "type_desc": "Tensor",
           "constraints": "Output momentum after final iteration"
         },
         {
           "name": "log_prob_oracle",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Computes unnormalized batch log-probability"
         }
       ],
@@ -442,17 +442,17 @@
       "outputs": [
         {
           "name": "n_chains",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "> 0"
         },
         {
           "name": "dim",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "> 0"
         },
         {
           "name": "positions_current",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         }
       ],
@@ -478,12 +478,12 @@
       "inputs": [
         {
           "name": "n_chains",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "matches positions batch size"
         },
         {
           "name": "dim",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "matches positions feature size"
         },
         {
@@ -495,7 +495,7 @@
       "outputs": [
         {
           "name": "momentum_0",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim], iid Normal(0,1)"
         }
       ],
@@ -521,7 +521,7 @@
       "inputs": [
         {
           "name": "positions_current",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
@@ -533,12 +533,12 @@
       "outputs": [
         {
           "name": "logp_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "grad_summands",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim], equals 0.5*step_size*grad(logp_current)"
         }
       ],
@@ -564,24 +564,24 @@
       "inputs": [
         {
           "name": "momentum_0",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "logp_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
       "outputs": [
         {
           "name": "ke_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains], 0.5*sum_d p_d^2"
         },
         {
           "name": "h_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
@@ -607,17 +607,17 @@
       "inputs": [
         {
           "name": "positions_current",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "momentum_0",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "grad_summands",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "half-step gradient term needed by integrator state"
         },
         {
@@ -629,17 +629,17 @@
       "outputs": [
         {
           "name": "proposed_positions",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "proposed_momenta",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "logp_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
@@ -665,24 +665,24 @@
       "inputs": [
         {
           "name": "proposed_momenta",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "logp_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
       "outputs": [
         {
           "name": "ke_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "h_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
@@ -708,7 +708,7 @@
       "inputs": [
         {
           "name": "n_chains",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "number of chains"
         },
         {
@@ -720,7 +720,7 @@
       "outputs": [
         {
           "name": "ln_u",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains], ln(u), u~Uniform(0,1)"
         }
       ],
@@ -746,44 +746,44 @@
       "inputs": [
         {
           "name": "h_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "h_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "ln_u",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "positions_current",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "proposed_positions",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         }
       ],
       "outputs": [
         {
           "name": "positions_next",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "accept_mask",
-          "type_desc": "Tensor<B,1,Bool>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "accept_logp",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains], equals h_current - h_proposed"
         }
       ],
@@ -814,32 +814,32 @@
         },
         {
           "name": "positions_next",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains, dim]"
         },
         {
           "name": "grad_summands",
-          "type_desc": "Tensor<B,2>",
+          "type_desc": "Tensor",
           "constraints": "cached gradient half-step term"
         },
         {
           "name": "accept_mask",
-          "type_desc": "Tensor<B,1,Bool>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "accept_logp",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "h_current",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         },
         {
           "name": "h_proposed",
-          "type_desc": "Tensor<B,1>",
+          "type_desc": "Tensor",
           "constraints": "shape [n_chains]"
         }
       ],
@@ -894,7 +894,7 @@
       "outputs": [
         {
           "name": "samples",
-          "type_desc": "array[float]",
+          "type_desc": "np.ndarray",
           "constraints": "length n_collect"
         },
         {

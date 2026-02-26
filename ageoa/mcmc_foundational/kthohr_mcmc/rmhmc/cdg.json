@@ -32,19 +32,19 @@
       "inputs": [
         {
           "name": "target_log_kernel",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure oracle-style log-density/log-kernel evaluator; no persistent state mutation."
         },
         {
           "name": "tensor_fn",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure oracle-style metric/tensor evaluator compatible with RMHMC geometry."
         }
       ],
       "outputs": [
         {
           "name": "rmhmc_transition_kernel",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "Pure MCMC transition function that consumes explicit state (including PRNGKey) and returns a new state object."
         }
       ],

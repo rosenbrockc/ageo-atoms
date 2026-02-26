@@ -33,7 +33,7 @@
       "inputs": [
         {
           "name": "target",
-          "type_desc": "Callable oracle: position -> log_prob",
+          "type_desc": "Callable",
           "constraints": "Pure/stateless likelihood or log-density evaluator"
         },
         {
@@ -55,7 +55,7 @@
       "outputs": [
         {
           "name": "nuts_state",
-          "type_desc": "StateModelSpec{position, momentum, mass_matrix, trace}",
+          "type_desc": "object",
           "constraints": "Immutable state object; no hidden mutation"
         },
         {
@@ -86,7 +86,7 @@
       "inputs": [
         {
           "name": "nuts_state_in",
-          "type_desc": "StateModelSpec{position, momentum, mass_matrix, trace}",
+          "type_desc": "object",
           "constraints": "Input state is immutable"
         },
         {
@@ -118,7 +118,7 @@
         },
         {
           "name": "nuts_state_out",
-          "type_desc": "StateModelSpec{position, momentum, mass_matrix, trace}",
+          "type_desc": "object",
           "constraints": "New immutable state object"
         },
         {
@@ -157,19 +157,19 @@
       "inputs": [
         {
           "name": "chain_count",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": ">= 1"
         }
       ],
       "outputs": [
         {
           "name": "stats_receivers",
-          "type_desc": "Vec<Receiver<ChainStats>>",
+          "type_desc": "object",
           "constraints": "length == chain_count"
         },
         {
           "name": "stats_senders",
-          "type_desc": "Vec<Sender<ChainStats>>",
+          "type_desc": "object",
           "constraints": "length == chain_count"
         }
       ],
@@ -195,24 +195,24 @@
       "inputs": [
         {
           "name": "stats_receivers",
-          "type_desc": "Vec<Receiver<ChainStats>>",
+          "type_desc": "object",
           "constraints": "all channels correspond to active chains"
         },
         {
           "name": "n_collect",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": ">= 0"
         },
         {
           "name": "n_discard",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": ">= 0"
         }
       ],
       "outputs": [
         {
           "name": "progress_handle",
-          "type_desc": "JoinHandle<()>",
+          "type_desc": "object",
           "constraints": "joinable after worker completion"
         }
       ],
@@ -238,29 +238,29 @@
       "inputs": [
         {
           "name": "chains",
-          "type_desc": "Vec<Chain<B>>",
+          "type_desc": "object",
           "constraints": "mutable access required"
         },
         {
           "name": "stats_senders",
-          "type_desc": "Vec<Sender<ChainStats>>",
+          "type_desc": "object",
           "constraints": "one sender per chain"
         },
         {
           "name": "n_collect",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": ">= 0"
         },
         {
           "name": "n_discard",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": ">= 0"
         }
       ],
       "outputs": [
         {
           "name": "chain_samples",
-          "type_desc": "Vec<Tensor<B, 2>>",
+          "type_desc": "list[Tensor]",
           "constraints": "length == number of chains"
         }
       ],
@@ -286,14 +286,14 @@
       "inputs": [
         {
           "name": "chain_samples",
-          "type_desc": "Vec<Tensor<B, 2>>",
+          "type_desc": "list[Tensor]",
           "constraints": "non-empty and shape-compatible"
         }
       ],
       "outputs": [
         {
           "name": "sample_tensor",
-          "type_desc": "Tensor<B, 3>",
+          "type_desc": "Tensor",
           "constraints": "axis 0 indexes chains"
         }
       ],
@@ -319,14 +319,14 @@
       "inputs": [
         {
           "name": "progress_handle",
-          "type_desc": "JoinHandle<()>",
+          "type_desc": "object",
           "constraints": "valid spawned handle"
         }
       ],
       "outputs": [
         {
           "name": "monitor_join_status",
-          "type_desc": "Result<(), Box<dyn Any + Send>>",
+          "type_desc": "object",
           "constraints": "Err indicates monitor panic"
         }
       ],
@@ -352,7 +352,7 @@
       "inputs": [
         {
           "name": "sample_tensor",
-          "type_desc": "Tensor<B, 3>",
+          "type_desc": "Tensor",
           "constraints": "data convertible to contiguous f32 slice"
         }
       ],
@@ -385,7 +385,7 @@
       "inputs": [
         {
           "name": "sample_tensor",
-          "type_desc": "Tensor<B, 3>",
+          "type_desc": "Tensor",
           "constraints": "already stacked"
         },
         {
@@ -395,14 +395,14 @@
         },
         {
           "name": "monitor_join_status",
-          "type_desc": "Result<(), Box<dyn Any + Send>>",
+          "type_desc": "object",
           "constraints": "used only for optional logging; does not alter success path"
         }
       ],
       "outputs": [
         {
           "name": "run_result",
-          "type_desc": "Result<(Tensor<B, 3>, RunStats), Box<dyn Error>>",
+          "type_desc": "object",
           "constraints": "returns Ok(sample_tensor, run_stats)"
         }
       ],

@@ -35,32 +35,32 @@
       "inputs": [
         {
           "name": "initial_x",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Shape [2, 1]"
         },
         {
           "name": "initial_P",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Shape [2, 2]"
         },
         {
           "name": "A",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "State transition matrix, shape [2, 2]"
         },
         {
           "name": "H",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement matrix, shape [1, 2]"
         },
         {
           "name": "Q",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Process noise covariance, shape [2, 2]"
         },
         {
           "name": "R",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement noise covariance, shape [1, 1]"
         }
       ],
@@ -151,7 +151,7 @@
         },
         {
           "name": "z",
-          "type_desc": "ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement"
         }
       ],

@@ -32,14 +32,14 @@
       "inputs": [
         {
           "name": "input_signal",
-          "type_desc": "scalar | array_like",
+          "type_desc": "np.ndarray",
           "constraints": "Exact signature not provided; use implementation-defined type/shape."
         }
       ],
       "outputs": [
         {
           "name": "trigger_output",
-          "type_desc": "scalar | array_like",
+          "type_desc": "np.ndarray",
           "constraints": "Matches implementation-defined output type/shape."
         }
       ],

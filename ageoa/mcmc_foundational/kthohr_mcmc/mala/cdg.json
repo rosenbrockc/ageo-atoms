@@ -103,7 +103,7 @@
         },
         {
           "name": "step_size",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "The MCMC step size."
         }
       ],
@@ -181,7 +181,7 @@
         },
         {
           "name": "step_size",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "x is not None"
         },
         {
@@ -193,7 +193,7 @@
       "outputs": [
         {
           "name": "proposal_adjustment",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "The final log-ratio adjustment term."
         }
       ],

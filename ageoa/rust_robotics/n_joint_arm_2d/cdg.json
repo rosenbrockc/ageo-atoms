@@ -73,39 +73,39 @@
       "inputs": [
         {
           "name": "angles_desired",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "joint-angle target vector"
         },
         {
           "name": "position_desired",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "workspace target position"
         },
         {
           "name": "x",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "initial or current state guess"
         },
         {
           "name": "position_current",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "workspace position"
         },
         {
           "name": "position_goal",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "workspace goal position"
         }
       ],
       "outputs": [
         {
           "name": "feasible_state_initial",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "state satisfying feasibility constraints"
         },
         {
           "name": "ik_state",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "inverse-kinematics solution candidate"
         },
         {
@@ -143,19 +143,19 @@
       "inputs": [
         {
           "name": "position_current",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         },
         {
           "name": "position_goal",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         }
       ],
       "outputs": [
         {
           "name": "goal_error_vector",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         },
         {
@@ -186,24 +186,24 @@
       "inputs": [
         {
           "name": "angles_desired",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof"
         },
         {
           "name": "link_lengths",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof"
         },
         {
           "name": "state_dim_ratio",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "ratio >= 3"
         }
       ],
       "outputs": [
         {
           "name": "feasible_state_initial",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof * state_dim_ratio"
         }
       ],
@@ -229,24 +229,24 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof * state_dim_ratio"
         },
         {
           "name": "dof",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "dof > 0"
         },
         {
           "name": "state_dim_ratio",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "ratio >= 3"
         }
       ],
       "outputs": [
         {
           "name": "ee_position_current",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         }
       ],
@@ -272,19 +272,19 @@
       "inputs": [
         {
           "name": "ee_position_current",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         },
         {
           "name": "position_desired",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         }
       ],
       "outputs": [
         {
           "name": "ik_error_vector",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         },
         {
@@ -310,39 +310,39 @@
       "node_id": "assemblepositionjacobian",
       "parent_id": "kinematicgoalfeasibility",
       "name": "AssemblePositionJacobian",
-      "description": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint’s positional influence.",
+      "description": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
       "concept_type": "algebra",
       "inputs": [
         {
           "name": "x",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof * state_dim_ratio"
         },
         {
           "name": "link_lengths",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof"
         },
         {
           "name": "dof",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "dof > 0"
         },
         {
           "name": "state_dim_ratio",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "ratio >= 3"
         }
       ],
       "outputs": [
         {
           "name": "position_jacobian",
-          "type_desc": "matrix-like",
+          "type_desc": "np.ndarray",
           "constraints": "shape == (2, dof)"
         },
         {
           "name": "joint_angles_snapshot",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof"
         }
       ],
@@ -368,19 +368,19 @@
       "inputs": [
         {
           "name": "position_jacobian",
-          "type_desc": "matrix-like",
+          "type_desc": "np.ndarray",
           "constraints": "shape == (2, dof)"
         },
         {
           "name": "ik_error_vector",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == 2"
         }
       ],
       "outputs": [
         {
           "name": "ik_state",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "length == dof"
         }
       ],
@@ -406,12 +406,12 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "current state"
         },
         {
           "name": "u",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "control input"
         },
         {
@@ -423,12 +423,12 @@
       "outputs": [
         {
           "name": "x_dot",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "state derivative"
         },
         {
           "name": "jacobian",
-          "type_desc": "matrix",
+          "type_desc": "np.ndarray",
           "constraints": "local linearization at (x,u,t)"
         }
       ],
@@ -458,34 +458,34 @@
       "inputs": [
         {
           "name": "self",
-          "type_desc": "ModelD<f64> metadata + link_lengths",
+          "type_desc": "object",
           "constraints": "Must expose ratio via SystemHD and link_lengths length"
         },
         {
           "name": "x",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "Length defines total state dimension"
         },
         {
           "name": "u",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "Length must equal DOF"
         }
       ],
       "outputs": [
         {
           "name": "ratio",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "num_states_to_num_dim_ratio(self) cast to usize"
         },
         {
           "name": "num_states",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "x.len()"
         },
         {
           "name": "dof",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "num_states / ratio, with num_states % ratio == 0"
         }
       ],
@@ -511,39 +511,39 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "Indexed in blocks of size ratio"
         },
         {
           "name": "u",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "One control per DOF"
         },
         {
           "name": "link_lengths",
-          "type_desc": "Vec<f64>",
+          "type_desc": "list[float]",
           "constraints": "Length equals dof"
         },
         {
           "name": "ratio",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "Block stride for each DOF state"
         },
         {
           "name": "num_states",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "Size of output derivative vector"
         },
         {
           "name": "dof",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "Loop bound for per-joint dynamics"
         }
       ],
       "outputs": [
         {
           "name": "x_dot",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "Same length as x; translational and rotational derivatives populated"
         }
       ],
@@ -569,29 +569,29 @@
       "inputs": [
         {
           "name": "self",
-          "type_desc": "ModelD<f64>",
+          "type_desc": "object",
           "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "x",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "u",
-          "type_desc": "DVector<f64>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "_t",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
         {
           "name": "jacobian",
-          "type_desc": "(DMatrix<f64>, DMatrix<f64>)",
+          "type_desc": "tuple[np.ndarray, np.ndarray]",
           "constraints": "Intended output; currently unavailable due to todo!()"
         }
       ],
@@ -617,12 +617,12 @@
       "inputs": [
         {
           "name": "_x",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "current state"
         },
         {
           "name": "_x_dot",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "state derivative estimate"
         },
         {
@@ -634,7 +634,7 @@
       "outputs": [
         {
           "name": "u_cmd",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "control command compatible with dynamics input"
         }
       ],

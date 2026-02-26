@@ -36,39 +36,39 @@
       "inputs": [
         {
           "name": "initial_state",
-          "type_desc": "SVector<T, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time dimension N; T: RealField"
         },
         {
           "name": "initial_covariance",
-          "type_desc": "SMatrix<T, N, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
         },
         {
           "name": "transition_matrix",
-          "type_desc": "SMatrix<T, N, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape N x N"
         },
         {
           "name": "process_noise",
-          "type_desc": "SMatrix<T, N, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
         },
         {
           "name": "observation_matrix",
-          "type_desc": "SMatrix<T, M, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape M x N"
         },
         {
           "name": "measurement_noise",
-          "type_desc": "SMatrix<T, M, M>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape M x M; symmetric positive semi-definite"
         }
       ],
       "outputs": [
         {
           "name": "state_model",
-          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "Immutable object; no hidden mutation"
         }
       ],
@@ -94,14 +94,14 @@
       "inputs": [
         {
           "name": "state_model",
-          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "Immutable prior/posterior from previous step"
         }
       ],
       "outputs": [
         {
           "name": "predicted_state_model",
-          "type_desc": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "New object with updated x and P only"
         }
       ],
@@ -127,19 +127,19 @@
       "inputs": [
         {
           "name": "predicted_state_model",
-          "type_desc": "StateModelSpec{x_pred, P_pred, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "Output of predict kernel"
         },
         {
           "name": "measurement",
-          "type_desc": "SVector<T, M>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time dimension M; compatible with H and R"
         }
       ],
       "outputs": [
         {
           "name": "posterior_state_model",
-          "type_desc": "StateModelSpec{x_post, P_post, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "New object; analytical Bayesian posterior update"
         }
       ],
@@ -165,14 +165,14 @@
       "inputs": [
         {
           "name": "current_state_model",
-          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "Can be initialized, predicted, or updated state"
         }
       ],
       "outputs": [
         {
           "name": "latent_mean",
-          "type_desc": "SVector<T, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time dimension N"
         }
       ],
@@ -198,14 +198,14 @@
       "inputs": [
         {
           "name": "current_state_model",
-          "type_desc": "StateModelSpec{x, P, F, Q, H, R}",
+          "type_desc": "object",
           "constraints": "Can be initialized, predicted, or updated state"
         }
       ],
       "outputs": [
         {
           "name": "state_covariance",
-          "type_desc": "SMatrix<T, N, N>",
+          "type_desc": "np.ndarray",
           "constraints": "Compile-time shape N x N; symmetric positive semi-definite"
         }
       ],

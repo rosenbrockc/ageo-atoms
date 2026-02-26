@@ -32,12 +32,12 @@
       "inputs": [
         {
           "name": "row",
-          "type_desc": "record-like market data row",
+          "type_desc": "object",
           "constraints": "Must contain the fields required for OFI computation."
         },
         {
           "name": "prev_row",
-          "type_desc": "record-like market data row",
+          "type_desc": "object",
           "constraints": "Represents the immediately preceding row; schema-compatible with row."
         }
       ],

@@ -39,7 +39,7 @@
       "outputs": [
         {
           "name": "template_features",
-          "type_desc": "feature_vector",
+          "type_desc": "np.ndarray",
           "constraints": "Derived deterministically from hc."
         }
       ],

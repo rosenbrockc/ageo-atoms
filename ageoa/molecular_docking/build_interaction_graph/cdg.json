@@ -34,12 +34,12 @@
       "inputs": [
         {
           "name": "L_feature_min_max",
-          "type_desc": "array-like numeric bounds",
+          "type_desc": "np.ndarray",
           "constraints": "Expected to encode min/max distance envelope for left feature context."
         },
         {
           "name": "R_features_distance",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "Distance values for right-side feature candidates."
         },
         {
@@ -77,22 +77,22 @@
       "inputs": [
         {
           "name": "L_features",
-          "type_desc": "array-like or sequence",
+          "type_desc": "np.ndarray",
           "constraints": "Left-side feature set."
         },
         {
           "name": "R_features",
-          "type_desc": "array-like or sequence",
+          "type_desc": "np.ndarray",
           "constraints": "Right-side feature set."
         },
         {
           "name": "L_distance_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Pairwise distances among left-side features."
         },
         {
           "name": "R_distance_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Pairwise distances among right-side features."
         },
         {
@@ -109,12 +109,12 @@
       "outputs": [
         {
           "name": "edges",
-          "type_desc": "list of weighted edge tuples",
+          "type_desc": "list[tuple]",
           "constraints": "Each edge contains endpoints and associated weight."
         },
         {
           "name": "nodes",
-          "type_desc": "list/set of node identifiers",
+          "type_desc": "list[int]",
           "constraints": "Unique nodes participating in edges."
         }
       ],
@@ -145,7 +145,7 @@
       "inputs": [
         {
           "name": "interaction_distance",
-          "type_desc": "float | None",
+          "type_desc": "Optional[float]",
           "constraints": "If None, must be replaced with default epsilon"
         },
         {
@@ -183,17 +183,17 @@
       "inputs": [
         {
           "name": "L_features",
-          "type_desc": "sequence of left feature objects",
+          "type_desc": "list[object]",
           "constraints": "Each feature exposes family.abbreviation"
         },
         {
           "name": "R_features",
-          "type_desc": "sequence of right feature objects",
+          "type_desc": "list[object]",
           "constraints": "Each feature exposes family.abbreviation"
         },
         {
           "name": "POTENTIAL_FUNCTION",
-          "type_desc": "mapping[(str, str) -> float]",
+          "type_desc": "dict",
           "constraints": "Must contain keys for all family abbreviation pairs"
         }
       ],
@@ -291,7 +291,7 @@
       "outputs": [
         {
           "name": "interaction_graph",
-          "type_desc": "nx.Graph",
+          "type_desc": "object",
           "constraints": "Weighted graph representation of compatible interactions"
         }
       ],
@@ -317,19 +317,19 @@
       "inputs": [
         {
           "name": "edges",
-          "type_desc": "list of weighted edge tuples",
+          "type_desc": "list[tuple]",
           "constraints": "Must be consistent with node identifiers."
         },
         {
           "name": "nodes",
-          "type_desc": "list/set of node identifiers",
+          "type_desc": "list[int]",
           "constraints": "Node IDs should be hashable."
         }
       ],
       "outputs": [
         {
           "name": "weighted_graph",
-          "type_desc": "networkx.Graph or networkx.DiGraph",
+          "type_desc": "object",
           "constraints": "Contains all provided nodes and weighted edges."
         }
       ],

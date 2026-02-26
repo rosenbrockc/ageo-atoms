@@ -38,14 +38,14 @@
         },
         {
           "name": "x",
-          "type_desc": "int | array<int>",
+          "type_desc": "np.ndarray",
           "constraints": "Observed outcome(s), each value in {0,1} when likelihood/log_prob is evaluated"
         }
       ],
       "outputs": [
         {
           "name": "log_prob",
-          "type_desc": "float | array<float>",
+          "type_desc": "np.ndarray",
           "constraints": "Elementwise log-likelihood values for the binary observation model"
         }
       ],
@@ -71,19 +71,19 @@
       "inputs": [
         {
           "name": "prior",
-          "type_desc": "hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "Two-element hyperparameter vector (\u03b1, \u03b2) with positive real components."
         },
         {
           "name": "data",
-          "type_desc": "array<int>",
+          "type_desc": "np.ndarray",
           "constraints": "Binary observations, each value in {0, 1}."
         }
       ],
       "outputs": [
         {
           "name": "updated_params",
-          "type_desc": "hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "New immutable hyperparameter vector within the same parametric family; inputs are not mutated."
         }
       ],

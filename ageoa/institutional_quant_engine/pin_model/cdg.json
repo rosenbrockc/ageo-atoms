@@ -32,24 +32,24 @@
       "inputs": [
         {
           "name": "params",
-          "type_desc": "parameter object or vector",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "B",
-          "type_desc": "observed data tensor/array",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "S",
-          "type_desc": "observed data tensor/array",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "likelihood",
-          "type_desc": "float or array-like likelihood value",
+          "type_desc": "float",
           "constraints": "ndim >= 1"
         }
       ],

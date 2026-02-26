@@ -33,14 +33,14 @@
       "inputs": [
         {
           "name": "data",
-          "type_desc": "array<int>",
+          "type_desc": "np.ndarray",
           "constraints": "Binary observations, each value in {0, 1}."
         }
       ],
       "outputs": [
         {
           "name": "sufficient_stats",
-          "type_desc": "tuple<int, int>",
+          "type_desc": "tuple[int, int]",
           "constraints": "Pair (cnt1, cnt0) representing success and failure counts."
         }
       ],
@@ -66,19 +66,19 @@
       "inputs": [
         {
           "name": "prior",
-          "type_desc": "hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "Two-element hyperparameter vector (\u03b1, \u03b2) with positive real components."
         },
         {
           "name": "sufficient_stats",
-          "type_desc": "tuple<int, int>",
+          "type_desc": "tuple[int, int]",
           "constraints": "Pair (cnt1, cnt0) from upstream aggregation."
         }
       ],
       "outputs": [
         {
           "name": "updated_params",
-          "type_desc": "hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "New immutable hyperparameter vector within the same parametric family; inputs are not mutated."
         }
       ],

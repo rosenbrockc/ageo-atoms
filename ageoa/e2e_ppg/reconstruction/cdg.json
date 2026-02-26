@@ -33,34 +33,34 @@
       "inputs": [
         {
           "name": "ppg_clean",
-          "type_desc": "array-like signal segment",
+          "type_desc": "np.ndarray",
           "constraints": "Shape compatible with generator input"
         },
         {
           "name": "noise",
-          "type_desc": "array-like latent/noise tensor",
+          "type_desc": "np.ndarray",
           "constraints": "Shape compatible with generator input"
         },
         {
           "name": "sampling_rate",
-          "type_desc": "float|int",
+          "type_desc": "float",
           "constraints": "Positive"
         },
         {
           "name": "generator",
-          "type_desc": "callable/model",
+          "type_desc": "Callable",
           "constraints": "Stateless from this graph perspective"
         },
         {
           "name": "device",
-          "type_desc": "string|device handle",
+          "type_desc": "str",
           "constraints": "Valid runtime device"
         }
       ],
       "outputs": [
         {
           "name": "reconstructed_patch",
-          "type_desc": "array-like signal segment",
+          "type_desc": "np.ndarray",
           "constraints": "Aligned to target patch length"
         }
       ],
@@ -109,12 +109,12 @@
         },
         {
           "name": "shifting_step_seconds",
-          "type_desc": "int|float",
+          "type_desc": "float",
           "constraints": "constant 5 in current implementation"
         },
         {
           "name": "upsampling_rate",
-          "type_desc": "float|int",
+          "type_desc": "float",
           "constraints": "external constant (UPSAMPLING_RATE)"
         }
       ],
@@ -156,7 +156,7 @@
         },
         {
           "name": "upsampling_rate_state",
-          "type_desc": "float|int",
+          "type_desc": "float",
           "constraints": "pass-through"
         }
       ],
@@ -237,7 +237,7 @@
         },
         {
           "name": "generator_input",
-          "type_desc": "torch.FloatTensor",
+          "type_desc": "Tensor",
           "constraints": "shape [batch_size, 1, signal_len]"
         },
         {
@@ -268,17 +268,17 @@
       "inputs": [
         {
           "name": "generator_input",
-          "type_desc": "torch.FloatTensor",
+          "type_desc": "Tensor",
           "constraints": "batched input tensor"
         },
         {
           "name": "generator",
-          "type_desc": "callable/model",
+          "type_desc": "Callable",
           "constraints": "returns (rec_test, aux)"
         },
         {
           "name": "device",
-          "type_desc": "str|torch.device",
+          "type_desc": "str",
           "constraints": "valid compute device"
         }
       ],
@@ -326,7 +326,7 @@
         },
         {
           "name": "upsampling_rate_state",
-          "type_desc": "float|int",
+          "type_desc": "float",
           "constraints": "> 0"
         }
       ],
@@ -470,34 +470,34 @@
       "inputs": [
         {
           "name": "sig",
-          "type_desc": "array-like full signal",
+          "type_desc": "np.ndarray",
           "constraints": "1D or channel-first signal supported by implementation"
         },
         {
           "name": "clean_indices",
-          "type_desc": "index array/list",
+          "type_desc": "np.ndarray",
           "constraints": "Valid indices into sig"
         },
         {
           "name": "noisy_indices",
-          "type_desc": "index array/list",
+          "type_desc": "np.ndarray",
           "constraints": "Valid indices into sig; may be disjoint from clean_indices"
         },
         {
           "name": "sampling_rate",
-          "type_desc": "float|int",
+          "type_desc": "float",
           "constraints": "Positive"
         },
         {
           "name": "filter_signal",
-          "type_desc": "bool|callable",
+          "type_desc": "object",
           "constraints": "If truthy/callable, applies filtering path"
         }
       ],
       "outputs": [
         {
           "name": "reconstructed_signal",
-          "type_desc": "array-like full signal",
+          "type_desc": "np.ndarray",
           "constraints": "Same length/index domain as input sig"
         }
       ],
@@ -545,7 +545,7 @@
         },
         {
           "name": "generator_class",
-          "type_desc": "type",
+          "type_desc": "object",
           "constraints": "Compatible with saved checkpoint"
         },
         {
@@ -557,12 +557,12 @@
       "outputs": [
         {
           "name": "generator",
-          "type_desc": "torch.nn.Module",
+          "type_desc": "object",
           "constraints": "Loaded for inference"
         },
         {
           "name": "device",
-          "type_desc": "torch.device",
+          "type_desc": "object",
           "constraints": "cpu or cuda:0"
         }
       ],
@@ -630,12 +630,12 @@
         },
         {
           "name": "sampling_rate_original",
-          "type_desc": "int|null",
+          "type_desc": "Optional[int]",
           "constraints": "Set only when resampling_flag is True"
         },
         {
           "name": "resampling_rate",
-          "type_desc": "float|null",
+          "type_desc": "Optional[float]",
           "constraints": "Original/model rate ratio when resampled"
         },
         {
@@ -820,12 +820,12 @@
         },
         {
           "name": "generator",
-          "type_desc": "torch.nn.Module",
+          "type_desc": "object",
           "constraints": "Loaded GAN generator"
         },
         {
           "name": "device",
-          "type_desc": "torch.device",
+          "type_desc": "object",
           "constraints": "Inference device"
         }
       ],
@@ -1090,12 +1090,12 @@
         },
         {
           "name": "sampling_rate_original",
-          "type_desc": "int|null",
+          "type_desc": "Optional[int]",
           "constraints": "Required when resampling_flag is True"
         },
         {
           "name": "resampling_rate",
-          "type_desc": "float|null",
+          "type_desc": "Optional[float]",
           "constraints": "Index mapping ratio when returning to original rate"
         }
       ],

@@ -32,34 +32,34 @@
       "inputs": [
         {
           "name": "ppg_clean",
-          "type_desc": "array-like or tensor",
+          "type_desc": "np.ndarray",
           "constraints": "Clean PPG signal input; shape must be compatible with generator input."
         },
         {
           "name": "noise",
-          "type_desc": "array-like or tensor",
+          "type_desc": "np.ndarray",
           "constraints": "Latent noise vector/tensor aligned with generator latent dimensions."
         },
         {
           "name": "sampling_rate",
-          "type_desc": "int or float",
+          "type_desc": "float",
           "constraints": "Sampling frequency in Hz; must be > 0."
         },
         {
           "name": "generator",
-          "type_desc": "callable model (e.g., torch.nn.Module)",
+          "type_desc": "Callable",
           "constraints": "Inference-ready generator that maps inputs to reconstructed signal."
         },
         {
           "name": "device",
-          "type_desc": "device specifier (string or torch.device)",
+          "type_desc": "str",
           "constraints": "Execution device compatible with model and tensors."
         }
       ],
       "outputs": [
         {
           "name": "ppg_generated",
-          "type_desc": "tensor or array-like",
+          "type_desc": "np.ndarray",
           "constraints": "Generated/reconstructed PPG signal; shape determined by generator architecture."
         }
       ],
@@ -193,12 +193,12 @@
         },
         {
           "name": "generator",
-          "type_desc": "callable model",
+          "type_desc": "Callable",
           "constraints": "Accepts tensor shaped [batch, 1, length]."
         },
         {
           "name": "device",
-          "type_desc": "string or torch.device",
+          "type_desc": "str",
           "constraints": "Valid device for model execution."
         },
         {

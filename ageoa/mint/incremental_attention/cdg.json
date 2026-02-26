@@ -32,14 +32,14 @@
       "inputs": [
         {
           "name": "cls",
-          "type_desc": "type",
+          "type_desc": "object",
           "constraints": "Base class object."
         }
       ],
       "outputs": [
         {
           "name": "incremental_state_cls",
-          "type_desc": "type",
+          "type_desc": "object",
           "constraints": "Configured class/object representing incremental-state behavior without hidden mutation."
         }
       ],

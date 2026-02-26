@@ -32,49 +32,49 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "Audio waveform samples."
         },
         {
           "name": "sampling_rate",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "Must be positive."
         },
         {
           "name": "sm_size",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Smoothing size; typically > 0."
         },
         {
           "name": "size",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Analysis window/feature size; typically > 0."
         },
         {
           "name": "alpha",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "Algorithm weighting/sensitivity parameter."
         },
         {
           "name": "wrange",
-          "type_desc": "integer or tuple/range",
+          "type_desc": "object",
           "constraints": "Search/window range for onset decision."
         },
         {
           "name": "d1_th",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "First-derivative threshold."
         },
         {
           "name": "d2_th",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "Second-derivative threshold."
         }
       ],
       "outputs": [
         {
           "name": "onsets",
-          "type_desc": "array",
+          "type_desc": "np.ndarray",
           "constraints": "Detected onset positions (e.g., sample indices or times)."
         }
       ],
@@ -109,14 +109,14 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "1D numeric array or null",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "must be non-null"
         }
       ],
       "outputs": [
         {
           "name": "validated_signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "same values as input signal"
         }
       ],
@@ -142,69 +142,69 @@
       "inputs": [
         {
           "name": "sampling_rate",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "> 0"
         },
         {
           "name": "sm_size",
-          "type_desc": "number or null",
+          "type_desc": "Optional[float]",
           "constraints": "default 0.25 s"
         },
         {
           "name": "size",
-          "type_desc": "number or null",
+          "type_desc": "Optional[float]",
           "constraints": "default 5 s"
         },
         {
           "name": "wrange",
-          "type_desc": "number or null",
+          "type_desc": "Optional[float]",
           "constraints": "default 0.1 s"
         },
         {
           "name": "d2_th",
-          "type_desc": "number or null",
+          "type_desc": "Optional[float]",
           "constraints": "default 0.15 s"
         },
         {
           "name": "alpha",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "normalization factor"
         },
         {
           "name": "d1_th",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "amplitude-difference threshold"
         }
       ],
       "outputs": [
         {
           "name": "sm_size_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 1"
         },
         {
           "name": "window_size_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 1"
         },
         {
           "name": "wrange_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 1"
         },
         {
           "name": "d2_th_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 0"
         },
         {
           "name": "alpha_out",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "passed through"
         },
         {
           "name": "d1_th_out",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "passed through"
         }
       ],
@@ -230,24 +230,24 @@
       "inputs": [
         {
           "name": "validated_signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "length >= 2"
         },
         {
           "name": "sm_size_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "smoother window size"
         }
       ],
       "outputs": [
         {
           "name": "ssf",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "smoothed slope-sum sequence"
         },
         {
           "name": "signal_length",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "len(validated_signal)"
         }
       ],
@@ -273,12 +273,12 @@
       "inputs": [
         {
           "name": "signal_length",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 0"
         },
         {
           "name": "window_size_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": ">= 1"
         }
       ],
@@ -311,12 +311,12 @@
       "inputs": [
         {
           "name": "validated_signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "full signal"
         },
         {
           "name": "ssf",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "precomputed slope-sum function"
         },
         {
@@ -326,24 +326,24 @@
         },
         {
           "name": "wrange_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "peak-search offset"
         },
         {
           "name": "alpha_out",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "normalization factor"
         }
       ],
       "outputs": [
         {
           "name": "window_signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "demeaned signal[start:stop]"
         },
         {
           "name": "peak_breakpoints",
-          "type_desc": "1D integer array",
+          "type_desc": "np.ndarray",
           "constraints": "positive-maxima indices shifted by wrange_samples"
         }
       ],
@@ -369,12 +369,12 @@
       "inputs": [
         {
           "name": "window_signal",
-          "type_desc": "1D numeric array",
+          "type_desc": "np.ndarray",
           "constraints": "current window segment"
         },
         {
           "name": "peak_breakpoints",
-          "type_desc": "1D integer array",
+          "type_desc": "np.ndarray",
           "constraints": "candidate interval boundaries"
         },
         {
@@ -384,24 +384,24 @@
         },
         {
           "name": "d1_th_out",
-          "type_desc": "number",
+          "type_desc": "float",
           "constraints": "minimum amplitude gap"
         },
         {
           "name": "d2_th_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "minimum min-after-max distance"
         }
       ],
       "outputs": [
         {
           "name": "new_onsets",
-          "type_desc": "1D integer array",
+          "type_desc": "np.ndarray",
           "constraints": "absolute indices detected in this window"
         },
         {
           "name": "detected_flag",
-          "type_desc": "boolean",
+          "type_desc": "bool",
           "constraints": "true if at least one onset accepted"
         }
       ],
@@ -432,27 +432,27 @@
         },
         {
           "name": "new_onsets",
-          "type_desc": "1D integer array",
+          "type_desc": "np.ndarray",
           "constraints": "possibly empty"
         },
         {
           "name": "detected_flag",
-          "type_desc": "boolean",
+          "type_desc": "bool",
           "constraints": "window detection result"
         },
         {
           "name": "wrange_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "used when detection occurred"
         },
         {
           "name": "window_size_samples",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "window increment"
         },
         {
           "name": "signal_length",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "global bound"
         }
       ],
@@ -464,7 +464,7 @@
         },
         {
           "name": "done",
-          "type_desc": "boolean",
+          "type_desc": "bool",
           "constraints": "true when start > signal_length"
         }
       ],
@@ -497,7 +497,7 @@
       "outputs": [
         {
           "name": "onsets",
-          "type_desc": "1D integer array",
+          "type_desc": "np.ndarray",
           "constraints": "dtype int"
         }
       ],

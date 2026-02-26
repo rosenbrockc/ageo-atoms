@@ -32,7 +32,7 @@
       "inputs": [
         {
           "name": "direction_val",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Determines the direction of integration, typically +1 for forward or -1 for backward."
         },
         {
@@ -62,7 +62,7 @@
         },
         {
           "name": "tree_depth",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "The current recursion depth of the tree-building process."
         }
       ],
@@ -101,17 +101,17 @@
       "inputs": [
         {
           "name": "direction_val",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Specifies the integration direction (-1 or 1)."
         },
         {
           "name": "step_size",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "The size of each integration step."
         },
         {
           "name": "log_rand_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "The logarithm of the uniform slice variable `u`."
         },
         {
@@ -136,7 +136,7 @@
         },
         {
           "name": "target_data",
-          "type_desc": "void*",
+          "type_desc": "object",
           "constraints": "Auxiliary data for kernel and integrator functions."
         }
       ],
@@ -169,17 +169,17 @@
       "inputs": [
         {
           "name": "direction_val",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "isinstance(x, int)"
         },
         {
           "name": "step_size",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "x is not None"
         },
         {
           "name": "log_rand_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "x is not None"
         },
         {
@@ -204,17 +204,17 @@
         },
         {
           "name": "tree_depth",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "Current recursion depth, will be decremented for the call."
         },
         {
           "name": "rand_engine",
-          "type_desc": "rand_engine_t",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "target_data",
-          "type_desc": "void*",
+          "type_desc": "object",
           "constraints": "x is not None"
         }
       ],
@@ -247,17 +247,17 @@
       "inputs": [
         {
           "name": "direction_val",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "isinstance(x, int)"
         },
         {
           "name": "step_size",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "x is not None"
         },
         {
           "name": "log_rand_val",
-          "type_desc": "fp_t",
+          "type_desc": "float",
           "constraints": "x is not None"
         },
         {
@@ -287,17 +287,17 @@
         },
         {
           "name": "tree_depth",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "Current recursion depth, will be decremented for the call."
         },
         {
           "name": "rand_engine",
-          "type_desc": "rand_engine_t",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "target_data",
-          "type_desc": "void*",
+          "type_desc": "object",
           "constraints": "x is not None"
         }
       ],
@@ -350,7 +350,7 @@
         },
         {
           "name": "rand_engine",
-          "type_desc": "rand_engine_t",
+          "type_desc": "object",
           "constraints": "Used for the probabilistic selection."
         }
       ],
@@ -393,14 +393,14 @@
         },
         {
           "name": "subtree2_stop_flag",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "The stop flag from the second, most recently built subtree."
         }
       ],
       "outputs": [
         {
           "name": "global_stop_flag",
-          "type_desc": "size_t",
+          "type_desc": "int",
           "constraints": "A flag (0 or 1) indicating if a U-turn was detected and the trajectory should stop."
         }
       ],

@@ -71,7 +71,7 @@
       "inputs": [
         {
           "name": "G",
-          "type_desc": "networkx.Graph",
+          "type_desc": "object",
           "constraints": "Finite node/edge set"
         },
         {
@@ -88,12 +88,12 @@
       "outputs": [
         {
           "name": "adjacency_matrix",
-          "type_desc": "Dense matrix (N x N)",
+          "type_desc": "np.ndarray",
           "constraints": "Node order aligned with node_order"
         },
         {
           "name": "scaled_adjacency",
-          "type_desc": "Dense matrix (N x N)",
+          "type_desc": "np.ndarray",
           "constraints": "adjacency_matrix multiplied by distance_scale"
         },
         {
@@ -103,7 +103,7 @@
         },
         {
           "name": "initial_guess",
-          "type_desc": "1D float array",
+          "type_desc": "np.ndarray",
           "constraints": "Length = 2N, generated deterministically from seed"
         },
         {
@@ -139,12 +139,12 @@
       "inputs": [
         {
           "name": "initial_guess",
-          "type_desc": "1D float array",
+          "type_desc": "np.ndarray",
           "constraints": "Length = 2N"
         },
         {
           "name": "scaled_adjacency",
-          "type_desc": "Dense matrix (N x N)",
+          "type_desc": "np.ndarray",
           "constraints": "Numeric"
         },
         {
@@ -154,7 +154,7 @@
         },
         {
           "name": "optimizer_method",
-          "type_desc": "string",
+          "type_desc": "str",
           "constraints": "COBYLA"
         },
         {
@@ -171,7 +171,7 @@
       "outputs": [
         {
           "name": "coords",
-          "type_desc": "2D float array (N x 2)",
+          "type_desc": "np.ndarray",
           "constraints": "Reshaped optimizer solution"
         }
       ],
@@ -197,7 +197,7 @@
       "inputs": [
         {
           "name": "coords",
-          "type_desc": "2D float array (N x 2)",
+          "type_desc": "np.ndarray",
           "constraints": "Finite coordinates"
         },
         {
@@ -219,7 +219,7 @@
         },
         {
           "name": "geometric_bonds",
-          "type_desc": "2D float array (M x 2)",
+          "type_desc": "np.ndarray",
           "constraints": "Coordinate rows indexed by geometric_edges tuple form"
         }
       ],
@@ -245,7 +245,7 @@
       "inputs": [
         {
           "name": "geometric_bonds",
-          "type_desc": "2D float array (M x 2)",
+          "type_desc": "np.ndarray",
           "constraints": "M is inferred bond count"
         },
         {
@@ -293,7 +293,7 @@
         },
         {
           "name": "coords",
-          "type_desc": "2D float array (N x 2)",
+          "type_desc": "np.ndarray",
           "constraints": "First dimension matches node_order length"
         }
       ],

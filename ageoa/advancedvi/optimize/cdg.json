@@ -32,7 +32,7 @@
       "inputs": [
         {
           "name": "algorithm",
-          "type_desc": "callable | algorithm identifier",
+          "type_desc": "object",
           "constraints": "Must define one optimization step/update rule."
         },
         {
@@ -42,34 +42,34 @@
         },
         {
           "name": "prob",
-          "type_desc": "objective/problem specification",
+          "type_desc": "object",
           "constraints": "Must expose evaluable objective/constraints required by algorithm."
         },
         {
           "name": "q_init",
-          "type_desc": "initial parameter/state object",
+          "type_desc": "object",
           "constraints": "Shape/type must match algorithm and problem."
         },
         {
           "name": "rng_state_in",
-          "type_desc": "numpy.random.Generator state (explicit immutable input)",
+          "type_desc": "object",
           "constraints": "Optional; if absent, initialize from default entropy source."
         }
       ],
       "outputs": [
         {
           "name": "q_opt",
-          "type_desc": "optimized parameter/state object",
+          "type_desc": "object",
           "constraints": "Same structural type family as q_init."
         },
         {
           "name": "opt_trace",
-          "type_desc": "iteration diagnostics/history",
+          "type_desc": "object",
           "constraints": "May include objective values and convergence metadata."
         },
         {
           "name": "rng_state_out",
-          "type_desc": "numpy.random.Generator state",
+          "type_desc": "object",
           "constraints": "Advanced/split state after any stochastic operations."
         }
       ],

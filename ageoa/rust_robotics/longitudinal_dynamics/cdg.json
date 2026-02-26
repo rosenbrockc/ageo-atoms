@@ -176,12 +176,12 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "state vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match model state dimension"
         },
         {
           "name": "u",
-          "type_desc": "input/control vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match input dimension"
         },
         {
@@ -193,7 +193,7 @@
       "outputs": [
         {
           "name": "x_dot",
-          "type_desc": "state derivative vector",
+          "type_desc": "np.ndarray",
           "constraints": "same state dimension as x"
         }
       ],
@@ -219,12 +219,12 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "state vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match model state dimension"
         },
         {
           "name": "_u",
-          "type_desc": "input/control vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match input dimension; may be unused"
         },
         {
@@ -236,7 +236,7 @@
       "outputs": [
         {
           "name": "jacobian",
-          "type_desc": "matrix",
+          "type_desc": "np.ndarray",
           "constraints": "state_dim x state_dim"
         }
       ],
@@ -262,12 +262,12 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "state vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match model state dimension"
         },
         {
           "name": "x_dot_desired",
-          "type_desc": "state derivative vector",
+          "type_desc": "np.ndarray",
           "constraints": "same dimension as x"
         },
         {
@@ -279,7 +279,7 @@
       "outputs": [
         {
           "name": "u",
-          "type_desc": "input/control vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape must match input dimension"
         }
       ],
@@ -305,7 +305,7 @@
       "inputs": [
         {
           "name": "filename",
-          "type_desc": "string/path",
+          "type_desc": "str",
           "constraints": "must reference readable model config file"
         }
       ],

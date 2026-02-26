@@ -32,24 +32,24 @@
       "inputs": [
         {
           "name": "total_shares",
-          "type_desc": "numeric",
+          "type_desc": "float",
           "constraints": "Typically non-negative."
         },
         {
           "name": "days",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Typically positive."
         },
         {
           "name": "risk_aversion",
-          "type_desc": "numeric",
+          "type_desc": "float",
           "constraints": "Risk preference parameter."
         }
       ],
       "outputs": [
         {
           "name": "trajectory",
-          "type_desc": "execution trajectory object (e.g., vector/list of allocations)",
+          "type_desc": "object",
           "constraints": "Represents the optimized schedule for the provided horizon."
         }
       ],

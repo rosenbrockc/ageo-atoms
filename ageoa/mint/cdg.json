@@ -41,12 +41,12 @@
       "outputs": [
         {
           "name": "tokens",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         },
         {
           "name": "chain_ids",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         }
       ],
@@ -72,19 +72,19 @@
       "inputs": [
         {
           "name": "tokens",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         },
         {
           "name": "chain_ids",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         }
       ],
       "outputs": [
         {
           "name": "representations",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen, EmbedDim)"
         }
       ],
@@ -110,24 +110,24 @@
       "inputs": [
         {
           "name": "representations",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen, EmbedDim)"
         },
         {
           "name": "tokens",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         },
         {
           "name": "chain_ids",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, TotalSeqLen)"
         }
       ],
       "outputs": [
         {
           "name": "contextualized_embeddings",
-          "type_desc": "torch.Tensor",
+          "type_desc": "Tensor",
           "constraints": "(Batch, N_Chains * EmbedDim)"
         }
       ],

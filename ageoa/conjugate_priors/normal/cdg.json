@@ -33,14 +33,14 @@
       "inputs": [
         {
           "name": "data",
-          "type_desc": "array<float>",
+          "type_desc": "np.ndarray",
           "constraints": "Real-valued observations."
         }
       ],
       "outputs": [
         {
           "name": "sufficient_stats",
-          "type_desc": "sufficient-statistics tuple",
+          "type_desc": "tuple",
           "constraints": "Contains (tw, s, s2, m): sample count, sum, sum of squared deviations, sample mean."
         }
       ],
@@ -66,19 +66,19 @@
       "inputs": [
         {
           "name": "prior",
-          "type_desc": "location-precision hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "Valid hyperparameters (positive precision/shape/scale terms)."
         },
         {
           "name": "sufficient_stats",
-          "type_desc": "sufficient-statistics tuple",
+          "type_desc": "tuple",
           "constraints": "Contains the moments/count terms required by the conjugate fold formula."
         }
       ],
       "outputs": [
         {
           "name": "updated_params",
-          "type_desc": "location-precision hyperparameter tuple",
+          "type_desc": "tuple",
           "constraints": "Returned as a new immutable object; input prior is not mutated."
         }
       ],

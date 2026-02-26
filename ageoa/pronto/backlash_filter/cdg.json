@@ -41,7 +41,7 @@
       "outputs": [
         {
           "name": "state_out",
-          "type_desc": "BacklashFilterState {alpha_: float, t_crossing_max_: float}",
+          "type_desc": "object",
           "constraints": "Initialized with constructor/default values."
         }
       ],

@@ -37,14 +37,14 @@
       "inputs": [
         {
           "name": "init_config",
-          "type_desc": "object containing x0, P0, F, B, H, Q, R",
+          "type_desc": "object",
           "constraints": "P0, Q, R are symmetric positive semidefinite"
         }
       ],
       "outputs": [
         {
           "name": "state_model",
-          "type_desc": "StateModelSpec{latent_mean x, covariance P, F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "immutable object; no hidden mutation"
         }
       ],
@@ -75,44 +75,44 @@
       "inputs": [
         {
           "name": "default_ctx",
-          "type_desc": "Type-level context (F, DimX, DimZ) with zero/one identities",
+          "type_desc": "object",
           "constraints": "F supports one() and zero(); dimensions are compile-time fixed"
         }
       ],
       "outputs": [
         {
           "name": "x",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to one"
         },
         {
           "name": "P",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Identity matrix"
         },
         {
           "name": "Q",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Identity matrix"
         },
         {
           "name": "F",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Identity matrix"
         },
         {
           "name": "H",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to zero"
         },
         {
           "name": "R",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Identity matrix"
         },
         {
           "name": "alpha_sq",
-          "type_desc": "F",
+          "type_desc": "float",
           "constraints": "Initialized to one"
         }
       ],
@@ -138,34 +138,34 @@
       "inputs": [
         {
           "name": "default_ctx",
-          "type_desc": "Type-level context (F, DimX, DimZ) with zero/one identities",
+          "type_desc": "object",
           "constraints": "F supports one() and zero(); dimensions are compile-time fixed"
         }
       ],
       "outputs": [
         {
           "name": "z",
-          "type_desc": "Option<VectorN<F, DimZ>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "Initialized as None"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to zero"
         },
         {
           "name": "y",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to one"
         },
         {
           "name": "S",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to zero"
         },
         {
           "name": "SI",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "All elements initialized to zero"
         }
       ],
@@ -191,34 +191,34 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Initialized latent mean"
         },
         {
           "name": "P",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Initialized latent covariance"
         }
       ],
       "outputs": [
         {
           "name": "x_prior",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Clone of x"
         },
         {
           "name": "P_prior",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Clone of P"
         },
         {
           "name": "x_post",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Clone of x"
         },
         {
           "name": "P_post",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Clone of P"
         }
       ],
@@ -244,89 +244,89 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "P",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "x_prior",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "P_prior",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "x_post",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "P_post",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "z",
-          "type_desc": "Option<VectorN<F, DimZ>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "ndim >= 1"
         },
         {
           "name": "R",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "Q",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "F",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "H",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "y",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "S",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "SI",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "alpha_sq",
-          "type_desc": "F",
+          "type_desc": "float",
           "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "state_model",
-          "type_desc": "KalmanFilter<F, DimX, DimZ>",
+          "type_desc": "object",
           "constraints": "B is set to None in the assembled struct"
         }
       ],
@@ -352,34 +352,34 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "StateModelSpec{latent_mean x, covariance P, F, B, Q}",
+          "type_desc": "object",
           "constraints": "immutable input state"
         },
         {
           "name": "u",
-          "type_desc": "control vector",
+          "type_desc": "np.ndarray",
           "constraints": "dimension compatible with B"
         },
         {
           "name": "B",
-          "type_desc": "control matrix override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "if provided, shape compatible with u and x"
         },
         {
           "name": "F",
-          "type_desc": "transition matrix override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "square, shape compatible with x"
         },
         {
           "name": "Q",
-          "type_desc": "process covariance override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "symmetric positive semidefinite"
         }
       ],
       "outputs": [
         {
           "name": "predicted_state",
-          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "new immutable object; x_pred and P_pred updated"
         }
       ],
@@ -410,49 +410,49 @@
       "inputs": [
         {
           "name": "state_F",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Square transition matrix from current state"
         },
         {
           "name": "state_Q",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Square process covariance from current state"
         },
         {
           "name": "state_B_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "May be None when control model is absent"
         },
         {
           "name": "F_override_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimX>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If Some, must match DimX x DimX"
         },
         {
           "name": "Q_override_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimX>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If Some, must match DimX x DimX"
         },
         {
           "name": "B_override_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If Some, must match DimX x DimU"
         }
       ],
       "outputs": [
         {
           "name": "F_eff",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Always defined"
         },
         {
           "name": "Q_eff",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Always defined"
         },
         {
           "name": "B_eff_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "Some only when either override or state B exists"
         }
       ],
@@ -478,29 +478,29 @@
       "inputs": [
         {
           "name": "x_prev",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Current latent mean"
         },
         {
           "name": "F_eff",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Compatible with x_prev"
         },
         {
           "name": "B_eff_opt",
-          "type_desc": "Option<MatrixMN<F, DimX, DimU>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "Used only if control_u_opt is Some"
         },
         {
           "name": "control_u_opt",
-          "type_desc": "Option<VectorN<F, DimU>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "Used only if B_eff_opt is Some"
         }
       ],
       "outputs": [
         {
           "name": "x_pred",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Predicted latent mean"
         }
       ],
@@ -526,29 +526,29 @@
       "inputs": [
         {
           "name": "P_prev",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Current covariance"
         },
         {
           "name": "F_eff",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Compatible with P_prev"
         },
         {
           "name": "Q_eff",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Additive process covariance"
         },
         {
           "name": "alpha_sq",
-          "type_desc": "F",
+          "type_desc": "float",
           "constraints": "Scalar covariance inflation factor"
         }
       ],
       "outputs": [
         {
           "name": "P_pred",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Predicted covariance"
         }
       ],
@@ -574,24 +574,24 @@
       "inputs": [
         {
           "name": "x_pred",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "From prediction step"
         },
         {
           "name": "P_pred",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "From covariance prediction step"
         },
         {
           "name": "model_static",
-          "type_desc": "StateModelSpec{F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "Carried forward unchanged from input state"
         }
       ],
       "outputs": [
         {
           "name": "predicted_state",
-          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, x_prior=x_pred, P_prior=P_pred, F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "Fully materialized predicted filter state"
         }
       ],
@@ -617,24 +617,24 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "SteadyStateModelSpec{latent_mean x, fixed covariance/blending factor, F, B}",
+          "type_desc": "object",
           "constraints": "fixed covariance/blending factor assumed precomputed"
         },
         {
           "name": "u",
-          "type_desc": "control vector",
+          "type_desc": "np.ndarray",
           "constraints": "dimension compatible with B"
         },
         {
           "name": "B",
-          "type_desc": "control matrix override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "if provided, shape compatible with u and x"
         }
       ],
       "outputs": [
         {
           "name": "predicted_state_steady",
-          "type_desc": "SteadyStateModelSpec{latent_mean x_pred, fixed covariance/blending factor, F, B, H, R}",
+          "type_desc": "object",
           "constraints": "new immutable object"
         }
       ],
@@ -660,29 +660,29 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "latent mean vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape compatible with H"
         },
         {
           "name": "z",
-          "type_desc": "measurement vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape compatible with Hx"
         },
         {
           "name": "H",
-          "type_desc": "measurement matrix",
+          "type_desc": "np.ndarray",
           "constraints": "maps latent space to measurement space"
         }
       ],
       "outputs": [
         {
           "name": "z_pred",
-          "type_desc": "predicted measurement vector",
+          "type_desc": "np.ndarray",
           "constraints": "z_pred = Hx"
         },
         {
           "name": "measurement_residual",
-          "type_desc": "residual vector",
+          "type_desc": "np.ndarray",
           "constraints": "measurement_residual = z - z_pred"
         }
       ],
@@ -708,34 +708,34 @@
       "inputs": [
         {
           "name": "predicted_state",
-          "type_desc": "StateModelSpec{latent_mean x_pred, covariance P_pred, H, R}",
+          "type_desc": "object",
           "constraints": "immutable predicted state"
         },
         {
           "name": "z",
-          "type_desc": "measurement vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape compatible with H"
         },
         {
           "name": "R",
-          "type_desc": "measurement covariance override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "symmetric positive semidefinite"
         },
         {
           "name": "H",
-          "type_desc": "measurement matrix override (optional)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "shape compatible with x_pred and z"
         },
         {
           "name": "measurement_residual",
-          "type_desc": "measurement residual (optional explicit input)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "if omitted, recomputed internally from z and Hx_pred"
         }
       ],
       "outputs": [
         {
           "name": "posterior_state",
-          "type_desc": "StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "new immutable object; x_post and P_post updated"
         }
       ],
@@ -769,34 +769,34 @@
       "inputs": [
         {
           "name": "R_pred",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "H_pred",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "R_override",
-          "type_desc": "Option<MatrixMN<F, DimZ, DimZ>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If None, use R_pred"
         },
         {
           "name": "H_override",
-          "type_desc": "Option<MatrixMN<F, DimZ, DimX>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If None, use H_pred"
         }
       ],
       "outputs": [
         {
           "name": "R_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Positive semi-definite measurement covariance"
         },
         {
           "name": "H_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
@@ -822,29 +822,29 @@
       "inputs": [
         {
           "name": "z",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "x_pred",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "H_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "residual_override",
-          "type_desc": "Option<VectorN<F, DimZ>>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "If provided, use directly; else compute z - H_eff * x_pred"
         }
       ],
       "outputs": [
         {
           "name": "y",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement residual"
         }
       ],
@@ -870,29 +870,29 @@
       "inputs": [
         {
           "name": "P_pred",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Symmetric positive semi-definite"
         },
         {
           "name": "H_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "R_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "PHT",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Cross-covariance P_pred * H_eff^T"
         },
         {
           "name": "S",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Residual covariance H_eff * PHT + R_eff"
         }
       ],
@@ -918,24 +918,24 @@
       "inputs": [
         {
           "name": "PHT",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "S",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Must be invertible"
         }
       ],
       "outputs": [
         {
           "name": "S_inv",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "S^-1"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Precision-weighted blending factor PHT * S_inv"
         }
       ],
@@ -961,24 +961,24 @@
       "inputs": [
         {
           "name": "x_pred",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "y",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "x_post",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
@@ -1004,29 +1004,29 @@
       "inputs": [
         {
           "name": "P_pred",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "H_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "R_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "P_post",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Symmetric positive semi-definite (up to numeric error)"
         }
       ],
@@ -1052,74 +1052,74 @@
       "inputs": [
         {
           "name": "x_post",
-          "type_desc": "VectorN<F, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "P_post",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "F",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Passed through unchanged"
         },
         {
           "name": "B",
-          "type_desc": "Option<Matrix>",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "Passed through unchanged"
         },
         {
           "name": "Q",
-          "type_desc": "MatrixMN<F, DimX, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Passed through unchanged"
         },
         {
           "name": "H_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimX>",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement model used in this update"
         },
         {
           "name": "R_eff",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "Measurement covariance used in this update"
         },
         {
           "name": "z",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "y",
-          "type_desc": "VectorN<F, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "S",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "S_inv",
-          "type_desc": "MatrixMN<F, DimZ, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "K",
-          "type_desc": "MatrixMN<F, DimX, DimZ>",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "posterior_state",
-          "type_desc": "StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "update_cache",
-          "type_desc": "{z, y, S, S_inv, K, x_post, P_post}",
+          "type_desc": "object",
           "constraints": "Optional diagnostic/stateful cache for mutable API"
         }
       ],
@@ -1145,24 +1145,24 @@
       "inputs": [
         {
           "name": "predicted_state_steady",
-          "type_desc": "SteadyStateModelSpec{latent_mean x_pred, fixed blending factor/covariance, H, R}",
+          "type_desc": "object",
           "constraints": "immutable predicted steady-state object"
         },
         {
           "name": "z",
-          "type_desc": "measurement vector",
+          "type_desc": "np.ndarray",
           "constraints": "shape compatible with H"
         },
         {
           "name": "measurement_residual",
-          "type_desc": "measurement residual (optional explicit input)",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "if omitted, recomputed internally"
         }
       ],
       "outputs": [
         {
           "name": "posterior_state_steady",
-          "type_desc": "SteadyStateModelSpec{latent_mean x_post, fixed blending factor/covariance, F, B, H, R}",
+          "type_desc": "object",
           "constraints": "new immutable object"
         }
       ],

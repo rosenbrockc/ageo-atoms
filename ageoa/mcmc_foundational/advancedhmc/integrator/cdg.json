@@ -33,12 +33,12 @@
       "inputs": [
         {
           "name": "lf",
-          "type_desc": "Leapfrog/state-transition context",
+          "type_desc": "object",
           "constraints": "Read-only; no persistent mutation"
         },
         {
           "name": "r",
-          "type_desc": "Real scalar",
+          "type_desc": "float",
           "constraints": "Finite"
         },
         {
@@ -55,7 +55,7 @@
       "outputs": [
         {
           "name": "tempering_scale",
-          "type_desc": "Real scalar",
+          "type_desc": "float",
           "constraints": "Deterministic function of inputs"
         }
       ],
@@ -81,29 +81,29 @@
       "inputs": [
         {
           "name": "lf",
-          "type_desc": "Leapfrog/state-transition context",
+          "type_desc": "object",
           "constraints": "Read-only; no persistent mutation"
         },
         {
           "name": "h",
-          "type_desc": "Phase-point or Hamiltonian state",
+          "type_desc": "object",
           "constraints": "Immutable input state"
         },
         {
           "name": "z",
-          "type_desc": "Auxiliary state/value",
+          "type_desc": "object",
           "constraints": "Finite where required"
         },
         {
           "name": "tempering_scale",
-          "type_desc": "Real scalar",
+          "type_desc": "float",
           "constraints": "Provided by tempering computation"
         }
       ],
       "outputs": [
         {
           "name": "h_next",
-          "type_desc": "Phase-point or Hamiltonian state",
+          "type_desc": "object",
           "constraints": "New immutable state object (state_out)"
         },
         {
@@ -140,7 +140,7 @@
       "inputs": [
         {
           "name": "lf",
-          "type_desc": "DefaultLeapfrog context",
+          "type_desc": "object",
           "constraints": "must provide step_size(lf)"
         },
         {
@@ -155,7 +155,7 @@
         },
         {
           "name": "full_trajectory",
-          "type_desc": "Val{Bool}",
+          "type_desc": "bool",
           "constraints": "compile-time flag"
         }
       ],
@@ -167,7 +167,7 @@
         },
         {
           "name": "epsilon",
-          "type_desc": "Step-size scalar/vector compatible with theta and r",
+          "type_desc": "float",
           "constraints": "epsilon = (fwd ? step_size(lf) : -step_size(lf))'"
         },
         {
@@ -198,7 +198,7 @@
       "inputs": [
         {
           "name": "z",
-          "type_desc": "PhasePoint P",
+          "type_desc": "object",
           "constraints": "must contain theta, r, and z.lpi with value and gradient"
         },
         {
@@ -215,12 +215,12 @@
       "outputs": [
         {
           "name": "loop_state",
-          "type_desc": "{i::Int, theta, r, value, gradient, z_current}",
+          "type_desc": "object",
           "constraints": "initialized with i = 1 and values from z"
         },
         {
           "name": "trajectory_accum",
-          "type_desc": "Nothing | Vector{P}",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "if collecting, preallocated capacity/length for step_count"
         }
       ],
@@ -246,7 +246,7 @@
       "inputs": [
         {
           "name": "lf",
-          "type_desc": "DefaultLeapfrog context",
+          "type_desc": "object",
           "constraints": "must support temper"
         },
         {
@@ -256,7 +256,7 @@
         },
         {
           "name": "loop_state",
-          "type_desc": "{i, theta, r, value, gradient, z_current}",
+          "type_desc": "object",
           "constraints": "contains current iteration index and state"
         },
         {
@@ -266,14 +266,14 @@
         },
         {
           "name": "epsilon",
-          "type_desc": "Step-size scalar/vector",
+          "type_desc": "float",
           "constraints": "broadcast-compatible with theta, r, gradient"
         }
       ],
       "outputs": [
         {
           "name": "candidate_state",
-          "type_desc": "{i, theta_next, r_next, value_next, gradient_next, z_candidate}",
+          "type_desc": "object",
           "constraints": "z_candidate = phasepoint(h, theta_next, r_next; lpi=DualValue(value_next, gradient_next))"
         }
       ],
@@ -299,12 +299,12 @@
       "inputs": [
         {
           "name": "candidate_state",
-          "type_desc": "{i, theta_next, r_next, value_next, gradient_next, z_candidate}",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "trajectory_accum",
-          "type_desc": "Nothing | Vector{P}",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "current accumulation buffer"
         },
         {
@@ -321,12 +321,12 @@
       "outputs": [
         {
           "name": "loop_state_next",
-          "type_desc": "{i, theta, r, value, gradient, z_current}",
+          "type_desc": "object",
           "constraints": "if continue, i increments; otherwise holds terminal candidate state"
         },
         {
           "name": "trajectory_accum_next",
-          "type_desc": "Nothing | Vector{P}",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "contains accepted prefix; truncated to realized length on invalid candidate"
         },
         {
@@ -367,12 +367,12 @@
         },
         {
           "name": "trajectory_accum_next",
-          "type_desc": "Nothing | Vector{P}",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "must be non-nothing when collect_full_trajectory is true"
         },
         {
           "name": "loop_state_next",
-          "type_desc": "{..., z_current}",
+          "type_desc": "object",
           "constraints": "z_current is the terminal phase-point"
         },
         {
@@ -384,7 +384,7 @@
       "outputs": [
         {
           "name": "h_next",
-          "type_desc": "P | Vector{P}",
+          "type_desc": "object",
           "constraints": "Vector{P} if collect_full_trajectory else P"
         },
         {

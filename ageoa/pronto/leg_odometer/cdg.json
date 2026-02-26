@@ -33,19 +33,19 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "LegOdometerState{xd_b_, vel_cov_}",
+          "type_desc": "object",
           "constraints": "Immutable snapshot; includes latent velocity mean xd_b_ and covariance vel_cov_."
         }
       ],
       "outputs": [
         {
           "name": "velocity",
-          "type_desc": "Vector-like velocity estimate",
+          "type_desc": "np.ndarray",
           "constraints": "Derived from xd_b_."
         },
         {
           "name": "velocity_covariance",
-          "type_desc": "Covariance matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Directly from vel_cov_; no mutation."
         }
       ],
@@ -78,7 +78,7 @@
       "outputs": [
         {
           "name": "pose_related_outputs",
-          "type_desc": "Pose/position/orientation values or placeholders",
+          "type_desc": "np.ndarray",
           "constraints": "No persistent state mutation in provided summaries."
         }
       ],

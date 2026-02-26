@@ -51,7 +51,7 @@
         },
         {
           "name": "seed",
-          "type_desc": "int|None",
+          "type_desc": "Optional[int]",
           "constraints": "deterministic tie-breaking if provided"
         }
       ],

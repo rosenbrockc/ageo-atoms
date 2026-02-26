@@ -33,7 +33,7 @@
       "inputs": [
         {
           "name": "my_order_id",
-          "type_desc": "string",
+          "type_desc": "str",
           "constraints": "Unique identifier for the order."
         },
         {

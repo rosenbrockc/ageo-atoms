@@ -75,7 +75,7 @@
       "inputs": [
         {
           "name": "filename",
-          "type_desc": "string",
+          "type_desc": "str",
           "constraints": "readable model file path"
         }
       ],
@@ -248,29 +248,29 @@
         },
         {
           "name": "x",
-          "type_desc": "StateVector<3>",
+          "type_desc": "np.ndarray",
           "constraints": "x[2] is yaw."
         },
         {
           "name": "u",
-          "type_desc": "ControlVector<2>",
+          "type_desc": "np.ndarray",
           "constraints": "u[0] is longitudinal velocity, u[1] is steering angle."
         }
       ],
       "outputs": [
         {
           "name": "sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Finite."
         },
         {
           "name": "wheelbase_total",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Non-zero; typically positive."
         },
         {
           "name": "yaw_plus_sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Finite."
         }
       ],
@@ -296,19 +296,19 @@
       "inputs": [
         {
           "name": "u",
-          "type_desc": "ControlVector<2>",
+          "type_desc": "np.ndarray",
           "constraints": "Finite controls."
         },
         {
           "name": "yaw_plus_sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Finite."
         }
       ],
       "outputs": [
         {
           "name": "A",
-          "type_desc": "Matrix<3x3>",
+          "type_desc": "np.ndarray",
           "constraints": "Rows/cols follow state ordering [x, y, yaw]."
         }
       ],
@@ -339,24 +339,24 @@
         },
         {
           "name": "u",
-          "type_desc": "ControlVector<2>",
+          "type_desc": "np.ndarray",
           "constraints": "Finite; steering not at singular tan/cos points."
         },
         {
           "name": "yaw_plus_sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Finite."
         },
         {
           "name": "wheelbase_total",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Non-zero."
         }
       ],
       "outputs": [
         {
           "name": "velocity_column",
-          "type_desc": "Vector<3>",
+          "type_desc": "np.ndarray",
           "constraints": "Ordered as [df0/du0, df1/du0, df2/du0]."
         }
       ],
@@ -387,24 +387,24 @@
         },
         {
           "name": "u",
-          "type_desc": "ControlVector<2>",
+          "type_desc": "np.ndarray",
           "constraints": "Requires cos(u[1]) != 0 and finite tan(u[1])."
         },
         {
           "name": "yaw_plus_sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Finite."
         },
         {
           "name": "wheelbase_total",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Non-zero."
         }
       ],
       "outputs": [
         {
           "name": "steering_column",
-          "type_desc": "Vector<3>",
+          "type_desc": "np.ndarray",
           "constraints": "Ordered as [df0/du1, df1/du1, df2/du1]."
         }
       ],
@@ -430,19 +430,19 @@
       "inputs": [
         {
           "name": "velocity_column",
-          "type_desc": "Vector<3>",
+          "type_desc": "np.ndarray",
           "constraints": "First control column."
         },
         {
           "name": "steering_column",
-          "type_desc": "Vector<3>",
+          "type_desc": "np.ndarray",
           "constraints": "Second control column."
         }
       ],
       "outputs": [
         {
           "name": "B",
-          "type_desc": "Matrix<3x2>",
+          "type_desc": "np.ndarray",
           "constraints": "Columns correspond to [u0, u1]."
         }
       ],
@@ -541,29 +541,29 @@
         },
         {
           "name": "x",
-          "type_desc": "StateVector (na::SVector<f64, 3>)",
+          "type_desc": "np.ndarray",
           "constraints": "x[2] is yaw angle in radians."
         },
         {
           "name": "u",
-          "type_desc": "ControlVector (na::SVector<f64, 2>)",
+          "type_desc": "np.ndarray",
           "constraints": "u[1] is steering/road wheel angle in radians."
         }
       ],
       "outputs": [
         {
           "name": "sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Slip angle in radians."
         },
         {
           "name": "effective_heading",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Computed as yaw + sideslip."
         },
         {
           "name": "wheelbase",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Positive vehicle wheelbase."
         }
       ],
@@ -589,29 +589,29 @@
       "inputs": [
         {
           "name": "u",
-          "type_desc": "ControlVector (na::SVector<f64, 2>)",
+          "type_desc": "np.ndarray",
           "constraints": "u[0] is longitudinal speed."
         },
         {
           "name": "sideslip",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "effective_heading",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "wheelbase",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Non-zero."
         }
       ],
       "outputs": [
         {
           "name": "x_dot",
-          "type_desc": "StateDerivativeVector (na::SVector<f64, 3>)",
+          "type_desc": "np.ndarray",
           "constraints": "Ordered as [pos_x_dot, pos_y_dot, yaw_dot]."
         }
       ],
@@ -642,24 +642,24 @@
         },
         {
           "name": "x",
-          "type_desc": "StateVector (na::SVector<f64, 3>)",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "u",
-          "type_desc": "ControlVector (na::SVector<f64, 2>)",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "_t",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Interface parameter; unused in current implementation."
         }
       ],
       "outputs": [
         {
           "name": "jacobian",
-          "type_desc": "(na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+          "type_desc": "tuple[np.ndarray, np.ndarray]",
           "constraints": "Tuple of (A, B) Jacobian blocks."
         }
       ],
@@ -690,24 +690,24 @@
         },
         {
           "name": "x",
-          "type_desc": "StateVector (na::SVector<f64, 3>)",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         },
         {
           "name": "_x_dot",
-          "type_desc": "StateDerivativeVector (na::SVector<f64, 3>)",
+          "type_desc": "np.ndarray",
           "constraints": "Desired/observed derivative used for inversion."
         },
         {
           "name": "_t",
-          "type_desc": "f64",
+          "type_desc": "float",
           "constraints": "Interface parameter; currently unused by placeholder."
         }
       ],
       "outputs": [
         {
           "name": "u_inferred",
-          "type_desc": "ControlVector (na::SVector<f64, 2>)",
+          "type_desc": "np.ndarray",
           "constraints": "Currently unimplemented in source (todo!)."
         }
       ],

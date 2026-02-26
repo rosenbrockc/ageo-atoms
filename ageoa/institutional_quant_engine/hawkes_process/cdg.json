@@ -54,7 +54,7 @@
       "outputs": [
         {
           "name": "event_times",
-          "type_desc": "array<float>",
+          "type_desc": "np.ndarray",
           "constraints": "sorted ascending, each t in [0, T]"
         }
       ],

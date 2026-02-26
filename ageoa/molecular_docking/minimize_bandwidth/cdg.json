@@ -35,14 +35,14 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Square or rectangular matrix-like input with indexable rows/columns."
         }
       ],
       "outputs": [
         {
           "name": "bandwidth",
-          "type_desc": "integer",
+          "type_desc": "int",
           "constraints": "Non-negative bandwidth value."
         }
       ],
@@ -72,14 +72,14 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "2D numeric ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "must have shape (n, n)"
         }
       ],
       "outputs": [
         {
           "name": "square_mat",
-          "type_desc": "2D numeric ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "same data as input, guaranteed square"
         }
       ],
@@ -105,14 +105,14 @@
       "inputs": [
         {
           "name": "square_mat",
-          "type_desc": "2D numeric ndarray",
+          "type_desc": "np.ndarray",
           "constraints": "square matrix"
         }
       ],
       "outputs": [
         {
           "name": "weighted_distances",
-          "type_desc": "sequence of numeric values",
+          "type_desc": "np.ndarray",
           "constraints": "non-negative, one value per matrix entry"
         }
       ],
@@ -138,7 +138,7 @@
       "inputs": [
         {
           "name": "weighted_distances",
-          "type_desc": "sequence of numeric values",
+          "type_desc": "np.ndarray",
           "constraints": "non-empty if matrix has at least one element"
         }
       ],
@@ -171,14 +171,14 @@
       "inputs": [
         {
           "name": "matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Matrix-like input suitable for permutation/reordering."
         }
       ],
       "outputs": [
         {
           "name": "reordered_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Same shape as input with reordered rows/columns."
         }
       ],
@@ -210,7 +210,7 @@
       "inputs": [
         {
           "name": "matrix",
-          "type_desc": "np.ndarray (2D numeric square matrix)",
+          "type_desc": "np.ndarray",
           "constraints": "Must satisfy allclose(matrix, matrix.T, atol=1e-8)"
         }
       ],
@@ -250,7 +250,7 @@
       "outputs": [
         {
           "name": "iteration_state",
-          "type_desc": "object {working_matrix: np.ndarray, accumulated_permutation: list[int], bandwidth: int, remaining_iterations: int}",
+          "type_desc": "object",
           "constraints": "working_matrix=abs(copy), accumulated_permutation=identity permutation, bandwidth=matrix_bandwidth(working_matrix), remaining_iterations=100"
         }
       ],
@@ -410,19 +410,19 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Matrix-like input suitable for reordering."
         },
         {
           "name": "threshold",
-          "type_desc": "numeric scalar",
+          "type_desc": "float",
           "constraints": "Bandwidth cutoff/target used to gate optimization."
         }
       ],
       "outputs": [
         {
           "name": "reordered_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Output may be unchanged if threshold condition is not met."
         }
       ],
@@ -452,19 +452,19 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Square, symmetric expected by downstream ordering step"
         },
         {
           "name": "threshold",
-          "type_desc": "numeric scalar",
+          "type_desc": "float",
           "constraints": "Values strictly below this are zeroed"
         }
       ],
       "outputs": [
         {
           "name": "thresholded_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Same shape as mat; entries < threshold replaced with 0"
         }
       ],
@@ -490,14 +490,14 @@
       "inputs": [
         {
           "name": "thresholded_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Numeric matrix; typically sparse after thresholding"
         }
       ],
       "outputs": [
         {
           "name": "sparse_matrix",
-          "type_desc": "CSR sparse matrix",
+          "type_desc": "object",
           "constraints": "Equivalent numeric structure to thresholded_matrix"
         }
       ],
@@ -523,14 +523,14 @@
       "inputs": [
         {
           "name": "sparse_matrix",
-          "type_desc": "CSR sparse matrix",
+          "type_desc": "object",
           "constraints": "Represents a symmetric graph structure"
         }
       ],
       "outputs": [
         {
           "name": "reordered_matrix",
-          "type_desc": "1D integer permutation array",
+          "type_desc": "np.ndarray",
           "constraints": "Permutation of row/column indices for reduced bandwidth"
         }
       ],
@@ -556,14 +556,14 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Matrix-like input suitable for global reordering."
         }
       ],
       "outputs": [
         {
           "name": "reordered_matrix",
-          "type_desc": "2D numeric matrix",
+          "type_desc": "np.ndarray",
           "constraints": "Globally optimized ordering result."
         }
       ],
@@ -594,14 +594,14 @@
       "inputs": [
         {
           "name": "mat",
-          "type_desc": "np.ndarray (2D numeric)",
+          "type_desc": "np.ndarray",
           "constraints": "square; expected symmetric"
         }
       ],
       "outputs": [
         {
           "name": "validated_mat",
-          "type_desc": "np.ndarray (2D numeric)",
+          "type_desc": "np.ndarray",
           "constraints": "symmetric within atol=1e-8"
         }
       ],
@@ -627,7 +627,7 @@
       "inputs": [
         {
           "name": "validated_mat",
-          "type_desc": "np.ndarray (2D numeric)",
+          "type_desc": "np.ndarray",
           "constraints": "symmetric"
         }
       ],
@@ -639,7 +639,7 @@
         },
         {
           "name": "truncation_values",
-          "type_desc": "np.ndarray (1D float)",
+          "type_desc": "np.ndarray",
           "constraints": "range [0.1, 1.0) with step 0.01"
         }
       ],
@@ -665,7 +665,7 @@
       "inputs": [
         {
           "name": "validated_mat",
-          "type_desc": "np.ndarray (2D numeric)",
+          "type_desc": "np.ndarray",
           "constraints": "symmetric"
         },
         {
@@ -675,14 +675,14 @@
         },
         {
           "name": "truncation_values",
-          "type_desc": "np.ndarray (1D float)",
+          "type_desc": "np.ndarray",
           "constraints": "finite values in [0.1, 1.0)"
         }
       ],
       "outputs": [
         {
           "name": "candidate_permutations",
-          "type_desc": "iterable[np.ndarray | list[int]]",
+          "type_desc": "list[np.ndarray]",
           "constraints": "each item is a valid row/column permutation"
         }
       ],
@@ -708,12 +708,12 @@
       "inputs": [
         {
           "name": "validated_mat",
-          "type_desc": "np.ndarray (2D numeric)",
+          "type_desc": "np.ndarray",
           "constraints": "symmetric"
         },
         {
           "name": "candidate_permutations",
-          "type_desc": "iterable[np.ndarray | list[int]]",
+          "type_desc": "list[np.ndarray]",
           "constraints": "non-empty iterable of valid permutations"
         }
       ],

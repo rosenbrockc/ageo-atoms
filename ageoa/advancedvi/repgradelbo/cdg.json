@@ -32,59 +32,59 @@
       "inputs": [
         {
           "name": "rng_in",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Explicit stochastic state input; do not treat as global mutable state."
         },
         {
           "name": "obj",
-          "type_desc": "Objective/model handle",
+          "type_desc": "object",
           "constraints": "Provides value/gradient target."
         },
         {
           "name": "adtype",
-          "type_desc": "Automatic differentiation mode/config",
+          "type_desc": "object",
           "constraints": "Selects differentiation backend/strategy."
         },
         {
           "name": "out_in",
-          "type_desc": "Gradient output container",
+          "type_desc": "object",
           "constraints": "Destination buffer for gradient result."
         },
         {
           "name": "state_in",
-          "type_desc": "Algorithm state",
+          "type_desc": "object",
           "constraints": "Thread as immutable state_in -> state_out."
         },
         {
           "name": "params",
-          "type_desc": "Parameter vector/structure",
+          "type_desc": "object",
           "constraints": "Valid parameterization for objective evaluation."
         },
         {
           "name": "restructure",
-          "type_desc": "Parameter restructuring function",
+          "type_desc": "Callable",
           "constraints": "Pure mapping between flat and structured parameter forms."
         }
       ],
       "outputs": [
         {
           "name": "out_out",
-          "type_desc": "Gradient output container",
+          "type_desc": "object",
           "constraints": "Updated gradient corresponding to params."
         },
         {
           "name": "value_out",
-          "type_desc": "Objective value",
+          "type_desc": "float",
           "constraints": "Scalar/objective evaluation paired with gradient."
         },
         {
           "name": "state_out",
-          "type_desc": "Algorithm state",
+          "type_desc": "object",
           "constraints": "Returned explicitly as new state object."
         },
         {
           "name": "rng_out",
-          "type_desc": "RNG state / PRNGKey",
+          "type_desc": "np.ndarray",
           "constraints": "Returned explicitly (possibly unchanged) to preserve purity."
         }
       ],

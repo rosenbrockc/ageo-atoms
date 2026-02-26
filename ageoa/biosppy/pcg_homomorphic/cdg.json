@@ -32,7 +32,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric signal",
+          "type_desc": "np.ndarray",
           "constraints": "1-D or compatible signal tensor expected by implementation"
         },
         {
@@ -44,7 +44,7 @@
       "outputs": [
         {
           "name": "filtered_signal",
-          "type_desc": "array-like numeric signal",
+          "type_desc": "np.ndarray",
           "constraints": "same temporal support as input signal"
         }
       ],
@@ -76,19 +76,19 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like numeric or None",
+          "type_desc": "Optional[np.ndarray]",
           "constraints": "must not be None"
         },
         {
           "name": "sampling_rate",
-          "type_desc": "int or float",
+          "type_desc": "float",
           "constraints": "should be positive"
         }
       ],
       "outputs": [
         {
           "name": "clean_signal",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "same values as input signal; non-None"
         },
         {
@@ -126,7 +126,7 @@
       "outputs": [
         {
           "name": "lowpass_sos",
-          "type_desc": "2D numeric array (SOS coefficients)",
+          "type_desc": "np.ndarray",
           "constraints": "configured for digital low-pass filtering"
         }
       ],
@@ -152,14 +152,14 @@
       "inputs": [
         {
           "name": "clean_signal",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "values with zero magnitude may produce -inf after log"
         }
       ],
       "outputs": [
         {
           "name": "log_magnitude_signal",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "same shape as clean_signal"
         }
       ],
@@ -185,19 +185,19 @@
       "inputs": [
         {
           "name": "lowpass_sos",
-          "type_desc": "2D numeric array (SOS coefficients)",
+          "type_desc": "np.ndarray",
           "constraints": "valid SOS for sosfiltfilt"
         },
         {
           "name": "log_magnitude_signal",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "compatible length for filtfilt padding requirements"
         }
       ],
       "outputs": [
         {
           "name": "envelope",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "non-normalized homomorphic envelope"
         }
       ],
@@ -223,14 +223,14 @@
       "inputs": [
         {
           "name": "envelope",
-          "type_desc": "array-like numeric",
+          "type_desc": "np.ndarray",
           "constraints": "computed envelope signal"
         }
       ],
       "outputs": [
         {
           "name": "homomorphic_envelope_return",
-          "type_desc": "utils.ReturnTuple",
+          "type_desc": "object",
           "constraints": "contains one field named 'homomorphic_envelope'"
         }
       ],

@@ -76,7 +76,7 @@
         },
         {
           "name": "correction_period_in",
-          "type_desc": "numeric/time-like",
+          "type_desc": "float",
           "constraints": "Expected positive."
         },
         {
@@ -86,12 +86,12 @@
         },
         {
           "name": "yaw_slip_threshold_degrees_in",
-          "type_desc": "numeric/degrees",
+          "type_desc": "float",
           "constraints": "Non-negative threshold."
         },
         {
           "name": "yaw_slip_disable_period_in",
-          "type_desc": "numeric/time-like",
+          "type_desc": "float",
           "constraints": "Expected non-negative."
         }
       ],
@@ -200,17 +200,17 @@
         },
         {
           "name": "joint_name_in",
-          "type_desc": "joint identifier collection",
+          "type_desc": "list[int]",
           "constraints": "Shape must align with positions."
         },
         {
           "name": "joint_position_in",
-          "type_desc": "numeric collection",
+          "type_desc": "np.ndarray",
           "constraints": "Shape must align with joint names."
         },
         {
           "name": "joint_angles_init_in",
-          "type_desc": "numeric collection",
+          "type_desc": "np.ndarray",
           "constraints": "Initialization snapshot."
         }
       ],
@@ -250,7 +250,7 @@
       "outputs": [
         {
           "name": "joint_angles_init",
-          "type_desc": "numeric collection",
+          "type_desc": "np.ndarray",
           "constraints": "x is not None"
         }
       ],
@@ -281,12 +281,12 @@
         },
         {
           "name": "left_standing_link_in",
-          "type_desc": "link identifier",
+          "type_desc": "int",
           "constraints": "x is not None"
         },
         {
           "name": "right_standing_link_in",
-          "type_desc": "link identifier",
+          "type_desc": "int",
           "constraints": "x is not None"
         }
       ],

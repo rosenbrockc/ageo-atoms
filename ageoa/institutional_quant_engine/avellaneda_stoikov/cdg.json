@@ -45,7 +45,7 @@
       "outputs": [
         {
           "name": "state_model",
-          "type_desc": "StateModelSpec {gamma: float, k: float, q: float, s: float, sigma: float}",
+          "type_desc": "object",
           "constraints": "Immutable state; contains all persistent fields previously stored on self."
         }
       ],
@@ -71,14 +71,14 @@
       "inputs": [
         {
           "name": "state_model",
-          "type_desc": "StateModelSpec {gamma: float, k: float, q: float, s: float, sigma: float}",
+          "type_desc": "object",
           "constraints": "Read-only input state."
         }
       ],
       "outputs": [
         {
           "name": "quotes",
-          "type_desc": "QuotePair {bid: float, ask: float}",
+          "type_desc": "object",
           "constraints": "Pure arithmetic output derived from state_model."
         }
       ],

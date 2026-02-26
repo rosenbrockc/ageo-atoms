@@ -143,12 +143,12 @@
       "outputs": [
         {
           "name": "progress_senders",
-          "type_desc": "Vec<Sender<ChainStats>>",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "progress_receivers",
-          "type_desc": "Vec<Receiver<ChainStats>>",
+          "type_desc": "object",
           "constraints": "x is not None"
         }
       ],
@@ -174,7 +174,7 @@
       "inputs": [
         {
           "name": "progress_receivers",
-          "type_desc": "Vec<Receiver<ChainStats>>",
+          "type_desc": "object",
           "constraints": "Receivers for progress updates from each chain."
         },
         {
@@ -212,12 +212,12 @@
       "inputs": [
         {
           "name": "chains",
-          "type_desc": "&mut [Chain]",
+          "type_desc": "object",
           "constraints": "Mutable references to chain state objects."
         },
         {
           "name": "progress_senders",
-          "type_desc": "Vec<Sender<ChainStats>>",
+          "type_desc": "object",
           "constraints": "Senders for progress updates for each chain."
         },
         {
@@ -234,7 +234,7 @@
       "outputs": [
         {
           "name": "collected_samples",
-          "type_desc": "Vec<Tensor<B, 2>>",
+          "type_desc": "list[Tensor]",
           "constraints": "A vector containing the 2D sample tensor from each chain."
         }
       ],
@@ -260,14 +260,14 @@
       "inputs": [
         {
           "name": "collected_samples",
-          "type_desc": "Vec<Tensor<B, 2>>",
+          "type_desc": "list[Tensor]",
           "constraints": "A vector of 2D tensors, one for each chain."
         }
       ],
       "outputs": [
         {
           "name": "posterior_samples",
-          "type_desc": "Tensor<B, 3>",
+          "type_desc": "Tensor",
           "constraints": "A single 3D tensor containing all samples from all chains."
         }
       ],
@@ -293,7 +293,7 @@
       "inputs": [
         {
           "name": "posterior_samples",
-          "type_desc": "Tensor<B, 3>",
+          "type_desc": "Tensor",
           "constraints": "Aggregated samples from all chains."
         }
       ],

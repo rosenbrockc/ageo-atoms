@@ -33,19 +33,19 @@
       "inputs": [
         {
           "name": "foot_sensing_state_in",
-          "type_desc": "object { lfoot_sensing_: bool, rfoot_sensing_: bool }",
+          "type_desc": "object",
           "constraints": "Immutable input state snapshot."
         },
         {
           "name": "foot_sensing_command",
-          "type_desc": "object { lfoot_sensing: bool, rfoot_sensing: bool }",
+          "type_desc": "object",
           "constraints": "Desired sensing values for this transition."
         }
       ],
       "outputs": [
         {
           "name": "foot_sensing_state_out",
-          "type_desc": "object { lfoot_sensing_: bool, rfoot_sensing_: bool }",
+          "type_desc": "object",
           "constraints": "New state object; no in-place mutation."
         }
       ],
@@ -71,7 +71,7 @@
       "inputs": [
         {
           "name": "mode_state_in",
-          "type_desc": "object { mode_: Mode, previous_mode_: Mode }",
+          "type_desc": "object",
           "constraints": "Read-only snapshot."
         }
       ],

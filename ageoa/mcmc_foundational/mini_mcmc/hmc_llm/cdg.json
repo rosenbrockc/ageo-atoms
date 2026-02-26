@@ -35,12 +35,12 @@
       "inputs": [
         {
           "name": "target",
-          "type_desc": "callable oracle",
+          "type_desc": "Callable",
           "constraints": "pure log_prob/gradient-capable density oracle"
         },
         {
           "name": "initial_positions",
-          "type_desc": "vector/tensor",
+          "type_desc": "np.ndarray",
           "constraints": "finite numeric latent state"
         },
         {
@@ -95,7 +95,7 @@
       "outputs": [
         {
           "name": "prng_key_state",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "immutable key to be split per transition"
         }
       ],
@@ -131,12 +131,12 @@
         },
         {
           "name": "prng_key_in",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "must be explicitly provided and split"
         },
         {
           "name": "logp_oracle",
-          "type_desc": "callable",
+          "type_desc": "Callable",
           "constraints": "pure likelihood/log_prob evaluation"
         }
       ],
@@ -148,7 +148,7 @@
         },
         {
           "name": "prng_key_out",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "new key after stochastic draws"
         },
         {
@@ -195,12 +195,12 @@
       "outputs": [
         {
           "name": "n_chains",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "n_chains > 0"
         },
         {
           "name": "dim",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "dim > 0"
         }
       ],
@@ -231,12 +231,12 @@
         },
         {
           "name": "n_chains",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "From infer_chain_geometry."
         },
         {
           "name": "dim",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "From infer_chain_geometry."
         }
       ],
@@ -284,12 +284,12 @@
         },
         {
           "name": "kernel_spec.step_size",
-          "type_desc": "scalar",
+          "type_desc": "float",
           "constraints": "Typically positive."
         },
         {
           "name": "logp_oracle",
-          "type_desc": "callable(position_batch) -> Tensor[n_chains]",
+          "type_desc": "Callable",
           "constraints": "Differentiable w.r.t. positions."
         }
       ],
@@ -380,17 +380,17 @@
         },
         {
           "name": "kernel_spec.step_size",
-          "type_desc": "scalar",
+          "type_desc": "float",
           "constraints": "Leapfrog step size."
         },
         {
           "name": "kernel_spec.n_leapfrog",
-          "type_desc": "usize",
+          "type_desc": "int",
           "constraints": "Number of integration steps."
         },
         {
           "name": "logp_oracle",
-          "type_desc": "callable(position_batch) -> Tensor[n_chains]",
+          "type_desc": "Callable",
           "constraints": "Differentiable oracle."
         }
       ],
@@ -498,7 +498,7 @@
       "outputs": [
         {
           "name": "accept_mask",
-          "type_desc": "Tensor[n_chains] (bool)",
+          "type_desc": "Tensor",
           "constraints": "accept_mask[i] = (accept_log_ratio[i] >= log(uniform_u[i]))."
         }
       ],
@@ -534,7 +534,7 @@
         },
         {
           "name": "accept_mask",
-          "type_desc": "Tensor[n_chains] (bool)",
+          "type_desc": "Tensor",
           "constraints": "From derive_acceptance_mask."
         },
         {
@@ -622,14 +622,14 @@
         },
         {
           "name": "prng_key_state",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "explicit RNG flow through all iterations"
         }
       ],
       "outputs": [
         {
           "name": "samples",
-          "type_desc": "array",
+          "type_desc": "np.ndarray",
           "constraints": "collected posterior positions"
         },
         {
@@ -639,12 +639,12 @@
         },
         {
           "name": "final_prng_key",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "terminal RNG state"
         },
         {
           "name": "chain_trace",
-          "type_desc": "array/dict",
+          "type_desc": "object",
           "constraints": "acceptance and trajectory diagnostics"
         }
       ],
@@ -694,17 +694,17 @@
       "outputs": [
         {
           "name": "collection_buffer_0",
-          "type_desc": "array/tensor[n_collect, n_chains, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "allocated and empty"
         },
         {
           "name": "chain_dims",
-          "type_desc": "tuple(int n_chains, int dim)",
+          "type_desc": "tuple[int, int]",
           "constraints": "inferred from chain_state_0"
         },
         {
           "name": "trace_state_0",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "initialized, no observations yet"
         }
       ],
@@ -745,7 +745,7 @@
         },
         {
           "name": "prng_key_state",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "x is not None"
         }
       ],
@@ -757,12 +757,12 @@
         },
         {
           "name": "prng_key_burned",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "advanced by n_discard transitions"
         },
         {
           "name": "discard_events",
-          "type_desc": "array/dict",
+          "type_desc": "object",
           "constraints": "optional diagnostics from discard phase"
         }
       ],
@@ -793,14 +793,14 @@
         },
         {
           "name": "trace_state_0",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "trace_state_seeded",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "includes baseline diagnostics observation"
         }
       ],
@@ -836,7 +836,7 @@
         },
         {
           "name": "prng_key_burned",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "x is not None"
         },
         {
@@ -846,24 +846,24 @@
         },
         {
           "name": "collection_buffer_0",
-          "type_desc": "array/tensor[n_collect, n_chains, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "time-major buffer"
         },
         {
           "name": "chain_dims",
-          "type_desc": "tuple(int n_chains, int dim)",
+          "type_desc": "tuple[int, int]",
           "constraints": "must match state positions"
         },
         {
           "name": "trace_state_seeded",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "collection_buffer_filled",
-          "type_desc": "array/tensor[n_collect, n_chains, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "all collection slots filled in order"
         },
         {
@@ -873,12 +873,12 @@
         },
         {
           "name": "final_prng_key",
-          "type_desc": "PRNGKey/RNG state",
+          "type_desc": "np.ndarray",
           "constraints": "advanced by n_collect transitions"
         },
         {
           "name": "trace_state_final",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "includes per-step diagnostics/progress payloads"
         }
       ],
@@ -904,14 +904,14 @@
       "inputs": [
         {
           "name": "collection_buffer_filled",
-          "type_desc": "array/tensor[n_collect, n_chains, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "samples",
-          "type_desc": "array/tensor[n_chains, n_collect, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "final sample output layout"
         }
       ],
@@ -937,24 +937,24 @@
       "inputs": [
         {
           "name": "trace_state_final",
-          "type_desc": "chain trace accumulator",
+          "type_desc": "object",
           "constraints": "x is not None"
         },
         {
           "name": "discard_events",
-          "type_desc": "array/dict",
+          "type_desc": "object",
           "constraints": "may be empty"
         },
         {
           "name": "samples",
-          "type_desc": "array/tensor[n_chains, n_collect, dim]",
+          "type_desc": "np.ndarray",
           "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "chain_trace",
-          "type_desc": "array/dict",
+          "type_desc": "object",
           "constraints": "contains diagnostics summary and optional warnings/progress history"
         }
       ],

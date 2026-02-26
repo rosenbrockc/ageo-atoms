@@ -40,7 +40,7 @@
       "outputs": [
         {
           "name": "state_out",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "New object; includes initialized factor->variable and variable->factor message storage plus t=0."
         }
       ],
@@ -66,12 +66,12 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Immutable input snapshot; msg/msg_new/t are read and transformed into a new state."
         },
         {
           "name": "v_name",
-          "type_desc": "string",
+          "type_desc": "str",
           "constraints": "Must be a valid variable name in pgm."
         },
         {
@@ -88,7 +88,7 @@
         },
         {
           "name": "state_out",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "New object with updated msg and t after iterations; no hidden mutation."
         }
       ],
@@ -122,7 +122,7 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Must contain current iteration counter `t`."
         },
         {
@@ -160,7 +160,7 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Graph must provide factor/variable typing, neighbors, factor tables, and variable ranks."
         },
         {
@@ -198,7 +198,7 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Graph must provide factor/variable typing, neighbors, factor tables, and variable ranks."
         },
         {
@@ -236,7 +236,7 @@
       "inputs": [
         {
           "name": "state_in",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Current state before commit."
         },
         {
@@ -248,7 +248,7 @@
       "outputs": [
         {
           "name": "state_out",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "`state_out.t == state_in.t + 1`; `msg` contains latest normalized directional messages."
         }
       ],
@@ -274,12 +274,12 @@
       "inputs": [
         {
           "name": "state_out",
-          "type_desc": "BPStateModelSpec{pgm, msg, msg_new, t}",
+          "type_desc": "object",
           "constraints": "Must already be advanced to requested iteration."
         },
         {
           "name": "v_name",
-          "type_desc": "string",
+          "type_desc": "str",
           "constraints": "Must be a variable node in the factor graph."
         }
       ],

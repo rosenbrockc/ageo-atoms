@@ -45,14 +45,14 @@
         },
         {
           "name": "fasta_file",
-          "type_desc": "str | Path",
+          "type_desc": "str",
           "constraints": "Optional alternate constructor input; if provided, sequences are parsed from file."
         }
       ],
       "outputs": [
         {
           "name": "dataset_state",
-          "type_desc": "FastaDatasetState{sequence_labels: List[str], sequence_strs: List[str]}",
+          "type_desc": "object",
           "constraints": "Immutable logical state passed to downstream atoms."
         }
       ],
@@ -127,7 +127,7 @@
       "inputs": [
         {
           "name": "fasta_file",
-          "type_desc": "str | Path",
+          "type_desc": "str",
           "constraints": "Readable FASTA-like text file; optional when using direct inputs"
         }
       ],
@@ -185,7 +185,7 @@
         },
         {
           "name": "fasta_file",
-          "type_desc": "str | Path",
+          "type_desc": "str",
           "constraints": "Presence indicates FASTA path is active"
         }
       ],
@@ -268,7 +268,7 @@
       "outputs": [
         {
           "name": "dataset_state",
-          "type_desc": "FastaDatasetState{sequence_labels: List[str], sequence_strs: List[str]}",
+          "type_desc": "object",
           "constraints": "Immutable logical state for downstream use"
         }
       ],

@@ -32,7 +32,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like[float]",
+          "type_desc": "np.ndarray",
           "constraints": "1-D sampled signal"
         },
         {
@@ -69,7 +69,7 @@
       "outputs": [
         {
           "name": "onset_events",
-          "type_desc": "array-like",
+          "type_desc": "np.ndarray",
           "constraints": "detected onset locations/times; may be empty"
         }
       ],
@@ -102,7 +102,7 @@
       "inputs": [
         {
           "name": "signal",
-          "type_desc": "array-like[float]",
+          "type_desc": "np.ndarray",
           "constraints": "must not be None"
         },
         {
@@ -344,12 +344,12 @@
       "outputs": [
         {
           "name": "onset_events",
-          "type_desc": "array-like[int]",
+          "type_desc": "np.ndarray",
           "constraints": "numpy int array of onset indices"
         },
         {
           "name": "window_marks",
-          "type_desc": "array-like[int]",
+          "type_desc": "np.ndarray",
           "constraints": "numpy int array of segment boundaries"
         },
         {
