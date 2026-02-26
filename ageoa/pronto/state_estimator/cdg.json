@@ -6,12 +6,39 @@
       "name": "StateEstimator",
       "description": "Ingested pipeline from StateEstimator",
       "concept_type": "custom",
-      "inputs": [],
-      "outputs": [],
-      "status": "decomposed",
+      "inputs": [
+        {
+          "name": "prior_state",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "prior_cov",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "measurement",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "utime",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
       "children": [],
       "depth": 0,
-      "type_signature": "",
+      "type_signature": "(prior_state: np.ndarray, prior_cov: np.ndarray, measurement: np.ndarray, utime: float) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

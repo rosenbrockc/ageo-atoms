@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 
@@ -128,6 +123,7 @@ def show(io: str, t: str) -> str:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_datetime)
+@icontract.require(lambda year, month, day: 1 <= month <= 12 and 1 <= day <= 31, "month must be 1-12, day must be 1-31")
 @icontract.ensure(lambda result: result is not None, "Datetime output must not be None")
 def datetime(year: int, month: int, day: int, hour: int, min: int, sec: float) -> tuple[int, int, int, int, int, float]:
     """Datetime.

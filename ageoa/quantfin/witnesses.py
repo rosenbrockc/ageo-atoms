@@ -12,8 +12,8 @@ def witness_volatility_surface_modeling(data: AbstractArray) -> AbstractArray:
 
 
 def witness_run_simulation(
-    model,
-    claim,
+    model: object,
+    claim: object,
     seed: int,
     trials: int,
     anti: bool,
@@ -32,8 +32,8 @@ def witness_run_simulation(
 
 
 def witness_run_simulation_anti(
-    model,
-    claim,
+    model: object,
+    claim: object,
     seed: int,
     trials: int,
     simulator_name: str,
@@ -53,8 +53,8 @@ def witness_run_simulation_anti(
 
 
 def witness_quick_sim_anti(
-    model,
-    claim,
+    model: object,
+    claim: object,
     trials: int,
     simulator_name: str,
 ) -> AbstractScalar:

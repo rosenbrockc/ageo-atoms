@@ -22,6 +22,7 @@ def _non_negative(value: int) -> int:
 
 @register_atom(witness_calculate_ofi)
 @icontract.require(lambda bid_qty, ask_qty: bid_qty >= 0 and ask_qty >= 0, "Quantities must be non-negative")
+@icontract.ensure(lambda result: result is not None and len(result) == 2, "calculate_ofi must return a (float, state) tuple")
 def calculate_ofi(
     bid_px: float,
     bid_qty: int,

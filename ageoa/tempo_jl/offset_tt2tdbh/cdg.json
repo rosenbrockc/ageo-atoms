@@ -6,12 +6,24 @@
       "name": "offset_tt2tdbh",
       "description": "Ingested pipeline from offset_tt2tdbh",
       "concept_type": "custom",
-      "inputs": [],
-      "outputs": [],
-      "status": "decomposed",
+      "inputs": [
+        {
+          "name": "seconds",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "status": "atomic",
       "children": [],
       "depth": 0,
-      "type_signature": "",
+      "type_signature": "(seconds: float) -> float",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 
-import jax
-import jax.numpy as jnp
-import haiku as hk
 import icontract
-from typing import Any, Tuple
+from typing import Tuple
 
 from ageoa.ghost.registry import register_atom
 from ageoa.alphafold.state_models import AlphaFoldStructuralState
@@ -23,7 +20,7 @@ from ageoa.alphafold.witnesses import (
 def invariant_point_attention(
     nodes: jnp.ndarray,
     pairs: jnp.ndarray,
-    frames: Any,
+    frames: jnp.ndarray,
     state: AlphaFoldStructuralState
 ) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
     """Equivariant (i.e., the output transforms consistently under rotations and translations of the input) attention mechanism over structured 3D point sets.
@@ -51,10 +48,10 @@ def invariant_point_attention(
 @icontract.require(lambda frames, nodes: len(nodes.shape) >= 1, "Nodes must have at least one dimension")
 @icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (frames, state) tuple")
 def equivariant_frame_update(
-    frames: Any,
+    frames: jnp.ndarray,
     nodes: jnp.ndarray,
     state: AlphaFoldStructuralState
-) -> Tuple[Any, AlphaFoldStructuralState]:
+) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
     """Updates 3D rigid frames using predicted gradients.
 
     Args:
@@ -76,7 +73,7 @@ def equivariant_frame_update(
 @icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (coords, state) tuple")
 @icontract.ensure(lambda result: result[0].ndim == 3 and result[0].shape[-1] == 3, "Coordinates must have shape (n_res, n_atoms, 3)")
 def coordinate_reconstruction(
-    frames: Any,
+    frames: jnp.ndarray,
     torsions: jnp.ndarray,
     state: AlphaFoldStructuralState
 ) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:

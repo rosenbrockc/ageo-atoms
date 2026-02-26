@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
@@ -17,10 +15,11 @@ from .witnesses import (
 
 
 @register_atom(witness_filter_step_preparation_and_dispatch)
+@icontract.require(lambda up: up is not None, "prior state up cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def filter_step_preparation_and_dispatch(
-    up: Any, b: Any, a: Any, o: Any
-) -> tuple[Any, Any, Any, Any, Any]:
+    up: object, b: object, a: object, o: object
+) -> tuple[object, object, object, object, np.ndarray]:
     """Entry-point orchestration for one SMC step.
 
     Args:
@@ -36,10 +35,11 @@ def filter_step_preparation_and_dispatch(
 
 
 @register_atom(witness_particle_propagation_kernel)
+@icontract.require(lambda prior_state: prior_state is not None, "prior_state cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def particle_propagation_kernel(
-    prior_state: Any, model_spec: Any, control_t: Any, rng_key: Any
-) -> tuple[np.ndarray, np.ndarray, Any]:
+    prior_state: object, model_spec: object, control_t: object, rng_key: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Propagate particles from prior to proposed latent state.
 
     Args:
@@ -55,12 +55,13 @@ def particle_propagation_kernel(
 
 
 @register_atom(witness_likelihood_reweight_kernel)
+@icontract.require(lambda proposed_particles: proposed_particles is not None, "proposed_particles cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def likelihood_reweight_kernel(
     proposed_particles: np.ndarray,
     carry_weights: np.ndarray,
-    observation_t: Any,
-    model_spec: Any,
+    observation_t: np.ndarray,
+    model_spec: object,
 ) -> tuple[np.ndarray, float]:
     """Compute observation likelihoods and perform SMC weight update.
 
@@ -82,9 +83,9 @@ def likelihood_reweight_kernel(
 def resample_and_belief_projection(
     proposed_particles: np.ndarray,
     normalized_weights: np.ndarray,
-    rng_key_next: Any,
+    rng_key_next: np.ndarray,
     log_likelihood: float,
-) -> tuple[Any, Any]:
+) -> tuple[object, object]:
     """Build posterior belief state and diagnostics from weighted particles.
 
     Args:

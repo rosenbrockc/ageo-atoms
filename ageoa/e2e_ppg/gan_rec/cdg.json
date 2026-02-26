@@ -561,24 +561,6 @@
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
       "requires_glue": false
-    },
-    {
-      "source_id": "commitchunkandadvancecontext",
-      "target_id": "commitchunkandadvancecontext",
-      "output_name": "remaining_noise_next",
-      "input_name": "remaining_noise",
-      "source_type": "int",
-      "target_type": "int",
-      "requires_glue": false
-    },
-    {
-      "source_id": "commitchunkandadvancecontext",
-      "target_id": "commitchunkandadvancecontext",
-      "output_name": "reconstructed_noise_next",
-      "input_name": "reconstructed_noise",
-      "source_type": "list",
-      "target_type": "list",
-      "requires_glue": false
     }
   ],
   "metadata": {

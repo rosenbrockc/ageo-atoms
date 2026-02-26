@@ -41,7 +41,7 @@
       "node_id": "isleapyear",
       "parent_id": "find_year_root",
       "name": "Isleapyear",
-      "description": "",
+      "description": "Determine whether a given year is a leap year",
       "concept_type": "custom",
       "inputs": [
         {
@@ -74,7 +74,7 @@
       "node_id": "find_dayinyear",
       "parent_id": "find_year_root",
       "name": "Find Dayinyear",
-      "description": "",
+      "description": "Find the day number within a year given month, day, and leap-year flag",
       "concept_type": "custom",
       "inputs": [
         {
@@ -117,7 +117,7 @@
       "node_id": "find_year",
       "parent_id": "find_year_root",
       "name": "Find Year",
-      "description": "",
+      "description": "Find the calendar year corresponding to a day offset",
       "concept_type": "custom",
       "inputs": [
         {
@@ -150,7 +150,7 @@
       "node_id": "find_month",
       "parent_id": "find_year_root",
       "name": "Find Month",
-      "description": "",
+      "description": "Find the calendar month from a day-in-year value and leap-year flag",
       "concept_type": "custom",
       "inputs": [
         {
@@ -188,7 +188,7 @@
       "node_id": "find_day",
       "parent_id": "find_year_root",
       "name": "Find Day",
-      "description": "",
+      "description": "Find the calendar day from a day-in-year value, month, and leap-year flag",
       "concept_type": "custom",
       "inputs": [
         {
@@ -231,7 +231,7 @@
       "node_id": "lastj2000dayofyear",
       "parent_id": "find_year_root",
       "name": "Lastj2000Dayofyear",
-      "description": "",
+      "description": "Return the last J2000 day number of a given year",
       "concept_type": "custom",
       "inputs": [
         {
@@ -264,7 +264,7 @@
       "node_id": "hms2fd",
       "parent_id": "find_year_root",
       "name": "Hms2Fd",
-      "description": "",
+      "description": "Convert hours, minutes, and seconds to a fractional day",
       "concept_type": "custom",
       "inputs": [
         {
@@ -307,7 +307,7 @@
       "node_id": "fd2hms",
       "parent_id": "find_year_root",
       "name": "Fd2Hms",
-      "description": "",
+      "description": "Convert a fractional day to hours, minutes, and seconds",
       "concept_type": "custom",
       "inputs": [
         {
@@ -340,7 +340,7 @@
       "node_id": "fd2hmsf",
       "parent_id": "find_year_root",
       "name": "Fd2Hmsf",
-      "description": "",
+      "description": "Convert a fractional day to hours, minutes, seconds, and sub-second fraction",
       "concept_type": "custom",
       "inputs": [
         {
@@ -373,7 +373,7 @@
       "node_id": "cal2jd",
       "parent_id": "find_year_root",
       "name": "Cal2Jd",
-      "description": "",
+      "description": "Convert a calendar date (year, month, day) to a Julian date",
       "concept_type": "custom",
       "inputs": [
         {
@@ -416,7 +416,7 @@
       "node_id": "calhms2jd",
       "parent_id": "find_year_root",
       "name": "Calhms2Jd",
-      "description": "",
+      "description": "Convert a calendar date and time (year, month, day, h, m, s) to a Julian date",
       "concept_type": "custom",
       "inputs": [
         {
@@ -474,7 +474,7 @@
       "node_id": "jd2cal",
       "parent_id": "find_year_root",
       "name": "Jd2Cal",
-      "description": "",
+      "description": "Convert a Julian date to a calendar date",
       "concept_type": "custom",
       "inputs": [
         {
@@ -512,7 +512,7 @@
       "node_id": "jd2calhms",
       "parent_id": "find_year_root",
       "name": "Jd2Calhms",
-      "description": "",
+      "description": "Convert a Julian date to a calendar date and time (year, month, day, h, m, s)",
       "concept_type": "custom",
       "inputs": [
         {
@@ -550,7 +550,7 @@
       "node_id": "utc2tai",
       "parent_id": "find_year_root",
       "name": "Utc2Tai",
-      "description": "",
+      "description": "Convert UTC Julian date to International Atomic Time (TAI)",
       "concept_type": "custom",
       "inputs": [
         {
@@ -588,7 +588,7 @@
       "node_id": "tai2utc",
       "parent_id": "find_year_root",
       "name": "Tai2Utc",
-      "description": "",
+      "description": "Convert International Atomic Time (TAI) Julian date to UTC",
       "concept_type": "custom",
       "inputs": [
         {

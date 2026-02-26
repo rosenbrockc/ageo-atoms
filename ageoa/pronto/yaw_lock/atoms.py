@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
 from typing import Any, Callable, cast
@@ -20,6 +15,7 @@ from pathlib import Path
 register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom); YawLockState = object; witness_initializeyawlockstate = witness_configurecorrectionandyawslippolicy = witness_setrobotstandingstatus = witness_readrobotstandingstatus = witness_setjointposeandinitialangles = witness_readinitialjointangles = witness_setstandinglinktargets = object()
 
 @register_atom(witness_initializeyawlockstate)
+@icontract.require(lambda: True, "no preconditions")
 @icontract.ensure(lambda result: result is not None, "InitializeYawLockState output must not be None")
 def initializeyawlockstate() -> YawLockState:
     """Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).

@@ -30,7 +30,7 @@
       "node_id": "load_graphs_from_folder",
       "parent_id": "mwis_SA_root",
       "name": "Load Graphs From Folder",
-      "description": "",
+      "description": "Load all molecular interaction graphs from a directory",
       "concept_type": "custom",
       "inputs": [
         {

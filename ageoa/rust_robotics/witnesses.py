@@ -16,8 +16,8 @@ def witness_dijkstra_path_planning(data: AbstractArray) -> AbstractArray:
 
 
 def witness_pure_pursuit(
-    position_current,
-    position_target,
+    position_current: AbstractArray,
+    position_target: AbstractArray,
     yaw_current: float,
     target_distance: float,
     wheelbase: float,

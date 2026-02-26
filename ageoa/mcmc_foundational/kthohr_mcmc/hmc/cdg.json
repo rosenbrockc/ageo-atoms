@@ -46,7 +46,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+      "type_signature": "(target_log_kernel: (position) -> log_prob) -> (PRNGKey, HMCState) -> (PRNGKey, HMCState)",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

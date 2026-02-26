@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import List
 
-from ageoa.ghost.abstract import AbstractScalar
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 
 def witness_discover_equations(
-    X,
-    Y,
+    X: AbstractArray,
+    Y: AbstractArray,
     variable_names: List[str],
     max_degree: int = 4,
     lambda_val: float = 0.1

@@ -29,7 +29,7 @@
       "node_id": "show",
       "parent_id": "apply_offsets_root",
       "name": "Show",
-      "description": "",
+      "description": "Format and display a value to an output stream",
       "concept_type": "custom",
       "inputs": [
         {
@@ -67,7 +67,7 @@
       "node_id": "_zero_offset",
       "parent_id": "apply_offsets_root",
       "name": " Zero Offset",
-      "description": "",
+      "description": "Return a zero time offset for a given number of seconds",
       "concept_type": "custom",
       "inputs": [
         {
@@ -100,7 +100,7 @@
       "node_id": "apply_offsets",
       "parent_id": "apply_offsets_root",
       "name": "Apply Offsets",
-      "description": "",
+      "description": "Apply a sequence of time-scale offsets to a seconds value",
       "concept_type": "custom",
       "inputs": [
         {

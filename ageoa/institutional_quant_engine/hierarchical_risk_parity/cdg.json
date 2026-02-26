@@ -6,12 +6,24 @@
       "name": "HRP",
       "description": "Ingested pipeline from HRP",
       "concept_type": "custom",
-      "inputs": [],
-      "outputs": [],
-      "status": "decomposed",
+      "inputs": [
+        {
+          "name": "returns",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
       "children": [],
       "depth": 0,
-      "type_signature": "",
+      "type_signature": "(returns: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

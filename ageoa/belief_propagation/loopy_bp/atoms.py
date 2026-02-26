@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Any
 
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 
+
+# Domain-specific type aliases
+PGMGraph = object  # Factor graph structure
+BPState = object   # Loopy-BP cross-window persistent state
 from .witnesses import (
     witness_initialize_message_passing_state,
     witness_run_loopy_message_passing_and_belief_query,
@@ -17,7 +20,7 @@ from .witnesses import (
 @register_atom(witness_initialize_message_passing_state)
 @icontract.require(lambda pgm: pgm is not None, "pgm cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_message_passing_state(pgm: Any, state: Any) -> tuple[Any, Any]:
+def initialize_message_passing_state(pgm: PGMGraph, state: BPState) -> tuple[object, BPState]:
     """Build the immutable loopy-belief-propagation state from the PGM.
 
     Args:
@@ -35,8 +38,8 @@ def initialize_message_passing_state(pgm: Any, state: Any) -> tuple[Any, Any]:
 @icontract.require(lambda num_iter: isinstance(num_iter, int), "num_iter must be int")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def run_loopy_message_passing_and_belief_query(
-    state_in: Any, v_name: str, num_iter: int, state: Any
-) -> tuple[tuple[np.ndarray, Any], Any]:
+    state_in: BPState, v_name: str, num_iter: int, state: BPState
+) -> tuple[tuple[np.ndarray, object], BPState]:
     """Run loopy message-passing iterations and return queried variable belief.
 
     Args:

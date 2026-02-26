@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
@@ -24,7 +22,7 @@ from .witnesses import (
 @icontract.require(lambda mass: isinstance(mass, (float, int, np.number)), "mass must be numeric")
 @icontract.require(lambda area_frontal: isinstance(area_frontal, (float, int, np.number)), "area_frontal must be numeric")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_model(mass: float, area_frontal: float) -> Any:
+def initialize_model(mass: float, area_frontal: float) -> object:
     """Create an immutable vehicle dynamics model from physical parameters.
 
     Args:
@@ -141,7 +139,7 @@ def solve_control_for_target_derivative(x: np.ndarray, x_dot_desired: np.ndarray
 @register_atom(witness_deserialize_model_spec)
 @icontract.require(lambda filename: isinstance(filename, str), "filename must be str")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def deserialize_model_spec(filename: str) -> Any:
+def deserialize_model_spec(filename: str) -> object:
     """Load model parameters from file and construct model data.
 
     Args:

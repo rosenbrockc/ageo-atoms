@@ -82,7 +82,7 @@
         "check_global_u_turn"
       ],
       "depth": 1,
-      "type_signature": "(direction_val: integer, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: integer) -> NUTS_Trajectory",
+      "type_signature": "(direction_val: integer, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: (Position) -> float, integrator_fn: (State, float, int) -> State, tree_depth: integer) -> NUTS_Trajectory",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

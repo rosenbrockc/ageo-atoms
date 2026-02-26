@@ -2,13 +2,9 @@
 
 from __future__ import annotations
 
+from ageoa.ghost.abstract import AbstractArray
 
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_torqueadjustmentidentitystage() -> None:
+def witness_torqueadjustmentidentitystage() -> AbstractArray:
     """Ghost witness for TorqueAdjustmentIdentityStage."""
-    return None
+    return AbstractArray(shape=(1,), dtype="float64")

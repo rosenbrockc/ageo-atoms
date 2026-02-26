@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
@@ -20,6 +15,8 @@ from pathlib import Path
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_torqueadjustmentidentitystage)  # type: ignore[untyped-decorator,name-defined]
+@icontract.require(lambda: True, "no preconditions")
+@icontract.ensure(lambda result: True, "no postconditions")
 def torqueadjustmentidentitystage() -> None:
     """Represents the entry-point stage with no observable computation, state access, or side effects.
 

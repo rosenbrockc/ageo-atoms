@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
@@ -17,10 +15,11 @@ from .witnesses import (
 
 
 @register_atom(witness_dataset_state_initialization)
+@icontract.require(lambda sequence_labels, sequence_strs: len(sequence_labels) == len(sequence_strs), "sequence_labels and sequence_strs must have equal length")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def dataset_state_initialization(
     sequence_labels: list[str], sequence_strs: list[str], fasta_file: str
-) -> Any:
+) -> object:
     """Build an immutable dataset state from in-memory inputs or a FASTA file.
 
     Args:
@@ -35,8 +34,9 @@ def dataset_state_initialization(
 
 
 @register_atom(witness_dataset_length_query)
+@icontract.require(lambda dataset_state: dataset_state is not None, "dataset_state cannot be None")
 @icontract.ensure(lambda result: isinstance(result, int), "result must be int")
-def dataset_length_query(dataset_state: Any) -> int:
+def dataset_length_query(dataset_state: object) -> int:
     """Return the number of labeled sequences in dataset_state.
 
     Args:
@@ -51,7 +51,7 @@ def dataset_length_query(dataset_state: Any) -> int:
 @register_atom(witness_dataset_item_retrieval)
 @icontract.require(lambda idx: isinstance(idx, int), "idx must be int")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def dataset_item_retrieval(dataset_state: Any, idx: int) -> tuple[str, str]:
+def dataset_item_retrieval(dataset_state: object, idx: int) -> tuple[str, str]:
     """Retrieve a single labeled sequence by index from dataset_state.
 
     Args:
@@ -69,7 +69,7 @@ def dataset_item_retrieval(dataset_state: Any, idx: int) -> tuple[str, str]:
 @icontract.require(lambda extra_toks_per_seq: isinstance(extra_toks_per_seq, int), "extra_toks_per_seq must be int")
 @icontract.ensure(lambda result: isinstance(result, list), "result must be list")
 def token_budget_batch_planning(
-    dataset_state: Any, toks_per_batch: int, extra_toks_per_seq: int
+    dataset_state: object, toks_per_batch: int, extra_toks_per_seq: int
 ) -> list[list[int]]:
     """Compute batch index groups under a token budget.
 

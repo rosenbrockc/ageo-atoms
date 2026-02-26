@@ -46,7 +46,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(target_log_kernel: Callable[[latent_state], float]) -> Callable[[chain_state, prng_key], (chain_state_next, diagnostics, prng_key_next)]",
+      "type_signature": "(target_log_kernel: (latent_state) -> float) -> (chain_state, prng_key) -> (chain_state_next, diagnostics, prng_key_next)",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

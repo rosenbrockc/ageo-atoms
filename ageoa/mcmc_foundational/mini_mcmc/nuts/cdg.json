@@ -62,7 +62,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(target: Callable[[Array], float], initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+      "type_signature": "(target: (Array) -> float, initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -330,7 +330,13 @@
           "constraints": "The handle of the thread to wait for."
         }
       ],
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "bool",
+          "constraints": "isinstance(x, bool)"
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 2,

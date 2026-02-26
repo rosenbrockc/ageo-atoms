@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
@@ -25,6 +20,7 @@ witness_updatecrossingtimemaximum: Any = None
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_initializebacklashfilterstate)
+@icontract.require(lambda: True, "no preconditions")
 @icontract.ensure(lambda result: result is not None, "InitializeBacklashFilterState output must not be None")
 def initializebacklashfilterstate() -> BacklashFilterState:
     """Create the initial immutable state object for the filter parameters.

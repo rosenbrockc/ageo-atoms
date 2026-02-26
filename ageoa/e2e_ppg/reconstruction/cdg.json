@@ -1267,24 +1267,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "update_iteration_state_from_stitched_signal",
-      "target_id": "update_iteration_state_from_stitched_signal",
-      "output_name": "remaining_noise_next",
-      "input_name": "remaining_noise_current",
-      "source_type": "int",
-      "target_type": "int",
-      "requires_glue": false
-    },
-    {
-      "source_id": "update_iteration_state_from_stitched_signal",
-      "target_id": "update_iteration_state_from_stitched_signal",
-      "output_name": "reconstructed_noise_next",
-      "input_name": "reconstructed_noise_current",
-      "source_type": "list[float]",
-      "target_type": "list[float]",
-      "requires_glue": false
-    },
-    {
       "source_id": "load_reconstruction_model_runtime",
       "target_id": "generate_noise_reconstructions",
       "output_name": "generator",

@@ -490,15 +490,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "commitcandidateanddecidecontinuation",
-      "target_id": "commitcandidateanddecidecontinuation",
-      "output_name": "trajectory_accum_next",
-      "input_name": "trajectory_accum",
-      "source_type": "Nothing|Vector{P}",
-      "target_type": "Nothing|Vector{P}",
-      "requires_glue": false
-    },
-    {
       "source_id": "normalizeintegrationcontrols",
       "target_id": "assembletransitionresult",
       "output_name": "collect_full_trajectory",

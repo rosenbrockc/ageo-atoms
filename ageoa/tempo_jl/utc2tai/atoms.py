@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 
@@ -176,6 +171,7 @@ def cal2jd(Y: int, M: int, D: int) -> float:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_calhms2jd)
+@icontract.require(lambda Y, M, D: 1 <= M <= 12 and 1 <= D <= 31, "M must be 1-12, D must be 1-31")
 @icontract.ensure(lambda result: result is not None, "Calhms2Jd output must not be None")
 def calhms2jd(Y: int, M: int, D: int, h: int, m: int, sec: float) -> float:
     """Calhms2jd.

@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
@@ -21,6 +16,7 @@ from typing import Callable
 witness_buildhmckernelfromlogdensityoracle: object = object()
 
 @register_atom(witness_buildhmckernelfromlogdensityoracle)  # type: ignore[untyped-decorator]
+@icontract.require(lambda target_log_kernel: callable(target_log_kernel), "target_log_kernel must be callable")
 @icontract.ensure(lambda result: result is not None, "BuildHMCKernelFromLogDensityOracle output must not be None")
 def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
     """Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.
