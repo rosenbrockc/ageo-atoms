@@ -21,7 +21,7 @@ from ageoa.ghost.registry import register_atom
 @icontract.require(lambda beatwindow: isinstance(beatwindow, (float, int, np.number)), "beatwindow must be numeric")
 @icontract.require(lambda beatoffset: isinstance(beatoffset, (float, int, np.number)), "beatoffset must be numeric")
 @icontract.require(lambda mindelay: isinstance(mindelay, (float, int, np.number)), "mindelay must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "detect_signal_onsets_elgendi2013 output must not be None")
+@icontract.ensure(lambda result: result is not None, "detect_signal_onsets_elgendi2013 output must not be None")
 def detect_signal_onsets_elgendi2013(signal: np.ndarray, sampling_rate: float, peakwindow: float, beatwindow: float, beatoffset: float, mindelay: float) -> np.ndarray:
     """Detects physiological signal onsets (e.g., ECG R-peaks) using the Elgendi et al. (2013) method. This algorithm typically involves bandpass filtering, squaring, generating potential blocks of interest, and applying dynamic thresholding to identify definitive peaks.
 

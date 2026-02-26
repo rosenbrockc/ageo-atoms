@@ -21,7 +21,7 @@ from pathlib import Path
 
 @register_atom(witness_inverse_schmitt_trigger_transform)  # type: ignore[untyped-decorator, name-defined]
 @icontract.require(lambda input_signal: input_signal is not None, "input_signal cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "inverse_schmitt_trigger_transform output must not be None")
+@icontract.ensure(lambda result: result is not None, "inverse_schmitt_trigger_transform output must not be None")
 def inverse_schmitt_trigger_transform(input_signal: object) -> object:
     """Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.
 
@@ -43,7 +43,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def inverse_schmitt_trigger_transform_ffi(input_signal: ctypes.c_void_p) -> ctypes.c_void_p:
+def _inverse_schmitt_trigger_transform_ffi(input_signal: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of inverse_schmitt_trigger_transform."""
     _lib = ctypes.CDLL("./inverse_schmitt_trigger_transform.so")
     _func_name = 'inverse_schmitt_trigger_transform'

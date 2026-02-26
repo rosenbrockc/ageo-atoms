@@ -34,12 +34,12 @@
         {
           "name": "prediction",
           "type_desc": "model prediction input",
-          "constraints": ""
+          "constraints": "isinstance(x, dict)"
         },
         {
           "name": "raw_signal",
           "type_desc": "raw signal input",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [

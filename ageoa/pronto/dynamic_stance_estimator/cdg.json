@@ -238,15 +238,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "predictstep",
-      "target_id": "updatestep",
-      "output_name": "predicted_state",
-      "input_name": "predicted_state",
-      "source_type": "StateModelSpec",
-      "target_type": "StateModelSpec",
-      "requires_glue": false
-    },
-    {
       "source_id": "updatestep",
       "target_id": "predictstep",
       "output_name": "updated_state",

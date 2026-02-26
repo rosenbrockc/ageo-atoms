@@ -21,8 +21,18 @@ from juliacall import Main as jl
 @icontract.require(lambda pri: pri is not None, "pri cannot be None")
 @icontract.require(lambda G: G is not None, "G cannot be None")
 @icontract.require(lambda data: data is not None, "data cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Posterior Randmodel output must not be None")
+@icontract.ensure(lambda result: result is not None, "Posterior Randmodel output must not be None")
 def posterior_randmodel(pri: Any, G: Any, data: Any) -> Any:
+    """Posterior randmodel.
+
+    Args:
+        pri (Any): Description.
+        G (Any): Description.
+        data (Any): Description.
+
+    Returns:
+        Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_posterior_randmodel)
@@ -30,8 +40,19 @@ def posterior_randmodel(pri: Any, G: Any, data: Any) -> Any:
 @icontract.require(lambda G: G is not None, "G cannot be None")
 @icontract.require(lambda data: data is not None, "data cannot be None")
 @icontract.require(lambda w: w is not None, "w cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Posterior Randmodel output must not be None")
+@icontract.ensure(lambda result: result is not None, "Posterior Randmodel output must not be None")
 def posterior_randmodel(pri: Any, G: Any, data: Any, w: Any) -> Any:
+    """Posterior randmodel.
+
+    Args:
+        pri (Any): Description.
+        G (Any): Description.
+        data (Any): Description.
+        w (Any): Description.
+
+    Returns:
+        Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -42,10 +63,10 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def posterior_randmodel_ffi(pri, G, data):
+def _posterior_randmodel_ffi(pri, G, data):
     """FFI bridge to Julia implementation of Posterior Randmodel."""
     return jl.eval("posterior_randmodel(pri, G, data)")
 
-def posterior_randmodel_ffi(pri, G, data, w):
+def _posterior_randmodel_ffi(pri, G, data, w):
     """FFI bridge to Julia implementation of Posterior Randmodel."""
     return jl.eval("posterior_randmodel(pri, G, data, w)")

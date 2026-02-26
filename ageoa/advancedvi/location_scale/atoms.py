@@ -20,8 +20,8 @@ from juliacall import Main as jl
 @register_atom(witness_evaluate_log_probability_density)
 @icontract.require(lambda q: q is not None, "q cannot be None")
 @icontract.require(lambda z: z is not None, "z cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "evaluate_log_probability_density output must not be None")
-def evaluate_log_probability_density(q: Unknown, z: Unknown) -> float:
+@icontract.ensure(lambda result: result is not None, "evaluate_log_probability_density output must not be None")
+def evaluate_log_probability_density(q: np.ndarray, z: np.ndarray) -> float:
     """Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.
 
     Args:
@@ -41,6 +41,6 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def evaluate_log_probability_density_ffi(q, z):
+def _evaluate_log_probability_density_ffi(q, z):
     """FFI bridge to Julia implementation of evaluate_log_probability_density."""
     return jl.eval("evaluate_log_probability_density(q, z)")

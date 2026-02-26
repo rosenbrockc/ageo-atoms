@@ -16,8 +16,8 @@ witness_apccoreevaluation = lambda *_args, **_kwargs: True
 
 @register_atom(witness_apccoreevaluation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ApcCoreEvaluation output must not be None")
-def apccoreevaluation(x: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "ApcCoreEvaluation output must not be None")
+def apccoreevaluation(x: np.ndarray) -> np.ndarray:
     """Executes the standalone APC computation as a pure stateless function of the input.
 
     Args:

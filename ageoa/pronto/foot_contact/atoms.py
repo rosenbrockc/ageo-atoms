@@ -22,7 +22,7 @@ from pathlib import Path
 @register_atom(witness_foot_sensing_state_update)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda foot_sensing_state_in: foot_sensing_state_in is not None, "foot_sensing_state_in cannot be None")
 @icontract.require(lambda foot_sensing_command: foot_sensing_command is not None, "foot_sensing_command cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Foot Sensing State Update output must not be None")
+@icontract.ensure(lambda result: result is not None, "Foot Sensing State Update output must not be None")
 def foot_sensing_state_update(foot_sensing_state_in: dict[str, bool], foot_sensing_command: dict[str, bool]) -> dict[str, bool]:
     """Applies a pure state transition for left/right foot sensing flags, returning a new sensing state object.
 
@@ -37,7 +37,7 @@ def foot_sensing_state_update(foot_sensing_state_in: dict[str, bool], foot_sensi
 
 @register_atom(witness_mode_snapshot_readout)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda mode_state_in: mode_state_in is not None, "mode_state_in cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "Mode Snapshot Readout all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "Mode Snapshot Readout all outputs must not be None")
 def mode_snapshot_readout(mode_state_in: object) -> tuple[object, object]:
     """Reads current and previous mode from immutable classifier state and exposes them as explicit outputs.
 
@@ -60,7 +60,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_sensing_command: ctypes.c_void_p) -> ctypes.c_void_p:
+def _foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_sensing_command: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of Foot Sensing State Update."""
     _lib = ctypes.CDLL("./foot_sensing_state_update.so")
     _func_name = 'foot_sensing_state_update'
@@ -70,7 +70,7 @@ def foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_s
     _result: ctypes.c_void_p = _func(foot_sensing_state_in, foot_sensing_command)
     return _result
 
-def mode_snapshot_readout_ffi(mode_state_in: ctypes.c_void_p) -> ctypes.c_void_p:
+def _mode_snapshot_readout_ffi(mode_state_in: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of Mode Snapshot Readout."""
     _lib = ctypes.CDLL("./mode_snapshot_readout.so")
     _func_name = 'mode_snapshot_readout'

@@ -103,10 +103,13 @@
   ],
   "edges": [
     {
-      "source": "bernoulli_probabilistic_oracle",
-      "target": "conjugate_parameter_fold",
-      "edge_type": "data_flow",
-      "description": "Observed binary data flows from the probabilistic oracle to the conjugate parameter fold."
+      "source_id": "bernoulli_probabilistic_oracle",
+      "target_id": "conjugate_parameter_fold",
+      "output_name": "log_prob",
+      "input_name": "data",
+      "source_type": "float | array<float>",
+      "target_type": "array<int>",
+      "requires_glue": false
     }
   ],
   "metadata": {

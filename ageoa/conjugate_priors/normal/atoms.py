@@ -20,7 +20,7 @@ from juliacall import Main as jl  # type: ignore[import-untyped]
 @register_atom(witness_normal_gamma_posterior_update)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda prior: prior is not None, "prior cannot be None")
 @icontract.require(lambda ss: ss is not None, "ss cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "normal_gamma_posterior_update output must not be None")
+@icontract.ensure(lambda result: result is not None, "normal_gamma_posterior_update output must not be None")
 def normal_gamma_posterior_update(prior: object, ss: object) -> object:
     """Computes a closed-form Normal-Gamma posterior from a Normal-Gamma prior and sufficient statistics as a pure, immutable conjugate update.
 
@@ -40,6 +40,6 @@ def normal_gamma_posterior_update(prior: object, ss: object) -> object:
 from juliacall import Main as jl  # type: ignore[import-untyped]
 from juliacall import Main as jl
 
-def normal_gamma_posterior_update_ffi(prior: object, ss: object) -> object:
+def _normal_gamma_posterior_update_ffi(prior: object, ss: object) -> object:
     """FFI bridge to Julia implementation of normal_gamma_posterior_update."""
     return jl.eval("normal_gamma_posterior_update(prior, ss)")

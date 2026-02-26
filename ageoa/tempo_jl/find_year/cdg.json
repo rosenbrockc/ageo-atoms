@@ -47,14 +47,14 @@
         {
           "name": "year",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -80,24 +80,24 @@
         {
           "name": "month",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "day",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "isleap",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -123,14 +123,14 @@
         {
           "name": "d",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -156,19 +156,19 @@
         {
           "name": "dayinyear",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "isleap",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -194,24 +194,24 @@
         {
           "name": "dayinyear",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "month",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "isleap",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -237,14 +237,14 @@
         {
           "name": "year",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -270,24 +270,24 @@
         {
           "name": "h",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "s",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -313,14 +313,14 @@
         {
           "name": "fd",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -346,14 +346,14 @@
         {
           "name": "fd",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -379,24 +379,24 @@
         {
           "name": "Y",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "M",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "D",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -422,39 +422,39 @@
         {
           "name": "Y",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "M",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "D",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "h",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "sec",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -480,19 +480,19 @@
         {
           "name": "dj1",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "dj2",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -518,19 +518,19 @@
         {
           "name": "dj1",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "dj2",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -556,19 +556,19 @@
         {
           "name": "utc1",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "utc2",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -594,19 +594,19 @@
         {
           "name": "tai1",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "tai2",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",

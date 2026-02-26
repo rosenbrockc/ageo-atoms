@@ -170,17 +170,17 @@
         {
           "name": "direction_val",
           "type_desc": "integer",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "step_size",
           "type_desc": "fp_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "log_rand_val",
           "type_desc": "fp_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "initial_state",
@@ -190,17 +190,17 @@
         {
           "name": "inv_precond_matrix",
           "type_desc": "Mat_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "box_log_kernel_fn",
           "type_desc": "Callable",
-          "constraints": ""
+          "constraints": "callable(x)"
         },
         {
           "name": "leap_frog_fn",
           "type_desc": "Callable",
-          "constraints": ""
+          "constraints": "callable(x)"
         },
         {
           "name": "tree_depth",
@@ -210,12 +210,12 @@
         {
           "name": "rand_engine",
           "type_desc": "rand_engine_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "target_data",
           "type_desc": "void*",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -248,17 +248,17 @@
         {
           "name": "direction_val",
           "type_desc": "integer",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "step_size",
           "type_desc": "fp_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "log_rand_val",
           "type_desc": "fp_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "initial_state",
@@ -273,17 +273,17 @@
         {
           "name": "inv_precond_matrix",
           "type_desc": "Mat_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "box_log_kernel_fn",
           "type_desc": "Callable",
-          "constraints": ""
+          "constraints": "callable(x)"
         },
         {
           "name": "leap_frog_fn",
           "type_desc": "Callable",
-          "constraints": ""
+          "constraints": "callable(x)"
         },
         {
           "name": "tree_depth",
@@ -293,12 +293,12 @@
         {
           "name": "rand_engine",
           "type_desc": "rand_engine_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "target_data",
           "type_desc": "void*",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [

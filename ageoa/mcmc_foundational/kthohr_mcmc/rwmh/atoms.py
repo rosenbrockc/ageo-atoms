@@ -10,19 +10,19 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-# from ageoa.ghost.registry import register_atom
+from ageoa.ghost.registry import register_atom
 
+from typing import Callable
 import ctypes
 import ctypes.util
 from pathlib import Path
 
+from .witnesses import witness_constructrandomwalkmetropoliskernel
 
-# Witness functions should be imported from the generated witnesses module
-
-# @register_atom(witness_constructrandomwalkmetropoliskernel)
-@icontract.require(lambda target_log_kernel: isinstance(target_log_kernel, (float, int, np.number)), "target_log_kernel must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ConstructRandomWalkMetropolisKernel output must not be None")
-def constructrandomwalkmetropoliskernel(target_log_kernel: object) -> object:
+@register_atom(witness_constructrandomwalkmetropoliskernel)
+@icontract.require(lambda target_log_kernel: target_log_kernel is not None, "target_log_kernel must not be None")
+@icontract.ensure(lambda result: result is not None, "ConstructRandomWalkMetropolisKernel output must not be None")
+def constructrandomwalkmetropoliskernel(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
     """Builds a pure Random-Walk Metropolis-Hastings transition kernel from a target log-density oracle, with explicit immutable state and RNG threading.
 
     Args:
@@ -44,7 +44,7 @@ from pathlib import Path
 from typing import cast
 
 
-def constructrandomwalkmetropoliskernel_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
+def _constructrandomwalkmetropoliskernel_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of ConstructRandomWalkMetropolisKernel."""
     _lib = ctypes.CDLL("./constructrandomwalkmetropoliskernel.so")
     _func_name = 'constructrandomwalkmetropoliskernel'

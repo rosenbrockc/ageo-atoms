@@ -19,7 +19,7 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 @icontract.require(lambda alpha: isinstance(alpha, (float, int, np.number)), "alpha must be numeric")
 @icontract.require(lambda beta: isinstance(beta, (float, int, np.number)), "beta must be numeric")
 @icontract.require(lambda T: isinstance(T, (float, int, np.number)), "T must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "sample_hawkes_event_trajectory output must not be None")
+@icontract.ensure(lambda result: result is not None, "sample_hawkes_event_trajectory output must not be None")
 def sample_hawkes_event_trajectory(mu: float, alpha: float, beta: float, T: float) -> np.ndarray:  # type: ignore[type-arg]
     """Simulates a Hawkes point-process realization over a finite horizon using the provided base intensity and excitation/decay parameters.
 

@@ -698,24 +698,6 @@
     },
     {
       "source_id": "advance_or_terminate_scan",
-      "target_id": "extract_window_derivative_peaks",
-      "output_name": "next_scan_state",
-      "input_name": "scan_state",
-      "source_type": "object",
-      "target_type": "object",
-      "requires_glue": false
-    },
-    {
-      "source_id": "advance_or_terminate_scan",
-      "target_id": "accept_onsets_from_peak_intervals",
-      "output_name": "next_scan_state",
-      "input_name": "scan_state",
-      "source_type": "object",
-      "target_type": "object",
-      "requires_glue": false
-    },
-    {
-      "source_id": "advance_or_terminate_scan",
       "target_id": "finalize_onset_array",
       "output_name": "next_scan_state",
       "input_name": "next_scan_state",

@@ -17,7 +17,7 @@ from ageoa.ghost.registry import register_atom
 @register_atom(witness_detect_heart_cycles)
 @icontract.require(lambda ppg: isinstance(ppg, np.ndarray), "ppg must be a numpy array")
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "detect_heart_cycles output must not be None")
+@icontract.ensure(lambda result: result is not None, "detect_heart_cycles output must not be None")
 def detect_heart_cycles(ppg: np.ndarray, sampling_rate: float) -> np.ndarray:
     """Detects heart cycles from a PPG signal.
 

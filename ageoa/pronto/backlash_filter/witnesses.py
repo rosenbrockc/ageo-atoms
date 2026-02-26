@@ -2,12 +2,7 @@
 
 from __future__ import annotations
 
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 
 try:
     from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
@@ -16,7 +11,7 @@ except ImportError:
 
 def witness_initializebacklashfilterstate() -> AbstractArray:
     """Ghost witness for InitializeBacklashFilterState."""
-    return None
+    return AbstractArray(shape=("S",), dtype="float64")
 
 def witness_updatealphaparameter(state_in: AbstractArray, alpha_in: AbstractArray) -> AbstractArray:
     """Ghost witness for UpdateAlphaParameter."""

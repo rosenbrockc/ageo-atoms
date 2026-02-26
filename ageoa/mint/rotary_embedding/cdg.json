@@ -33,19 +33,19 @@
         {
           "name": "q",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "k",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "output",
           "type_desc": "Tuple[torch.Tensor, torch.Tensor]",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "status": "atomic",

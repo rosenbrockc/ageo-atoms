@@ -12,11 +12,11 @@ import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
-# Witness functions should be imported from the generated witnesses module
+from .witnesses import witness_generatereconstructedppg
 
-@register_atom(witness_generatereconstructedppg)  # type: ignore[untyped-decorator,name-defined]
+@register_atom(witness_generatereconstructedppg)
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "GenerateReconstructedPPG output must not be None")
+@icontract.ensure(lambda result: result is not None, "GenerateReconstructedPPG output must not be None")
 def generatereconstructedppg(ppg_clean: np.ndarray | torch.Tensor, noise: np.ndarray | torch.Tensor, sampling_rate: int | float, generator: torch.nn.Module, device: str | torch.device) -> np.ndarray | torch.Tensor:  # type: ignore[type-arg]
     """Applies the GAN generator to clean PPG context and latent noise to produce reconstructed or synthetic PPG output.
 

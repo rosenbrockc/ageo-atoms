@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 
 try:
     from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
 except ImportError:
     pass
+
+def witness_simulate_copula_dependence(returns: AbstractArray, rho: AbstractScalar, df: AbstractScalar) -> AbstractArray:
+    """Ghost witness for simulate_copula_dependence."""
+    result = AbstractArray(
+        shape=returns.shape,
+        dtype="float64",
+    )
+    return result

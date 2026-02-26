@@ -18,7 +18,7 @@ from ageoa.ghost.registry import register_atom
 @icontract.require(lambda signal: isinstance(signal, np.ndarray), "signal must be a numpy array")
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "gamboa_segmentation output must not be None")
+@icontract.ensure(lambda result: result is not None, "gamboa_segmentation output must not be None")
 def gamboa_segmentation(signal: np.ndarray, sampling_rate: float, tol: float) -> np.ndarray:
     """Segments a signal into isoelectric and non-isoelectric regions based on the Gamboa (2008) method. This algorithm identifies segments by analyzing the standard deviation of the signal within a moving window.
 

@@ -7,10 +7,10 @@ from ageoa.tempo_jl.witnesses import witness_graph_time_scale_management
 from ageoa.tempo_jl.witnesses import witness_high_precision_duration
 
 @register_atom(witness_graph_time_scale_management)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -27,10 +27,10 @@ def graph_time_scale_management(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_high_precision_duration)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")

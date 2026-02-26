@@ -24,7 +24,7 @@ witness_meanfieldvariationalfit = object(); witness_posteriordrawsampling = obje
 @icontract.require(lambda var_param_inits: var_param_inits is not None, "var_param_inits cannot be None")
 @icontract.require(lambda opt_method: opt_method is not None, "opt_method cannot be None")
 @icontract.require(lambda verbose: verbose is not None, "verbose cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "MeanFieldVariationalFit all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "MeanFieldVariationalFit all outputs must not be None")
 def meanfieldvariationalfit(theta_shape_dict: dict[str, tuple[int, ...]], log_prior_fun: object, log_lik_fun: object, M: int, constrain_fun_dict: dict[str, object], seed: int | object, var_param_inits: dict[str, object] | None, opt_method: str, verbose: bool) -> tuple[dict[str, object], dict[str, object], object, int | object]:
     """Builds a stochastic ELBO objective from prior/likelihood oracles and optimizes mean-field variational parameters as immutable variational state (latent mean and latent scale). Private objective construction helper is grouped with the optimizer entrypoint.
 
@@ -54,7 +54,7 @@ def meanfieldvariationalfit(theta_shape_dict: dict[str, tuple[int, ...]], log_pr
 @icontract.require(lambda n_draws: n_draws is not None, "n_draws cannot be None")
 @icontract.require(lambda fun_to_apply: fun_to_apply is not None, "fun_to_apply cannot be None")
 @icontract.require(lambda rng_state_in: rng_state_in is not None, "rng_state_in cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "PosteriorDrawSampling all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "PosteriorDrawSampling all outputs must not be None")
 def posteriordrawsampling(free_means: dict[str, object], free_sds: dict[str, object], constrain_fun_dict: dict[str, object], n_draws: int, fun_to_apply: object | None, rng_state_in: int | object) -> tuple[object | dict[str, object], int | object]:
     """Samples from the fitted mean-field posterior using latent mean/scale state, applies constraint transforms, and optionally applies a post-processing function.
 

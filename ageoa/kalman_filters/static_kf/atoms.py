@@ -38,7 +38,7 @@ witness_exposecovariance: object = object()
 @icontract.require(lambda process_noise: isinstance(process_noise, (float, int, np.number)), "process_noise must be numeric")
 @icontract.require(lambda observation_matrix: isinstance(observation_matrix, (float, int, np.number)), "observation_matrix must be numeric")
 @icontract.require(lambda measurement_noise: isinstance(measurement_noise, (float, int, np.number)), "measurement_noise must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "InitializeLinearGaussianStateModel output must not be None")
+@icontract.ensure(lambda result: result is not None, "InitializeLinearGaussianStateModel output must not be None")
 def initializelineargaussianstatemodel(initial_state: object, initial_covariance: object, transition_matrix: object, process_noise: object, observation_matrix: object, measurement_noise: object) -> object:
     """Create the immutable Kalman state-space model with latent mean and covariance plus fixed system/noise matrices.
 
@@ -57,7 +57,7 @@ def initializelineargaussianstatemodel(initial_state: object, initial_covariance
 
 @register_atom(witness_predictlatentstate)
 @icontract.require(lambda state_model: state_model is not None, "state_model cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "PredictLatentState output must not be None")
+@icontract.ensure(lambda result: result is not None, "PredictLatentState output must not be None")
 def predictlatentstate(state_model: object) -> object:
     """Apply the Kalman predict transition kernel to propagate latent mean/covariance forward in time.
 
@@ -71,7 +71,7 @@ def predictlatentstate(state_model: object) -> object:
 
 @register_atom(witness_updatewithmeasurement)
 @icontract.require(lambda measurement: isinstance(measurement, (float, int, np.number)), "measurement must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "UpdateWithMeasurement output must not be None")
+@icontract.ensure(lambda result: result is not None, "UpdateWithMeasurement output must not be None")
 def updatewithmeasurement(predicted_state_model: object, measurement: object) -> object:
     """Apply the Kalman update kernel to incorporate a measurement and produce posterior latent mean/covariance.
 
@@ -86,7 +86,7 @@ def updatewithmeasurement(predicted_state_model: object, measurement: object) ->
 
 @register_atom(witness_exposelatentmean)
 @icontract.require(lambda current_state_model: current_state_model is not None, "current_state_model cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ExposeLatentMean output must not be None")
+@icontract.ensure(lambda result: result is not None, "ExposeLatentMean output must not be None")
 def exposelatentmean(current_state_model: object) -> object:
     """Read out the current latent state mean estimate from immutable filter state.
 
@@ -100,7 +100,7 @@ def exposelatentmean(current_state_model: object) -> object:
 
 @register_atom(witness_exposecovariance)
 @icontract.require(lambda current_state_model: current_state_model is not None, "current_state_model cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ExposeCovariance output must not be None")
+@icontract.ensure(lambda result: result is not None, "ExposeCovariance output must not be None")
 def exposecovariance(current_state_model: object) -> object:
     """Read out the current latent covariance estimate from immutable filter state.
 
@@ -113,21 +113,21 @@ def exposecovariance(current_state_model: object) -> object:
     raise NotImplementedError("Wire to original implementation")
 
 
-def initializelineargaussianstatemodel_ffi(initial_state: object, initial_covariance: object, transition_matrix: object, process_noise: object, observation_matrix: object, measurement_noise: object) -> object:
+def _initializelineargaussianstatemodel_ffi(initial_state: object, initial_covariance: object, transition_matrix: object, process_noise: object, observation_matrix: object, measurement_noise: object) -> object:
     raise NotImplementedError("FFI bridge not wired")
 
 
-def predictlatentstate_ffi(state_model: object) -> object:
+def _predictlatentstate_ffi(state_model: object) -> object:
     raise NotImplementedError("FFI bridge not wired")
 
 
-def updatewithmeasurement_ffi(predicted_state_model: object, measurement: object) -> object:
+def _updatewithmeasurement_ffi(predicted_state_model: object, measurement: object) -> object:
     raise NotImplementedError("FFI bridge not wired")
 
 
-def exposelatentmean_ffi(current_state_model: object) -> object:
+def _exposelatentmean_ffi(current_state_model: object) -> object:
     raise NotImplementedError("FFI bridge not wired")
 
 
-def exposecovariance_ffi(current_state_model: object) -> object:
+def _exposecovariance_ffi(current_state_model: object) -> object:
     raise NotImplementedError("FFI bridge not wired")

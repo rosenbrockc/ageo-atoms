@@ -33,24 +33,24 @@
         {
           "name": "params",
           "type_desc": "parameter object or vector",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "B",
           "type_desc": "observed data tensor/array",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "S",
           "type_desc": "observed data tensor/array",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "likelihood",
           "type_desc": "float or array-like likelihood value",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "status": "atomic",

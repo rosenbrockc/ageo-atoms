@@ -17,8 +17,8 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 @register_atom(lambda *args, **kwargs: None)  # type: ignore[untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.require(lambda Pth: isinstance(Pth, (float, int, np.number)), "Pth must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ThresholdBasedSignalSegmentation output must not be None")
-def thresholdbasedsignalsegmentation(signal: object, sampling_rate: float, Pth: float) -> object:
+@icontract.ensure(lambda result: result is not None, "ThresholdBasedSignalSegmentation output must not be None")
+def thresholdbasedsignalsegmentation(signal: np.ndarray, sampling_rate: float, Pth: float) -> np.ndarray:
     """Segments the input signal into activity regions using the provided sampling rate and decision threshold.
 
     Args:

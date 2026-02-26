@@ -518,24 +518,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "buildalignedreconstructioncandidate",
-      "target_id": "commitchunkandadvancecontext",
-      "output_name": "ppg_and_rec_down",
-      "input_name": "ppg_and_rec_down",
-      "source_type": "np.ndarray",
-      "target_type": "np.ndarray",
-      "requires_glue": false
-    },
-    {
-      "source_id": "synthesizenoisefromcleancontext",
-      "target_id": "commitchunkandadvancecontext",
-      "output_name": "ppg_clean_scaled",
-      "input_name": "ppg_clean_scaled",
-      "source_type": "np.ndarray",
-      "target_type": "np.ndarray",
-      "requires_glue": false
-    },
-    {
       "source_id": "initializereconstructionbudget",
       "target_id": "commitchunkandadvancecontext",
       "output_name": "reconstructed_noise",

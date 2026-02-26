@@ -3,28 +3,24 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
 
-def witness_homomorphic_signal_filtering(*_args: object, **_kwargs: object) -> bool:
-    return True
-@register_atom(witness_homomorphic_signal_filtering)  # type: ignore[untyped-decorator]
+from .witnesses import witness_homomorphic_signal_filtering
+
+@register_atom(witness_homomorphic_signal_filtering)
+@icontract.require(lambda signal: signal.ndim >= 1, "signal must be at least 1-D")
+@icontract.require(lambda signal: isinstance(signal, np.ndarray), "signal must be np.ndarray")
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "homomorphic_signal_filtering output must not be None")
-def homomorphic_signal_filtering(signal: object, sampling_rate: float) -> object:
-    """Applies homomorphic filtering to an input signal using the provided sampling rate to produce a filtered output signal.
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
+def homomorphic_signal_filtering(signal: np.ndarray, sampling_rate: float) -> np.ndarray:
+    """Apply homomorphic filtering to an input signal using the provided sampling rate.
 
     Args:
-        signal: 1-D or compatible signal tensor expected by implementation
-        sampling_rate: positive sampling frequency
+        signal: Input signal; 1-D or compatible tensor.
+        sampling_rate: Positive sampling frequency in Hz.
 
     Returns:
-        same temporal support as input signal
+        Filtered output signal with same temporal support as input.
     """
     raise NotImplementedError("Wire to original implementation")

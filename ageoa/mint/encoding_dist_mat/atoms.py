@@ -16,7 +16,7 @@ from ageoa.ghost.registry import register_atom
 
 @register_atom(witness_encodedistancematrix)
 @icontract.require(lambda mat_list: isinstance(mat_list, np.ndarray), "mat_list must be a numpy array")
-@icontract.ensure(lambda result, **kwargs: result is not None, "EncodeDistanceMatrix output must not be None")
+@icontract.ensure(lambda result: result is not None, "EncodeDistanceMatrix output must not be None")
 def encodedistancematrix(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int) -> np.ndarray:
     """Takes a list of matrices and pads them to a specified maximum dimension, effectively creating a batched and padded distance matrix representation.
 

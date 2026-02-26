@@ -42,14 +42,14 @@
         {
           "name": "offset",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -75,19 +75,19 @@
         {
           "name": "year",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "dayinyear",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -113,19 +113,19 @@
         {
           "name": "io",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "d",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -151,24 +151,24 @@
         {
           "name": "hour",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "minute",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "second",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -194,19 +194,19 @@
         {
           "name": "secondinday",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "fraction",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -232,14 +232,14 @@
         {
           "name": "secondinday",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -265,19 +265,19 @@
         {
           "name": "io",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "t",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -303,39 +303,39 @@
         {
           "name": "year",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "month",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "day",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "hour",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "min",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "sec",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -361,14 +361,14 @@
         {
           "name": "s",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -394,14 +394,14 @@
         {
           "name": "seconds",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",

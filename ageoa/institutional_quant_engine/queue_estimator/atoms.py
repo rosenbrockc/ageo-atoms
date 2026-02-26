@@ -23,8 +23,8 @@ from ageoa.ghost.registry import register_atom
 @register_atom(witness_initializeorderstate)
 @icontract.require(lambda my_qty: isinstance(my_qty, (float, int, np.number)), "my_qty must be numeric")
 @icontract.require(lambda orders_ahead: isinstance(orders_ahead, (float, int, np.number)), "orders_ahead must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "InitializeOrderState output must not be None")
-def initializeorderstate(my_order_id: string, my_qty: float, orders_ahead: float, state: OrderState) -> tuple[OrderState, OrderState]:
+@icontract.ensure(lambda result: result is not None, "InitializeOrderState output must not be None")
+def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float, state: OrderState) -> tuple[OrderState, OrderState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
     Initializes the state of a new order within the queue, capturing its initial quantity and the volume of orders ahead of it.
@@ -53,7 +53,7 @@ def initializeorderstate(my_order_id: string, my_qty: float, orders_ahead: float
 
 @register_atom(witness_updatequeueontrade)
 @icontract.require(lambda trade_qty: isinstance(trade_qty, (float, int, np.number)), "trade_qty must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "UpdateQueueOnTrade output must not be None")
+@icontract.ensure(lambda result: result is not None, "UpdateQueueOnTrade output must not be None")
 def updatequeueontrade(current_order_state: OrderState, trade_qty: float, state: OrderState) -> tuple[OrderState, OrderState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 

@@ -7,10 +7,10 @@ from ageoa.pulsar_folding.witnesses import witness_dm_can_brute_force
 from ageoa.pulsar_folding.witnesses import witness_spline_bandpass_correction
 
 @register_atom(witness_dm_can_brute_force)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -27,10 +27,10 @@ def dm_can_brute_force(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_spline_bandpass_correction)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")

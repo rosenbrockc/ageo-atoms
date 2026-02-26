@@ -2,26 +2,40 @@
 
 from __future__ import annotations
 
-from typing import Any
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+import icontract
 from ageoa.ghost.registry import register_atom
-# Witness placeholders are defined to satisfy static type checking in generated stubs.
-witness_wrapperpredictionsignalcomputation: Any = None
-@register_atom(witness_wrapperpredictionsignalcomputation)  # type: ignore[untyped-decorator]
-def wrapperpredictionsignalcomputation(prediction: Any, raw_signal: Any) -> Any:
-    """Entry-point pure wrapper that consumes prediction and raw signal and returns a deterministic result with no persistent state."""
+
+from .witnesses import witness_wrapperpredictionsignalcomputation, witness_signalarraynormalization
+
+
+@register_atom(witness_wrapperpredictionsignalcomputation)
+@icontract.require(lambda prediction: isinstance(prediction, np.ndarray), "prediction must be np.ndarray")
+@icontract.require(lambda raw_signal: isinstance(raw_signal, np.ndarray), "raw_signal must be np.ndarray")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
+def wrapperpredictionsignalcomputation(prediction: np.ndarray, raw_signal: np.ndarray) -> np.ndarray:
+    """Consume prediction and raw signal and return a deterministic result with no persistent state.
+
+    Args:
+        prediction: Prediction array from upstream model.
+        raw_signal: Raw input signal array.
+
+    Returns:
+        Processed signal array combining prediction and raw signal.
+    """
     raise NotImplementedError("Wire to original implementation")
 
-witness_signalarraynormalization: Any = None
 
-@register_atom(witness_signalarraynormalization)  # type: ignore[untyped-decorator]
-def signalarraynormalization(arr: Any) -> Any:
-    """Pure stateless normalization of an input numeric array."""
+@register_atom(witness_signalarraynormalization)
+@icontract.require(lambda arr: isinstance(arr, np.ndarray), "arr must be np.ndarray")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
+def signalarraynormalization(arr: np.ndarray) -> np.ndarray:
+    """Normalize an input numeric array to a standard scale.
+
+    Args:
+        arr: Input array to normalize.
+
+    Returns:
+        Normalized array with same shape as input.
+    """
     raise NotImplementedError("Wire to original implementation")

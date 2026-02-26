@@ -98,10 +98,13 @@
   ],
   "edges": [
     {
-      "source": "aggregate_sufficient_statistics",
-      "target": "closed_form_parameter_fold",
-      "edge_type": "sufficient_stats",
-      "description": "Sufficient statistics (tw, s, s2, m) flow from aggregation to parameter fold."
+      "source_id": "aggregate_sufficient_statistics",
+      "target_id": "closed_form_parameter_fold",
+      "output_name": "sufficient_stats",
+      "input_name": "sufficient_stats",
+      "source_type": "tuple[float, float, float, float]",
+      "target_type": "tuple[float, float, float, float]",
+      "requires_glue": false
     }
   ],
   "metadata": {

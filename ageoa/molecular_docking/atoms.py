@@ -7,9 +7,9 @@ from ageoa.molecular_docking.witnesses import witness_quantum_mwis_solver
 from ageoa.molecular_docking.witnesses import witness_greedy_lattice_mapping
 
 @register_atom(witness_quantum_mwis_solver)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -26,9 +26,9 @@ def quantum_mwis_solver(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_greedy_lattice_mapping)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty along first axis")
 @icontract.require(lambda data: data.ndim >= 2, "data must have at least two dimensions for lattice mapping")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")

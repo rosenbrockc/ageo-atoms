@@ -19,7 +19,7 @@ from ageoa.ghost.registry import register_atom
 @icontract.require(lambda node_A: node_A is not None, "node_A cannot be None")
 @icontract.require(lambda node_B: node_B is not None, "node_B cannot be None")
 @icontract.require(lambda chain_size: chain_size is not None, "chain_size cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "AddQuantumLink output must not be None")
+@icontract.ensure(lambda result: result is not None, "AddQuantumLink output must not be None")
 def addquantumlink(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Graph:
     """Adds a specialized 'quantum link' between two nodes in a graph, potentially creating a chain of intermediate nodes based on chain_size.
 

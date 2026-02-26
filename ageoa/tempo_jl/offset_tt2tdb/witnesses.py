@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 
 try:
     from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
 except ImportError:
     pass
+
+def witness_offset_tt2tdb(seconds: AbstractScalar) -> AbstractScalar:
+    """Ghost witness for offset_tt2tdb."""
+    return AbstractScalar(dtype="float64", max_val=0.0)

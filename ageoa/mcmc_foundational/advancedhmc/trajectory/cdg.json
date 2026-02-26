@@ -98,27 +98,27 @@
         {
           "name": "rng",
           "type_desc": "AbstractRNG",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "trajectory_params",
           "type_desc": "Trajectory",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "hamiltonian",
           "type_desc": "Hamiltonian",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "start_state",
           "type_desc": "PhasePoint",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "sampler",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "direction",
@@ -133,24 +133,24 @@
         {
           "name": "initial_energy",
           "type_desc": "AbstractFloat",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
         {
           "name": "initial_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "sampler_after_initial_build",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "termination_after_initial_build",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -176,17 +176,17 @@
         {
           "name": "rng",
           "type_desc": "AbstractRNG",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "trajectory_params",
           "type_desc": "Trajectory",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "hamiltonian",
           "type_desc": "Hamiltonian",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "initial_tree",
@@ -196,7 +196,7 @@
         {
           "name": "sampler_after_initial_build",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "direction",
@@ -211,24 +211,24 @@
         {
           "name": "initial_energy",
           "type_desc": "AbstractFloat",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
         {
           "name": "expansion_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "sampler_after_expansion",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "termination_after_expansion",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -254,12 +254,12 @@
         {
           "name": "initial_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "expansion_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "direction",
@@ -271,12 +271,12 @@
         {
           "name": "left_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "right_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -302,39 +302,39 @@
         {
           "name": "left_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "right_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "rng",
           "type_desc": "AbstractRNG",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "sampler_after_initial_build",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "sampler_after_expansion",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         }
       ],
       "outputs": [
         {
           "name": "combined_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "combined_sampler",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         }
       ],
       "status": "atomic",
@@ -360,44 +360,44 @@
         {
           "name": "termination_after_initial_build",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "termination_after_expansion",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "trajectory_params",
           "type_desc": "Trajectory",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "hamiltonian",
           "type_desc": "Hamiltonian",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "combined_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "left_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "right_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "final_termination_status",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -489,7 +489,7 @@
           "constraints": "Defines the system's energy."
         },
         {
-          "name": "\u03c4",
+          "name": "τ",
           "type_desc": "Trajectory",
           "constraints": "Contains integrator and termination criterion."
         },
@@ -529,7 +529,7 @@
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(z0: PhasePoint, h: Hamiltonian, \u03c4: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
+      "type_signature": "(z0: PhasePoint, h: Hamiltonian, τ: Trajectory, rng: AbstractRNG) -> tuple[Real, BinaryTree, AbstractTrajectorySampler, Termination, PhasePoint]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
@@ -549,17 +549,17 @@
         {
           "name": "rng",
           "type_desc": "AbstractRNG",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "h",
           "type_desc": "Hamiltonian",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
-          "name": "\u03c4",
+          "name": "τ",
           "type_desc": "Trajectory",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "H0",
@@ -569,22 +569,22 @@
         {
           "name": "initial_tree",
           "type_desc": "BinaryTree",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "initial_sampler",
           "type_desc": "AbstractTrajectorySampler",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "initial_termination",
           "type_desc": "Termination",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "initial_zcand",
           "type_desc": "PhasePoint",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         }
       ],
       "outputs": [
@@ -612,7 +612,7 @@
       "status": "atomic",
       "children": [],
       "depth": 2,
-      "type_signature": "(rng: AbstractRNG, h: Hamiltonian, \u03c4: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
+      "type_signature": "(rng: AbstractRNG, h: Hamiltonian, τ: Trajectory, H0: Real, initial_tree: BinaryTree, initial_sampler: AbstractTrajectorySampler, initial_termination: Termination, initial_zcand: PhasePoint) -> tuple[BinaryTree, PhasePoint, Termination, Int]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

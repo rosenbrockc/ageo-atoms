@@ -736,7 +736,7 @@
         {
           "name": "chain_state_0",
           "type_desc": "HMCState",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "kernel_spec",
@@ -746,7 +746,7 @@
         {
           "name": "prng_key_state",
           "type_desc": "PRNGKey/RNG state",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -789,12 +789,12 @@
         {
           "name": "chain_state_burned",
           "type_desc": "HMCState",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "trace_state_0",
           "type_desc": "chain trace accumulator",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -837,7 +837,7 @@
         {
           "name": "prng_key_burned",
           "type_desc": "PRNGKey/RNG state",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "kernel_spec",
@@ -857,7 +857,7 @@
         {
           "name": "trace_state_seeded",
           "type_desc": "chain trace accumulator",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -905,7 +905,7 @@
         {
           "name": "collection_buffer_filled",
           "type_desc": "array/tensor[n_collect, n_chains, dim]",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
@@ -938,7 +938,7 @@
         {
           "name": "trace_state_final",
           "type_desc": "chain trace accumulator",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "discard_events",
@@ -948,7 +948,7 @@
         {
           "name": "samples",
           "type_desc": "array/tensor[n_chains, n_collect, dim]",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
@@ -1025,24 +1025,6 @@
       "input_name": "kernel_spec",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
-      "requires_glue": false
-    },
-    {
-      "source_id": "hamiltoniantransitionkernel",
-      "target_id": "collectposteriorchain",
-      "output_name": "state_out",
-      "input_name": "loop_state",
-      "source_type": "HMCState",
-      "target_type": "HMCState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "hamiltoniantransitionkernel",
-      "target_id": "collectposteriorchain",
-      "output_name": "prng_key_out",
-      "input_name": "loop_prng_key",
-      "source_type": "PRNGKey/RNG state",
-      "target_type": "PRNGKey/RNG state",
       "requires_glue": false
     }
   ],

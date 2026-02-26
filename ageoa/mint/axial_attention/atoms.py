@@ -18,8 +18,8 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.require(lambda self_attn_mask: self_attn_mask is not None, "self_attn_mask cannot be None")
 @icontract.require(lambda self_attn_padding_mask: self_attn_padding_mask is not None, "self_attn_padding_mask cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "RowSelfAttention output must not be None")
-def rowselfattention(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "RowSelfAttention output must not be None")
+def rowselfattention(x: np.ndarray, self_attn_mask: np.ndarray, self_attn_padding_mask: np.ndarray) -> np.ndarray:
     """Opaque DL boundary: RowSelfAttention
 
     Args:

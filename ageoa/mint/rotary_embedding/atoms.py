@@ -3,29 +3,26 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
-from typing import Any, Tuple
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+import icontract
 from ageoa.ghost.registry import register_atom
-# Witness functions should be imported from the generated witnesses module
-def witness_rotaryembedding(*args: Any, **kwargs: Any) -> bool:
-    return True
-# Witness functions should be imported from the generated witnesses module
 
-@register_atom(witness_rotaryembedding)  # type: ignore[untyped-decorator]
-def rotaryembedding(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]:
-    """Opaque DL boundary: RotaryEmbedding
+from .witnesses import witness_rotaryembedding
+
+
+@register_atom(witness_rotaryembedding)
+@icontract.require(lambda q: q.ndim >= 2, "q must be at least 2-D")
+@icontract.require(lambda k: k.ndim >= 2, "k must be at least 2-D")
+@icontract.require(lambda q: isinstance(q, np.ndarray), "q must be np.ndarray")
+@icontract.require(lambda k: isinstance(k, np.ndarray), "k must be np.ndarray")
+@icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "result must be a 2-tuple")
+def rotaryembedding(q: np.ndarray, k: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Apply Rotary Positional Embedding (RoPE) to query and key tensors.
 
     Args:
-        q: Input data.
-        k: Input data.
+        q: Query tensor with shape (..., seq_len, head_dim).
+        k: Key tensor with shape (..., seq_len, head_dim).
 
     Returns:
-        Result data.
+        Tuple of rotated (query, key) tensors with same shapes as inputs.
     """
     raise NotImplementedError("Wire to original implementation")

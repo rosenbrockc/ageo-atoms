@@ -16,15 +16,23 @@ from ageoa.ghost.registry import register_atom
 
 @register_atom(witness_load_graphs_from_folder)
 @icontract.require(lambda folder_path: folder_path is not None, "folder_path cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Load Graphs From Folder output must not be None")
-def load_graphs_from_folder(folder_path: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Load Graphs From Folder output must not be None")
+def load_graphs_from_folder(folder_path: str) -> list[np.ndarray]:
+    """Load graphs from folder.
+
+    Args:
+        folder_path (str): Description.
+
+    Returns:
+        list[np.ndarray]: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_is_independent_set)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
 @icontract.require(lambda subset: subset is not None, "subset cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Is Independent Set output must not be None")
-def is_independent_set(graph: Any, subset: Any) -> bool:
+@icontract.ensure(lambda result: result is not None, "Is Independent Set output must not be None")
+def is_independent_set(graph: np.ndarray, subset: list[int]) -> bool:
     """Checks if the given subset of nodes is an independent set in the graph.
 
 :param graph: The input graph.
@@ -43,8 +51,8 @@ def is_independent_set(graph: Any, subset: Any) -> bool:
 @register_atom(witness_calculate_weight)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
 @icontract.require(lambda node_list: node_list is not None, "node_list cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Calculate Weight output must not be None")
-def calculate_weight(graph: Any, node_list: Any) -> float:
+@icontract.ensure(lambda result: result is not None, "Calculate Weight output must not be None")
+def calculate_weight(graph: np.ndarray, node_list: list[int]) -> float:
     """Calculates the total weight of a given list of nodes in the graph.
 
 :param node_list: List of nodes.
@@ -62,8 +70,8 @@ def calculate_weight(graph: Any, node_list: Any) -> float:
 @register_atom(witness_to_qubo)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
 @icontract.require(lambda penalty: penalty is not None, "penalty cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "To Qubo output must not be None")
-def to_qubo(graph: Any, penalty: Any) -> np.ndarray:
+@icontract.ensure(lambda result: result is not None, "To Qubo output must not be None")
+def to_qubo(graph: np.ndarray, penalty: float) -> np.ndarray:
     """Convert a MISInstance to a qubo matrix.
 
 QUBO formulation:

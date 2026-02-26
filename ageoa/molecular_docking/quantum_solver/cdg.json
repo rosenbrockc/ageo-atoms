@@ -523,7 +523,7 @@
         {
           "name": "adiabatic_sequence",
           "type_desc": "Sequence",
-          "constraints": ""
+          "constraints": "isinstance(x, (list, tuple))"
         },
         {
           "name": "backend_flags",
@@ -561,7 +561,7 @@
         {
           "name": "configured_simulator",
           "type_desc": "Union[QutipEmulator, SVBackend, MPSBackend]",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -594,7 +594,7 @@
         {
           "name": "raw_simulation_results",
           "type_desc": "SimulationResults",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "permutation_list",

@@ -152,22 +152,22 @@
         {
           "name": "prop_vals",
           "type_desc": "ColVec_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "prev_vals",
           "type_desc": "ColVec_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "prop_mean",
           "type_desc": "ColVec_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "prev_mean",
           "type_desc": "ColVec_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "prop_inv_jacob",
@@ -177,17 +177,17 @@
         {
           "name": "vals_bound",
           "type_desc": "bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         },
         {
           "name": "step_size",
           "type_desc": "fp_t",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "precond_mat",
           "type_desc": "Mat_t",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [

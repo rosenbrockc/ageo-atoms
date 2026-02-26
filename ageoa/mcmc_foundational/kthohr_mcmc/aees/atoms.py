@@ -12,6 +12,7 @@ import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
+from typing import Callable
 import ctypes
 import ctypes.util
 from pathlib import Path
@@ -21,8 +22,8 @@ from pathlib import Path
 
 @register_atom(witness_metropolishastingstransitionkernel)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda temper_val: isinstance(temper_val, (float, int, np.number)), "temper_val must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "MetropolisHastingsTransitionKernel all outputs must not be None")
-def metropolishastingstransitionkernel(temper_val: float, target_log_kernel: object, rng_key_in: object) -> tuple[object, object]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "MetropolisHastingsTransitionKernel all outputs must not be None")
+def metropolishastingstransitionkernel(temper_val: float, target_log_kernel: Callable[[np.ndarray], float], rng_key_in: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Runs one pure Metropolis-Hastings transition: builds proposal-related terms, consumes oracle log-kernel evaluations, computes acceptance, and returns a new sample/state object.
 
     Args:
@@ -38,8 +39,8 @@ def metropolishastingstransitionkernel(temper_val: float, target_log_kernel: obj
 
 @register_atom(witness_targetlogkerneloracle)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda temper_val: isinstance(temper_val, (float, int, np.number)), "temper_val must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "TargetLogKernelOracle output must not be None")
-def targetlogkerneloracle(state_candidate: object, temper_val: float) -> float:
+@icontract.ensure(lambda result: result is not None, "TargetLogKernelOracle output must not be None")
+def targetlogkerneloracle(state_candidate: np.ndarray, temper_val: float) -> float:
     """Stateless oracle that evaluates target log-kernel values for candidate/current states used by MH acceptance logic.
 
     Args:
@@ -61,7 +62,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def metropolishastingstransitionkernel_ffi(temper_val: object, target_log_kernel: object, rng_key_in: object) -> object:
+def _metropolishastingstransitionkernel_ffi(temper_val: float, target_log_kernel: Callable[[np.ndarray], float], rng_key_in: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """FFI bridge to C++ implementation of MetropolisHastingsTransitionKernel."""
     _lib = ctypes.CDLL("./metropolishastingstransitionkernel.so")
     _func_name = 'metropolishastingstransitionkernel'
@@ -70,7 +71,7 @@ def metropolishastingstransitionkernel_ffi(temper_val: object, target_log_kernel
     _func.restype = ctypes.c_void_p
     return _func(temper_val, target_log_kernel, rng_key_in)
 
-def targetlogkerneloracle_ffi(state_candidate: object, temper_val: object) -> object:
+def _targetlogkerneloracle_ffi(state_candidate: np.ndarray, temper_val: float) -> float:
     """FFI bridge to C++ implementation of TargetLogKernelOracle."""
     _lib = ctypes.CDLL("./targetlogkerneloracle.so")
     _func_name = 'targetlogkerneloracle'

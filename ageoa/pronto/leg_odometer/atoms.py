@@ -21,7 +21,7 @@ from pathlib import Path
 
 @register_atom(witness_velocitystatereadout)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "VelocityStateReadout all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "VelocityStateReadout all outputs must not be None")
 def velocitystatereadout(state_in: object) -> tuple[object, object]:
     """Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.
 
@@ -35,7 +35,7 @@ def velocitystatereadout(state_in: object) -> tuple[object, object]:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_posequeryaccessors)  # type: ignore[untyped-decorator,name-defined]
-@icontract.ensure(lambda result, **kwargs: result is not None, "PoseQueryAccessors output must not be None")
+@icontract.ensure(lambda result: result is not None, "PoseQueryAccessors output must not be None")
 def posequeryaccessors() -> object:
     """Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.
 
@@ -55,7 +55,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def velocitystatereadout_ffi(state_in: object) -> object:
+def _velocitystatereadout_ffi(state_in: object) -> object:
     """FFI bridge to C++ implementation of VelocityStateReadout."""
     _lib = ctypes.CDLL("./velocitystatereadout.so")
     _func_name = 'velocitystatereadout'
@@ -64,7 +64,7 @@ def velocitystatereadout_ffi(state_in: object) -> object:
     _func.restype = ctypes.c_void_p
     return _func(state_in)
 
-def posequeryaccessors_ffi() -> object:
+def _posequeryaccessors_ffi() -> object:
     """FFI bridge to C++ implementation of PoseQueryAccessors."""
     _lib = ctypes.CDLL("./posequeryaccessors.so")
     _func_name = 'posequeryaccessors'

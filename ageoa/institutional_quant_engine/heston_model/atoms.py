@@ -3,11 +3,36 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import witness_simulate_heston_paths
+
+
+@register_atom(witness_simulate_heston_paths)
+@icontract.require(lambda S0: S0 is not None, "S0 cannot be None")
+@icontract.require(lambda v0: v0 is not None, "v0 cannot be None")
+@icontract.require(lambda kappa: kappa is not None, "kappa cannot be None")
+@icontract.require(lambda theta: theta is not None, "theta cannot be None")
+@icontract.require(lambda sigma_v: sigma_v is not None, "sigma_v cannot be None")
+@icontract.require(lambda rho: rho is not None, "rho cannot be None")
+@icontract.require(lambda n_steps: n_steps is not None, "n_steps cannot be None")
+@icontract.require(lambda n_sims: n_sims is not None, "n_sims cannot be None")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
+@icontract.ensure(lambda result: result is not None, "result must not be None")
+def simulate_heston_paths(S0: float, v0: float, kappa: float, theta: float, sigma_v: float, rho: float, n_steps: int, n_sims: int) -> np.ndarray:
+    """Generates Monte Carlo price paths under the Heston stochastic volatility model using correlated Brownian motions.
+
+    Args:
+        S0: Initial asset price
+        v0: Initial variance
+        kappa: Mean-reversion speed of variance
+        theta: Long-run variance level
+        sigma_v: Volatility of variance (vol-of-vol)
+        rho: Correlation between Brownian motions (leverage effect)
+        n_steps: Number of time steps in each simulated path
+        n_sims: Number of Monte Carlo paths to simulate
+
+    Returns:
+        Simulated price paths, shape (n_sims, n_steps)
+    """
+    raise NotImplementedError("Wire to original implementation")

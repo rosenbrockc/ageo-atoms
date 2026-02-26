@@ -15,15 +15,14 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
-witness_temperingfactorcomputation = lambda *args, **kwargs: True
-witness_hamiltonianphasepointtransition = lambda *args, **kwargs: True
+from .witnesses import witness_temperingfactorcomputation, witness_hamiltonianphasepointtransition
 @register_atom(witness_temperingfactorcomputation)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
 @icontract.require(lambda r: r is not None, "r cannot be None")
 @icontract.require(lambda step: step is not None, "step cannot be None")
 @icontract.require(lambda n_steps: n_steps is not None, "n_steps cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "TemperingFactorComputation output must not be None")
-def temperingfactorcomputation(lf: object, r: object, step: object, n_steps: object) -> object:
+@icontract.ensure(lambda result: result is not None, "TemperingFactorComputation output must not be None")
+def temperingfactorcomputation(lf: np.ndarray, r: np.ndarray, step: int, n_steps: int) -> float:
     """Computes a deterministic tempering multiplier across sub-steps (with bounds checking) to scale the transition strength.
 
     Args:
@@ -42,12 +41,12 @@ def temperingfactorcomputation(lf: object, r: object, step: object, n_steps: obj
 @icontract.require(lambda h: h is not None, "h cannot be None")
 @icontract.require(lambda z: z is not None, "z cannot be None")
 @icontract.require(lambda tempering_scale: tempering_scale is not None, "tempering_scale cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "HamiltonianPhasepointTransition all outputs must not be None")
-def hamiltonianphasepointtransition(lf: object, h: object, z: object, tempering_scale: object) -> object:
-    """Executes one pure Hamiltonian transition kernel step by computing derivatives, applying step-size/tempering, and returning a new phase-point state.
+@icontract.ensure(lambda result: all(r is not None for r in result), "HamiltonianPhasepointTransition all outputs must not be None")
+def hamiltonianphasepointtransition(lf: np.ndarray, h: np.ndarray, z: np.ndarray, tempering_scale: float) -> tuple[np.ndarray, bool]:
+    """Execute one pure Hamiltonian transition kernel step by computing derivatives, applying step-size/tempering, and returning a new phase-point state.
 
-def hamiltonianphasepointtransition(lf, h, z, tempering_scale):
-        lf: Read-only; no persistent mutation
+    Args:
+        lf: Read-only; no persistent mutation.
         h: Immutable input state
         z: Finite where required
         tempering_scale: Provided by tempering computation
@@ -66,10 +65,10 @@ def hamiltonianphasepointtransition(lf, h, z, tempering_scale):
 from juliacall import Main as jl  # type: ignore[import-untyped]
 # removed duplicate future import (already declared at top of file)
 
-def temperingfactorcomputation_ffi(lf: object, r: object, step: object, n_steps: object) -> object:
+def _temperingfactorcomputation_ffi(lf: np.ndarray, r: np.ndarray, step: int, n_steps: int) -> float:
     """FFI bridge to Julia implementation of TemperingFactorComputation."""
     return jl.eval("temperingfactorcomputation(lf, r, step, n_steps)")
 
-def hamiltonianphasepointtransition_ffi(lf: object, h: object, z: object, tempering_scale: object) -> object:
+def _hamiltonianphasepointtransition_ffi(lf: np.ndarray, h: np.ndarray, z: np.ndarray, tempering_scale: float) -> tuple[np.ndarray, bool]:
     """FFI bridge to Julia implementation of HamiltonianPhasepointTransition."""
     return jl.eval("hamiltonianphasepointtransition(lf, h, z, tempering_scale)")

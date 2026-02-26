@@ -23,6 +23,9 @@ from pathlib import Path
 def torqueadjustmentidentitystage() -> None:
     """Represents the entry-point stage with no observable computation, state access, or side effects.
 
+Returns:
+    Description.
+
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -36,7 +39,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def torqueadjustmentidentitystage_ffi() -> ctypes.c_void_p:
+def _torqueadjustmentidentitystage_ffi() -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of TorqueAdjustmentIdentityStage."""
     _lib = ctypes.CDLL("./torqueadjustmentidentitystage.so")
     _func_name = 'torqueadjustmentidentitystage'

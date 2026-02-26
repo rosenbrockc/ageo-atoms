@@ -14,12 +14,11 @@ from ageoa.ghost.registry import register_atom
 
 from typing import Any, Callable
 
-# Witness functions should be imported from the generated witnesses module
-witness_initializemarketmakerstate: Callable[..., Any]
-witness_computeinventoryadjustedquotes: Callable[..., Any]
+from .witnesses import witness_initializemarketmakerstate, witness_computeinventoryadjustedquotes
+
 @register_atom(witness_initializemarketmakerstate)
 @icontract.require(lambda inventory: isinstance(inventory, (float, int, np.number)), "inventory must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "InitializeMarketMakerState output must not be None")
+@icontract.ensure(lambda result: result is not None, "InitializeMarketMakerState output must not be None")
 def initializemarketmakerstate(s0: float, inventory: float) -> dict[str, float]:
     """Construct the immutable market-making state object with model parameters and initial market/inventory values.
 
@@ -32,8 +31,9 @@ def initializemarketmakerstate(s0: float, inventory: float) -> dict[str, float]:
     """
     raise NotImplementedError("Wire to original implementation")
 
-@icontract.require(lambda state_model: isinstance(state_model, (float, int, np.number)), "state_model must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ComputeInventoryAdjustedQuotes output must not be None")
+@register_atom(witness_computeinventoryadjustedquotes)
+@icontract.require(lambda state_model: isinstance(state_model, dict), "state_model must be a dict")
+@icontract.ensure(lambda result: result is not None, "ComputeInventoryAdjustedQuotes output must not be None")
 def computeinventoryadjustedquotes(state_model: dict[str, float]) -> dict[str, float]:
     """Compute inventory-adjusted quotes from the state model.
 

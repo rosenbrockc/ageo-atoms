@@ -33,14 +33,14 @@
         {
           "name": "graph",
           "type_desc": "Graph",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "complementary_graph",
           "type_desc": "Graph",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",

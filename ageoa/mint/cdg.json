@@ -20,7 +20,10 @@
       "is_optional": false,
       "is_opaque": false,
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "",
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": ""
     },
     {
       "node_id": "multimer_collator",
@@ -50,12 +53,15 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[list[str]], tuple[torch.Tensor, torch.Tensor]]",
+      "type_signature": "(sequences: list[str]) -> tuple[torch.Tensor, torch.Tensor]",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "",
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": ""
     },
     {
       "node_id": "protein_transformer",
@@ -85,12 +91,15 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[torch.Tensor, torch.Tensor], torch.Tensor]",
+      "type_signature": "(tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": true,
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "",
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": ""
     },
     {
       "node_id": "chain_level_contextualizer",
@@ -125,12 +134,15 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "Callable[[torch.Tensor, torch.Tensor, torch.Tensor], torch.Tensor]",
+      "type_signature": "(representations: torch.Tensor, tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "",
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": ""
     }
   ],
   "edges": [

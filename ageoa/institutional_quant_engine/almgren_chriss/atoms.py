@@ -18,7 +18,7 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 @icontract.require(lambda total_shares: total_shares is not None, "total_shares cannot be None")
 @icontract.require(lambda days: days is not None, "days cannot be None")
 @icontract.require(lambda risk_aversion: risk_aversion is not None, "risk_aversion cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ComputeOptimalTrajectory output must not be None")
+@icontract.ensure(lambda result: result is not None, "ComputeOptimalTrajectory output must not be None")
 def computeoptimaltrajectory(total_shares: float, days: int, risk_aversion: float) -> object:
     """Computes the optimal share-execution trajectory over the planning horizon given risk preference.
 

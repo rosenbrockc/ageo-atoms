@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Callable
 import numpy as np
 import torch
 import jax
@@ -17,12 +18,17 @@ import ctypes.util
 from pathlib import Path
 
 
-# Witness functions should be imported from the generated witnesses module
+from .witnesses import (
+    witness_initializehmckernelstate,
+    witness_initializesamplerrng,
+    witness_hamiltoniantransitionkernel,
+    witness_collectposteriorchain,
+)
 
-@register_atom(lambda *args, **kwargs: True)
+@register_atom(witness_initializehmckernelstate)
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeHMCKernelState all outputs must not be None")
-def initializehmckernelstate(target: object, initial_positions: object, step_size: float, n_leapfrog: int) -> tuple[object, object]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "InitializeHMCKernelState all outputs must not be None")
+def initializehmckernelstate(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, step_size: float, n_leapfrog: int) -> tuple[np.ndarray, np.ndarray]:
     """Construct immutable HMC kernel/state specification from target log-density, initial latent position, and integrator hyperparameters. Includes explicit latent state, cached log-probability/gradient slots, and mass-matrix assumptions.
 
     Args:
@@ -37,10 +43,10 @@ def initializehmckernelstate(target: object, initial_positions: object, step_siz
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(lambda *args, **kwargs: True)
-@icontract.require(lambda seed: seed is not None, "seed cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "InitializeSamplerRNG output must not be None")
-def initializesamplerrng(seed: int) -> object:
+@register_atom(witness_initializesamplerrng)
+@icontract.require(lambda seed: isinstance(seed, int), "seed must be an int")
+@icontract.ensure(lambda result: result is not None, "InitializeSamplerRNG output must not be None")
+def initializesamplerrng(seed: int) -> np.ndarray:
     """Initialize explicit stochastic state for pure functional sampling. RNG state is threaded across all transitions and never mutated in place.
 
     Args:
@@ -51,13 +57,13 @@ def initializesamplerrng(seed: int) -> object:
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(lambda *args, **kwargs: True)
-@icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
+@register_atom(witness_hamiltoniantransitionkernel)
+@icontract.require(lambda state_in: isinstance(state_in, np.ndarray), "state_in must be np.ndarray")
 @icontract.require(lambda kernel_spec: kernel_spec is not None, "kernel_spec cannot be None")
 @icontract.require(lambda prng_key_in: prng_key_in is not None, "prng_key_in cannot be None")
 @icontract.require(lambda logp_oracle: logp_oracle is not None, "logp_oracle cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "HamiltonianTransitionKernel all outputs must not be None")
-def hamiltoniantransitionkernel(state_in: object, kernel_spec: object, prng_key_in: object, logp_oracle: object) -> tuple[object, object, dict[str, object]]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "HamiltonianTransitionKernel all outputs must not be None")
+def hamiltoniantransitionkernel(state_in: np.ndarray, kernel_spec: np.ndarray, prng_key_in: np.ndarray, logp_oracle: Callable[[np.ndarray], float]) -> tuple[np.ndarray, np.ndarray, dict[str, np.ndarray]]:
     """Perform one pure HMC transition: generate/consume momenta, run leapfrog integrator proposal, evaluate acceptance, and return a brand-new chain state plus updated RNG key.
 
     Args:
@@ -73,14 +79,14 @@ def hamiltoniantransitionkernel(state_in: object, kernel_spec: object, prng_key_
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(lambda *args, **kwargs: True)
-@icontract.require(lambda n_collect: n_collect is not None, "n_collect cannot be None")
+@register_atom(witness_collectposteriorchain)
+@icontract.require(lambda n_collect: isinstance(n_collect, int), "n_collect must be an int")
 @icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
 @icontract.require(lambda chain_state_0: chain_state_0 is not None, "chain_state_0 cannot be None")
 @icontract.require(lambda kernel_spec: kernel_spec is not None, "kernel_spec cannot be None")
 @icontract.require(lambda prng_key_state: prng_key_state is not None, "prng_key_state cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "CollectPosteriorChain all outputs must not be None")
-def collectposteriorchain(n_collect: int, n_discard: int, chain_state_0: object, kernel_spec: object, prng_key_state: object) -> tuple[object, object, object, object]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "CollectPosteriorChain all outputs must not be None")
+def collectposteriorchain(n_collect: int, n_discard: int, chain_state_0: np.ndarray, kernel_spec: np.ndarray, prng_key_state: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Drive warmup/discard and collection loops by repeatedly applying the transition kernel; optionally emit progress while preserving pure state threading.
 
     Args:
@@ -108,7 +114,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def initializehmckernelstate_ffi(target: object, initial_positions: object, step_size: object, n_leapfrog: object) -> object:
+def _initializehmckernelstate_ffi(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, step_size: float, n_leapfrog: int) -> tuple[np.ndarray, np.ndarray]:
     """FFI bridge to Rust implementation of InitializeHMCKernelState."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -118,7 +124,7 @@ def initializehmckernelstate_ffi(target: object, initial_positions: object, step
     _func.restype = ctypes.c_void_p
     return _func(target, initial_positions, step_size, n_leapfrog)
 
-def initializesamplerrng_ffi(seed: object) -> object:
+def _initializesamplerrng_ffi(seed: int) -> np.ndarray:
     """FFI bridge to Rust implementation of InitializeSamplerRNG."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -128,7 +134,7 @@ def initializesamplerrng_ffi(seed: object) -> object:
     _func.restype = ctypes.c_void_p
     return _func(seed)
 
-def hamiltoniantransitionkernel_ffi(state_in: object, kernel_spec: object, prng_key_in: object, logp_oracle: object) -> object:
+def _hamiltoniantransitionkernel_ffi(state_in: np.ndarray, kernel_spec: np.ndarray, prng_key_in: np.ndarray, logp_oracle: Callable[[np.ndarray], float]) -> tuple[np.ndarray, np.ndarray, dict[str, np.ndarray]]:
     """FFI bridge to Rust implementation of HamiltonianTransitionKernel."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -138,7 +144,7 @@ def hamiltoniantransitionkernel_ffi(state_in: object, kernel_spec: object, prng_
     _func.restype = ctypes.c_void_p
     return _func(state_in, kernel_spec, prng_key_in, logp_oracle)
 
-def collectposteriorchain_ffi(n_collect: object, n_discard: object, chain_state_0: object, kernel_spec: object, prng_key_state: object) -> object:
+def _collectposteriorchain_ffi(n_collect: int, n_discard: int, chain_state_0: np.ndarray, kernel_spec: np.ndarray, prng_key_state: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """FFI bridge to Rust implementation of CollectPosteriorChain."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")

@@ -16,9 +16,9 @@ from ageoa.alphafold.witnesses import (
     witness_coordinate_reconstruction,
 )
 
-@hk.transparent
 @register_atom(witness_invariant_point_attention)
 @icontract.require(lambda nodes, pairs: nodes.shape[0] == pairs.shape[0] == pairs.shape[1], "Sequence length mismatch")
+@hk.transparent
 @icontract.ensure(lambda result, nodes: result[0].shape == nodes.shape, "IPA must preserve node shape")
 def invariant_point_attention(
     nodes: jnp.ndarray,

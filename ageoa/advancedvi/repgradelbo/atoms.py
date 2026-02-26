@@ -25,7 +25,7 @@ witness_gradient_oracle_evaluation: object = object()
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
 @icontract.require(lambda params: params is not None, "params cannot be None")
 @icontract.require(lambda restructure: restructure is not None, "restructure cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "Gradient Oracle Evaluation all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "Gradient Oracle Evaluation all outputs must not be None")
 def gradient_oracle_evaluation(rng_in: object, obj: object, adtype: object, out_in: object, state_in: object, params: object, restructure: object) -> tuple[object, object, object, object]:
     """Computes objective value and gradient for the current parameters using the provided AD mode, while threading RNG and algorithm state as explicit immutable inputs/outputs.
 
@@ -54,6 +54,6 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def gradient_oracle_evaluation_ffi(rng_in: object, obj: object, adtype: object, out_in: object, state_in: object, params: object, restructure: object) -> object:
+def _gradient_oracle_evaluation_ffi(rng_in: object, obj: object, adtype: object, out_in: object, state_in: object, params: object, restructure: object) -> object:
     """FFI bridge to Julia implementation of Gradient Oracle Evaluation."""
     return jl.eval("gradient_oracle_evaluation(rng_in, obj, adtype, out_in, state_in, params, restructure)")

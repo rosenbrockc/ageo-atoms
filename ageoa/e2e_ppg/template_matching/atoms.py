@@ -16,7 +16,7 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 witness_templatefeaturecomputation = object()
 @register_atom(witness_templatefeaturecomputation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda hc: hc is not None, "hc cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "TemplateFeatureComputation output must not be None")
+@icontract.ensure(lambda result: result is not None, "TemplateFeatureComputation output must not be None")
 def templatefeaturecomputation(hc: object) -> object:
     """Computes template-matching features from the provided input without persistent state mutation.
 

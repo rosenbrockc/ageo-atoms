@@ -209,7 +209,7 @@
         {
           "name": "collect_full_trajectory",
           "type_desc": "Bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         }
       ],
       "outputs": [
@@ -300,7 +300,7 @@
         {
           "name": "candidate_state",
           "type_desc": "{i, theta_next, r_next, value_next, gradient_next, z_candidate}",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "trajectory_accum",
@@ -310,7 +310,7 @@
         {
           "name": "collect_full_trajectory",
           "type_desc": "Bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         },
         {
           "name": "step_count",
@@ -363,7 +363,7 @@
         {
           "name": "collect_full_trajectory",
           "type_desc": "Bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         },
         {
           "name": "trajectory_accum_next",
@@ -451,15 +451,6 @@
       "input_name": "epsilon",
       "source_type": "StepSize",
       "target_type": "StepSize",
-      "requires_glue": false
-    },
-    {
-      "source_id": "proposenextphasepointwithtemperedleapfrog",
-      "target_id": "commitcandidateanddecidecontinuation",
-      "output_name": "candidate_state",
-      "input_name": "candidate_state",
-      "source_type": "CandidateState",
-      "target_type": "CandidateState",
       "requires_glue": false
     },
     {

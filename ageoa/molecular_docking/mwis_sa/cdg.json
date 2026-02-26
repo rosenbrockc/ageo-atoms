@@ -36,14 +36,14 @@
         {
           "name": "folder_path",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -69,19 +69,19 @@
         {
           "name": "graph",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "subset",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         }
       ],
       "status": "atomic",
@@ -107,19 +107,19 @@
         {
           "name": "graph",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "node_list",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "float",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "status": "atomic",
@@ -139,25 +139,25 @@
       "node_id": "to_qubo",
       "parent_id": "mwis_SA_root",
       "name": "To Qubo",
-      "description": "Convert a MISInstance to a qubo matrix.\n\nQUBO formulation:\nMinimize:\n    Q(x) = -\u2211_{i \u2208 V} w_i x_i  +  \u03bb \u2211_{(i, j) \u2208 E} x_i x_j\n\nArgs:\n    penalty (float, optional): Penalty factor. Defaults to None.\n\nRaises:\n    ValueError: When penalty is strictly inferior to 2 x max(weight).\n\nReturns:\n    np.ndarray: The QUBO matrix formulation of MIS.",
+      "description": "Convert a MISInstance to a qubo matrix.\n\nQUBO formulation:\nMinimize:\n    Q(x) = -∑_{i ∈ V} w_i x_i  +  λ ∑_{(i, j) ∈ E} x_i x_j\n\nArgs:\n    penalty (float, optional): Penalty factor. Defaults to None.\n\nRaises:\n    ValueError: When penalty is strictly inferior to 2 x max(weight).\n\nReturns:\n    np.ndarray: The QUBO matrix formulation of MIS.",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "graph",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "penalty",
           "type_desc": "Any",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
         {
           "name": "result",
           "type_desc": "np.ndarray",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "status": "atomic",

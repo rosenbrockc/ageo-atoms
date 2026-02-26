@@ -23,7 +23,7 @@ witness_optimizationlooporchestration: object = object()
 @icontract.require(lambda prob: prob is not None, "prob cannot be None")
 @icontract.require(lambda q_init: q_init is not None, "q_init cannot be None")
 @icontract.require(lambda rng_state_in: rng_state_in is not None, "rng_state_in cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "OptimizationLoopOrchestration all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "OptimizationLoopOrchestration all outputs must not be None")
 def optimizationlooporchestration(algorithm: object, max_iter: int, prob: object, q_init: object, rng_state_in: object) -> tuple[object, object, object]:
     """Runs the selected optimization algorithm for a bounded number of iterations on the provided objective/problem using an initial state.
 
@@ -49,6 +49,6 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def optimizationlooporchestration_ffi(algorithm: object, max_iter: int, prob: object, q_init: object, rng_state_in: object) -> object:
+def _optimizationlooporchestration_ffi(algorithm: object, max_iter: int, prob: object, q_init: object, rng_state_in: object) -> object:
     """FFI bridge to Julia implementation of OptimizationLoopOrchestration."""
     return jl.eval("optimizationlooporchestration(algorithm, max_iter, prob, q_init, rng_state_in)")

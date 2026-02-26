@@ -380,32 +380,32 @@
         {
           "name": "free_means",
           "type_desc": "dict[str, jnp.ndarray]",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "free_sds",
           "type_desc": "dict[str, jnp.ndarray]",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "opt_result",
           "type_desc": "optimizer result object",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "objective_fun",
           "type_desc": "callable",
-          "constraints": ""
+          "constraints": "callable(x)"
         },
         {
           "name": "shape_summary",
           "type_desc": "flatten/reconstruct metadata",
-          "constraints": ""
+          "constraints": "isinstance(x, str)"
         },
         {
           "name": "final_var_params_flat",
           "type_desc": "np.ndarray",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
@@ -838,33 +838,6 @@
       "input_name": "per_draw_transform_fn",
       "source_type": "callable",
       "target_type": "callable",
-      "requires_glue": false
-    },
-    {
-      "source_id": "meanfieldvariationalfit",
-      "target_id": "posteriordrawsampling",
-      "output_name": "free_means",
-      "input_name": "free_means",
-      "source_type": "dict[str, array]",
-      "target_type": "dict[str, array]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "meanfieldvariationalfit",
-      "target_id": "posteriordrawsampling",
-      "output_name": "free_sds",
-      "input_name": "free_sds",
-      "source_type": "dict[str, array]",
-      "target_type": "dict[str, array]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "meanfieldvariationalfit",
-      "target_id": "posteriordrawsampling",
-      "output_name": "rng_state_out",
-      "input_name": "rng_state_in",
-      "source_type": "int | PRNGKey-like RNG state",
-      "target_type": "int | PRNGKey-like RNG state",
       "requires_glue": false
     },
     {

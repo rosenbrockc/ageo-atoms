@@ -7,10 +7,10 @@ from ageoa.mint.witnesses import witness_axial_attention
 from ageoa.mint.witnesses import witness_rotary_positional_embeddings
 
 @register_atom(witness_axial_attention)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty along first axis")
 @icontract.require(lambda data: data.ndim >= 2, "data must have at least two dimensions for 2D attention")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -27,10 +27,10 @@ def axial_attention(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_rotary_positional_embeddings)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")

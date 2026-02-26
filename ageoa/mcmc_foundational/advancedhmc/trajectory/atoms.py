@@ -12,6 +12,7 @@ import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 
+from typing import Callable
 from juliacall import Main as jl
 
 
@@ -19,8 +20,8 @@ from juliacall import Main as jl
 
 @register_atom(witness_buildnutstree)
 @icontract.require(lambda initial_energy: isinstance(initial_energy, (float, int, np.number)), "initial_energy must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "BuildNutsTree output must not be None")
-def buildnutstree(rng: PRNGKey, hamiltonian: Hamiltonian, start_state: State, direction: int, tree_depth: int, initial_energy: float) -> BinaryTree:
+@icontract.ensure(lambda result: result is not None, "BuildNutsTree output must not be None")
+def buildnutstree(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], float], start_state: np.ndarray, direction: int, tree_depth: int, initial_energy: float) -> np.ndarray:
     """Recursively builds a binary tree of states for a Hamiltonian Monte Carlo trajectory. It explores the trajectory in both forward and backward directions, doubling the number of states at each step, and terminates when the trajectory starts to turn back on itself (the No-U-Turn criterion).
 
     Args:
@@ -41,8 +42,8 @@ def buildnutstree(rng: PRNGKey, hamiltonian: Hamiltonian, start_state: State, di
 @icontract.require(lambda hamiltonian: hamiltonian is not None, "hamiltonian cannot be None")
 @icontract.require(lambda initial_state: initial_state is not None, "initial_state cannot be None")
 @icontract.require(lambda trajectory_params: trajectory_params is not None, "trajectory_params cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "NutsTransitionKernel all outputs must not be None")
-def nutstransitionkernel(rng: PRNGKey, hamiltonian: Hamiltonian, initial_state: State, trajectory_params: object) -> tuple[State, dict]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "NutsTransitionKernel all outputs must not be None")
+def nutstransitionkernel(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], float], initial_state: np.ndarray, trajectory_params: np.ndarray) -> tuple[np.ndarray, dict[str, np.ndarray]]:
     """Orchestrates a single No-U-Turn Sampler (NUTS) transition. It initializes a trajectory, builds a proposal tree using the BuildNutsTree atom until a termination condition is met, samples a new state from the resulting tree, and uses a Metropolis-Hastings correction to ensure detailed balance. This produces the next state in the Markov chain.
 
     Args:
@@ -65,10 +66,10 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def buildnutstree_ffi(rng, hamiltonian, start_state, direction, tree_depth, initial_energy):
+def _buildnutstree_ffi(rng, hamiltonian, start_state, direction, tree_depth, initial_energy):
     """FFI bridge to Julia implementation of BuildNutsTree."""
     return jl.eval("buildnutstree(rng, hamiltonian, start_state, direction, tree_depth, initial_energy)")
 
-def nutstransitionkernel_ffi(rng, hamiltonian, initial_state, trajectory_params):
+def _nutstransitionkernel_ffi(rng, hamiltonian, initial_state, trajectory_params):
     """FFI bridge to Julia implementation of NutsTransitionKernel."""
     return jl.eval("nutstransitionkernel(rng, hamiltonian, initial_state, trajectory_params)")

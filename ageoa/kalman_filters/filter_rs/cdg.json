@@ -245,82 +245,82 @@
         {
           "name": "x",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "P",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "x_prior",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "P_prior",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "x_post",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "P_post",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "z",
           "type_desc": "Option<VectorN<F, DimZ>>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "R",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "Q",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "F",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "H",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "y",
           "type_desc": "VectorN<F, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "K",
           "type_desc": "MatrixMN<F, DimX, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "S",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "SI",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "alpha_sq",
           "type_desc": "F",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [
@@ -770,12 +770,12 @@
         {
           "name": "R_pred",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "H_pred",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "R_override",
@@ -797,7 +797,7 @@
         {
           "name": "H_eff",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "status": "atomic",
@@ -823,17 +823,17 @@
         {
           "name": "z",
           "type_desc": "VectorN<F, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "x_pred",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "H_eff",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "residual_override",
@@ -876,12 +876,12 @@
         {
           "name": "H_eff",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "R_eff",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
@@ -919,7 +919,7 @@
         {
           "name": "PHT",
           "type_desc": "MatrixMN<F, DimX, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "S",
@@ -962,24 +962,24 @@
         {
           "name": "x_pred",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "K",
           "type_desc": "MatrixMN<F, DimX, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "y",
           "type_desc": "VectorN<F, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "x_post",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "status": "atomic",
@@ -1005,22 +1005,22 @@
         {
           "name": "P_pred",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "K",
           "type_desc": "MatrixMN<F, DimX, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "H_eff",
           "type_desc": "MatrixMN<F, DimZ, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "R_eff",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
@@ -1053,12 +1053,12 @@
         {
           "name": "x_post",
           "type_desc": "VectorN<F, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "P_post",
           "type_desc": "MatrixMN<F, DimX, DimX>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "F",
@@ -1088,34 +1088,34 @@
         {
           "name": "z",
           "type_desc": "VectorN<F, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "y",
           "type_desc": "VectorN<F, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "S",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "S_inv",
           "type_desc": "MatrixMN<F, DimZ, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "K",
           "type_desc": "MatrixMN<F, DimX, DimZ>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         }
       ],
       "outputs": [
         {
           "name": "posterior_state",
           "type_desc": "StateModelSpec{latent_mean x_post, covariance P_post, F, B, H, Q, R}",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "update_cache",
@@ -1578,30 +1578,12 @@
       "requires_glue": false
     },
     {
-      "source_id": "predictlatentstateandcovariance",
-      "target_id": "evaluatemeasurementoracle",
-      "output_name": "predicted_state",
-      "input_name": "x",
-      "source_type": "StateModelSpec",
-      "target_type": "latent_mean",
-      "requires_glue": false
-    },
-    {
       "source_id": "evaluatemeasurementoracle",
       "target_id": "updateposteriorstateandcovariance",
       "output_name": "measurement_residual",
       "input_name": "measurement_residual",
       "source_type": "vector",
       "target_type": "vector",
-      "requires_glue": false
-    },
-    {
-      "source_id": "predictlatentstateandcovariance",
-      "target_id": "updateposteriorstateandcovariance",
-      "output_name": "predicted_state",
-      "input_name": "predicted_state",
-      "source_type": "StateModelSpec",
-      "target_type": "StateModelSpec",
       "requires_glue": false
     },
     {
@@ -1620,24 +1602,6 @@
       "input_name": "x",
       "source_type": "SteadyStateModelSpec",
       "target_type": "latent_mean",
-      "requires_glue": false
-    },
-    {
-      "source_id": "evaluatemeasurementoracle",
-      "target_id": "updateposteriorstatesteadystate",
-      "output_name": "measurement_residual",
-      "input_name": "measurement_residual",
-      "source_type": "vector",
-      "target_type": "vector",
-      "requires_glue": false
-    },
-    {
-      "source_id": "predictlatentstatesteadystate",
-      "target_id": "updateposteriorstatesteadystate",
-      "output_name": "predicted_state_steady",
-      "input_name": "predicted_state_steady",
-      "source_type": "SteadyStateModelSpec",
-      "target_type": "SteadyStateModelSpec",
       "requires_glue": false
     },
     {

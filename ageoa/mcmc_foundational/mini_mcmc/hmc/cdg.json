@@ -1155,37 +1155,10 @@
   ],
   "edges": [
     {
-      "source_id": "preparedifferentiablestateandfirsthalfkick",
-      "target_id": "driftpositionbyfullstep",
-      "output_name": "position_ad",
-      "input_name": "position_ad",
-      "source_type": "Tensor<B, 2>",
-      "target_type": "Tensor<B, 2>",
-      "requires_glue": false
-    },
-    {
-      "source_id": "preparedifferentiablestateandfirsthalfkick",
-      "target_id": "driftpositionbyfullstep",
-      "output_name": "momentum_half_kicked",
-      "input_name": "momentum_half_kicked",
-      "source_type": "Tensor<B, 2>",
-      "target_type": "Tensor<B, 2>",
-      "requires_glue": false
-    },
-    {
       "source_id": "driftpositionbyfullstep",
       "target_id": "recomputegradienthalfkickcontribution",
       "output_name": "position_advanced",
       "input_name": "position_advanced",
-      "source_type": "Tensor<B, 2>",
-      "target_type": "Tensor<B, 2>",
-      "requires_glue": false
-    },
-    {
-      "source_id": "preparedifferentiablestateandfirsthalfkick",
-      "target_id": "completemomentumkickandrefreshcarry",
-      "output_name": "momentum_half_kicked",
-      "input_name": "momentum_half_kicked",
       "source_type": "Tensor<B, 2>",
       "target_type": "Tensor<B, 2>",
       "requires_glue": false
@@ -1555,24 +1528,6 @@
       "target_id": "leapfrogproposalkernel",
       "output_name": "chain_state_in",
       "input_name": "proposal_state_in",
-      "source_type": "StateModelSpec",
-      "target_type": "StateModelSpec",
-      "requires_glue": false
-    },
-    {
-      "source_id": "leapfrogproposalkernel",
-      "target_id": "metropolishmctransition",
-      "output_name": "proposal_state_out",
-      "input_name": "proposal_state_out",
-      "source_type": "StateModelSpec",
-      "target_type": "StateModelSpec",
-      "requires_glue": false
-    },
-    {
-      "source_id": "metropolishmctransition",
-      "target_id": "runsamplingloop",
-      "output_name": "chain_state_out",
-      "input_name": "hmc_state_in",
       "source_type": "StateModelSpec",
       "target_type": "StateModelSpec",
       "requires_glue": false

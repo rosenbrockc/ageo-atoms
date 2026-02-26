@@ -310,7 +310,7 @@
       "node_id": "assemblepositionjacobian",
       "parent_id": "kinematicgoalfeasibility",
       "name": "AssemblePositionJacobian",
-      "description": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+      "description": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint’s positional influence.",
       "concept_type": "algebra",
       "inputs": [
         {
@@ -570,22 +570,22 @@
         {
           "name": "self",
           "type_desc": "ModelD<f64>",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "x",
           "type_desc": "DVector<f64>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "u",
           "type_desc": "DVector<f64>",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "_t",
           "type_desc": "f64",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
@@ -721,15 +721,6 @@
       "target_id": "controlinputsynthesis",
       "output_name": "x_dot",
       "input_name": "_x_dot",
-      "source_type": "array-like",
-      "target_type": "array-like",
-      "requires_glue": false
-    },
-    {
-      "source_id": "controlinputsynthesis",
-      "target_id": "dynamicsandlinearizationkernel",
-      "output_name": "u_cmd",
-      "input_name": "u",
       "source_type": "array-like",
       "target_type": "array-like",
       "requires_glue": false

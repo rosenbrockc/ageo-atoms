@@ -1213,39 +1213,12 @@
       "requires_glue": false
     },
     {
-      "source_id": "align_and_stitch_signals_by_peak_boundaries",
-      "target_id": "resample_stitched_signal_to_native_scale",
-      "output_name": "stitched_signal_upsampled",
-      "input_name": "stitched_signal_upsampled",
-      "source_type": "list[float]",
-      "target_type": "list[float]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "align_and_stitch_signals_by_peak_boundaries",
-      "target_id": "resample_stitched_signal_to_native_scale",
-      "output_name": "stitched_native_len",
-      "input_name": "stitched_native_len",
-      "source_type": "int",
-      "target_type": "int",
-      "requires_glue": false
-    },
-    {
       "source_id": "resample_stitched_signal_to_native_scale",
       "target_id": "update_iteration_state_from_stitched_signal",
       "output_name": "stitched_signal_native",
       "input_name": "stitched_signal_native",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
-    },
-    {
-      "source_id": "normalize_and_batch_clean_context",
-      "target_id": "update_iteration_state_from_stitched_signal",
-      "output_name": "clean_len",
-      "input_name": "clean_len",
-      "source_type": "int",
-      "target_type": "int",
       "requires_glue": false
     },
     {

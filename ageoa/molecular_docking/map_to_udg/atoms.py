@@ -15,7 +15,7 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 witness_graphtoudgmapping: object = object()
 @register_atom(witness_graphtoudgmapping)  # type: ignore[untyped-decorator]
 @register_atom(witness_graphtoudgmapping)  # type: ignore[untyped-decorator]
-@icontract.ensure(lambda result, **kwargs: result is not None, "GraphToUDGMapping output must not be None")
+@icontract.ensure(lambda result: result is not None, "GraphToUDGMapping output must not be None")
 def graphtoudgmapping(G: nx.Graph) -> nx.Graph:
     """Map a graph to a UDG mapping.
 

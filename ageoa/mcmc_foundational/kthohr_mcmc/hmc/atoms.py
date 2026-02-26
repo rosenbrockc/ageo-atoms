@@ -15,14 +15,14 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 import ctypes
 import ctypes.util
 from pathlib import Path
-from typing import Any, Callable
+from typing import Callable
 
 # Witness functions should be imported from the generated witnesses module
 witness_buildhmckernelfromlogdensityoracle: object = object()
 
 @register_atom(witness_buildhmckernelfromlogdensityoracle)  # type: ignore[untyped-decorator]
-@icontract.ensure(lambda result, **kwargs: result is not None, "BuildHMCKernelFromLogDensityOracle output must not be None")
-def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[Any], Any]) -> Callable[[Any, Any], tuple[Any, Any]]:
+@icontract.ensure(lambda result: result is not None, "BuildHMCKernelFromLogDensityOracle output must not be None")
+def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
     """Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.
 
     Args:
@@ -38,5 +38,5 @@ def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[Any], Any]) 
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-def buildhmckernelfromlogdensityoracle_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
+def _buildhmckernelfromlogdensityoracle_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
     return target_log_kernel

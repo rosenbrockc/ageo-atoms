@@ -87,32 +87,32 @@
         {
           "name": "v50ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v100ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v200ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v300ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v350ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v1200ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "M_th",
@@ -148,7 +148,7 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float (Hz)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
@@ -181,19 +181,19 @@
         {
           "name": "X_ma",
           "type_desc": "1-D float array",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "sampling_rate",
           "type_desc": "positive float (Hz)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
         {
           "name": "X_bp",
           "type_desc": "1-D float array, same length as X_ma",
-          "constraints": "passband 9\u201340 Hz"
+          "constraints": "passband 9–40 Hz"
         }
       ],
       "status": "atomic",
@@ -252,12 +252,12 @@
         {
           "name": "Y_nleo",
           "type_desc": "1-D float array (non-negative energy)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "sampling_rate",
           "type_desc": "positive float (Hz)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         }
       ],
       "outputs": [
@@ -295,44 +295,44 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float (Hz)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "M_th",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "v350ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         }
       ],
       "outputs": [
         {
           "name": "MM",
           "type_desc": "1-D float array, length 5 (circular buffer)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "MMidx",
           "type_desc": "int in [0,4]",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "M",
           "type_desc": "float scalar (current threshold M)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "Mtemp",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "slope",
           "type_desc": "1-D float array, length=int(sampling_rate)",
-          "constraints": "linearly decays 1.0\u21920.6"
+          "constraints": "linearly decays 1.0→0.6"
         },
         {
           "name": "R",
@@ -362,7 +362,7 @@
         {
           "name": "F",
           "type_desc": "float scalar (baseline frequency threshold)",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "QRS",
@@ -392,108 +392,108 @@
       "node_id": "run_adaptive_threshold_detection",
       "parent_id": "christovqrsdetect",
       "name": "run_adaptive_threshold_detection",
-      "description": "Iterate sample-by-sample through Y, maintaining the combined adaptive threshold MFR = M + F + R. After each QRS event: refresh MM and M within 200 ms, decay M from 200\u20131200 ms via the slope vector, hold/decay R around the expected RR interval. Detect a new QRS when Y[n] >= MFR (outside the 200 ms blanking period), record the local Y-maximum within 300 ms as the R-peak candidate, update the RR circular buffer, and update F each sample using the sliding 350 ms window rule.",
+      "description": "Iterate sample-by-sample through Y, maintaining the combined adaptive threshold MFR = M + F + R. After each QRS event: refresh MM and M within 200 ms, decay M from 200–1200 ms via the slope vector, hold/decay R around the expected RR interval. Detect a new QRS when Y[n] >= MFR (outside the 200 ms blanking period), record the local Y-maximum within 300 ms as the R-peak candidate, update the RR circular buffer, and update F each sample using the sliding 350 ms window rule.",
       "concept_type": "sequential_filter",
       "inputs": [
         {
           "name": "Y",
           "type_desc": "1-D float array (smoothed energy)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "MM",
           "type_desc": "1-D float array, length 5",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "MMidx",
           "type_desc": "int",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "M",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "Mtemp",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "slope",
           "type_desc": "1-D float array",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "R",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "Rdec",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "RR",
           "type_desc": "1-D float array, length 5",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "RRidx",
           "type_desc": "int",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "Rm",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "F",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "QRS",
           "type_desc": "list of int",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "Rpeak",
           "type_desc": "list of int",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "M_th",
           "type_desc": "float scalar",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "v50ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v200ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v300ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v350ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "v1200ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         }
       ],
       "outputs": [
@@ -525,23 +525,23 @@
       "node_id": "refine_rpeaks_on_raw_signal",
       "parent_id": "christovqrsdetect",
       "name": "refine_rpeaks_on_raw_signal",
-      "description": "For each candidate R-peak index from the energy domain, search a \u00b1100 ms window on the original ECG signal to find the true amplitude maximum, deduplicate and sort the result, and return a clean integer array of R-peak sample indices.",
+      "description": "For each candidate R-peak index from the energy domain, search a ±100 ms window on the original ECG signal to find the true amplitude maximum, deduplicate and sort the result, and return a clean integer array of R-peak sample indices.",
       "concept_type": "searching",
       "inputs": [
         {
           "name": "Rpeak_indices",
           "type_desc": "list of int",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         },
         {
           "name": "signal",
           "type_desc": "1-D float array (original ECG)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "v100ms",
           "type_desc": "positive int (samples)",
-          "constraints": ""
+          "constraints": "isinstance(x, int)"
         }
       ],
       "outputs": [

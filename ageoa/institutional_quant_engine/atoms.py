@@ -9,10 +9,10 @@ from ageoa.institutional_quant_engine.witnesses import witness_pin_informed_trad
 from ageoa.institutional_quant_engine.witnesses import witness_limit_order_queue_estimator
 
 @register_atom(witness_market_making_avellaneda)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -29,10 +29,10 @@ def market_making_avellaneda(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_almgren_chriss_execution)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -49,10 +49,10 @@ def almgren_chriss_execution(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_pin_informed_trading)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
@@ -69,10 +69,10 @@ def pin_informed_trading(data: np.ndarray) -> np.ndarray:
     raise NotImplementedError("Skeleton for future ingestion.")
 
 @register_atom(witness_limit_order_queue_estimator)
-@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
 @icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
+@icontract.require(lambda data: data is not None, "data must not be None")
 @icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")

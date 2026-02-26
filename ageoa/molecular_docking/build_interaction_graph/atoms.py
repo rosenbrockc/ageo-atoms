@@ -16,7 +16,7 @@ from ageoa.ghost.registry import register_atom
 
 @register_atom(witness_pair_distance_compatibility_check)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Pair Distance Compatibility Check output must not be None")
+@icontract.ensure(lambda result: result is not None, "Pair Distance Compatibility Check output must not be None")
 def pair_distance_compatibility_check(L_feature_min_max: object, R_features_distance: object, interaction_distance: float) -> bool:
     """Evaluates whether a candidate left/right feature pair satisfies interaction-distance constraints.
 
@@ -32,7 +32,7 @@ def pair_distance_compatibility_check(L_feature_min_max: object, R_features_dist
 
 @register_atom(witness_weighted_interaction_edge_derivation)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "Weighted Interaction Edge Derivation all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "Weighted Interaction Edge Derivation all outputs must not be None")
 def weighted_interaction_edge_derivation(L_features: object, R_features: object, L_distance_matrix: object, R_distance_matrix: object, interaction_distance: float, distance_match: bool) -> tuple[list[tuple[object, object, float]], list[object] | set[object]]:
     """
     Args:
@@ -52,7 +52,7 @@ def weighted_interaction_edge_derivation(L_features: object, R_features: object,
 @register_atom(witness_networkx_weighted_graph_materialization)
 @icontract.require(lambda edges: edges is not None, "edges cannot be None")
 @icontract.require(lambda nodes: nodes is not None, "nodes cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "NetworkX Weighted Graph Materialization output must not be None")
+@icontract.ensure(lambda result: result is not None, "NetworkX Weighted Graph Materialization output must not be None")
 # Invalid pseudo-signature removed; keep the typed definition below.
 def networkx_weighted_graph_materialization(edges: list[tuple[object, object, float]], nodes: list[object] | set[object]) -> nx.Graph | nx.DiGraph:
     """

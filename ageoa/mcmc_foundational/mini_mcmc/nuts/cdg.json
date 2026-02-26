@@ -144,12 +144,12 @@
         {
           "name": "progress_senders",
           "type_desc": "Vec<Sender<ChainStats>>",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "progress_receivers",
           "type_desc": "Vec<Receiver<ChainStats>>",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",

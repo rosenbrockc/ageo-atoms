@@ -406,48 +406,12 @@
       "requires_glue": false
     },
     {
-      "source_id": "extractsegmentminimumintobuffers",
-      "target_id": "evaluateonsetfrombufferedminima",
-      "output_name": "state_with_buffers",
-      "input_name": "state_with_buffers",
-      "source_type": "dict[str, any]",
-      "target_type": "dict[str, any]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "extractsegmentminimumintobuffers",
-      "target_id": "evaluateonsetfrombufferedminima",
-      "output_name": "candidate_center_idx",
-      "input_name": "candidate_center_idx",
-      "source_type": "int",
-      "target_type": "int",
-      "requires_glue": false
-    },
-    {
       "source_id": "evaluateonsetfrombufferedminima",
       "target_id": "updateonsetstempoandtraversalstate",
       "output_name": "is_valid_onset",
       "input_name": "is_valid_onset",
       "source_type": "bool",
       "target_type": "bool",
-      "requires_glue": false
-    },
-    {
-      "source_id": "extractsegmentminimumintobuffers",
-      "target_id": "updateonsetstempoandtraversalstate",
-      "output_name": "state_with_buffers",
-      "input_name": "state_with_buffers",
-      "source_type": "dict[str, any]",
-      "target_type": "dict[str, any]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "extractsegmentminimumintobuffers",
-      "target_id": "updateonsetstempoandtraversalstate",
-      "output_name": "candidate_center_idx",
-      "input_name": "candidate_center_idx",
-      "source_type": "int",
-      "target_type": "int",
       "requires_glue": false
     },
     {

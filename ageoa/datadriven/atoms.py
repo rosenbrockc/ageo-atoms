@@ -83,7 +83,18 @@ def discover_equations(
     max_degree: int = 4,
     lambda_val: float = 0.1,
 ) -> EquationResult:
-    """Sparsity-promoting symbolic regression for discovering governing equations from data."""
+    """Sparsity-promoting symbolic regression for discovering governing equations from data.
+
+    Args:
+        X (np.ndarray): Description.
+        Y (np.ndarray): Description.
+        variable_names (List[str]): Description.
+        max_degree (int): Description.
+        lambda_val (float): Description.
+
+    Returns:
+        EquationResult: Description.
+    """
     names = _validate_variable_names(variable_names)
     if X.shape[0] != len(names):
         raise ValueError(

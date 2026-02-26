@@ -3,22 +3,21 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-
-from juliacall import Main as jl
-
+from .witnesses import witness_offset_tt2tdbh
 
 
-"""Auto-generated FFI bindings for julia implementations."""
+@register_atom(witness_offset_tt2tdbh)
+@icontract.require(lambda seconds: seconds is not None, "seconds cannot be None")
+@icontract.ensure(lambda result: result is not None, "result must not be None")
+def offset_tt2tdbh(seconds: float) -> float:
+    """Returns the TT-to-TDBH time-scale offset using the higher-accuracy Harada-Fukushima series expansion.
 
-from __future__ import annotations
+    Args:
+        seconds: TT epoch expressed in seconds since J2000.0
 
-from juliacall import Main as jl
-
+    Returns:
+        TDBH - TT offset in seconds via Harada-Fukushima series, maximum error ~10 µs from 1600-2200
+    """
+    raise NotImplementedError("Wire to original implementation")

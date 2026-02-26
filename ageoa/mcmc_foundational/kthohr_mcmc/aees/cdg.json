@@ -552,15 +552,6 @@
       "source_type": "float",
       "target_type": "float",
       "requires_glue": false
-    },
-    {
-      "source_id": "targetlogkerneloracle",
-      "target_id": "metropolishastingstransitionkernel",
-      "output_name": "log_kernel_value",
-      "input_name": "oracle_log_kernel_value",
-      "source_type": "float",
-      "target_type": "float",
-      "requires_glue": false
     }
   ],
   "metadata": {

@@ -16,7 +16,7 @@ from ageoa.ghost.registry import register_atom
 
 @register_atom(witness_hamilton_segmentation)
 @icontract.require(lambda signal: isinstance(signal, np.ndarray), "signal must be a numpy array")
-@icontract.ensure(lambda result, **kwargs: result is not None, "hamilton_segmentation output must not be None")
+@icontract.ensure(lambda result: result is not None, "hamilton_segmentation output must not be None")
 def hamilton_segmentation(signal: np.ndarray, sampling_rate: int) -> np.ndarray:
     """Performs ECG signal segmentation to detect QRS complexes using the Hamilton algorithm.
 

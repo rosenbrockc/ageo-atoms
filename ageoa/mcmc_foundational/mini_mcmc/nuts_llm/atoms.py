@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Callable
 import numpy as np
 import torch
 import jax
@@ -17,13 +18,13 @@ import ctypes.util
 from pathlib import Path
 
 
-# Witness functions should be imported from the generated witnesses module
+from .witnesses import witness_initializenutsstate, witness_runnutstransitions
 
-@register_atom(lambda *args, **kwargs: None)
+@register_atom(witness_initializenutsstate)
 @icontract.require(lambda initial_positions: isinstance(initial_positions, (float, int, np.number)), "initial_positions must be numeric")
 @icontract.require(lambda target_accept_p: isinstance(target_accept_p, (float, int, np.number)), "target_accept_p must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeNUTSState all outputs must not be None")
-def initializenutsstate(target: object, initial_positions: object, target_accept_p: float, seed: int) -> tuple[object, object]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "InitializeNUTSState all outputs must not be None")
+def initializenutsstate(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, target_accept_p: float, seed: int) -> tuple[np.ndarray, np.ndarray]:
     """Build immutable NUTS state from the target log-density, initial position, acceptance target, and explicit RNG key state.
 
     Args:
@@ -38,13 +39,13 @@ def initializenutsstate(target: object, initial_positions: object, target_accept
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(lambda *args, **kwargs: None)
-@icontract.require(lambda nuts_state_in: nuts_state_in is not None, "nuts_state_in cannot be None")
+@register_atom(witness_runnutstransitions)
+@icontract.require(lambda nuts_state_in: isinstance(nuts_state_in, np.ndarray), "nuts_state_in must be np.ndarray")
 @icontract.require(lambda rng_key_in: rng_key_in is not None, "rng_key_in cannot be None")
 @icontract.require(lambda n_collect: n_collect is not None, "n_collect cannot be None")
 @icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "RunNUTSTransitions all outputs must not be None")
-def runnutstransitions(nuts_state_in: object, rng_key_in: object, n_collect: int, n_discard: int) -> tuple[object, object, object, object]:
+@icontract.ensure(lambda result: all(r is not None for r in result), "RunNUTSTransitions all outputs must not be None")
+def runnutstransitions(nuts_state_in: np.ndarray, rng_key_in: np.ndarray, n_collect: int, n_discard: int) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Apply NUTS transition kernels for warmup/discard and collection while returning new immutable chain state, diagnostics trace, and split RNG key.
 
     Args:
@@ -71,7 +72,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def initializenutsstate_ffi(target: object, initial_positions: object, target_accept_p: float, seed: int) -> object:
+def _initializenutsstate_ffi(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, target_accept_p: float, seed: int) -> tuple[np.ndarray, np.ndarray]:
     """FFI bridge to Rust implementation of InitializeNUTSState."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -81,7 +82,7 @@ def initializenutsstate_ffi(target: object, initial_positions: object, target_ac
     _func.restype = ctypes.c_void_p
     return _func(target, initial_positions, target_accept_p, seed)
 
-def runnutstransitions_ffi(nuts_state_in: object, rng_key_in: object, n_collect: int, n_discard: int) -> object:
+def _runnutstransitions_ffi(nuts_state_in: np.ndarray, rng_key_in: np.ndarray, n_collect: int, n_discard: int) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """FFI bridge to Rust implementation of RunNUTSTransitions."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")

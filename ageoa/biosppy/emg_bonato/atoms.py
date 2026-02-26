@@ -20,7 +20,7 @@ from ageoa.ghost.registry import register_atom
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.require(lambda threshold: isinstance(threshold, (float, int, np.number)), "threshold must be numeric")
 @icontract.require(lambda active_state_duration: isinstance(active_state_duration, (float, int, np.number)), "active_state_duration must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "bonato_onset_detection output must not be None")
+@icontract.ensure(lambda result: result is not None, "bonato_onset_detection output must not be None")
 def bonato_onset_detection(signal: np.ndarray, rest: np.ndarray, sampling_rate: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> List[int]:
     """Detects activity onsets in a signal using the Bonato double-threshold algorithm. It identifies points where the signal exceeds a defined threshold for a minimum duration.
 

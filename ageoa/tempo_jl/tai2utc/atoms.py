@@ -19,104 +19,242 @@ from juliacall import Main as jl
 
 @register_atom(witness_isleapyear)
 @icontract.require(lambda year: year is not None, "year cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Isleapyear output must not be None")
-def isleapyear(year: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Isleapyear output must not be None")
+def isleapyear(year: int) -> bool:
+    """Isleapyear.
+
+    Args:
+        year (int): Description.
+
+    Returns:
+        bool: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_find_dayinyear)
 @icontract.require(lambda month: month is not None, "month cannot be None")
 @icontract.require(lambda day: day is not None, "day cannot be None")
 @icontract.require(lambda isleap: isleap is not None, "isleap cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Find Dayinyear output must not be None")
-def find_dayinyear(month: Any, day: Any, isleap: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Find Dayinyear output must not be None")
+def find_dayinyear(month: int, day: int, isleap: bool) -> int:
+    """Find dayinyear.
+
+    Args:
+        month (int): Description.
+        day (int): Description.
+        isleap (bool): Description.
+
+    Returns:
+        int: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_find_year)
 @icontract.require(lambda d: d is not None, "d cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Find Year output must not be None")
-def find_year(d: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Find Year output must not be None")
+def find_year(d: float) -> int:
+    """Find year.
+
+    Args:
+        d (float): Description.
+
+    Returns:
+        int: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_find_month)
 @icontract.require(lambda dayinyear: dayinyear is not None, "dayinyear cannot be None")
 @icontract.require(lambda isleap: isleap is not None, "isleap cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Find Month output must not be None")
-def find_month(dayinyear: Any, isleap: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Find Month output must not be None")
+def find_month(dayinyear: int, isleap: bool) -> int:
+    """Find month.
+
+    Args:
+        dayinyear (int): Description.
+        isleap (bool): Description.
+
+    Returns:
+        int: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_find_day)
 @icontract.require(lambda dayinyear: dayinyear is not None, "dayinyear cannot be None")
 @icontract.require(lambda month: month is not None, "month cannot be None")
 @icontract.require(lambda isleap: isleap is not None, "isleap cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Find Day output must not be None")
-def find_day(dayinyear: Any, month: Any, isleap: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Find Day output must not be None")
+def find_day(dayinyear: int, month: int, isleap: bool) -> int:
+    """Find day.
+
+    Args:
+        dayinyear (int): Description.
+        month (int): Description.
+        isleap (bool): Description.
+
+    Returns:
+        int: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_lastj2000dayofyear)
 @icontract.require(lambda year: year is not None, "year cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Lastj2000Dayofyear output must not be None")
-def lastj2000dayofyear(year: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Lastj2000Dayofyear output must not be None")
+def lastj2000dayofyear(year: int) -> int:
+    """Lastj2000dayofyear.
+
+    Args:
+        year (int): Description.
+
+    Returns:
+        int: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_hms2fd)
 @icontract.require(lambda h: h is not None, "h cannot be None")
 @icontract.require(lambda m: m is not None, "m cannot be None")
 @icontract.require(lambda s: s is not None, "s cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Hms2Fd output must not be None")
-def hms2fd(h: Any, m: Any, s: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Hms2Fd output must not be None")
+def hms2fd(h: int, m: int, s: float) -> float:
+    """Hms2fd.
+
+    Args:
+        h (int): Description.
+        m (int): Description.
+        s (float): Description.
+
+    Returns:
+        float: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_fd2hms)
 @icontract.require(lambda fd: fd is not None, "fd cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Fd2Hms output must not be None")
-def fd2hms(fd: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Fd2Hms output must not be None")
+def fd2hms(fd: float) -> tuple[int, int, float]:
+    """Fd2hms.
+
+    Args:
+        fd (float): Description.
+
+    Returns:
+        tuple[int, int, float]: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_fd2hmsf)
 @icontract.require(lambda fd: fd is not None, "fd cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Fd2Hmsf output must not be None")
-def fd2hmsf(fd: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Fd2Hmsf output must not be None")
+def fd2hmsf(fd: float) -> tuple[int, int, int, float]:
+    """Fd2hmsf.
+
+    Args:
+        fd (float): Description.
+
+    Returns:
+        tuple[int, int, int, float]: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_cal2jd)
 @icontract.require(lambda Y: Y is not None, "Y cannot be None")
 @icontract.require(lambda M: M is not None, "M cannot be None")
 @icontract.require(lambda D: D is not None, "D cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Cal2Jd output must not be None")
-def cal2jd(Y: Any, M: Any, D: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Cal2Jd output must not be None")
+def cal2jd(Y: int, M: int, D: int) -> float:
+    """Cal2jd.
+
+    Args:
+        Y (int): Description.
+        M (int): Description.
+        D (int): Description.
+
+    Returns:
+        float: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_calhms2jd)
-@icontract.ensure(lambda result, **kwargs: result is not None, "Calhms2Jd output must not be None")
-def calhms2jd(Y: Any, M: Any, D: Any, h: Any, m: Any, sec: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Calhms2Jd output must not be None")
+def calhms2jd(Y: int, M: int, D: int, h: int, m: int, sec: float) -> float:
+    """Calhms2jd.
+
+    Args:
+        Y (int): Description.
+        M (int): Description.
+        D (int): Description.
+        h (int): Description.
+        m (int): Description.
+        sec (float): Description.
+
+    Returns:
+        float: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_jd2cal)
 @icontract.require(lambda dj1: dj1 is not None, "dj1 cannot be None")
 @icontract.require(lambda dj2: dj2 is not None, "dj2 cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Jd2Cal output must not be None")
-def jd2cal(dj1: Any, dj2: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Jd2Cal output must not be None")
+def jd2cal(dj1: float, dj2: float) -> tuple[int, int, int, float]:
+    """Jd2cal.
+
+    Args:
+        dj1 (float): Description.
+        dj2 (float): Description.
+
+    Returns:
+        tuple[int, int, int, float]: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_jd2calhms)
 @icontract.require(lambda dj1: dj1 is not None, "dj1 cannot be None")
 @icontract.require(lambda dj2: dj2 is not None, "dj2 cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Jd2Calhms output must not be None")
-def jd2calhms(dj1: Any, dj2: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Jd2Calhms output must not be None")
+def jd2calhms(dj1: float, dj2: float) -> tuple[int, int, int, int, int, float]:
+    """Jd2calhms.
+
+    Args:
+        dj1 (float): Description.
+        dj2 (float): Description.
+
+    Returns:
+        tuple[int, int, int, int, int, float]: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_utc2tai)
 @icontract.require(lambda utc1: utc1 is not None, "utc1 cannot be None")
 @icontract.require(lambda utc2: utc2 is not None, "utc2 cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Utc2Tai output must not be None")
-def utc2tai(utc1: Any, utc2: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Utc2Tai output must not be None")
+def utc2tai(utc1: float, utc2: float) -> float:
+    """Utc2tai.
+
+    Args:
+        utc1 (float): Description.
+        utc2 (float): Description.
+
+    Returns:
+        float: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_tai2utc)
 @icontract.require(lambda tai1: tai1 is not None, "tai1 cannot be None")
 @icontract.require(lambda tai2: tai2 is not None, "tai2 cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Tai2Utc output must not be None")
-def tai2utc(tai1: Any, tai2: Any) -> Any:
+@icontract.ensure(lambda result: result is not None, "Tai2Utc output must not be None")
+def tai2utc(tai1: float, tai2: float) -> float:
+    """Tai2utc.
+
+    Args:
+        tai1 (float): Description.
+        tai2 (float): Description.
+
+    Returns:
+        float: Description.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -127,62 +265,62 @@ from __future__ import annotations
 from juliacall import Main as jl
 
 
-def isleapyear_ffi(year):
+def _isleapyear_ffi(year):
     """FFI bridge to Julia implementation of Isleapyear."""
     return jl.eval("isleapyear(year)")
 
-def find_dayinyear_ffi(month, day, isleap):
+def _find_dayinyear_ffi(month, day, isleap):
     """FFI bridge to Julia implementation of Find Dayinyear."""
     return jl.eval("find_dayinyear(month, day, isleap)")
 
-def find_year_ffi(d):
+def _find_year_ffi(d):
     """FFI bridge to Julia implementation of Find Year."""
     return jl.eval("find_year(d)")
 
-def find_month_ffi(dayinyear, isleap):
+def _find_month_ffi(dayinyear, isleap):
     """FFI bridge to Julia implementation of Find Month."""
     return jl.eval("find_month(dayinyear, isleap)")
 
-def find_day_ffi(dayinyear, month, isleap):
+def _find_day_ffi(dayinyear, month, isleap):
     """FFI bridge to Julia implementation of Find Day."""
     return jl.eval("find_day(dayinyear, month, isleap)")
 
-def lastj2000dayofyear_ffi(year):
+def _lastj2000dayofyear_ffi(year):
     """FFI bridge to Julia implementation of Lastj2000Dayofyear."""
     return jl.eval("lastj2000dayofyear(year)")
 
-def hms2fd_ffi(h, m, s):
+def _hms2fd_ffi(h, m, s):
     """FFI bridge to Julia implementation of Hms2Fd."""
     return jl.eval("hms2fd(h, m, s)")
 
-def fd2hms_ffi(fd):
+def _fd2hms_ffi(fd):
     """FFI bridge to Julia implementation of Fd2Hms."""
     return jl.eval("fd2hms(fd)")
 
-def fd2hmsf_ffi(fd):
+def _fd2hmsf_ffi(fd):
     """FFI bridge to Julia implementation of Fd2Hmsf."""
     return jl.eval("fd2hmsf(fd)")
 
-def cal2jd_ffi(Y, M, D):
+def _cal2jd_ffi(Y, M, D):
     """FFI bridge to Julia implementation of Cal2Jd."""
     return jl.eval("cal2jd(Y, M, D)")
 
-def calhms2jd_ffi(Y, M, D, h, m, sec):
+def _calhms2jd_ffi(Y, M, D, h, m, sec):
     """FFI bridge to Julia implementation of Calhms2Jd."""
     return jl.eval("calhms2jd(Y, M, D, h, m, sec)")
 
-def jd2cal_ffi(dj1, dj2):
+def _jd2cal_ffi(dj1, dj2):
     """FFI bridge to Julia implementation of Jd2Cal."""
     return jl.eval("jd2cal(dj1, dj2)")
 
-def jd2calhms_ffi(dj1, dj2):
+def _jd2calhms_ffi(dj1, dj2):
     """FFI bridge to Julia implementation of Jd2Calhms."""
     return jl.eval("jd2calhms(dj1, dj2)")
 
-def utc2tai_ffi(utc1, utc2):
+def _utc2tai_ffi(utc1, utc2):
     """FFI bridge to Julia implementation of Utc2Tai."""
     return jl.eval("utc2tai(utc1, utc2)")
 
-def tai2utc_ffi(tai1, tai2):
+def _tai2utc_ffi(tai1, tai2):
     """FFI bridge to Julia implementation of Tai2Utc."""
     return jl.eval("tai2utc(tai1, tai2)")

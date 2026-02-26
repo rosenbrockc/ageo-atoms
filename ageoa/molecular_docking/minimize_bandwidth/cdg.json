@@ -813,15 +813,6 @@
     },
     {
       "source_id": "updatestatewithimprovementcriterion",
-      "target_id": "proposegreedypermutationstep",
-      "output_name": "next_iteration_state",
-      "input_name": "iteration_state",
-      "source_type": "object",
-      "target_type": "object",
-      "requires_glue": false
-    },
-    {
-      "source_id": "updatestatewithimprovementcriterion",
       "target_id": "extractfinalpermutation",
       "output_name": "next_iteration_state",
       "input_name": "terminal_state",

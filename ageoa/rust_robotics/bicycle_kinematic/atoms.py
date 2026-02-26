@@ -37,7 +37,7 @@ atom: Any = None
 @register_atom(witness_constructgeometrymodel)  # type: ignore[untyped-decorator]
 @icontract.require(lambda length_front: isinstance(length_front, (float, int, np.number)), "length_front must be numeric")
 @icontract.require(lambda length_rear: isinstance(length_rear, (float, int, np.number)), "length_rear must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ConstructGeometryModel output must not be None")
+@icontract.ensure(lambda result: result is not None, "ConstructGeometryModel output must not be None")
 def constructgeometrymodel(length_front: float, length_rear: float) -> ModelSpec:
     """Create an immutable vehicle geometry/state model from explicit axle-length parameters.
 
@@ -52,7 +52,7 @@ def constructgeometrymodel(length_front: float, length_rear: float) -> ModelSpec
 
 @register_atom(witness_loadmodelfromfile)  # type: ignore[untyped-decorator]
 @icontract.require(lambda filename: filename is not None, "filename cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "LoadModelFromFile output must not be None")
+@icontract.ensure(lambda result: result is not None, "LoadModelFromFile output must not be None")
 def loadmodelfromfile(filename: string) -> ModelSpec:
     """Deserialize model geometry parameters from storage into an immutable model spec.
 
@@ -66,7 +66,7 @@ def loadmodelfromfile(filename: string) -> ModelSpec:
 
 @register_atom(witness_querygeometryparameters)  # type: ignore[untyped-decorator]
 @icontract.require(lambda model_spec: model_spec is not None, "model_spec cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "QueryGeometryParameters all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "QueryGeometryParameters all outputs must not be None")
 def querygeometryparameters(model_spec: ModelSpec) -> tuple[float, float, float]:
     """Project front length, rear length, and derived wheelbase from the immutable model spec.
 
@@ -82,7 +82,7 @@ def querygeometryparameters(model_spec: ModelSpec) -> tuple[float, float, float]
 
 @register_atom(witness_computesideslipangle)  # type: ignore[untyped-decorator]
 @icontract.require(lambda road_wheel_angle: isinstance(road_wheel_angle, (float, int, np.number)), "road_wheel_angle must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ComputeSideslipAngle output must not be None")
+@icontract.ensure(lambda result: result is not None, "ComputeSideslipAngle output must not be None")
 def computesideslipangle(model_spec: ModelSpec, road_wheel_angle: float) -> float:
     """Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.
 
@@ -99,7 +99,7 @@ def computesideslipangle(model_spec: ModelSpec, road_wheel_angle: float) -> floa
 @icontract.require(lambda model_spec: model_spec is not None, "model_spec cannot be None")
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.require(lambda u: u is not None, "u cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "ComputeLinearizedStateMatrices all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "ComputeLinearizedStateMatrices all outputs must not be None")
 def computelinearizedstatematrices(model_spec: ModelSpec, x: StateVector, u: ControlVector) -> tuple[Matrix, Matrix]:
     """Compute linearized system matrices for local dynamics around state/control operating point.
 
@@ -116,7 +116,7 @@ def computelinearizedstatematrices(model_spec: ModelSpec, x: StateVector, u: Con
 
 @register_atom(witness_evaluateandinvertdynamics)  # type: ignore[untyped-decorator]
 @icontract.require(lambda _t: isinstance(_t, (float, int, np.number)), "_t must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "EvaluateAndInvertDynamics all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "EvaluateAndInvertDynamics all outputs must not be None")
 def evaluateandinvertdynamics(model_spec: ModelSpec, x: StateVector, u: ControlVector, _t: float, _x_dot: StateDerivativeVector) -> tuple[StateDerivativeVector, Matrix, ControlVector]:
     """Evaluate nonlinear derivatives, compute Jacobian at time t, and solve inverse-input mapping as pure transforms.
 
@@ -144,7 +144,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
+def _constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
     """FFI bridge to Rust implementation of ConstructGeometryModel."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -154,7 +154,7 @@ def constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(length_front, length_rear)
 
-def loadmodelfromfile_ffi(filename: Any) -> Any:
+def _loadmodelfromfile_ffi(filename: Any) -> Any:
     """FFI bridge to Rust implementation of LoadModelFromFile."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -164,7 +164,7 @@ def loadmodelfromfile_ffi(filename: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(filename)
 
-def querygeometryparameters_ffi(model_spec: Any) -> Any:
+def _querygeometryparameters_ffi(model_spec: Any) -> Any:
     """FFI bridge to Rust implementation of QueryGeometryParameters."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -174,7 +174,7 @@ def querygeometryparameters_ffi(model_spec: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(model_spec)
 
-def computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
+def _computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
     """FFI bridge to Rust implementation of ComputeSideslipAngle."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -184,7 +184,7 @@ def computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(model_spec, road_wheel_angle)
 
-def computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
+def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
     """FFI bridge to Rust implementation of ComputeLinearizedStateMatrices."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -194,7 +194,7 @@ def computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(model_spec, x, u)
 
-def evaluateandinvertdynamics_ffi(model_spec: Any, x: Any, u: Any, _t: Any, _x_dot: Any) -> Any:
+def _evaluateandinvertdynamics_ffi(model_spec: Any, x: Any, u: Any, _t: Any, _x_dot: Any) -> Any:
     """FFI bridge to Rust implementation of EvaluateAndInvertDynamics."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")

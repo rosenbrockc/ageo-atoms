@@ -595,12 +595,12 @@
         {
           "name": "sideslip",
           "type_desc": "f64",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "effective_heading",
           "type_desc": "f64",
-          "constraints": ""
+          "constraints": "isinstance(x, (int, float))"
         },
         {
           "name": "wheelbase",
@@ -643,12 +643,12 @@
         {
           "name": "x",
           "type_desc": "StateVector (na::SVector<f64, 3>)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "u",
           "type_desc": "ControlVector (na::SVector<f64, 2>)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "_t",
@@ -691,7 +691,7 @@
         {
           "name": "x",
           "type_desc": "StateVector (na::SVector<f64, 3>)",
-          "constraints": ""
+          "constraints": "ndim >= 1"
         },
         {
           "name": "_x_dot",

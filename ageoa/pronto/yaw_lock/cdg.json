@@ -76,7 +76,7 @@
         {
           "name": "yaw_slip_detect_in",
           "type_desc": "bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         },
         {
           "name": "yaw_slip_threshold_degrees_in",
@@ -124,7 +124,7 @@
         {
           "name": "is_robot_standing_in",
           "type_desc": "bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         }
       ],
       "outputs": [
@@ -164,7 +164,7 @@
         {
           "name": "is_robot_standing",
           "type_desc": "bool",
-          "constraints": ""
+          "constraints": "isinstance(x, bool)"
         }
       ],
       "status": "atomic",
@@ -245,7 +245,7 @@
         {
           "name": "joint_angles_init",
           "type_desc": "numeric collection",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "status": "atomic",
@@ -276,12 +276,12 @@
         {
           "name": "left_standing_link_in",
           "type_desc": "link identifier",
-          "constraints": ""
+          "constraints": "x is not None"
         },
         {
           "name": "right_standing_link_in",
           "type_desc": "link identifier",
-          "constraints": ""
+          "constraints": "x is not None"
         }
       ],
       "outputs": [

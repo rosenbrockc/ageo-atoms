@@ -26,7 +26,7 @@ from pathlib import Path
 @icontract.require(lambda H: H is not None, "H cannot be None")
 @icontract.require(lambda Q: Q is not None, "Q cannot be None")
 @icontract.require(lambda R: R is not None, "R cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "InitializeFilter all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "InitializeFilter all outputs must not be None")
 def initializefilter(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]:
     """Initializes the state-space model with prior state, covariance, and static model parameters.
 
@@ -46,7 +46,7 @@ def initializefilter(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndar
 
 @register_atom(witness_predictstep)
 @icontract.require(lambda dt: isinstance(dt, (float, int, np.number)), "dt must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "PredictStep output must not be None")
+@icontract.ensure(lambda result: result is not None, "PredictStep output must not be None")
 def predictstep(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec:
     """Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).
 
@@ -64,7 +64,7 @@ def predictstep(current_state: StateModelSpec, model_params: ModelParamsSpec, dt
 @icontract.require(lambda predicted_state: predicted_state is not None, "predicted_state cannot be None")
 @icontract.require(lambda model_params: model_params is not None, "model_params cannot be None")
 @icontract.require(lambda z: z is not None, "z cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "UpdateStep output must not be None")
+@icontract.ensure(lambda result: result is not None, "UpdateStep output must not be None")
 def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec:
     """Updates the state and covariance based on a new measurement (update step of Kalman filter).
 
@@ -80,7 +80,7 @@ def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z
 
 @register_atom(witness_querystance)
 @icontract.require(lambda current_state: current_state is not None, "current_state cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "QueryStance output must not be None")
+@icontract.ensure(lambda result: result is not None, "QueryStance output must not be None")
 def querystance(current_state: StateModelSpec) -> float:
     """Extracts the stance (position) from the state vector.
 
@@ -102,7 +102,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
+def _initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
     """FFI bridge to C++ implementation of InitializeFilter."""
     _lib = ctypes.CDLL("./initializefilter.so")
     _func_name = atom.method_names[0] if atom.method_names else 'initializefilter'
@@ -111,7 +111,7 @@ def initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
     _func.restype = ctypes.c_void_p
     return _func(initial_x, initial_P, A, H, Q, R)
 
-def predictstep_ffi(current_state, model_params, dt):
+def _predictstep_ffi(current_state, model_params, dt):
     """FFI bridge to C++ implementation of PredictStep."""
     _lib = ctypes.CDLL("./predictstep.so")
     _func_name = atom.method_names[0] if atom.method_names else 'predictstep'
@@ -120,7 +120,7 @@ def predictstep_ffi(current_state, model_params, dt):
     _func.restype = ctypes.c_void_p
     return _func(current_state, model_params, dt)
 
-def updatestep_ffi(predicted_state, model_params, z):
+def _updatestep_ffi(predicted_state, model_params, z):
     """FFI bridge to C++ implementation of UpdateStep."""
     _lib = ctypes.CDLL("./updatestep.so")
     _func_name = atom.method_names[0] if atom.method_names else 'updatestep'
@@ -129,7 +129,7 @@ def updatestep_ffi(predicted_state, model_params, z):
     _func.restype = ctypes.c_void_p
     return _func(predicted_state, model_params, z)
 
-def querystance_ffi(current_state):
+def _querystance_ffi(current_state):
     """FFI bridge to C++ implementation of QueryStance."""
     _lib = ctypes.CDLL("./querystance.so")
     _func_name = atom.method_names[0] if atom.method_names else 'querystance'

@@ -1,29 +1,36 @@
-def repair_edge_definitions(edge_definitions):
-    """Break non-message-passing reconstruction loop by removing feedback edge."""
+"""Ghost witnesses for GAN reconstruction atoms."""
 
-    def _read(edge, *keys):
-        for k in keys:
-            if isinstance(edge, dict) and k in edge:
-                return edge[k]
-            v = getattr(edge, k, None)
-            if v is not None:
-                return v
-        return None
+from __future__ import annotations
 
-    def _canon(node_id):
-        # Match IDs robustly across snake_case/camelCase/spaces.
-        return "".join(ch for ch in str(node_id or "").lower() if ch.isalnum())
+try:
+    from ageoa.ghost.abstract import AbstractSignal, AbstractScalar
+except ImportError:
+    pass
 
-    blocked_edges = {
-        ("checkreconstructioncompletion", "buildalignedreconstructioncandidate"),
-    }
 
-    repaired = []
-    for e in edge_definitions:
-        src = _canon(_read(e, "source_id", "source", "from_id", "from"))
-        dst = _canon(_read(e, "target_id", "target", "to_id", "to"))
-        if (src, dst) in blocked_edges:
-            continue
-        repaired.append(e)
+def witness_generatereconstructedppg(
+    ppg_clean: AbstractSignal,
+    noise: AbstractSignal,
+    sampling_rate: AbstractScalar,
+    generator: AbstractSignal,
+    device: AbstractScalar,
+) -> AbstractSignal:
+    """Ghost witness for GenerateReconstructedPPG.
 
-    return repaired
+    Args:
+        ppg_clean: Clean PPG signal metadata.
+        noise: Latent noise metadata.
+        sampling_rate: Sampling frequency metadata.
+        generator: Generator model metadata.
+        device: Execution device metadata.
+
+    Returns:
+        Reconstructed PPG signal metadata with shape inherited from input.
+    """
+    return AbstractSignal(
+        shape=ppg_clean.shape,
+        dtype=ppg_clean.dtype,
+        sampling_rate=ppg_clean.sampling_rate,
+        domain=ppg_clean.domain,
+        units=ppg_clean.units,
+    )

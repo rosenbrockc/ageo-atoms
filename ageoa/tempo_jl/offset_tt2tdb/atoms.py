@@ -3,22 +3,21 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-
-from juliacall import Main as jl
-
+from .witnesses import witness_offset_tt2tdb
 
 
-"""Auto-generated FFI bindings for julia implementations."""
+@register_atom(witness_offset_tt2tdb)
+@icontract.require(lambda seconds: seconds is not None, "seconds cannot be None")
+@icontract.ensure(lambda result: result is not None, "result must not be None")
+def offset_tt2tdb(seconds: float) -> float:
+    """Returns the periodic TT-to-TDB time-scale offset (seconds) due to relativistic effects from Earth's elliptical orbit.
 
-from __future__ import annotations
+    Args:
+        seconds: TT epoch expressed in seconds since J2000.0
 
-from juliacall import Main as jl
-
+    Returns:
+        TDB - TT offset in seconds, accurate to ~40 microseconds over 1900-2100
+    """
+    raise NotImplementedError("Wire to original implementation")

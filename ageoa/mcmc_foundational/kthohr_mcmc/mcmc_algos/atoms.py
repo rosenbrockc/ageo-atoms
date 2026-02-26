@@ -3,26 +3,30 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-
-import ctypes
-import ctypes.util
-from pathlib import Path
+from .witnesses import witness_dispatch_mcmc_algorithm
 
 
+@register_atom(witness_dispatch_mcmc_algorithm)
+@icontract.require(lambda log_target_density: log_target_density.ndim >= 1, "log_target_density must have at least one dimension")
+@icontract.require(lambda initial_state: initial_state.ndim >= 1, "initial_state must have at least one dimension")
+@icontract.require(lambda log_target_density: log_target_density is not None, "log_target_density cannot be None")
+@icontract.require(lambda log_target_density: isinstance(log_target_density, np.ndarray), "log_target_density must be np.ndarray")
+@icontract.require(lambda initial_state: initial_state is not None, "initial_state cannot be None")
+@icontract.require(lambda initial_state: isinstance(initial_state, np.ndarray), "initial_state must be np.ndarray")
+@icontract.require(lambda n_draws: n_draws is not None, "n_draws cannot be None")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
+@icontract.ensure(lambda result: result is not None, "result must not be None")
+def dispatch_mcmc_algorithm(log_target_density: np.ndarray, initial_state: np.ndarray, n_draws: int) -> np.ndarray:
+    """Top-level dispatcher that routes to the appropriate MCMC algorithm (RWMH, MALA, HMC, NUTS, RMHMC, AEES, DE) based on configuration.
 
-"""Auto-generated FFI bindings for cpp implementations."""
+    Args:
+        log_target_density: Flattened evaluation of the log-target density at current chain positions
+        initial_state: Initial parameter vector for the Markov chain, shape (n_params,)
+        n_draws: Number of posterior samples to collect after warmup
 
-from __future__ import annotations
-
-import ctypes
-import ctypes.util
-from pathlib import Path
-
+    Returns:
+        Posterior samples array, shape (n_draws, n_params)
+    """
+    raise NotImplementedError("Wire to original implementation")
