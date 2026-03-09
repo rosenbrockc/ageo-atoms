@@ -3,8 +3,9 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.molecular_docking.witnesses import witness_quantum_mwis_solver
-from ageoa.molecular_docking.witnesses import witness_greedy_lattice_mapping
+from .witnesses import *
+
+
 
 @register_atom(witness_quantum_mwis_solver)
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")

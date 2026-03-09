@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Any
 
 import numpy as np
@@ -10,10 +10,11 @@ import jax.numpy as jnp
 import haiku as hk
 
 import networkx as nx  # type: ignore
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 import icontract  # type: ignore[import-untyped]
 # Witness functions should be imported from the generated witnesses module
-witness_rowselfattention = None
+def witness_rowselfattention(*args, **kwargs): pass
 @register_atom(witness_rowselfattention)  # type: ignore[untyped-decorator]
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.require(lambda x: x is not None, "x cannot be None")  # type: ignore[untyped-decorator]

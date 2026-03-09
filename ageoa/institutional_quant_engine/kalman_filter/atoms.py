@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated stateful atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -10,7 +10,8 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 from typing import Any
 

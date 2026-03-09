@@ -1,11 +1,13 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from typing import Any, Callable, Collection, Dict as Map, List, Set, cast
+from ageoa.ghost.registry import register_atom
+from .witnesses import *
 from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
 
 register_atom = cast(
@@ -24,11 +26,11 @@ LatticeNode = Any
 MappingState = Any
 
 # Witness placeholders for generated decorators.
-witness_assemblestaticmappingcontext: Any = object()
-witness_initializefrontierfromstartnode: Any = object()
-witness_scoreandextendgreedycandidates: Any = object()
-witness_validatecurrentmapping: Any = object()
-witness_rungreedymappingpipeline: Any = object()
+def witness_assemblestaticmappingcontext(*args, **kwargs): pass
+def witness_initializefrontierfromstartnode(*args, **kwargs): pass
+def witness_scoreandextendgreedycandidates(*args, **kwargs): pass
+def witness_validatecurrentmapping(*args, **kwargs): pass
+def witness_rungreedymappingpipeline(*args, **kwargs): pass
 
 @register_atom(witness_assemblestaticmappingcontext)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")

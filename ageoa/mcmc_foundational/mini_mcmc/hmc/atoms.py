@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Callable
 import numpy as np
 
@@ -99,7 +99,6 @@ def runsamplingloop(hmc_state_in: np.ndarray, n_collect: int, n_discard: int) ->
 
 """Auto-generated FFI bindings for rust implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

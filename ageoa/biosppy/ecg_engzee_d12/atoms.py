@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Any
 
 import numpy as np
@@ -10,7 +10,8 @@ import jax.numpy as jnp
 import haiku as hk
 
 import networkx as nx  # type: ignore
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 # Witness functions should be imported from the generated witnesses module
 @register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator, name-defined]

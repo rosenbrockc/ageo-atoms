@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
@@ -13,7 +14,7 @@ from pathlib import Path
 from typing import Callable
 
 # Witness functions should be imported from the generated witnesses module
-witness_buildhmckernelfromlogdensityoracle: object = object()
+def witness_buildhmckernelfromlogdensityoracle(*args, **kwargs): pass
 
 @register_atom(witness_buildhmckernelfromlogdensityoracle)  # type: ignore[untyped-decorator]
 @icontract.require(lambda target_log_kernel: callable(target_log_kernel), "target_log_kernel must be callable")

@@ -3,7 +3,8 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.pronto.witnesses import witness_rbis_state_estimation
+from .witnesses import *
+
 
 @register_atom(witness_rbis_state_estimation)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

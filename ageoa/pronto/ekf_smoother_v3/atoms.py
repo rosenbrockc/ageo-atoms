@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -10,7 +10,8 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
@@ -19,7 +20,7 @@ from pathlib import Path
 
 # Witness functions should be imported from the generated witnesses module
 from typing import Any
-witness_stateestimatorinit: Any = None
+def witness_stateestimatorinit(*args, **kwargs): pass
 
 @icontract.ensure(lambda result, **kwargs: result is not None, "StateEstimatorInit output must not be None")
 def stateestimatorinit() -> StateModelSpec:
@@ -34,7 +35,6 @@ def stateestimatorinit() -> StateModelSpec:
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

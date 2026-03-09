@@ -1,17 +1,18 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
 # Witness functions should be imported from the generated witnesses module
-witness_gradient_oracle_evaluation: object = object()
+def witness_gradient_oracle_evaluation(*args, **kwargs): pass
 @register_atom(witness_gradient_oracle_evaluation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda rng_in: rng_in is not None, "rng_in cannot be None")
 @icontract.require(lambda obj: obj is not None, "obj cannot be None")
@@ -31,7 +32,6 @@ def gradient_oracle_evaluation(rng_in: object, obj: object, adtype: object, out_
         out_in: Destination buffer for gradient result.
         state_in: Thread as immutable state_in -> state_out.
         params: Valid parameterization for objective evaluation.
-        restructure: Pure mapping between flat and structured parameter forms.
 
     Returns:
         out_out: Updated gradient corresponding to params.
@@ -44,7 +44,6 @@ def gradient_oracle_evaluation(rng_in: object, obj: object, adtype: object, out_
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
 
 from juliacall import Main as jl
 

@@ -3,8 +3,9 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.quantfin.witnesses import witness_functional_monte_carlo
-from ageoa.quantfin.witnesses import witness_volatility_surface_modeling
+from .witnesses import *
+
+
 
 @register_atom(witness_functional_monte_carlo)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

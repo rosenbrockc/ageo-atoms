@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 from typing import Callable
 from juliacall import Main as jl
@@ -56,7 +57,6 @@ def nutstransitionkernel(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], fl
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
 
 from juliacall import Main as jl
 

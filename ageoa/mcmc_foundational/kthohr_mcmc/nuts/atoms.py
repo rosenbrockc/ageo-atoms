@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 import ctypes
 import ctypes.util
@@ -40,7 +41,6 @@ def nuts_recursive_tree_build(direction_val: integer, step_size: float, log_slic
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

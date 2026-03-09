@@ -1,11 +1,14 @@
+from __future__ import annotations
 """AlphaFold 3D Equivariant Structural Atoms."""
 
-from __future__ import annotations
+
+import haiku as hk
 
 import icontract
 from typing import Tuple
 
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 from ageoa.alphafold.state_models import AlphaFoldStructuralState
 from ageoa.alphafold.witnesses import (
     witness_invariant_point_attention,

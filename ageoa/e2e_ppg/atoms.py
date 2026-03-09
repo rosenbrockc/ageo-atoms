@@ -3,9 +3,10 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.e2e_ppg.witnesses import witness_kazemi_peak_detection
-from ageoa.e2e_ppg.witnesses import witness_ppg_reconstruction
-from ageoa.e2e_ppg.witnesses import witness_ppg_sqa
+from .witnesses import *
+
+
+
 
 @register_atom(witness_kazemi_peak_detection)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

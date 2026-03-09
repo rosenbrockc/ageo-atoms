@@ -1,14 +1,15 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 # Witness functions should be imported from the generated witnesses module
-witness_templatefeaturecomputation = object()
+def witness_templatefeaturecomputation(*args, **kwargs): pass
 @register_atom(witness_templatefeaturecomputation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda hc: hc is not None, "hc cannot be None")
 @icontract.ensure(lambda result: result is not None, "TemplateFeatureComputation output must not be None")

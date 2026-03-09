@@ -1,16 +1,17 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
-witness_optimizationlooporchestration: object = object()
+def witness_optimizationlooporchestration(*args, **kwargs): pass
 
 @register_atom(witness_optimizationlooporchestration)  # type: ignore[untyped-decorator]
 @icontract.require(lambda algorithm: algorithm is not None, "algorithm cannot be None")
@@ -31,7 +32,6 @@ def optimizationlooporchestration(algorithm: object, max_iter: int, prob: object
 
     Returns:
         q_opt: Same structural type family as q_init.
-        opt_trace: May include objective values and convergence metadata.
         rng_state_out: Advanced/split state after any stochastic operations.
     """
     raise NotImplementedError("Wire to original implementation")
@@ -39,7 +39,6 @@ def optimizationlooporchestration(algorithm: object, max_iter: int, prob: object
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
 
 from juliacall import Main as jl
 

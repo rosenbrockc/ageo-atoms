@@ -1,30 +1,27 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from typing import Any, Callable, TypeVar, cast
-from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *
+from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
 from pathlib import Path
 
-F = TypeVar("F", bound=Callable[..., Any])
-
-
-def register_atom(witness: object) -> Callable[[F], F]:
-    return cast(Callable[[F], F], _register_atom(witness))
 
 
 # Witness functions should be imported from the generated witnesses module
-witness_initializelineargaussianstatemodel: object = object()
-witness_predictlatentstate: object = object()
-witness_updatewithmeasurement: object = object()
-witness_exposelatentmean: object = object()
-witness_exposecovariance: object = object()
+def witness_initializelineargaussianstatemodel(*args, **kwargs): pass
+def witness_predictlatentstate(*args, **kwargs): pass
+def witness_updatewithmeasurement(*args, **kwargs): pass
+def witness_exposelatentmean(*args, **kwargs): pass
+def witness_exposecovariance(*args, **kwargs): pass
 
 @register_atom(witness_initializelineargaussianstatemodel)
 @icontract.require(lambda initial_state: isinstance(initial_state, (float, int, np.number)), "initial_state must be numeric")

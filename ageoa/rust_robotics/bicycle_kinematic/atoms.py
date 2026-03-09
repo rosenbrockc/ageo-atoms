@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
@@ -19,12 +20,12 @@ StateDerivativeVector = Any
 Matrix = Any
 string = str
 
-witness_constructgeometrymodel: Any = None
-witness_loadmodelfromfile: Any = None
-witness_querygeometryparameters: Any = None
-witness_computesideslipangle: Any = None
-witness_computelinearizedstatematrices: Any = None
-witness_evaluateandinvertdynamics: Any = None
+def witness_constructgeometrymodel(*args, **kwargs): pass
+def witness_loadmodelfromfile(*args, **kwargs): pass
+def witness_querygeometryparameters(*args, **kwargs): pass
+def witness_computesideslipangle(*args, **kwargs): pass
+def witness_computelinearizedstatematrices(*args, **kwargs): pass
+def witness_evaluateandinvertdynamics(*args, **kwargs): pass
 atom: Any = None
 
 # Witness functions should be imported from the generated witnesses module
@@ -132,7 +133,6 @@ def evaluateandinvertdynamics(model_spec: ModelSpec, x: StateVector, u: ControlV
 
 """Auto-generated FFI bindings for rust implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

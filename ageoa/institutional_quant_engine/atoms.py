@@ -3,10 +3,11 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.institutional_quant_engine.witnesses import witness_market_making_avellaneda
-from ageoa.institutional_quant_engine.witnesses import witness_almgren_chriss_execution
-from ageoa.institutional_quant_engine.witnesses import witness_pin_informed_trading
-from ageoa.institutional_quant_engine.witnesses import witness_limit_order_queue_estimator
+from .witnesses import *
+
+
+
+
 
 @register_atom(witness_market_making_avellaneda)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

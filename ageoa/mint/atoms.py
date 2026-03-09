@@ -3,8 +3,9 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.mint.witnesses import witness_axial_attention
-from ageoa.mint.witnesses import witness_rotary_positional_embeddings
+from .witnesses import *
+
+
 
 @register_atom(witness_axial_attention)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

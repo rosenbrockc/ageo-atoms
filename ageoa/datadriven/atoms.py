@@ -1,6 +1,6 @@
+from __future__ import annotations
 """DataDrivenDiffEq Sparse Identification of Nonlinear Dynamics (SINDy) Macro-Atoms."""
 
-from __future__ import annotations
 
 import re
 from typing import Any, List
@@ -9,8 +9,9 @@ import icontract
 import numpy as np
 from pydantic import BaseModel, Field
 
-from ageoa.datadriven.witnesses import witness_discover_equations
+
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _jl: Any | None = None

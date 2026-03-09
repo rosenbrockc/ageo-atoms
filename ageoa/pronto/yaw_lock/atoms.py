@@ -1,10 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
+from ageoa.ghost.registry import register_atom
+from .witnesses import *
 from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
 from typing import Any, Callable, cast
 import ctypes
@@ -12,7 +14,14 @@ import ctypes.util
 from pathlib import Path
 
 
-register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom); YawLockState = object; witness_initializeyawlockstate = witness_configurecorrectionandyawslippolicy = witness_setrobotstandingstatus = witness_readrobotstandingstatus = witness_setjointposeandinitialangles = witness_readinitialjointangles = witness_setstandinglinktargets = object()
+register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom); YawLockState = object; 
+def witness_initializeyawlockstate(*args, **kwargs): pass
+def witness_configurecorrectionandyawslippolicy(*args, **kwargs): pass
+def witness_setrobotstandingstatus(*args, **kwargs): pass
+def witness_readrobotstandingstatus(*args, **kwargs): pass
+def witness_setjointposeandinitialangles(*args, **kwargs): pass
+def witness_readinitialjointangles(*args, **kwargs): pass
+def witness_setstandinglinktargets(*args, **kwargs): pass
 
 @register_atom(witness_initializeyawlockstate)
 @icontract.require(lambda: True, "no preconditions")

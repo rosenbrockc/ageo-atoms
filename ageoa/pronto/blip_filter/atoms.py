@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 import ctypes
 import ctypes.util
@@ -93,7 +94,6 @@ def heart_rate_computation(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

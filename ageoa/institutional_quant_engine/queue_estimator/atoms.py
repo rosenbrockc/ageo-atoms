@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated stateful atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 # Import the original class for __new__ instantiation
 # from <source_module> import QueueTracker

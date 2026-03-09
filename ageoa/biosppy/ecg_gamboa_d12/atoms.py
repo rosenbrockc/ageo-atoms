@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Any
 
 import numpy as np
@@ -11,9 +11,10 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
-from ageoa.ghost.witnesses import witness_gamboa_segmenter  # type: ignore[import-untyped]
+  # type: ignore[import-untyped]
 @register_atom(witness_gamboa_segmenter)
 @register_atom(witness_gamboa_segmenter)  # type: ignore[untyped-decorators]
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")

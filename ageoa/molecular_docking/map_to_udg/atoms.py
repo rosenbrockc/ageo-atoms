@@ -1,13 +1,14 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
-witness_graphtoudgmapping: object = object()
+def witness_graphtoudgmapping(*args, **kwargs): pass
 @register_atom(witness_graphtoudgmapping)  # type: ignore[untyped-decorator]
 @icontract.require(lambda G: G is not None, "Input graph G cannot be None")
 @icontract.ensure(lambda result: result is not None, "GraphToUDGMapping output must not be None")

@@ -3,8 +3,9 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.tempo_jl.witnesses import witness_graph_time_scale_management
-from ageoa.tempo_jl.witnesses import witness_high_precision_duration
+from .witnesses import *
+
+
 
 @register_atom(witness_graph_time_scale_management)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

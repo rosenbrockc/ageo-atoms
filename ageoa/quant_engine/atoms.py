@@ -1,12 +1,13 @@
+from __future__ import annotations
 """Stateless atoms for Institutional Quant Engine."""
 
-from __future__ import annotations
 
 from typing import Tuple
 
 import icontract
 
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 from ageoa.quant_engine.state_models import LimitQueueState
 from ageoa.quant_engine.witnesses import (
     witness_calculate_ofi,

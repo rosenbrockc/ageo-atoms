@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
@@ -31,7 +32,6 @@ def inverse_schmitt_trigger_transform(input_signal: object) -> object:
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

@@ -1,3 +1,5 @@
+from __future__ import annotations
+from ageoa.ghost.abstract import *
 def witness_meanfieldvariationalfit(
     q_dist: AbstractDistribution | None = None,
     p_dist: AbstractDistribution | None = None,

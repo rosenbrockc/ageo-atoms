@@ -1,10 +1,11 @@
+from __future__ import annotations
 """Auto-generated atom wrappers for christov_segmenter."""
 
-from __future__ import annotations
 
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 from ageoa.biosppy.ecg_christov.witnesses import witness_christovqrsdetect
 
 

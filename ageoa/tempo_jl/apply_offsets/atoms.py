@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 from juliacall import Main as jl
 
@@ -63,7 +64,6 @@ def apply_offsets(sec: float, ts1: float, ts2: float) -> float:
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
 
 from juliacall import Main as jl
 

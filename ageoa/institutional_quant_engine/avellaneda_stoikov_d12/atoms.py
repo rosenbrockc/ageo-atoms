@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -10,12 +10,13 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 # Witness functions should be imported from the generated witnesses module
 from typing import Any
 @register_atom(witness_marketmakerstateinit)  # type: ignore[untyped-decorator]
-witness_optimalquotecalculation: Any = None
+def witness_optimalquotecalculation(*args, **kwargs): pass
 @register_atom(witness_marketmakerstateinit)
 @icontract.require(lambda s0: isinstance(s0, (float, int, np.number)), "s0 must be numeric")
 @icontract.require(lambda inventory: isinstance(inventory, (float, int, np.number)), "inventory must be numeric")

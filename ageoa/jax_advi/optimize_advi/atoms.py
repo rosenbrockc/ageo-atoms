@@ -1,14 +1,16 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 # Witness functions should be imported from the generated witnesses module
-witness_meanfieldvariationalfit = object(); witness_posteriordrawsampling = object()
+def witness_meanfieldvariationalfit(*args, **kwargs): pass
+def witness_posteriordrawsampling(*args, **kwargs): pass
 @register_atom(witness_meanfieldvariationalfit)  # type: ignore[untyped-decorator]
 @icontract.require(lambda theta_shape_dict: theta_shape_dict is not None, "theta_shape_dict cannot be None")
 @icontract.require(lambda log_prior_fun: log_prior_fun is not None, "log_prior_fun cannot be None")

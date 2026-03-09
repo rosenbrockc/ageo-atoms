@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 from juliacall import Main as jl
 
@@ -53,7 +54,6 @@ def posterior_randmodel_weighted(pri: np.ndarray, G: np.ndarray, data: np.ndarra
 
 """Auto-generated FFI bindings for julia implementations."""
 
-from __future__ import annotations
 
 from juliacall import Main as jl
 

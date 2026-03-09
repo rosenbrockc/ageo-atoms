@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated stateful atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Any
 
 import numpy as np
@@ -12,6 +12,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 # Import the original class for __new__ instantiation
 # from <source_module> import OnlineFilter

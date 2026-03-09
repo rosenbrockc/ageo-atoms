@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 from typing import Any, Tuple
 
 import numpy as np
@@ -11,10 +11,12 @@ import haiku as hk
 import icontract
 
 import networkx as nx  # type: ignore
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *
 # Witness functions should be imported from the generated witnesses module
-witness_rotaryembedding: Any = None  # placeholder: replace with actual witness import
+def witness_rotaryembedding(*args, **kwargs): pass  # placeholder: replace with actual witness import
 @register_atom(witness_rotaryembedding)  # type: ignore[untyped-decorator]
 @register_atom(witness_rotaryembedding)  # type: ignore[untyped-decorator]
 @icontract.require(lambda q: q is not None, "q cannot be None")

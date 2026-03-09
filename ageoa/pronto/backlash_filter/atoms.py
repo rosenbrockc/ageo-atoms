@@ -1,11 +1,12 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
@@ -13,9 +14,9 @@ from pathlib import Path
 from typing import Any
 
 BacklashFilterState = np.ndarray
-witness_initializebacklashfilterstate: Any = None
-witness_updatealphaparameter: Any = None
-witness_updatecrossingtimemaximum: Any = None
+def witness_initializebacklashfilterstate(*args, **kwargs): pass
+def witness_updatealphaparameter(*args, **kwargs): pass
+def witness_updatecrossingtimemaximum(*args, **kwargs): pass
 
 # Witness functions should be imported from the generated witnesses module
 

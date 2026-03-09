@@ -3,8 +3,9 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.pulsar_folding.witnesses import witness_dm_can_brute_force
-from ageoa.pulsar_folding.witnesses import witness_spline_bandpass_correction
+from .witnesses import *
+
+
 
 @register_atom(witness_dm_can_brute_force)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")

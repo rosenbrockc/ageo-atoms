@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -11,6 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 import ctypes
 import ctypes.util
@@ -135,7 +136,6 @@ def f(acc: Any, acc': Any, e': Any, e1: Any, f: Any, otherwise: Any, sqr: Any, s
 
 """Auto-generated FFI bindings for haskell implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

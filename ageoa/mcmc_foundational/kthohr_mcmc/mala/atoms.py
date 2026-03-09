@@ -1,12 +1,13 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 from typing import Callable
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 import ctypes
 import ctypes.util
@@ -34,7 +35,6 @@ def mala_proposal_adjustment(step_size: float, vals_bound: np.ndarray, mala_mean
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-from __future__ import annotations
 
 import ctypes
 import ctypes.util

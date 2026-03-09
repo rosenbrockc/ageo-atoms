@@ -1,18 +1,24 @@
+from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
 from pathlib import Path
 
 
-witness_initializekalmanstatemodel = witness_predictlatentstateandcovariance = witness_predictlatentstatesteadystate = witness_evaluatemeasurementoracle = witness_updateposteriorstateandcovariance = witness_updateposteriorstatesteadystate = object()
+def witness_initializekalmanstatemodel(*args, **kwargs): pass
+def witness_predictlatentstateandcovariance(*args, **kwargs): pass
+def witness_predictlatentstatesteadystate(*args, **kwargs): pass
+def witness_evaluatemeasurementoracle(*args, **kwargs): pass
+def witness_updateposteriorstateandcovariance(*args, **kwargs): pass
+def witness_updateposteriorstatesteadystate(*args, **kwargs): pass
 
 @register_atom(witness_initializekalmanstatemodel)  # type: ignore[untyped-decorator]
 @icontract.require(lambda init_config: init_config is not None, "init_config cannot be None")

@@ -1,6 +1,6 @@
+from __future__ import annotations
 """Auto-generated atom wrappers and FFI bindings following the ageoa pattern."""
 
-from __future__ import annotations
 
 from typing import Any
 
@@ -15,13 +15,14 @@ import jax.numpy as jnp
 import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.registry import register_atom
+from .witnesses import *  # type: ignore[import-untyped]
 
 
 # Witness functions should be imported from the generated witnesses module
 StanceState = Any
-witness_stancestateinit: Any = None
-witness_stanceestimation: Any = None
+def witness_stancestateinit(*args, **kwargs): pass
+def witness_stanceestimation(*args, **kwargs): pass
 
 
 @register_atom(witness_stancestateinit)  # type: ignore[untyped-decorator]
