@@ -19,6 +19,8 @@
       "depth": 0,
       "type_signature": "",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -37,14 +39,18 @@
         {
           "name": "signal",
           "type_desc": "np.ndarray",
-          "constraints": "1D raw ECG signal"
+          "constraints": "1D raw ECG signal",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "outputs": [
         {
           "name": "filtered",
           "type_desc": "np.ndarray",
-          "constraints": "bandpass-filtered ECG"
+          "constraints": "bandpass-filtered ECG",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "status": "atomic",
@@ -52,6 +58,8 @@
       "depth": 1,
       "type_signature": "(signal: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -70,14 +78,18 @@
         {
           "name": "filtered",
           "type_desc": "np.ndarray",
-          "constraints": "filtered ECG signal"
+          "constraints": "filtered ECG signal",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "outputs": [
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "R-peak sample indices"
+          "constraints": "R-peak sample indices",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "status": "atomic",
@@ -85,6 +97,8 @@
       "depth": 1,
       "type_signature": "(filtered: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -103,19 +117,25 @@
         {
           "name": "filtered",
           "type_desc": "np.ndarray",
-          "constraints": "filtered ECG signal"
+          "constraints": "filtered ECG signal",
+          "required": true,
+          "default_value_repr": ""
         },
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "initial R-peak indices"
+          "constraints": "initial R-peak indices",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "outputs": [
         {
           "name": "rpeaks_corrected",
           "type_desc": "np.ndarray",
-          "constraints": "corrected R-peak indices"
+          "constraints": "corrected R-peak indices",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "status": "atomic",
@@ -123,6 +143,8 @@
       "depth": 1,
       "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -141,24 +163,32 @@
         {
           "name": "filtered",
           "type_desc": "np.ndarray",
-          "constraints": "filtered ECG signal"
+          "constraints": "filtered ECG signal",
+          "required": true,
+          "default_value_repr": ""
         },
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "corrected R-peak indices"
+          "constraints": "corrected R-peak indices",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "outputs": [
         {
           "name": "templates",
           "type_desc": "np.ndarray",
-          "constraints": "2D array of heartbeat templates"
+          "constraints": "2D array of heartbeat templates",
+          "required": true,
+          "default_value_repr": ""
         },
         {
           "name": "rpeaks_final",
           "type_desc": "np.ndarray",
-          "constraints": "final R-peak indices after template extraction"
+          "constraints": "final R-peak indices after template extraction",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "status": "atomic",
@@ -166,6 +196,8 @@
       "depth": 1,
       "type_signature": "(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -184,19 +216,25 @@
         {
           "name": "rpeaks",
           "type_desc": "np.ndarray",
-          "constraints": "R-peak sample indices"
+          "constraints": "R-peak sample indices",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "outputs": [
         {
           "name": "hr_idx",
           "type_desc": "np.ndarray",
-          "constraints": "time indices for heart rate values"
+          "constraints": "time indices for heart rate values",
+          "required": true,
+          "default_value_repr": ""
         },
         {
           "name": "heart_rate",
           "type_desc": "np.ndarray",
-          "constraints": "instantaneous heart rate in bpm"
+          "constraints": "instantaneous heart rate in bpm",
+          "required": true,
+          "default_value_repr": ""
         }
       ],
       "status": "atomic",
@@ -204,6 +242,8 @@
       "depth": 1,
       "type_signature": "(rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
       "is_external": false,
@@ -270,6 +310,24 @@
     },
     {
       "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "template_extraction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter",
       "target_id": "r_peak_detection",
       "output_name": "filtered",
       "input_name": "filtered",
@@ -278,51 +336,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "bandpass_filter",
-      "target_id": "peak_correction",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "bandpass_filter",
-      "target_id": "template_extraction",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "peak_correction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "template_extraction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "heart_rate_computation",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
       "source_id": "peak_correction",
       "target_id": "template_extraction",
       "output_name": "rpeaks",
@@ -351,6 +364,33 @@
     },
     {
       "source_id": "template_extraction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "r_peak_detection",
       "target_id": "heart_rate_computation",
       "output_name": "rpeaks",
       "input_name": "rpeaks",

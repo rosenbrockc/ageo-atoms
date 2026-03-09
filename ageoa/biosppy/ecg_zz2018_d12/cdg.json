@@ -1,0 +1,1008 @@
+{
+  "nodes": [
+    {
+      "node_id": "ZZ2018_root",
+      "parent_id": null,
+      "name": "ZZ2018",
+      "description": "Ingested pipeline from ZZ2018",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "computebeatagreementsqi",
+        "computefrequencysqi",
+        "computekurtosissqi",
+        "assemblezz2018sqi"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computebeatagreementsqi",
+      "parent_id": "ZZ2018_root",
+      "name": "ComputeBeatAgreementSQI",
+      "description": "Computes a beat-detector agreement quality index from two detector streams within a temporal search window.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "detector_1",
+          "type_desc": "array-like beat locations",
+          "constraints": "same timeline as detector_2",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2",
+          "type_desc": "array-like beat locations",
+          "constraints": "same timeline as detector_1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "sampling rate > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mode",
+          "type_desc": "string",
+          "constraints": "valid bSQI computation mode",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "search_window",
+          "type_desc": "float",
+          "constraints": "window >= 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "b_sqi",
+          "type_desc": "float",
+          "constraints": "normalized detector agreement score",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validatedetectorstreamspresent",
+        "convertsearchwindowtosamples",
+        "countcrossdetectorbeatmatches",
+        "computeagreementscorebymode"
+      ],
+      "depth": 1,
+      "type_signature": "(detector_1: array-like beat locations, detector_2: array-like beat locations, fs: float, mode: string, search_window: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Temporal Event-Stream Concordance Index. Takes two sparse event-location sequences on a shared one-dimensional timeline and performs tolerance-based correspondence within a fixed temporal radius. Events are counted as concordant when a counterpart exists within the search window, then converted into a scalar agreement score using a mode-selected normalization rule that accounts for overlap versus disagreement. The result is a bounded similarity measure of detection consistency under temporal uncertainty.. Applications: Comparing spike-event annotations from two neural signal processing pipelines in electrophysiology., Quantifying agreement between independent seismic phase pickers on earthquake waveform timelines., Measuring concordance of transient-event detectors in astrophysical time-series surveys., Evaluating consistency between two fault-trigger logs in industrial condition-monitoring systems.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validatedetectorstreamspresent",
+      "parent_id": "computebeatagreementsqi",
+      "name": "ValidateDetectorStreamsPresent",
+      "description": "Ensure both detector streams are provided; otherwise fail fast with an input error.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "detector_1",
+          "type_desc": "array-like",
+          "constraints": "must not be None",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2",
+          "type_desc": "array-like",
+          "constraints": "must not be None",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "detector_1_validated",
+          "type_desc": "array-like",
+          "constraints": "same values as detector_1 when valid",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2_validated",
+          "type_desc": "array-like",
+          "constraints": "same values as detector_2 when valid",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(detector_1: array-like, detector_2: array-like) -> tuple[array-like, array-like]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "convertsearchwindowtosamples",
+      "parent_id": "computebeatagreementsqi",
+      "name": "ConvertSearchWindowToSamples",
+      "description": "Transform the search window from milliseconds to an integer number of samples using sampling frequency.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "search_window",
+          "type_desc": "float or int",
+          "constraints": "milliseconds",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "sampling rate in Hz",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "search_window_samples",
+          "type_desc": "int",
+          "constraints": "computed as int(search_window / 1000 * fs)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(search_window: float or int, fs: float) -> int",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "countcrossdetectorbeatmatches",
+      "parent_id": "computebeatagreementsqi",
+      "name": "CountCrossDetectorBeatMatches",
+      "description": "Count how many beats in detector_1 have at least one detector_2 beat within the temporal search window.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "detector_1_validated",
+          "type_desc": "array-like of int",
+          "constraints": "beat indices",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2_validated",
+          "type_desc": "array-like of int",
+          "constraints": "beat indices",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "search_window_samples",
+          "type_desc": "int",
+          "constraints": "non-negative window radius in samples",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "both_count",
+          "type_desc": "int",
+          "constraints": "0 <= both_count <= len(detector_1_validated)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(detector_1_validated: array-like of int, detector_2_validated: array-like of int, search_window_samples: int) -> int",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computeagreementscorebymode",
+      "parent_id": "computebeatagreementsqi",
+      "name": "ComputeAgreementScoreByMode",
+      "description": "Select the requested SQI formula and compute the final agreement score from match count and detector lengths.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "mode",
+          "type_desc": "string",
+          "constraints": "one of: simple, matching, n_double",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "both_count",
+          "type_desc": "int",
+          "constraints": "match count from previous step",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_1_validated",
+          "type_desc": "array-like",
+          "constraints": "used for len(detector_1_validated)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2_validated",
+          "type_desc": "array-like",
+          "constraints": "used for len(detector_2_validated)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "b_sqi",
+          "type_desc": "float",
+          "constraints": "computed per selected mode",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(mode: string, both_count: int, detector_1_validated: array-like, detector_2_validated: array-like) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computefrequencysqi",
+      "parent_id": "ZZ2018_root",
+      "name": "ComputeFrequencySQI",
+      "description": "Computes a spectral quality index from ECG signal power in numerator and denominator spectral bands.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "ecg_signal",
+          "type_desc": "array-like",
+          "constraints": "1-D sampled ECG",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "sampling rate > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nseg",
+          "type_desc": "int",
+          "constraints": "segment length > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "num_spectrum",
+          "type_desc": "band descriptor",
+          "constraints": "valid frequency range",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dem_spectrum",
+          "type_desc": "band descriptor",
+          "constraints": "valid frequency range",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mode",
+          "type_desc": "string",
+          "constraints": "valid fSQI computation mode",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "f_sqi",
+          "type_desc": "float",
+          "constraints": "spectral quality ratio/score",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "ensuresignalprovided",
+        "estimatesignalpowerspectrum",
+        "computenumeratorbandpower",
+        "resolvedenominatorband",
+        "computedenominatorbandpower",
+        "computesqifrommode"
+      ],
+      "depth": 1,
+      "type_signature": "(ecg_signal: array-like, fs: float, nseg: int, num_spectrum: band descriptor, dem_spectrum: band descriptor, mode: string) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "ensuresignalprovided",
+      "parent_id": "computefrequencysqi",
+      "name": "EnsureSignalProvided",
+      "description": "Validate that an ECG signal is present before any spectral computation.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "ecg_signal",
+          "type_desc": "array-like",
+          "constraints": "Must not be None",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validated_ecg_signal",
+          "type_desc": "array-like",
+          "constraints": "Same signal values as input when valid",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ecg_signal: array-like) -> array-like",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "estimatesignalpowerspectrum",
+      "parent_id": "computefrequencysqi",
+      "name": "EstimateSignalPowerSpectrum",
+      "description": "Estimate one-sided power spectral density and corresponding frequency bins using Welch's method.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "validated_ecg_signal",
+          "type_desc": "array-like",
+          "constraints": "Finite numeric samples",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "Sampling frequency > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nseg",
+          "type_desc": "int",
+          "constraints": "Positive segment length/resolution",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "frequency_bins",
+          "type_desc": "array-like",
+          "constraints": "Monotonic from 0 to Nyquist",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "psd_density",
+          "type_desc": "array-like",
+          "constraints": "Same length as frequency_bins",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_ecg_signal: array-like, fs: float, nseg: int) -> tuple[array-like, array-like]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computenumeratorbandpower",
+      "parent_id": "computefrequencysqi",
+      "name": "ComputeNumeratorBandPower",
+      "description": "Integrate PSD over the numerator frequency band to obtain signal power in that band.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "num_spectrum",
+          "type_desc": "band descriptor",
+          "constraints": "Two-element [low, high] within frequency range",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "frequency_bins",
+          "type_desc": "array-like",
+          "constraints": "From spectral estimate",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "psd_density",
+          "type_desc": "array-like",
+          "constraints": "Aligned with frequency_bins",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "num_power",
+          "type_desc": "float",
+          "constraints": "Integrated nonnegative power",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(num_spectrum: band descriptor, frequency_bins: array-like, psd_density: array-like) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolvedenominatorband",
+      "parent_id": "computefrequencysqi",
+      "name": "ResolveDenominatorBand",
+      "description": "Choose the denominator frequency band, defaulting to the full spectrum when no band is provided.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "dem_spectrum",
+          "type_desc": "band descriptor or null",
+          "constraints": "If provided, must be [low, high]",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "Sampling frequency > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "denominator_band",
+          "type_desc": "band descriptor",
+          "constraints": "Either dem_spectrum or [0, fs/2]",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(dem_spectrum: band descriptor or null, fs: float) -> band descriptor",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computedenominatorbandpower",
+      "parent_id": "computefrequencysqi",
+      "name": "ComputeDenominatorBandPower",
+      "description": "Integrate PSD over the selected denominator band to obtain reference power.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "denominator_band",
+          "type_desc": "band descriptor",
+          "constraints": "Two-element [low, high]",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "frequency_bins",
+          "type_desc": "array-like",
+          "constraints": "From spectral estimate",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "psd_density",
+          "type_desc": "array-like",
+          "constraints": "Aligned with frequency_bins",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dem_power",
+          "type_desc": "float",
+          "constraints": "Integrated nonnegative power",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(denominator_band: band descriptor, frequency_bins: array-like, psd_density: array-like) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computesqifrommode",
+      "parent_id": "computefrequencysqi",
+      "name": "ComputeSQIFromMode",
+      "description": "Compute final spectral quality index using the selected mode ('simple' ratio or 'bas' complement of ratio).",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "num_power",
+          "type_desc": "float",
+          "constraints": "Computed numerator power",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dem_power",
+          "type_desc": "float",
+          "constraints": "Must be nonzero to avoid division by zero",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mode",
+          "type_desc": "string",
+          "constraints": "Expected values: 'simple' or 'bas'",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "f_sqi",
+          "type_desc": "float",
+          "constraints": "Final spectral quality index",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(num_power: float, dem_power: float, mode: string) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computekurtosissqi",
+      "parent_id": "ZZ2018_root",
+      "name": "ComputeKurtosisSQI",
+      "description": "Computes kurtosis-based ECG quality score from the input signal.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like",
+          "constraints": "1-D sampled ECG",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fisher",
+          "type_desc": "bool",
+          "constraints": "selects Fisher vs Pearson convention",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "k_sqi",
+          "type_desc": "float",
+          "constraints": "kurtosis-derived quality score",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: array-like, fisher: bool) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Standardized Fourth-Moment Signal Concentration Score. Maps a 1-D sampled scalar sequence to a single distribution-shape statistic by computing its standardized fourth central moment. The transform quantifies tail heaviness and peak concentration relative to variance, producing either excess kurtosis (Fisher convention) or raw kurtosis (Pearson convention) based on a binary mode selector. This is a many-to-one statistical reduction from sample-level structure to a scalar quality/regularity indicator.. Applications: Mechanical condition monitoring: score impulsiveness of accelerometer streams to detect bearing or gear faults., Communications engineering: characterize burstiness/non-Gaussianity of channel noise or interference samples., Geophysical sensing: detect transient event contamination in seismic trace windows via tail-heaviness scoring., Neurosignal processing: assess artifact contamination in electrophysiology segments using fourth-moment concentration.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemblezz2018sqi",
+      "parent_id": "ZZ2018_root",
+      "name": "AssembleZZ2018SQI",
+      "description": "Builds the final ZZ2018 signal-quality result by combining beat, frequency, and kurtosis evidence.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "array-like",
+          "constraints": "1-D sampled ECG",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_1",
+          "type_desc": "array-like beat locations",
+          "constraints": "aligned with signal",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detector_2",
+          "type_desc": "array-like beat locations",
+          "constraints": "aligned with signal",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fs",
+          "type_desc": "float",
+          "constraints": "sampling rate > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "search_window",
+          "type_desc": "float",
+          "constraints": "window >= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nseg",
+          "type_desc": "int",
+          "constraints": "segment length > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mode",
+          "type_desc": "string",
+          "constraints": "valid ZZ2018 mode",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "b_sqi",
+          "type_desc": "float",
+          "constraints": "from ComputeBeatAgreementSQI",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "f_sqi",
+          "type_desc": "float",
+          "constraints": "from ComputeFrequencySQI",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k_sqi",
+          "type_desc": "float",
+          "constraints": "from ComputeKurtosisSQI",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "zz2018_sqi",
+          "type_desc": "float or label",
+          "constraints": "final composite quality output",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: array-like, detector_1: array-like beat locations, detector_2: array-like beat locations, fs: float, search_window: float, nseg: int, mode: string, b_sqi: float, f_sqi: float, k_sqi: float) -> float or label",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Band-Limited Spectral Energy Ratio Scorer. Transforms a 1-D sampled scalar sequence into the frequency domain using segment-based spectral estimation, then aggregates power within two user-defined frequency intervals. It maps these aggregated energies to a single scalar via a selectable ratio/normalization rule, quantifying how strongly energy is concentrated in one band relative to another. The operation is a lossy projection from a high-dimensional spectrum to a compact quality index.. Applications: Condition monitoring: quantify fault-signature harmonic concentration versus broadband background in rotating machinery vibration signals., Geophysics: score microseismic event quality by contrasting event-band energy against noise-band energy in single-station traces., Wireless systems: estimate channel occupancy quality by comparing target sub-band power to adjacent/interference bands in RF captures., Acoustics: evaluate tonal prominence versus ambient noise in environmental or industrial sound measurements.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validatedetectorstreamspresent",
+      "target_id": "countcrossdetectorbeatmatches",
+      "output_name": "detector_1_validated",
+      "input_name": "detector_1_validated",
+      "source_type": "array-like",
+      "target_type": "array-like of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validatedetectorstreamspresent",
+      "target_id": "countcrossdetectorbeatmatches",
+      "output_name": "detector_2_validated",
+      "input_name": "detector_2_validated",
+      "source_type": "array-like",
+      "target_type": "array-like of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "convertsearchwindowtosamples",
+      "target_id": "countcrossdetectorbeatmatches",
+      "output_name": "search_window_samples",
+      "input_name": "search_window_samples",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "countcrossdetectorbeatmatches",
+      "target_id": "computeagreementscorebymode",
+      "output_name": "both_count",
+      "input_name": "both_count",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validatedetectorstreamspresent",
+      "target_id": "computeagreementscorebymode",
+      "output_name": "detector_1_validated",
+      "input_name": "detector_1_validated",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validatedetectorstreamspresent",
+      "target_id": "computeagreementscorebymode",
+      "output_name": "detector_2_validated",
+      "input_name": "detector_2_validated",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "ensuresignalprovided",
+      "target_id": "estimatesignalpowerspectrum",
+      "output_name": "validated_ecg_signal",
+      "input_name": "validated_ecg_signal",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimatesignalpowerspectrum",
+      "target_id": "computenumeratorbandpower",
+      "output_name": "frequency_bins",
+      "input_name": "frequency_bins",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimatesignalpowerspectrum",
+      "target_id": "computenumeratorbandpower",
+      "output_name": "psd_density",
+      "input_name": "psd_density",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolvedenominatorband",
+      "target_id": "computedenominatorbandpower",
+      "output_name": "denominator_band",
+      "input_name": "denominator_band",
+      "source_type": "band descriptor",
+      "target_type": "band descriptor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimatesignalpowerspectrum",
+      "target_id": "computedenominatorbandpower",
+      "output_name": "frequency_bins",
+      "input_name": "frequency_bins",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "estimatesignalpowerspectrum",
+      "target_id": "computedenominatorbandpower",
+      "output_name": "psd_density",
+      "input_name": "psd_density",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computenumeratorbandpower",
+      "target_id": "computesqifrommode",
+      "output_name": "num_power",
+      "input_name": "num_power",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computedenominatorbandpower",
+      "target_id": "computesqifrommode",
+      "output_name": "dem_power",
+      "input_name": "dem_power",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computebeatagreementsqi",
+      "target_id": "assemblezz2018sqi",
+      "output_name": "b_sqi",
+      "input_name": "b_sqi",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computefrequencysqi",
+      "target_id": "assemblezz2018sqi",
+      "output_name": "f_sqi",
+      "input_name": "f_sqi",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computekurtosissqi",
+      "target_id": "assemblezz2018sqi",
+      "output_name": "k_sqi",
+      "input_name": "k_sqi",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ZZ2018"
+  }
+}

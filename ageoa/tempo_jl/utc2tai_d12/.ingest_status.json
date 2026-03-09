@@ -1,0 +1,17 @@
+{
+  "run_id": "6f7ab661be194146aea11ae41c93a608",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-atoms/third_party/Tempo.jl/src/convert.jl",
+  "class_name": "utc2tai",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772994818.2436311,
+  "last_heartbeat_at": 1772995128.259665,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772995128.259665
+}

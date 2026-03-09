@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['custom']
+Ingesting class 'FootContactClassifier' from /Users/conrad/personal/ageo-atoms/third_party/pronto/pronto_biped_core/include/pronto_biped_core/foot_contact_classify.hpp
+
+Ingestion complete:
+  CDG: 3 nodes, 0 edges
+  Matches: 2
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/pronto/foot_contact/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/pronto/foot_contact/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/pronto/foot_contact/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/pronto/foot_contact/trace.jsonl

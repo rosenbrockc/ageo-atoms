@@ -1,0 +1,19 @@
+{
+  "run_id": "99b2cda5c0084c28805ec2e0be73d273",
+  "state": "running",
+  "phase": "phase2_chunk",
+  "current_step": "propose_macro_atoms",
+  "source_path": "../ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg_wrap.py",
+  "class_name": "ECGSegmenters",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772991337.0841951,
+  "last_heartbeat_at": 1772991337.19228,
+  "llm_call_inflight": {
+    "prompt_key": "ingester_chunk",
+    "started_at": 1772991337.19228
+  },
+  "error": ""
+}

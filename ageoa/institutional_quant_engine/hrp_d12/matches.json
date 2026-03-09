@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "hrppipelinerun",
+      "statement": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+      "informal_desc": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "hrppipelinerun",
+          "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+          "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+          "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "hrppipelinerun",
+          "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+          "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+          "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "hrppipelinerun",
+            "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+            "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+            "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

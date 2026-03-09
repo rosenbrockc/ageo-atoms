@@ -1,0 +1,30 @@
+{
+  "run_id": "2a15b158bab145b78a68a26ca02821b1",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg.py",
+  "class_name": "christov_segmenter",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772991432.981109,
+  "last_heartbeat_at": 1772991560.661622,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772991560.661622,
+  "summary": {
+    "cdg_nodes": 9,
+    "cdg_edges": 30,
+    "matches": 7,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

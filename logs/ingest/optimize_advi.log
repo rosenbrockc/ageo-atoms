@@ -1,0 +1,11 @@
+Ingesting class 'optimize_advi_mean_field' from /Users/conrad/personal/ageo-atoms/third_party/jax_advi/jax_advi/advi.py
+
+Ingestion complete:
+  CDG: 13 nodes, 23 edges
+  Matches: 10
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/jax_advi/optimize_advi/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/jax_advi/optimize_advi/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/jax_advi/optimize_advi/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/jax_advi/optimize_advi/trace.jsonl

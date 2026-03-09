@@ -1,0 +1,11 @@
+Ingesting class 'find_onsets_elgendi2013' from /Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/ppg.py
+
+Ingestion complete:
+  CDG: 8 nodes, 18 edges
+  Matches: 6
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ppg_elgendi/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ppg_elgendi/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ppg_elgendi/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ppg_elgendi/trace.jsonl

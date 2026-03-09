@@ -1,0 +1,616 @@
+{
+  "nodes": [
+    {
+      "node_id": "gan_rec_root",
+      "parent_id": null,
+      "name": "gan_rec",
+      "description": "Ingested pipeline from gan_rec",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "gan_reconstruction"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "gan_reconstruction",
+      "parent_id": "gan_rec_root",
+      "name": "gan_reconstruction",
+      "description": "Reconstructs a clean ECG-like signal from a noisy PPG input using a pre-trained GAN generator. Accepts a clean PPG signal and additive noise, feeds them through the generator network on the specified device, and returns the reconstructed output signal.",
+      "concept_type": "probabilistic_oracle",
+      "inputs": [
+        {
+          "name": "ppg_clean",
+          "type_desc": "array-like | Tensor \u2014 clean PPG waveform segment(s)",
+          "constraints": "shape compatible with generator input; values typically normalized",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "noise",
+          "type_desc": "array-like | Tensor \u2014 additive noise to condition or corrupt the input",
+          "constraints": "same shape as ppg_clean; treated as frozen/static stochastic input",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int | float \u2014 signal sampling rate in Hz",
+          "constraints": "positive; determines temporal resolution of the waveform",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "generator",
+          "type_desc": "nn.Module | callable \u2014 pre-trained GAN generator network",
+          "constraints": "stateless inference only; weights frozen during call",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "device",
+          "type_desc": "str | torch.device \u2014 compute device (e.g. 'cpu', 'cuda')",
+          "constraints": "generator and tensors must reside on same device",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reconstructed_signal",
+          "type_desc": "array-like | Tensor \u2014 GAN-reconstructed signal",
+          "constraints": "same temporal length as input; values in generator output range",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "initialize_reconstruction_state",
+        "normalize_and_batch_clean_segment",
+        "generate_reconstructed_segment",
+        "detect_peaks_in_reconstructed_and_clean",
+        "stitch_clean_and_reconstructed_waveforms",
+        "accumulate_reconstructed_noise_and_advance_window"
+      ],
+      "depth": 1,
+      "type_signature": "(ppg_clean: array-like | Tensor \u2014 clean PPG waveform segment(s), noise: array-like | Tensor \u2014 additive noise to condition or corrupt the input, sampling_rate: int | float \u2014 signal sampling rate in Hz, generator: nn.Module | callable \u2014 pre-trained GAN generator network, device: str | torch.device \u2014 compute device (e.g. 'cpu', 'cuda')) -> array-like | Tensor \u2014 GAN-reconstructed signal",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "frozen_adversarial_manifold_projector. A pre-trained generative adversarial decoder maps a corrupted or composite input signal \u2014 formed by superimposing a structured reference waveform with a stochastic noise tensor \u2014 onto a learned target-domain manifold, producing a denoised or cross-modal reconstruction of identical temporal dimensionality. The generator network, whose weights are fully frozen, acts as a deterministic oracle over a learned latent-to-signal mapping, effectively performing a conditional nonlinear projection from a noisy observation space into a cleaner, structurally regularized output space. The noise tensor functions as a fixed stochastic conditioning variable that parameterizes the generative transform rather than being filtered away, making this a noise-conditioned signal-morphing operation rather than a classical filter.. Applications: Astrophysics \u2014 Reconstructing clean stellar flux light curves from telescope photometry contaminated by atmospheric turbulence and instrument shot noise, using a GAN trained on synthetic stellar variability models to project noisy cadence-sampled observations onto a physically plausible emission manifold, Seismology \u2014 Translating surface-recorded seismic waveforms (corrupted by anthropogenic noise or sensor drift) into estimated subsurface ground-motion signatures by conditioning a frozen generative decoder on the raw trace plus a static noise realization, enabling cross-modal waveform domain transfer, Materials Science \u2014 Mapping noisy electron microscopy scan-line signals (e.g., STEM intensity profiles corrupted by beam instability) to denoised, structurally regularized 1-D lattice profiles by projecting the composite input through a GAN generator trained on idealized crystallographic simulations, Neuroimaging \u2014 Converting low-SNR single-trial EEG epoch tensors, additively corrupted by muscle artifacts modeled as frozen noise, into reconstructed cortical source-space time series via a pre-trained adversarial decoder that has learned the manifold of clean evoked-response waveforms",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialize_reconstruction_state",
+      "parent_id": "gan_reconstruction",
+      "name": "initialize_reconstruction_state",
+      "description": "Set up reconstruction loop parameters: compute the per-iteration reconstruction length from the shifting step and sampling rate, and initialize the reconstructed noise accumulator and remaining noise counter.",
+      "concept_type": "state_init",
+      "inputs": [
+        {
+          "name": "noise",
+          "type_desc": "list",
+          "constraints": "non-empty sequence of noise indices",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int | float",
+          "constraints": "positive",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "len_rec",
+          "type_desc": "int",
+          "constraints": "= int(5 * sampling_rate)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "reconstructed_noise",
+          "type_desc": "list",
+          "constraints": "initially empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "remaining_noise",
+          "type_desc": "int",
+          "constraints": "= len(noise)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(noise: list, sampling_rate: int | float) -> tuple[int, list, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "normalize_and_batch_clean_segment",
+      "parent_id": "gan_reconstruction",
+      "name": "normalize_and_batch_clean_segment",
+      "description": "Scale the current clean PPG segment to zero-mean/unit-variance, then tile it into a 256-sample batch and convert to a FloatTensor ready for the generator.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D waveform segment",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ppg_test",
+          "type_desc": "torch.FloatTensor",
+          "constraints": "shape (256, 1, L) on CPU",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg_clean: np.ndarray) -> torch.FloatTensor",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "generate_reconstructed_segment",
+      "parent_id": "gan_reconstruction",
+      "name": "generate_reconstructed_segment",
+      "description": "Feed the batched clean segment through the pre-trained GAN generator on the target device and extract the first reconstructed noise waveform from the batch output.",
+      "concept_type": "probabilistic_oracle",
+      "inputs": [
+        {
+          "name": "ppg_test",
+          "type_desc": "torch.FloatTensor",
+          "constraints": "shape (256, 1, L)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "generator",
+          "type_desc": "nn.Module | callable",
+          "constraints": "pre-trained GAN generator",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "device",
+          "type_desc": "str | torch.device",
+          "constraints": "valid compute device",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "noise_rec",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D waveform, first sample of generator batch output",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg_test: torch.FloatTensor, generator: nn.Module | callable, device: str | torch.device) -> np.ndarray",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_peaks_in_reconstructed_and_clean",
+      "parent_id": "gan_reconstruction",
+      "name": "detect_peaks_in_reconstructed_and_clean",
+      "description": "Upsample both the reconstructed noise segment and the clean PPG segment, then detect systolic peaks in each using a minimum-distance criterion derived from the sampling rate.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "noise_rec",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D waveform",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D waveform",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int | float",
+          "constraints": "positive",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "noise_rec_res",
+          "type_desc": "np.ndarray",
+          "constraints": "upsampled reconstructed segment",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "peaks_rec",
+          "type_desc": "np.ndarray",
+          "constraints": "peak indices in noise_rec_res",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ppg_resampled",
+          "type_desc": "np.ndarray",
+          "constraints": "upsampled clean segment",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "peaks_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "peak indices in ppg_resampled",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(noise_rec: np.ndarray, ppg_clean: np.ndarray, sampling_rate: int | float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stitch_clean_and_reconstructed_waveforms",
+      "parent_id": "gan_reconstruction",
+      "name": "stitch_clean_and_reconstructed_waveforms",
+      "description": "Concatenate the clean PPG up to its last detected peak with the reconstructed noise from its first detected peak onward, then downsample the stitched waveform back to the combined original-length sample count.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "ppg_resampled",
+          "type_desc": "np.ndarray",
+          "constraints": "upsampled clean segment",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "peaks_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "peak indices in ppg_resampled",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "noise_rec_res",
+          "type_desc": "np.ndarray",
+          "constraints": "upsampled reconstructed segment",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "peaks_rec",
+          "type_desc": "np.ndarray",
+          "constraints": "peak indices in noise_rec_res",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray",
+          "constraints": "original (non-upsampled) clean segment, used for length reference",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "noise_rec",
+          "type_desc": "np.ndarray",
+          "constraints": "original (non-upsampled) reconstructed segment, used for length reference",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ppg_and_rec_down",
+          "type_desc": "np.ndarray",
+          "constraints": "downsampled stitched waveform of length len(ppg_clean)+len(noise_rec)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "accumulate_reconstructed_noise_and_advance_window",
+      "parent_id": "gan_reconstruction",
+      "name": "accumulate_reconstructed_noise_and_advance_window",
+      "description": "Slice the downsampled stitched signal to extract the newly reconstructed noise portion (full step or remaining tail), append it to the accumulator, update the remaining noise counter, and advance the clean-segment window for the next iteration.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "ppg_and_rec_down",
+          "type_desc": "np.ndarray",
+          "constraints": "downsampled stitched waveform",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray",
+          "constraints": "current clean segment (for length reference and next-window extraction)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "reconstructed_noise",
+          "type_desc": "list",
+          "constraints": "accumulated reconstructed samples so far",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "remaining_noise",
+          "type_desc": "int",
+          "constraints": ">= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "len_rec",
+          "type_desc": "int",
+          "constraints": "= int(5 * sampling_rate)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reconstructed_noise",
+          "type_desc": "list",
+          "constraints": "updated accumulator with newly appended samples",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "remaining_noise",
+          "type_desc": "int",
+          "constraints": "decremented by len_rec, or unchanged on final partial step",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ppg_clean_next",
+          "type_desc": "np.ndarray",
+          "constraints": "next clean segment window advanced by len_rec samples",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "initialize_reconstruction_state",
+      "target_id": "accumulate_reconstructed_noise_and_advance_window",
+      "output_name": "len_rec",
+      "input_name": "len_rec",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_reconstruction_state",
+      "target_id": "accumulate_reconstructed_noise_and_advance_window",
+      "output_name": "reconstructed_noise",
+      "input_name": "reconstructed_noise",
+      "source_type": "list",
+      "target_type": "list",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_reconstruction_state",
+      "target_id": "accumulate_reconstructed_noise_and_advance_window",
+      "output_name": "remaining_noise",
+      "input_name": "remaining_noise",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "normalize_and_batch_clean_segment",
+      "target_id": "generate_reconstructed_segment",
+      "output_name": "ppg_test",
+      "input_name": "ppg_test",
+      "source_type": "torch.FloatTensor",
+      "target_type": "torch.FloatTensor",
+      "requires_glue": false
+    },
+    {
+      "source_id": "generate_reconstructed_segment",
+      "target_id": "detect_peaks_in_reconstructed_and_clean",
+      "output_name": "noise_rec",
+      "input_name": "noise_rec",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_peaks_in_reconstructed_and_clean",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "noise_rec_res",
+      "input_name": "noise_rec_res",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_peaks_in_reconstructed_and_clean",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "peaks_rec",
+      "input_name": "peaks_rec",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_peaks_in_reconstructed_and_clean",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "ppg_resampled",
+      "input_name": "ppg_resampled",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_peaks_in_reconstructed_and_clean",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "peaks_ppg",
+      "input_name": "peaks_ppg",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "stitch_clean_and_reconstructed_waveforms",
+      "target_id": "accumulate_reconstructed_noise_and_advance_window",
+      "output_name": "ppg_and_rec_down",
+      "input_name": "ppg_and_rec_down",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "accumulate_reconstructed_noise_and_advance_window",
+      "target_id": "normalize_and_batch_clean_segment",
+      "output_name": "ppg_clean_next",
+      "input_name": "ppg_clean",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "accumulate_reconstructed_noise_and_advance_window",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "ppg_clean_next",
+      "input_name": "ppg_clean",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "accumulate_reconstructed_noise_and_advance_window",
+      "target_id": "detect_peaks_in_reconstructed_and_clean",
+      "output_name": "ppg_clean_next",
+      "input_name": "ppg_clean",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "generate_reconstructed_segment",
+      "target_id": "stitch_clean_and_reconstructed_waveforms",
+      "output_name": "noise_rec",
+      "input_name": "noise_rec",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "gan_rec"
+  }
+}

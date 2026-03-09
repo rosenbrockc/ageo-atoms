@@ -24,42 +24,34 @@ def witness_bandpass_filter(signal: AbstractSignal, state: AbstractSignal) -> tu
     )
     return result, state
 
-def witness_r_peak_detection(filtered: AbstractSignal, state: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+def witness_r_peak_detection(filtered: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for R-Peak Detection."""
-    result = AbstractSignal(
+    result = AbstractArray(
         shape=filtered.shape,
         dtype="float64",
-        sampling_rate=getattr(filtered, 'sampling_rate', 44100.0),
-        domain="time",
     )
     return result, state
 
-def witness_peak_correction(filtered: AbstractSignal, rpeaks: AbstractSignal, state: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+def witness_peak_correction(filtered: AbstractArray, rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for Peak Correction."""
-    result = AbstractSignal(
+    result = AbstractArray(
         shape=filtered.shape,
         dtype="float64",
-        sampling_rate=getattr(filtered, 'sampling_rate', 44100.0),
-        domain="time",
     )
     return result, state
 
-def witness_template_extraction(filtered: AbstractSignal, rpeaks: AbstractSignal, state: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+def witness_template_extraction(filtered: AbstractArray, rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for Template Extraction."""
-    result = AbstractSignal(
+    result = AbstractArray(
         shape=filtered.shape,
         dtype="float64",
-        sampling_rate=getattr(filtered, 'sampling_rate', 44100.0),
-        domain="time",
     )
     return result, state
 
-def witness_heart_rate_computation(rpeaks: AbstractSignal, state: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+def witness_heart_rate_computation(rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for Heart Rate Computation."""
-    result = AbstractSignal(
+    result = AbstractArray(
         shape=rpeaks.shape,
         dtype="float64",
-        sampling_rate=getattr(rpeaks, 'sampling_rate', 44100.0),
-        domain="time",
     )
     return result, state

@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "node_id": "StateEstimator_root",
+      "parent_id": null,
+      "name": "StateEstimator",
+      "description": "Ingested pipeline from StateEstimator",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "stateestimatorinit"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stateestimatorinit",
+      "parent_id": "StateEstimator_root",
+      "name": "StateEstimatorInit",
+      "description": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+      "concept_type": "state_init",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "estimator_state",
+          "type_desc": "StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "constraints": "All matrices must be positive-semi-definite where applicable; initial state vector must be finite.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "StateEstimator"
+  }
+}

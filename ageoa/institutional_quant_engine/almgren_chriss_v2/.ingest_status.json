@@ -1,0 +1,30 @@
+{
+  "run_id": "6ee228140d3b4352a2cd0ec45512b933",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-atoms/third_party/Institutional-Quant-Engine/execution_hft/17_almgren_chriss_class.py",
+  "class_name": "AlmgrenChriss",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772981727.346069,
+  "last_heartbeat_at": 1772981858.8493,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772981858.8493,
+  "summary": {
+    "cdg_nodes": 3,
+    "cdg_edges": 1,
+    "matches": 2,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

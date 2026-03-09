@@ -1,0 +1,30 @@
+{
+  "run_id": "07bcbf0acaf540f0a775ef89a203fcb9",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "../ageo-atoms/third_party/quantfin/src/Quant/MonteCarlo.hs",
+  "class_name": "runSimulationAnti",
+  "procedural": true,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 1,
+  "started_at": 1773070960.5657868,
+  "last_heartbeat_at": 1773070960.8050282,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773070960.8050282,
+  "summary": {
+    "cdg_nodes": 19,
+    "cdg_edges": 0,
+    "matches": 18,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

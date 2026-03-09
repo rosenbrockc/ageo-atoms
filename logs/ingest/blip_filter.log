@@ -1,0 +1,11 @@
+Ingesting class 'BlipFilter' from /Users/conrad/personal/ageo-atoms/third_party/pronto/pronto_utils/include/pronto_utils/BlipFilter.hpp
+
+Ingestion complete:
+  CDG: 6 nodes, 6 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/pronto/blip_filter/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/pronto/blip_filter/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/pronto/blip_filter/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/pronto/blip_filter/trace.jsonl

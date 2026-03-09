@@ -1,0 +1,30 @@
+{
+  "run_id": "1d4dcc2d60124e9592086d497f3dbedf",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "../ageo-atoms/third_party/Molecular-Docking/src/solver/quantum_solver_molecular.py",
+  "class_name": "q_solver",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772996127.448464,
+  "last_heartbeat_at": 1772996601.0920599,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772996601.0920599,
+  "summary": {
+    "cdg_nodes": 29,
+    "cdg_edges": 46,
+    "matches": 24,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

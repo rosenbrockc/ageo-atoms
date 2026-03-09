@@ -1,0 +1,73 @@
+{
+  "nodes": [
+    {
+      "node_id": "offset_tt2tdb_root",
+      "parent_id": null,
+      "name": "offset_tt2tdb",
+      "description": "Ingested pipeline from offset_tt2tdb",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "tt2tdb_offset"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "tt2tdb_offset",
+      "parent_id": "offset_tt2tdb_root",
+      "name": "TT2TDB_Offset",
+      "description": "Computes the relativistic time scale offset between Terrestrial Time (TT) and Barycentric Dynamical Time (TDB) in seconds, using a sinusoidal approximation of the periodic correction term derived from Earth's orbital eccentricity.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "seconds",
+          "type_desc": "float | array-like of floats",
+          "constraints": "Elapsed seconds from a reference epoch (typically J2000.0); unbounded real number",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "offset",
+          "type_desc": "float | array-like of floats",
+          "constraints": "TDB - TT offset in seconds; typically within \u00b10.002 s",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(seconds: float | array-like of floats) -> float | array-like of floats",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "PeriodicPhaseOffsetFromElapsedScalar. Maps a monotonically increasing scalar (elapsed time or phase accumulator) to a bounded periodic correction term by evaluating a sinusoidal function whose argument is a linear function of the input. The transform encodes a small-amplitude, low-frequency oscillatory perturbation layered atop an otherwise near-zero baseline, effectively decomposing a continuous parameter into its dominant secular component plus a periodic residual. The output amplitude is strictly bounded by the sinusoid's coefficient, making the transform a smooth, differentiable, and invertible local approximation of a more complex underlying periodic signal.. Applications: Orbital mechanics / astrodynamics: computing the equation-of-center correction \u2014 the small periodic difference between mean anomaly and true anomaly for a body on a slightly eccentric Keplerian orbit, where the elapsed angular parameter maps directly to the sinusoidal eccentricity correction term, Signal processing / clock synchronization: modeling the periodic phase jitter introduced by a bounded oscillatory disturbance in a phase-locked loop (PLL), where a carrier's instantaneous phase offset from its nominal linear ramp is approximated by a sinusoidal perturbation parameterized by elapsed sample count, Structural / mechanical engineering: approximating the small periodic strain or displacement residual in a cyclically loaded elastic structure (e.g., a rotating shaft under eccentric load), where cumulative rotation angle is the input and the sinusoidal term captures the once-per-revolution imbalance force component, Geophysics / tidal modeling: computing the first-harmonic approximation of a tidal constituent's instantaneous height deviation from mean sea level, where elapsed seconds since a reference epoch determine the tidal phase and the bounded sinusoidal output represents the dominant periodic sea-surface perturbation",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "offset_tt2tdb"
+  }
+}

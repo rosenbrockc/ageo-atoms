@@ -1,0 +1,11 @@
+Ingesting class 'minimize_bandwidth' from /Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/optimiser.py
+
+Ingestion complete:
+  CDG: 20 nodes, 18 edges
+  Matches: 15
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/minimize_bandwidth/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/minimize_bandwidth/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/minimize_bandwidth/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/minimize_bandwidth/trace.jsonl

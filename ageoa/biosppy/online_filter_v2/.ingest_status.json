@@ -1,0 +1,31 @@
+{
+  "run_id": "f8d0d5206d934bd9b38419fca8e69323",
+  "state": "completed",
+  "phase": "startup",
+  "current_step": "init",
+  "source_path": "../ageo-atoms/third_party/BioSPPy/biosppy/signals/tools.py",
+  "class_name": "OnlineFilter",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 1,
+  "started_at": 1772980966.7291148,
+  "last_heartbeat_at": 1772980966.85519,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772980966.85519,
+  "summary": {
+    "cdg_nodes": 3,
+    "cdg_edges": 4,
+    "matches": 2,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "state_models.py",
+      "witnesses.py"
+    ]
+  }
+}

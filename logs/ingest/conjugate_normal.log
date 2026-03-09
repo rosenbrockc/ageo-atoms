@@ -1,0 +1,11 @@
+Ingesting class 'posterior_canon' from /Users/conrad/personal/ageo-atoms/third_party/ConjugatePriors.jl/src/normal.jl
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/normal/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/normal/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/normal/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/normal/trace.jsonl

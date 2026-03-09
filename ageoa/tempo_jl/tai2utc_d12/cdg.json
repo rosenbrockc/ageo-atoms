@@ -1,0 +1,1028 @@
+{
+  "nodes": [
+    {
+      "node_id": "tai2utc_root",
+      "parent_id": null,
+      "name": "tai2utc",
+      "description": "Ingested pipeline from tai2utc",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "utc_to_tai_leap_second_kernel",
+        "tai_to_utc_inversion"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "utc_to_tai_leap_second_kernel",
+      "parent_id": "tai2utc_root",
+      "name": "utc_to_tai_leap_second_kernel",
+      "description": "Converts a two-part UTC Julian date to TAI by resolving the applicable leap-second offset. Internally converts Julian date to calendar date (jd2cal) to locate the correct leap-second table entry, then adds the offset to produce the TAI two-part Julian date.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "utc1",
+          "type_desc": "float \u2014 first part of two-part UTC Julian date",
+          "constraints": "finite; utc1+utc2 must be within the supported leap-second table range",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "utc2",
+          "type_desc": "float \u2014 second part of two-part UTC Julian date",
+          "constraints": "finite; together with utc1 represents a valid UTC epoch",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tai1",
+          "type_desc": "float \u2014 first part of two-part TAI Julian date",
+          "constraints": "tai1 + tai2 = utc1 + utc2 + leap_seconds/86400",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tai2",
+          "type_desc": "float \u2014 second part of two-part TAI Julian date",
+          "constraints": "precision-preserving companion to tai1",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "order_utc_parts_by_magnitude",
+        "extract_fractional_day_and_julian_offset",
+        "lookup_leap_second_offset_today",
+        "lookup_leap_second_offset_tomorrow",
+        "spread_leap_second_into_fractional_day",
+        "assemble_tai_second_part",
+        "restore_original_split_order_for_tai"
+      ],
+      "depth": 1,
+      "type_signature": "(utc1: float \u2014 first part of two-part UTC Julian date, utc2: float \u2014 second part of two-part UTC Julian date) -> tuple[float \u2014 first part of two-part TAI Julian date, float \u2014 second part of two-part TAI Julian date]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "piecewise_scalar_offset_resolver_via_lookup_table_projection. Given a two-part high-precision scalar encoding of a point on a continuous timeline, this transform projects that scalar into a discrete calendar-coordinate space solely to locate the applicable correction offset within a piecewise-constant lookup table. The resolved offset is then lifted back into the original scalar encoding space and added to the input pair, producing a new two-part scalar that is numerically equivalent to the original plus the correction, while preserving the full floating-point precision of the two-part representation. The operation is a piecewise-constant scalar translation whose correction magnitude is determined by the region of the timeline the input falls within.. Applications: Geodesy / GNSS signal processing: translating between two different epoch-referenced coordinate frames (e.g., GPS time vs. UTC) where the offset between frames accumulates in discrete, historically recorded steps \u2014 the exact structural analog of resolving a piecewise-constant cumulative correction indexed by a calendar projection., Thermodynamic calibration pipelines: converting a raw sensor scalar reading to a corrected physical quantity using a piecewise-constant calibration table keyed by temperature or pressure regime, where the applicable correction coefficient is resolved by first projecting the raw reading into a discrete regime index., Compiler / runtime version resolution: mapping a floating-point semantic-version scalar (or integer build timestamp) to the applicable ABI compatibility offset by projecting the version into a discrete range table, then adding the resolved symbol-offset delta to produce a corrected memory address or symbol index \u2014 structurally identical piecewise lookup-and-add., Epidemiological cohort studies: adjusting a continuous age or exposure-duration scalar by a piecewise-constant population-risk-stratum offset (resolved via projection of the scalar into a discrete age-band or exposure-band table), producing a corrected risk-adjusted scalar for downstream statistical modeling.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "order_utc_parts_by_magnitude",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "order_utc_parts_by_magnitude",
+      "description": "Determines which of the two UTC Julian date parts has greater absolute magnitude and promotes both to a common numeric type, placing the larger-magnitude part first (u1) and the smaller part second (u2) to maximize floating-point precision in subsequent arithmetic.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "utc1",
+          "type_desc": "float",
+          "constraints": "any finite float",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "utc2",
+          "type_desc": "float",
+          "constraints": "any finite float",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "promoted type, |u1| >= |u2|",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "promoted type, |u2| <= |u1|",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "big1",
+          "type_desc": "bool",
+          "constraints": "true iff utc1 had the larger magnitude",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(utc1: float, utc2: float) -> tuple[float, float, bool]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extract_fractional_day_and_julian_offset",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "extract_fractional_day_and_julian_offset",
+      "description": "Calls jd2cal on the ordered two-part Julian date to decompose it into calendar fields and extract the sub-day fractional part fd. Also computes z2, the integer-day portion of u2 by subtracting fd, for later reassembly.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "|u1| >= |u2|",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "smaller-magnitude part",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fd",
+          "type_desc": "float",
+          "constraints": "fractional day in [0, 1)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "z2",
+          "type_desc": "float",
+          "constraints": "u2 minus fractional day; integer Julian day contribution of u2",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, u2: float) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "lookup_leap_second_offset_today",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "lookup_leap_second_offset_today",
+      "description": "Queries the leap-seconds table with the Julian date offset from J2000 to obtain the TAI-UTC difference \u0394t0 applicable at 0h of the current UTC day.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "first (larger) UTC JD part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "second UTC JD part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "DJ2000",
+          "type_desc": "float",
+          "constraints": "constant: Julian date of J2000 epoch",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "delta_t0",
+          "type_desc": "float",
+          "constraints": "TAI minus UTC in seconds at 0h today",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, u2: float, DJ2000: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "lookup_leap_second_offset_tomorrow",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "lookup_leap_second_offset_tomorrow",
+      "description": "Queries the leap-seconds table for the TAI-UTC offset at 0h of the next UTC day (tomorrow) to detect whether a leap-second event occurs between today and tomorrow.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "first (larger) UTC JD part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "second UTC JD part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "DJ2000",
+          "type_desc": "float",
+          "constraints": "constant: Julian date of J2000 epoch",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "delta_t24",
+          "type_desc": "float",
+          "constraints": "TAI minus UTC in seconds at 0h tomorrow",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, u2: float, DJ2000: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "spread_leap_second_into_fractional_day",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "spread_leap_second_into_fractional_day",
+      "description": "Detects a leap-second jump by comparing today's and tomorrow's TAI-UTC offsets and distributes any difference uniformly across the preceding day by adjusting the fractional day fd. This smears the leap second into the 86400 seconds of the current day.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "fd",
+          "type_desc": "float",
+          "constraints": "fractional day in [0, 1) from jd2cal",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delta_t0",
+          "type_desc": "float",
+          "constraints": "leap-second offset at 0h today, in seconds",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delta_t24",
+          "type_desc": "float",
+          "constraints": "leap-second offset at 0h tomorrow, in seconds",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fd_adjusted",
+          "type_desc": "float",
+          "constraints": "fractional day adjusted for leap smearing",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(fd: float, delta_t0: float, delta_t24: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_tai_second_part",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "assemble_tai_second_part",
+      "description": "Combines the integer-day component z2, the leap-adjusted fractional day fd_adjusted, and today's leap-second offset delta_t0 (converted to day units) to form the second part of the two-part TAI Julian date a2.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "z2",
+          "type_desc": "float",
+          "constraints": "integer-day contribution of u2",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fd_adjusted",
+          "type_desc": "float",
+          "constraints": "leap-smeared fractional day",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delta_t0",
+          "type_desc": "float",
+          "constraints": "TAI-UTC offset in seconds at today 0h",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "a2",
+          "type_desc": "float",
+          "constraints": "second part of TAI Julian date",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(z2: float, fd_adjusted: float, delta_t0: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "restore_original_split_order_for_tai",
+      "parent_id": "utc_to_tai_leap_second_kernel",
+      "name": "restore_original_split_order_for_tai",
+      "description": "Promotes u1 and a2 to a common type and restores the original caller-specified split order: if the first input utc1 was the larger part (big1=true), tai1=u1 and tai2=a2; otherwise tai1=a2 and tai2=u1.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "larger-magnitude UTC JD part (first part in canonical form)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a2",
+          "type_desc": "float",
+          "constraints": "assembled TAI second part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "big1",
+          "type_desc": "bool",
+          "constraints": "true iff utc1 originally had larger magnitude",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tai1",
+          "type_desc": "float",
+          "constraints": "first part of two-part TAI Julian date, in original split order",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tai2",
+          "type_desc": "float",
+          "constraints": "second part of two-part TAI Julian date, in original split order",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, a2: float, big1: bool) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "tai_to_utc_inversion",
+      "parent_id": "tai2utc_root",
+      "name": "tai_to_utc_inversion",
+      "description": "Entry-point atom. Inverts the UTC\u2192TAI mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "tai1",
+          "type_desc": "float \u2014 first part of two-part TAI Julian date",
+          "constraints": "finite; must fall within the supported leap-second table range",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tai2",
+          "type_desc": "float \u2014 second part of two-part TAI Julian date",
+          "constraints": "finite; precision-preserving companion to tai1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tai_estimate",
+          "type_desc": "float pair \u2014 TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual",
+          "constraints": "fed from utc_to_tai_leap_second_kernel output on each iteration",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "utc1",
+          "type_desc": "float \u2014 first part of recovered two-part UTC Julian date",
+          "constraints": "utc1 + utc2 + leap_seconds/86400 \u2248 tai1 + tai2 within floating-point epsilon",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "utc2",
+          "type_desc": "float \u2014 second part of recovered two-part UTC Julian date",
+          "constraints": "precision-preserving companion to utc1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "candidate_utc",
+          "type_desc": "float pair \u2014 current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation",
+          "constraints": "updated each iteration; becomes final utc1/utc2 on convergence",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "order_tai_parts_by_magnitude",
+        "seed_utc_estimate",
+        "evaluate_and_refine_utc_estimate",
+        "restore_utc_output_order"
+      ],
+      "depth": 1,
+      "type_signature": "(tai1: float \u2014 first part of two-part TAI Julian date, tai2: float \u2014 second part of two-part TAI Julian date, tai_estimate: float pair \u2014 TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual) -> tuple[float \u2014 first part of recovered two-part UTC Julian date, float \u2014 second part of recovered two-part UTC Julian date, float pair \u2014 current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "iterative_residual_inversion_of_tabulated_monotone_offset_bijection. Given a target scalar y encoded as a high-precision two-part float, and a forward mapping f(x) = x + \u03b4(x) where \u03b4(x) is a piecewise-constant step function defined over a lookup table, this atom iteratively refines a candidate pre-image x\u0302 by evaluating the residual \u03b5 = f(x\u0302) - y via the forward kernel and subtracting it from the current estimate until |\u03b5| falls within floating-point epsilon. The algorithm exploits the near-identity structure of the offset (\u03b4 << x) to seed x\u0302\u2080 \u2248 y, enabling rapid convergence\u2014typically in one to two iterations\u2014without requiring an analytical inverse. Precision is preserved throughout via a compensated two-part scalar representation that prevents catastrophic cancellation during residual computation.. Applications: Signal processing \u2014 recovering original sample timestamps from a non-uniformly resampled time axis when the resampling warp function is defined by a piecewise-constant interpolation table (e.g., inverting a frame-rate conversion map to align heterogeneous sensor streams), Thermodynamics / materials science \u2014 inverting a tabulated piecewise-linear enthalpy-to-temperature lookup (e.g., JANAF or NIST tables with discrete phase-transition discontinuities) to recover temperature from a measured enthalpy value with full double-precision fidelity, Geodesy / cartography \u2014 recovering geodetic latitude from projected northing in a tabulated map projection (e.g., transverse Mercator with discrete zonal corrections) where no closed-form inverse exists and a forward-evaluation residual loop achieves sub-millimeter accuracy, Pharmacokinetics / chronobiology \u2014 inverting a piecewise-constant clearance schedule to recover the precise dosing or event time corresponding to a measured plasma concentration, where the clearance function changes discretely at known physiological phase boundaries",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "order_tai_parts_by_magnitude",
+      "parent_id": "tai_to_utc_inversion",
+      "name": "order_tai_parts_by_magnitude",
+      "description": "Determines which of the two TAI Julian date parts has greater absolute magnitude and reorders them so the larger part comes first, recording the original ordering for later restoration.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "tai1",
+          "type_desc": "float",
+          "constraints": "first part of two-part TAI Julian date",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tai2",
+          "type_desc": "float",
+          "constraints": "second part of two-part TAI Julian date",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "a1",
+          "type_desc": "float",
+          "constraints": "larger-magnitude part of TAI date",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a2",
+          "type_desc": "float",
+          "constraints": "smaller-magnitude part of TAI date",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "big1",
+          "type_desc": "bool",
+          "constraints": "true if tai1 had the larger magnitude (used to restore original order)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(tai1: float, tai2: float) -> tuple[float, float, bool]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "seed_utc_estimate",
+      "parent_id": "tai_to_utc_inversion",
+      "name": "seed_utc_estimate",
+      "description": "Initialises the UTC trial value as a direct copy of the reordered TAI parts, providing a zeroth-order estimate before iterative refinement begins.",
+      "concept_type": "state_init",
+      "inputs": [
+        {
+          "name": "a1",
+          "type_desc": "float",
+          "constraints": "larger-magnitude part of TAI date",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a2",
+          "type_desc": "float",
+          "constraints": "smaller-magnitude part of TAI date",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "initial UTC candidate, big part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "initial UTC candidate, small part",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(a1: float, a2: float) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluate_and_refine_utc_estimate",
+      "parent_id": "tai_to_utc_inversion",
+      "name": "evaluate_and_refine_utc_estimate",
+      "description": "Iteratively refines the UTC estimate by calling utc_to_tai_leap_second_kernel on the current candidate, computing the TAI residual (a1-g1, a2-g2), and applying the correction to u2. Runs for two iterations to converge through any leap-second boundary.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "current UTC candidate, big part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "current UTC candidate, small part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a1",
+          "type_desc": "float",
+          "constraints": "target TAI big part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a2",
+          "type_desc": "float",
+          "constraints": "target TAI small part",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "refined UTC candidate, big part (unchanged)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "refined UTC candidate, small part, corrected by TAI residual",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, u2: float, a1: float, a2: float) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "restore_utc_output_order",
+      "parent_id": "tai_to_utc_inversion",
+      "name": "restore_utc_output_order",
+      "description": "Restores the UTC result to match the original input ordering of tai1/tai2, swapping u1 and u2 if the smaller TAI part was originally first, and type-promotes the pair for consistent return types.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "u1",
+          "type_desc": "float",
+          "constraints": "refined UTC big part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u2",
+          "type_desc": "float",
+          "constraints": "refined UTC small part",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "big1",
+          "type_desc": "bool",
+          "constraints": "flag indicating whether tai1 was originally the larger part",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "utc1",
+          "type_desc": "float",
+          "constraints": "first part of recovered UTC Julian date, mirroring tai1 slot",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "utc2",
+          "type_desc": "float",
+          "constraints": "second part of recovered UTC Julian date, mirroring tai2 slot",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u1: float, u2: float, big1: bool) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "extract_fractional_day_and_julian_offset",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "extract_fractional_day_and_julian_offset",
+      "output_name": "u2",
+      "input_name": "u2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "lookup_leap_second_offset_today",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "lookup_leap_second_offset_today",
+      "output_name": "u2",
+      "input_name": "u2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "lookup_leap_second_offset_tomorrow",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "lookup_leap_second_offset_tomorrow",
+      "output_name": "u2",
+      "input_name": "u2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "restore_original_split_order_for_tai",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_utc_parts_by_magnitude",
+      "target_id": "restore_original_split_order_for_tai",
+      "output_name": "big1",
+      "input_name": "big1",
+      "source_type": "bool",
+      "target_type": "bool",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_fractional_day_and_julian_offset",
+      "target_id": "spread_leap_second_into_fractional_day",
+      "output_name": "fd",
+      "input_name": "fd",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_fractional_day_and_julian_offset",
+      "target_id": "assemble_tai_second_part",
+      "output_name": "z2",
+      "input_name": "z2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "lookup_leap_second_offset_today",
+      "target_id": "spread_leap_second_into_fractional_day",
+      "output_name": "delta_t0",
+      "input_name": "delta_t0",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "lookup_leap_second_offset_today",
+      "target_id": "assemble_tai_second_part",
+      "output_name": "delta_t0",
+      "input_name": "delta_t0",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "lookup_leap_second_offset_tomorrow",
+      "target_id": "spread_leap_second_into_fractional_day",
+      "output_name": "delta_t24",
+      "input_name": "delta_t24",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "spread_leap_second_into_fractional_day",
+      "target_id": "assemble_tai_second_part",
+      "output_name": "fd_adjusted",
+      "input_name": "fd_adjusted",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_tai_second_part",
+      "target_id": "restore_original_split_order_for_tai",
+      "output_name": "a2",
+      "input_name": "a2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_tai_parts_by_magnitude",
+      "target_id": "seed_utc_estimate",
+      "output_name": "a1",
+      "input_name": "a1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_tai_parts_by_magnitude",
+      "target_id": "seed_utc_estimate",
+      "output_name": "a2",
+      "input_name": "a2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_tai_parts_by_magnitude",
+      "target_id": "evaluate_and_refine_utc_estimate",
+      "output_name": "a1",
+      "input_name": "a1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_tai_parts_by_magnitude",
+      "target_id": "evaluate_and_refine_utc_estimate",
+      "output_name": "a2",
+      "input_name": "a2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "order_tai_parts_by_magnitude",
+      "target_id": "restore_utc_output_order",
+      "output_name": "big1",
+      "input_name": "big1",
+      "source_type": "bool",
+      "target_type": "bool",
+      "requires_glue": false
+    },
+    {
+      "source_id": "seed_utc_estimate",
+      "target_id": "evaluate_and_refine_utc_estimate",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "seed_utc_estimate",
+      "target_id": "evaluate_and_refine_utc_estimate",
+      "output_name": "u2",
+      "input_name": "u2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluate_and_refine_utc_estimate",
+      "target_id": "restore_utc_output_order",
+      "output_name": "u1",
+      "input_name": "u1",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluate_and_refine_utc_estimate",
+      "target_id": "restore_utc_output_order",
+      "output_name": "u2",
+      "input_name": "u2",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "tai_to_utc_inversion",
+      "target_id": "utc_to_tai_leap_second_kernel",
+      "output_name": "candidate_utc",
+      "input_name": "utc1",
+      "source_type": "float pair",
+      "target_type": "float pair",
+      "requires_glue": false
+    },
+    {
+      "source_id": "utc_to_tai_leap_second_kernel",
+      "target_id": "tai_to_utc_inversion",
+      "output_name": "tai1",
+      "input_name": "tai_estimate",
+      "source_type": "float pair",
+      "target_type": "float pair",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "tai2utc"
+  }
+}

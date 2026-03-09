@@ -1,0 +1,11 @@
+Ingesting class 'NUTS' from /Users/conrad/personal/ageo-atoms/third_party/mini-mcmc/src/nuts.rs
+
+Ingestion complete:
+  CDG: 9 nodes, 6 edges
+  Matches: 7
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/mini_mcmc/nuts/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/mini_mcmc/nuts/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/mini_mcmc/nuts/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/mini_mcmc/nuts/trace.jsonl

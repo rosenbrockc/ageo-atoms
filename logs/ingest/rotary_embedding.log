@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['neural_network']
+Ingesting class 'RotaryEmbedding' from /Users/conrad/personal/ageo-atoms/third_party/mint/mint/rotary_embedding.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/mint/rotary_embedding/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/mint/rotary_embedding/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/mint/rotary_embedding/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/mint/rotary_embedding/trace.jsonl

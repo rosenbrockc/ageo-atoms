@@ -1,0 +1,332 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_detection_parameters",
+      "statement": "(sampling_rate: positive float (Hz)) -> tuple[positive int, positive int, float (seconds), float]",
+      "informal_desc": "Compute all scalar parameters needed for the FSM detector: the moving-window length N, the delay Nd, the minimum refractory period Rmin, and pre-allocate the running amplitude accumulator Ramptotal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_detection_parameters",
+          "type_signature": "(sampling_rate: positive float (Hz)) -> tuple[positive int, positive int, float (seconds), float]",
+          "docstring": "Compute all scalar parameters needed for the FSM detector: the moving-window length N, the delay Nd, the minimum refractory period Rmin, and pre-allocate the running amplitude accumulator Ramptotal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_detection_parameters",
+          "type_signature": "(sampling_rate: positive float (Hz)) -> tuple[positive int, positive int, float (seconds), float]",
+          "docstring": "Compute all scalar parameters needed for the FSM detector: the moving-window length N, the delay Nd, the minimum refractory period Rmin, and pre-allocate the running amplitude accumulator Ramptotal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_detection_parameters",
+            "type_signature": "(sampling_rate: positive float (Hz)) -> tuple[positive int, positive int, float (seconds), float]",
+            "docstring": "Compute all scalar parameters needed for the FSM detector: the moving-window length N, the delay Nd, the minimum refractory period Rmin, and pre-allocate the running amplitude accumulator Ramptotal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_double_difference_squared",
+      "statement": "(signal: 1-D numeric array, Nd: positive int) -> 1-D float array",
+      "informal_desc": "Apply a double finite-difference operator to the ECG signal (first a 1-step difference on the Nd-delayed signal, then a 1-step difference on that result) and square each sample to produce a non-negative energy signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_double_difference_squared",
+          "type_signature": "(signal: 1-D numeric array, Nd: positive int) -> 1-D float array",
+          "docstring": "Apply a double finite-difference operator to the ECG signal (first a 1-step difference on the Nd-delayed signal, then a 1-step difference on that result) and square each sample to produce a non-negative energy signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_double_difference_squared",
+          "type_signature": "(signal: 1-D numeric array, Nd: positive int) -> 1-D float array",
+          "docstring": "Apply a double finite-difference operator to the ECG signal (first a 1-step difference on the Nd-delayed signal, then a 1-step difference on that result) and square each sample to produce a non-negative energy signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_double_difference_squared",
+            "type_signature": "(signal: 1-D numeric array, Nd: positive int) -> 1-D float array",
+            "docstring": "Apply a double finite-difference operator to the ECG signal (first a 1-step difference on the Nd-delayed signal, then a 1-step difference on that result) and square each sample to produce a non-negative energy signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "integrate_with_moving_window",
+      "statement": "(squar: 1-D float array, N: positive int) -> 1-D float array",
+      "informal_desc": "Smooth the squared double-difference signal by convolving it with a rectangular (boxcar) window of length N via a causal IIR/FIR filter, producing an integrated energy envelope used for threshold comparisons.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "integrate_with_moving_window",
+          "type_signature": "(squar: 1-D float array, N: positive int) -> 1-D float array",
+          "docstring": "Smooth the squared double-difference signal by convolving it with a rectangular (boxcar) window of length N via a causal IIR/FIR filter, producing an integrated energy envelope used for threshold comparisons.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "integrate_with_moving_window",
+          "type_signature": "(squar: 1-D float array, N: positive int) -> 1-D float array",
+          "docstring": "Smooth the squared double-difference signal by convolving it with a rectangular (boxcar) window of length N via a causal IIR/FIR filter, producing an integrated energy envelope used for threshold comparisons.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "integrate_with_moving_window",
+            "type_signature": "(squar: 1-D float array, N: positive int) -> 1-D float array",
+            "docstring": "Smooth the squared double-difference signal by convolving it with a rectangular (boxcar) window of length N via a causal IIR/FIR filter, producing an integrated energy envelope used for threshold comparisons.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_rpeaks_with_adaptive_threshold_fsm",
+      "statement": "(processed_ecg: 1-D float array, sampling_rate: positive float, Rmin: float, Ramptotal: float, Pth: positive float) -> list of int",
+      "informal_desc": "Run the three-state finite-state machine over the integrated energy envelope to locate R-peaks: (1) scan a Rmin-wide window for the local maximum (candidate R-peak), (2) enforce a 200 ms waiting/refractory period, (3) apply an exponentially-decaying adaptive threshold to find the next above-threshold crossing, updating the running amplitude estimate Ramptotal after each detected peak.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_rpeaks_with_adaptive_threshold_fsm",
+          "type_signature": "(processed_ecg: 1-D float array, sampling_rate: positive float, Rmin: float, Ramptotal: float, Pth: positive float) -> list of int",
+          "docstring": "Run the three-state finite-state machine over the integrated energy envelope to locate R-peaks: (1) scan a Rmin-wide window for the local maximum (candidate R-peak), (2) enforce a 200 ms waiting/refractory period, (3) apply an exponentially-decaying adaptive threshold to find the next above-threshold crossing, updating the running amplitude estimate Ramptotal after each detected peak.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_rpeaks_with_adaptive_threshold_fsm",
+          "type_signature": "(processed_ecg: 1-D float array, sampling_rate: positive float, Rmin: float, Ramptotal: float, Pth: positive float) -> list of int",
+          "docstring": "Run the three-state finite-state machine over the integrated energy envelope to locate R-peaks: (1) scan a Rmin-wide window for the local maximum (candidate R-peak), (2) enforce a 200 ms waiting/refractory period, (3) apply an exponentially-decaying adaptive threshold to find the next above-threshold crossing, updating the running amplitude estimate Ramptotal after each detected peak.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_rpeaks_with_adaptive_threshold_fsm",
+            "type_signature": "(processed_ecg: 1-D float array, sampling_rate: positive float, Rmin: float, Ramptotal: float, Pth: positive float) -> list of int",
+            "docstring": "Run the three-state finite-state machine over the integrated energy envelope to locate R-peaks: (1) scan a Rmin-wide window for the local maximum (candidate R-peak), (2) enforce a 200 ms waiting/refractory period, (3) apply an exponentially-decaying adaptive threshold to find the next above-threshold crossing, updating the running amplitude estimate Ramptotal after each detected peak.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "package_rpeak_results",
+      "statement": "(rpeaks: list of int) -> ReturnTuple with key 'rpeaks'",
+      "informal_desc": "Wrap the raw R-peak index list into the library's standard named-tuple return structure (ReturnTuple) so the output is consistent with the rest of the biosppy API.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "package_rpeak_results",
+          "type_signature": "(rpeaks: list of int) -> ReturnTuple with key 'rpeaks'",
+          "docstring": "Wrap the raw R-peak index list into the library's standard named-tuple return structure (ReturnTuple) so the output is consistent with the rest of the biosppy API.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "package_rpeak_results",
+          "type_signature": "(rpeaks: list of int) -> ReturnTuple with key 'rpeaks'",
+          "docstring": "Wrap the raw R-peak index list into the library's standard named-tuple return structure (ReturnTuple) so the output is consistent with the rest of the biosppy API.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "package_rpeak_results",
+            "type_signature": "(rpeaks: list of int) -> ReturnTuple with key 'rpeaks'",
+            "docstring": "Wrap the raw R-peak index list into the library's standard named-tuple return structure (ReturnTuple) so the output is consistent with the rest of the biosppy API.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

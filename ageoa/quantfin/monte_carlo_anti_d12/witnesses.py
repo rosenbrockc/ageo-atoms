@@ -1,0 +1,155 @@
+"""Auto-generated ghost witness functions for abstract simulation."""
+
+from __future__ import annotations
+
+import torch
+import jax
+import jax.numpy as jnp
+import haiku as hk
+
+import networkx as nx  # type: ignore
+
+try:
+    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
+except ImportError:
+    pass
+
+def witness_runmc(evalState: AbstractArray, evalStateT: AbstractArray, flip: AbstractArray, initState: AbstractArray, lift: AbstractArray, mc: AbstractArray, randState: AbstractArray, sampleRVarTWith: AbstractArray) -> AbstractArray:
+    """Ghost witness for Runmc."""
+    result = AbstractArray(
+        shape=evalState.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_runsimulation(anti: AbstractArray, ccs: AbstractArray, modl: AbstractArray, run: AbstractArray, runMC: AbstractArray, seed: AbstractArray, trials: AbstractArray, undefined: AbstractArray) -> AbstractArray:
+    """Ghost witness for Runsimulation."""
+    result = AbstractArray(
+        shape=anti.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_runsimulationanti(ccs: AbstractArray, modl: AbstractArray, runSim: AbstractArray, seed: AbstractArray, trials: AbstractArray) -> AbstractArray:
+    """Ghost witness for Runsimulationanti."""
+    result = AbstractArray(
+        shape=ccs.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_quicksim(mdl: AbstractArray, opts: AbstractArray, pureMT: AbstractArray, runSimulation: AbstractArray, trials: AbstractArray) -> AbstractArray:
+    """Ghost witness for Quicksim."""
+    result = AbstractArray(
+        shape=mdl.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_quicksimanti(mdl: AbstractArray, opts: AbstractArray, pureMT: AbstractArray, runSimulationAnti: AbstractArray, trials: AbstractArray) -> AbstractArray:
+    """Ghost witness for Quicksimanti."""
+    result = AbstractArray(
+        shape=mdl.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_evolve(anti: AbstractArray, evolve: AbstractArray, evolve': AbstractArray, get: AbstractArray, maxStep: AbstractArray, mdl: AbstractArray, ms: AbstractArray, t1: AbstractArray, t2: AbstractArray, timeDiff: AbstractArray, timeOffset: AbstractArray, unless: AbstractArray) -> AbstractArray:
+    """Ghost witness for Evolve."""
+    result = AbstractArray(
+        shape=anti.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_maxstep() -> AbstractArray:
+    """Ghost witness for Maxstep."""
+    return None
+
+def witness_simulatestate(anti: AbstractArray, avg: AbstractArray, ccb: AbstractArray, modl: AbstractArray, replicateM: AbstractArray, singleTrial: AbstractArray, trials: AbstractArray) -> AbstractArray:
+    """Ghost witness for Simulatestate."""
+    result = AbstractArray(
+        shape=anti.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_runsim(ccs: AbstractArray, div: AbstractArray, modl: AbstractArray, runSimulation: AbstractArray, seed: AbstractArray, trials: AbstractArray, x: AbstractArray) -> AbstractArray:
+    """Ghost witness for Runsim."""
+    result = AbstractArray(
+        shape=ccs.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_process(allcfs: AbstractArray, amt: AbstractArray, anti: AbstractArray, c: AbstractArray, ccs: AbstractArray, cfList: AbstractArray, cfs: AbstractArray, cft: AbstractArray, d: AbstractArray, discCFs: AbstractArray, discount: AbstractArray, evolve: AbstractArray, flip: AbstractArray, foldl': AbstractArray, fst: AbstractArray, gets: AbstractArray, insert: AbstractArray, insertCF: AbstractArray, insertCFList: AbstractArray, map: AbstractArray, mf: AbstractArray, modl: AbstractArray, newCFs: AbstractArray, obs: AbstractArray, obsMap: AbstractArray, obsMap': AbstractArray, process: AbstractArray, t: AbstractArray, xs: AbstractArray) -> AbstractArray:
+    """Ghost witness for Process."""
+    result = AbstractArray(
+        shape=allcfs.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_process(anti: AbstractArray, ccs: AbstractArray, cfList: AbstractArray, discCFs: AbstractArray, evolve: AbstractArray, flip: AbstractArray, foldl': AbstractArray, fst: AbstractArray, gets: AbstractArray, insert: AbstractArray, insertCF: AbstractArray, insertCFList: AbstractArray, map: AbstractArray, mf: AbstractArray, modl: AbstractArray, newCFs: AbstractArray, obs: AbstractArray, obsMap: AbstractArray, obsMap': AbstractArray, process: AbstractArray, t: AbstractArray, xs: AbstractArray) -> AbstractArray:
+    """Ghost witness for Process."""
+    result = AbstractArray(
+        shape=anti.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_process(anti: AbstractArray, cf: AbstractArray, cfAmount: AbstractArray, cfTime: AbstractArray, cfs: AbstractArray, d: AbstractArray, discCFs: AbstractArray, discount: AbstractArray, evolve: AbstractArray, modl: AbstractArray, obsMap: AbstractArray, process: AbstractArray) -> AbstractArray:
+    """Ghost witness for Process."""
+    result = AbstractArray(
+        shape=anti.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_process(discCFs: AbstractArray, return: AbstractArray) -> AbstractArray:
+    """Ghost witness for Process."""
+    result = AbstractArray(
+        shape=discCFs.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_insertcf(amt: AbstractArray, amt': AbstractArray, cfs: AbstractArray, insertCF: AbstractArray, otherwise: AbstractArray, t: AbstractArray, t': AbstractArray) -> AbstractArray:
+    """Ghost witness for Insertcf."""
+    result = AbstractArray(
+        shape=amt.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_insertcf(cf: AbstractArray) -> AbstractArray:
+    """Ghost witness for Insertcf."""
+    result = AbstractArray(
+        shape=cf.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_avg(fromIntegral: AbstractArray, sum: AbstractArray, trials: AbstractArray, v: AbstractArray) -> AbstractArray:
+    """Ghost witness for Avg."""
+    result = AbstractArray(
+        shape=fromIntegral.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_insertcflist(cfList: AbstractArray, flip: AbstractArray, foldl': AbstractArray, insertCF: AbstractArray, xs: AbstractArray) -> AbstractArray:
+    """Ghost witness for Insertcflist."""
+    result = AbstractArray(
+        shape=cfList.shape,
+        dtype="float64",
+    )
+    return result
+
+def witness_insertcflist(cfList: AbstractArray, flip: AbstractArray, foldl': AbstractArray, insertCF: AbstractArray, xs: AbstractArray) -> AbstractArray:
+    """Ghost witness for Insertcflist."""
+    result = AbstractArray(
+        shape=cfList.shape,
+        dtype="float64",
+    )
+    return result

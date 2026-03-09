@@ -1,0 +1,1100 @@
+{
+  "nodes": [
+    {
+      "node_id": "engzee_segmenter_root",
+      "parent_id": null,
+      "name": "engzee_segmenter",
+      "description": "Ingested pipeline from engzee_segmenter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "engzee_qrs_segmentation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "engzee_qrs_segmentation",
+      "parent_id": "engzee_segmenter_root",
+      "name": "engzee_qrs_segmentation",
+      "description": "Detects and segments QRS complexes from a raw ECG signal using the Engelse & Zeelenberg algorithm, applying a threshold-based decision rule on the transformed signal to locate R-peak positions and extract beat boundaries.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D array of ECG amplitude samples",
+          "constraints": "must be a uniformly sampled real-valued sequence",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "positive integer (Hz)",
+          "constraints": "must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "threshold",
+          "type_desc": "positive float",
+          "constraints": "detection sensitivity threshold; must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "1-D integer array of sample indices",
+          "constraints": "indices into the input signal where R-peaks are detected; sorted ascending",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "compute_timing_parameters",
+        "differentiate_signal",
+        "low_pass_filter_transform",
+        "initialise_adaptive_thresholds",
+        "update_adaptive_thresholds",
+        "find_threshold_crossing",
+        "detect_rpeak_in_window",
+        "deduplicate_and_sort_rpeaks"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: 1-D array of ECG amplitude samples, sampling_rate: positive integer (Hz), threshold: positive float) -> 1-D integer array of sample indices",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "threshold_gated_extrema_locator_in_transformed_1d_sequence. Applies a domain-specific differential/nonlinear transform to a uniformly sampled scalar time-series to amplify a target morphological feature (sharp, high-energy transients) while suppressing background variation, then sweeps a scalar threshold across the transformed signal to emit a sorted set of integer indices marking local maxima that exceed the detection boundary. The result partitions the original sequence into contiguous segments whose boundaries are anchored at the detected extremal events, converting a continuous amplitude stream into a discrete event sequence.. Applications: Seismology \u2014 detecting P-wave and S-wave onset indices in a continuous ground-motion acceleration time-series recorded at a fixed sampling rate, segmenting the stream into inter-arrival intervals for earthquake localisation, Neurophysiology \u2014 locating action potential spike peaks in a extracellular multi-unit electrode voltage trace, partitioning the recording into inter-spike intervals for neural firing-rate estimation, Mechanical fault detection \u2014 identifying high-amplitude impulse events in a vibration sensor time-series from a rotating machine bearing, segmenting the signal into cycles to compute defect repetition frequency, Astrophysics / radio astronomy \u2014 pinpointing pulse arrival times of periodic transient emitters (e.g., pulsars) in a de-dispersed time-domain intensity series, converting a continuous flux recording into a discrete sequence of pulse-epoch indices for timing analysis",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_timing_parameters",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "compute_timing_parameters",
+      "description": "Converts physiological time constants (ms) and algorithm tuning ratios into integer sample counts based on the sampling rate, and initialises scalar thresholds used throughout detection.",
+      "concept_type": "state_init",
+      "inputs": [
+        {
+          "name": "sampling_rate",
+          "type_desc": "positive float (Hz)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "threshold",
+          "type_desc": "positive float",
+          "constraints": "0 < threshold <= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmp",
+          "type_desc": "float constant",
+          "constraints": "fixed at 0.2",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changeM",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Miterate",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v250ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v1200ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v1500ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v180ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p10ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p20ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "err_kill",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmth",
+          "type_desc": "float",
+          "constraints": "equals threshold",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmp",
+          "type_desc": "float",
+          "constraints": "fixed at 0.2",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate: positive float (Hz), threshold: positive float, mmp: float constant) -> tuple[int (samples), int (samples), int (samples), int (samples), int (samples), int (samples), int (samples), int (samples), int (samples), float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "differentiate_signal",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "differentiate_signal",
+      "description": "Applies a 4-sample lag finite-difference differentiator to the raw ECG signal, producing a first-order difference series that accentuates rapid amplitude changes associated with QRS complexes.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D float array",
+          "constraints": "length >= 5",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "y1",
+          "type_desc": "1-D float list",
+          "constraints": "length = len(signal) - 4",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D float array) -> 1-D float list",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "low_pass_filter_transform",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "low_pass_filter_transform",
+      "description": "Convolves the differentiated series y1 with the fixed 10-tap symmetric FIR kernel [1,4,6,4,1,-1,-4,-6,-4,-1], yielding the band-limited transformed signal y2 used for threshold crossing detection.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "y1",
+          "type_desc": "1-D float list",
+          "constraints": "length >= 10",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "y2",
+          "type_desc": "1-D float numpy array",
+          "constraints": "length = len(y1) - 9",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "y2_len",
+          "type_desc": "int",
+          "constraints": "= len(y2)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(y1: 1-D float list) -> tuple[1-D float numpy array, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialise_adaptive_thresholds",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "initialise_adaptive_thresholds",
+      "description": "Seeds the adaptive upper (MM / Th) and lower (NN / ThNew) threshold arrays from the extrema of y2 over the first Miterate samples, providing starting references for the iterative QRS detector.",
+      "concept_type": "state_init",
+      "inputs": [
+        {
+          "name": "y2",
+          "type_desc": "1-D float numpy array",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Miterate",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmth",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmp",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MM",
+          "type_desc": "1-D float numpy array, length 3",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "MMidx",
+          "type_desc": "int",
+          "constraints": "= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Th",
+          "type_desc": "float",
+          "constraints": "= mean(MM)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NN",
+          "type_desc": "1-D float numpy array, length 2",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NNidx",
+          "type_desc": "int",
+          "constraints": "= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ThNew",
+          "type_desc": "float",
+          "constraints": "= mean(NN)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(y2: 1-D float numpy array, Miterate: int (samples), mmth: float, mmp: float) -> tuple[1-D float numpy array, length 3, int, float, 1-D float numpy array, length 2, int, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "update_adaptive_thresholds",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "update_adaptive_thresholds",
+      "description": "At each changeM-sample window boundary, recomputes the local extrema of y2 in the new window, clips runaway growth (cap at 1.5x previous value), and updates the rolling MM / NN buffers plus their scalar means Th / ThNew.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "y2",
+          "type_desc": "1-D float numpy array",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "y2_len",
+          "type_desc": "int",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "inc",
+          "type_desc": "int",
+          "constraints": ">= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "changeM",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Miterate",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v1500ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "MM",
+          "type_desc": "1-D float numpy array, length 3",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "MMidx",
+          "type_desc": "int",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NN",
+          "type_desc": "1-D float numpy array, length 2",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NNidx",
+          "type_desc": "int",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmth",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mmp",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MM",
+          "type_desc": "1-D float numpy array, length 3",
+          "constraints": "updated in-place",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "MMidx",
+          "type_desc": "int",
+          "constraints": "incremented mod 3",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NN",
+          "type_desc": "1-D float numpy array, length 2",
+          "constraints": "updated in-place",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "NNidx",
+          "type_desc": "int",
+          "constraints": "incremented mod 2",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Th",
+          "type_desc": "float",
+          "constraints": "= mean(MM)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ThNew",
+          "type_desc": "float",
+          "constraints": "= mean(NN)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "inc",
+          "type_desc": "int",
+          "constraints": "incremented by 1",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(y2: 1-D float numpy array, y2_len: int, inc: int, changeM: int (samples), Miterate: int (samples), v1500ms: int (samples), MM: 1-D float numpy array, length 3, MMidx: int, NN: 1-D float numpy array, length 2, NNidx: int, mmth: float, mmp: float) -> tuple[1-D float numpy array, length 3, int, 1-D float numpy array, length 2, int, float, float, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_threshold_crossing",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "find_threshold_crossing",
+      "description": "Locates the next positive-going threshold crossing (nthf+) in the current changeM-wide window of y2 by intersecting indices where y2 > Th with those where the next sample y2 < Th, returning the crossing index adjusted to the global timeline.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "y2",
+          "type_desc": "1-D float numpy array",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "Th",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "inc",
+          "type_desc": "int",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "changeM",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "err_kill",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nthfpluss",
+          "type_desc": "list of int",
+          "constraints": "may be empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rpeaks",
+          "type_desc": "list of int",
+          "constraints": "may be empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v250ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v1200ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "nthfplus",
+          "type_desc": "int (global sample index)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "crossing_found",
+          "type_desc": "bool",
+          "constraints": "False triggers window advance or termination",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "skip_beat",
+          "type_desc": "bool",
+          "constraints": "True if crossing is within refractory period",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(y2: 1-D float numpy array, Th: float, inc: int, changeM: int (samples), err_kill: int (samples), nthfpluss: list of int, rpeaks: list of int, v250ms: int (samples), v1200ms: int (samples)) -> tuple[int (global sample index), bool, bool]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_rpeak_in_window",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "detect_rpeak_in_window",
+      "description": "Given a confirmed threshold crossing, searches the subsequent 180 ms window for a run of at least p10ms consecutive samples below ThNew (hold condition), then pinpoints the R-peak as the maximum of the raw signal within that window (with a small rightward look-ahead of p20ms).",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D float array",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "y2",
+          "type_desc": "1-D float numpy array",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nthfplus",
+          "type_desc": "int (global sample index)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ThNew",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v180ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p10ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p20ms",
+          "type_desc": "int (samples)",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "y2_len",
+          "type_desc": "int",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeak_index",
+          "type_desc": "int or None",
+          "constraints": "global sample index; None if hold condition not met",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D float array, y2: 1-D float numpy array, nthfplus: int (global sample index), ThNew: float, v180ms: int (samples), p10ms: int (samples), p20ms: int (samples), y2_len: int) -> int or None",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deduplicate_and_sort_rpeaks",
+      "parent_id": "engzee_qrs_segmentation",
+      "name": "deduplicate_and_sort_rpeaks",
+      "description": "Removes duplicate R-peak indices accumulated across all windows, sorts them in ascending order, and converts the result to a typed integer NumPy array ready for output.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "list of int",
+          "constraints": "may contain duplicates",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "1-D int numpy array",
+          "constraints": "sorted, unique, dtype int",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(rpeaks: list of int) -> 1-D int numpy array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "differentiate_signal",
+      "output_name": "mmth",
+      "input_name": "mmth",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "initialise_adaptive_thresholds",
+      "output_name": "Miterate",
+      "input_name": "Miterate",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "initialise_adaptive_thresholds",
+      "output_name": "mmth",
+      "input_name": "mmth",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "initialise_adaptive_thresholds",
+      "output_name": "mmp",
+      "input_name": "mmp",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "changeM",
+      "input_name": "changeM",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "Miterate",
+      "input_name": "Miterate",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "v1500ms",
+      "input_name": "v1500ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "mmth",
+      "input_name": "mmth",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "mmp",
+      "input_name": "mmp",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "find_threshold_crossing",
+      "output_name": "changeM",
+      "input_name": "changeM",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "find_threshold_crossing",
+      "output_name": "err_kill",
+      "input_name": "err_kill",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "find_threshold_crossing",
+      "output_name": "v250ms",
+      "input_name": "v250ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "find_threshold_crossing",
+      "output_name": "v1200ms",
+      "input_name": "v1200ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "v180ms",
+      "input_name": "v180ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "p10ms",
+      "input_name": "p10ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_parameters",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "p20ms",
+      "input_name": "p20ms",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "differentiate_signal",
+      "target_id": "low_pass_filter_transform",
+      "output_name": "y1",
+      "input_name": "y1",
+      "source_type": "1-D float list",
+      "target_type": "1-D float list",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "initialise_adaptive_thresholds",
+      "output_name": "y2",
+      "input_name": "y2",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "y2",
+      "input_name": "y2",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "y2_len",
+      "input_name": "y2_len",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "find_threshold_crossing",
+      "output_name": "y2",
+      "input_name": "y2",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "y2",
+      "input_name": "y2",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "low_pass_filter_transform",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "y2_len",
+      "input_name": "y2_len",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "MM",
+      "input_name": "MM",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "MMidx",
+      "input_name": "MMidx",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "NN",
+      "input_name": "NN",
+      "source_type": "1-D float numpy array",
+      "target_type": "1-D float numpy array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "update_adaptive_thresholds",
+      "output_name": "NNidx",
+      "input_name": "NNidx",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "find_threshold_crossing",
+      "output_name": "Th",
+      "input_name": "Th",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_thresholds",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "ThNew",
+      "input_name": "ThNew",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "update_adaptive_thresholds",
+      "target_id": "find_threshold_crossing",
+      "output_name": "Th",
+      "input_name": "Th",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "update_adaptive_thresholds",
+      "target_id": "find_threshold_crossing",
+      "output_name": "inc",
+      "input_name": "inc",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "update_adaptive_thresholds",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "ThNew",
+      "input_name": "ThNew",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "find_threshold_crossing",
+      "target_id": "detect_rpeak_in_window",
+      "output_name": "nthfplus",
+      "input_name": "nthfplus",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_rpeak_in_window",
+      "target_id": "deduplicate_and_sort_rpeaks",
+      "output_name": "rpeak_index",
+      "input_name": "rpeaks",
+      "source_type": "int",
+      "target_type": "list of int",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "engzee_segmenter"
+  }
+}

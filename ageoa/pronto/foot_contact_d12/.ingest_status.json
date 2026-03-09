@@ -1,0 +1,17 @@
+{
+  "run_id": "e69cef87d13349959b3c90e45e2302de",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-atoms/third_party/pronto/pronto_biped_core/include/pronto_biped_core/foot_contact_classify.hpp",
+  "class_name": "FootContactClassifier",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772995467.163716,
+  "last_heartbeat_at": 1772995731.011692,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772995731.011692
+}

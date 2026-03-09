@@ -1,0 +1,30 @@
+{
+  "run_id": "1e976e2798b649baadaf8558c119f0f9",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "../ageo-atoms/third_party/quantfin/src/Quant/VolSurf.hs",
+  "class_name": "localVol",
+  "procedural": true,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 1,
+  "started_at": 1773070916.904522,
+  "last_heartbeat_at": 1773070917.095916,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773070917.095916,
+  "summary": {
+    "cdg_nodes": 6,
+    "cdg_edges": 0,
+    "matches": 5,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

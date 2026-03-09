@@ -1,0 +1,6 @@
+{
+  "run_id": "6830f642de06473e8bee304c31b05932",
+  "failed_at": 1772981877.74801,
+  "phase": "verify_types",
+  "error": "'StateEstimator' not found as class or function in ../ageo-atoms/third_party/pronto/pronto_core/src/state_est.cpp"
+}

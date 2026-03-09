@@ -1,0 +1,11 @@
+Ingesting procedural 'greedy_subgraph' from /Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/greedy_subgraph_vv.py
+
+Ingestion complete:
+  CDG: 1 nodes, 0 edges
+  Matches: 0
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/greedy_subgraph/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/greedy_subgraph/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/greedy_subgraph/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/greedy_subgraph/trace.jsonl

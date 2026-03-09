@@ -1,0 +1,2048 @@
+{
+  "nodes": [
+    {
+      "node_id": "q_solver_root",
+      "parent_id": null,
+      "name": "q_solver",
+      "description": "Ingested pipeline from q_solver",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "quantumsolverorchestrator",
+        "interactionboundscomputer",
+        "adiabaticpulseassembler",
+        "quantumcircuitsampler",
+        "quantumsolutionextractor"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "quantumsolverorchestrator",
+      "parent_id": "q_solver_root",
+      "name": "QuantumSolverOrchestrator",
+      "description": "Top-level entry point that wires together register construction, parameter bounds, pulse scheduling, quantum simulation, and solution extraction into a single end-to-end solver pipeline. Gates optional display output via display_info.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "graph",
+          "type_desc": "NetworkX-compatible graph encoding the MIS/QUBO problem",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "coordinates_layout",
+          "type_desc": "dict or array mapping node IDs to 2-D spatial coordinates",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "num_sol",
+          "type_desc": "int \u2014 number of top solutions to return",
+          "constraints": "num_sol >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "display_info",
+          "type_desc": "bool \u2014 whether to emit visualisation / diagnostic output",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "solutions",
+          "type_desc": "list of bitstring / node-set solutions ranked by frequency",
+          "constraints": "len == num_sol",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "count_dist",
+          "type_desc": "raw measurement count distribution forwarded for downstream inspection",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "extract_node_weights_and_ids",
+        "assemble_register_coordinates",
+        "optimise_register_bandwidth",
+        "compute_pulse_parameter_bounds",
+        "build_dmm_weight_map",
+        "route_and_run_quantum_simulation",
+        "rank_and_extract_solutions"
+      ],
+      "depth": 1,
+      "type_signature": "(graph: NetworkX-compatible graph encoding the MIS/QUBO problem, coordinates_layout: dict or array mapping node IDs to 2-D spatial coordinates, num_sol: int \u2014 number of top solutions to return, display_info: bool \u2014 whether to emit visualisation / diagnostic output) -> tuple[list of bitstring / node-set solutions ranked by frequency, raw measurement count distribution forwarded for downstream inspection]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ConditionalEndToEndPipelineOrchestrator. Composes a sequence of heterogeneous sub-transforms \u2014 structural encoding, constraint parameterization, temporal schedule construction, probabilistic state evolution, and argmax-ranked extraction \u2014 into a single callable facade that maps a combinatorial structure and its spatial embedding directly to an ordered set of candidate solutions. A boolean flag conditionally activates a side-effectful diagnostic emission branch without altering the primary data flow. The pipeline functions as a deterministic wiring layer: it owns no algorithmic logic itself but enforces execution order and data contracts across all constituent modules.. Applications: Computational chemistry \u2014 orchestrating a molecular conformation search pipeline where a bond-graph and 3-D atomic coordinate embedding are wired through energy minimization, constraint propagation, and Boltzmann-ranked conformer extraction, with optional structural visualization gated by a debug flag, Operations research / logistics \u2014 end-to-end solver facade for a graph-encoded vehicle routing or facility-location QUBO, composing distance-matrix construction, penalty parameterization, heuristic annealing, and ranked itinerary extraction into a single callable with optional diagnostic trace output, Epidemiological network modeling \u2014 pipeline entry point that accepts a contact-network graph with geospatial node coordinates, sequences compartmental model parameterization, stochastic simulation, and frequency-ranked outbreak trajectory extraction, conditionally emitting intervention visualizations, VLSI / circuit placement \u2014 orchestration layer that accepts a netlist hypergraph and die-floorplan coordinate map, chains capacitance-aware register construction, timing-constraint scheduling, placement simulation, and top-K ranked layout extraction, with optional routing-diagram output gated by a verbosity flag",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extract_node_weights_and_ids",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "extract_node_weights_and_ids",
+      "description": "Extract node weight attributes and ordered atom IDs from the graph, producing a weight array and an ordered list of atom identifiers for downstream register construction.",
+      "concept_type": "data_extraction",
+      "inputs": [
+        {
+          "name": "graph",
+          "type_desc": "NetworkX Graph",
+          "constraints": "nodes must have 'weight' attribute",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "array_weights_origin",
+          "type_desc": "np.ndarray[float]",
+          "constraints": "one entry per node, same order as atoms_id",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "atoms_id",
+          "type_desc": "list[node_id]",
+          "constraints": "ordered list matching weight keys",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(graph: NetworkX Graph) -> tuple[np.ndarray[float], list[node_id]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_register_coordinates",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "assemble_register_coordinates",
+      "description": "Filter the full coordinates_layout to retain only the entries whose trap IDs match atom IDs in the graph, then construct a Pulser Register from the matched coordinate dict.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "atoms_id",
+          "type_desc": "list[node_id]",
+          "constraints": "ordered atom identifiers",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "coordinates_layout",
+          "type_desc": "dict[node_id, (float,float)]",
+          "constraints": "superset of atoms_id keys",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reg",
+          "type_desc": "Register",
+          "constraints": "qubit positions match graph nodes",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "coord",
+          "type_desc": "dict[node_id, (float,float)]",
+          "constraints": "subset of coordinates_layout filtered to atoms_id",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(atoms_id: list[node_id], coordinates_layout: dict[node_id, (float,float)]) -> tuple[Register, dict[node_id, (float,float)]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "optimise_register_bandwidth",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "optimise_register_bandwidth",
+      "description": "Compute the reciprocal-distance interaction matrix for the register, apply bandwidth-minimisation to find an optimal qubit permutation, and reorder the register and weight array according to that permutation.",
+      "concept_type": "graph_optimization",
+      "inputs": [
+        {
+          "name": "reg",
+          "type_desc": "Register",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "array_weights_origin",
+          "type_desc": "np.ndarray[float]",
+          "constraints": "same length as register qubits",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opt_reg",
+          "type_desc": "Register",
+          "constraints": "qubits reordered by bandwidth-minimised permutation",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "list_perm",
+          "type_desc": "list[int]",
+          "constraints": "permutation indices",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "permuted_weights",
+          "type_desc": "list[float]",
+          "constraints": "weights reordered by list_perm",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(reg: Register, array_weights_origin: np.ndarray[float]) -> tuple[Register, list[int], list[float]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_pulse_parameter_bounds",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "compute_pulse_parameter_bounds",
+      "description": "Compute min/max inter-atomic interaction strengths from spatial coordinates and graph topology, then derive the detuning_maximum and amplitude_maximum pulse parameters.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "coord",
+          "type_desc": "dict[node_id, (float,float)]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "graph",
+          "type_desc": "NetworkX Graph",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "detuning_maximum",
+          "type_desc": "float",
+          "constraints": "2 \u00d7 interaction upper bound",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "amplitude_maximum",
+          "type_desc": "float",
+          "constraints": "equal to interaction upper bound",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(coord: dict[node_id, (float,float)], graph: NetworkX Graph) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_dmm_weight_map",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "build_dmm_weight_map",
+      "description": "Normalise permuted weights, compute the reversed (1 \u2212 w) DMM weight array, calculate the spread detuning from the minimum normalised weight, and package everything into the params dict ready for pulse scheduling.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "permuted_weights",
+          "type_desc": "list[float]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detuning_maximum",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "amplitude_maximum",
+          "type_desc": "float",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "opt_reg",
+          "type_desc": "Register",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "reg",
+          "type_desc": "Register",
+          "constraints": "used for small-atom-count branch",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "list_perm",
+          "type_desc": "list[int]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "params",
+          "type_desc": "dict",
+          "constraints": "keys: duration, detuning_maximum, amplitude_maximum, dmm_map, dmm_detuning",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "weights_rev",
+          "type_desc": "np.ndarray[float]",
+          "constraints": "values in [0,1], reversed weights",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(permuted_weights: list[float], detuning_maximum: float, amplitude_maximum: float, opt_reg: Register, reg: Register, list_perm: list[int]) -> tuple[dict, np.ndarray[float]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "route_and_run_quantum_simulation",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "route_and_run_quantum_simulation",
+      "description": "Branch on register size: for < 22 atoms run the statevector simulator; for \u2265 22 atoms run the MPS emulator. Returns the raw measurement count distribution from simple_quantum_loop.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "params",
+          "type_desc": "dict",
+          "constraints": "fully populated pulse params including dmm_map and dmm_detuning",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "reg",
+          "type_desc": "Register",
+          "constraints": "original register",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "opt_reg",
+          "type_desc": "Register",
+          "constraints": "bandwidth-optimised register",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "list_perm",
+          "type_desc": "list[int]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "weights_rev",
+          "type_desc": "np.ndarray[float]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "count_dist",
+          "type_desc": "dict[str, int]",
+          "constraints": "bitstring \u2192 shot count",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(params: dict, reg: Register, opt_reg: Register, list_perm: list[int], weights_rev: np.ndarray[float]) -> dict[str, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "rank_and_extract_solutions",
+      "parent_id": "quantumsolverorchestrator",
+      "name": "rank_and_extract_solutions",
+      "description": "Sort the raw count distribution by descending frequency, then call process_quantum_solution to decode the top-num_sol bitstrings into MWIS node-set solutions.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "count_dist",
+          "type_desc": "dict[str, int]",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "reg",
+          "type_desc": "Register",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "num_sol",
+          "type_desc": "int",
+          "constraints": "\u2265 1",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "solution",
+          "type_desc": "list[set | str]",
+          "constraints": "ranked by measurement frequency, length \u2264 num_sol",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "count_dist_sorted",
+          "type_desc": "dict[str, int]",
+          "constraints": "same data as count_dist, sorted descending",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(count_dist: dict[str, int], reg: Register, num_sol: int) -> tuple[list[set | str], dict[str, int]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "interactionboundscomputer",
+      "parent_id": "q_solver_root",
+      "name": "InteractionBoundsComputer",
+      "description": "Computes the minimum and maximum nearest-neighbour interaction strength U from the atom register coordinates and the graph topology, producing the physical parameter envelope needed to tune the adiabatic sequence.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "register_coord",
+          "type_desc": "array of (x, y) positions for each qubit in the register",
+          "constraints": "coordinates in micrometres",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "graph",
+          "type_desc": "problem graph whose edges define connected atom pairs",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u_min",
+          "type_desc": "float \u2014 minimum interaction energy U across all edges",
+          "constraints": "u_min > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "u_max",
+          "type_desc": "float \u2014 maximum interaction energy U across all edges",
+          "constraints": "u_max >= u_min",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "compute_connected_edge_distances",
+        "compute_u_min_from_connected_distances",
+        "compute_complementary_edge_distances",
+        "compute_u_max_from_disconnected_distances"
+      ],
+      "depth": 1,
+      "type_signature": "(register_coord: array of (x, y) positions for each qubit in the register, graph: problem graph whose edges define connected atom pairs) -> tuple[float \u2014 minimum interaction energy U across all edges, float \u2014 maximum interaction energy U across all edges]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "EdgeWeightedPairwiseExtremaExtractor. Given a set of N points embedded in 2D Euclidean space and a graph topology defining which point-pairs are structurally related, this operation computes a monotonic scalar function (inverse-power of pairwise Euclidean distance) over all edges and extracts the global minimum and maximum of that scalar field. The result collapses the full edge-weight distribution into a two-element bounding envelope, projecting an N\u00d7N relational tensor down to a scalar range [f_min, f_max] that characterizes the spread of pairwise interaction intensities across the defined topology.. Applications: Wireless sensor network calibration: given sensor node coordinates and a communication-graph topology, extract the minimum and maximum signal-attenuation bounds across active links to set adaptive transmission power envelopes, Molecular dynamics force-field parameterization: given atom 3D coordinates and a bond-graph, compute the min/max pairwise van-der-Waals or Lennard-Jones potential across bonded pairs to bound the energy landscape before integrator time-step selection, Urban infrastructure resilience planning: given geospatial coordinates of facilities (e.g., substations, hospitals) and a dependency graph, extract the min/max proximity-based coupling strength to identify the tightest and loosest structural dependencies for cascading-failure analysis, Manifold learning pre-processing: given a point cloud embedded in 2D (or any low-dimensional projection) and a k-NN graph, compute the edge-weight extrema to set the bandwidth parameter \u03c3 of a kernel (e.g., Gaussian) before constructing a diffusion map or spectral embedding",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_connected_edge_distances",
+      "parent_id": "interactionboundscomputer",
+      "name": "compute_connected_edge_distances",
+      "description": "Iterates over all edges in the problem graph, retrieves the (x, y) coordinates of each endpoint from the register, and computes the Euclidean distance for every connected atom pair.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "register_coord",
+          "type_desc": "dict/array of (x, y) tuples indexed by node id",
+          "constraints": "must contain entries for every node in graph",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "graph",
+          "type_desc": "networkx.Graph",
+          "constraints": "edges define connected atom pairs",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "distance_list_connected",
+          "type_desc": "list of float",
+          "constraints": "non-empty; one entry per edge in graph",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(register_coord: dict/array of (x, y) tuples indexed by node id, graph: networkx.Graph) -> list of float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_u_min_from_connected_distances",
+      "parent_id": "interactionboundscomputer",
+      "name": "compute_u_min_from_connected_distances",
+      "description": "Derives the minimum interaction energy U_min by applying the van-der-Waals interaction law U = C / r^6 to the maximum pairwise distance among connected edges, using the device interaction coefficient.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "distance_list_connected",
+          "type_desc": "list of float",
+          "constraints": "non-empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "interaction_coefficient",
+          "type_desc": "float",
+          "constraints": "positive physical constant from DigitalAnalogDevice",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u_min",
+          "type_desc": "float",
+          "constraints": "positive; minimum interaction energy across connected pairs",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(distance_list_connected: list of float, interaction_coefficient: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_complementary_edge_distances",
+      "parent_id": "interactionboundscomputer",
+      "name": "compute_complementary_edge_distances",
+      "description": "Constructs the complement of the problem graph (edges between non-connected atoms), retrieves the (x, y) coordinates for each complementary edge's endpoints, and computes the Euclidean distance for every disconnected atom pair.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "register_coord",
+          "type_desc": "dict/array of (x, y) tuples indexed by node id",
+          "constraints": "must contain entries for every node in graph",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "graph",
+          "type_desc": "networkx.Graph",
+          "constraints": "used to derive its complement",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "distance_list_no_connected",
+          "type_desc": "list of float",
+          "constraints": "non-empty; one entry per edge in complement graph",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(register_coord: dict/array of (x, y) tuples indexed by node id, graph: networkx.Graph) -> list of float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_u_max_from_disconnected_distances",
+      "parent_id": "interactionboundscomputer",
+      "name": "compute_u_max_from_disconnected_distances",
+      "description": "Derives the maximum interaction energy U_max by applying the van-der-Waals interaction law U = C / r^6 to the minimum pairwise distance among non-connected edges, using the device interaction coefficient.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "distance_list_no_connected",
+          "type_desc": "list of float",
+          "constraints": "non-empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "interaction_coefficient",
+          "type_desc": "float",
+          "constraints": "positive physical constant from DigitalAnalogDevice",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u_max",
+          "type_desc": "float",
+          "constraints": "positive; maximum interaction energy across disconnected pairs",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(distance_list_no_connected: list of float, interaction_coefficient: float) -> float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "adiabaticpulseassembler",
+      "parent_id": "q_solver_root",
+      "name": "AdiabaticPulseAssembler",
+      "description": "Constructs the time-dependent adiabatic pulse sequence (Omega, delta ramps) for the neutral-atom device given the register layout and physical parameters derived from U bounds. Returns an immutable pulse-schedule object consumed by the simulation runner.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "register",
+          "type_desc": "Pulser Register object defining qubit positions",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "parameters",
+          "type_desc": "dict containing u_min, u_max, and sweep duration / resolution settings",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "adiabatic_sequence",
+          "type_desc": "Pulser Sequence object encoding the full adiabatic schedule",
+          "constraints": "ready to pass to emulator or hardware",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "resolve_detuning_boundaries",
+        "build_detuning_map",
+        "construct_rydberg_waveforms",
+        "assemble_rydberg_pulse",
+        "construct_dmm_waveform",
+        "compose_pulse_sequence"
+      ],
+      "depth": 1,
+      "type_signature": "(register: Pulser Register object defining qubit positions, parameters: dict containing u_min, u_max, and sweep duration / resolution settings) -> Pulser Sequence object encoding the full adiabatic schedule",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "BoundedRampScheduleAssembler. Transforms a set of spatial node coordinates and a scalar boundary interval [min, max] into a time-indexed, dual-channel control schedule by constructing monotonically-varying ramp functions (one amplitude envelope, one frequency-offset sweep) whose endpoints are anchored to the derived scalar bounds. The assembled schedule is a read-only, discretized trajectory object that maps each time step to a pair of continuous scalar control values, encoding a smooth transition from an initial configuration to a target configuration across a fixed temporal horizon. The construction is deterministic and injective: identical inputs always yield the same immutable schedule object, which serves as a self-contained execution manifest for a downstream simulation or physical actuator.. Applications: Robotic motion planning: given a set of joint-space waypoints (node positions) and velocity/torque limits derived from kinematic bounds, assemble a time-indexed dual-channel trajectory (position ramp + velocity ramp) as an immutable motion primitive passed to a real-time motor controller, Climate/environmental control systems: given a spatial grid of sensor node coordinates and temperature extrema bounds, construct a time-discretized dual-channel schedule (heating power ramp + ventilation offset ramp) that smoothly transitions an enclosure from an initial thermal state to a target state over a fixed time window, MRI / medical imaging pulse sequence design: given coil geometry coordinates and SAR (specific absorption rate) scalar bounds, assemble an immutable RF amplitude ramp paired with a gradient frequency-offset sweep schedule to drive a spin ensemble adiabatically from ground to excited state without energy overshoot, Financial scenario stress-testing: given a portfolio of N asset positions (coordinates in risk-factor space) and volatility bounds derived from historical extrema, construct a deterministic dual-channel time schedule (exposure ramp + hedging offset sweep) that encodes a smooth stress-path trajectory consumed by a Monte Carlo simulation engine",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolve_detuning_boundaries",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "resolve_detuning_boundaries",
+      "description": "Derives the initial and final detuning ramp endpoints (delta_0, delta_f) from the maximum detuning parameter, establishing the symmetric sweep range for the adiabatic schedule.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "parameters",
+          "type_desc": "dict",
+          "constraints": "must contain 'detuning_maximum' key with a positive float",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "delta_0",
+          "type_desc": "float",
+          "constraints": "negative of detuning_maximum",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delta_f",
+          "type_desc": "float",
+          "constraints": "positive mirror of delta_0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(parameters: dict) -> tuple[float, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_detuning_map",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "build_detuning_map",
+      "description": "Constructs the spatial detuning map from the register geometry and the DMM weight mask, binding qubit positions to local detuning amplitudes for the DMM channel.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "register",
+          "type_desc": "Pulser Register",
+          "constraints": "must have define_detuning_map method",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "parameters",
+          "type_desc": "dict",
+          "constraints": "must contain 'dmm_map' key with a valid weight mapping",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "detuning_map",
+          "type_desc": "Pulser DetuningMap",
+          "constraints": "spatially resolved weight map for the DMM channel",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(register: Pulser Register, parameters: dict) -> Pulser DetuningMap",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "construct_rydberg_waveforms",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "construct_rydberg_waveforms",
+      "description": "Builds the interpolated amplitude and detuning waveforms for the global Rydberg channel using the fixed duration, omega breakpoints, and delta breakpoints that define the shaped adiabatic ramp.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "duration",
+          "type_desc": "int",
+          "constraints": "fixed at 4000 ns",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "omega_list",
+          "type_desc": "list[float]",
+          "constraints": "5-point amplitude breakpoints in rad/\u00b5s, must start and end near zero",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delta_list",
+          "type_desc": "list[float]",
+          "constraints": "5-point detuning breakpoints in rad/\u00b5s",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "amp_waveform",
+          "type_desc": "InterpolatedWaveform",
+          "constraints": "amplitude envelope over [0, duration]",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "det_waveform",
+          "type_desc": "InterpolatedWaveform",
+          "constraints": "detuning sweep over [0, duration]",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(duration: int, omega_list: list[float], delta_list: list[float]) -> tuple[InterpolatedWaveform, InterpolatedWaveform]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_rydberg_pulse",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "assemble_rydberg_pulse",
+      "description": "Packages the amplitude and detuning waveforms together with zero phase into a single Pulse object representing one complete adiabatic drive on the global Rydberg channel.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "amp_waveform",
+          "type_desc": "InterpolatedWaveform",
+          "constraints": "amplitude envelope",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "det_waveform",
+          "type_desc": "InterpolatedWaveform",
+          "constraints": "detuning sweep",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rydberg_pulse",
+          "type_desc": "Pulser Pulse",
+          "constraints": "phase fixed at 0, duration consistent between amp and det waveforms",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(amp_waveform: InterpolatedWaveform, det_waveform: InterpolatedWaveform) -> Pulser Pulse",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "construct_dmm_waveform",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "construct_dmm_waveform",
+      "description": "Creates a constant-valued DMM detuning waveform of the required duration, encoding the uniform local detuning offset applied to all atoms weighted by the detuning map.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "duration",
+          "type_desc": "int",
+          "constraints": "must match Rydberg pulse duration (4000 ns)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "parameters",
+          "type_desc": "dict",
+          "constraints": "must contain 'dmm_detuning' key with a float value",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dmm_waveform",
+          "type_desc": "ConstantWaveform",
+          "constraints": "flat waveform over [0, duration] at dmm_detuning amplitude",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(duration: int, parameters: dict) -> ConstantWaveform",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compose_pulse_sequence",
+      "parent_id": "adiabaticpulseassembler",
+      "name": "compose_pulse_sequence",
+      "description": "Initialises a Pulser Sequence on the mock device, declares and configures the global Rydberg and DMM channels, then appends the Rydberg pulse and DMM detuning waveform to produce the complete, immutable adiabatic pulse schedule.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "register",
+          "type_desc": "Pulser Register",
+          "constraints": "same register used for detuning map construction",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rydberg_pulse",
+          "type_desc": "Pulser Pulse",
+          "constraints": "assembled global Rydberg pulse",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "detuning_map",
+          "type_desc": "Pulser DetuningMap",
+          "constraints": "spatially resolved DMM weight map",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dmm_waveform",
+          "type_desc": "ConstantWaveform",
+          "constraints": "constant DMM detuning waveform",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "channel_name",
+          "type_desc": "str",
+          "constraints": "must equal 'rydberg_global'",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dmm_channel_name",
+          "type_desc": "str",
+          "constraints": "must equal 'dmm_0'",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "adiabatic_sequence",
+          "type_desc": "Pulser Sequence",
+          "constraints": "fully configured, immutable schedule ready for simulation",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(register: Pulser Register, rydberg_pulse: Pulser Pulse, detuning_map: Pulser DetuningMap, dmm_waveform: ConstantWaveform, channel_name: str, dmm_channel_name: str) -> Pulser Sequence",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "quantumcircuitsampler",
+      "parent_id": "q_solver_root",
+      "name": "QuantumCircuitSampler",
+      "description": "Executes the adiabatic sequence on the selected quantum backend (QuTiP, EMU-MPS, or state-vector) and returns raw bitstring count distributions. Backend selection is config-gated; each backend path is independently optional.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "parameters",
+          "type_desc": "dict wrapping the adiabatic_sequence and any sweep/shot settings",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "register",
+          "type_desc": "Pulser Register object",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "list_perm",
+          "type_desc": "list of permutation indices for ensemble averaging",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_qutip",
+          "type_desc": "bool \u2014 enable QuTiP master-equation backend",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_emu_mps",
+          "type_desc": "bool \u2014 enable EMU-MPS tensor-network backend",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_sv",
+          "type_desc": "bool \u2014 enable exact state-vector backend",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "count_dist",
+          "type_desc": "dict[bitstring, int] \u2014 aggregated measurement counts across shots and permutations",
+          "constraints": "sum of counts == total shots",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "build_adiabatic_sequence",
+        "run_qutip_backend",
+        "compute_simulation_timeline",
+        "run_sv_backend",
+        "run_emu_mps_backend",
+        "reorder_bitstrings_by_permutation"
+      ],
+      "depth": 1,
+      "type_signature": "(parameters: dict wrapping the adiabatic_sequence and any sweep/shot settings, register: Pulser Register object, list_perm: list of permutation indices for ensemble averaging, run_qutip: bool \u2014 enable QuTiP master-equation backend, run_emu_mps: bool \u2014 enable EMU-MPS tensor-network backend, run_sv: bool \u2014 enable exact state-vector backend) -> dict[bitstring, int] \u2014 aggregated measurement counts across shots and permutations",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "StochasticMultiBackendEnsembleSampler. Executes a parameterized sequential state-evolution protocol across one or more interchangeable computational backends, each implementing a distinct numerical approximation of the same underlying dynamics, and aggregates the resulting discrete outcome distributions across multiple permuted ensemble trials into a single frequency histogram. The transform maps a continuous parameter configuration and a discrete structural topology onto a probability mass function over a finite binary outcome space, where the final distribution is the superposition of counts from all active backend-permutation pairs. Backend selection is governed by boolean control flags, making the execution graph conditionally sparse and independently reproducible per pathway.. Applications: Statistical Mechanics / Materials Science: Sampling equilibrium configurations of a spin-lattice or Ising-type Hamiltonian across multiple numerical solvers (exact diagonalization, DMRG tensor-network, mean-field) and aggregating resulting magnetization-state histograms to estimate thermodynamic observables and phase-boundary probabilities, Computational Neuroscience: Simulating a recurrent spiking neural network under different numerical integration backends (Euler, Runge-Kutta, event-driven) with ensemble-averaged neuron-index permutations to produce spike-pattern frequency distributions used to estimate network attractor basins, Combinatorial Optimization / Operations Research: Running a stochastic annealing or evolutionary schedule over a graph-structured feasibility problem across multiple solver backends (greedy, branch-and-bound, heuristic), aggregating solution bitstring counts to empirically estimate the solution landscape and identify high-probability near-optimal configurations, Epidemiological Modeling: Executing a discrete-time contagion-spread protocol over a contact-network topology across multiple simulation engines (agent-based, compartmental ODE, network-SIR), with node-relabeling permutations for ensemble robustness, and collecting aggregated infected/susceptible binary state vectors to form an empirical outbreak-pattern distribution",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_adiabatic_sequence",
+      "parent_id": "quantumcircuitsampler",
+      "name": "build_adiabatic_sequence",
+      "description": "Compiles the register layout and variational parameters into a concrete Pulser adiabatic sequence object ready for simulation.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "register",
+          "type_desc": "pulser.Register",
+          "constraints": "valid atom layout",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "parameters",
+          "type_desc": "dict",
+          "constraints": "must contain all fields expected by simple_adiabatic_sequence",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seq",
+          "type_desc": "pulser.Sequence",
+          "constraints": "fully-specified, drawable sequence",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(register: pulser.Register, parameters: dict) -> pulser.Sequence",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "run_qutip_backend",
+      "parent_id": "quantumcircuitsampler",
+      "name": "run_qutip_backend",
+      "description": "Integrates the master equation with QuTiP, then draws 5000 samples from the final density-matrix state to produce a bitstring count distribution.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "seq",
+          "type_desc": "pulser.Sequence",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_qutip",
+          "type_desc": "bool",
+          "constraints": "must be True to execute this path",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_samples",
+          "type_desc": "int",
+          "constraints": "default 5000",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "counts_qutip",
+          "type_desc": "dict[str, int]",
+          "constraints": "non-empty when run_qutip=True, else None",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(seq: pulser.Sequence, run_qutip: bool, n_samples: int) -> dict[str, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_simulation_timeline",
+      "parent_id": "quantumcircuitsampler",
+      "name": "compute_simulation_timeline",
+      "description": "Derives the discrete time grid (dt, seq_duration, eval_times, final_time) shared by the state-vector and EMU-MPS backends from the sequence duration.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "seq",
+          "type_desc": "pulser.Sequence",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dt",
+          "type_desc": "int",
+          "constraints": "positive integer step size in ns, default 10",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seq_duration",
+          "type_desc": "int",
+          "constraints": "rounded-down multiple of dt",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "eval_times",
+          "type_desc": "list[float]",
+          "constraints": "normalised values in (0,1)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "final_time",
+          "type_desc": "float",
+          "constraints": "last element of eval_times, < 1.0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(seq: pulser.Sequence, dt: int) -> tuple[int, list[float], float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "run_sv_backend",
+      "parent_id": "quantumcircuitsampler",
+      "name": "run_sv_backend",
+      "description": "Configures and executes the exact state-vector simulator with the derived time grid, then samples 5000 bitstrings from the final statevector.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "seq",
+          "type_desc": "pulser.Sequence",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_sv",
+          "type_desc": "bool",
+          "constraints": "must be True to execute this path",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dt",
+          "type_desc": "int",
+          "constraints": "positive integer ns",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "final_time",
+          "type_desc": "float",
+          "constraints": "normalised time in (0,1)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_samples",
+          "type_desc": "int",
+          "constraints": "default 5000",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "counts_sv",
+          "type_desc": "dict[str, int]",
+          "constraints": "non-empty when run_sv=True, else None",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(seq: pulser.Sequence, run_sv: bool, dt: int, final_time: float, n_samples: int) -> dict[str, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "run_emu_mps_backend",
+      "parent_id": "quantumcircuitsampler",
+      "name": "run_emu_mps_backend",
+      "description": "Configures and executes the EMU-MPS tensor-network simulator (bond-dim 200) with the derived time grid, then extracts raw bitstring counts at the final evaluation time.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "seq",
+          "type_desc": "pulser.Sequence",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "run_emu_mps",
+          "type_desc": "bool",
+          "constraints": "must be True to execute this path",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dt",
+          "type_desc": "int",
+          "constraints": "positive integer ns",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "final_time",
+          "type_desc": "float",
+          "constraints": "normalised time in (0,1)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_shots",
+          "type_desc": "int",
+          "constraints": "default 5000",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_bond_dim",
+          "type_desc": "int",
+          "constraints": "default 200",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "counts_mps_raw",
+          "type_desc": "dict[str, int]",
+          "constraints": "bitstring keys in original register ordering; non-empty when run_emu_mps=True, else None",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(seq: pulser.Sequence, run_emu_mps: bool, dt: int, final_time: float, n_shots: int, max_bond_dim: int) -> dict[str, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "reorder_bitstrings_by_permutation",
+      "parent_id": "quantumcircuitsampler",
+      "name": "reorder_bitstrings_by_permutation",
+      "description": "Applies the inverse of list_perm to every bitstring key returned by the MPS backend so that qubit indices correspond to the canonical problem ordering.",
+      "concept_type": "combinatorics",
+      "inputs": [
+        {
+          "name": "counts_mps_raw",
+          "type_desc": "dict[str, int]",
+          "constraints": "keys are bitstrings of length == len(list_perm)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "list_perm",
+          "type_desc": "list[int]",
+          "constraints": "valid permutation indices",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "counts_mps",
+          "type_desc": "dict[str, int]",
+          "constraints": "same total count, keys reordered to canonical qubit labelling",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(counts_mps_raw: dict[str, int], list_perm: list[int]) -> dict[str, int]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "quantumsolutionextractor",
+      "parent_id": "q_solver_root",
+      "name": "QuantumSolutionExtractor",
+      "description": "Post-processes the raw measurement count distribution to decode, rank, and filter the top-k bitstring solutions corresponding to valid independent sets (or QUBO ground states), mapping them back to the original graph node labelling.",
+      "concept_type": "data_extraction",
+      "inputs": [
+        {
+          "name": "count_dist",
+          "type_desc": "dict[bitstring, int] \u2014 raw measurement counts from the sampler",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "register",
+          "type_desc": "Pulser Register \u2014 used for node-index to qubit-index mapping",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "num_solutions",
+          "type_desc": "int \u2014 number of top solutions to extract",
+          "constraints": "num_solutions >= 1",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "solutions",
+          "type_desc": "list of node-set dicts ranked by measurement frequency",
+          "constraints": "len == num_solutions",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "solution_counts",
+          "type_desc": "list of int \u2014 occurrence counts corresponding to each solution",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(count_dist: dict[bitstring, int] \u2014 raw measurement counts from the sampler, register: Pulser Register \u2014 used for node-index to qubit-index mapping, num_solutions: int \u2014 number of top solutions to extract) -> tuple[list of node-set dicts ranked by measurement frequency, list of int \u2014 occurrence counts corresponding to each solution]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "FrequencyRankedTopKDecoder. Transforms a raw empirical frequency distribution over a discrete combinatorial symbol space (bitstrings) into a ranked, filtered, and semantically re-labeled subset of the k most probable feasible configurations. The operation applies a validity predicate to prune infeasible configurations, sorts survivors by descending observation frequency, and then applies an index-relabeling bijection to map internal symbolic indices back to the original external identifier namespace. The result is a lossy compression of the full distribution that retains only the highest-frequency, constraint-satisfying points, annotated with their original structural context.. Applications: Genomics / variant calling: given a multiset of observed read alignment patterns (bitstrings encoding SNP presence/absence across loci), extract the top-k most frequently observed haplotype configurations that satisfy biological feasibility constraints (e.g., Hardy-Weinberg consistency), remapping internal read indices back to chromosome position labels, Combinatorial optimization / scheduling: after stochastic local search or simulated annealing produces a histogram of visited assignment vectors, decode and rank the top-k feasible schedules (satisfying resource or precedence constraints) and re-label internal slot indices back to human-readable job/machine identifiers, Natural language processing / beam decoding: given a count distribution over discrete token-sequence samples from a language model, filter sequences satisfying a structural grammar predicate, rank by empirical frequency, and remap internal vocabulary integer IDs back to surface-form string tokens for the top-k outputs, Sensor fusion / fault detection: given a distribution of binary system-state snapshots (each bit encoding a sensor's alarm status) collected over a monitoring window, extract the k most frequently occurring fault-pattern configurations that match known failure-mode signatures, remapping bit positions back to physical sensor identifiers in the engineering schematic",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "extract_node_weights_and_ids",
+      "target_id": "assemble_register_coordinates",
+      "output_name": "atoms_id",
+      "input_name": "atoms_id",
+      "source_type": "list[node_id]",
+      "target_type": "list[node_id]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_node_weights_and_ids",
+      "target_id": "optimise_register_bandwidth",
+      "output_name": "array_weights_origin",
+      "input_name": "array_weights_origin",
+      "source_type": "np.ndarray[float]",
+      "target_type": "np.ndarray[float]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_register_coordinates",
+      "target_id": "optimise_register_bandwidth",
+      "output_name": "reg",
+      "input_name": "reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_register_coordinates",
+      "target_id": "compute_pulse_parameter_bounds",
+      "output_name": "coord",
+      "input_name": "coord",
+      "source_type": "dict[node_id, (float,float)]",
+      "target_type": "dict[node_id, (float,float)]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimise_register_bandwidth",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "opt_reg",
+      "input_name": "opt_reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimise_register_bandwidth",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "list_perm",
+      "input_name": "list_perm",
+      "source_type": "list[int]",
+      "target_type": "list[int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimise_register_bandwidth",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "permuted_weights",
+      "input_name": "permuted_weights",
+      "source_type": "list[float]",
+      "target_type": "list[float]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimise_register_bandwidth",
+      "target_id": "route_and_run_quantum_simulation",
+      "output_name": "list_perm",
+      "input_name": "list_perm",
+      "source_type": "list[int]",
+      "target_type": "list[int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimise_register_bandwidth",
+      "target_id": "route_and_run_quantum_simulation",
+      "output_name": "opt_reg",
+      "input_name": "opt_reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_pulse_parameter_bounds",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "detuning_maximum",
+      "input_name": "detuning_maximum",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_pulse_parameter_bounds",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "amplitude_maximum",
+      "input_name": "amplitude_maximum",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_register_coordinates",
+      "target_id": "build_dmm_weight_map",
+      "output_name": "reg",
+      "input_name": "reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_dmm_weight_map",
+      "target_id": "route_and_run_quantum_simulation",
+      "output_name": "params",
+      "input_name": "params",
+      "source_type": "dict",
+      "target_type": "dict",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_dmm_weight_map",
+      "target_id": "route_and_run_quantum_simulation",
+      "output_name": "weights_rev",
+      "input_name": "weights_rev",
+      "source_type": "np.ndarray[float]",
+      "target_type": "np.ndarray[float]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_register_coordinates",
+      "target_id": "route_and_run_quantum_simulation",
+      "output_name": "reg",
+      "input_name": "reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "route_and_run_quantum_simulation",
+      "target_id": "rank_and_extract_solutions",
+      "output_name": "count_dist",
+      "input_name": "count_dist",
+      "source_type": "dict[str, int]",
+      "target_type": "dict[str, int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_register_coordinates",
+      "target_id": "rank_and_extract_solutions",
+      "output_name": "reg",
+      "input_name": "reg",
+      "source_type": "Register",
+      "target_type": "Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_connected_edge_distances",
+      "target_id": "compute_u_min_from_connected_distances",
+      "output_name": "distance_list_connected",
+      "input_name": "distance_list_connected",
+      "source_type": "list of float",
+      "target_type": "list of float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_complementary_edge_distances",
+      "target_id": "compute_u_max_from_disconnected_distances",
+      "output_name": "distance_list_no_connected",
+      "input_name": "distance_list_no_connected",
+      "source_type": "list of float",
+      "target_type": "list of float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_detuning_boundaries",
+      "target_id": "assemble_rydberg_pulse",
+      "output_name": "delta_0",
+      "input_name": "delta_0",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_detuning_boundaries",
+      "target_id": "assemble_rydberg_pulse",
+      "output_name": "delta_f",
+      "input_name": "delta_f",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_detuning_map",
+      "target_id": "compose_pulse_sequence",
+      "output_name": "detuning_map",
+      "input_name": "detuning_map",
+      "source_type": "Pulser DetuningMap",
+      "target_type": "Pulser DetuningMap",
+      "requires_glue": false
+    },
+    {
+      "source_id": "construct_rydberg_waveforms",
+      "target_id": "assemble_rydberg_pulse",
+      "output_name": "amp_waveform",
+      "input_name": "amp_waveform",
+      "source_type": "InterpolatedWaveform",
+      "target_type": "InterpolatedWaveform",
+      "requires_glue": false
+    },
+    {
+      "source_id": "construct_rydberg_waveforms",
+      "target_id": "assemble_rydberg_pulse",
+      "output_name": "det_waveform",
+      "input_name": "det_waveform",
+      "source_type": "InterpolatedWaveform",
+      "target_type": "InterpolatedWaveform",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemble_rydberg_pulse",
+      "target_id": "compose_pulse_sequence",
+      "output_name": "rydberg_pulse",
+      "input_name": "rydberg_pulse",
+      "source_type": "Pulser Pulse",
+      "target_type": "Pulser Pulse",
+      "requires_glue": false
+    },
+    {
+      "source_id": "construct_dmm_waveform",
+      "target_id": "compose_pulse_sequence",
+      "output_name": "dmm_waveform",
+      "input_name": "dmm_waveform",
+      "source_type": "ConstantWaveform",
+      "target_type": "ConstantWaveform",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_adiabatic_sequence",
+      "target_id": "run_qutip_backend",
+      "output_name": "seq",
+      "input_name": "seq",
+      "source_type": "pulser.Sequence",
+      "target_type": "pulser.Sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_adiabatic_sequence",
+      "target_id": "compute_simulation_timeline",
+      "output_name": "seq",
+      "input_name": "seq",
+      "source_type": "pulser.Sequence",
+      "target_type": "pulser.Sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_adiabatic_sequence",
+      "target_id": "run_sv_backend",
+      "output_name": "seq",
+      "input_name": "seq",
+      "source_type": "pulser.Sequence",
+      "target_type": "pulser.Sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_adiabatic_sequence",
+      "target_id": "run_emu_mps_backend",
+      "output_name": "seq",
+      "input_name": "seq",
+      "source_type": "pulser.Sequence",
+      "target_type": "pulser.Sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_simulation_timeline",
+      "target_id": "run_sv_backend",
+      "output_name": "final_time",
+      "input_name": "final_time",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_simulation_timeline",
+      "target_id": "run_sv_backend",
+      "output_name": "seq_duration",
+      "input_name": "dt",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_simulation_timeline",
+      "target_id": "run_emu_mps_backend",
+      "output_name": "final_time",
+      "input_name": "final_time",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_simulation_timeline",
+      "target_id": "run_emu_mps_backend",
+      "output_name": "seq_duration",
+      "input_name": "dt",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "run_emu_mps_backend",
+      "target_id": "reorder_bitstrings_by_permutation",
+      "output_name": "counts_mps_raw",
+      "input_name": "counts_mps_raw",
+      "source_type": "dict[str, int]",
+      "target_type": "dict[str, int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "interactionboundscomputer",
+      "output_name": "register_coord",
+      "input_name": "register_coord",
+      "source_type": "array of (x,y) coords derived from coordinates_layout",
+      "target_type": "array of (x,y) coords",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "interactionboundscomputer",
+      "output_name": "graph",
+      "input_name": "graph",
+      "source_type": "problem graph",
+      "target_type": "problem graph",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "adiabaticpulseassembler",
+      "output_name": "register",
+      "input_name": "register",
+      "source_type": "Pulser Register",
+      "target_type": "Pulser Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "interactionboundscomputer",
+      "target_id": "adiabaticpulseassembler",
+      "output_name": "u_min",
+      "input_name": "parameters.u_min",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "interactionboundscomputer",
+      "target_id": "adiabaticpulseassembler",
+      "output_name": "u_max",
+      "input_name": "parameters.u_max",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "adiabaticpulseassembler",
+      "target_id": "quantumcircuitsampler",
+      "output_name": "adiabatic_sequence",
+      "input_name": "parameters.adiabatic_sequence",
+      "source_type": "Pulser Sequence",
+      "target_type": "Pulser Sequence (wrapped in parameters dict)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "quantumcircuitsampler",
+      "output_name": "register",
+      "input_name": "register",
+      "source_type": "Pulser Register",
+      "target_type": "Pulser Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumcircuitsampler",
+      "target_id": "quantumsolutionextractor",
+      "output_name": "count_dist",
+      "input_name": "count_dist",
+      "source_type": "dict[bitstring, int]",
+      "target_type": "dict[bitstring, int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "quantumsolutionextractor",
+      "output_name": "register",
+      "input_name": "register",
+      "source_type": "Pulser Register",
+      "target_type": "Pulser Register",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolverorchestrator",
+      "target_id": "quantumsolutionextractor",
+      "output_name": "num_sol",
+      "input_name": "num_solutions",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "quantumsolutionextractor",
+      "target_id": "quantumsolverorchestrator",
+      "output_name": "solutions",
+      "input_name": "solutions",
+      "source_type": "list of node-set dicts",
+      "target_type": "list of node-set dicts (final output)",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "q_solver"
+  }
+}

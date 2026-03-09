@@ -1,0 +1,11 @@
+Ingesting procedural 'posterior_canon' from /Users/conrad/personal/ageo-atoms/third_party/ConjugatePriors.jl/src/beta_binom.jl
+
+Ingestion complete:
+  CDG: 3 nodes, 0 edges
+  Matches: 2
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/beta_binom/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/beta_binom/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/beta_binom/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/conjugate_priors/beta_binom/trace.jsonl

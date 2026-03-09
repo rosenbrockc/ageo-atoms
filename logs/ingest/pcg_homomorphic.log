@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['custom', 'signal_filter', 'signal_transform']
+Ingesting class 'homomorphic_filter' from /Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/pcg.py
+
+Ingestion complete:
+  CDG: 7 nodes, 5 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/pcg_homomorphic/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/pcg_homomorphic/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/pcg_homomorphic/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/pcg_homomorphic/trace.jsonl

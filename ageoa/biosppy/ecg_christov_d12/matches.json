@@ -1,0 +1,464 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_timing_parameters",
+      "statement": "(sampling_rate: positive float) -> tuple[positive int, positive int, positive int, positive int, positive int, positive int, float]",
+      "informal_desc": "Convert time-window constants (100ms, 50ms, 200ms, 300ms, 350ms, 1200ms) from milliseconds to sample counts based on sampling_rate, and set algorithm scalar constants (M_th).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_timing_parameters",
+          "type_signature": "(sampling_rate: positive float) -> tuple[positive int, positive int, positive int, positive int, positive int, positive int, float]",
+          "docstring": "Convert time-window constants (100ms, 50ms, 200ms, 300ms, 350ms, 1200ms) from milliseconds to sample counts based on sampling_rate, and set algorithm scalar constants (M_th).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_timing_parameters",
+          "type_signature": "(sampling_rate: positive float) -> tuple[positive int, positive int, positive int, positive int, positive int, positive int, float]",
+          "docstring": "Convert time-window constants (100ms, 50ms, 200ms, 300ms, 350ms, 1200ms) from milliseconds to sample counts based on sampling_rate, and set algorithm scalar constants (M_th).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_timing_parameters",
+            "type_signature": "(sampling_rate: positive float) -> tuple[positive int, positive int, positive int, positive int, positive int, positive int, float]",
+            "docstring": "Convert time-window constants (100ms, 50ms, 200ms, 300ms, 350ms, 1200ms) from milliseconds to sample counts based on sampling_rate, and set algorithm scalar constants (M_th).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "suppress_powerline_and_emg_noise",
+      "statement": "(signal: 1-D numeric array, sampling_rate: positive float) -> 1-D float array",
+      "informal_desc": "Apply two successive moving-average FIR filters via filtfilt: the first averages over one power-line period (~20ms) to suppress 50Hz interference; the second averages over ~28ms to suppress EMG noise above ~35Hz.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "suppress_powerline_and_emg_noise",
+          "type_signature": "(signal: 1-D numeric array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Apply two successive moving-average FIR filters via filtfilt: the first averages over one power-line period (~20ms) to suppress 50Hz interference; the second averages over ~28ms to suppress EMG noise above ~35Hz.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "suppress_powerline_and_emg_noise",
+          "type_signature": "(signal: 1-D numeric array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Apply two successive moving-average FIR filters via filtfilt: the first averages over one power-line period (~20ms) to suppress 50Hz interference; the second averages over ~28ms to suppress EMG noise above ~35Hz.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "suppress_powerline_and_emg_noise",
+            "type_signature": "(signal: 1-D numeric array, sampling_rate: positive float) -> 1-D float array",
+            "docstring": "Apply two successive moving-average FIR filters via filtfilt: the first averages over one power-line period (~20ms) to suppress 50Hz interference; the second averages over ~28ms to suppress EMG noise above ~35Hz.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "bandpass_filter_signal",
+      "statement": "(X_ma: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+      "informal_desc": "Apply a 7th-order Butterworth low-pass filter at 40Hz followed by a 7th-order Butterworth high-pass filter at 9Hz to isolate the QRS frequency band.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "bandpass_filter_signal",
+          "type_signature": "(X_ma: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Apply a 7th-order Butterworth low-pass filter at 40Hz followed by a 7th-order Butterworth high-pass filter at 9Hz to isolate the QRS frequency band.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "bandpass_filter_signal",
+          "type_signature": "(X_ma: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Apply a 7th-order Butterworth low-pass filter at 40Hz followed by a 7th-order Butterworth high-pass filter at 9Hz to isolate the QRS frequency band.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "bandpass_filter_signal",
+            "type_signature": "(X_ma: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+            "docstring": "Apply a 7th-order Butterworth low-pass filter at 40Hz followed by a 7th-order Butterworth high-pass filter at 9Hz to isolate the QRS frequency band.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_nonlinear_energy_envelope",
+      "statement": "(X_bp: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+      "informal_desc": "Compute the nonlinear energy operator Y[n] = X[n]^2 - X[n-1]*X[n+1] for each interior sample, clamp negative values to zero, then smooth Y with a 40ms moving-average FIR (lfilter) to suppress differentiation noise.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_nonlinear_energy_envelope",
+          "type_signature": "(X_bp: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Compute the nonlinear energy operator Y[n] = X[n]^2 - X[n-1]*X[n+1] for each interior sample, clamp negative values to zero, then smooth Y with a 40ms moving-average FIR (lfilter) to suppress differentiation noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_nonlinear_energy_envelope",
+          "type_signature": "(X_bp: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+          "docstring": "Compute the nonlinear energy operator Y[n] = X[n]^2 - X[n-1]*X[n+1] for each interior sample, clamp negative values to zero, then smooth Y with a 40ms moving-average FIR (lfilter) to suppress differentiation noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_nonlinear_energy_envelope",
+            "type_signature": "(X_bp: 1-D float array, sampling_rate: positive float) -> 1-D float array",
+            "docstring": "Compute the nonlinear energy operator Y[n] = X[n]^2 - X[n-1]*X[n+1] for each interior sample, clamp negative values to zero, then smooth Y with a 40ms moving-average FIR (lfilter) to suppress differentiation noise.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_adaptive_threshold_state",
+      "statement": "(Y: 1-D float array, sampling_rate: positive float, v350ms: positive int, M_th: float) -> tuple[1-D float array of length 5, int, float, 1-D float array, float, float, 1-D float array of length 5, int, float, float, list of int, list of int]",
+      "informal_desc": "Seed the adaptive threshold state variables from the first 5 seconds and 350ms of the energy envelope: initialize the 5-element circular MM buffer (scaled peak of first 5s), scalar M (mean of MM), slope ramp vector, R/Rdec accumulators, 5-element RR buffer, F baseline (mean of first 350ms of Y), and empty QRS/Rpeak lists.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_adaptive_threshold_state",
+          "type_signature": "(Y: 1-D float array, sampling_rate: positive float, v350ms: positive int, M_th: float) -> tuple[1-D float array of length 5, int, float, 1-D float array, float, float, 1-D float array of length 5, int, float, float, list of int, list of int]",
+          "docstring": "Seed the adaptive threshold state variables from the first 5 seconds and 350ms of the energy envelope: initialize the 5-element circular MM buffer (scaled peak of first 5s), scalar M (mean of MM), slope ramp vector, R/Rdec accumulators, 5-element RR buffer, F baseline (mean of first 350ms of Y), and empty QRS/Rpeak lists.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_adaptive_threshold_state",
+          "type_signature": "(Y: 1-D float array, sampling_rate: positive float, v350ms: positive int, M_th: float) -> tuple[1-D float array of length 5, int, float, 1-D float array, float, float, 1-D float array of length 5, int, float, float, list of int, list of int]",
+          "docstring": "Seed the adaptive threshold state variables from the first 5 seconds and 350ms of the energy envelope: initialize the 5-element circular MM buffer (scaled peak of first 5s), scalar M (mean of MM), slope ramp vector, R/Rdec accumulators, 5-element RR buffer, F baseline (mean of first 350ms of Y), and empty QRS/Rpeak lists.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_adaptive_threshold_state",
+            "type_signature": "(Y: 1-D float array, sampling_rate: positive float, v350ms: positive int, M_th: float) -> tuple[1-D float array of length 5, int, float, 1-D float array, float, float, 1-D float array of length 5, int, float, float, list of int, list of int]",
+            "docstring": "Seed the adaptive threshold state variables from the first 5 seconds and 350ms of the energy envelope: initialize the 5-element circular MM buffer (scaled peak of first 5s), scalar M (mean of MM), slope ramp vector, R/Rdec accumulators, 5-element RR buffer, F baseline (mean of first 350ms of Y), and empty QRS/Rpeak lists.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "run_adaptive_threshold_qrs_detection",
+      "statement": "(Y: 1-D float array, MM: 1-D float array of length 5, MMidx: int, M: float, slope: 1-D float array, Rdec: float, R: float, RR: 1-D float array of length 5, RRidx: int, Rm: float, F: float, QRS: list of int, Rpeak: list of int, v50ms: positive int, v200ms: positive int, v300ms: positive int, v350ms: positive int, v1200ms: positive int, M_th: float) -> list of int",
+      "informal_desc": "Iterate sample-by-sample through Y, maintaining and updating adaptive thresholds M (refractory+slope decay), F (baseline wander tracker via 50ms sliding window difference), and R (refractory suppressor). Detect QRS events when Y[n] >= MFR = M+F+R, record candidate Rpeak as argmax of Y in next 300ms window, and update RR/MM circular buffers at each detection.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "run_adaptive_threshold_qrs_detection",
+          "type_signature": "(Y: 1-D float array, MM: 1-D float array of length 5, MMidx: int, M: float, slope: 1-D float array, Rdec: float, R: float, RR: 1-D float array of length 5, RRidx: int, Rm: float, F: float, QRS: list of int, Rpeak: list of int, v50ms: positive int, v200ms: positive int, v300ms: positive int, v350ms: positive int, v1200ms: positive int, M_th: float) -> list of int",
+          "docstring": "Iterate sample-by-sample through Y, maintaining and updating adaptive thresholds M (refractory+slope decay), F (baseline wander tracker via 50ms sliding window difference), and R (refractory suppressor). Detect QRS events when Y[n] >= MFR = M+F+R, record candidate Rpeak as argmax of Y in next 300ms window, and update RR/MM circular buffers at each detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "run_adaptive_threshold_qrs_detection",
+          "type_signature": "(Y: 1-D float array, MM: 1-D float array of length 5, MMidx: int, M: float, slope: 1-D float array, Rdec: float, R: float, RR: 1-D float array of length 5, RRidx: int, Rm: float, F: float, QRS: list of int, Rpeak: list of int, v50ms: positive int, v200ms: positive int, v300ms: positive int, v350ms: positive int, v1200ms: positive int, M_th: float) -> list of int",
+          "docstring": "Iterate sample-by-sample through Y, maintaining and updating adaptive thresholds M (refractory+slope decay), F (baseline wander tracker via 50ms sliding window difference), and R (refractory suppressor). Detect QRS events when Y[n] >= MFR = M+F+R, record candidate Rpeak as argmax of Y in next 300ms window, and update RR/MM circular buffers at each detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "run_adaptive_threshold_qrs_detection",
+            "type_signature": "(Y: 1-D float array, MM: 1-D float array of length 5, MMidx: int, M: float, slope: 1-D float array, Rdec: float, R: float, RR: 1-D float array of length 5, RRidx: int, Rm: float, F: float, QRS: list of int, Rpeak: list of int, v50ms: positive int, v200ms: positive int, v300ms: positive int, v350ms: positive int, v1200ms: positive int, M_th: float) -> list of int",
+            "docstring": "Iterate sample-by-sample through Y, maintaining and updating adaptive thresholds M (refractory+slope decay), F (baseline wander tracker via 50ms sliding window difference), and R (refractory suppressor). Detect QRS events when Y[n] >= MFR = M+F+R, record candidate Rpeak as argmax of Y in next 300ms window, and update RR/MM circular buffers at each detection.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "refine_rpeaks_on_original_signal",
+      "statement": "(Rpeak_raw: list of int, signal: 1-D numeric array, v100ms: positive int) -> 1-D int array",
+      "informal_desc": "For each candidate index in Rpeak_raw, search a \u00b1100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "refine_rpeaks_on_original_signal",
+          "type_signature": "(Rpeak_raw: list of int, signal: 1-D numeric array, v100ms: positive int) -> 1-D int array",
+          "docstring": "For each candidate index in Rpeak_raw, search a \u00b1100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "refine_rpeaks_on_original_signal",
+          "type_signature": "(Rpeak_raw: list of int, signal: 1-D numeric array, v100ms: positive int) -> 1-D int array",
+          "docstring": "For each candidate index in Rpeak_raw, search a \u00b1100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "refine_rpeaks_on_original_signal",
+            "type_signature": "(Rpeak_raw: list of int, signal: 1-D numeric array, v100ms: positive int) -> 1-D int array",
+            "docstring": "For each candidate index in Rpeak_raw, search a \u00b1100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

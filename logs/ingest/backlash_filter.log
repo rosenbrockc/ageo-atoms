@@ -1,0 +1,11 @@
+Ingesting class 'BacklashFilter' from /Users/conrad/personal/ageo-atoms/third_party/pronto/pronto_utils/include/pronto_utils/backlash_filter.hpp
+
+Ingestion complete:
+  CDG: 4 nodes, 2 edges
+  Matches: 3
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/pronto/backlash_filter/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/pronto/backlash_filter/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/pronto/backlash_filter/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/pronto/backlash_filter/trace.jsonl

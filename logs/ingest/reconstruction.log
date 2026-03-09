@@ -1,0 +1,11 @@
+Ingesting class 'reconstruction' from /Users/conrad/personal/ageo-atoms/third_party/E2E-PPG/ppg_reconstruction.py
+
+Ingestion complete:
+  CDG: 21 nodes, 52 edges
+  Matches: 18
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/reconstruction/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/reconstruction/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/reconstruction/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/reconstruction/trace.jsonl

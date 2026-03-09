@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['custom']
+Ingesting class 'apc' from /Users/conrad/personal/ageo-atoms/third_party/mint/mint/modules.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/mint/apc_module/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/mint/apc_module/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/mint/apc_module/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/mint/apc_module/trace.jsonl

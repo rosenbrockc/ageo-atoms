@@ -1,0 +1,17 @@
+{
+  "run_id": "6830f642de06473e8bee304c31b05932",
+  "state": "failed",
+  "phase": "verify_types",
+  "current_step": "mypy",
+  "source_path": "../ageo-atoms/third_party/pronto/pronto_core/src/state_est.cpp",
+  "class_name": "StateEstimator",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772981870.08941,
+  "last_heartbeat_at": 1772981877.74801,
+  "llm_call_inflight": null,
+  "error": "'StateEstimator' not found as class or function in ../ageo-atoms/third_party/pronto/pronto_core/src/state_est.cpp",
+  "ended_at": 1772981877.74801
+}

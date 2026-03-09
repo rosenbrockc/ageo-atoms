@@ -1,0 +1,398 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "compute_window_samples",
+      "statement": "(sampling_rate: positive float or int (Hz)) -> tuple[positive int (samples), positive int (samples)]",
+      "informal_desc": "Convert time-based window durations (100ms and 300ms) into integer sample counts based on the sampling rate.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_window_samples",
+          "type_signature": "(sampling_rate: positive float or int (Hz)) -> tuple[positive int (samples), positive int (samples)]",
+          "docstring": "Convert time-based window durations (100ms and 300ms) into integer sample counts based on the sampling rate.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_window_samples",
+          "type_signature": "(sampling_rate: positive float or int (Hz)) -> tuple[positive int (samples), positive int (samples)]",
+          "docstring": "Convert time-based window durations (100ms and 300ms) into integer sample counts based on the sampling rate.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_window_samples",
+            "type_signature": "(sampling_rate: positive float or int (Hz)) -> tuple[positive int (samples), positive int (samples)]",
+            "docstring": "Convert time-based window durations (100ms and 300ms) into integer sample counts based on the sampling rate.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_signal_normalization_range",
+      "statement": "(signal: 1-D numeric array, TH: float) -> positive float",
+      "informal_desc": "Estimate the signal amplitude range using a 100-bin density histogram and cumulative distribution thresholding at 1% tails, then derive a normalization factor as the maximum absolute boundary value.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_signal_normalization_range",
+          "type_signature": "(signal: 1-D numeric array, TH: float) -> positive float",
+          "docstring": "Estimate the signal amplitude range using a 100-bin density histogram and cumulative distribution thresholding at 1% tails, then derive a normalization factor as the maximum absolute boundary value.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_signal_normalization_range",
+          "type_signature": "(signal: 1-D numeric array, TH: float) -> positive float",
+          "docstring": "Estimate the signal amplitude range using a 100-bin density histogram and cumulative distribution thresholding at 1% tails, then derive a normalization factor as the maximum absolute boundary value.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_signal_normalization_range",
+            "type_signature": "(signal: 1-D numeric array, TH: float) -> positive float",
+            "docstring": "Estimate the signal amplitude range using a 100-bin density histogram and cumulative distribution thresholding at 1% tails, then derive a normalization factor as the maximum absolute boundary value.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_signal",
+      "statement": "(signal: 1-D numeric array, nrm: positive float) -> 1-D float array",
+      "informal_desc": "Divide the raw signal by the normalization factor to produce a unit-scaled signal whose amplitude is bounded near [-1, 1].",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_signal",
+          "type_signature": "(signal: 1-D numeric array, nrm: positive float) -> 1-D float array",
+          "docstring": "Divide the raw signal by the normalization factor to produce a unit-scaled signal whose amplitude is bounded near [-1, 1].",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_signal",
+          "type_signature": "(signal: 1-D numeric array, nrm: positive float) -> 1-D float array",
+          "docstring": "Divide the raw signal by the normalization factor to produce a unit-scaled signal whose amplitude is bounded near [-1, 1].",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_signal",
+            "type_signature": "(signal: 1-D numeric array, nrm: positive float) -> 1-D float array",
+            "docstring": "Divide the raw signal by the normalization factor to produce a unit-scaled signal whose amplitude is bounded near [-1, 1].",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_curvature_extrema",
+      "statement": "(norm_signal: 1-D float array, tol: float) -> 1-D int array of sample indices",
+      "informal_desc": "Compute the second discrete difference of the normalized signal, then locate candidate peak indices where the negated second difference has a local maximum (sign-change of -2 in its first difference) and exceeds the tolerance threshold.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_curvature_extrema",
+          "type_signature": "(norm_signal: 1-D float array, tol: float) -> 1-D int array of sample indices",
+          "docstring": "Compute the second discrete difference of the normalized signal, then locate candidate peak indices where the negated second difference has a local maximum (sign-change of -2 in its first difference) and exceeds the tolerance threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_curvature_extrema",
+          "type_signature": "(norm_signal: 1-D float array, tol: float) -> 1-D int array of sample indices",
+          "docstring": "Compute the second discrete difference of the normalized signal, then locate candidate peak indices where the negated second difference has a local maximum (sign-change of -2 in its first difference) and exceeds the tolerance threshold.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_curvature_extrema",
+            "type_signature": "(norm_signal: 1-D float array, tol: float) -> 1-D int array of sample indices",
+            "docstring": "Compute the second discrete difference of the normalized signal, then locate candidate peak indices where the negated second difference has a local maximum (sign-change of -2 in its first difference) and exceeds the tolerance threshold.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "refine_rpeaks_with_refractory_window",
+      "statement": "(candidates: 1-D int array of sample indices, signal: 1-D numeric array, v_100ms: positive int (samples), v_300ms: positive int (samples)) -> list of float/int sample indices",
+      "informal_desc": "Walk through the candidate indices in order, enforcing a minimum inter-peak spacing of v_300ms; for each accepted candidate, locate the true R-peak as the argmax of the original signal within the following v_100ms samples.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "refine_rpeaks_with_refractory_window",
+          "type_signature": "(candidates: 1-D int array of sample indices, signal: 1-D numeric array, v_100ms: positive int (samples), v_300ms: positive int (samples)) -> list of float/int sample indices",
+          "docstring": "Walk through the candidate indices in order, enforcing a minimum inter-peak spacing of v_300ms; for each accepted candidate, locate the true R-peak as the argmax of the original signal within the following v_100ms samples.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "refine_rpeaks_with_refractory_window",
+          "type_signature": "(candidates: 1-D int array of sample indices, signal: 1-D numeric array, v_100ms: positive int (samples), v_300ms: positive int (samples)) -> list of float/int sample indices",
+          "docstring": "Walk through the candidate indices in order, enforcing a minimum inter-peak spacing of v_300ms; for each accepted candidate, locate the true R-peak as the argmax of the original signal within the following v_100ms samples.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "refine_rpeaks_with_refractory_window",
+            "type_signature": "(candidates: 1-D int array of sample indices, signal: 1-D numeric array, v_100ms: positive int (samples), v_300ms: positive int (samples)) -> list of float/int sample indices",
+            "docstring": "Walk through the candidate indices in order, enforcing a minimum inter-peak spacing of v_300ms; for each accepted candidate, locate the true R-peak as the argmax of the original signal within the following v_100ms samples.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deduplicate_and_sort_rpeaks",
+      "statement": "(rpeaks_raw: list of float/int sample indices) -> 1-D int array of sample indices",
+      "informal_desc": "Remove duplicate R-peak indices, sort them in ascending order, and cast to a 1-D integer NumPy array ready for return.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deduplicate_and_sort_rpeaks",
+          "type_signature": "(rpeaks_raw: list of float/int sample indices) -> 1-D int array of sample indices",
+          "docstring": "Remove duplicate R-peak indices, sort them in ascending order, and cast to a 1-D integer NumPy array ready for return.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deduplicate_and_sort_rpeaks",
+          "type_signature": "(rpeaks_raw: list of float/int sample indices) -> 1-D int array of sample indices",
+          "docstring": "Remove duplicate R-peak indices, sort them in ascending order, and cast to a 1-D integer NumPy array ready for return.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deduplicate_and_sort_rpeaks",
+            "type_signature": "(rpeaks_raw: list of float/int sample indices) -> 1-D int array of sample indices",
+            "docstring": "Remove duplicate R-peak indices, sort them in ascending order, and cast to a 1-D integer NumPy array ready for return.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

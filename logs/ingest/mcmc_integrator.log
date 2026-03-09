@@ -1,0 +1,11 @@
+Ingesting class 'step' from /Users/conrad/personal/ageo-atoms/third_party/AdvancedHMC.jl/src/integrator.jl
+
+Ingestion complete:
+  CDG: 8 nodes, 16 edges
+  Matches: 6
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/advancedhmc/integrator/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/advancedhmc/integrator/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/advancedhmc/integrator/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/advancedhmc/integrator/trace.jsonl

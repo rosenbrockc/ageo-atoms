@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['oracle_gradient']
+Ingesting class 'estimate_gradient!' from /Users/conrad/personal/ageo-atoms/third_party/AdvancedVI.jl/src/algorithms/repgradelbo.jl
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/advancedvi/repgradelbo/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/advancedvi/repgradelbo/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/advancedvi/repgradelbo/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/advancedvi/repgradelbo/trace.jsonl

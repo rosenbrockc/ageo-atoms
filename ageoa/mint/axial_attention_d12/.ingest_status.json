@@ -1,0 +1,30 @@
+{
+  "run_id": "1d02683784ae4793b0f211ce2929c7ca",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "../ageo-atoms/third_party/mint/mint/axial_attention.py",
+  "class_name": "RowSelfAttention",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772997167.288296,
+  "last_heartbeat_at": 1772997307.836641,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772997307.836641,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

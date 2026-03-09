@@ -1,0 +1,348 @@
+{
+  "nodes": [
+    {
+      "node_id": "homomorphic_filter_root",
+      "parent_id": null,
+      "name": "homomorphic_filter",
+      "description": "Ingested pipeline from homomorphic_filter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "homomorphicfilter"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "homomorphicfilter",
+      "parent_id": "homomorphic_filter_root",
+      "name": "HomomorphicFilter",
+      "description": "Applies a homomorphic filter to a signal by operating in the log-frequency domain: takes the logarithm of the signal magnitude, applies a frequency-domain filter (typically a high-pass or emphasis filter) via FFT, then exponentiates back to recover a filtered signal with compressed dynamic range and enhanced high-frequency components.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array (time-domain signal samples)",
+          "constraints": "non-zero values required before log transform; length >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "positive float (Hz)",
+          "constraints": "must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_signal",
+          "type_desc": "1-D numeric array (time-domain filtered signal, same length as input)",
+          "constraints": "same shape as input signal",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validate_and_normalize_inputs",
+        "design_lowpass_filter",
+        "compute_log_magnitude",
+        "apply_lowpass_filter_in_log_domain",
+        "exponentiate_to_envelope"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: 1-D numeric array (time-domain signal samples), sampling_rate: positive float (Hz)) -> 1-D numeric array (time-domain filtered signal, same length as input)",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "LogDomain_FrequencyEmphasisFilter. Transforms a 1-D positive-valued scalar sequence into a logarithmic representation, applies a spectral shaping kernel (e.g., high-pass emphasis) via forward and inverse Fourier transforms, then inverts the logarithmic mapping through exponentiation to recover a signal in the original multiplicative domain. This composition converts multiplicative interference into additive structure, enabling linear filtering to separate components that are entangled multiplicatively in the original space. The result preserves the signal's length while compressing dynamic range and selectively amplifying high-frequency structural content.. Applications: Geophysical seismic deconvolution: separating a subsurface reflectivity sequence (fast-varying, high-frequency) from a slowly varying source wavelet that is multiplicatively convolved into the recorded trace \u2014 the log-domain transform linearizes the convolution so a high-pass filter cleanly isolates the reflectivity component, Computational imaging / illumination normalization: removing spatially smooth, low-frequency illumination gradients (modeled as a multiplicative field) from a 2-D intensity array to reveal underlying high-frequency texture detail \u2014 the same log-then-filter-then-exponentiate pipeline applies column- or row-wise across the raster, Biomedical time-series preprocessing: decomposing a measured physiological waveform (e.g., respiratory or cardiac signal) in which a slow-varying envelope modulates a faster oscillatory carrier; log-domain high-pass filtering isolates the rapid-fluctuation component from the low-frequency trend without needing an explicit envelope estimator, Materials characterization / spectroscopy: suppressing broad-band baseline drift in a spectral intensity curve (Raman, FTIR, NMR) that multiplicatively scales sharp resonance peaks; log transformation converts the baseline to an additive low-frequency component that is trivially removed by spectral high-pass emphasis, recovering normalized peak structure",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validate_and_normalize_inputs",
+      "parent_id": "homomorphicfilter",
+      "name": "validate_and_normalize_inputs",
+      "description": "Validates that the signal is provided and casts sampling_rate to float, raising a TypeError if signal is None.",
+      "concept_type": "conditional_routing",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array or None",
+          "constraints": "must not be None",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int or float",
+          "constraints": "positive value in Hz",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "signal_validated",
+          "type_desc": "1-D numeric array",
+          "constraints": "non-null",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate_float",
+          "type_desc": "float",
+          "constraints": "positive float in Hz",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D numeric array or None, sampling_rate: int or float) -> tuple[1-D numeric array, float]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "design_lowpass_filter",
+      "parent_id": "homomorphicfilter",
+      "name": "design_lowpass_filter",
+      "description": "Designs a 1st-order Butterworth low-pass filter at 8 Hz cutoff using the given sampling rate, returning second-order sections (SOS) coefficients for zero-phase filtering.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "sampling_rate_float",
+          "type_desc": "float",
+          "constraints": "positive float in Hz",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sos_coefficients",
+          "type_desc": "2-D numeric array",
+          "constraints": "SOS filter coefficients, shape (n_sections, 6)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate_float: float) -> 2-D numeric array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_log_magnitude",
+      "parent_id": "homomorphicfilter",
+      "name": "compute_log_magnitude",
+      "description": "Transforms the time-domain signal into the log-magnitude domain by taking the element-wise absolute value followed by the natural logarithm, preparing it for linear (cepstral) filtering.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal_validated",
+          "type_desc": "1-D numeric array",
+          "constraints": "non-zero values to avoid log(0)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "log_magnitude_signal",
+          "type_desc": "1-D float array",
+          "constraints": "same length as input signal",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal_validated: 1-D numeric array) -> 1-D float array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "apply_lowpass_filter_in_log_domain",
+      "parent_id": "homomorphicfilter",
+      "name": "apply_lowpass_filter_in_log_domain",
+      "description": "Applies the designed low-pass SOS filter to the log-magnitude signal using zero-phase forward-backward filtering (sosfiltfilt), effectively retaining the slowly varying envelope component while rejecting high-frequency oscillations in the log domain.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "sos_coefficients",
+          "type_desc": "2-D numeric array",
+          "constraints": "valid SOS filter coefficients",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "log_magnitude_signal",
+          "type_desc": "1-D float array",
+          "constraints": "same length as original signal",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_log_signal",
+          "type_desc": "1-D float array",
+          "constraints": "same length as input, zero-phase filtered",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sos_coefficients: 2-D numeric array, log_magnitude_signal: 1-D float array) -> 1-D float array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "exponentiate_to_envelope",
+      "parent_id": "homomorphicfilter",
+      "name": "exponentiate_to_envelope",
+      "description": "Maps the filtered log-domain signal back to the amplitude domain by applying the element-wise exponential, recovering the homomorphic (non-normalized) envelope of the original signal.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "filtered_log_signal",
+          "type_desc": "1-D float array",
+          "constraints": "real-valued",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "homomorphic_envelope",
+          "type_desc": "1-D float array",
+          "constraints": "positive values, same length as input signal",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(filtered_log_signal: 1-D float array) -> 1-D float array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validate_and_normalize_inputs",
+      "target_id": "design_lowpass_filter",
+      "output_name": "sampling_rate_float",
+      "input_name": "sampling_rate_float",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_and_normalize_inputs",
+      "target_id": "compute_log_magnitude",
+      "output_name": "signal_validated",
+      "input_name": "signal_validated",
+      "source_type": "1-D numeric array",
+      "target_type": "1-D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "design_lowpass_filter",
+      "target_id": "apply_lowpass_filter_in_log_domain",
+      "output_name": "sos_coefficients",
+      "input_name": "sos_coefficients",
+      "source_type": "2-D numeric array",
+      "target_type": "2-D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_log_magnitude",
+      "target_id": "apply_lowpass_filter_in_log_domain",
+      "output_name": "log_magnitude_signal",
+      "input_name": "log_magnitude_signal",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "apply_lowpass_filter_in_log_domain",
+      "target_id": "exponentiate_to_envelope",
+      "output_name": "filtered_log_signal",
+      "input_name": "filtered_log_signal",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "homomorphic_filter"
+  }
+}

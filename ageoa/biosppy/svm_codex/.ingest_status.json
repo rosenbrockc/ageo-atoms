@@ -1,0 +1,17 @@
+{
+  "run_id": "336371c1da7e4a6b80a0057828ebc1ef",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-atoms/third_party/BioSPPy/biosppy/biometrics.py",
+  "class_name": "SVM",
+  "procedural": false,
+  "llm_provider": "codex_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772981259.04113,
+  "last_heartbeat_at": 1772981697.05136,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772981697.05136
+}

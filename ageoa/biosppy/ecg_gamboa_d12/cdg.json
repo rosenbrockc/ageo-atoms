@@ -1,0 +1,432 @@
+{
+  "nodes": [
+    {
+      "node_id": "gamboa_segmenter_root",
+      "parent_id": null,
+      "name": "gamboa_segmenter",
+      "description": "Ingested pipeline from gamboa_segmenter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "gamboa_segmenter"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "gamboa_segmenter",
+      "parent_id": "gamboa_segmenter_root",
+      "name": "gamboa_segmenter",
+      "description": "Segments a physiological signal into individual cycles or beats using the Gamboa algorithm, operating as a single pure function that accepts a raw signal with its sampling rate and a tolerance parameter, then returns segmented boundary indices.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array (time-series amplitude values)",
+          "constraints": "non-empty, finite values",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "positive integer or float (Hz)",
+          "constraints": "must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tol",
+          "type_desc": "float (tolerance threshold for peak/segment detection)",
+          "constraints": "must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "segments",
+          "type_desc": "1-D integer array of sample indices marking segment boundaries",
+          "constraints": "indices within [0, len(signal))",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "compute_window_samples",
+        "compute_signal_normalization_range",
+        "normalize_signal",
+        "detect_curvature_extrema",
+        "refine_rpeaks_with_refractory_window",
+        "deduplicate_and_sort_rpeaks"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: 1-D numeric array (time-series amplitude values), sampling_rate: positive integer or float (Hz), tol: float (tolerance threshold for peak/segment detection)) -> 1-D integer array of sample indices marking segment boundaries",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "tolerance_gated_periodic_boundary_extractor. Scans a uniformly-sampled scalar time-series to identify quasi-periodic structural boundaries by applying the Gamboa criterion \u2014 a threshold-gated comparison of local amplitude morphology against a tolerance-scaled reference \u2014 partitioning the sequence into contiguous, non-overlapping segments whose edges coincide with detected cycle onsets. The operation maps a continuous 1-D signal into a discrete index set that encodes the topology of its repeating motif structure, collapsing temporal amplitude information into a sparse boundary skeleton. The tolerance parameter acts as a sensitivity knob that trades recall of weak periodicity against false-positive suppression, making the segmentation tunable across signal-to-noise regimes.. Applications: Mechanical vibration analysis: partitioning a rotary machinery accelerometer trace into individual shaft-rotation cycles to isolate per-revolution fault signatures for bearing diagnostics, Astrophysics / pulsar timing: segmenting a radio telescope intensity time-series into individual pulsar emission periods to align and stack pulses for dispersion-measure estimation, Fluid dynamics / rheology: detecting stroke boundaries in oscillatory shear-stress waveforms from a rheometer to extract per-cycle viscoelastic moduli without assuming fixed frequency, Acoustic phonetics: locating glottal closure instants in a laryngograph or microphone waveform to segment voiced speech into individual glottal cycles for pitch-synchronous spectral analysis",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_window_samples",
+      "parent_id": "gamboa_segmenter",
+      "name": "compute_window_samples",
+      "description": "Convert time-based window durations (100ms and 300ms) into integer sample counts based on the sampling rate.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "sampling_rate",
+          "type_desc": "positive float or int (Hz)",
+          "constraints": "must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "v_100ms",
+          "type_desc": "positive int (samples)",
+          "constraints": "= floor(0.1 * sampling_rate)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v_300ms",
+          "type_desc": "positive int (samples)",
+          "constraints": "= floor(0.3 * sampling_rate)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate: positive float or int (Hz)) -> tuple[positive int (samples), positive int (samples)]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_signal_normalization_range",
+      "parent_id": "gamboa_segmenter",
+      "name": "compute_signal_normalization_range",
+      "description": "Estimate the signal amplitude range using a 100-bin density histogram and cumulative distribution thresholding at 1% tails, then derive a normalization factor as the maximum absolute boundary value.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array",
+          "constraints": "non-empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "TH",
+          "type_desc": "float",
+          "constraints": "fixed at 0.01; tail-cut threshold",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "nrm",
+          "type_desc": "positive float",
+          "constraints": "max(|v0|, |v1|); used as divisor, must be > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D numeric array, TH: float) -> positive float",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "normalize_signal",
+      "parent_id": "gamboa_segmenter",
+      "name": "normalize_signal",
+      "description": "Divide the raw signal by the normalization factor to produce a unit-scaled signal whose amplitude is bounded near [-1, 1].",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array",
+          "constraints": "non-empty",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nrm",
+          "type_desc": "positive float",
+          "constraints": "> 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "norm_signal",
+          "type_desc": "1-D float array",
+          "constraints": "same length as signal",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D numeric array, nrm: positive float) -> 1-D float array",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_curvature_extrema",
+      "parent_id": "gamboa_segmenter",
+      "name": "detect_curvature_extrema",
+      "description": "Compute the second discrete difference of the normalized signal, then locate candidate peak indices where the negated second difference has a local maximum (sign-change of -2 in its first difference) and exceeds the tolerance threshold.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "norm_signal",
+          "type_desc": "1-D float array",
+          "constraints": "length >= 3",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tol",
+          "type_desc": "float",
+          "constraints": "tolerance threshold > 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "candidates",
+          "type_desc": "1-D int array of sample indices",
+          "constraints": "indices into norm_signal; may be empty",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(norm_signal: 1-D float array, tol: float) -> 1-D int array of sample indices",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "refine_rpeaks_with_refractory_window",
+      "parent_id": "gamboa_segmenter",
+      "name": "refine_rpeaks_with_refractory_window",
+      "description": "Walk through the candidate indices in order, enforcing a minimum inter-peak spacing of v_300ms; for each accepted candidate, locate the true R-peak as the argmax of the original signal within the following v_100ms samples.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "candidates",
+          "type_desc": "1-D int array of sample indices",
+          "constraints": "sorted ascending; length >= 3 required to proceed",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "signal",
+          "type_desc": "1-D numeric array",
+          "constraints": "original (unnormalised) signal",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v_100ms",
+          "type_desc": "positive int (samples)",
+          "constraints": "look-ahead window for local argmax",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v_300ms",
+          "type_desc": "positive int (samples)",
+          "constraints": "minimum refractory period between accepted peaks",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks_raw",
+          "type_desc": "list of float/int sample indices",
+          "constraints": "may be empty if candidates < 3",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(candidates: 1-D int array of sample indices, signal: 1-D numeric array, v_100ms: positive int (samples), v_300ms: positive int (samples)) -> list of float/int sample indices",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deduplicate_and_sort_rpeaks",
+      "parent_id": "gamboa_segmenter",
+      "name": "deduplicate_and_sort_rpeaks",
+      "description": "Remove duplicate R-peak indices, sort them in ascending order, and cast to a 1-D integer NumPy array ready for return.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "rpeaks_raw",
+          "type_desc": "list of float/int sample indices",
+          "constraints": "may contain duplicates or be empty",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "1-D int array of sample indices",
+          "constraints": "unique, sorted ascending",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(rpeaks_raw: list of float/int sample indices) -> 1-D int array of sample indices",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "compute_window_samples",
+      "target_id": "refine_rpeaks_with_refractory_window",
+      "output_name": "v_100ms",
+      "input_name": "v_100ms",
+      "source_type": "positive int",
+      "target_type": "positive int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_window_samples",
+      "target_id": "refine_rpeaks_with_refractory_window",
+      "output_name": "v_300ms",
+      "input_name": "v_300ms",
+      "source_type": "positive int",
+      "target_type": "positive int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_signal_normalization_range",
+      "target_id": "normalize_signal",
+      "output_name": "nrm",
+      "input_name": "nrm",
+      "source_type": "positive float",
+      "target_type": "positive float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "normalize_signal",
+      "target_id": "detect_curvature_extrema",
+      "output_name": "norm_signal",
+      "input_name": "norm_signal",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_curvature_extrema",
+      "target_id": "refine_rpeaks_with_refractory_window",
+      "output_name": "candidates",
+      "input_name": "candidates",
+      "source_type": "1-D int array",
+      "target_type": "1-D int array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "refine_rpeaks_with_refractory_window",
+      "target_id": "deduplicate_and_sort_rpeaks",
+      "output_name": "rpeaks_raw",
+      "input_name": "rpeaks_raw",
+      "source_type": "list of float/int",
+      "target_type": "list of float/int",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "gamboa_segmenter"
+  }
+}

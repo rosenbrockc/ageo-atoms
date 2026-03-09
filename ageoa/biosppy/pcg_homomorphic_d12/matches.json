@@ -1,0 +1,332 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "validate_and_normalize_inputs",
+      "statement": "(signal: 1-D numeric array or None, sampling_rate: int or float) -> tuple[1-D numeric array, float]",
+      "informal_desc": "Validates that the signal is provided and casts sampling_rate to float, raising a TypeError if signal is None.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "validate_and_normalize_inputs",
+          "type_signature": "(signal: 1-D numeric array or None, sampling_rate: int or float) -> tuple[1-D numeric array, float]",
+          "docstring": "Validates that the signal is provided and casts sampling_rate to float, raising a TypeError if signal is None.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "validate_and_normalize_inputs",
+          "type_signature": "(signal: 1-D numeric array or None, sampling_rate: int or float) -> tuple[1-D numeric array, float]",
+          "docstring": "Validates that the signal is provided and casts sampling_rate to float, raising a TypeError if signal is None.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "validate_and_normalize_inputs",
+            "type_signature": "(signal: 1-D numeric array or None, sampling_rate: int or float) -> tuple[1-D numeric array, float]",
+            "docstring": "Validates that the signal is provided and casts sampling_rate to float, raising a TypeError if signal is None.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "design_lowpass_filter",
+      "statement": "(sampling_rate_float: float) -> 2-D numeric array",
+      "informal_desc": "Designs a 1st-order Butterworth low-pass filter at 8 Hz cutoff using the given sampling rate, returning second-order sections (SOS) coefficients for zero-phase filtering.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "design_lowpass_filter",
+          "type_signature": "(sampling_rate_float: float) -> 2-D numeric array",
+          "docstring": "Designs a 1st-order Butterworth low-pass filter at 8 Hz cutoff using the given sampling rate, returning second-order sections (SOS) coefficients for zero-phase filtering.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "design_lowpass_filter",
+          "type_signature": "(sampling_rate_float: float) -> 2-D numeric array",
+          "docstring": "Designs a 1st-order Butterworth low-pass filter at 8 Hz cutoff using the given sampling rate, returning second-order sections (SOS) coefficients for zero-phase filtering.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "design_lowpass_filter",
+            "type_signature": "(sampling_rate_float: float) -> 2-D numeric array",
+            "docstring": "Designs a 1st-order Butterworth low-pass filter at 8 Hz cutoff using the given sampling rate, returning second-order sections (SOS) coefficients for zero-phase filtering.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_log_magnitude",
+      "statement": "(signal_validated: 1-D numeric array) -> 1-D float array",
+      "informal_desc": "Transforms the time-domain signal into the log-magnitude domain by taking the element-wise absolute value followed by the natural logarithm, preparing it for linear (cepstral) filtering.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_log_magnitude",
+          "type_signature": "(signal_validated: 1-D numeric array) -> 1-D float array",
+          "docstring": "Transforms the time-domain signal into the log-magnitude domain by taking the element-wise absolute value followed by the natural logarithm, preparing it for linear (cepstral) filtering.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_log_magnitude",
+          "type_signature": "(signal_validated: 1-D numeric array) -> 1-D float array",
+          "docstring": "Transforms the time-domain signal into the log-magnitude domain by taking the element-wise absolute value followed by the natural logarithm, preparing it for linear (cepstral) filtering.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_log_magnitude",
+            "type_signature": "(signal_validated: 1-D numeric array) -> 1-D float array",
+            "docstring": "Transforms the time-domain signal into the log-magnitude domain by taking the element-wise absolute value followed by the natural logarithm, preparing it for linear (cepstral) filtering.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "apply_lowpass_filter_in_log_domain",
+      "statement": "(sos_coefficients: 2-D numeric array, log_magnitude_signal: 1-D float array) -> 1-D float array",
+      "informal_desc": "Applies the designed low-pass SOS filter to the log-magnitude signal using zero-phase forward-backward filtering (sosfiltfilt), effectively retaining the slowly varying envelope component while rejecting high-frequency oscillations in the log domain.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "apply_lowpass_filter_in_log_domain",
+          "type_signature": "(sos_coefficients: 2-D numeric array, log_magnitude_signal: 1-D float array) -> 1-D float array",
+          "docstring": "Applies the designed low-pass SOS filter to the log-magnitude signal using zero-phase forward-backward filtering (sosfiltfilt), effectively retaining the slowly varying envelope component while rejecting high-frequency oscillations in the log domain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "apply_lowpass_filter_in_log_domain",
+          "type_signature": "(sos_coefficients: 2-D numeric array, log_magnitude_signal: 1-D float array) -> 1-D float array",
+          "docstring": "Applies the designed low-pass SOS filter to the log-magnitude signal using zero-phase forward-backward filtering (sosfiltfilt), effectively retaining the slowly varying envelope component while rejecting high-frequency oscillations in the log domain.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "apply_lowpass_filter_in_log_domain",
+            "type_signature": "(sos_coefficients: 2-D numeric array, log_magnitude_signal: 1-D float array) -> 1-D float array",
+            "docstring": "Applies the designed low-pass SOS filter to the log-magnitude signal using zero-phase forward-backward filtering (sosfiltfilt), effectively retaining the slowly varying envelope component while rejecting high-frequency oscillations in the log domain.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "exponentiate_to_envelope",
+      "statement": "(filtered_log_signal: 1-D float array) -> 1-D float array",
+      "informal_desc": "Maps the filtered log-domain signal back to the amplitude domain by applying the element-wise exponential, recovering the homomorphic (non-normalized) envelope of the original signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "exponentiate_to_envelope",
+          "type_signature": "(filtered_log_signal: 1-D float array) -> 1-D float array",
+          "docstring": "Maps the filtered log-domain signal back to the amplitude domain by applying the element-wise exponential, recovering the homomorphic (non-normalized) envelope of the original signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "exponentiate_to_envelope",
+          "type_signature": "(filtered_log_signal: 1-D float array) -> 1-D float array",
+          "docstring": "Maps the filtered log-domain signal back to the amplitude domain by applying the element-wise exponential, recovering the homomorphic (non-normalized) envelope of the original signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "exponentiate_to_envelope",
+            "type_signature": "(filtered_log_signal: 1-D float array) -> 1-D float array",
+            "docstring": "Maps the filtered log-domain signal back to the amplitude domain by applying the element-wise exponential, recovering the homomorphic (non-normalized) envelope of the original signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

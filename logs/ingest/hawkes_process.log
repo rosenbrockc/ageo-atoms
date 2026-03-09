@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['sampler']
+Ingesting class 'simulate_hawkes' from /Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/research_math/35_hawkes_process_arrival.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hawkes_process/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hawkes_process/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hawkes_process/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hawkes_process/trace.jsonl
