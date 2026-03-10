@@ -1,0 +1,302 @@
+{
+  "nodes": [
+    {
+      "node_id": "ScipyOptimizeAtoms_root",
+      "parent_id": null,
+      "name": "ScipyOptimizeAtoms",
+      "description": "Ingested pipeline from ScipyOptimizeAtoms",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "shgoglobaloptimization",
+        "differentialevolutionoptimization"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "shgoglobaloptimization",
+      "parent_id": "ScipyOptimizeAtoms_root",
+      "name": "ShgoGlobalOptimization",
+      "description": "Finds the global minimum of a scalar function using Simplicial Homology Global Optimization (SHGO): iteratively samples the bounded search space via simplicial or quasi-random methods, builds a simplicial complex to locate local minima candidates, and refines each candidate with a local minimizer.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "func",
+          "type_desc": "callable \u2014 scalar objective f(x, *args)",
+          "constraints": "must return a scalar float",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "bounds",
+          "type_desc": "sequence of (min, max) pairs",
+          "constraints": "length equals problem dimensionality",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "args",
+          "type_desc": "tuple \u2014 extra positional arguments forwarded to func",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "constraints",
+          "type_desc": "dict or sequence of dicts \u2014 equality/inequality constraints",
+          "constraints": "scipy-style constraint dicts or NonlinearConstraint",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n",
+          "type_desc": "int \u2014 number of sampling points per iteration",
+          "constraints": "n >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "iters",
+          "type_desc": "int \u2014 number of simplicial complex construction iterations",
+          "constraints": "iters >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "callback",
+          "type_desc": "callable invoked after each iteration with current OptimizeResult",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "minimizer_kwargs",
+          "type_desc": "dict \u2014 keyword arguments forwarded to the local minimizer",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "options",
+          "type_desc": "dict \u2014 algorithm-level hyper-parameters",
+          "constraints": "see config_params",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sampling_method",
+          "type_desc": "str or callable \u2014 sampling strategy",
+          "constraints": "one of 'simplicial', 'halton', 'sobol', or a custom callable",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "OptimizeResult \u2014 x (optimal point), fun (optimal value), xl (local minima), funl, success, message, nit, nfev",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(func: callable \u2014 scalar objective f(x, *args), bounds: sequence of (min, max) pairs, args: tuple \u2014 extra positional arguments forwarded to func, constraints: dict or sequence of dicts \u2014 equality/inequality constraints, n: int \u2014 number of sampling points per iteration, iters: int \u2014 number of simplicial complex construction iterations, callback: callable invoked after each iteration with current OptimizeResult, minimizer_kwargs: dict \u2014 keyword arguments forwarded to the local minimizer, options: dict \u2014 algorithm-level hyper-parameters, sampling_method: str or callable \u2014 sampling strategy) -> OptimizeResult \u2014 x (optimal point), fun (optimal value), xl (local minima), funl, success, message, nit, nfev",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "TopologicalSamplingGlobalExtremaLocator. Partitions a bounded N-dimensional real-valued search domain into a simplicial complex by iteratively placing quasi-random or structured sample points, then exploits the topological connectivity of that complex to enumerate distinct local-minima basins of attraction for a scalar-valued objective. Each identified basin candidate is subsequently refined via a gradient-based or derivative-free local descent, yielding both the globally optimal point and a ranked catalogue of all local optima discovered within the bounded region.. Applications: Computational Chemistry / Molecular Conformation: locating the globally lowest-energy 3D atomic arrangement of a molecule by minimizing a potential energy surface over torsion-angle and bond-length degrees of freedom \u2014 the multi-modal energy landscape with many local minima is precisely the regime where topological basin enumeration outperforms gradient-only methods, Aerospace Trajectory Optimization: finding the globally fuel-optimal sequence of thrust vectors and burn timings for an orbital transfer maneuver, where the scalar objective is total delta-V and the bounded domain covers admissible burn windows and attitude angles \u2014 constraint support handles no-fly zones and dynamic-pressure limits, Hyperparameter Tuning for Machine Learning Pipelines: minimizing a scalar validation-loss surface over a bounded continuous hyperparameter space (learning rate, regularization coefficients, architectural ratios) where the loss landscape is non-convex and expensive to evaluate \u2014 low-discrepancy sampling maximizes information per evaluation and the local-refinement stage polishes each promising configuration, Geophysical Seismic Inversion: recovering the globally best-fitting subsurface velocity model by minimizing the residual between observed and synthetic seismic waveforms over a bounded space of layer thicknesses and acoustic impedances \u2014 the highly multi-modal misfit function (cycle-skipping) benefits from exhaustive basin cataloguing before committing to local gradient descent",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "differentialevolutionoptimization",
+      "parent_id": "ScipyOptimizeAtoms_root",
+      "name": "DifferentialEvolutionOptimization",
+      "description": "Finds the global minimum of a scalar function using Differential Evolution: maintains a population of candidate vectors, applies stochastic mutation and crossover each generation to explore the bounded search space, enforces optional constraints, supports parallel fitness evaluation, and optionally polishes the final candidate with a gradient-based local optimizer.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "func",
+          "type_desc": "callable \u2014 scalar objective f(x, *args)",
+          "constraints": "must return a scalar float",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "bounds",
+          "type_desc": "sequence of (min, max) pairs or scipy Bounds object",
+          "constraints": "length equals problem dimensionality",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "args",
+          "type_desc": "tuple \u2014 extra positional arguments forwarded to func",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "strategy",
+          "type_desc": "str \u2014 mutation/recombination strategy name",
+          "constraints": "one of 'best1bin', 'best1exp', 'rand1exp', 'randtobest1bin', 'currenttobest1bin', 'best2exp', 'rand2exp', 'randtobest1exp', 'currenttobest1exp', 'best2bin', 'rand2bin', 'rand1bin'",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "maxiter",
+          "type_desc": "int \u2014 maximum number of generations",
+          "constraints": "maxiter >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "popsize",
+          "type_desc": "int \u2014 population size multiplier (pop = popsize * len(x))",
+          "constraints": "popsize >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tol",
+          "type_desc": "float \u2014 relative convergence tolerance on population spread",
+          "constraints": "tol >= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mutation",
+          "type_desc": "float or (float, float) \u2014 differential weight F or dithering range",
+          "constraints": "scalar in [0, 2] or tuple (min_F, max_F)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "recombination",
+          "type_desc": "float \u2014 crossover probability CR",
+          "constraints": "in [0, 1]",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "seed",
+          "type_desc": "int, np.random.RandomState, np.random.Generator, or None \u2014 RNG seed",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "callback",
+          "type_desc": "callable invoked after each generation with xk and convergence",
+          "constraints": "return True to halt early",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "disp",
+          "type_desc": "bool \u2014 print convergence messages each generation",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "polish",
+          "type_desc": "bool \u2014 refine best result with L-BFGS-B after evolution",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "init",
+          "type_desc": "str or array-like \u2014 population initialization method or explicit population",
+          "constraints": "'latinhypercube', 'sobol', 'halton', 'random', or ndarray of shape (popsize*N, N)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "atol",
+          "type_desc": "float \u2014 absolute convergence tolerance on population spread",
+          "constraints": "atol >= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "updating",
+          "type_desc": "str \u2014 controls when the best vector is updated within a generation",
+          "constraints": "'immediate' or 'deferred'",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "workers",
+          "type_desc": "int or map-like \u2014 parallel fitness evaluation workers",
+          "constraints": "-1 uses all CPU cores; map-like must conform to Pool.map interface",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "constraints",
+          "type_desc": "NonlinearConstraint, LinearConstraint, or sequence thereof",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "x0",
+          "type_desc": "array-like \u2014 initial guess seeded into the initial population",
+          "constraints": "shape (N,)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "OptimizeResult \u2014 x (optimal point), fun (optimal value), nit, nfev, success, message, population, population_energies",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(func: callable \u2014 scalar objective f(x, *args), bounds: sequence of (min, max) pairs or scipy Bounds object, args: tuple \u2014 extra positional arguments forwarded to func, strategy: str \u2014 mutation/recombination strategy name, maxiter: int \u2014 maximum number of generations, popsize: int \u2014 population size multiplier (pop = popsize * len(x)), tol: float \u2014 relative convergence tolerance on population spread, mutation: float or (float, float) \u2014 differential weight F or dithering range, recombination: float \u2014 crossover probability CR, seed: int, np.random.RandomState, np.random.Generator, or None \u2014 RNG seed, callback: callable invoked after each generation with xk and convergence, disp: bool \u2014 print convergence messages each generation, polish: bool \u2014 refine best result with L-BFGS-B after evolution, init: str or array-like \u2014 population initialization method or explicit population, atol: float \u2014 absolute convergence tolerance on population spread, updating: str \u2014 controls when the best vector is updated within a generation, workers: int or map-like \u2014 parallel fitness evaluation workers, constraints: NonlinearConstraint, LinearConstraint, or sequence thereof, x0: array-like \u2014 initial guess seeded into the initial population) -> OptimizeResult \u2014 x (optimal point), fun (optimal value), nit, nfev, success, message, population, population_energies",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "StochasticPopulationBasedBoundedGlobalMinimizer. Maintains a finite ensemble of N-dimensional real-valued candidate vectors within a bounded hyperrectangular search space, iteratively perturbing each candidate via weighted difference vectors drawn from the population (mutation) combined with probabilistic component-wise recombination, retaining only candidates that reduce the scalar objective value (selection). After stochastic convergence \u2014 measured by relative and absolute spread across the population ensemble \u2014 optionally applies a gradient-assisted local descent to the globally best candidate, projecting the population's explorative solution into a locally optimal point within the feasibility region defined by linear and nonlinear constraints.. Applications: Structural engineering \u2014 topology and shape optimization of load-bearing lattice structures where the compliance (deformation energy) surface is multimodal and finite-element evaluations are expensive, with geometric manufacturability constraints encoded as nonlinear inequality constraints, Computational chemistry / pharmacology \u2014 fitting empirical interatomic potential energy surface parameters (Lennard-Jones, Morse, ReaxFF) to ab-initio quantum mechanical reference data, where the residual sum-of-squares objective is highly non-convex over the bounded parameter hyperrectangle, Geophysical inversion \u2014 inferring subsurface elastic modulus and density layer profiles from seismic travel-time residuals, where the misfit functional has numerous local minima corresponding to physically implausible velocity models, and bounds encode prior geological constraints, Hyperparameter optimization in machine learning \u2014 tuning bounded continuous and ordinal hyperparameters (learning rate, regularization coefficient, architectural ratios) of a neural network by treating validation loss as a black-box scalar objective with no accessible gradient",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ScipyOptimizeAtoms"
+  }
+}

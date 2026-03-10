@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "node_id": "ScipyLinalgAtoms_root",
+      "parent_id": null,
+      "name": "ScipyLinalgAtoms",
+      "description": "Ingested pipeline from ScipyLinalgAtoms",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ScipyLinalgAtoms"
+  }
+}

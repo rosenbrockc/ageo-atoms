@@ -1,0 +1,17 @@
+{
+  "run_id": "8d6e4959318c4351b6130755eb8c4af9",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-matcher/scipy_wrappers.py",
+  "class_name": "ScipyIntegrateAtoms",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1773100142.066967,
+  "last_heartbeat_at": 1773100494.76932,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773100494.76932
+}
