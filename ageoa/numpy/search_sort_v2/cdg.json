@@ -1,0 +1,216 @@
+{
+  "nodes": [
+    {
+      "node_id": "NumpySearchSortAtoms_root",
+      "parent_id": null,
+      "name": "NumpySearchSortAtoms",
+      "description": "Ingested pipeline from NumpySearchSortAtoms",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "binarysearchinsertion",
+        "lexicographicindirectsort",
+        "partialsortpartition"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "binarysearchinsertion",
+      "parent_id": "NumpySearchSortAtoms_root",
+      "name": "BinarySearchInsertion",
+      "description": "Locates insertion points for values into a sorted array using binary search, supporting left/right side preference and an optional indirect sorter index.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "a",
+          "type_desc": "1-D sorted array",
+          "constraints": "must be sorted along search axis unless sorter is provided",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "scalar or array of values to search for",
+          "constraints": "broadcastable against a",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "side",
+          "type_desc": "str ('left' | 'right')",
+          "constraints": "determines which boundary index is returned on a tie",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sorter",
+          "type_desc": "optional 1-D array of integer indices",
+          "constraints": "indices that sort a; if None, a must already be sorted",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "insertion_indices",
+          "type_desc": "int or ndarray of ints",
+          "constraints": "values in [0, len(a)]; same shape as v",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(a: 1-D sorted array, v: scalar or array of values to search for, side: str ('left' | 'right'), sorter: optional 1-D array of integer indices) -> int or ndarray of ints",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "MonotonicSequencePositionResolver. Given a totally ordered, monotonically non-decreasing 1-D sequence and one or more query scalars, this operation maps each query scalar to the unique boundary index within the sequence at which insertion would preserve the sorted invariant. The transform is a divide-and-conquer halving of the search space (O(log n) per query), reducing a global ordering problem to a local rank-assignment problem. Tie-breaking is parameterized: left-preference returns the infimum boundary index, right-preference returns the supremum boundary index, yielding half-open interval semantics for range queries.. Applications: Quantile Binning in Statistical Data Pipelines: Given a pre-sorted array of empirical quantile thresholds (e.g., decile boundaries computed from a reference population), map each incoming continuous measurement to its corresponding quantile bin index in O(log n) time \u2014 applicable to real-time sensor streams, clinical lab values, or environmental readings., Event Scheduling in Discrete-Event Simulation: Maintain a sorted timeline of future event timestamps; for each newly generated event, resolve its insertion rank to slot it into the correct causal position within the event queue without full re-sort \u2014 used in network packet simulation, physics engines, or logistics modeling., Spectral Peak Alignment in Signal Processing: Given a sorted array of reference frequency bin centers (e.g., from a calibrated spectrometer), map observed peak frequencies from an unknown sample to their nearest reference bin boundaries, enabling rapid feature alignment across instruments or experimental runs., Phylogenetic Tree Node Placement in Computational Biology: Given a sorted array of divergence-time estimates along a linearized clade sequence, resolve the rank-insertion position of a newly sequenced organism's estimated divergence scalar to determine its topological placement relative to existing nodes before full tree re-evaluation.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "lexicographicindirectsort",
+      "parent_id": "NumpySearchSortAtoms_root",
+      "name": "LexicographicIndirectSort",
+      "description": "Performs a stable indirect sort over multiple key arrays in last-key-wins lexicographic order, returning the permutation indices that would sort the input.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "keys",
+          "type_desc": "sequence of arrays (last key is primary sort key)",
+          "constraints": "all arrays must have the same shape",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "axis",
+          "type_desc": "int",
+          "constraints": "axis along which to sort; default -1",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sort_indices",
+          "type_desc": "ndarray of ints",
+          "constraints": "permutation that sorts keys lexicographically; shape matches key array shape along sort axis",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(keys: sequence of arrays (last key is primary sort key), axis: int) -> ndarray of ints",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "StableMultiKeyIndirectPermutationSort. Given an ordered sequence of equally-shaped comparison arrays, this operation computes a permutation of indices such that applying the permutation to any of the input arrays produces a lexicographically ordered arrangement, where the final array in the sequence acts as the primary (most significant) sort key and earlier arrays serve as successive tiebreakers. The transform is indirect \u2014 it emits the reordering prescription (an index permutation) rather than the reordered data itself, preserving the ability to apply the same ordering to any co-indexed parallel structure. Stability guarantees that elements sharing identical composite keys retain their original relative positions.. Applications: Genomics / Bioinformatics \u2014 sorting aligned sequence fragments first by chromosome identifier (low-priority ordinal key), then by strand direction (binary key), then by base-pair position (high-priority integer key), yielding an index permutation used to reorder read records in a coordinate-sorted alignment file without copying the underlying byte data, Relational Database Query Execution \u2014 implementing a multi-column ORDER BY clause over columnar storage, where each column is a separate array and the SQL priority hierarchy maps directly to the key-sequence priority stack; the returned permutation serves as the row-reordering plan applied uniformly across all projected column buffers, Discrete-Event Simulation Scheduling \u2014 ordering pending events stored in parallel arrays (event-type code, sub-priority tag, scheduled timestamp) so that the simulation loop processes events in correct causal order by consuming the index permutation as a traversal sequence rather than physically rearranging the event store, Multivariate Time-Series Panel Alignment \u2014 reordering observations across a panel dataset by (cohort identifier, measurement-instrument category, observation timestamp), enabling downstream window operations and group-aggregations to operate on contiguous index ranges without materialising a sorted copy of the potentially large tensor",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "partialsortpartition",
+      "parent_id": "NumpySearchSortAtoms_root",
+      "name": "PartialSortPartition",
+      "description": "Partially sorts an array so that the k-th smallest elements occupy their final sorted positions, leaving all other elements in arbitrary order; also provides the indirect (index) variant.",
+      "concept_type": "sorting",
+      "inputs": [
+        {
+          "name": "a",
+          "type_desc": "ndarray",
+          "constraints": "input array to partition",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "kth",
+          "type_desc": "int or sequence of ints",
+          "constraints": "index/indices of elements to place in sorted position",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "axis",
+          "type_desc": "int or None",
+          "constraints": "axis along which to partition; None flattens first",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "kind",
+          "type_desc": "str ('introselect')",
+          "constraints": "selection algorithm; currently only introselect supported",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "order",
+          "type_desc": "str or list of str, optional",
+          "constraints": "field ordering for structured arrays; ignored for plain ndarrays",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "partitioned_array",
+          "type_desc": "ndarray",
+          "constraints": "same shape/dtype as a; k-th elements in correct sorted positions (from partition)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "partition_indices",
+          "type_desc": "ndarray of ints",
+          "constraints": "indirect permutation achieving the partition; same shape as a (from argpartition)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(a: ndarray, kth: int or sequence of ints, axis: int or None, kind: str ('introselect'), order: str or list of str, optional) -> tuple[ndarray, ndarray of ints]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Kth-Order Statistic Boundary Partitioner. Given an N-dimensional tensor and one or more target rank indices k, rearranges elements along a specified axis such that each designated rank-k position holds exactly the element that would occupy it in a fully sorted ordering, with all elements of lesser rank guaranteed to precede it and all elements of greater rank guaranteed to follow it \u2014 without imposing any order among those flanking elements. An auxiliary index-permutation variant emits the integer permutation array that encodes this partial rearrangement, preserving a mapping from output positions back to original positions. The operation is a structural decomposition of the total-order problem into a strictly necessary partial-order solution, expending only the work required to resolve the specified boundary elements rather than the entire collation.. Applications: Computational genomics \u2014 identifying the top-k most differentially expressed genes from a high-dimensional expression tensor without fully ranking all tens of thousands of features; only the boundary rank positions needed to define a significance threshold are resolved, reducing unnecessary computation on the bulk of the distribution., Real-time sensor fusion and anomaly detection \u2014 in a stream of N scalar time-series measurements from distributed IoT nodes, partitioning around the k-th rank to isolate the lowest-k latency outliers or highest-k magnitude anomalies for immediate triage, without the overhead of sorting the entire observation window., Approximate nearest-neighbor retrieval in embedding spaces \u2014 given a matrix of pairwise cosine distances between high-dimensional latent vectors (e.g., from a language or vision encoder), partitioning each row at rank k to guarantee the k closest neighbors occupy boundary-correct positions for downstream beam-search or re-ranking, without fully sorting the distance matrix., Resource scheduling and operations research \u2014 in a multi-job, multi-resource allocation tensor where each cell encodes a cost scalar, partitioning along the job axis at rank k to efficiently extract the k-cheapest feasible assignments per resource slot for greedy or branch-and-bound selection, avoiding a full cost-matrix sort over combinatorially large candidate sets.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "NumpySearchSortAtoms"
+  }
+}

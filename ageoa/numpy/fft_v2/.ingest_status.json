@@ -1,0 +1,30 @@
+{
+  "run_id": "27f4eff455274cdf97aace40f118e48f",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "../ageo-matcher/numpy_wrappers.py",
+  "class_name": "NumpyFFTAtoms",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1773144005.396746,
+  "last_heartbeat_at": 1773144263.7764852,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773144263.7764852,
+  "summary": {
+    "cdg_nodes": 4,
+    "cdg_edges": 0,
+    "matches": 3,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}
