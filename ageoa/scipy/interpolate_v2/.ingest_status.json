@@ -1,0 +1,30 @@
+{
+  "run_id": "4c610b02384f455d970b6429b4029212",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-matcher/scipy_wrappers_missing.py",
+  "class_name": "ScipyInterpolateAtoms",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1773142464.634746,
+  "last_heartbeat_at": 1773142713.1418052,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773142713.1418052,
+  "summary": {
+    "cdg_nodes": 3,
+    "cdg_edges": 0,
+    "matches": 2,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

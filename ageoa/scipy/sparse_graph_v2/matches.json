@@ -1,0 +1,200 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "singlesourceshortestpath",
+      "statement": "(csgraph: sparse matrix (N\u00d7N), directed: bool, indices: int or array-like of int, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> tuple[ndarray shape (K,N) or (N,), ndarray shape (K,N) or (N,)]",
+      "informal_desc": "Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent \u2014 locate optimal routes from a set of origins \u2014 and return a distance matrix plus an optional predecessor map.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "singlesourceshortestpath",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, indices: int or array-like of int, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> tuple[ndarray shape (K,N) or (N,), ndarray shape (K,N) or (N,)]",
+          "docstring": "Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent \u2014 locate optimal routes from a set of origins \u2014 and return a distance matrix plus an optional predecessor map.",
+          "conceptual_summary": "MultiOriginOptimalCostPropagation. Given a weighted relational structure encoded as a sparse N\u00d7N adjacency matrix, this operation propagates cumulative traversal costs outward from one or more designated origin nodes, resolving the globally optimal (minimum-cost) scalar accumulation path to every reachable node in the structure. Two relaxation strategies are supported: a greedy priority-queue expansion (valid when all edge weights are non-negative) and an iterative edge-relaxation sweep (valid for arbitrary real-valued weights including negative), both converging to the same fixed-point solution \u2014 a cost-distance field over the node set. An optional predecessor map is co-emitted, encoding the reverse-traceable arborescence of optimal paths rooted at each origin.. Applications: Computational neuroscience \u2014 mapping minimum-synaptic-hop or minimum-conduction-delay paths across a connectome modeled as a weighted directed graph, identifying structurally critical relay nodes between cortical regions, Supply-chain & logistics optimization \u2014 computing least-cost routing from K distribution centers to all N demand nodes in a capacitated transport network, where edge weights encode fuel cost, toll fees, or transit time, Epidemiology & diffusion modeling \u2014 measuring the minimum weighted-contact-chain distance from a set of index cases to all susceptible individuals in a contact network, informing containment radius and priority vaccination scheduling, Integrated circuit & VLSI design \u2014 determining minimum-latency signal propagation paths from clock sources or I/O pins to all internal logic gates in a timing graph, where edge weights represent gate delays or wire capacitances",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "singlesourceshortestpath",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, indices: int or array-like of int, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> tuple[ndarray shape (K,N) or (N,), ndarray shape (K,N) or (N,)]",
+          "docstring": "Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent \u2014 locate optimal routes from a set of origins \u2014 and return a distance matrix plus an optional predecessor map.",
+          "conceptual_summary": "MultiOriginOptimalCostPropagation. Given a weighted relational structure encoded as a sparse N\u00d7N adjacency matrix, this operation propagates cumulative traversal costs outward from one or more designated origin nodes, resolving the globally optimal (minimum-cost) scalar accumulation path to every reachable node in the structure. Two relaxation strategies are supported: a greedy priority-queue expansion (valid when all edge weights are non-negative) and an iterative edge-relaxation sweep (valid for arbitrary real-valued weights including negative), both converging to the same fixed-point solution \u2014 a cost-distance field over the node set. An optional predecessor map is co-emitted, encoding the reverse-traceable arborescence of optimal paths rooted at each origin.. Applications: Computational neuroscience \u2014 mapping minimum-synaptic-hop or minimum-conduction-delay paths across a connectome modeled as a weighted directed graph, identifying structurally critical relay nodes between cortical regions, Supply-chain & logistics optimization \u2014 computing least-cost routing from K distribution centers to all N demand nodes in a capacitated transport network, where edge weights encode fuel cost, toll fees, or transit time, Epidemiology & diffusion modeling \u2014 measuring the minimum weighted-contact-chain distance from a set of index cases to all susceptible individuals in a contact network, informing containment radius and priority vaccination scheduling, Integrated circuit & VLSI design \u2014 determining minimum-latency signal propagation paths from clock sources or I/O pins to all internal logic gates in a timing graph, where edge weights represent gate delays or wire capacitances",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "singlesourceshortestpath",
+            "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, indices: int or array-like of int, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> tuple[ndarray shape (K,N) or (N,), ndarray shape (K,N) or (N,)]",
+            "docstring": "Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent \u2014 locate optimal routes from a set of origins \u2014 and return a distance matrix plus an optional predecessor map.",
+            "conceptual_summary": "MultiOriginOptimalCostPropagation. Given a weighted relational structure encoded as a sparse N\u00d7N adjacency matrix, this operation propagates cumulative traversal costs outward from one or more designated origin nodes, resolving the globally optimal (minimum-cost) scalar accumulation path to every reachable node in the structure. Two relaxation strategies are supported: a greedy priority-queue expansion (valid when all edge weights are non-negative) and an iterative edge-relaxation sweep (valid for arbitrary real-valued weights including negative), both converging to the same fixed-point solution \u2014 a cost-distance field over the node set. An optional predecessor map is co-emitted, encoding the reverse-traceable arborescence of optimal paths rooted at each origin.. Applications: Computational neuroscience \u2014 mapping minimum-synaptic-hop or minimum-conduction-delay paths across a connectome modeled as a weighted directed graph, identifying structurally critical relay nodes between cortical regions, Supply-chain & logistics optimization \u2014 computing least-cost routing from K distribution centers to all N demand nodes in a capacitated transport network, where edge weights encode fuel cost, toll fees, or transit time, Epidemiology & diffusion modeling \u2014 measuring the minimum weighted-contact-chain distance from a set of index cases to all susceptible individuals in a contact network, informing containment radius and priority vaccination scheduling, Integrated circuit & VLSI design \u2014 determining minimum-latency signal propagation paths from clock sources or I/O pins to all internal logic gates in a timing graph, where edge weights represent gate delays or wire capacitances",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "allpairsshortestpath",
+      "statement": "(csgraph: sparse matrix (N\u00d7N), directed: bool, return_predecessors: bool, unweighted: bool) -> tuple[ndarray (N,N), ndarray (N,N)]",
+      "informal_desc": "Computes the full N\u00d7N shortest-path distance matrix for every source\u2013destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "allpairsshortestpath",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, return_predecessors: bool, unweighted: bool) -> tuple[ndarray (N,N), ndarray (N,N)]",
+          "docstring": "Computes the full N\u00d7N shortest-path distance matrix for every source\u2013destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.",
+          "conceptual_summary": "GlobalPairwiseClosureMatrix. Applies a dynamic-programming recurrence over an N\u00d7N weighted adjacency structure to simultaneously resolve the minimum-cost transitive path between every ordered pair of nodes, yielding a fully dense closure matrix. At each relaxation step, an intermediate pivot node is considered as a potential relay, and pairwise distances are updated if routing through that pivot reduces total accumulated cost. The result is the metric closure of the input relation \u2014 a complete, consistent distance space where the triangle inequality is globally enforced.. Applications: Computational neuroscience \u2014 constructing a full pairwise functional-connectivity distance matrix across all recorded neural units in a connectome, enabling cluster detection and information-flow bottleneck analysis without repeated single-source traversals, Supply-chain logistics \u2014 computing the globally optimal inter-facility transfer-cost table across all warehouse\u2013depot pairs in a distribution network, used as a precomputed lookup for real-time routing decisions under dynamic demand, Computational linguistics \u2014 deriving a complete semantic-distance matrix between every pair of nodes in a lexical knowledge graph (e.g., a thesaurus or ontology), enabling similarity queries and analogical reasoning by direct lookup rather than on-demand traversal, Epidemiological modeling \u2014 resolving the minimum-step contagion-pathway matrix between all pairs of geographic or demographic nodes in a contact network, supporting rapid identification of shortest transmission chains and critical bridge nodes for intervention targeting",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "allpairsshortestpath",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, return_predecessors: bool, unweighted: bool) -> tuple[ndarray (N,N), ndarray (N,N)]",
+          "docstring": "Computes the full N\u00d7N shortest-path distance matrix for every source\u2013destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.",
+          "conceptual_summary": "GlobalPairwiseClosureMatrix. Applies a dynamic-programming recurrence over an N\u00d7N weighted adjacency structure to simultaneously resolve the minimum-cost transitive path between every ordered pair of nodes, yielding a fully dense closure matrix. At each relaxation step, an intermediate pivot node is considered as a potential relay, and pairwise distances are updated if routing through that pivot reduces total accumulated cost. The result is the metric closure of the input relation \u2014 a complete, consistent distance space where the triangle inequality is globally enforced.. Applications: Computational neuroscience \u2014 constructing a full pairwise functional-connectivity distance matrix across all recorded neural units in a connectome, enabling cluster detection and information-flow bottleneck analysis without repeated single-source traversals, Supply-chain logistics \u2014 computing the globally optimal inter-facility transfer-cost table across all warehouse\u2013depot pairs in a distribution network, used as a precomputed lookup for real-time routing decisions under dynamic demand, Computational linguistics \u2014 deriving a complete semantic-distance matrix between every pair of nodes in a lexical knowledge graph (e.g., a thesaurus or ontology), enabling similarity queries and analogical reasoning by direct lookup rather than on-demand traversal, Epidemiological modeling \u2014 resolving the minimum-step contagion-pathway matrix between all pairs of geographic or demographic nodes in a contact network, supporting rapid identification of shortest transmission chains and critical bridge nodes for intervention targeting",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "allpairsshortestpath",
+            "type_signature": "(csgraph: sparse matrix (N\u00d7N), directed: bool, return_predecessors: bool, unweighted: bool) -> tuple[ndarray (N,N), ndarray (N,N)]",
+            "docstring": "Computes the full N\u00d7N shortest-path distance matrix for every source\u2013destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.",
+            "conceptual_summary": "GlobalPairwiseClosureMatrix. Applies a dynamic-programming recurrence over an N\u00d7N weighted adjacency structure to simultaneously resolve the minimum-cost transitive path between every ordered pair of nodes, yielding a fully dense closure matrix. At each relaxation step, an intermediate pivot node is considered as a potential relay, and pairwise distances are updated if routing through that pivot reduces total accumulated cost. The result is the metric closure of the input relation \u2014 a complete, consistent distance space where the triangle inequality is globally enforced.. Applications: Computational neuroscience \u2014 constructing a full pairwise functional-connectivity distance matrix across all recorded neural units in a connectome, enabling cluster detection and information-flow bottleneck analysis without repeated single-source traversals, Supply-chain logistics \u2014 computing the globally optimal inter-facility transfer-cost table across all warehouse\u2013depot pairs in a distribution network, used as a precomputed lookup for real-time routing decisions under dynamic demand, Computational linguistics \u2014 deriving a complete semantic-distance matrix between every pair of nodes in a lexical knowledge graph (e.g., a thesaurus or ontology), enabling similarity queries and analogical reasoning by direct lookup rather than on-demand traversal, Epidemiological modeling \u2014 resolving the minimum-step contagion-pathway matrix between all pairs of geographic or demographic nodes in a contact network, supporting rapid identification of shortest transmission chains and critical bridge nodes for intervention targeting",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "minimumspanningtree",
+      "statement": "(csgraph: sparse matrix (N\u00d7N), overwrite: bool) -> CSR sparse matrix (N\u00d7N)",
+      "informal_desc": "Extracts the globally optimal minimum spanning tree of a sparse undirected weighted graph. Returns a new sparse matrix whose non-zero entries correspond only to MST edges, minimizing total edge weight while keeping the graph connected.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "minimumspanningtree",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), overwrite: bool) -> CSR sparse matrix (N\u00d7N)",
+          "docstring": "Extracts the globally optimal minimum spanning tree of a sparse undirected weighted graph. Returns a new sparse matrix whose non-zero entries correspond only to MST edges, minimizing total edge weight while keeping the graph connected.",
+          "conceptual_summary": "GloballyOptimalAcyclicConnectivityExtractor. Given a symmetric, non-negatively weighted adjacency structure over N discrete nodes, this operation selects the minimal-weight subset of exactly N-1 edges that preserves full connectivity, eliminating all redundant paths and cycles while minimizing the aggregate scalar cost of the retained topology. The result is a lossless-connectivity, lossy-structure projection that collapses a potentially dense relational graph into its irreducible acyclic backbone \u2014 a spanning tree \u2014 whose total edge weight is globally minimized across all possible spanning trees of the input.. Applications: Computational Neuroscience \u2014 Extracting the minimal-weight axonal wiring backbone from a full pairwise functional-connectivity matrix of cortical regions, reducing a dense N\u00d7N correlation tensor to the irreducible acyclic scaffold that preserves whole-brain reachability at lowest total metabolic signaling cost, Supply Chain & Logistics Engineering \u2014 Given a weighted adjacency matrix of pairwise transport costs between N distribution nodes (warehouses, cities, relay stations), computing the minimum-cost acyclic routing skeleton that keeps all nodes reachable, serving as the seed topology for further capacity-optimization or flow-routing layers, Genomics & Phylogenetics \u2014 Constructing a minimum-cost evolutionary tree from an N\u00d7N pairwise genetic-distance matrix over N taxa or protein sequences, yielding an acyclic hierarchical topology that spans all observed sequences with the least total mutational distance \u2014 the parsimony backbone prior to clade refinement, Sensor Network Design & Embedded Systems \u2014 Given an N\u00d7N matrix of pairwise RF link quality or energy-cost estimates among N sensor nodes, identifying the minimum total-energy spanning communication topology that keeps the entire network connected, used as the baseline mesh prior to fault-tolerance redundancy augmentation",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "minimumspanningtree",
+          "type_signature": "(csgraph: sparse matrix (N\u00d7N), overwrite: bool) -> CSR sparse matrix (N\u00d7N)",
+          "docstring": "Extracts the globally optimal minimum spanning tree of a sparse undirected weighted graph. Returns a new sparse matrix whose non-zero entries correspond only to MST edges, minimizing total edge weight while keeping the graph connected.",
+          "conceptual_summary": "GloballyOptimalAcyclicConnectivityExtractor. Given a symmetric, non-negatively weighted adjacency structure over N discrete nodes, this operation selects the minimal-weight subset of exactly N-1 edges that preserves full connectivity, eliminating all redundant paths and cycles while minimizing the aggregate scalar cost of the retained topology. The result is a lossless-connectivity, lossy-structure projection that collapses a potentially dense relational graph into its irreducible acyclic backbone \u2014 a spanning tree \u2014 whose total edge weight is globally minimized across all possible spanning trees of the input.. Applications: Computational Neuroscience \u2014 Extracting the minimal-weight axonal wiring backbone from a full pairwise functional-connectivity matrix of cortical regions, reducing a dense N\u00d7N correlation tensor to the irreducible acyclic scaffold that preserves whole-brain reachability at lowest total metabolic signaling cost, Supply Chain & Logistics Engineering \u2014 Given a weighted adjacency matrix of pairwise transport costs between N distribution nodes (warehouses, cities, relay stations), computing the minimum-cost acyclic routing skeleton that keeps all nodes reachable, serving as the seed topology for further capacity-optimization or flow-routing layers, Genomics & Phylogenetics \u2014 Constructing a minimum-cost evolutionary tree from an N\u00d7N pairwise genetic-distance matrix over N taxa or protein sequences, yielding an acyclic hierarchical topology that spans all observed sequences with the least total mutational distance \u2014 the parsimony backbone prior to clade refinement, Sensor Network Design & Embedded Systems \u2014 Given an N\u00d7N matrix of pairwise RF link quality or energy-cost estimates among N sensor nodes, identifying the minimum total-energy spanning communication topology that keeps the entire network connected, used as the baseline mesh prior to fault-tolerance redundancy augmentation",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "minimumspanningtree",
+            "type_signature": "(csgraph: sparse matrix (N\u00d7N), overwrite: bool) -> CSR sparse matrix (N\u00d7N)",
+            "docstring": "Extracts the globally optimal minimum spanning tree of a sparse undirected weighted graph. Returns a new sparse matrix whose non-zero entries correspond only to MST edges, minimizing total edge weight while keeping the graph connected.",
+            "conceptual_summary": "GloballyOptimalAcyclicConnectivityExtractor. Given a symmetric, non-negatively weighted adjacency structure over N discrete nodes, this operation selects the minimal-weight subset of exactly N-1 edges that preserves full connectivity, eliminating all redundant paths and cycles while minimizing the aggregate scalar cost of the retained topology. The result is a lossless-connectivity, lossy-structure projection that collapses a potentially dense relational graph into its irreducible acyclic backbone \u2014 a spanning tree \u2014 whose total edge weight is globally minimized across all possible spanning trees of the input.. Applications: Computational Neuroscience \u2014 Extracting the minimal-weight axonal wiring backbone from a full pairwise functional-connectivity matrix of cortical regions, reducing a dense N\u00d7N correlation tensor to the irreducible acyclic scaffold that preserves whole-brain reachability at lowest total metabolic signaling cost, Supply Chain & Logistics Engineering \u2014 Given a weighted adjacency matrix of pairwise transport costs between N distribution nodes (warehouses, cities, relay stations), computing the minimum-cost acyclic routing skeleton that keeps all nodes reachable, serving as the seed topology for further capacity-optimization or flow-routing layers, Genomics & Phylogenetics \u2014 Constructing a minimum-cost evolutionary tree from an N\u00d7N pairwise genetic-distance matrix over N taxa or protein sequences, yielding an acyclic hierarchical topology that spans all observed sequences with the least total mutational distance \u2014 the parsimony backbone prior to clade refinement, Sensor Network Design & Embedded Systems \u2014 Given an N\u00d7N matrix of pairwise RF link quality or energy-cost estimates among N sensor nodes, identifying the minimum total-energy spanning communication topology that keeps the entire network connected, used as the baseline mesh prior to fault-tolerance redundancy augmentation",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

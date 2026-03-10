@@ -1,0 +1,183 @@
+{
+  "nodes": [
+    {
+      "node_id": "ScipyInterpolateAtoms_root",
+      "parent_id": null,
+      "name": "ScipyInterpolateAtoms",
+      "description": "Ingested pipeline from ScipyInterpolateAtoms",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "cubicsplinefit",
+        "rbfinterpolatorfit"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "cubicsplinefit",
+      "parent_id": "ScipyInterpolateAtoms_root",
+      "name": "CubicSplineFit",
+      "description": "Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "1-D array of strictly-increasing sample-point coordinates",
+          "constraints": "monotonically increasing; length >= 2",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "y",
+          "type_desc": "Array of sample values; interpolation is performed along the given axis",
+          "constraints": "size along `axis` must equal len(x)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "axis",
+          "type_desc": "int",
+          "constraints": "valid axis index of y; defaults to 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "bc_type",
+          "type_desc": "str or 2-tuple of boundary-condition specs (optional)",
+          "constraints": "one of 'not-a-knot', 'periodic', 'clamped', 'natural', or explicit first/second derivative pairs",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "extrapolate",
+          "type_desc": "bool or the string 'periodic' (optional)",
+          "constraints": "controls whether the spline is evaluated outside the data range",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "spline_interpolator",
+          "type_desc": "CubicSpline callable interpolator object",
+          "constraints": "supports __call__(x_new), .derivative(), .antiderivative()",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "PiecewiseC2PolynomialInterpolant. Given a finite, ordered set of (coordinate, value) pairs sampled from an unknown function, constructs a globally smooth surrogate function composed of degree-3 polynomial segments stitched at interior knot coordinates, where C2 continuity (matching values, first derivatives, and second derivatives across segment boundaries) is enforced as a hard constraint. The resulting functional object compactly encodes the continuous manifold between sample nodes, enabling evaluation, differentiation, and antidifferentiation at arbitrary query coordinates without re-solving the system. Boundary behavior at the domain endpoints and beyond the support interval is governed by user-specified algebraic constraints, making the operator configurable between periodic-closure, curvature-free, slope-pinned, and natural modes.. Applications: Computational fluid dynamics \u2014 reconstructing a continuous velocity or pressure field from sparse sensor-probe measurements distributed along a spatial coordinate, enabling gradient and divergence estimation at non-instrumented positions without re-running simulation, Pharmacokinetic modeling \u2014 fitting a smooth concentration-time curve through discretely sampled plasma-assay scalar readings to derive continuous absorption and elimination rates (first derivatives) and cumulative drug exposure (antiderivative / AUC) from sparse clinical time points, Robotics and motion planning \u2014 constructing a smooth end-effector trajectory through a sequence of waypoint configurations in joint-space, guaranteeing bounded jerk (third derivative) and continuous acceleration profiles required for torque-limited actuator execution, Geophysical signal reconstruction \u2014 interpolating seismic amplitude or gravitational potential measurements recorded at irregularly-spaced borehole or station coordinates into a continuous depth/surface profile suitable for spectral analysis, stratigraphic correlation, or inversion workflows, Radiometric calibration in imaging systems \u2014 mapping discrete (input-intensity, output-response) calibration pairs for a sensor into a continuous tone-response curve, enabling sub-integer intensity remapping with smooth gradients that prevent banding artifacts in downstream image processing",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "rbfinterpolatorfit",
+      "parent_id": "ScipyInterpolateAtoms_root",
+      "name": "RBFInterpolatorFit",
+      "description": "Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "y",
+          "type_desc": "2-D float array of data-point coordinates, shape (n_points, n_dims)",
+          "constraints": "all values finite; n_points >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "d",
+          "type_desc": "Array of data values at coordinates y, shape (n_points, ...) or (n_points,)",
+          "constraints": "all values finite; leading dimension must equal n_points",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "neighbors",
+          "type_desc": "int (optional)",
+          "constraints": "number of nearest neighbours used per query point; None means use all n_points",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "smoothing",
+          "type_desc": "float or 1-D array of length n_points (optional)",
+          "constraints": ">= 0; 0 produces exact interpolation",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "kernel",
+          "type_desc": "str (optional)",
+          "constraints": "one of 'linear', 'thin_plate_spline', 'cubic', 'quintic', 'multiquadric', 'inverse_multiquadric', 'inverse_quadratic', 'gaussian'",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "epsilon",
+          "type_desc": "float (optional)",
+          "constraints": "> 0; shape/scale parameter required by 'multiquadric', 'inverse_multiquadric', 'inverse_quadratic', 'gaussian'",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "degree",
+          "type_desc": "int (optional)",
+          "constraints": "degree of supplementary polynomial; -1 disables polynomial augmentation; minimum degree enforced per kernel",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rbf_interpolator",
+          "type_desc": "RBFInterpolator callable interpolator object",
+          "constraints": "supports __call__(x_new) where x_new is shape (m_points, n_dims)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ScatteredPointFieldContinuousReconstructor. Given a finite set of irregularly-distributed coordinate-value pairs in an N-dimensional Euclidean space, constructs a globally (or locally, via nearest-neighbor partitioning) smooth, continuous scalar or vector field by expressing the interpolant as a weighted superposition of radially-symmetric basis functions centered at each support point, optionally augmented by a low-degree polynomial to guarantee polynomial reproduction. The fitting stage solves a regularised linear system (controlled by per-point smoothing weights) whose solution coefficients define the callable surrogate surface; at query time the surrogate evaluates the weighted kernel sum over the relevant support set to produce interpolated values at arbitrary off-sample coordinates.. Applications: Geophysical field reconstruction: estimating a continuous subsurface property map (e.g., hydraulic conductivity, temperature gradient) from a sparse, irregularly-spaced set of borehole sensor readings distributed across a 2-D or 3-D spatial domain, Computational fluid dynamics / aerodynamic shape optimisation: constructing a smooth surrogate response surface over a high-dimensional parameter space (e.g., Mach number \u00d7 angle-of-attack \u00d7 geometry perturbation) from a small ensemble of expensive CFD simulation outputs, enabling rapid gradient-free optimisation, Medical neuroimaging: interpolating a continuous activation or connectivity field over the cortical surface from a discrete set of electrode or fMRI voxel measurements distributed at irregular anatomical coordinates, supporting statistical mapping at arbitrary cortical locations, Robotics and autonomous navigation: building a dense, queryable occupancy or traversability cost field over a 2-D or 3-D workspace from a sparse set of LiDAR or tactile probe measurements, enabling smooth path-planning cost evaluation at arbitrary continuous coordinates without a fixed grid",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ScipyInterpolateAtoms"
+  }
+}
