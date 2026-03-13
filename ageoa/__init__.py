@@ -45,6 +45,12 @@ for _name in (
     "particle_filters",
     "bayes_rs",
     "belief_propagation",
+    "neurokit2",
+    "hftbacktest",
+    "jFOF",
+    "astroflow",
+    "skyfield",
+    "hPDB",
 ):
     _maybe_import(_name)
 
@@ -76,4 +82,10 @@ __all__ = [
     "particle_filters",
     "bayes_rs",
     "belief_propagation",
+    "neurokit2",
+    "hftbacktest",
+    "jFOF",
+    "astroflow",
+    "skyfield",
+    "hPDB",
 ]

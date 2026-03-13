@@ -1,0 +1,45 @@
+"""Auto-generated atom wrappers following the ageoa pattern."""
+
+from __future__ import annotations
+
+import numpy as np
+import torch
+import jax
+import jax.numpy as jnp
+import haiku as hk
+
+import networkx as nx  # type: ignore
+import icontract
+from ageoa.ghost.registry import register_atom
+from ageoa.astroflow.witnesses import witness_compute_spherical_coordinate_rates, witness_calculate_vector_angle
+
+@register_atom(witness_compute_spherical_coordinate_rates)
+@icontract.require(lambda r: r is not None, "r cannot be None")
+@icontract.require(lambda v: v is not None, "v cannot be None")
+@icontract.ensure(lambda result, **kwargs: result is not None, "compute_spherical_coordinate_rates output must not be None")
+def compute_spherical_coordinate_rates(r: numpy.ndarray, v: numpy.ndarray) -> tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]:
+    """Computes spherical coordinate rates.
+
+    Args:
+        r: Cartesian position vector(s).
+        v: Cartesian velocity vector(s).
+
+    Returns:
+        A tuple containing the rates of change for range, right ascension, and declination.
+    """
+    raise NotImplementedError("Wire to original implementation")
+
+@register_atom(witness_calculate_vector_angle)
+@icontract.require(lambda u: u is not None, "u cannot be None")
+@icontract.require(lambda v: v is not None, "v cannot be None")
+def calculate_vector_angle(u: numpy.ndarray, v: numpy.ndarray) -> float:
+    """Computes the angle between two vectors.
+
+    Args:
+        u: First vector.
+        v: Second vector.
+
+    Returns:
+        The angle in radians.
+    """
+    raise NotImplementedError("Wire to original implementation")

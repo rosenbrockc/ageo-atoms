@@ -1,0 +1,108 @@
+{
+  "nodes": [
+    {
+      "node_id": "jFOFIngest_root",
+      "parent_id": null,
+      "name": "jFOFIngest",
+      "description": "Ingested pipeline from jFOFIngest",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "find_fof_clusters"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "find_fof_clusters",
+      "parent_id": "jFOFIngest_root",
+      "name": "find_fof_clusters",
+      "description": "Computes friends-of-friends (FOF) clusters for a set of points on a periodic grid. This is a core clustering algorithm used in cosmology and astrophysics to identify gravitationally bound structures.",
+      "concept_type": "graph_optimization",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "Array of particle positions, typically of shape (n_particles, n_dims).",
+          "constraints": "Must be a numeric array.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "b",
+          "type_desc": "The linking length, a scalar value defining the maximum distance for two particles to be considered 'friends'.",
+          "constraints": "Must be a positive float.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "L",
+          "type_desc": "The size of the periodic box, a scalar or array matching the number of dimensions.",
+          "constraints": "Must be a positive float.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mode",
+          "type_desc": "A string or enum indicating the specific algorithm or mode to use for the computation.",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_neighbors",
+          "type_desc": "The maximum number of neighbors to consider for each particle, used to pre-allocate memory.",
+          "constraints": "Must be a positive integer.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "batch_size",
+          "type_desc": "The number of particles to process in a single batch to manage memory usage.",
+          "constraints": "Must be a positive integer.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clusters",
+          "type_desc": "An array of cluster labels, where each element corresponds to a particle in the input array 'x'.",
+          "constraints": "The output array will have a length equal to the number of particles.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: Array of particle positions, typically of shape (n_particles, n_dims)., b: The linking length, a scalar value defining the maximum distance for two particles to be considered 'friends'., L: The size of the periodic box, a scalar or array matching the number of dimensions., mode: A string or enum indicating the specific algorithm or mode to use for the computation., max_neighbors: The maximum number of neighbors to consider for each particle, used to pre-allocate memory., batch_size: The number of particles to process in a single batch to manage memory usage.) -> An array of cluster labels, where each element corresponds to a particle in the input array 'x'.",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "transitive_proximity_partitioning. Partitions a set of points in an N-dimensional space with periodic boundaries into disjoint subsets. The partitioning is based on constructing a proximity graph where an edge exists between any two points if their distance is below a specified threshold. Each output subset represents a connected component of this graph, effectively forming a transitive closure over the 'is-a-neighbor' relationship.. Applications: Molecular Dynamics: Identifying groups of interacting atoms or molecules in a simulation with a periodic solvent box to study aggregation or complex formation., Epidemiology: Modeling contagion clusters in a population distributed over a geographical area with wrap-around boundaries, where the linking length represents the transmission radius., Materials Science: Analyzing the formation of crystal grains or the propagation of defects within a simulated material lattice that uses periodic boundary conditions., Sensor Networks: Grouping signals from a distributed network of sensors deployed in a toroidal or wrap-around physical space to identify event regions.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "jFOFIngest"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "run_id": "b4da9a16f0ec4961a43fa3970f3c08b3",
+  "state": "failed",
+  "phase": "startup",
+  "current_step": "init",
+  "source_path": "third_party/NeuroKit2/ingest_wrapper.py",
+  "class_name": "NeuroKitIngest",
+  "procedural": false,
+  "llm_provider": "gemini_shim",
+  "llm_model": "claude-sonnet-4-5-20250929",
+  "max_depth": 12,
+  "started_at": 1773340748.4597352,
+  "last_heartbeat_at": 1773340840.0745559,
+  "llm_call_inflight": null,
+  "error": "Failed to start Gemini shim worker: Ignore file not found: /Users/conrad/personal/ageo-atoms/.geminiignore, continue without it.",
+  "ended_at": 1773340840.0745559
+}
