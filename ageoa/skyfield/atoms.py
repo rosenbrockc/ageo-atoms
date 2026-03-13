@@ -11,7 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from ageoa.astroflow.witnesses import witness_compute_spherical_coordinate_rates, witness_calculate_vector_angle
+from .witnesses import *
 
 @register_atom(witness_compute_spherical_coordinate_rates)
 @icontract.require(lambda r: r is not None, "r cannot be None")

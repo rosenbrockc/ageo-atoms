@@ -11,6 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 from ageoa.hftbacktest.witnesses import witness_initialize_glft_state, witness_update_glft_coefficients, witness_evaluate_spread_conditions  # type: ignore
 @register_atom(witness_initialize_glft_state)

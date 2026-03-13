@@ -4,8 +4,11 @@ from __future__ import annotations
 
 from __future__ import annotations
 
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Any
 import torch
+
+class Atom: pass
+class Residue: pass
 import jax
 import jax.numpy as jnp
 import haiku as hk
@@ -15,7 +18,6 @@ import icontract
 from ageoa.tempo import register_atom
 
 # Witness functions should be imported from the generated witnesses module
-from ageoa.hPDB.atoms import Atom, Residue  # type: ignore
 from ageoa.hPDB.witnesses import (  # type: ignore
     witness_iterate_pdb_atoms,
     witness_iterate_pdb_residues,

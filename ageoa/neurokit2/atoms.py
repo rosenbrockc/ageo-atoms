@@ -12,6 +12,7 @@ import networkx as nx  # type: ignore
 import icontract
 from typing import Any, Union
 from ageoa.ghost.registry import register_atom
+from .witnesses import *
 
 # Placeholder witness functions
 def witness_zhao2018hrvanalysis(*args: Any, **kwargs: Any) -> bool:
