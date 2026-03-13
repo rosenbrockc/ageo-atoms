@@ -19,14 +19,13 @@ from .witnesses import witness_dispatch_mcmc_algorithm
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def dispatch_mcmc_algorithm(log_target_density: np.ndarray, initial_state: np.ndarray, n_draws: int) -> np.ndarray:
-    """Top-level dispatcher that routes to the appropriate MCMC algorithm (RWMH, MALA, HMC, NUTS, RMHMC, AEES, DE) based on configuration.
+    """Routes to the chosen sampling algorithm for drawing random samples from a target distribution. Supports seven sampling methods including random-walk, gradient-based, and population-based approaches.
 
-    Args:
-        log_target_density: Flattened evaluation of the log-target density at current chain positions
-        initial_state: Initial parameter vector for the Markov chain, shape (n_params,)
-        n_draws: Number of posterior samples to collect after warmup
+Args:
+    log_target_density: Flattened evaluation of the log-target density at current chain positions
+    initial_state: Initial parameter vector for the Markov chain, shape (n_params,)
+    n_draws: Number of posterior samples to collect after warmup
 
-    Returns:
-        Posterior samples array, shape (n_draws, n_params)
-    """
+Returns:
+    Posterior samples array, shape (n_draws, n_params)"""
     raise NotImplementedError("Wire to original implementation")

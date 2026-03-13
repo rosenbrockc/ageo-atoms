@@ -12,12 +12,12 @@ from .witnesses import witness_offset_tt2tdbh
 @icontract.require(lambda seconds: seconds is not None, "seconds cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def offset_tt2tdbh(seconds: float) -> float:
-    """Returns the TT-to-TDBH time-scale offset using the higher-accuracy Harada-Fukushima series expansion.
+    """Computes a high-accuracy time correction between an Earth-based clock and one at the solar system center of mass.
 
     Args:
-        seconds: TT epoch expressed in seconds since J2000.0
+        seconds: time in seconds since the year-2000 reference epoch
 
     Returns:
-        TDBH - TT offset in seconds via Harada-Fukushima series, maximum error ~10 µs from 1600-2200
+        offset in seconds, maximum error ~10 microseconds over 1600-2200
     """
     raise NotImplementedError("Wire to original implementation")

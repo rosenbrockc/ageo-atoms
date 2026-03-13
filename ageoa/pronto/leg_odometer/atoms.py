@@ -52,7 +52,7 @@ from pathlib import Path
 
 
 def _velocitystatereadout_ffi(state_in: object) -> object:
-    """FFI bridge to C++ implementation of VelocityStateReadout."""
+    """Wrapper that calls the C++ version of velocity state readout. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./velocitystatereadout.so")
     _func_name = 'velocitystatereadout_prime'
     _func = _lib[_func_name]
@@ -61,7 +61,7 @@ def _velocitystatereadout_ffi(state_in: object) -> object:
     return _func(state_in)
 
 def _posequeryaccessors_ffi() -> object:
-    """FFI bridge to C++ implementation of PoseQueryAccessors."""
+    """Wrapper that calls the C++ version of pose query accessors. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./posequeryaccessors.so")
     _func_name = 'posequeryaccessors_prime'
     _func = _lib[_func_name]

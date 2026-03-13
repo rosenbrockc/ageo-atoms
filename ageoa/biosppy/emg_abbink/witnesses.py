@@ -10,7 +10,7 @@ def witness_detect_onsets_with_rest_aware_thresholds(signal: AbstractSignal,
     threshold: AbstractScalar,
     transition_threshold: AbstractScalar,
 ) -> AbstractSignal:
-    """Ghost witness for detect_onsets_with_rest_aware_thresholds."""
+    """Shape-and-type check for detect onsets with rest aware thresholds. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

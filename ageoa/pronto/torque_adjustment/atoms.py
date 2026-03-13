@@ -37,7 +37,7 @@ from pathlib import Path
 
 
 def _torqueadjustmentidentitystage_ffi() -> ctypes.c_void_p:
-    """FFI bridge to C++ implementation of TorqueAdjustmentIdentityStage."""
+    """Wrapper that calls the C++ version of torque adjustment identity stage. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./torqueadjustmentidentitystage.so")
     _func_name = 'torqueadjustmentidentitystage_prime'
     _func = _lib[_func_name]

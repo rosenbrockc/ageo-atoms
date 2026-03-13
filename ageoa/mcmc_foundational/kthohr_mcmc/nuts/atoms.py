@@ -27,18 +27,17 @@ from pathlib import Path
 def nuts_recursive_tree_build(direction_val: int, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: int) -> NUTS_Trajectory:
     """Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step.
 
-    Args:
-        direction_val: Determines the direction of integration, typically +1 for forward or -1 for backward.
-        step_size: The step size (epsilon) for the leapfrog integrator.
-        log_slice_variable: The logarithm of the uniform slice variable 'u', used for the generalized HMC acceptance criterion.
-        initial_hmc_state: The initial state for this subtree, containing position, momentum, potential energy (prev_U), and kinetic energy (prev_K).
-        log_prob_oracle: An oracle function (box_log_kernel_fn) that computes the log probability (potential energy) of the target distribution for a given position.
-        integrator_fn: The leapfrog integrator function (leap_frog_fn) used to propose new states along the trajectory.
-        tree_depth: The current recursion depth of the tree-building process.
+Args:
+    direction_val: Determines the direction of integration, typically +1 for forward or -1 for backward.
+    step_size: The step size (epsilon) for the leapfrog integrator.
+    log_slice_variable: The logarithm of the uniform slice variable 'u', used for the generalized Hamiltonian Monte Carlo (HMC) acceptance criterion.
+    initial_hmc_state: The initial state for this subtree, containing position, momentum, potential energy (prev_U), and kinetic energy (prev_K).
+    log_prob_oracle: An oracle function (box_log_kernel_fn) that computes the log probability (potential energy) of the target distribution for a given position.
+    integrator_fn: The leapfrog integrator function (leap_frog_fn) used to propose new states along the trajectory.
+    tree_depth: The current recursion depth of the tree-building process.
 
-    Returns:
-        Returns a composite object representing the built trajectory, including the leftmost/rightmost states, the proposed sample, a flag indicating a U-turn, a divergence flag, and summed acceptance probabilities.
-    """
+Returns:
+    Returns a composite object representing the built trajectory, including the leftmost/rightmost states, the proposed sample, a flag indicating a U-turn, a divergence flag, and summed acceptance probabilities."""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -46,7 +45,7 @@ def nuts_recursive_tree_build(direction_val: int, step_size: float, log_slice_va
 
 
 def _nuts_recursive_tree_build_ffi(direction_val, step_size, log_slice_variable, initial_hmc_state, log_prob_oracle, integrator_fn, tree_depth):
-    """FFI bridge to C++ implementation of nuts_recursive_tree_build."""
+    """Wrapper that calls the C++ version of nuts recursive tree build. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./nuts_recursive_tree_build.so")
     _func_name = 'nuts_recursive_tree_build'
     _func = _lib[_func_name]

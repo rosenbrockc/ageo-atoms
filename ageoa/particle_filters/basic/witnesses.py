@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_filter_step_preparation_and_dispatch(up: AbstractArray, b: AbstractArray, a: AbstractArray, o: AbstractArray) -> AbstractArray:
-    """Ghost witness for Filter Step Preparation And Dispatch."""
+    """Shape-and-type check for filter step preparation and dispatch. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=up.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_filter_step_preparation_and_dispatch(up: AbstractArray, b: AbstractA
     return result
 
 def witness_particle_propagation_kernel(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for MCMC sampler: Particle Propagation Kernel."""
+    """Shape-and-type check for mcmc sampler: particle propagation kernel. Returns output metadata without running the real computation."""
     if trace.param_dims != target.event_shape:
         raise ValueError(
             f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
@@ -19,7 +19,7 @@ def witness_particle_propagation_kernel(trace: AbstractMCMCTrace, target: Abstra
     return trace.step(accepted=True), rng.advance(n_draws=1)
 
 def witness_likelihood_reweight_kernel(proposed_particles: AbstractArray, carry_weights: AbstractArray, observation_t: AbstractArray, model_spec: AbstractArray) -> AbstractArray:
-    """Ghost witness for Likelihood Reweight Kernel."""
+    """Shape-and-type check for likelihood reweight kernel. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=proposed_particles.shape,
         dtype="float64",
@@ -27,7 +27,7 @@ def witness_likelihood_reweight_kernel(proposed_particles: AbstractArray, carry_
     return result
 
 def witness_resample_and_belief_projection(prior: AbstractDistribution, likelihood: AbstractDistribution, data_shape: tuple[int, ...]) -> AbstractDistribution:
-    """Ghost witness for posterior update: Resample And Belief Projection."""
+    """Shape-and-type check for posterior update: resample and belief projection. Returns output metadata without running the real computation."""
     prior.assert_conjugate_to(likelihood)
     return AbstractDistribution(
         family=prior.family,

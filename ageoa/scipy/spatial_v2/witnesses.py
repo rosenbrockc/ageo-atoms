@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_voronoitessellation(points: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
-    """Ghost witness for VoronoiTessellation."""
+    """Shape-and-type check for voronoi tessellation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=points.shape,
         dtype="float64",)
@@ -12,7 +12,7 @@ def witness_voronoitessellation(points: AbstractArray, incremental: AbstractArra
     return result
 
 def witness_delaunaytriangulation(points: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
-    """Ghost witness for DelaunayTriangulation."""
+    """Shape-and-type check for delaunay triangulation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=points.shape,
         dtype="float64",)

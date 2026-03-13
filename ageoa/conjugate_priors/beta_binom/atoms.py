@@ -59,9 +59,9 @@ from juliacall import Main as jl
 
 
 def _posterior_randmodel_ffi(pri, G, data):
-    """FFI bridge to Julia implementation of Posterior Randmodel."""
+    """Wrapper that calls the Julia version of posterior randmodel. Passes arguments through and returns the result."""
     return jl.eval("posterior_randmodel(pri, G, data)")
 
 def _posterior_randmodel_ffi(pri, G, data, w):
-    """FFI bridge to Julia implementation of Posterior Randmodel."""
+    """Wrapper that calls the Julia version of posterior randmodel. Passes arguments through and returns the result."""
     return jl.eval("posterior_randmodel(pri, G, data, w)")

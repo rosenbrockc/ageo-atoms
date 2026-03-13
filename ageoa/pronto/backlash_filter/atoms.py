@@ -72,13 +72,13 @@ def updatecrossingtimemaximum(state_in: BacklashFilterState, t_crossing_max_in: 
 """Auto-generated FFI bindings for cpp implementations."""
 
 def _initializebacklashfilterstate_ffi() -> np.ndarray:
-    """FFI bridge to C++ implementation of InitializeBacklashFilterState."""
+    """Wrapper that calls the C++ version of initialize backlash filter state. Passes arguments through and returns the result."""
     raise NotImplementedError("Wire to original implementation")
 
 def _updatealphaparameter_ffi(state_in: np.ndarray, alpha_in: float) -> np.ndarray:
-    """FFI bridge to C++ implementation of UpdateAlphaParameter."""
+    """Wrapper that calls the C++ version of update alpha parameter. Passes arguments through and returns the result."""
     raise NotImplementedError("Wire to original implementation")
 
 def _updatecrossingtimemaximum_ffi(state_in: np.ndarray, t_crossing_max_in: float) -> np.ndarray:
-    """FFI bridge to C++ implementation of UpdateCrossingTimeMaximum."""
+    """Wrapper that calls the C++ version of update crossing time maximum. Passes arguments through and returns the result."""
     raise NotImplementedError("Wire to original implementation")

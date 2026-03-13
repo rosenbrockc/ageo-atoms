@@ -23,22 +23,21 @@ def witness_gradient_oracle_evaluation(*args, **kwargs): pass
 @icontract.require(lambda restructure: restructure is not None, "restructure cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "Gradient Oracle Evaluation all outputs must not be None")
 def gradient_oracle_evaluation(rng_in: object, obj: object, adtype: object, out_in: object, state_in: object, params: object, restructure: object) -> tuple[object, object, object, object]:
-    """Computes objective value and gradient for the current parameters using the provided AD mode, while threading RNG and algorithm state as explicit immutable inputs/outputs.
+    """Computes objective value and gradient for the current parameters using the provided AD mode, while threading random number generator (RNG) and algorithm state as explicit immutable inputs/outputs.
 
-    Args:
-        rng_in: Explicit stochastic state input; do not treat as global mutable state.
-        obj: Provides value/gradient target.
-        adtype: Selects differentiation backend/strategy.
-        out_in: Destination buffer for gradient result.
-        state_in: Thread as immutable state_in -> state_out.
-        params: Valid parameterization for objective evaluation.
+Args:
+    rng_in: Explicit stochastic state input; do not treat as global mutable state.
+    obj: Provides value/gradient target.
+    adtype: Selects differentiation backend/strategy.
+    out_in: Destination buffer for gradient result.
+    state_in: Thread as immutable state_in -> state_out.
+    params: Valid parameterization for objective evaluation.
 
-    Returns:
-        out_out: Updated gradient corresponding to params.
-        value_out: Scalar/objective evaluation paired with gradient.
-        state_out: Returned explicitly as new state object.
-        rng_out: Returned explicitly (possibly unchanged) to preserve purity.
-    """
+Returns:
+    out_out: Updated gradient corresponding to params.
+    value_out: Scalar/objective evaluation paired with gradient.
+    state_out: Returned explicitly as new state object.
+    rng_out: Returned explicitly (possibly unchanged) to preserve purity."""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -49,5 +48,5 @@ from juliacall import Main as jl
 
 
 def _gradient_oracle_evaluation_ffi(rng_in: object, obj: object, adtype: object, out_in: object, state_in: object, params: object, restructure: object) -> object:
-    """FFI bridge to Julia implementation of Gradient Oracle Evaluation."""
+    """Wrapper that calls the Julia version of gradient oracle evaluation. Passes arguments through and returns the result."""
     return jl.eval("gradient_oracle_evaluation(rng_in, obj, adtype, out_in, state_in, params, restructure)")

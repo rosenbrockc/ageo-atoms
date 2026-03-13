@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_functional_monte_carlo(data: AbstractArray) -> AbstractArray:
-    """Ghost witness for functional_monte_carlo."""
+    """Shape-and-type check for functional monte carlo. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=data.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_functional_monte_carlo(data: AbstractArray) -> AbstractArray:
 
 
 def witness_volatility_surface_modeling(data: AbstractArray) -> AbstractArray:
-    """Witness for volatility_surface_modeling."""
+    """Shape-and-type check for volatility surface modeling. Returns output metadata without running the real computation."""
     return AbstractArray(shape=data.shape, dtype=data.dtype)
 
 

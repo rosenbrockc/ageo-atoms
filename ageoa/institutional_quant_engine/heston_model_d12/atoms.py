@@ -28,18 +28,18 @@ witness_hestonpathsampler: object = None  # placeholder; replace with actual wit
 @icontract.require(lambda T: isinstance(T, (float, int, np.number)), "T must be numeric")
 @icontract.require(lambda dt: isinstance(dt, (float, int, np.number)), "dt must be numeric")
 def hestonpathsampler(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[np.ndarray, np.ndarray]:
-    """Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)·S·dW_S and dv = kappa·(theta - v)·dt + sigma_v·sqrt(v)·dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.
+    """Simulates random stock price paths where price volatility itself changes over time. Generates num_sims paths with price and variance driven by correlated random processes.
 
     Args:
-        S0: S0 > 0; initial stock price
-        v0: v0 > 0; initial instantaneous variance
-        rho: -1 <= rho <= 1; Brownian correlation between price and variance processes
-        kappa: kappa > 0; mean-reversion speed of variance
-        theta: theta > 0; long-run mean variance (Feller: 2*kappa*theta > sigma_v^2)
-        sigma_v: sigma_v > 0; volatility of variance (vol-of-vol)
-        T: T > 0; total simulation horizon in years
-        dt: 0 < dt < T; discretisation step size
-        num_sims: num_sims >= 1; number of independent Monte Carlo paths
+        S0 — start price: initial stock price (> 0)
+        v0 — start variance: initial variance (> 0)
+        rho: correlation between price and variance (-1 to 1)
+        kappa: speed at which variance returns to its long-run level (> 0)
+        theta: long-run variance level (> 0)
+        sigma_v: how much the variance itself fluctuates (> 0)
+        T: total time horizon in years (> 0)
+        dt: time step size (> 0, < T)
+        num_sims: number of random paths to generate (>= 1)
 
     Returns:
         S_paths: all entries > 0; stock price trajectories from S0

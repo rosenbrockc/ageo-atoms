@@ -150,7 +150,7 @@ from pathlib import Path
 
 
 def _initializeyawlockstate_ffi() -> object:
-    """FFI bridge to C++ implementation of InitializeYawLockState."""
+    """Wrapper that calls the C++ version of initialize yaw lock state. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./initializeyawlockstate.so")
     _func_name = "initializeyawlockstate"
     _func = _lib[_func_name]
@@ -158,7 +158,7 @@ def _initializeyawlockstate_ffi() -> object:
     return _func()
 
 def _configurecorrectionandyawslippolicy_ffi(state_in: object, correction_period_in: object, yaw_slip_detect_in: object, yaw_slip_threshold_degrees_in: object, yaw_slip_disable_period_in: object) -> object:
-    """FFI bridge to C++ implementation of ConfigureCorrectionAndYawSlipPolicy."""
+    """Wrapper that calls the C++ version of configure correction and yaw slip policy. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./configurecorrectionandyawslippolicy.so")
     _func_name = "configurecorrectionandyawslippolicy"
     _func = _lib[_func_name]
@@ -167,7 +167,7 @@ def _configurecorrectionandyawslippolicy_ffi(state_in: object, correction_period
     return _func(state_in, correction_period_in, yaw_slip_detect_in, yaw_slip_threshold_degrees_in, yaw_slip_disable_period_in)
 
 def _setrobotstandingstatus_ffi(state_in: object, is_robot_standing_in: object) -> object:
-    """FFI bridge to C++ implementation of SetRobotStandingStatus."""
+    """Wrapper that calls the C++ version of set robot standing status. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./setrobotstandingstatus.so")
     _func_name = "setrobotstandingstatus"
     _func = _lib[_func_name]
@@ -176,7 +176,7 @@ def _setrobotstandingstatus_ffi(state_in: object, is_robot_standing_in: object) 
     return _func(state_in, is_robot_standing_in)
 
 def _readrobotstandingstatus_ffi(state_in: object) -> object:
-    """FFI bridge to C++ implementation of ReadRobotStandingStatus."""
+    """Wrapper that calls the C++ version of read robot standing status. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./readrobotstandingstatus.so")
     _func_name = "readrobotstandingstatus"
     _func = _lib[_func_name]
@@ -185,7 +185,7 @@ def _readrobotstandingstatus_ffi(state_in: object) -> object:
     return _func(state_in)
 
 def _setjointposeandinitialangles_ffi(state_in: object, joint_name_in: object, joint_position_in: object, joint_angles_init_in: object) -> object:
-    """FFI bridge to C++ implementation of SetJointPoseAndInitialAngles."""
+    """Wrapper that calls the C++ version of set joint pose and initial angles. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./setjointposeandinitialangles.so")
     _func_name = "setjointposeandinitialangles"
     _func = _lib[_func_name]
@@ -194,7 +194,7 @@ def _setjointposeandinitialangles_ffi(state_in: object, joint_name_in: object, j
     return _func(state_in, joint_name_in, joint_position_in, joint_angles_init_in)
 
 def _readinitialjointangles_ffi(state_in: object) -> object:
-    """FFI bridge to C++ implementation of ReadInitialJointAngles."""
+    """Wrapper that calls the C++ version of read initial joint angles. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./readinitialjointangles.so")
     _func_name = "readinitialjointangles"
     _func = _lib[_func_name]
@@ -203,7 +203,7 @@ def _readinitialjointangles_ffi(state_in: object) -> object:
     return _func(state_in)
 
 def _setstandinglinktargets_ffi(state_in: object, left_standing_link_in: object, right_standing_link_in: object) -> object:
-    """FFI bridge to C++ implementation of SetStandingLinkTargets."""
+    """Wrapper that calls the C++ version of set standing link targets. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./setstandinglinktargets.so")
     _func_name = "setstandinglinktargets"
     _func = _lib[_func_name]

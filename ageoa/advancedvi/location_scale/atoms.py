@@ -37,5 +37,5 @@ from juliacall import Main as jl
 
 
 def _evaluate_log_probability_density_ffi(q, z):
-    """FFI bridge to Julia implementation of evaluate_log_probability_density."""
+    """Wrapper that calls the Julia version of evaluate log probability density. Passes arguments through and returns the result."""
     return jl.eval("evaluate_log_probability_density(q, z)")

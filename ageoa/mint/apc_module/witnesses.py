@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_apccoreevaluation(x: AbstractArray) -> AbstractArray:
-    """Ghost witness for ApcCoreEvaluation."""
+    """Shape-and-type check for apc core evaluation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",

@@ -5,19 +5,19 @@ _MEMO_CACHE: dict = {}
 
 
 def _clear_memo_cache() -> None:
-    """Reset the memoization cache between iterations."""
+    """Clear the stored results cache so the next iteration starts fresh."""
     _MEMO_CACHE.clear()
 
 
 def witness_initialize_message_passing_state(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
-    """Ghost witness for prior init: initialize_message_passing_state."""
+    """Shape-and-type check for prior init: initialize message passing state. Returns output metadata without running the real computation."""
     return AbstractDistribution(
         family=family,
         event_shape=event_shape,
     )
 
 def witness_run_loopy_message_passing_and_belief_query(state_in: AbstractArray, v_name: AbstractArray, num_iter: AbstractArray) -> AbstractArray:
-    """Ghost witness for message-passing: run_loopy_message_passing_and_belief_query."""
+    """Shape-and-type check for message-passing: run loopy message passing and belief query. Returns output metadata without running the real computation."""
     _cache_key = ("run_loopy_message_passing_and_belief_query",)
     if _cache_key in _MEMO_CACHE:
         return _MEMO_CACHE[_cache_key]

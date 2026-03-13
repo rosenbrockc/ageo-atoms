@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_normalizesignal(arr: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for NormalizeSignal."""
+    """Shape-and-type check for normalize signal. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=arr.shape,
         dtype="float64",
@@ -14,7 +14,7 @@ def witness_normalizesignal(arr: AbstractSignal) -> AbstractSignal:
     return result
 
 def witness_wrapperevaluate(prediction: AbstractArray, raw_signal: AbstractArray, normalized_arr: AbstractArray) -> AbstractArray:
-    """Ghost witness for WrapperEvaluate."""
+    """Shape-and-type check for wrapper evaluate. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=prediction.shape,
         dtype="float64",

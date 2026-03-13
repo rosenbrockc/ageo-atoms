@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_iterate_pdb_atoms(element: AbstractArray) -> AbstractArray:
-    """Ghost witness for iterate_pdb_atoms."""
+    """Shape-and-type check for iterate pdb atoms. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=element.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_iterate_pdb_atoms(element: AbstractArray) -> AbstractArray:
     return result
 
 def witness_iterate_pdb_residues(element: AbstractArray) -> AbstractArray:
-    """Ghost witness for iterate_pdb_residues."""
+    """Shape-and-type check for iterate pdb residues. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=element.shape,
         dtype="float64",

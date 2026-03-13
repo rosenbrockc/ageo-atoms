@@ -21,12 +21,11 @@ from .witnesses import (
 @register_atom(witness_initialize_glft_state)
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "initialize_glft_state all outputs must not be None")
 def initialize_glft_state() -> tuple[float, float]:
-    """Initializes the state for the GLFT model coefficients.
-
+    """Initializes the state for the Gueant-Lehalle-Fernandez-Tapia (GLFT) High-Frequency Trading (HFT) market-making model coefficients.
 
     Returns:
-        initial_c1: Represents the initial value of the state variable 'c1'.
-        initial_c2: Represents the initial value of the state variable 'c2'.
+        initial_c1: Initial value of the first state variable.
+        initial_c2: Initial value of the second state variable.
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -40,7 +39,7 @@ def initialize_glft_state() -> tuple[float, float]:
 @icontract.require(lambda k: isinstance(k, (float, int, np.number)), "k must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "update_glft_coefficients all outputs must not be None")
 def update_glft_coefficients(last_c1: float, last_c2: float, xi: float, gamma: float, delta: float, A: float, k: float) -> tuple[float, float]:
-    """Updates the GLFT model coefficients based on market parameters and the previous state. This embodies the core state transition.
+    """Updates the Gueant-Lehalle-Fernandez-Tapia (GLFT) model coefficients based on market parameters and the previous state.
 
     Args:
         last_c1: The previous state of the 'c1' coefficient.

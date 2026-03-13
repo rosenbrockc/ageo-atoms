@@ -20,5 +20,5 @@ def witness_tai_to_utc_inversion(
     tai2: AbstractArray,
     tai_estimate: AbstractArray,
 ) -> AbstractScalar:
-    """Ghost witness for tai_to_utc_inversion."""
+    """Shape-and-type check for tai to utc inversion. Returns output metadata without running the real computation."""
     return AbstractScalar(dtype="float64", shape=(), ndim=0, values=ANYTHING)

@@ -15,18 +15,17 @@ from .witnesses import witness_gan_patch_reconstruction, witness_windowed_signal
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 def gan_patch_reconstruction(ppg_clean: np.ndarray, noise: np.ndarray, sampling_rate: float, generator: torch.nn.Module, device: str) -> np.ndarray:
-    """Generate a reconstructed signal patch from clean PPG context and injected noise using a provided generator on a specified device.
+    """Generate a reconstructed signal patch from clean photoplethysmography (PPG) context and injected noise using a provided generator on a specified device.
 
-    Args:
-        ppg_clean: Clean PPG signal; shape compatible with generator input.
-        noise: Latent noise vector; shape compatible with generator input.
-        sampling_rate: Sampling frequency in Hz; must be > 0.
-        generator: Stateless generator model from this graph perspective.
-        device: Valid runtime device string.
+Args:
+    ppg_clean: Clean PPG signal; shape compatible with generator input.
+    noise: Latent noise vector; shape compatible with generator input.
+    sampling_rate: Sampling frequency in Hz; must be > 0.
+    generator: Stateless generator model from this graph perspective.
+    device: Valid runtime device string.
 
-    Returns:
-        Reconstructed signal patch aligned to target patch length.
-    """
+Returns:
+    Reconstructed signal patch aligned to target patch length."""
     raise NotImplementedError("Wire to original implementation")
 
 

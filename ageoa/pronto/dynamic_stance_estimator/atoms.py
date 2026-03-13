@@ -94,7 +94,7 @@ def querystance(current_state: StateModelSpec) -> float:
 
 
 def _initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
-    """FFI bridge to C++ implementation of InitializeFilter."""
+    """Wrapper that calls the C++ version of initialize filter. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./initializefilter.so")
     _func_name = 'initializefilter_prime'
     _func = _lib[_func_name]
@@ -103,7 +103,7 @@ def _initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
     return _func(initial_x, initial_P, A, H, Q, R)
 
 def _predictstep_ffi(current_state, model_params, dt):
-    """FFI bridge to C++ implementation of PredictStep."""
+    """Wrapper that calls the C++ version of predict step. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./predictstep.so")
     _func_name = 'predictstep_prime'
     _func = _lib[_func_name]
@@ -112,7 +112,7 @@ def _predictstep_ffi(current_state, model_params, dt):
     return _func(current_state, model_params, dt)
 
 def _updatestep_ffi(predicted_state, model_params, z):
-    """FFI bridge to C++ implementation of UpdateStep."""
+    """Wrapper that calls the C++ version of update step. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./updatestep.so")
     _func_name = 'updatestep_prime'
     _func = _lib[_func_name]
@@ -121,7 +121,7 @@ def _updatestep_ffi(predicted_state, model_params, z):
     return _func(predicted_state, model_params, z)
 
 def _querystance_ffi(current_state):
-    """FFI bridge to C++ implementation of QueryStance."""
+    """Wrapper that calls the C++ version of query stance. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./querystance.so")
     _func_name = 'querystance_prime'
     _func = _lib[_func_name]

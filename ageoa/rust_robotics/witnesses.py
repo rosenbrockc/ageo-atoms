@@ -3,11 +3,11 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_n_joint_arm_solver(data: AbstractArray) -> AbstractArray:
-    """Witness for n_joint_arm_solver."""
+    """Shape-and-type check for n joint arm solver. Returns output metadata without running the real computation."""
     return AbstractArray(shape=data.shape, dtype=data.dtype)
 
 def witness_dijkstra_path_planning(data: AbstractArray) -> AbstractArray:
-    """Witness for dijkstra_path_planning."""
+    """Shape-and-type check for dijkstra path planning. Returns output metadata without running the real computation."""
     return AbstractArray(shape=data.shape, dtype=data.dtype)
 
 

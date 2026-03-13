@@ -9,7 +9,7 @@ def witness_detect_signal_onsets_elgendi2013(signal: AbstractSignal,
     beatoffset: AbstractScalar,
     mindelay: AbstractScalar,
 ) -> AbstractSignal:
-    """Ghost witness for detect_signal_onsets_elgendi2013."""
+    """Shape-and-type check for detect signal onsets elgendi2013. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

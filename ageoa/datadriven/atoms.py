@@ -20,7 +20,7 @@ _datadriven_loaded = False
 
 
 def _get_jl() -> Any:
-    """Import juliacall lazily and load DataDriven packages once."""
+    """Lazily import the Julia language bridge and load DataDriven packages once."""
     global _jl, _datadriven_loaded
     if _jl is None:
         from juliacall import Main as jl_main

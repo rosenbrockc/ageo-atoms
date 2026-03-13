@@ -24,19 +24,18 @@ from .witnesses import (
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
 @icontract.ensure(lambda result: all(r is not None for r in result), "InitializeHMCState all outputs must not be None")
 def initializehmcstate(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, step_size: float, n_leapfrog: int, seed: int) -> tuple[np.ndarray, np.ndarray]:
-    """Construct immutable HMC state and static kernel parameters, including explicit RNG state (PRNGKey/seed-derived state).
+    """Construct immutable Hamiltonian Monte Carlo (HMC) state and static kernel parameters, including explicit random number generator (RNG) state (PRNGKey/seed-derived state).
 
-    Args:
-        target: stateless density/gradient evaluator
-        initial_positions: shape fixed for chain state
-        step_size: > 0
-        n_leapfrog: >= 1
-        seed: optional; when provided initializes RNG state
+Args:
+    target: stateless density/gradient evaluator
+    initial_positions: shape fixed for chain state
+    step_size: > 0
+    n_leapfrog: >= 1
+    seed: optional; when provided initializes RNG state
 
-    Returns:
-        hmc_state_0: contains positions, logp_current, gradient, rng_state, trace
-        kernel_static: contains target, step_size, n_leapfrog, mass_matrix (implicit or explicit)
-    """
+Returns:
+    hmc_state_0: contains positions, logp_current, gradient, rng_state, trace
+    kernel_static: contains target, step_size, n_leapfrog, mass_matrix (implicit or explicit)"""
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_leapfrogproposalkernel)
@@ -63,17 +62,16 @@ def leapfrogproposalkernel(proposal_state_in: np.ndarray, kernel_static: np.ndar
 @icontract.require(lambda proposal_state_out: proposal_state_out is not None, "proposal_state_out cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "MetropolisHMCTransition all outputs must not be None")
 def metropolishmctransition(chain_state_in: np.ndarray, kernel_static: np.ndarray, proposal_state_out: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Single pure HMC kernel step: samples fresh momenta from RNG state, invokes leapfrog proposal, performs accept/reject, and returns new immutable chain state.
+    """Single pure Hamiltonian Monte Carlo (HMC) kernel step: samples fresh momenta from random number generator (RNG) state, invokes leapfrog proposal, performs accept/reject, and returns new immutable chain state.
 
-    Args:
-        chain_state_in: contains positions, logp_current, gradient, rng_state, trace
-        kernel_static: contains target/integrator parameters
-        proposal_state_out: from leapfrog proposal
+Args:
+    chain_state_in: contains positions, logp_current, gradient, rng_state, trace
+    kernel_static: contains target/integrator parameters
+    proposal_state_out: from leapfrog proposal
 
-    Returns:
-        chain_state_out: updated positions/logp_current/gradient/rng_state
-        transition_stats: accept flag, acceptance prob, Hamiltonian delta
-    """
+Returns:
+    chain_state_out: updated positions/logp_current/gradient/rng_state
+    transition_stats: accept flag, acceptance prob, Hamiltonian delta"""
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_runsamplingloop)
@@ -82,18 +80,17 @@ def metropolishmctransition(chain_state_in: np.ndarray, kernel_static: np.ndarra
 @icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "RunSamplingLoop all outputs must not be None")
 def runsamplingloop(hmc_state_in: np.ndarray, n_collect: int, n_discard: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Drive warmup/discard and collection iterations by repeatedly applying the HMC transition kernel; produces trace and collected samples.
+    """Drive warmup/discard and collection iterations by repeatedly applying the Hamiltonian Monte Carlo (HMC) transition kernel; produces trace and collected samples.
 
-    Args:
-        hmc_state_in: immutable state threaded across iterations
-        n_collect: >= 0
-        n_discard: >= 0
+Args:
+    hmc_state_in: immutable state threaded across iterations
+    n_collect: >= 0
+    n_discard: >= 0
 
-    Returns:
-        samples: length n_collect
-        trace: diagnostics over all iterations
-        hmc_state_out: final positions/logp_current/gradient/rng_state
-    """
+Returns:
+    samples: length n_collect
+    trace: diagnostics over all iterations
+    hmc_state_out: final positions/logp_current/gradient/rng_state"""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -106,7 +103,7 @@ from pathlib import Path
 
 
 def _initializehmcstate_ffi(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, step_size: float, n_leapfrog: int, seed: int) -> tuple[np.ndarray, np.ndarray]:
-    """FFI bridge to Rust implementation of InitializeHMCState."""
+    """Wrapper that calls the Rust version of initialize hmc state. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'initializehmcstate'
@@ -116,7 +113,7 @@ def _initializehmcstate_ffi(target: Callable[[np.ndarray], float], initial_posit
     return _func(target, initial_positions, step_size, n_leapfrog, seed)
 
 def _leapfrogproposalkernel_ffi(proposal_state_in: np.ndarray, kernel_static: np.ndarray, log_prob_oracle: Callable[[np.ndarray], float]) -> np.ndarray:
-    """FFI bridge to Rust implementation of LeapfrogProposalKernel."""
+    """Wrapper that calls the Rust version of leapfrog proposal kernel. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'leapfrogproposalkernel'
@@ -126,7 +123,7 @@ def _leapfrogproposalkernel_ffi(proposal_state_in: np.ndarray, kernel_static: np
     return _func(proposal_state_in, kernel_static, log_prob_oracle)
 
 def _metropolishmctransition_ffi(chain_state_in: np.ndarray, kernel_static: np.ndarray, proposal_state_out: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """FFI bridge to Rust implementation of MetropolisHMCTransition."""
+    """Wrapper that calls the Rust version of metropolis hmc transition. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'metropolishmctransition'
@@ -136,7 +133,7 @@ def _metropolishmctransition_ffi(chain_state_in: np.ndarray, kernel_static: np.n
     return _func(chain_state_in, kernel_static, proposal_state_out)
 
 def _runsamplingloop_ffi(hmc_state_in: np.ndarray, n_collect: int, n_discard: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """FFI bridge to Rust implementation of RunSamplingLoop."""
+    """Wrapper that calls the Rust version of run sampling loop. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'runsamplingloop'

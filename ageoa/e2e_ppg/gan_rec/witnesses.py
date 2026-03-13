@@ -10,16 +10,15 @@ def witness_generatereconstructedppg(
 ) -> AbstractSignal:
     """Ghost witness for GenerateReconstructedPPG.
 
-    Args:
-        ppg_clean: Clean PPG signal metadata.
-        noise: Latent noise metadata.
-        sampling_rate: Sampling frequency metadata.
-        generator: Generator model metadata.
-        device: Execution device metadata.
+Args:
+    ppg_clean: Clean photoplethysmography (PPG) signal metadata.
+    noise: Latent noise metadata.
+    sampling_rate: Sampling frequency metadata.
+    generator: Generator model metadata.
+    device: Execution device metadata.
 
-    Returns:
-        Reconstructed PPG signal metadata with shape inherited from input.
-    """
+Returns:
+    Reconstructed PPG signal metadata with shape inherited from input."""
     return AbstractSignal(
         shape=ppg_clean.shape,
         dtype=ppg_clean.dtype,

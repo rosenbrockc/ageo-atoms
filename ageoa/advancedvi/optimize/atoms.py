@@ -44,5 +44,5 @@ from juliacall import Main as jl
 
 
 def _optimizationlooporchestration_ffi(algorithm: object, max_iter: int, prob: object, q_init: object, rng_state_in: object) -> object:
-    """FFI bridge to Julia implementation of OptimizationLoopOrchestration."""
+    """Wrapper that calls the Julia version of optimization loop orchestration. Passes arguments through and returns the result."""
     return jl.eval("optimizationlooporchestration(algorithm, max_iter, prob, q_init, rng_state_in)")

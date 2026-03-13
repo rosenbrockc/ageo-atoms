@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_tt2tdb_offset(seconds: AbstractArray) -> AbstractArray:
-    """Ghost witness for TT2TDB_Offset."""
+    """Shape-and-type check for tt2 tdb offset. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=seconds.shape,
         dtype="float64",

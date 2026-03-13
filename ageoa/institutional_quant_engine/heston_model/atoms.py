@@ -20,17 +20,17 @@ from .witnesses import witness_simulate_heston_paths
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def simulate_heston_paths(S0: float, v0: float, kappa: float, theta: float, sigma_v: float, rho: float, n_steps: int, n_sims: int) -> np.ndarray:
-    """Generates Monte Carlo price paths under the Heston stochastic volatility model using correlated Brownian motions.
+    """Generates random asset price paths where price volatility itself changes over time.
 
     Args:
-        S0: Initial asset price
-        v0: Initial variance
-        kappa: Mean-reversion speed of variance
-        theta: Long-run variance level
-        sigma_v: Volatility of variance (vol-of-vol)
-        rho: Correlation between Brownian motions (leverage effect)
-        n_steps: Number of time steps in each simulated path
-        n_sims: Number of Monte Carlo paths to simulate
+        S0: initial asset price
+        v0: initial variance
+        kappa: speed at which variance returns to its long-run level
+        theta: long-run variance level
+        sigma_v: how much the variance itself fluctuates
+        rho: correlation between price and variance (-1 to 1)
+        n_steps: number of time steps per path
+        n_sims: number of random paths to generate
 
     Returns:
         Simulated price paths, shape (n_sims, n_steps)

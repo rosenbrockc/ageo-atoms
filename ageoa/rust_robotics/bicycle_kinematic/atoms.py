@@ -140,7 +140,7 @@ from pathlib import Path
 
 
 def _constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
-    """FFI bridge to Rust implementation of ConstructGeometryModel."""
+    """Wrapper that calls the Rust version of construct geometry model. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'constructgeometrymodel_prime'
@@ -150,7 +150,7 @@ def _constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
     return _func(length_front, length_rear)
 
 def _loadmodelfromfile_ffi(filename: Any) -> Any:
-    """FFI bridge to Rust implementation of LoadModelFromFile."""
+    """Wrapper that calls the Rust version of load model from file. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'loadmodelfromfile_prime'
@@ -160,7 +160,7 @@ def _loadmodelfromfile_ffi(filename: Any) -> Any:
     return _func(filename)
 
 def _querygeometryparameters_ffi(model_spec: Any) -> Any:
-    """FFI bridge to Rust implementation of QueryGeometryParameters."""
+    """Wrapper that calls the Rust version of query geometry parameters. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'querygeometryparameters_prime'
@@ -170,7 +170,7 @@ def _querygeometryparameters_ffi(model_spec: Any) -> Any:
     return _func(model_spec)
 
 def _computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
-    """FFI bridge to Rust implementation of ComputeSideslipAngle."""
+    """Wrapper that calls the Rust version of compute sideslip angle. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'computesideslipangle_prime'
@@ -180,7 +180,7 @@ def _computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
     return _func(model_spec, road_wheel_angle)
 
 def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
-    """FFI bridge to Rust implementation of ComputeLinearizedStateMatrices."""
+    """Wrapper that calls the Rust version of compute linearized state matrices. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'computelinearizedstatematrices_prime'
@@ -190,7 +190,7 @@ def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
     return _func(model_spec, x, u)
 
 def _evaluateandinvertdynamics_ffi(model_spec: Any, x: Any, u: Any, _t: Any, _x_dot: Any) -> Any:
-    """FFI bridge to Rust implementation of EvaluateAndInvertDynamics."""
+    """Wrapper that calls the Rust version of evaluate and invert dynamics. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'evaluateandinvertdynamics_prime'

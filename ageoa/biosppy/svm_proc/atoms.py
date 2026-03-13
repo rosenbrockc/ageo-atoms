@@ -24,57 +24,17 @@ from .witnesses import witness_assess_classification, witness_assess_runs, witne
 @icontract.require(lambda thresholds: thresholds is not None, "thresholds cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Get Auth Rates output must not be None")
 def get_auth_rates(TP: Any, FP: Any, TN: Any, FN: Any, thresholds: Any) -> Any:
-    """Compute authentication rates from the confusion matrix.
-
-Parameters
-----------
-TP : array
-    True Positive counts for each classifier threshold.
-FP : array
-    False Positive counts for each classifier threshold.
-TN : array
-    True Negative counts for each classifier threshold.
-FN : array
-    False Negative counts for each classifier threshold.
-thresholds : array
-    Classifier thresholds.
-
-Returns
--------
-Acc : array
-    Accuracy at each classifier threshold.
-TAR : array
-    True Accept Rate at each classifier threshold.
-FAR : array
-    False Accept Rate at each classifier threshold.
-FRR : array
-    False Reject Rate at each classifier threshold.
-TRR : array
-    True Reject Rate at each classifier threshold.
-EER : array
-    Equal Error Rate points, with format (threshold, rate).
-Err : array
-    Error rate at each classifier threshold.
-PPV : array
-    Positive Predictive Value at each classifier threshold.
-FDR : array
-    False Discovery Rate at each classifier threshold.
-NPV : array
-    Negative Predictive Value at each classifier threshold.
-FOR : array
-    False Omission Rate at each classifier threshold.
-MCC : array
-    Matthrews Correlation Coefficient at each classifier threshold.
+    """Compute authentication rates from correct and incorrect prediction counts at each threshold.
 
     Args:
-        TP: Input data.
-        FP: Input data.
-        TN: Input data.
-        FN: Input data.
-        thresholds: Input data.
+        TP — true positive: correct-accept counts per threshold
+        FP — false positive: wrong-accept counts per threshold
+        TN — true negative: correct-reject counts per threshold
+        FN — false negative: wrong-reject counts per threshold
+        thresholds: decision thresholds
 
     Returns:
-        Result data.
+        rate metrics at each threshold
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -86,45 +46,17 @@ MCC : array
 @icontract.require(lambda thresholds: thresholds is not None, "thresholds cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Get Id Rates output must not be None")
 def get_id_rates(H: Any, M: Any, R: Any, N: Any, thresholds: Any) -> Any:
-    """Compute identification rates from the confusion matrix.
-
-Parameters
-----------
-H : array
-    Hit counts for each classifier threshold.
-M : array
-    Miss counts for each classifier threshold.
-R : array
-    Reject counts for each classifier threshold.
-N : int
-    Number of test samples.
-thresholds : array
-    Classifier thresholds.
-
-Returns
--------
-Acc : array
-    Accuracy at each classifier threshold.
-Err : array
-    Error rate at each classifier threshold.
-MR : array
-    Miss Rate at each classifier threshold.
-RR : array
-    Reject Rate at each classifier threshold.
-EID : array
-    Error of Identification points, with format (threshold, rate).
-EER : array
-    Equal Error Rate points, with format (threshold, rate).
+    """Compute identification rates for a Support Vector Machine (SVM) biometric classifier. Derives accuracy, miss rate, reject rate, and Equal Error Rate (EER) from hits, misses, and rejections at each decision threshold.
 
     Args:
-        H: Input data.
-        M: Input data.
-        R: Input data.
-        N: Input data.
-        thresholds: Input data.
+        H: Hit (correct identification) counts per threshold.
+        M: Miss counts per threshold.
+        R: Reject counts per threshold.
+        N: Total number of test samples.
+        thresholds: Decision thresholds.
 
     Returns:
-        Result data.
+        Identification performance metrics at each threshold.
     """
     raise NotImplementedError("Wire to original implementation")
 

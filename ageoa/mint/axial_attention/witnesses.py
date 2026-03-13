@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_rowselfattention(x: AbstractArray, self_attn_mask: AbstractArray, self_attn_padding_mask: AbstractArray) -> AbstractArray:
-    """Ghost witness for opaque boundary: RowSelfAttention."""
+    """Shape-and-type check for opaque boundary: row self attention. Returns output metadata without running the real computation."""
     shape = tuple(x.shape)
     *vmapped_dims, n_rows, n_cols, d_model = shape
     out_shape = (*vmapped_dims, n_rows, n_cols, d_model)

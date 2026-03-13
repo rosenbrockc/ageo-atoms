@@ -24,7 +24,7 @@ from .witnesses import (
 @icontract.require(lambda norm: norm is not None, "norm cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "ForwardMultidimensionalFFT output must not be None")
 def forwardmultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray:
-    """Computes the forward N-dimensional Discrete Fourier Transform over specified axes. fft2 targets exactly two axes; fftn generalises to an arbitrary number of axes. Both return a complex-valued frequency-domain array representing the full spectrum of the input signal.
+    """Computes the forward N-dimensional Fast Fourier Transform (FFT) over specified axes. Returns a complex-valued frequency-domain array representing the full spectrum of the input signal.
 
     Args:
         a: spatial or time-domain input array
@@ -43,12 +43,12 @@ def forwardmultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[in
 @icontract.require(lambda norm: norm is not None, "norm cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "InverseMultidimensionalFFT output must not be None")
 def inversemultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray:
-    """Computes the inverse N-dimensional Discrete Fourier Transform over specified axes. ifft2 inverts a two-axis transform; ifftn inverts an arbitrary-dimensional transform. Both reconstruct the spatial or time-domain complex signal from a given spectrum.
+    """Computes the inverse N-dimensional Fast Fourier Transform (FFT), reconstructing a spatial or time-domain signal from its frequency spectrum.
 
     Args:
         a: frequency-domain input spectrum
         s: output shape along each transformed axis; None preserves input size
-        axes: axes over which the IFFT is computed; None applies to all axes
+        axes: axes over which the inverse FFT is computed; None applies to all axes
         norm: normalization mode - None (backward), 'ortho', or 'forward'
 
     Returns:

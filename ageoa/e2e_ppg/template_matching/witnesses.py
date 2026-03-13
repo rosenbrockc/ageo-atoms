@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_templatefeaturecomputation(hc: AbstractArray) -> AbstractArray:
-    """Ghost witness for TemplateFeatureComputation."""
+    """Shape-and-type check for template feature computation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=hc.shape,
         dtype="float64",

@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_christov_qrs_segmenter(signal: AbstractSignal, sampling_rate: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for christov_qrs_segmenter."""
+    """Shape-and-type check for christov qrs segmenter. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

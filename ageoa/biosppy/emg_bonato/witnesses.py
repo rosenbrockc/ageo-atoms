@@ -10,7 +10,7 @@ def witness_bonato_onset_detection(signal: AbstractSignal,
     samples_above_fail: AbstractScalar,
     fail_size: AbstractScalar,
 ) -> AbstractSignal:
-    """Ghost witness for bonato_onset_detection."""
+    """Shape-and-type check for bonato onset detection. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

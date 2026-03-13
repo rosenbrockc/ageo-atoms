@@ -194,7 +194,7 @@ def enforce_threshold_sparsity(mat: np.ndarray, threshold: float) -> np.ndarray:
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def build_sparse_graph_view(thresholded_matrix: np.ndarray) -> np.ndarray:
-    """Convert the thresholded dense matrix into a CSR sparse representation suitable for graph-based bandwidth reduction.
+    """Convert the thresholded dense matrix into a Compressed Sparse Row (CSR) representation suitable for graph-based bandwidth reduction.
 
     Args:
         thresholded_matrix: Numeric matrix; typically sparse after thresholding

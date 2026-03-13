@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_stancestateinit(config: AbstractArray) -> AbstractArray:
-    """Ghost witness for StanceStateInit."""
+    """Shape-and-type check for stance state init. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=config.shape,
         dtype="float64",)
@@ -12,7 +12,7 @@ def witness_stancestateinit(config: AbstractArray) -> AbstractArray:
     return result
 
 def witness_stanceestimation(prior: AbstractDistribution, likelihood: AbstractDistribution, data_shape: tuple[int, ...]) -> AbstractDistribution:
-    """Ghost witness for posterior update: StanceEstimation."""
+    """Shape-and-type check for posterior update: stance estimation. Returns output metadata without running the real computation."""
     prior.assert_conjugate_to(likelihood)
     return AbstractDistribution(
         family=prior.family,

@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_hrppipelinerun(data: AbstractArray) -> AbstractArray:
-    """Ghost witness for HRPPipelineRun."""
+    """Shape-and-type check for hrp pipeline run. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=data.shape,
         dtype="float64",)

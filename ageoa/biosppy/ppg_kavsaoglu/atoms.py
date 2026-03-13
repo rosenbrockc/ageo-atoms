@@ -19,16 +19,15 @@ from .witnesses import witness_detectonsetevents
 def detectonsetevents(signal: np.ndarray, sampling_rate: float, alpha: float, k: int, init_bpm: float, min_delay: float, max_BPM: float) -> np.ndarray:
     """Detect rhythmic onset events from an input signal using provided tempo and delay constraints.
 
-    Args:
-        signal: 1-D sampled signal array.
-        sampling_rate: Sampling frequency in Hz; must be > 0.
-        alpha: Algorithm coefficient.
-        k: Window/order parameter; typically > 0.
-        init_bpm: Initial tempo estimate in BPM; must be > 0.
-        min_delay: Minimum inter-onset delay; must be >= 0.
-        max_BPM: Upper tempo bound in BPM; must be > 0.
+Args:
+    signal: 1-D sampled signal array.
+    sampling_rate: Sampling frequency in Hz; must be > 0.
+    alpha: Algorithm coefficient.
+    k: Window/order parameter; typically > 0.
+    init_bpm: Initial tempo estimate in beats per minute (BPM); must be > 0.
+    min_delay: Minimum inter-onset delay; must be >= 0.
+    max_BPM: Upper tempo bound in BPM; must be > 0.
 
-    Returns:
-        Detected onset locations/times; may be empty.
-    """
+Returns:
+    Detected onset locations/times; may be empty."""
     raise NotImplementedError("Wire to original implementation")

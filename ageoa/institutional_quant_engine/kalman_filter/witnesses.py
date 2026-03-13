@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_kalmanfilterinit(process_variance: AbstractArray, measurement_variance: AbstractArray, estimated_measurement_variance: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
-    """Ghost witness for KalmanFilterInit."""
+    """Shape-and-type check for kalman filter init. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=process_variance.shape,
         dtype="float64",)
@@ -12,7 +12,7 @@ def witness_kalmanfilterinit(process_variance: AbstractArray, measurement_varian
     return result, state
 
 def witness_kalmanmeasurementupdate(prior: AbstractDistribution, likelihood: AbstractDistribution, data_shape: tuple[int, ...]) -> AbstractDistribution:
-    """Ghost witness for posterior update: KalmanMeasurementUpdate."""
+    """Shape-and-type check for posterior update: kalman measurement update. Returns output metadata without running the real computation."""
     prior.assert_conjugate_to(likelihood)
     return AbstractDistribution(
         family=prior.family,

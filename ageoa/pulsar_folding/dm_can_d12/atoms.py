@@ -23,7 +23,7 @@ def witness_dm_candidate_filter(*args, **kwargs): pass  # replaced at runtime by
 @icontract.require(lambda width: isinstance(width, (float, int, np.number)), "width must be numeric")
 @icontract.require(lambda tsamp: isinstance(tsamp, (float, int, np.number)), "tsamp must be numeric")
 def dm_candidate_filter(data: Any, data_base: Any, sens: float, DM_base: float, candidates: Any, fchan: Any, width: float, tsamp: float) -> Any:
-    """Evaluates and filters dispersion measure (DM) candidates by comparing observed data against a base DM model, using sensitivity, channel frequency, bandwidth, and time sampling parameters to identify viable DM candidates.
+    """Filters Dispersion Measure (DM) candidates for pulsar detection. Compares observed data against a base DM model using sensitivity and channel parameters to keep only viable candidates.
 
     Args:
         data: Input data.

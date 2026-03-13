@@ -17,10 +17,9 @@ from .witnesses import witness_compute_hrp_weights
 def compute_hrp_weights(returns: np.ndarray) -> np.ndarray:
     """Computes Hierarchical Risk Parity portfolio weights by clustering assets and recursively bisecting risk along the dendrogram.
 
-    Args:
-        returns: 2D array of asset returns, shape (n_samples, n_assets)
+Args:
+    returns: 2D array of asset returns, shape (n_samples, n_assets)
 
-    Returns:
-        HRP portfolio weights, shape (n_assets,), summing to 1.0
-    """
+Returns:
+    Hierarchical Risk Parity (HRP) portfolio weights, shape (n_assets,), summing to 1.0"""
     raise NotImplementedError("Wire to original implementation")

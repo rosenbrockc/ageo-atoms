@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_rowselfattention(x: AbstractArray, self_attn_mask: AbstractArray, self_attn_padding_mask: AbstractArray) -> AbstractArray:
-    """Ghost witness for opaque boundary: RowSelfAttention."""
+    """Shape-and-type check for opaque boundary: row self attention. Returns output metadata without running the real computation."""
     # x                    : (B, R, C, d_model)  - batch, rows, cols, hidden
     # self_attn_mask        : (C, C) or (B*R, C, C) - additive/bool attention bias
     # self_attn_padding_mask: (B*R, C) or (B, R, C) - True where padded

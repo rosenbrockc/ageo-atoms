@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_topological_loss_computation(key: AbstractArray, logits: AbstractArray, pos32: AbstractArray, nbr_idx: AbstractArray, b: AbstractArray, max_iters: AbstractArray, tau: AbstractArray) -> AbstractArray:
-    """Ghost witness for topological_loss_computation."""
+    """Shape-and-type check for topological loss computation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=key.shape,
         dtype="float64",
@@ -13,7 +13,7 @@ def witness_topological_loss_computation(key: AbstractArray, logits: AbstractArr
 
 
 def witness_compute_topo_loss(key: AbstractArray, logits: AbstractArray, pos32: AbstractArray, nbr_idx: AbstractArray, b: AbstractArray, max_iters: AbstractScalar, tau: AbstractScalar) -> AbstractScalar:
-    """Ghost witness for compute_topo_loss."""
+    """Shape-and-type check for compute topo loss. Returns output metadata without running the real computation."""
     result = AbstractScalar(
         dtype="float64",
     )

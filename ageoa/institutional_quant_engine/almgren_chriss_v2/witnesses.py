@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_riskaversioninit(risk_aversion: AbstractArray) -> AbstractArray:
-    """Ghost witness for RiskAversionInit."""
+    """Shape-and-type check for risk aversion init. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=risk_aversion.shape,
         dtype="float64",)
@@ -12,7 +12,7 @@ def witness_riskaversioninit(risk_aversion: AbstractArray) -> AbstractArray:
     return result
 
 def witness_optimalexecutiontrajectory(risk_aversion: AbstractArray, total_shares: AbstractArray, days: AbstractArray) -> AbstractArray:
-    """Ghost witness for OptimalExecutionTrajectory."""
+    """Shape-and-type check for optimal execution trajectory. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=risk_aversion.shape,
         dtype="float64",)

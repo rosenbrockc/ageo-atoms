@@ -22,13 +22,12 @@ witness_heart_cycle_detection: object = None  # placeholder; replace with actual
 @icontract.require(lambda ppg: ppg is not None, "ppg cannot be None")
 @icontract.require(lambda sampling_rate: sampling_rate is not None, "sampling_rate cannot be None")
 def heart_cycle_detection(ppg: np.ndarray[Any, np.dtype[Any]], sampling_rate: float) -> list[int]:
-    """Detects individual heart cycles from a PPG signal at the given sampling rate, identifying cycle boundaries or fiducial points within the waveform.
+    """Detects individual heart cycles from a photoplethysmography (PPG) signal at the given sampling rate, identifying cycle boundaries or fiducial points within the waveform.
 
-    Args:
-        ppg: non-empty, finite-valued samples
-        sampling_rate: must be > 0
+Args:
+    ppg: non-empty, finite-valued samples
+    sampling_rate: must be > 0
 
-    Returns:
-        indices within [0, len(ppg))
-    """
+Returns:
+    indices within [0, len(ppg))"""
     raise NotImplementedError("Wire to original implementation")

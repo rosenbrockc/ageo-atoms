@@ -22,14 +22,14 @@ def witness_rowselfattention(*args, **kwargs): pass
 @icontract.require(lambda self_attn_padding_mask: self_attn_padding_mask is not None, "self_attn_padding_mask cannot be None")  # type: ignore[untyped-decorator]
 @icontract.ensure(lambda result, **kwargs: result is not None, "RowSelfAttention output must not be None")  # type: ignore[untyped-decorator]
 def row_self_attention(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any:
-    """Opaque DL boundary: RowSelfAttention
+    """Applies row-wise self-attention, a mechanism that computes pairwise similarity scores across row positions to produce context-aware representations. Each row attends to all other rows, weighted by learned relevance.
 
     Args:
-        x: Input data.
-        self_attn_mask: Input data.
-        self_attn_padding_mask: Input data.
+        x: Input tensor to attend over.
+        self_attn_mask: Mask controlling which positions can attend to each other.
+        self_attn_padding_mask: Mask indicating padded positions to ignore.
 
     Returns:
-        Result data.
+        Attention-weighted output tensor with same shape as input.
     """
     raise NotImplementedError("Wire to original implementation")

@@ -24,13 +24,13 @@ def witness_updateposteriorstatesteadystate(*args, **kwargs): pass
 @icontract.require(lambda init_config: init_config is not None, "init_config cannot be None")
 @icontract.ensure(lambda result: result is not None, "InitializeKalmanStateModel output must not be None")
 def initializekalmanstatemodel(init_config: object) -> object:
-    """Create the initial immutable StateModelSpec for filtering, including latent mean/covariance and noise/observation model parameters.
+    """Create the initial read-only state for a Kalman filter — a method that estimates hidden variables from noisy measurements.
 
     Args:
-        init_config: P0, Q, R are symmetric positive semidefinite
+        init_config: starting estimate, uncertainty, and noise model matrices
 
     Returns:
-        immutable object; no hidden mutation
+        read-only state object
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -144,7 +144,7 @@ from pathlib import Path
 
 
 def _initializekalmanstatemodel_ffi(init_config: object) -> object:
-    """FFI bridge to Rust implementation of InitializeKalmanStateModel."""
+    """Wrapper that calls the Rust version of initialize kalman state model. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "initializekalmanstatemodel"
     _func = _lib[_func_name]
@@ -153,7 +153,7 @@ def _initializekalmanstatemodel_ffi(init_config: object) -> object:
     return _func(init_config)
 
 def _predictlatentstateandcovariance_ffi(state_in: object, u: object, B: object, F: object, Q: object) -> object:
-    """FFI bridge to Rust implementation of PredictLatentStateAndCovariance."""
+    """Wrapper that calls the Rust version of predict latent state and covariance. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "predictlatentstateandcovariance"
     _func = _lib[_func_name]
@@ -162,7 +162,7 @@ def _predictlatentstateandcovariance_ffi(state_in: object, u: object, B: object,
     return _func(state_in, u, B, F, Q)
 
 def _predictlatentstatesteadystate_ffi(state_in: object, u: object, B: object) -> object:
-    """FFI bridge to Rust implementation of PredictLatentStateSteadyState."""
+    """Wrapper that calls the Rust version of predict latent state steady state. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "predictlatentstatesteadystate"
     _func = _lib[_func_name]
@@ -171,7 +171,7 @@ def _predictlatentstatesteadystate_ffi(state_in: object, u: object, B: object) -
     return _func(state_in, u, B)
 
 def _evaluatemeasurementoracle_ffi(x: object, z: object, H: object) -> object:
-    """FFI bridge to Rust implementation of EvaluateMeasurementOracle."""
+    """Wrapper that calls the Rust version of evaluate measurement oracle. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "evaluatemeasurementoracle"
     _func = _lib[_func_name]
@@ -180,7 +180,7 @@ def _evaluatemeasurementoracle_ffi(x: object, z: object, H: object) -> object:
     return _func(x, z, H)
 
 def _updateposteriorstateandcovariance_ffi(predicted_state: object, z: object, R: object, H: object, innovation: object) -> object:
-    """FFI bridge to Rust implementation of UpdatePosteriorStateAndCovariance."""
+    """Wrapper that calls the Rust version of update posterior state and covariance. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "updateposteriorstateandcovariance"
     _func = _lib[_func_name]
@@ -189,7 +189,7 @@ def _updateposteriorstateandcovariance_ffi(predicted_state: object, z: object, R
     return _func(predicted_state, z, R, H, innovation)
 
 def _updateposteriorstatesteadystate_ffi(predicted_state_steady: object, z: object, innovation: object) -> object:
-    """FFI bridge to Rust implementation of UpdatePosteriorStateSteadyState."""
+    """Wrapper that calls the Rust version of update posterior state steady state. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = "updateposteriorstatesteadystate"
     _func = _lib[_func_name]

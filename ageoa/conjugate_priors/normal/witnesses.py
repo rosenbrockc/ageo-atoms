@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_normal_gamma_posterior_update(prior: AbstractDistribution, ss: AbstractArray) -> AbstractDistribution:
-    """Ghost witness for closed-form conjugate update: normal_gamma_posterior_update."""
+    """Shape-and-type check for closed-form conjugate update: normal gamma posterior update. Returns output metadata without running the real computation."""
     # Closed-form update: no sampling trace or RNG threading required.
     return AbstractDistribution(
         family=prior.family,

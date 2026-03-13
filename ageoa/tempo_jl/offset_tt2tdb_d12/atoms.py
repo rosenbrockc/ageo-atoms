@@ -22,13 +22,13 @@ def witness_tt2tdb_offset(*args, **kwargs): pass  # Witness functions should be 
 @icontract.require(lambda seconds: isinstance(seconds, (float, int, np.number)), "seconds must be numeric")
 @icontract.ensure(lambda result, **kwargs: result is not None, "TT2TDB_Offset output must not be None")
 def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: ignore[type-arg]
-    """Computes the relativistic time scale offset between Terrestrial Time (TT) and Barycentric Dynamical Time (TDB) in seconds, using a sinusoidal approximation of the periodic correction term derived from Earth_primes orbital eccentricity.
+    """Computes the small time correction (seconds) between two astronomical clock standards.
 
     Args:
-        seconds: Elapsed seconds from a reference epoch (typically J2000.0); unbounded real number
+        seconds: elapsed seconds from the year-2000 reference epoch
 
     Returns:
-        TDB - TT offset in seconds; typically within ±0.002 s
+        offset in seconds; typically within +/-0.002 s
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -40,5 +40,5 @@ from juliacall import Main as jl
 
 
 def tt2tdb_offset_ffi(seconds: float) -> float:
-    """FFI bridge to Julia implementation of TT2TDB_Offset."""
+    """Wrapper that calls the Julia version of tt2 tdb offset. Passes arguments through and returns the result."""
     return float(jl.eval("tt2tdb_offset(seconds)"))

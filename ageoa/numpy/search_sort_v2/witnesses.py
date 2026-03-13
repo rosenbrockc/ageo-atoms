@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_binarysearchinsertion(a: AbstractArray, v: AbstractArray, side: AbstractArray, sorter: AbstractArray) -> AbstractArray:
-    """Ghost witness for BinarySearchInsertion."""
+    """Shape-and-type check for binary search insertion. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_binarysearchinsertion(a: AbstractArray, v: AbstractArray, side: Abst
     return result
 
 def witness_lexicographicindirectsort(keys: AbstractArray, axis: AbstractArray) -> AbstractArray:
-    """Ghost witness for LexicographicIndirectSort."""
+    """Shape-and-type check for lexicographic indirect sort. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=keys.shape,
         dtype="float64",
@@ -20,7 +20,7 @@ def witness_lexicographicindirectsort(keys: AbstractArray, axis: AbstractArray) 
     return result
 
 def witness_partialsortpartition(a: AbstractArray, kth: AbstractArray, axis: AbstractArray, kind: AbstractArray, order: AbstractArray) -> AbstractArray:
-    """Ghost witness for PartialSortPartition."""
+    """Shape-and-type check for partial sort partition. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a.shape,
         dtype="float64",

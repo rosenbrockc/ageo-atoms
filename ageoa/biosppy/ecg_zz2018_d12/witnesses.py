@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_computebeatagreementsqi(detector_1: AbstractArray, detector_2: AbstractArray, fs: AbstractArray, mode: AbstractArray, search_window: AbstractArray) -> AbstractArray:
-    """Ghost witness for ComputeBeatAgreementSQI."""
+    """Shape-and-type check for compute beat agreement sqi. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=detector_1.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_computebeatagreementsqi(detector_1: AbstractArray, detector_2: Abstr
     return result
 
 def witness_computefrequencysqi(ecg_signal: AbstractSignal, fs: AbstractSignal, nseg: AbstractSignal, num_spectrum: AbstractSignal, dem_spectrum: AbstractSignal, mode: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for ComputeFrequencySQI."""
+    """Shape-and-type check for compute frequency sqi. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ecg_signal.shape,
         dtype="float64",
@@ -22,7 +22,7 @@ def witness_computefrequencysqi(ecg_signal: AbstractSignal, fs: AbstractSignal, 
     return result
 
 def witness_computekurtosissqi(signal: AbstractArray, fisher: AbstractArray) -> AbstractArray:
-    """Ghost witness for ComputeKurtosisSQI."""
+    """Shape-and-type check for compute kurtosis sqi. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=signal.shape,
         dtype="float64",
@@ -30,7 +30,7 @@ def witness_computekurtosissqi(signal: AbstractArray, fisher: AbstractArray) -> 
     return result
 
 def witness_assemblezz2018sqi(signal: AbstractArray, detector_1: AbstractArray, detector_2: AbstractArray, fs: AbstractArray, search_window: AbstractArray, nseg: AbstractArray, mode: AbstractArray, b_sqi: AbstractArray, f_sqi: AbstractArray, k_sqi: AbstractArray) -> AbstractArray:
-    """Ghost witness for AssembleZZ2018SQI."""
+    """Shape-and-type check for assemble zz2018 sqi. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=signal.shape,
         dtype="float64",

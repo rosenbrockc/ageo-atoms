@@ -5,7 +5,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 def witness_homomorphic_signal_filtering(signal: AbstractSignal,
     sampling_rate: AbstractScalar,
 ) -> AbstractSignal:
-    """Ghost witness for homomorphic_signal_filtering."""
+    """Shape-and-type check for homomorphic signal filtering. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

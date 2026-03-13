@@ -15,7 +15,7 @@ from .witnesses import witness_detect_triangular_arbitrage
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def detect_triangular_arbitrage(rates: np.ndarray) -> np.ndarray:
-    """Detects triangular arbitrage opportunities in an FX rate matrix by searching for negative-weight cycles in the log-rate graph.
+    """Detects triangular arbitrage opportunities in a Foreign Exchange (FX) rate matrix by searching for negative-weight cycles in the log-rate graph.
 
     Args:
         rates: Exchange rate matrix, shape (n_currencies, n_currencies), where rates[i,j] is the rate from currency i to j

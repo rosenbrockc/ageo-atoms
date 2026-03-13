@@ -145,7 +145,7 @@ from pathlib import Path
 
 
 def randomword32_ffi(c, state, state_prime, x, xor):
-    """FFI bridge to Haskell implementation of Randomword32."""
+    """Wrapper that calls the Haskell version of randomword32. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./randomword32.so")
     _func_name = 'placeholder'
@@ -155,7 +155,7 @@ def randomword32_ffi(c, state, state_prime, x, xor):
     return _func(c, state, state_prime, x, xor)
 
 def randomint_ffi(fromIntegral, g, g_prime, i):
-    """FFI bridge to Haskell implementation of Randomint."""
+    """Wrapper that calls the Haskell version of randomint. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./randomint.so")
     _func_name = 'placeholder'
@@ -165,7 +165,7 @@ def randomint_ffi(fromIntegral, g, g_prime, i):
     return _func(fromIntegral, g, g_prime, i)
 
 def randomword64_ffi(buildWord64_prime, x, x_prime, y1, y2):
-    """FFI bridge to Haskell implementation of Randomword64."""
+    """Wrapper that calls the Haskell version of randomword64. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./randomword64.so")
     _func_name = 'placeholder'
@@ -175,7 +175,7 @@ def randomword64_ffi(buildWord64_prime, x, x_prime, y1, y2):
     return _func(buildWord64_prime, x, x_prime, y1, y2)
 
 def randomdouble_ffi(div, fromIntegral, val, x, x_prime):
-    """FFI bridge to Haskell implementation of Randomdouble."""
+    """Wrapper that calls the Haskell version of randomdouble. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./randomdouble.so")
     _func_name = 'placeholder'
@@ -185,7 +185,7 @@ def randomdouble_ffi(div, fromIntegral, val, x, x_prime):
     return _func(div, fromIntegral, val, x, x_prime)
 
 def randomint64_ffi(fromIntegral, g, g_prime, i):
-    """FFI bridge to Haskell implementation of Randomint64."""
+    """Wrapper that calls the Haskell version of randomint64. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./randomint64.so")
     _func_name = 'placeholder'
@@ -195,7 +195,7 @@ def randomint64_ffi(fromIntegral, g, g_prime, i):
     return _func(fromIntegral, g, g_prime, i)
 
 def addmod64_ffi(a, b, m, mod):
-    """FFI bridge to Haskell implementation of Addmod64."""
+    """Wrapper that calls the Haskell version of addmod64. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./addmod64.so")
     _func_name = 'placeholder'
@@ -205,7 +205,7 @@ def addmod64_ffi(a, b, m, mod):
     return _func(a, b, m, mod)
 
 def mulmod64_ffi(a, b, f, m):
-    """FFI bridge to Haskell implementation of Mulmod64."""
+    """Wrapper that calls the Haskell version of mulmod64. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./mulmod64.so")
     _func_name = 'placeholder'
@@ -215,7 +215,7 @@ def mulmod64_ffi(a, b, f, m):
     return _func(a, b, f, m)
 
 def powmod64_ffi(a, e, f, m):
-    """FFI bridge to Haskell implementation of Powmod64."""
+    """Wrapper that calls the Haskell version of powmod64. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./powmod64.so")
     _func_name = 'placeholder'
@@ -225,7 +225,7 @@ def powmod64_ffi(a, e, f, m):
     return _func(a, e, f, m)
 
 def skip_ffi(d, st, st_prime):
-    """FFI bridge to Haskell implementation of Skip."""
+    """Wrapper that calls the Haskell version of skip. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./skip.so")
     _func_name = 'placeholder'
@@ -235,7 +235,7 @@ def skip_ffi(d, st, st_prime):
     return _func(d, st, st_prime)
 
 def next_ffi(fromIntegral, g, g_prime, w):
-    """FFI bridge to Haskell implementation of Next."""
+    """Wrapper that calls the Haskell version of next. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./next.so")
     _func_name = 'placeholder'
@@ -245,7 +245,7 @@ def next_ffi(fromIntegral, g, g_prime, w):
     return _func(fromIntegral, g, g_prime, w)
 
 def split_ffi(g, skip, skipConst):
-    """FFI bridge to Haskell implementation of Split."""
+    """Wrapper that calls the Haskell version of split. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./split.so")
     _func_name = 'placeholder'
@@ -255,7 +255,7 @@ def split_ffi(g, skip, skipConst):
     return _func(g, skip, skipConst)
 
 def f_ffi(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime):
-    """FFI bridge to Haskell implementation of F."""
+    """Wrapper that calls the Haskell version of f. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'
@@ -265,7 +265,7 @@ def f_ffi(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime):
     return _func(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime)
 
 def f_ffi(acc, acc_prime, e_prime, e1, f, otherwise, sqr, sqr_prime):
-    """FFI bridge to Haskell implementation of F."""
+    """Wrapper that calls the Haskell version of f. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'

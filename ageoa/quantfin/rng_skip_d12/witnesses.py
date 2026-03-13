@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_randomword32(c: AbstractArray, state: AbstractArray, state_prime: AbstractArray, x: AbstractArray, xor: AbstractArray) -> AbstractArray:
-    """Ghost witness for Randomword32."""
+    """Shape-and-type check for randomword32. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=c.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_randomword32(c: AbstractArray, state: AbstractArray, state_prime: Ab
     return result
 
 def witness_randomint(fromIntegral: AbstractArray, g: AbstractArray, g_prime: AbstractArray, i: AbstractArray) -> AbstractArray:
-    """Ghost witness for Randomint."""
+    """Shape-and-type check for randomint. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=fromIntegral.shape,
         dtype="float64",
@@ -19,7 +19,7 @@ def witness_randomint(fromIntegral: AbstractArray, g: AbstractArray, g_prime: Ab
     return result
 
 def witness_randomword64(buildWord64_prime: AbstractArray, x: AbstractArray, x_prime: AbstractArray, y1: AbstractArray, y2: AbstractArray) -> AbstractArray:
-    """Ghost witness for Randomword64."""
+    """Shape-and-type check for randomword64. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=buildWord64_prime.shape,
         dtype="float64",
@@ -27,7 +27,7 @@ def witness_randomword64(buildWord64_prime: AbstractArray, x: AbstractArray, x_p
     return result
 
 def witness_randomdouble(div: AbstractArray, fromIntegral: AbstractArray, val: AbstractArray, x: AbstractArray, x_prime: AbstractArray) -> AbstractArray:
-    """Ghost witness for Randomdouble."""
+    """Shape-and-type check for randomdouble. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=div.shape,
         dtype="float64",
@@ -35,7 +35,7 @@ def witness_randomdouble(div: AbstractArray, fromIntegral: AbstractArray, val: A
     return result
 
 def witness_randomint64(fromIntegral: AbstractArray, g: AbstractArray, g_prime: AbstractArray, i: AbstractArray) -> AbstractArray:
-    """Ghost witness for Randomint64."""
+    """Shape-and-type check for randomint64. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=fromIntegral.shape,
         dtype="float64",
@@ -43,7 +43,7 @@ def witness_randomint64(fromIntegral: AbstractArray, g: AbstractArray, g_prime: 
     return result
 
 def witness_addmod64(a: AbstractArray, b: AbstractArray, m: AbstractArray, mod: AbstractArray) -> AbstractArray:
-    """Ghost witness for Addmod64."""
+    """Shape-and-type check for addmod64. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a.shape,
         dtype="float64",
@@ -51,7 +51,7 @@ def witness_addmod64(a: AbstractArray, b: AbstractArray, m: AbstractArray, mod: 
     return result
 
 def witness_mulmod64(a: AbstractArray, b: AbstractArray, f: AbstractArray, m: AbstractArray) -> AbstractArray:
-    """Ghost witness for Mulmod64."""
+    """Shape-and-type check for mulmod64. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a.shape,
         dtype="float64",
@@ -59,7 +59,7 @@ def witness_mulmod64(a: AbstractArray, b: AbstractArray, f: AbstractArray, m: Ab
     return result
 
 def witness_powmod64(a: AbstractArray, e: AbstractArray, f: AbstractArray, m: AbstractArray) -> AbstractArray:
-    """Ghost witness for Powmod64."""
+    """Shape-and-type check for powmod64. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a.shape,
         dtype="float64",
@@ -67,7 +67,7 @@ def witness_powmod64(a: AbstractArray, e: AbstractArray, f: AbstractArray, m: Ab
     return result
 
 def witness_skip(d: AbstractArray, st: AbstractArray, st_prime: AbstractArray) -> AbstractArray:
-    """Ghost witness for Skip."""
+    """Shape-and-type check for skip. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=d.shape,
         dtype="float64",
@@ -75,7 +75,7 @@ def witness_skip(d: AbstractArray, st: AbstractArray, st_prime: AbstractArray) -
     return result
 
 def witness_next(fromIntegral: AbstractArray, g: AbstractArray, g_prime: AbstractArray, w: AbstractArray) -> AbstractArray:
-    """Ghost witness for Next."""
+    """Shape-and-type check for next. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=fromIntegral.shape,
         dtype="float64",
@@ -83,7 +83,7 @@ def witness_next(fromIntegral: AbstractArray, g: AbstractArray, g_prime: Abstrac
     return result
 
 def witness_split(g: AbstractArray, skip: AbstractArray, skipConst: AbstractArray) -> AbstractArray:
-    """Ghost witness for Split."""
+    """Shape-and-type check for split. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=g.shape,
         dtype="float64",
@@ -91,7 +91,7 @@ def witness_split(g: AbstractArray, skip: AbstractArray, skipConst: AbstractArra
     return result
 
 def witness_f_prime(a_prime: AbstractArray, a1: AbstractArray, b_prime: AbstractArray, b1: AbstractArray, f: AbstractArray, otherwise: AbstractArray, r: AbstractArray, r_prime: AbstractArray) -> AbstractArray:
-    """Ghost witness for F."""
+    """Shape-and-type check for f. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a_prime.shape,
         dtype="float64",
@@ -99,7 +99,7 @@ def witness_f_prime(a_prime: AbstractArray, a1: AbstractArray, b_prime: Abstract
     return result
 
 def witness_f(acc: AbstractArray, acc_prime: AbstractArray, e_prime: AbstractArray, e1: AbstractArray, f: AbstractArray, otherwise: AbstractArray, sqr: AbstractArray, sqr_prime: AbstractArray) -> AbstractArray:
-    """Ghost witness for F."""
+    """Shape-and-type check for f. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=acc.shape,
         dtype="float64",

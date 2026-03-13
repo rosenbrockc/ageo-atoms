@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_pinlikelihoodevaluator(params: AbstractArray, B: AbstractArray, S: AbstractArray) -> AbstractArray:
-    """Ghost witness for PinLikelihoodEvaluator."""
+    """Shape-and-type check for pin likelihood evaluator. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=params.shape,
         dtype="float64",)

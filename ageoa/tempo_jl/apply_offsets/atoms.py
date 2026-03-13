@@ -69,13 +69,13 @@ from juliacall import Main as jl
 
 
 def _show_ffi(io, s):
-    """FFI bridge to Julia implementation of Show."""
+    """Wrapper that calls the Julia version of show. Passes arguments through and returns the result."""
     return jl.eval("show(io, s)")
 
 def _zero_offset_ffi(seconds):
-    """FFI bridge to Julia implementation of  Zero Offset."""
+    """Wrapper that calls the Julia version of zero offset. Passes arguments through and returns the result."""
     return jl.eval("_zero_offset(seconds)")
 
 def _apply_offsets_ffi(sec, ts1, ts2):
-    """FFI bridge to Julia implementation of Apply Offsets."""
+    """Wrapper that calls the Julia version of apply offsets. Passes arguments through and returns the result."""
     return jl.eval("apply_offsets(sec, ts1, ts2)")

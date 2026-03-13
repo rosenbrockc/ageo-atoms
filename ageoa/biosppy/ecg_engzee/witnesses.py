@@ -8,14 +8,13 @@ def witness_engzee_signal_segmentation(signal: AbstractSignal,
 ) -> AbstractArray:
     """Ghost witness for engzee_signal_segmentation.
 
-    Args:
-        signal: Abstract 1-D ECG signal.
-        sampling_rate: Abstract positive scalar.
-        threshold: Abstract scalar in (0, 1).
+Args:
+    signal: Abstract 1-D electrocardiogram (ECG) signal.
+    sampling_rate: Abstract positive scalar.
+    threshold: Abstract scalar in (0, 1).
 
-    Returns:
-        Abstract 1-D array of detected R-peak indices.
-    """
+Returns:
+    Abstract 1-D array of detected R-peak indices."""
     return AbstractArray(
         shape=(signal.shape[0],),
         dtype="int64",

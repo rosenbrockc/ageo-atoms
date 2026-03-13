@@ -6,7 +6,7 @@ def witness_gamboa_segmentation(signal: AbstractSignal,
     sampling_rate: AbstractScalar,
     tol: AbstractScalar,
 ) -> AbstractSignal:
-    """Ghost witness for gamboa_segmentation."""
+    """Shape-and-type check for gamboa segmentation. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

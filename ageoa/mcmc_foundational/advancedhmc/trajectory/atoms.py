@@ -62,9 +62,9 @@ from juliacall import Main as jl
 
 
 def _buildnutstree_ffi(rng, hamiltonian, start_state, direction, tree_depth, initial_energy):
-    """FFI bridge to Julia implementation of BuildNutsTree."""
+    """Wrapper that calls the Julia version of build nuts tree. Passes arguments through and returns the result."""
     return jl.eval("buildnutstree(rng, hamiltonian, start_state, direction, tree_depth, initial_energy)")
 
 def _nutstransitionkernel_ffi(rng, hamiltonian, initial_state, trajectory_params):
-    """FFI bridge to Julia implementation of NutsTransitionKernel."""
+    """Wrapper that calls the Julia version of nuts transition kernel. Passes arguments through and returns the result."""
     return jl.eval("nutstransitionkernel(rng, hamiltonian, initial_state, trajectory_params)")

@@ -17,11 +17,10 @@ from .witnesses import witness_orderflowimbalanceevaluation
 def orderflowimbalanceevaluation(row: object, prev_row: object) -> float:
     """Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.
 
-    Args:
-        row: Must contain the fields required for OFI computation.
-        prev_row: Represents the immediately preceding row; schema-compatible with row.
+Args:
+    row: Must contain the fields required for Order Flow Imbalance (OFI) computation.
+    prev_row: Represents the immediately preceding row; schema-compatible with row.
 
-    Returns:
-        Deterministic scalar derived only from row and prev_row.
-    """
+Returns:
+    Deterministic scalar derived only from row and prev_row."""
     raise NotImplementedError("Wire to original implementation")

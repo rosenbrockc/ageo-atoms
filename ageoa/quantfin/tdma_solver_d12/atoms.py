@@ -77,7 +77,7 @@ from pathlib import Path
 
 
 def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn):
-    """FFI bridge to Haskell implementation of Tdmasolver."""
+    """Wrapper that calls the Haskell version of tdmasolver. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./tdmasolver.so")
     _func_name = 'placeholder'
@@ -87,7 +87,7 @@ def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime,
     return _func(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn)
 
 def cotraversevec_ffi(enumFromN, f, fmap, i, l, m, map):
-    """FFI bridge to Haskell implementation of Cotraversevec."""
+    """Wrapper that calls the Haskell version of cotraversevec. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./cotraversevec.so")
     _func_name = 'placeholder'

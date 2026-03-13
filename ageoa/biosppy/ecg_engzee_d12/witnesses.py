@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_engzee_qrs_segmentation(signal: AbstractSignal, sampling_rate: AbstractSignal, threshold: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for engzee_qrs_segmentation."""
+    """Shape-and-type check for engzee qrs segmentation. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

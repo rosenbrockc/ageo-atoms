@@ -28,17 +28,16 @@ from .state_models import FilterParamState
 def filterstateinit(b: Any, a: Any, state: FilterParamState) -> tuple[tuple[Any, Any, Any], FilterParamState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
-    Initializes the IIR/FIR filter by storing numerator (b) and denominator (a) coefficients and bootstrapping the delay-line state vector (zi) to zeros. reset() is an integral part of this initialization stage and can also be re-invoked to flush the delay line between signals.
+Initializes the Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter by storing numerator (b) and denominator (a) coefficients and bootstrapping the delay-line state vector (zi) to zeros. reset() is an integral part of this initialization stage and can also be re-invoked to flush the delay line between signals.
 
-    Args:
-        b: len(b) >= 1
-        a: len(a) >= 1; a[0] != 0
-        state: FilterParamState object containing cross-window persistent state.
+Args:
+    b: len(b) >= 1
+    a: len(a) >= 1; a[0] != 0
+    state: FilterParamState object containing cross-window persistent state.
 
-    Returns:
-        tuple[tuple[b, a, zi], FilterParamState]:
-            The first element is the functional result, the second is the updated state.
-    """
+Returns:
+    tuple[tuple[b, a, zi], FilterParamState]:
+        The first element is the functional result, the second is the updated state."""
     obj = OnlineFilter.__new__(OnlineFilter)
     obj.b = state.b
     obj.a = state.a
@@ -56,20 +55,18 @@ def filterstateinit(b: Any, a: Any, state: FilterParamState) -> tuple[tuple[Any,
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda zi: zi is not None, "zi cannot be None")
 def filterstep(signal: Any, b: Any, a: Any, zi: Any, state: FilterParamState) -> tuple[tuple[Any, Any], FilterParamState]:
-    """
-    Applies the online IIR/FIR filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.
+    """Applies the online Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.
 
-    Args:
-        signal: dtype float; length >= 1
-        b: from FilterStateInit
-        a: from FilterStateInit
-        zi: immutable; produced by FilterStateInit or previous FilterStep
-        state: FilterParamState object containing cross-window persistent state.
+Args:
+    signal: dtype float; length >= 1
+    b: from FilterStateInit
+    a: from FilterStateInit
+    zi: immutable; produced by FilterStateInit or previous FilterStep
+    state: FilterParamState object containing cross-window persistent state.
 
-    Returns:
-        tuple[tuple[filtered_signal, zi_out], FilterParamState]:
-            The first element is the functional result, the second is the updated state.
-    """
+Returns:
+    tuple[tuple[filtered_signal, zi_out], FilterParamState]:
+        The first element is the functional result, the second is the updated state."""
     obj = OnlineFilter.__new__(OnlineFilter)
     obj.b = state.b
     obj.a = state.a

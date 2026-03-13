@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_rotaryembedding(q: AbstractArray, k: AbstractArray) -> tuple:
-    """Ghost witness for opaque boundary: RotaryEmbedding."""
+    """Shape-and-type check for opaque boundary: rotary embedding. Returns output metadata without running the real computation."""
     q_shape = tuple(q.shape)
     k_shape = tuple(k.shape)
     q_out = AbstractArray(shape=q_shape, dtype="float32")

@@ -21,12 +21,11 @@ from .witnesses import witness_build_de_transition_kernel
 def build_de_transition_kernel(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
     """Creates a pure Differential Evolution transition kernel from the provided target log-density oracle.
 
-    Args:
-        target_log_kernel: Stateless log-density oracle; no persistent state mutation.
+Args:
+    target_log_kernel: Stateless log-density oracle; no persistent state mutation.
 
-    Returns:
-        Pure transition function; any stochastic state (e.g., RNG/PRNGKey) must be explicit input/output.
-    """
+Returns:
+    Pure transition function; any stochastic state (e.g., random number generator (RNG)/PRNGKey) must be explicit input/output."""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -38,7 +37,7 @@ import ctypes.util
 from pathlib import Path
 
 def _build_de_transition_kernel_ffi(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
-    """FFI bridge to C++ implementation of build_de_transition_kernel."""
+    """Wrapper that calls the C++ version of build de transition kernel. Passes arguments through and returns the result."""
     _func_name = 'build_de_transition_kernel'
     _func_name = 'build_de_transition_kernel'
     _func = ctypes.CDLL(None)[_func_name]

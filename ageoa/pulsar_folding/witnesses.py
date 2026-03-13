@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_dm_can_brute_force(data: AbstractArray) -> AbstractArray:
-    """Ghost witness for dm_can_brute_force."""
+    """Shape-and-type check for dm can brute force. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=data.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_dm_can_brute_force(data: AbstractArray) -> AbstractArray:
 
 
 def witness_spline_bandpass_correction(data: AbstractArray) -> AbstractArray:
-    """Ghost witness for spline_bandpass_correction."""
+    """Shape-and-type check for spline bandpass correction. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=data.shape,
         dtype="float64",

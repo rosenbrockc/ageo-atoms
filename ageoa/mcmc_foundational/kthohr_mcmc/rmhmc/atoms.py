@@ -21,15 +21,14 @@ from pathlib import Path
 @icontract.require(lambda tensor_fn: tensor_fn is not None, "tensor_fn cannot be None")
 @icontract.ensure(lambda result: result is not None, "BuildRMHMCTransitionKernel output must not be None")
 def buildrmhmctransitionkernel(target_log_kernel: Callable[[np.ndarray], float], tensor_fn: Callable[[np.ndarray], np.ndarray]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
-    """Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.
+    """Constructs a pure Riemannian Manifold Hamiltonian Monte Carlo (HMC) transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.
 
-    Args:
-        target_log_kernel: Pure oracle-style log-density/log-kernel evaluator; no persistent state mutation.
-        tensor_fn: Pure oracle-style metric/tensor evaluator compatible with RMHMC geometry.
+Args:
+    target_log_kernel: Pure oracle-style log-density/log-kernel evaluator; no persistent state mutation.
+    tensor_fn: Pure oracle-style metric/tensor evaluator compatible with RMHMC geometry.
 
-    Returns:
-        Pure MCMC transition function that consumes explicit state (including PRNGKey) and returns a new state object.
-    """
+Returns:
+    Pure Markov Chain Monte Carlo (MCMC) transition function that consumes explicit state (including PRNGKey) and returns a new state object."""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -42,7 +41,7 @@ from pathlib import Path
 
 
 def _buildrmhmctransitionkernel_ffi(target_log_kernel: Callable[[np.ndarray], float], tensor_fn: Callable[[np.ndarray], np.ndarray]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
-    """FFI bridge to C++ implementation of BuildRMHMCTransitionKernel."""
+    """Wrapper that calls the C++ version of build rmhmc transition kernel. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./buildrmhmctransitionkernel.so")
     _func_name = "buildrmhmctransitionkernel"
     _func = getattr(_lib, _func_name)

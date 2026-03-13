@@ -171,7 +171,7 @@ from pathlib import Path
 
 
 def runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampleRVarTWith):
-    """FFI bridge to Haskell implementation of Runmc."""
+    """Wrapper that calls the Haskell version of runmc. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runmc.so")
     _func_name = 'placeholder'
@@ -181,7 +181,7 @@ def runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampl
     return _func(evalState, evalStateT, flip, initState, lift, mc, randState, sampleRVarTWith)
 
 def runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
-    """FFI bridge to Haskell implementation of Runsimulation."""
+    """Wrapper that calls the Haskell version of runsimulation. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsimulation.so")
     _func_name = 'placeholder'
@@ -191,7 +191,7 @@ def runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
     return _func(anti, ccs, modl, run, runMC, seed, trials, undefined)
 
 def runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
-    """FFI bridge to Haskell implementation of Runsimulationanti."""
+    """Wrapper that calls the Haskell version of runsimulationanti. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsimulationanti.so")
     _func_name = 'placeholder'
@@ -201,7 +201,7 @@ def runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
     return _func(ccs, modl, runSim, seed, trials)
 
 def quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
-    """FFI bridge to Haskell implementation of Quicksim."""
+    """Wrapper that calls the Haskell version of quicksim. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./quicksim.so")
     _func_name = 'placeholder'
@@ -211,7 +211,7 @@ def quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
     return _func(mdl, opts, pureMT, runSimulation, trials)
 
 def quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
-    """FFI bridge to Haskell implementation of Quicksimanti."""
+    """Wrapper that calls the Haskell version of quicksimanti. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./quicksimanti.so")
     _func_name = 'placeholder'
@@ -221,7 +221,7 @@ def quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
     return _func(mdl, opts, pureMT, runSimulationAnti, trials)
 
 def evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless):
-    """FFI bridge to Haskell implementation of Evolve."""
+    """Wrapper that calls the Haskell version of evolve. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./evolve.so")
     _func_name = 'placeholder'
@@ -231,7 +231,7 @@ def evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDi
     return _func(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless)
 
 def maxstep_ffi():
-    """FFI bridge to Haskell implementation of Maxstep."""
+    """Wrapper that calls the Haskell version of maxstep. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./maxstep.so")
     _func_name = 'placeholder'
@@ -240,7 +240,7 @@ def maxstep_ffi():
     return _func()
 
 def simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
-    """FFI bridge to Haskell implementation of Simulatestate."""
+    """Wrapper that calls the Haskell version of simulatestate. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./simulatestate.so")
     _func_name = 'placeholder'
@@ -250,7 +250,7 @@ def simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
     return _func(anti, avg, ccb, modl, replicateM, singleTrial, trials)
 
 def runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
-    """FFI bridge to Haskell implementation of Runsim."""
+    """Wrapper that calls the Haskell version of runsim. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsim.so")
     _func_name = 'placeholder'
@@ -260,7 +260,7 @@ def runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
     return _func(ccs, div, modl, runSimulation, seed, trials, x)
 
 def process_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
-    """FFI bridge to Haskell implementation of Process."""
+    """Wrapper that calls the Haskell version of process. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -270,7 +270,7 @@ def process_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discoun
     return _func(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
 def process_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
-    """FFI bridge to Haskell implementation of Process."""
+    """Wrapper that calls the Haskell version of process. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -280,7 +280,7 @@ def process_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets
     return _func(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
 def process_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process):
-    """FFI bridge to Haskell implementation of Process."""
+    """Wrapper that calls the Haskell version of process. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -290,7 +290,7 @@ def process_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, m
     return _func(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process)
 
 def process_ffi(discCFs, return_val):
-    """FFI bridge to Haskell implementation of Process."""
+    """Wrapper that calls the Haskell version of process. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -300,7 +300,7 @@ def process_ffi(discCFs, return_val):
     return _func(discCFs, return_val)
 
 def insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
-    """FFI bridge to Haskell implementation of Insertcf."""
+    """Wrapper that calls the Haskell version of insertcf. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcf.so")
     _func_name = 'placeholder'
@@ -310,7 +310,7 @@ def insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
     return _func(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime)
 
 def insertcf_ffi(cf):
-    """FFI bridge to Haskell implementation of Insertcf."""
+    """Wrapper that calls the Haskell version of insertcf. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcf.so")
     _func_name = 'placeholder'
@@ -320,7 +320,7 @@ def insertcf_ffi(cf):
     return _func(cf)
 
 def avg_ffi(fromIntegral, sum, trials, v):
-    """FFI bridge to Haskell implementation of Avg."""
+    """Wrapper that calls the Haskell version of avg. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./avg.so")
     _func_name = 'placeholder'
@@ -330,7 +330,7 @@ def avg_ffi(fromIntegral, sum, trials, v):
     return _func(fromIntegral, sum, trials, v)
 
 def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
-    """FFI bridge to Haskell implementation of Insertcflist."""
+    """Wrapper that calls the Haskell version of insertcflist. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcflist.so")
     _func_name = 'placeholder'
@@ -340,7 +340,7 @@ def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
     return _func(cfList, flip, foldl_prime, insertCF, xs)
 
 def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
-    """FFI bridge to Haskell implementation of Insertcflist."""
+    """Wrapper that calls the Haskell version of insertcflist. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcflist.so")
     _func_name = 'placeholder'

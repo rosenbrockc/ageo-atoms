@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_optimizationlooporchestration(algorithm: AbstractArray, max_iter: AbstractScalar, prob: AbstractArray, q_init: AbstractArray, rng_state_in: AbstractArray) -> tuple[AbstractArray, AbstractArray, AbstractArray]:
-    """Ghost witness for OptimizationLoopOrchestration."""
+    """Shape-and-type check for optimization loop orchestration. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=algorithm.shape,
         dtype="float64",

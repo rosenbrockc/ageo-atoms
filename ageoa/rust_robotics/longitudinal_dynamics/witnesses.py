@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_initialize_model(mass: AbstractArray, area_frontal: AbstractArray) -> AbstractArray:
-    """Ghost witness for initialize_model."""
+    """Shape-and-type check for initialize model. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=mass.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_initialize_model(mass: AbstractArray, area_frontal: AbstractArray) -
     return result
 
 def witness_compute_aerodynamic_force(velocity: AbstractArray) -> AbstractArray:
-    """Ghost witness for compute_aerodynamic_force."""
+    """Shape-and-type check for compute aerodynamic force. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=velocity.shape,
         dtype="float64",
@@ -19,7 +19,7 @@ def witness_compute_aerodynamic_force(velocity: AbstractArray) -> AbstractArray:
     return result
 
 def witness_compute_rolling_force(grade_angle: AbstractArray) -> AbstractArray:
-    """Ghost witness for compute_rolling_force."""
+    """Shape-and-type check for compute rolling force. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=grade_angle.shape,
         dtype="float64",
@@ -27,7 +27,7 @@ def witness_compute_rolling_force(grade_angle: AbstractArray) -> AbstractArray:
     return result
 
 def witness_compute_gravity_grade_force(grade_angle: AbstractArray) -> AbstractArray:
-    """Ghost witness for compute_gravity_grade_force."""
+    """Shape-and-type check for compute gravity grade force. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=grade_angle.shape,
         dtype="float64",
@@ -35,7 +35,7 @@ def witness_compute_gravity_grade_force(grade_angle: AbstractArray) -> AbstractA
     return result
 
 def witness_evaluate_dynamics_derivatives(x: AbstractArray, u: AbstractArray, _t: AbstractArray) -> AbstractArray:
-    """Ghost witness for evaluate_dynamics_derivatives."""
+    """Shape-and-type check for evaluate dynamics derivatives. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",
@@ -43,7 +43,7 @@ def witness_evaluate_dynamics_derivatives(x: AbstractArray, u: AbstractArray, _t
     return result
 
 def witness_linearize_dynamics(x: AbstractArray, _u: AbstractArray, _t: AbstractArray) -> AbstractArray:
-    """Ghost witness for linearize_dynamics."""
+    """Shape-and-type check for linearize dynamics. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",
@@ -51,7 +51,7 @@ def witness_linearize_dynamics(x: AbstractArray, _u: AbstractArray, _t: Abstract
     return result
 
 def witness_solve_control_for_target_derivative(x: AbstractArray, x_dot_desired: AbstractArray, _t: AbstractArray) -> AbstractArray:
-    """Ghost witness for solve_control_for_target_derivative."""
+    """Shape-and-type check for solve control for target derivative. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",
@@ -59,7 +59,7 @@ def witness_solve_control_for_target_derivative(x: AbstractArray, x_dot_desired:
     return result
 
 def witness_deserialize_model_spec(filename: AbstractArray) -> AbstractArray:
-    """Ghost witness for deserialize_model_spec."""
+    """Shape-and-type check for deserialize model spec. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=filename.shape,
         dtype="float64",

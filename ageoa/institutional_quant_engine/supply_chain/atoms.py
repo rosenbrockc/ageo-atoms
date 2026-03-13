@@ -18,7 +18,7 @@ from .witnesses import witness_propagate_supply_shock
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def propagate_supply_shock(adjacency: np.ndarray, initial_shock: np.ndarray) -> np.ndarray:
-    """Propagates a supply chain disruption shock through a DAG of supplier relationships, computing downstream impact at each node.
+    """Propagates a supply chain disruption shock through a Directed Acyclic Graph (DAG) of supplier relationships, computing downstream impact at each node.
 
     Args:
         adjacency: Weighted adjacency matrix of the supply chain DAG, shape (n_nodes, n_nodes)

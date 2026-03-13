@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_load_graphs_from_folder(folder_path, *args, **kwargs):
-    """Ghost witness for Load Graphs From Folder."""
+    """Shape-and-type check for load graphs from folder. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=(1,),
         dtype="float64",)
@@ -10,7 +10,7 @@ def witness_load_graphs_from_folder(folder_path, *args, **kwargs):
     return result
 
 def witness_is_independent_set(graph: AbstractArray, subset: AbstractArray) -> AbstractArray:
-    """Ghost witness for Is Independent Set."""
+    """Shape-and-type check for is independent set. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=graph.shape,
         dtype="float64",)
@@ -18,7 +18,7 @@ def witness_is_independent_set(graph: AbstractArray, subset: AbstractArray) -> A
     return result
 
 def witness_calculate_weight(graph: AbstractArray, node_list: AbstractArray) -> AbstractArray:
-    """Ghost witness for Calculate Weight."""
+    """Shape-and-type check for calculate weight. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=graph.shape,
         dtype="float64",)
@@ -26,7 +26,7 @@ def witness_calculate_weight(graph: AbstractArray, node_list: AbstractArray) -> 
     return result
 
 def witness_to_qubo(graph: AbstractArray, penalty: AbstractArray) -> AbstractArray:
-    """Ghost witness for To Qubo."""
+    """Shape-and-type check for to qubo. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=graph.shape,
         dtype="float64",)

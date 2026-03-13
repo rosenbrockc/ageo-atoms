@@ -82,7 +82,7 @@ from pathlib import Path
 
 
 def charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc):
-    """FFI bridge to Haskell implementation of Charfuncoption."""
+    """Wrapper that calls the Haskell version of charfuncoption. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./charfuncoption.so")
     _func_name = 'placeholder'
@@ -92,7 +92,7 @@ def charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f
     return _func(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc)
 
 def f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
-    """FFI bridge to Haskell implementation of F."""
+    """Wrapper that calls the Haskell version of f. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'
@@ -102,7 +102,7 @@ def f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
     return _func(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime)
 
 def cf_ffi(charFuncMart, fg, model, tmat, x):
-    """FFI bridge to Haskell implementation of Cf."""
+    """Wrapper that calls the Haskell version of cf. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./cf.so")
     _func_name = 'placeholder'

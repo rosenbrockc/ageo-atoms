@@ -61,9 +61,9 @@ from juliacall import Main as jl  # type: ignore[import-untyped]
 # removed duplicate future import (already declared at top of file)
 
 def _temperingfactorcomputation_ffi(lf: np.ndarray, r: np.ndarray, step: int, n_steps: int) -> float:
-    """FFI bridge to Julia implementation of TemperingFactorComputation."""
+    """Wrapper that calls the Julia version of tempering factor computation. Passes arguments through and returns the result."""
     return jl.eval("temperingfactorcomputation(lf, r, step, n_steps)")
 
 def _hamiltonianphasepointtransition_ffi(lf: np.ndarray, h: np.ndarray, z: np.ndarray, tempering_scale: float) -> tuple[np.ndarray, bool]:
-    """FFI bridge to Julia implementation of HamiltonianPhasepointTransition."""
+    """Wrapper that calls the Julia version of hamiltonian phasepoint transition. Passes arguments through and returns the result."""
     return jl.eval("hamiltonianphasepointtransition(lf, h, z, tempering_scale)")

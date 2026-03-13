@@ -39,7 +39,7 @@ from pathlib import Path
 
 
 def _inverse_schmitt_trigger_transform_ffi(input_signal: ctypes.c_void_p) -> ctypes.c_void_p:
-    """FFI bridge to C++ implementation of inverse_schmitt_trigger_transform."""
+    """Wrapper that calls the C++ version of inverse schmitt trigger transform. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./inverse_schmitt_trigger_transform.so")
     _func_name = 'inverse_schmitt_trigger_transform_prime'
     _func = _lib[_func_name]

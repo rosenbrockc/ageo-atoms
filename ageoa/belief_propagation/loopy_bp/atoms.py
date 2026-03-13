@@ -21,11 +21,11 @@ from .witnesses import (
 @icontract.require(lambda pgm: pgm is not None, "pgm cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def initialize_message_passing_state(pgm: Any, state: BPState) -> tuple[object, BPState]:
-    """Build the immutable loopy-belief-propagation state from the PGM.
+    """Build the immutable loopy Belief Propagation (BP) state from the Probabilistic Graphical Model (PGM).
 
     Args:
         pgm: Factor graph structure with variable/factor neighborhoods.
-        state: BPState containing cross-window persistent state.
+        state: Belief Propagation state containing cross-window persistent state.
 
     Returns:
         Tuple of initialized state object and updated BPState.
@@ -40,13 +40,13 @@ def initialize_message_passing_state(pgm: Any, state: BPState) -> tuple[object, 
 def run_loopy_message_passing_and_belief_query(
     state_in: BPState, v_name: str, num_iter: int, state: BPState
 ) -> tuple[tuple[np.ndarray, object], BPState]:
-    """Run loopy message-passing iterations and return queried variable belief.
+    """Run loopy Belief Propagation (BP) message-passing iterations and return the queried variable's belief.
 
     Args:
         state_in: Immutable input snapshot with msg/msg_new/t.
-        v_name: Valid variable name in the PGM.
+        v_name: Valid variable name in the Probabilistic Graphical Model (PGM).
         num_iter: Number of message-passing iterations, >= 0.
-        state: BPState containing cross-window persistent state.
+        state: Belief Propagation state containing cross-window persistent state.
 
     Returns:
         Tuple of (belief, state_out) and updated BPState.

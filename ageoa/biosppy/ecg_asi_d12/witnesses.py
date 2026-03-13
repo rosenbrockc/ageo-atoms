@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_asi_signal_segmenter(signal: AbstractSignal, sampling_rate: AbstractSignal, Pth: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for ASI_signal_segmenter."""
+    """Shape-and-type check for asi signal segmenter. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

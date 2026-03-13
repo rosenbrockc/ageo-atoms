@@ -67,7 +67,7 @@ from pathlib import Path
 
 
 def var_ffi(s, t, t_prime, v, vs):
-    """FFI bridge to Haskell implementation of Var."""
+    """Wrapper that calls the Haskell version of var. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./var.so")
     _func_name = 'placeholder'
@@ -77,7 +77,7 @@ def var_ffi(s, t, t_prime, v, vs):
     return _func(s, t, t_prime, v, vs)
 
 def localvol_ffi(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w):
-    """FFI bridge to Haskell implementation of Localvol."""
+    """Wrapper that calls the Haskell version of localvol. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./localvol.so")
     _func_name = 'placeholder'
@@ -87,7 +87,7 @@ def localvol_ffi(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w):
     return _func(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w)
 
 def vol_ffi(x):
-    """FFI bridge to Haskell implementation of Vol."""
+    """Wrapper that calls the Haskell version of vol. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./vol.so")
     _func_name = 'placeholder'
@@ -97,7 +97,7 @@ def vol_ffi(x):
     return _func(x)
 
 def vol_ffi(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, timeFromZero, vInterp):
-    """FFI bridge to Haskell implementation of Vol."""
+    """Wrapper that calls the Haskell version of vol. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./vol.so")
     _func_name = 'placeholder'
@@ -107,7 +107,7 @@ def vol_ffi(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, t
     return _func(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, timeFromZero, vInterp)
 
 def allfort_ffi(map, quotes, sts, t_prime, x):
-    """FFI bridge to Haskell implementation of Allfort."""
+    """Wrapper that calls the Haskell version of allfort. Passes arguments through and returns the result."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./allfort.so")
     _func_name = 'placeholder'

@@ -3,19 +3,19 @@ from typing import Tuple
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractMCMCTrace, AbstractRNGState, AbstractScalar, AbstractSignal
 
 def witness_initializehmckernelstate(*args, **kwargs):
-    """Ghost witness for InitializeHMCKernelState."""
+    """Shape-and-type check for initialize hmc kernel state. Returns output metadata without running the real computation."""
     kernel_spec = AbstractArray(shape=("K",), dtype="float64")
     chain_state = AbstractMCMCTrace(n_samples=0, n_chains=1, param_dims=(1,), warmup_steps=0)
     return (chain_state, kernel_spec)
 
 
 def witness_initializesamplerrng(*args, **kwargs):
-    """Ghost witness for InitializeSamplerRNG."""
+    """Shape-and-type check for initialize sampler rng. Returns output metadata without running the real computation."""
     return AbstractRNGState(seed=0, consumed=0, is_split=False)
 
 
 def witness_hamiltoniantransitionkernel(*args, **kwargs):
-    """Ghost witness for HamiltonianTransitionKernel."""
+    """Shape-and-type check for hamiltonian transition kernel. Returns output metadata without running the real computation."""
     state_out = AbstractMCMCTrace(
         n_samples=0,
         n_chains=1,
@@ -28,7 +28,7 @@ def witness_hamiltoniantransitionkernel(*args, **kwargs):
 
 
 def witness_collectposteriorchain(*args, **kwargs):
-    """Ghost witness for CollectPosteriorChain."""
+    """Shape-and-type check for collect posterior chain. Returns output metadata without running the real computation."""
     samples = AbstractArray(shape=("N", "D"), dtype="float64")
     final_state = AbstractMCMCTrace(
         n_samples=0,

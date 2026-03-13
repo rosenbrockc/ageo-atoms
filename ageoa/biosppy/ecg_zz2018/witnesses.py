@@ -10,7 +10,7 @@ def witness_calculatecompositesqi_zz2018(signal: AbstractSignal,
     nseg: AbstractScalar,
     mode: AbstractScalar,
 ) -> AbstractArray:
-    """Ghost witness for CalculateCompositeSQI_ZZ2018."""
+    """Shape-and-type check for calculate composite sqi zz2018. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=signal.shape,
         dtype="float64",
@@ -18,7 +18,7 @@ def witness_calculatecompositesqi_zz2018(signal: AbstractSignal,
     return result
 
 def witness_calculatebeatagreementsqi(detector_1: AbstractSignal, detector_2: AbstractSignal, fs: AbstractSignal, mode: AbstractSignal, search_window: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for CalculateBeatAgreementSQI."""
+    """Shape-and-type check for calculate beat agreement sqi. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=detector_1.shape,
         dtype="float64",
@@ -28,7 +28,7 @@ def witness_calculatebeatagreementsqi(detector_1: AbstractSignal, detector_2: Ab
     return result
 
 def witness_calculatefrequencypowersqi(ecg_signal: AbstractSignal, fs: AbstractSignal, nseg: AbstractSignal, num_spectrum: AbstractSignal, dem_spectrum: AbstractSignal, mode: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for CalculateFrequencyPowerSQI."""
+    """Shape-and-type check for calculate frequency power sqi. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ecg_signal.shape,
         dtype="float64",
@@ -38,7 +38,7 @@ def witness_calculatefrequencypowersqi(ecg_signal: AbstractSignal, fs: AbstractS
     return result
 
 def witness_calculatekurtosissqi(signal: AbstractSignal, fisher: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for CalculateKurtosisSQI."""
+    """Shape-and-type check for calculate kurtosis sqi. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_buildnutstree(rng: AbstractArray, hamiltonian: AbstractArray, extra_arg: AbstractArray, start_state: AbstractArray, direction: AbstractScalar, tree_depth: AbstractScalar, initial_energy: AbstractScalar) -> AbstractArray:
-    """Ghost witness for BuildNutsTree."""
+    """Shape-and-type check for build nuts tree. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=rng.shape,
         dtype="float64",)
@@ -10,7 +10,7 @@ def witness_buildnutstree(rng: AbstractArray, hamiltonian: AbstractArray, extra_
     return result
 
 def witness_nutstransitionkernel(rng: AbstractArray, hamiltonian: AbstractArray, initial_state: AbstractArray, trajectory_params: AbstractArray) -> AbstractArray:
-    """Ghost witness for NutsTransitionKernel."""
+    """Shape-and-type check for nuts transition kernel. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=rng.shape,
         dtype="float64",)

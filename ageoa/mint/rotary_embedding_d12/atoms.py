@@ -24,13 +24,13 @@ def witness_rotaryembedding(*args, **kwargs): pass  # placeholder: replace with 
 @icontract.ensure(lambda result, **kwargs: result is not None, "RotaryEmbedding output must not be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "RotaryEmbedding output must not be None")
 def rotaryembedding(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]:
-    """Opaque DL boundary: RotaryEmbedding
+    """Applies Rotary Positional Embedding (RoPE) to query and key tensors in a neural network attention layer. RoPE encodes token position by rotating the query (q) and key (k) vectors in pairs of dimensions, so that the dot-product attention score naturally decays with distance between tokens.
 
     Args:
-        q: Input data.
-        k: Input data.
+        q: Query tensor from the attention layer.
+        k: Key tensor from the attention layer.
 
     Returns:
-        Result data.
+        Position-encoded query and key tensors.
     """
     raise NotImplementedError("Wire to original implementation")

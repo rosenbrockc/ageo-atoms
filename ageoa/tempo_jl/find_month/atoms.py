@@ -178,41 +178,41 @@ from juliacall import Main as jl
 
 
 def _date_ffi(offset):
-    """FFI bridge to Julia implementation of Date."""
+    """Wrapper that calls the Julia version of date. Passes arguments through and returns the result."""
     return jl.eval("date(offset)")
 
 def _date_ffi(year, dayinyear):
-    """FFI bridge to Julia implementation of Date."""
+    """Wrapper that calls the Julia version of date. Passes arguments through and returns the result."""
     return jl.eval("date(year, dayinyear)")
 
 def _show_ffi(io, d):
-    """FFI bridge to Julia implementation of Show."""
+    """Wrapper that calls the Julia version of show. Passes arguments through and returns the result."""
     return jl.eval("show(io, d)")
 
 def _time_ffi(hour, minute, second):
-    """FFI bridge to Julia implementation of Time."""
+    """Wrapper that calls the Julia version of time. Passes arguments through and returns the result."""
     return jl.eval("time(hour, minute, second)")
 
 def _time_ffi(secondinday, fraction):
-    """FFI bridge to Julia implementation of Time."""
+    """Wrapper that calls the Julia version of time. Passes arguments through and returns the result."""
     return jl.eval("time(secondinday, fraction)")
 
 def _time_ffi(secondinday):
-    """FFI bridge to Julia implementation of Time."""
+    """Wrapper that calls the Julia version of time. Passes arguments through and returns the result."""
     return jl.eval("time(secondinday)")
 
 def _show_ffi(io, t):
-    """FFI bridge to Julia implementation of Show."""
+    """Wrapper that calls the Julia version of show. Passes arguments through and returns the result."""
     return jl.eval("show(io, t)")
 
 def _datetime_ffi(year, month, day, hour, min, sec):
-    """FFI bridge to Julia implementation of Datetime."""
+    """Wrapper that calls the Julia version of datetime. Passes arguments through and returns the result."""
     return jl.eval("datetime(year, month, day, hour, min, sec)")
 
 def _datetime_ffi(s):
-    """FFI bridge to Julia implementation of Datetime."""
+    """Wrapper that calls the Julia version of datetime. Passes arguments through and returns the result."""
     return jl.eval("datetime(s)")
 
 def _datetime_ffi(seconds):
-    """FFI bridge to Julia implementation of Datetime."""
+    """Wrapper that calls the Julia version of datetime. Passes arguments through and returns the result."""
     return jl.eval("datetime(seconds)")

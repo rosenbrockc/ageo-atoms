@@ -141,7 +141,7 @@ def validatecurrentmapping(mapping_context: MappingContext, mapping: Map[GraphNo
 @icontract.require(lambda mapping_is_valid: mapping_is_valid is not None, "mapping_is_valid cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "RunGreedyMappingPipeline all outputs must not be None")
 def rungreedymappingpipeline(mapping_context: MappingContext, starting_node: NodeId, remove_invalid_placement_nodes: bool, rank_nodes: bool, initialized_mapping_state: MappingState, extended_mapping_state: MappingState, mapping_is_valid: bool) -> tuple[Subgraph, MappingState]:
-    """Orchestrate initialization, greedy extension, and validity checking to produce a greedy UD subgraph rooted at the starting node.
+    """Orchestrate initialization, greedy extension, and validity checking to produce a greedy Unit Disk (UD) subgraph rooted at the starting node.
 
     Args:
         mapping_context: immutable shared context

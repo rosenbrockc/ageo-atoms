@@ -57,7 +57,7 @@ from pathlib import Path
 
 
 def _foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_sensing_command: ctypes.c_void_p) -> ctypes.c_void_p:
-    """FFI bridge to C++ implementation of Foot Sensing State Update."""
+    """Wrapper that calls the C++ version of foot sensing state update. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./foot_sensing_state_update.so")
     _func_name = 'foot_sensing_state_update_prime'
     _func = _lib[_func_name]
@@ -67,7 +67,7 @@ def _foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_
     return _result
 
 def _mode_snapshot_readout_ffi(mode_state_in: ctypes.c_void_p) -> ctypes.c_void_p:
-    """FFI bridge to C++ implementation of Mode Snapshot Readout."""
+    """Wrapper that calls the C++ version of mode snapshot readout. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./mode_snapshot_readout.so")
     _func_name = 'mode_snapshot_readout_prime'
     _func = _lib[_func_name]

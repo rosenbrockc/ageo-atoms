@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_gan_patch_reconstruction(ppg_clean: AbstractSignal, noise: AbstractSignal, sampling_rate: AbstractScalar, generator: AbstractSignal, device: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for GAN Patch Reconstruction."""
+    """Shape-and-type check for gan patch reconstruction. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ppg_clean.shape,
         dtype="float64",
@@ -13,7 +13,7 @@ def witness_gan_patch_reconstruction(ppg_clean: AbstractSignal, noise: AbstractS
     return result
 
 def witness_windowed_signal_reconstruction(sig: AbstractSignal, clean_indices: AbstractSignal, noisy_indices: AbstractSignal, sampling_rate: AbstractSignal, filter_signal: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Windowed Signal Reconstruction."""
+    """Shape-and-type check for windowed signal reconstruction. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=sig.shape,
         dtype="float64",

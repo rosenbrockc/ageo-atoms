@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_zhao2018hrvanalysis(ecg_cleaned: AbstractSignal, rpeaks: AbstractSignal, sampling_rate: AbstractSignal, window: AbstractSignal, mode: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for Zhao2018HRVAnalysis."""
+    """Shape-and-type check for zhao2018 hrv analysis. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ecg_cleaned.shape,
         dtype="float64",
@@ -14,7 +14,7 @@ def witness_zhao2018hrvanalysis(ecg_cleaned: AbstractSignal, rpeaks: AbstractSig
     return result
 
 def witness_averageqrstemplate(ecg_cleaned: AbstractSignal, rpeaks: AbstractSignal, sampling_rate: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for AverageQRSTemplate."""
+    """Shape-and-type check for average qrs template. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ecg_cleaned.shape,
         dtype="float64",

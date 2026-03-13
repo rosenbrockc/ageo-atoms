@@ -23,16 +23,15 @@ from juliacall import Main as jl  # type: ignore[import-untyped]
 @icontract.require(lambda utc2: isinstance(utc2, (float, int, np.number)), "utc2 must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "utc_to_tai_leap_second_kernel all outputs must not be None")
 def utc_to_tai_leap_second_kernel(utc1: float, utc2: float) -> tuple[float, float]:
-    """Converts a two-part UTC Julian date to TAI by resolving the applicable leap-second offset. Internally converts Julian date to calendar date (jd2cal) to locate the correct leap-second table entry, then adds the offset to produce the TAI two-part Julian date.
+    """Converts a two-part Coordinated Universal Time (UTC) Julian date to International Atomic Time (TAI) by resolving the applicable leap-second offset. Internally converts Julian date to calendar date (jd2cal) to locate the correct leap-second table entry, then adds the offset to produce the TAI two-part Julian date.
 
-    Args:
-        utc1: finite; utc1+utc2 must be within the supported leap-second table range
-        utc2: finite; together with utc1 represents a valid UTC epoch
+Args:
+    utc1: finite; utc1+utc2 must be within the supported leap-second table range
+    utc2: finite; together with utc1 represents a valid UTC epoch
 
-    Returns:
-        tai1: tai1 + tai2 = utc1 + utc2 + leap_seconds/86400
-        tai2: precision-preserving companion to tai1
-    """
+Returns:
+    tai1: tai1 + tai2 = utc1 + utc2 + leap_seconds/86400
+    tai2: precision-preserving companion to tai1"""
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_tai_to_utc_inversion)  # type: ignore[name-defined, untyped-decorator]
@@ -41,18 +40,17 @@ def utc_to_tai_leap_second_kernel(utc1: float, utc2: float) -> tuple[float, floa
 @icontract.require(lambda tai_estimate: isinstance(tai_estimate, (float, int, np.number)), "tai_estimate must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "tai_to_utc_inversion all outputs must not be None")
 def tai_to_utc_inversion(tai1: float, tai2: float, tai_estimate: float) -> tuple[float, float, float]:
-    """Entry-point atom. Inverts the UTC→TAI mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.
+    """Entry-point atom. Inverts the Coordinated Universal Time (UTC)→International Atomic Time (TAI) mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.
 
-    Args:
-        tai1: finite; must fall within the supported leap-second table range
-        tai2: finite; precision-preserving companion to tai1
-        tai_estimate: fed from utc_to_tai_leap_second_kernel output on each iteration
+Args:
+    tai1: finite; must fall within the supported leap-second table range
+    tai2: finite; precision-preserving companion to tai1
+    tai_estimate: fed from utc_to_tai_leap_second_kernel output on each iteration
 
-    Returns:
-        utc1: utc1 + utc2 + leap_seconds/86400 ≈ tai1 + tai2 within floating-point epsilon
-        utc2: precision-preserving companion to utc1
-        candidate_utc: updated each iteration; becomes final utc1/utc2 on convergence
-    """
+Returns:
+    utc1: utc1 + utc2 + leap_seconds/86400 ≈ tai1 + tai2 within floating-point epsilon
+    utc2: precision-preserving companion to utc1
+    candidate_utc: updated each iteration; becomes final utc1/utc2 on convergence"""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -63,9 +61,9 @@ from juliacall import Main as jl
 
 
 def utc_to_tai_leap_second_kernel_ffi(utc1: float, utc2: float) -> object:
-    """FFI bridge to Julia implementation of utc_to_tai_leap_second_kernel."""
+    """Wrapper that calls the Julia version of utc to tai leap second kernel. Passes arguments through and returns the result."""
     return jl.eval("utc_to_tai_leap_second_kernel(utc1, utc2)")
 
 def tai_to_utc_inversion_ffi(tai1: float, tai2: float, tai_estimate: float) -> object:
-    """FFI bridge to Julia implementation of tai_to_utc_inversion."""
+    """Wrapper that calls the Julia version of tai to utc inversion. Passes arguments through and returns the result."""
     return jl.eval("tai_to_utc_inversion(tai1, tai2, tai_estimate)")

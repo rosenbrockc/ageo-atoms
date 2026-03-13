@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_dm_candidate_filter(data: AbstractArray, data_base: AbstractArray, sens: AbstractArray, DM_base: AbstractArray, candidates: AbstractArray, fchan: AbstractArray, width: AbstractArray, tsamp: AbstractArray) -> AbstractArray:
-    """Ghost witness for DM_candidate_filter."""
+    """Shape-and-type check for dm candidate filter. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=data.shape,
         dtype="float64",

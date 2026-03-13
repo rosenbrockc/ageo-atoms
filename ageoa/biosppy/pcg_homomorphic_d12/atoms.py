@@ -19,7 +19,7 @@ from .witnesses import witness_homomorphicfilter
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.ensure(lambda result, **kwargs: result is not None, "HomomorphicFilter output must not be None")
 def homomorphicfilter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:  # type: ignore[type-arg]
-    """Applies a homomorphic filter to a signal by operating in the log-frequency domain: takes the logarithm of the signal magnitude, applies a frequency-domain filter (typically a high-pass or emphasis filter) via FFT, then exponentiates back to recover a filtered signal with compressed dynamic range and enhanced high-frequency components.
+    """Applies a homomorphic filter to a phonocardiogram (PCG) heart-sound signal. Takes the logarithm, filters in the frequency domain, then exponentiates back to extract the signal envelope with compressed dynamic range.
 
     Args:
         signal: non-zero values required before log transform; length >= 1

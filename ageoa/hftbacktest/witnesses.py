@@ -4,11 +4,11 @@ import networkx as nx  # type: ignore
 
 
 def witness_initialize_glft_state() -> AbstractArray:
-    """Ghost witness for initialize_glft_state."""
+    """Shape-and-type check for initialize glft state. Returns output metadata without running the real computation."""
     return None
 
 def witness_update_glft_coefficients(last_c1: AbstractArray, last_c2: AbstractArray, xi: AbstractArray, gamma: AbstractArray, delta: AbstractArray, A: AbstractArray, k: AbstractArray) -> AbstractArray:
-    """Ghost witness for update_glft_coefficients."""
+    """Shape-and-type check for update glft coefficients. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=last_c1.shape,
         dtype="float64",
@@ -16,7 +16,7 @@ def witness_update_glft_coefficients(last_c1: AbstractArray, last_c2: AbstractAr
     return result
 
 def witness_evaluate_spread_conditions(c1: AbstractArray, c2: AbstractArray, delta: AbstractArray, volatility: AbstractArray, adj1: AbstractArray, threshold: AbstractArray) -> AbstractArray:
-    """Ghost witness for evaluate_spread_conditions."""
+    """Shape-and-type check for evaluate spread conditions. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=c1.shape,
         dtype="float64",

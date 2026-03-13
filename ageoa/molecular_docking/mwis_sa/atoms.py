@@ -71,26 +71,13 @@ def calculate_weight(graph: np.ndarray, node_list: list[int]) -> float:
 @icontract.require(lambda penalty: penalty is not None, "penalty cannot be None")
 @icontract.ensure(lambda result: result is not None, "To Qubo output must not be None")
 def to_qubo(graph: np.ndarray, penalty: float) -> np.ndarray:
-    """Convert a MISInstance to a qubo matrix.
-
-QUBO formulation:
-Minimize:
-    Q(x) = -∑_{i ∈ V} w_i x_i  +  λ ∑_{(i, j) ∈ E} x_i x_j
-
-Args:
-    penalty (float, optional): Penalty factor. Defaults to None.
-
-Raises:
-    ValueError: When penalty is strictly inferior to 2 x max(weight).
-
-Returns:
-    np.ndarray: The QUBO matrix formulation of MIS.
+    """Convert a Maximum Weight Independent Set (MWIS) problem to a Quadratic Unconstrained Binary Optimization (QUBO) matrix. Encodes node weights as diagonal entries and edge penalties as off-diagonal entries so the problem can be solved by a binary optimizer.
 
     Args:
-        graph: Input data.
-        penalty: Input data.
+        graph: adjacency matrix of the input graph
+        penalty: edge penalty factor; must be >= 2 * max(node weight)
 
     Returns:
-        Result data.
+        QUBO matrix encoding the MWIS objective
     """
     raise NotImplementedError("Wire to original implementation")

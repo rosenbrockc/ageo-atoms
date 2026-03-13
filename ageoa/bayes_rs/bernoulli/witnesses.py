@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_bernoulli_probabilistic_oracle(p: AbstractScalar, x: AbstractArray) -> AbstractArray:
-    """Ghost witness for Bernoulli_Probabilistic_Oracle."""
+    """Shape-and-type check for bernoulli probabilistic oracle. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",

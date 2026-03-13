@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_continuousmultivariatesampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for MCMC sampler: ContinuousMultivariateSampler."""
+    """Shape-and-type check for mcmc sampler: continuous multivariate sampler. Returns output metadata without running the real computation."""
     if trace.param_dims != target.event_shape:
         raise ValueError(
             f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
@@ -11,7 +11,7 @@ def witness_continuousmultivariatesampler(trace: AbstractMCMCTrace, target: Abst
     return trace.step(accepted=True), rng.advance(n_draws=1)
 
 def witness_discreteeventsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for MCMC sampler: DiscreteEventSampler."""
+    """Shape-and-type check for mcmc sampler: discrete event sampler. Returns output metadata without running the real computation."""
     if trace.param_dims != target.event_shape:
         raise ValueError(
             f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
@@ -19,7 +19,7 @@ def witness_discreteeventsampler(trace: AbstractMCMCTrace, target: AbstractDistr
     return trace.step(accepted=True), rng.advance(n_draws=1)
 
 def witness_combinatoricssampler(x: AbstractArray, axis: AbstractArray, a: AbstractArray, size: AbstractArray, replace: AbstractArray, p: AbstractArray) -> AbstractArray:
-    """Ghost witness for CombinatoricsSampler."""
+    """Shape-and-type check for combinatorics sampler. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",

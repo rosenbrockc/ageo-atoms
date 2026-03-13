@@ -20,18 +20,17 @@ from ageoa.biosppy.ecg_engzee.witnesses import witness_engzee_signal_segmentatio
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be ndarray")
 @icontract.ensure(lambda result: result.ndim == 1, "result must be 1-D")
 def engzee_signal_segmentation(signal: np.ndarray, sampling_rate: float, threshold: float) -> np.ndarray:
-    """Detect QRS complexes using the Engelse-Zeelenberg algorithm.
+    """Detect QRS complex (the sharp spike marking each heartbeat) complexes using the Engelse-Zeelenberg algorithm.
 
-    Applies threshold-intersection peak detection with consecutive-sample
-    validation to locate R-peak positions in an ECG signal.
+Applies threshold-intersection peak detection with consecutive-sample
+validation to locate R-peak positions in an electrocardiogram (ECG) signal.
 
-    Args:
-        signal: One-dimensional ECG signal array with finite real values.
-        sampling_rate: Sampling rate in Hz, must be positive.
-        threshold: Decision threshold in (0, 1) for peak identification.
+Args:
+    signal: One-dimensional ECG signal array with finite real values.
+    sampling_rate: Sampling rate in Hz, must be positive.
+    threshold: Decision threshold in (0, 1) for peak identification.
 
-    Returns:
-        Array of R-peak indices, monotonically increasing, values in
-        [0, len(signal)-1].
-    """
+Returns:
+    Array of R-peak indices, monotonically increasing, values in
+    [0, len(signal)-1]."""
     raise NotImplementedError("Wire to original implementation")

@@ -14,7 +14,7 @@ witness_apccoreevaluation = lambda *_args, **_kwargs: True
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.ensure(lambda result: result is not None, "ApcCoreEvaluation output must not be None")
 def apccoreevaluation(x: np.ndarray) -> np.ndarray:
-    """Executes the standalone APC computation as a pure stateless function of the input.
+    """Executes the standalone Autoregressive Predictive Coding (APC) computation as a pure stateless function of the input.
 
     Args:
         x: Direct method argument; no stated structural constraints.

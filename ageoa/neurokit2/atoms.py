@@ -28,17 +28,17 @@ def witness_averageqrstemplate(*args: Any, **kwargs: Any) -> bool:
 @icontract.require(lambda mode: mode is not None, "mode cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Zhao2018HRVAnalysis output must not be None")
 def zhao2018hrvanalysis(ecg_cleaned: Any, rpeaks: Any, sampling_rate: Union[int, float], window: Union[int, float, tuple], mode: str) -> Union[dict, Any]:
-    """Applies Zhao et al. 2018 method to analyze heart rate variability from ECG signals using windowed processing
+    """Measures how much the time between heartbeats varies over sliding windows.
 
     Args:
-        ecg_cleaned: cleaned ECG signal
-        rpeaks: R-peak indices
-        sampling_rate: sampling frequency in Hz
-        window: analysis window specification
+        ecg_cleaned: cleaned heart signal
+        rpeaks: indices of the tallest spike in each beat
+        sampling_rate: samples per second
+        window: analysis window size
         mode: processing mode
 
     Returns:
-        heart rate variability features
+        beat-timing variability features
     """
     raise NotImplementedError("Wire to original implementation")
 @register_atom(witness_averageqrstemplate)
@@ -47,14 +47,13 @@ def zhao2018hrvanalysis(ecg_cleaned: Any, rpeaks: Any, sampling_rate: Union[int,
 @icontract.require(lambda sampling_rate: sampling_rate is not None, "sampling_rate cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "AverageQRSTemplate output must not be None")
 def averageqrstemplate(ecg_cleaned: Any, rpeaks: Any, sampling_rate: Union[int, float]) -> Any:
-    """Computes averaged QRS complex template by aligning and averaging heartbeat waveforms around R-peaks
+    """Averages all detected beats to build one representative beat shape.
 
     Args:
-        ecg_cleaned: cleaned ECG signal
-        rpeaks: R-peak indices
-        sampling_rate: sampling frequency in Hz
+        ecg_cleaned: cleaned heart signal
+        rpeaks: indices of the tallest spike in each beat
+        sampling_rate: samples per second
 
     Returns:
-        averaged QRS waveform
-    """
+        averaged beat shape"""
     raise NotImplementedError("Wire to original implementation")

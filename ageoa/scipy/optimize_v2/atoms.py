@@ -59,7 +59,7 @@ def differentialevolutionoptimization(func: Callable[..., float], bounds: Any, a
 @icontract.require(lambda atol: isinstance(atol, (float, int, np.number)), "atol must be numeric")
 @icontract.ensure(lambda result, **kwargs: result is not None, "DifferentialEvolutionOptimization output must not be None")
 def differentialevolutionoptimization(func, bounds, args: tuple, strategy: str, maxiter: int, popsize: int, tol: float, mutation, recombination: float, seed, callback, disp: bool, polish: bool, init, atol: float, updating: str, workers, constraints, x0) -> "OptimizeResult":
-    """Finds the global minimum of a scalar function using Differential Evolution: maintains a population of candidate vectors, applies stochastic mutation and crossover each generation to explore the bounded search space, enforces optional constraints, supports parallel fitness evaluation, and optionally polishes the final candidate with a gradient-based local optimizer.
+    """Finds the global minimum of a scalar function using Differential Evolution (DE), a population-based optimization method. Applies stochastic mutation and crossover each generation to explore the bounded search space.
 
     Args:
         func: must return a scalar float

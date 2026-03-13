@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_inverse_schmitt_trigger_transform(input_signal: AbstractArray) -> AbstractArray:
-    """Ghost witness for inverse_schmitt_trigger_transform."""
+    """Shape-and-type check for inverse schmitt trigger transform. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=input_signal.shape,
         dtype="float64",

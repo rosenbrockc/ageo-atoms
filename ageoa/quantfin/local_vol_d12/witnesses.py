@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_var(s: AbstractArray, t: AbstractArray, t_prime: AbstractArray, v: AbstractArray, vs: AbstractArray) -> AbstractArray:
-    """Ghost witness for Var."""
+    """Shape-and-type check for var. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=s.shape,
         dtype="float64",
@@ -12,7 +12,7 @@ def witness_var(s: AbstractArray, t: AbstractArray, t_prime: AbstractArray, v: A
     return result
 
 def witness_localvol(dwdt: AbstractArray, k: AbstractArray, otherwise: AbstractArray, rcurve: AbstractArray, s0: AbstractArray, solution: AbstractArray, sqrt: AbstractArray, t: AbstractArray, v: AbstractArray, w: AbstractArray) -> AbstractArray:
-    """Ghost witness for Localvol."""
+    """Shape-and-type check for localvol. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=dwdt.shape,
         dtype="float64",
@@ -20,7 +20,7 @@ def witness_localvol(dwdt: AbstractArray, k: AbstractArray, otherwise: AbstractA
     return result
 
 def witness_vol(x: AbstractArray) -> AbstractArray:
-    """Ghost witness for Vol."""
+    """Shape-and-type check for vol. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",
@@ -28,7 +28,7 @@ def witness_vol(x: AbstractArray) -> AbstractArray:
     return result
 
 def witness_vol(interpolatedVs: AbstractArray, mats: AbstractArray, mats_prime: AbstractArray, quotes: AbstractArray, strike: AbstractArray, sts: AbstractArray, t: AbstractArray, tInterp: AbstractArray, timeFromZero: AbstractArray, vInterp: AbstractArray) -> AbstractArray:
-    """Ghost witness for Vol."""
+    """Shape-and-type check for vol. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=interpolatedVs.shape,
         dtype="float64",
@@ -36,7 +36,7 @@ def witness_vol(interpolatedVs: AbstractArray, mats: AbstractArray, mats_prime: 
     return result
 
 def witness_allfort(map: AbstractArray, quotes: AbstractArray, sts: AbstractArray, t_prime: AbstractArray, x: AbstractArray) -> AbstractArray:
-    """Ghost witness for Allfort."""
+    """Shape-and-type check for allfort. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=map.shape,
         dtype="float64",

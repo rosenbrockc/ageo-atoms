@@ -36,35 +36,33 @@ def calculatecompositesqi_zz2018(signal: NDArray, detector_1: NDArray, detector_
 def calculatebeatagreementsqi(detector_1: NDArray, detector_2: NDArray, fs: float, mode: str, search_window: int) -> float:
     """Calculates a beat-based Signal Quality Index (bSQI) based on the agreement between two beat detectors.
 
-    Args:
-        detector_1: Array of beat detections from the first detector.
-        detector_2: Array of beat detections from the second detector.
-        fs: Sampling frequency of the signal.
-        mode: Operational mode for the calculation.
-        search_window: Window size for comparing detector outputs.
+Args:
+    detector_1: Array of beat detections from the first detector.
+    detector_2: Array of beat detections from the second detector.
+    fs: Sampling frequency of the signal.
+    mode: Operational mode for the calculation.
+    search_window: Window size for comparing detector outputs.
 
-    Returns:
-        The beat agreement SQI score.
-    """
+Returns:
+    The beat agreement Signal Quality Index (SQI) score."""
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_calculatefrequencypowersqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
 @icontract.ensure(lambda result: result is not None, "CalculateFrequencyPowerSQI output must not be None")
 def calculatefrequencypowersqi(ecg_signal: NDArray, fs: float, nseg: int, num_spectrum: NDArray, dem_spectrum: NDArray, mode: str) -> float:
-    """Calculates a frequency-based Signal Quality Index (fSQI) using the power spectrum of the ECG signal.
+    """Calculates a frequency-based Signal Quality Index (fSQI) using the power spectrum of the electrocardiogram (ECG) signal.
 
-    Args:
-        ecg_signal: The ECG signal waveform.
-        fs: Sampling frequency of the signal.
-        nseg: Number of segments for spectral analysis.
-        num_spectrum: Numerator of the spectral ratio.
-        dem_spectrum: Denominator of the spectral ratio.
-        mode: Operational mode for the calculation.
+Args:
+    ecg_signal: The ECG signal waveform.
+    fs: Sampling frequency of the signal.
+    nseg: Number of segments for spectral analysis.
+    num_spectrum: Numerator of the spectral ratio.
+    dem_spectrum: Denominator of the spectral ratio.
+    mode: Operational mode for the calculation.
 
-    Returns:
-        The frequency power SQI score.
-    """
+Returns:
+    The frequency power Signal Quality Index (SQI) score."""
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_calculatekurtosissqi)
@@ -74,11 +72,10 @@ def calculatefrequencypowersqi(ecg_signal: NDArray, fs: float, nseg: int, num_sp
 def calculatekurtosissqi(signal: NDArray, fisher: bool) -> float:
     """Calculates a Signal Quality Index (kSQI) based on the statistical kurtosis of the signal.
 
-    Args:
-        signal: The input signal waveform.
-        fisher: Flag to indicate if Fisher_primes definition of kurtosis is used.
+Args:
+    signal: The input signal waveform.
+    fisher: Flag to indicate if Fisher_primes definition of kurtosis is used.
 
-    Returns:
-        The kurtosis-based SQI score.
-    """
+Returns:
+    The kurtosis-based Signal Quality Index (SQI) score."""
     raise NotImplementedError("Wire to original implementation")

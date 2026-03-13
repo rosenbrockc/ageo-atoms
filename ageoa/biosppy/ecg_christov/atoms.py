@@ -18,18 +18,17 @@ from ageoa.biosppy.ecg_christov.witnesses import witness_christovqrsdetect
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be ndarray")
 @icontract.ensure(lambda result: result.ndim == 1, "result must be 1-D")
 def christovqrsdetect(signal: np.ndarray, sampling_rate: float) -> np.ndarray:
-    """Detect QRS complexes using the Christov real-time segmentation algorithm.
+    """Detect QRS complex (the sharp spike marking each heartbeat) complexes using the Christov real-time segmentation algorithm.
 
-    Applies bandpass filtering, nonlinear energy operator, adaptive
-    thresholding, and R-peak refinement to locate R-peak positions in an
-    ECG signal.
+Applies bandpass filtering, nonlinear energy operator, adaptive
+thresholding, and R-peak refinement to locate R-peak positions in an
+electrocardiogram (ECG) signal.
 
-    Args:
-        signal: One-dimensional ECG signal array with finite real values.
-        sampling_rate: Sampling rate in Hz, must be positive.
+Args:
+    signal: One-dimensional ECG signal array with finite real values.
+    sampling_rate: Sampling rate in Hz, must be positive.
 
-    Returns:
-        Array of R-peak indices, monotonically increasing, values in
-        [0, len(signal)-1].
-    """
+Returns:
+    Array of R-peak indices, monotonically increasing, values in
+    [0, len(signal)-1]."""
     raise NotImplementedError("Wire to original implementation")

@@ -19,16 +19,15 @@ def witness_gan_reconstruction(*args, **kwargs): pass
 @register_atom(witness_gan_reconstruction)  # type: ignore[untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 def gan_reconstruction(ppg_clean: Any, noise: Any, sampling_rate: int | float, generator: Any, device: str | torch.device) -> Any:
-    """Reconstructs a clean ECG-like signal from a noisy PPG input using a pre-trained GAN generator. Accepts a clean PPG signal and additive noise, feeds them through the generator network on the specified device, and returns the reconstructed output signal.
+    """Reconstructs a clean electrocardiogram (ECG)-like signal from a noisy photoplethysmography (PPG) input using a pre-trained GAN generator. Accepts a clean PPG signal and additive noise, feeds them through the generator network on the specified device, and returns the reconstructed output signal.
 
-    Args:
-        ppg_clean: shape compatible with generator input; values typically normalized
-        noise: same shape as ppg_clean; treated as frozen/static stochastic input
-        sampling_rate: positive; determines temporal resolution of the waveform
-        generator: stateless inference only; weights frozen during call
-        device: generator and tensors must reside on same device
+Args:
+    ppg_clean: shape compatible with generator input; values typically normalized
+    noise: same shape as ppg_clean; treated as frozen/static stochastic input
+    sampling_rate: positive; determines temporal resolution of the waveform
+    generator: stateless inference only; weights frozen during call
+    device: generator and tensors must reside on same device
 
-    Returns:
-        same temporal length as input; values in generator output range
-    """
+Returns:
+    same temporal length as input; values in generator output range"""
     raise NotImplementedError("Wire to original implementation")

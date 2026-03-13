@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_fractional_differentiator(series: AbstractArray, d: AbstractScalar, threshold: AbstractScalar) -> AbstractArray:
-    """Ghost witness for fractional_differentiator."""
+    """Shape-and-type check for fractional differentiator. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=series.shape,
         dtype="float64",

@@ -262,61 +262,61 @@ from juliacall import Main as jl
 
 
 def _isleapyear_ffi(year):
-    """FFI bridge to Julia implementation of Isleapyear."""
+    """Wrapper that calls the Julia version of isleapyear. Passes arguments through and returns the result."""
     return jl.eval("isleapyear(year)")
 
 def _find_dayinyear_ffi(month, day, isleap):
-    """FFI bridge to Julia implementation of Find Dayinyear."""
+    """Wrapper that calls the Julia version of find dayinyear. Passes arguments through and returns the result."""
     return jl.eval("find_dayinyear(month, day, isleap)")
 
 def _find_year_ffi(d):
-    """FFI bridge to Julia implementation of Find Year."""
+    """Wrapper that calls the Julia version of find year. Passes arguments through and returns the result."""
     return jl.eval("find_year(d)")
 
 def _find_month_ffi(dayinyear, isleap):
-    """FFI bridge to Julia implementation of Find Month."""
+    """Wrapper that calls the Julia version of find month. Passes arguments through and returns the result."""
     return jl.eval("find_month(dayinyear, isleap)")
 
 def _find_day_ffi(dayinyear, month, isleap):
-    """FFI bridge to Julia implementation of Find Day."""
+    """Wrapper that calls the Julia version of find day. Passes arguments through and returns the result."""
     return jl.eval("find_day(dayinyear, month, isleap)")
 
 def _lastj2000dayofyear_ffi(year):
-    """FFI bridge to Julia implementation of Lastj2000Dayofyear."""
+    """Wrapper that calls the Julia version of lastj2000 dayofyear. Passes arguments through and returns the result."""
     return jl.eval("lastj2000dayofyear(year)")
 
 def _hms2fd_ffi(h, m, s):
-    """FFI bridge to Julia implementation of Hms2Fd."""
+    """Wrapper that calls the Julia version of hms2 fd. Passes arguments through and returns the result."""
     return jl.eval("hms2fd(h, m, s)")
 
 def _fd2hms_ffi(fd):
-    """FFI bridge to Julia implementation of Fd2Hms."""
+    """Wrapper that calls the Julia version of fd2 hms. Passes arguments through and returns the result."""
     return jl.eval("fd2hms(fd)")
 
 def _fd2hmsf_ffi(fd):
-    """FFI bridge to Julia implementation of Fd2Hmsf."""
+    """Wrapper that calls the Julia version of fd2 hmsf. Passes arguments through and returns the result."""
     return jl.eval("fd2hmsf(fd)")
 
 def _cal2jd_ffi(Y, M, D):
-    """FFI bridge to Julia implementation of Cal2Jd."""
+    """Wrapper that calls the Julia version of cal2 jd. Passes arguments through and returns the result."""
     return jl.eval("cal2jd(Y, M, D)")
 
 def _calhms2jd_ffi(Y, M, D, h, m, sec):
-    """FFI bridge to Julia implementation of Calhms2Jd."""
+    """Wrapper that calls the Julia version of calhms2 jd. Passes arguments through and returns the result."""
     return jl.eval("calhms2jd(Y, M, D, h, m, sec)")
 
 def _jd2cal_ffi(dj1, dj2):
-    """FFI bridge to Julia implementation of Jd2Cal."""
+    """Wrapper that calls the Julia version of jd2 cal. Passes arguments through and returns the result."""
     return jl.eval("jd2cal(dj1, dj2)")
 
 def _jd2calhms_ffi(dj1, dj2):
-    """FFI bridge to Julia implementation of Jd2Calhms."""
+    """Wrapper that calls the Julia version of jd2 calhms. Passes arguments through and returns the result."""
     return jl.eval("jd2calhms(dj1, dj2)")
 
 def _utc2tai_ffi(utc1, utc2):
-    """FFI bridge to Julia implementation of Utc2Tai."""
+    """Wrapper that calls the Julia version of utc2 tai. Passes arguments through and returns the result."""
     return jl.eval("utc2tai(utc1, utc2)")
 
 def _tai2utc_ffi(tai1, tai2):
-    """FFI bridge to Julia implementation of Tai2Utc."""
+    """Wrapper that calls the Julia version of tai2 utc. Passes arguments through and returns the result."""
     return jl.eval("tai2utc(tai1, tai2)")

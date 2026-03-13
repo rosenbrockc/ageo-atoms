@@ -10,7 +10,7 @@ def witness_discover_equations(
     max_degree: int = 4,
     lambda_val: float = 0.1
 ) -> AbstractScalar:
-    """Ghost witness for Sparsity-Promoting Symbolic Model Generation."""
+    """Shape-and-type check for sparsity-promoting symbolic model generation. Returns output metadata without running the real computation."""
     del max_degree
 
     # The witness ensures that the input dimensions align with the variables requested,

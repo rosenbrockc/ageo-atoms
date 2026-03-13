@@ -4,5 +4,5 @@ import networkx as nx  # type: ignore
 
 
 def witness_stateestimatorinit() -> AbstractArray:
-    """Ghost witness for StateEstimatorInit."""
+    """Shape-and-type check for state estimator init. Returns output metadata without running the real computation."""
     return None

@@ -37,5 +37,5 @@ from juliacall import Main as jl  # type: ignore[import-untyped]
 from juliacall import Main as jl
 
 def _normal_gamma_posterior_update_ffi(prior: object, ss: object) -> object:
-    """FFI bridge to Julia implementation of normal_gamma_posterior_update."""
+    """Wrapper that calls the Julia version of normal gamma posterior update. Passes arguments through and returns the result."""
     return jl.eval("normal_gamma_posterior_update(prior, ss)")

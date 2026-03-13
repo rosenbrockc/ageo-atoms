@@ -16,14 +16,14 @@ from .witnesses import witness_rowselfattention
 @icontract.require(lambda self_attn_padding_mask: self_attn_padding_mask is not None, "self_attn_padding_mask cannot be None")
 @icontract.ensure(lambda result: result is not None, "RowSelfAttention output must not be None")
 def rowselfattention(x: np.ndarray, self_attn_mask: np.ndarray, self_attn_padding_mask: np.ndarray) -> np.ndarray:
-    """Opaque DL boundary: RowSelfAttention
+    """Applies row-wise self-attention, a mechanism that computes pairwise similarity scores across row positions to produce context-aware representations. Each row attends to all other rows, weighted by learned relevance.
 
     Args:
-        x: Input data.
-        self_attn_mask: Input data.
-        self_attn_padding_mask: Input data.
+        x: Input tensor to attend over.
+        self_attn_mask: Mask controlling which positions can attend to each other.
+        self_attn_padding_mask: Mask indicating padded positions to ignore.
 
     Returns:
-        Result data.
+        Attention-weighted output tensor with same shape as input.
     """
     raise NotImplementedError("Wire to original implementation")

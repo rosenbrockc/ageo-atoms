@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_hawkesprocesssimulator(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for MCMC sampler: HawkesProcessSimulator."""
+    """Shape-and-type check for mcmc sampler: hawkes process simulator. Returns output metadata without running the real computation."""
     if trace.param_dims != target.event_shape:
         raise ValueError(
             f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"

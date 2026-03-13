@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_wrapperpredictionsignalcomputation(prediction: AbstractArray, raw_signal: AbstractArray) -> AbstractArray:
-    """Ghost witness for WrapperPredictionSignalComputation."""
+    """Shape-and-type check for wrapper prediction signal computation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=prediction.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_wrapperpredictionsignalcomputation(prediction: AbstractArray, raw_si
     return result
 
 def witness_signalarraynormalization(arr: AbstractArray) -> AbstractArray:
-    """Ghost witness for SignalArrayNormalization."""
+    """Shape-and-type check for signal array normalization. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=arr.shape,
         dtype="float64",

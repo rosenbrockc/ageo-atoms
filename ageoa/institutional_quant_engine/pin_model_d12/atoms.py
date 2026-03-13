@@ -25,12 +25,11 @@ from .witnesses import witness_pinlikelihoodevaluator
 def pinlikelihoodevaluator(params: dict[str, Any], B: float | np.ndarray[Any, np.dtype[Any]], S: float | np.ndarray[Any, np.dtype[Any]]) -> float:
     """Evaluates the log-likelihood (or likelihood) of observed data given model parameters and sufficient statistics B and S. This is a stateless, pure oracle computation with no side effects or persistent state.
 
-    Args:
-        params: must be valid parameter configuration for the PIN model
-        B: non-negative
-        S: non-negative
+Args:
+    params: must be valid parameter configuration for the Probability of Informed Trading (PIN) model
+    B: non-negative
+    S: non-negative
 
-    Returns:
-        real-valued; -inf indicates zero likelihood
-    """
+Returns:
+    real-valued; -inf indicates zero likelihood"""
     raise NotImplementedError("Wire to original implementation")

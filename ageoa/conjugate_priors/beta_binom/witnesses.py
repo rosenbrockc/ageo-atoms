@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_posterior_randmodel(pri: AbstractArray, G: AbstractArray, data: AbstractArray) -> AbstractArray:
-    """Ghost witness for Posterior Randmodel."""
+    """Shape-and-type check for posterior randmodel. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=pri.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_posterior_randmodel(pri: AbstractArray, G: AbstractArray, data: Abst
     return result
 
 def witness_posterior_randmodel_weighted(pri: AbstractArray, G: AbstractArray, data: AbstractArray, w: AbstractArray) -> AbstractArray:
-    """Ghost witness for Posterior Randmodel."""
+    """Shape-and-type check for posterior randmodel. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=pri.shape,
         dtype="float64",

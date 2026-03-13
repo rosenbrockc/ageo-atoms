@@ -29,6 +29,6 @@ def witness_quantum_mwis_solver(
     lattice_id_coord_dic: AbstractArray,
     mis_sample_quantity: int,
 ) -> AbstractArray:
-    """Ghost witness for MWIS solution samples."""
+    """Ghost witness for Maximum Weight Independent Set (MWIS) solution samples."""
     n_samples = max(0, int(mis_sample_quantity))
     return AbstractArray(shape=(n_samples, graph.shape[0] if graph.shape else 0), dtype="int64")

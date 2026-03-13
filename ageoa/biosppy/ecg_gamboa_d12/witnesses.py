@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_gamboa_segmenter(signal: AbstractSignal, sampling_rate: AbstractSignal, tol: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for gamboa_segmenter."""
+    """Shape-and-type check for gamboa segmenter. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",

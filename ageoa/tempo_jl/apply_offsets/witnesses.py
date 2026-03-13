@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractSc
 
 
 def witness_show(io: AbstractScalar, s: AbstractScalar) -> AbstractScalar:
-    """Ghost witness for Show."""
+    """Shape-and-type check for show. Returns output metadata without running the real computation."""
     result = AbstractScalar(
         dtype="str",
     )
@@ -11,7 +11,7 @@ def witness_show(io: AbstractScalar, s: AbstractScalar) -> AbstractScalar:
 
 
 def witness__zero_offset(seconds: AbstractScalar) -> AbstractScalar:
-    """Ghost witness for Zero Offset."""
+    """Shape-and-type check for zero offset. Returns output metadata without running the real computation."""
     result = AbstractScalar(
         dtype="float64",
     )
@@ -19,7 +19,7 @@ def witness__zero_offset(seconds: AbstractScalar) -> AbstractScalar:
 
 
 def witness_apply_offsets(sec: AbstractScalar, ts1: AbstractScalar, ts2: AbstractScalar) -> AbstractScalar:
-    """Ghost witness for Apply Offsets."""
+    """Shape-and-type check for apply offsets. Returns output metadata without running the real computation."""
     result = AbstractScalar(
         dtype="float64",
     )

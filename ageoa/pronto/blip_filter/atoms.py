@@ -19,7 +19,7 @@ from pathlib import Path
 @icontract.require(lambda signal: isinstance(signal, np.ndarray), "signal must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "Bandpass Filter output must not be None")
 def bandpass_filter(signal: np.ndarray) -> np.ndarray:
-    """Apply FIR bandpass filter (3-45 Hz) to remove baseline wander and high-frequency noise from the raw ECG signal.
+    """Apply a bandpass filter (3-45 Hz) to remove slow drift and high-frequency noise from the raw electrocardiogram (ECG) signal.
 
     Args:
         signal: 1D raw ECG signal
@@ -33,7 +33,7 @@ def bandpass_filter(signal: np.ndarray) -> np.ndarray:
 @icontract.require(lambda filtered: isinstance(filtered, np.ndarray), "filtered must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "R-Peak Detection output must not be None")
 def r_peak_detection(filtered: np.ndarray) -> np.ndarray:
-    """Detect R-peak locations in the filtered ECG signal using the Hamilton segmenter algorithm.
+    """Detect R-peak locations — the prominent upward spikes in each heartbeat — in the filtered electrocardiogram (ECG) signal using the Hamilton segmenter (a threshold-based peak-finding algorithm).
 
     Args:
         filtered: filtered ECG signal
@@ -48,10 +48,10 @@ def r_peak_detection(filtered: np.ndarray) -> np.ndarray:
 @icontract.require(lambda rpeaks: isinstance(rpeaks, np.ndarray), "rpeaks must be a numpy array")
 @icontract.ensure(lambda result: result is not None, "Peak Correction output must not be None")
 def peak_correction(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray:
-    """Correct R-peak locations to the nearest local maximum within a tolerance window.
+    """Refine R-peak locations by snapping each detected peak to the nearest local maximum within a tolerance window, correcting for slight timing errors in the initial detection.
 
     Args:
-        filtered: filtered ECG signal
+        filtered: filtered electrocardiogram (ECG) signal
         rpeaks: initial R-peak indices
 
     Returns:
@@ -64,10 +64,10 @@ def peak_correction(filtered: np.ndarray, rpeaks: np.ndarray) -> np.ndarray:
 @icontract.require(lambda rpeaks: isinstance(rpeaks, np.ndarray), "rpeaks must be a numpy array")
 @icontract.ensure(lambda result: all(r is not None for r in result), "Template Extraction all outputs must not be None")
 def template_extraction(filtered: np.ndarray, rpeaks: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Extract individual heartbeat waveform templates around each R-peak with configurable before/after windows.
+    """Extract individual heartbeat waveform templates by slicing a window around each R-peak (the dominant spike in each heartbeat). Each template captures one full cardiac cycle for averaging or morphology analysis.
 
     Args:
-        filtered: filtered ECG signal
+        filtered: filtered electrocardiogram (ECG) signal
         rpeaks: corrected R-peak indices
 
     Returns:
@@ -101,7 +101,7 @@ from pathlib import Path
 
 
 def _bandpass_filter_ffi(signal):
-    """FFI bridge to C++ implementation of Bandpass Filter."""
+    """Wrapper that calls the C++ version of bandpass filter. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./bandpass_filter.so")
     _func_name = 'bandpass_filter_prime'
     _func = _lib[_func_name]
@@ -110,7 +110,7 @@ def _bandpass_filter_ffi(signal):
     return _func(signal)
 
 def _r_peak_detection_ffi(filtered):
-    """FFI bridge to C++ implementation of R-Peak Detection."""
+    """Wrapper that calls the C++ version of r-peak detection. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./r_peak_detection.so")
     _func_name = 'r_peak_detection_prime'
     _func = _lib[_func_name]
@@ -119,7 +119,7 @@ def _r_peak_detection_ffi(filtered):
     return _func(filtered)
 
 def _peak_correction_ffi(filtered, rpeaks):
-    """FFI bridge to C++ implementation of Peak Correction."""
+    """Wrapper that calls the C++ version of peak correction. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./peak_correction.so")
     _func_name = 'peak_correction_prime'
     _func = _lib[_func_name]
@@ -128,7 +128,7 @@ def _peak_correction_ffi(filtered, rpeaks):
     return _func(filtered, rpeaks)
 
 def _template_extraction_ffi(filtered, rpeaks):
-    """FFI bridge to C++ implementation of Template Extraction."""
+    """Wrapper that calls the C++ version of template extraction. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./template_extraction.so")
     _func_name = 'template_extraction_prime'
     _func = _lib[_func_name]
@@ -137,7 +137,7 @@ def _template_extraction_ffi(filtered, rpeaks):
     return _func(filtered, rpeaks)
 
 def _heart_rate_computation_ffi(rpeaks):
-    """FFI bridge to C++ implementation of Heart Rate Computation."""
+    """Wrapper that calls the C++ version of heart rate computation. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./heart_rate_computation.so")
     _func_name = 'heart_rate_computation_prime'
     _func = _lib[_func_name]

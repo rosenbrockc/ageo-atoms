@@ -37,14 +37,14 @@ def metropolishastingstransitionkernel(temper_val: float, target_log_kernel: Cal
 @icontract.require(lambda temper_val: isinstance(temper_val, (float, int, np.number)), "temper_val must be numeric")
 @icontract.ensure(lambda result: result is not None, "TargetLogKernelOracle output must not be None")
 def targetlogkerneloracle(state_candidate: np.ndarray, temper_val: float) -> float:
-    """Stateless oracle that evaluates target log-kernel values for candidate/current states used by MH acceptance logic.
+    """Evaluates the target log-density for a candidate state in the Adaptive Equi-Energy Sampler (AEES). Used by the Metropolis-Hastings acceptance step to decide whether to accept or reject the proposal.
 
     Args:
         state_candidate: Candidate (or current) state point to score.
-        temper_val: Same temperature/scaling context used by the MH kernel.
+        temper_val: Temperature scaling value used by the sampler.
 
     Returns:
-        Finite log-density/log-kernel value.
+        Finite log-density value.
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -58,7 +58,7 @@ from pathlib import Path
 
 
 def _metropolishastingstransitionkernel_ffi(temper_val: float, target_log_kernel: Callable[[np.ndarray], float], rng_key_in: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """FFI bridge to C++ implementation of MetropolisHastingsTransitionKernel."""
+    """Wrapper that calls the C++ version of metropolis hastings transition kernel. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./metropolishastingstransitionkernel.so")
     _func_name = 'metropolishastingstransitionkernel'
     _func = _lib[_func_name]
@@ -67,7 +67,7 @@ def _metropolishastingstransitionkernel_ffi(temper_val: float, target_log_kernel
     return _func(temper_val, target_log_kernel, rng_key_in)
 
 def _targetlogkerneloracle_ffi(state_candidate: np.ndarray, temper_val: float) -> float:
-    """FFI bridge to C++ implementation of TargetLogKernelOracle."""
+    """Wrapper that calls the C++ version of target log kernel oracle. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./targetlogkerneloracle.so")
     _func_name = 'targetlogkerneloracle'
     _func = _lib[_func_name]

@@ -15,14 +15,13 @@ from .witnesses import witness_engzee_qrs_segmentation  # type: ignore[import-un
 
 @register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator]
 def engzee_qrs_segmentation(signal: np.ndarray, sampling_rate: float, threshold: float) -> np.ndarray:
-    """Detects and segments QRS complexes from a raw ECG signal using the Engelse & Zeelenberg algorithm, applying a threshold-based decision rule on the transformed signal to locate R-peak positions and extract beat boundaries.
+    """Detects and segments QRS complex (the sharp spike marking each heartbeat) complexes from a raw electrocardiogram (ECG) signal using the Engelse & Zeelenberg algorithm, applying a threshold-based decision rule on the transformed signal to locate R-peak positions and extract beat boundaries.
 
-    Args:
-        signal: must be a uniformly sampled real-valued sequence
-        sampling_rate: must be > 0
-        threshold: detection sensitivity threshold; must be > 0
+Args:
+    signal: must be a uniformly sampled real-valued sequence
+    sampling_rate: must be > 0
+    threshold: detection sensitivity threshold; must be > 0
 
-    Returns:
-        indices into the input signal where R-peaks are detected; sorted ascending
-    """
+Returns:
+    indices into the input signal where R-peaks are detected; sorted ascending"""
     raise NotImplementedError("Wire to original implementation")

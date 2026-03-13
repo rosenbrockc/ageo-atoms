@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_detect_heart_cycles(ppg: AbstractSignal, sampling_rate: AbstractScalar) -> AbstractSignal:
-    """Ghost witness for detect_heart_cycles."""
+    """Shape-and-type check for detect heart cycles. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=ppg.shape,
         dtype="float64",

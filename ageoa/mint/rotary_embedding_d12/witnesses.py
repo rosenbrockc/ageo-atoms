@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_rotaryembedding(q: AbstractArray, k: AbstractArray) -> AbstractArray:
-    """Ghost witness for opaque boundary: RotaryEmbedding."""
+    """Shape-and-type check for opaque boundary: rotary embedding. Returns output metadata without running the real computation."""
     # RotaryEmbedding applies in-place sinusoidal rotation to q and k.
     # Shape is fully preserved: no projection, pooling, or sequence change.
     # Typical layout: B=batch, H=num_heads, N=seq_len, D=head_dim.

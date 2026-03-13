@@ -42,7 +42,7 @@ from pathlib import Path
 
 
 def _mala_proposal_adjustment_ffi(step_size, vals_bound, mala_mean_fn):
-    """FFI bridge to C++ implementation of mala_proposal_adjustment."""
+    """Wrapper that calls the C++ version of mala proposal adjustment. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./mala_proposal_adjustment.so")
     _func_name = 'mala_proposal_adjustment'
     _func = _lib[_func_name]

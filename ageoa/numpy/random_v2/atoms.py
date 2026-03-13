@@ -23,7 +23,7 @@ witness_combinatoricssampler: None = None
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "ContinuousMultivariateSampler all outputs must not be None")
 def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.ndarray, size: int | tuple[int, ...] | None, check_valid: str, tol: float) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
-    """Draws samples from continuous multivariate distributions (Multivariate Normal and Dirichlet). These are the canonical prior/posterior distributions in Bayesian models - MVN for latent Gaussian states and Dirichlet for simplex-valued concentration parameters. Both are stateless, producing IID draws given distribution parameters.
+    """Draws samples from continuous multivariate distributions: Multivariate Normal (MVN) and Dirichlet. Produces independent, identically distributed (IID) draws given distribution parameters.
 
     Args:
         mean: length must match leading dim of cov
@@ -59,7 +59,7 @@ def discreteeventsampler(n: int, pvals: np.ndarray, size: int | tuple[int, ...] 
 @icontract.require(lambda p: isinstance(p, (float, int, np.number)), "p must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "CombinatoricsSampler all outputs must not be None")
 def combinatoricssampler(x: int | np.ndarray, axis: int, a: int | np.ndarray, size: int | tuple[int, ...] | None, replace: bool, p: np.ndarray | None) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
-    """Performs combinatorial random operations on sequences or index spaces: random permutation of elements (permutation) and random selection with or without replacement (choice). Both operate purely on input arrays with no persistent state, making them reusable as shuffling or resampling kernels inside SMC or data-augmentation pipelines.
+    """Randomly permutes or selects elements from a sequence. Permutation shuffles all elements; choice draws a sample with or without replacement.
 
     Args:
         x: for permutation; int must be >= 0

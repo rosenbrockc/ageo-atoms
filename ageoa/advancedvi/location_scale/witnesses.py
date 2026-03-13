@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 def witness_evaluate_log_probability_density(dist: AbstractDistribution, samples: AbstractArray) -> AbstractScalar:
-    """Ghost witness for log-prob: evaluate_log_probability_density."""
+    """Shape-and-type check for log-prob: evaluate log probability density. Returns output metadata without running the real computation."""
     n_event = len(dist.event_shape)
     if n_event > 0:
         sample_tail = samples.shape[-n_event:]

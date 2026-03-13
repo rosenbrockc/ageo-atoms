@@ -94,14 +94,13 @@ def quantumcircuitsampler(parameters: dict, register: Any, list_perm: list, run_
 @icontract.require(lambda register: register is not None, "register cannot be None")
 @icontract.require(lambda num_solutions: num_solutions is not None, "num_solutions cannot be None")
 def quantumsolutionextractor(count_dist: dict[str, int], register: Any, num_solutions: int) -> tuple[list, list]:
-    """Post-processes the raw measurement count distribution to decode, rank, and filter the top-k bitstring solutions corresponding to valid independent sets (or QUBO ground states), mapping them back to the original graph node labelling.
+    """Post-processes the raw measurement count distribution to decode, rank, and filter the top-k bitstring solutions corresponding to valid independent sets (or Quadratic Unconstrained Binary Optimization (QUBO) ground states), mapping them back to the original graph node labelling.
 
-    Args:
-        register: Input data.
-        num_solutions: num_solutions >= 1
+Args:
+    register: Input data.
+    num_solutions: num_solutions >= 1
 
-    Returns:
-        solutions: len == num_solutions
-        solution_counts: Result data.
-    """
+Returns:
+    solutions: len == num_solutions
+    solution_counts: Result data."""
     raise NotImplementedError("Wire to original implementation")

@@ -185,7 +185,7 @@ def witness_butter(
     fs: float,
     btype: str = "low",
 ) -> AbstractFilterCoefficients:
-    """Ghost witness for scipy.signal.butter.
+    """Propagates metadata for scipy.signal.butter — designs a Butterworth digital filter, which has a maximally flat frequency response in the passband. Returns filter coefficients metadata for the specified order and cutoff frequency.
 
     Preconditions:
         - Order must be positive.
@@ -213,7 +213,7 @@ def witness_cheby1(
     fs: float,
     btype: str = "low",
 ) -> AbstractFilterCoefficients:
-    """Ghost witness for scipy.signal.cheby1.
+    """Propagates metadata for scipy.signal.cheby1 — designs a Chebyshev Type I digital filter, which trades passband ripple (small oscillations in the pass region) for a steeper roll-off than Butterworth.
 
     Preconditions:
         - Order must be positive.
@@ -241,11 +241,11 @@ def witness_cheby2(
     fs: float,
     btype: str = "low",
 ) -> AbstractFilterCoefficients:
-    """Ghost witness for scipy.signal.cheby2.
+    """Propagates metadata for a digital filter with a flat pass region and a sharp cutoff into the rejected frequency region.
 
     Preconditions:
         - Order must be positive.
-        - Stopband attenuation must be positive.
+        - Rejected-band reduction must be positive.
         - Critical frequency must be below Nyquist.
     """
     if order <= 0:
@@ -263,7 +263,7 @@ def witness_cheby2(
 
 
 def witness_firwin(numtaps: int, fs: float) -> AbstractFilterCoefficients:
-    """Ghost witness for scipy.signal.firwin.
+    """Propagates metadata for scipy.signal.firwin — designs a Finite Impulse Response (FIR) filter with the given number of taps. FIR filters use only past input values (no feedback), so they are always stable.
 
     Preconditions:
         - numtaps must be positive.
@@ -285,7 +285,7 @@ def witness_lfilter(
     coefficients: AbstractFilterCoefficients,
     sig: AbstractSignal,
 ) -> AbstractSignal:
-    """Ghost witness for scipy.signal.lfilter.
+    """Propagates metadata for scipy.signal.lfilter — applies a linear digital filter to a time-domain signal using transfer-function (b, a) coefficients. The output signal has the same shape and sampling rate as the input.
 
     Preconditions:
         - Filter must be stable.
@@ -310,7 +310,7 @@ def witness_sosfilt(
     coefficients: AbstractFilterCoefficients,
     sig: AbstractSignal,
 ) -> AbstractSignal:
-    """Ghost witness for scipy.signal.sosfilt.
+    """Propagates metadata for scipy.signal.sosfilt — applies a digital filter in second-order sections (SOS) form, which is more numerically stable than direct transfer-function form. Output shape and sampling rate match the input.
 
     Preconditions:
         - Signal must be in time domain.
@@ -355,7 +355,7 @@ def witness_freqz(
     coefficients: AbstractFilterCoefficients,
     n_freqs: int = 512,
 ) -> AbstractSignal:
-    """Ghost witness for scipy.signal.freqz.
+    """Propagates metadata for scipy.signal.freqz — computes the frequency response of a digital filter, returning complex gain values at n_freqs evenly spaced frequency points.
 
     Postconditions:
         - Output is a frequency response of length n_freqs.
@@ -380,17 +380,16 @@ def witness_sqi_update(
     pool: AbstractBeatPool,
     new_beats: AbstractSignal,
 ) -> AbstractBeatPool:
-    """Ghost witness for SQI (Signal Quality Index) accumulation.
+    """Ghost witness for Signal Quality Index (SQI) (Signal Quality Index) accumulation.
 
-    Simulates beat accumulation without processing waveforms.  Uses a
-    heuristic estimate of ~10 beats per window.
+Simulates beat accumulation without processing waveforms.  Uses a
+heuristic estimate of ~10 beats per window.
 
-    Preconditions:
-        - new_beats must be in time domain.
-    Postconditions:
-        - Pool size increases.
-        - Calibration flag is set once threshold is reached.
-    """
+Preconditions:
+    - new_beats must be in time domain.
+Postconditions:
+    - Pool size increases.
+    - Calibration flag is set once threshold is reached."""
     new_beats.assert_domain("time")
     return pool.accumulate(new_beat_count=10)
 
@@ -417,11 +416,10 @@ class AbstractGraphMeta:
 def witness_graph_laplacian(graph: AbstractGraphMeta) -> AbstractGraphMeta:
     """Ghost witness for graph_laplacian.
 
-    Preconditions:
-        - Input must be symmetric.
-    Postconditions:
-        - Output is a symmetric PSD matrix of same size.
-    """
+Preconditions:
+    - Input must be symmetric.
+Postconditions:
+    - Output is a symmetric positive semi-definite (PSD) matrix of same size."""
     graph.assert_symmetric()
     return AbstractGraphMeta(n_nodes=graph.n_nodes, is_symmetric=True)
 
@@ -432,12 +430,11 @@ def witness_graph_fourier_transform(
 ) -> AbstractSignal:
     """Ghost witness for graph_fourier_transform.
 
-    Preconditions:
-        - Signal length must equal graph node count.
-    Postconditions:
-        - Output is GFT coefficients of same length.
-        - Domain switches to 'freq'.
-    """
+Preconditions:
+    - Signal length must equal graph node count.
+Postconditions:
+    - Output is Graph Fourier Transform (GFT) coefficients of same length.
+    - Domain switches to 'freq'."""
     if len(sig.shape) == 0 or sig.shape[0] != graph.n_nodes:
         raise ValueError(
             f"Signal length {sig.shape[0] if sig.shape else 0} "
@@ -661,20 +658,19 @@ def witness_mcmc_step(
     rng: AbstractRNGState,
     step_size: float = 0.01,
 ) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Ghost witness for a generic MCMC step (Metropolis-Hastings / HMC).
+    """Ghost witness for a generic Markov Chain Monte Carlo (MCMC) step (Metropolis-Hastings / HMC).
 
-    Validates dimensionality compatibility between the trace's parameter
-    space and the target distribution, checks that RNG state is available,
-    and returns an updated trace and advanced RNG state.
+Validates dimensionality compatibility between the trace's parameter
+space and the target distribution, checks that random number generator (RNG) state is available,
+and returns an updated trace and advanced RNG state.
 
-    Preconditions:
-        - trace.param_dims must match log_prob_fn.event_shape.
-        - step_size must be positive.
-    Postconditions:
-        - Trace n_samples incremented by 1.
-        - Warmup status updated.
-        - RNG state advanced (1 draw consumed per step).
-    """
+Preconditions:
+    - trace.param_dims must match log_prob_fn.event_shape.
+    - step_size must be positive.
+Postconditions:
+    - Trace n_samples incremented by 1.
+    - Warmup status updated.
+    - RNG state advanced (1 draw consumed per step)."""
     # Dimensionality check: param space must match target distribution
     if trace.param_dims != log_prob_fn.event_shape:
         raise ValueError(
@@ -742,17 +738,10 @@ def witness_vi_elbo(
     p_dist: AbstractDistribution | tuple[AbstractDistribution, Any],
     n_samples: int = 1,
 ) -> AbstractScalar:
-    """Ghost witness for variational inference ELBO computation.
+    """Ghost witness for Evidence Lower Bound (ELBO) computation. Validates that q and p have compatible shapes and that n_samples is positive.
 
-    Validates that the variational approximation q and the target p have
-    compatible event shapes, and that the number of MC samples is positive.
-
-    Preconditions:
-        - q_dist.event_shape must match p_dist.event_shape.
-        - n_samples must be positive.
-    Postconditions:
-        - Returns a scalar (the ELBO estimate) with dtype float64.
-    """
+Postconditions:
+    - Returns a scalar (the ELBO estimate) with dtype float64."""
     from ageoa.ghost.abstract import AbstractScalar
 
     # Extract distribution if passed as (dist, jacobian) tuple
@@ -830,14 +819,14 @@ def witness_bijector_transform(
 
 @register_atom(witness_kalman_gain)
 def kalman_gain(P: AbstractMatrix, H: AbstractMatrix) -> AbstractMatrix:
-    """Heavy atom for Kalman Gain (placeholder)."""
+    """Computes the Kalman gain — a weighting matrix that determines how much to trust new measurements versus the current state prediction. Multiplies the predicted error covariance P by the observation matrix H, scaled by the innovation covariance, to produce an optimal correction factor."""
 
 
 @register_atom(witness_bijector_transform)
 def bijector_transform(dist: AbstractDistribution) -> tuple[AbstractDistribution, AbstractSignal]:
-    """Heavy atom for bijector transform (placeholder)."""
+    """Applies a bijector — an invertible, differentiable transformation — to a probability distribution. This remaps a simple base distribution (e.g., Gaussian) into a more expressive one while tracking the change-of-variables Jacobian needed for correct density evaluation."""
 
 
 @register_atom(witness_vi_elbo)
 def vi_elbo(q_dist: AbstractDistribution, p_dist: AbstractDistribution, n_samples: int = 1) -> AbstractScalar:
-    """Heavy atom for VI ELBO (placeholder)."""
+    """Estimates how well an approximate distribution matches the true target. Uses random draws to score the fit between q_dist and p_dist."""

@@ -20,17 +20,16 @@ from .witnesses import (
 def filter_step_preparation_and_dispatch(
     up: object, b: object, a: object, o: object
 ) -> tuple[object, object, object, object, np.ndarray]:
-    """Entry-point orchestration for one SMC step.
+    """Entry-point orchestration for one Sequential Monte Carlo (SMC) step.
 
-    Args:
-        up: Prior state carrying particles, weights, and RNG state.
-        b: Transition and likelihood model definitions.
-        a: Control/action at current step.
-        o: Measurement for current time index.
+Args:
+    up: Prior state carrying particles, weights, and random number generator (RNG) state.
+    b: Transition and likelihood model definitions.
+    a: Control/action at current step.
+    o: Measurement for current time index.
 
-    Returns:
-        Tuple of (prior_state, model_spec, control_t, observation_t, rng_key).
-    """
+Returns:
+    Tuple of (prior_state, model_spec, control_t, observation_t, rng_key)."""
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -63,7 +62,7 @@ def likelihood_reweight_kernel(
     observation_t: np.ndarray,
     model_spec: object,
 ) -> tuple[np.ndarray, float]:
-    """Compute observation likelihoods and perform SMC weight update.
+    """Compute observation likelihoods and perform Sequential Monte Carlo (SMC) weight update.
 
     Args:
         proposed_particles: Particles from propagation kernel.
@@ -88,13 +87,12 @@ def resample_and_belief_projection(
 ) -> tuple[object, object]:
     """Build posterior belief state and diagnostics from weighted particles.
 
-    Args:
-        proposed_particles: Particle array at current timestep.
-        normalized_weights: Posterior normalized weights summing to 1.
-        rng_key_next: RNG key after split.
-        log_likelihood: Aggregate log-likelihood for the step.
+Args:
+    proposed_particles: Particle array at current timestep.
+    normalized_weights: Posterior normalized weights summing to 1.
+    rng_key_next: random number generator (RNG) key after split.
+    log_likelihood: Aggregate log-likelihood for the step.
 
-    Returns:
-        Tuple of (posterior_belief_state, filter_trace).
-    """
+Returns:
+    Tuple of (posterior_belief_state, filter_trace)."""
     raise NotImplementedError("Wire to original implementation")

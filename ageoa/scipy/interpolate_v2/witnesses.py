@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_cubicsplinefit(x: AbstractArray, y: AbstractArray, axis: AbstractArray, bc_type: AbstractArray, extrapolate: AbstractArray) -> AbstractArray:
-    """Ghost witness for CubicSplineFit."""
+    """Shape-and-type check for cubic spline fit. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=x.shape,
         dtype="float64",)
@@ -12,7 +12,7 @@ def witness_cubicsplinefit(x: AbstractArray, y: AbstractArray, axis: AbstractArr
     return result
 
 def witness_rbfinterpolatorfit(y: AbstractArray, d: AbstractArray, neighbors: AbstractArray, smoothing: AbstractArray, kernel: AbstractArray, epsilon: AbstractArray, degree: AbstractArray) -> AbstractArray:
-    """Ghost witness for RBFInterpolatorFit."""
+    """Shape-and-type check for rbf interpolator fit. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=y.shape,
         dtype="float64",)

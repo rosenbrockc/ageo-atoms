@@ -67,7 +67,7 @@ def allpairsshortestpath(csgraph: Any, directed: bool, return_predecessors: bool
 @icontract.require(lambda overwrite: overwrite is not None, "overwrite cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "MinimumSpanningTree output must not be None")
 def minimumspanningtree(csgraph: Any, overwrite: bool) -> Any:
-    """Extracts the globally optimal minimum spanning tree of a sparse undirected weighted graph. Returns a new sparse matrix whose non-zero entries correspond only to MST edges, minimizing total edge weight while keeping the graph connected.
+    """Extracts the Minimum Spanning Tree (MST) of a sparse undirected weighted graph. Returns a new sparse matrix containing only the tree edges that connect all nodes with minimum total weight.
 
     Args:
         csgraph: symmetric/undirected; non-negative edge weights

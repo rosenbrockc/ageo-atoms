@@ -59,7 +59,7 @@ def stanceestimation(stance_state: StanceState, observation: np.ndarray[Any, np.
 
 
 def stancestateinit_ffi(config: Any) -> Any:
-    """FFI bridge to C++ implementation of StanceStateInit."""
+    """Wrapper that calls the C++ version of stance state init. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./stancestateinit.so")
     _func_name = 'stancestateinit_prime'
     _func = _lib[_func_name]
@@ -68,7 +68,7 @@ def stancestateinit_ffi(config: Any) -> Any:
 
 
 def stanceestimation_ffi(stance_state: Any, observation: Any) -> Any:
-    """FFI bridge to C++ implementation of StanceEstimation."""
+    """Wrapper that calls the C++ version of stance estimation. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./stanceestimation.so")
     _func_name = 'stanceestimation_prime'
     _func = _lib[_func_name]

@@ -4,7 +4,7 @@ import networkx as nx  # type: ignore
 
 
 def witness_forwardmultidimensionalfft(a: AbstractSignal, s: AbstractSignal, axes: AbstractSignal, norm: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for ForwardMultidimensionalFFT."""
+    """Shape-and-type check for forward multidimensional fft. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=a.shape,
         dtype="float64",
@@ -14,7 +14,7 @@ def witness_forwardmultidimensionalfft(a: AbstractSignal, s: AbstractSignal, axe
     return result
 
 def witness_inversemultidimensionalfft(a: AbstractSignal, s: AbstractSignal, axes: AbstractSignal, norm: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for InverseMultidimensionalFFT."""
+    """Shape-and-type check for inverse multidimensional fft. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=a.shape,
         dtype="float64",
@@ -24,7 +24,7 @@ def witness_inversemultidimensionalfft(a: AbstractSignal, s: AbstractSignal, axe
     return result
 
 def witness_hermitianspectraltransform(a: AbstractSignal, n: AbstractSignal, axis: AbstractSignal, norm: AbstractSignal) -> AbstractSignal:
-    """Ghost witness for HermitianSpectralTransform."""
+    """Shape-and-type check for hermitian spectral transform. Returns output metadata without running the real computation."""
     result = AbstractSignal(
         shape=a.shape,
         dtype="float64",

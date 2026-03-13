@@ -3,7 +3,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribu
 
 
 def witness_constructgeometrymodel(length_front: AbstractArray, length_rear: AbstractArray) -> AbstractArray:
-    """Ghost witness for ConstructGeometryModel."""
+    """Shape-and-type check for construct geometry model. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=length_front.shape,
         dtype="float64",
@@ -11,7 +11,7 @@ def witness_constructgeometrymodel(length_front: AbstractArray, length_rear: Abs
     return result
 
 def witness_loadmodelfromfile(filename: AbstractArray) -> AbstractArray:
-    """Ghost witness for LoadModelFromFile."""
+    """Shape-and-type check for load model from file. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=filename.shape,
         dtype="float64",
@@ -19,7 +19,7 @@ def witness_loadmodelfromfile(filename: AbstractArray) -> AbstractArray:
     return result
 
 def witness_querygeometryparameters(model_spec: AbstractArray) -> AbstractArray:
-    """Ghost witness for QueryGeometryParameters."""
+    """Shape-and-type check for query geometry parameters. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=model_spec.shape,
         dtype="float64",
@@ -27,7 +27,7 @@ def witness_querygeometryparameters(model_spec: AbstractArray) -> AbstractArray:
     return result
 
 def witness_computesideslipangle(model_spec: AbstractArray, road_wheel_angle: AbstractArray) -> AbstractArray:
-    """Ghost witness for ComputeSideslipAngle."""
+    """Shape-and-type check for compute sideslip angle. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=model_spec.shape,
         dtype="float64",
@@ -35,7 +35,7 @@ def witness_computesideslipangle(model_spec: AbstractArray, road_wheel_angle: Ab
     return result
 
 def witness_computelinearizedstatematrices(model_spec: AbstractArray, x: AbstractArray, u: AbstractArray) -> AbstractArray:
-    """Ghost witness for ComputeLinearizedStateMatrices."""
+    """Shape-and-type check for compute linearized state matrices. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=model_spec.shape,
         dtype="float64",
@@ -43,7 +43,7 @@ def witness_computelinearizedstatematrices(model_spec: AbstractArray, x: Abstrac
     return result
 
 def witness_evaluateandinvertdynamics(model_spec: AbstractArray, x: AbstractArray, u: AbstractArray, _t: AbstractArray, _x_dot: AbstractArray) -> AbstractArray:
-    """Ghost witness for EvaluateAndInvertDynamics."""
+    """Shape-and-type check for evaluate and invert dynamics. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=model_spec.shape,
         dtype="float64",

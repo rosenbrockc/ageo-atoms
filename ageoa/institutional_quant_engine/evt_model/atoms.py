@@ -16,7 +16,7 @@ from .witnesses import witness_fit_gpd_tail
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def fit_gpd_tail(returns: np.ndarray, threshold_quantile: float) -> np.ndarray:
-    """Fits a Generalised Pareto Distribution to the tail losses beyond the given quantile threshold for Extreme Value Theory modelling.
+    """Fits a Generalized Pareto Distribution (GPD) to tail losses beyond the given quantile threshold for Extreme Value Theory (EVT) modeling.
 
     Args:
         returns: 1D array of portfolio returns

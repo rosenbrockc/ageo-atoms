@@ -20,15 +20,15 @@ from .witnesses import (
 def dataset_state_initialization(
     sequence_labels: list[str], sequence_strs: list[str], fasta_file: str
 ) -> object:
-    """Build an immutable dataset state from in-memory inputs or a FASTA file.
+    """Build a read-only dataset state from in-memory sequence data or a text file of biological sequences.
 
     Args:
-        sequence_labels: List of sequence identifiers.
-        sequence_strs: List of sequence strings.
-        fasta_file: Path to FASTA file for loading.
+        sequence_labels: list of sequence identifiers
+        sequence_strs: list of sequence strings
+        fasta_file: path to a sequence file for loading
 
     Returns:
-        Immutable dataset state object.
+        read-only dataset state object
     """
     raise NotImplementedError("Wire to original implementation")
 
