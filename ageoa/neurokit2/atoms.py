@@ -1,6 +1,6 @@
-"""Auto-generated atom wrappers following the ageoa pattern."""
-
 from __future__ import annotations
+from typing import Any
+"""Auto-generated atom wrappers following the ageoa pattern."""
 
 import numpy as np
 import torch
@@ -12,7 +12,7 @@ import networkx as nx  # type: ignore
 import icontract
 from typing import Any, Union
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_averageqrstemplate, witness_zhao2018hrvanalysis
 
 # Placeholder witness functions
 def witness_zhao2018hrvanalysis(*args: Any, **kwargs: Any) -> bool:

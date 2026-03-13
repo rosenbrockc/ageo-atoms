@@ -13,6 +13,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
+from .witnesses import witness_binarysearchinsertion, witness_lexicographicindirectsort, witness_partialsortpartition
 
 # Witness functions should be imported from the generated witnesses module
 

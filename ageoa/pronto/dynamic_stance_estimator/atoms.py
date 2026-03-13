@@ -1,19 +1,20 @@
 from __future__ import annotations
+from typing import Any
+ModelParamsSpec: Any = Any
+StateModelSpec: Any = Any
 """Auto-generated atom wrappers following the ageoa pattern."""
-
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_initializefilter, witness_predictstep, witness_querystance, witness_updatestep
 
 import ctypes
 import ctypes.util
 from pathlib import Path
+from ageoa.ghost.abstract import StateModelSpec
 
-
-# Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_initializefilter)
 @icontract.require(lambda initial_x: initial_x is not None, "initial_x cannot be None")
@@ -23,7 +24,7 @@ from pathlib import Path
 @icontract.require(lambda Q: Q is not None, "Q cannot be None")
 @icontract.require(lambda R: R is not None, "R cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "InitializeFilter all outputs must not be None")
-def initializefilter(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]:
+def initializefilter(initial_x: np.ndarray, initial_P: np.ndarray, A: np.ndarray, H: np.ndarray, Q: np.ndarray, R: np.ndarray) -> tuple[StateModelSpec, ModelParamsSpec]:
     """Initializes the state-space model with prior state, covariance, and static model parameters.
 
     Args:
@@ -61,7 +62,7 @@ def predictstep(current_state: StateModelSpec, model_params: ModelParamsSpec, dt
 @icontract.require(lambda model_params: model_params is not None, "model_params cannot be None")
 @icontract.require(lambda z: z is not None, "z cannot be None")
 @icontract.ensure(lambda result: result is not None, "UpdateStep output must not be None")
-def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec:
+def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: np.ndarray) -> StateModelSpec:
     """Updates the state and covariance based on a new measurement (update step of Kalman filter).
 
     Args:
@@ -92,15 +93,10 @@ def querystance(current_state: StateModelSpec) -> float:
 """Auto-generated FFI bindings for cpp implementations."""
 
 
-import ctypes
-import ctypes.util
-from pathlib import Path
-
-
 def _initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
     """FFI bridge to C++ implementation of InitializeFilter."""
     _lib = ctypes.CDLL("./initializefilter.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'initializefilter'
+    _func_name = 'initializefilter_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -109,7 +105,7 @@ def _initializefilter_ffi(initial_x, initial_P, A, H, Q, R):
 def _predictstep_ffi(current_state, model_params, dt):
     """FFI bridge to C++ implementation of PredictStep."""
     _lib = ctypes.CDLL("./predictstep.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'predictstep'
+    _func_name = 'predictstep_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -118,7 +114,7 @@ def _predictstep_ffi(current_state, model_params, dt):
 def _updatestep_ffi(predicted_state, model_params, z):
     """FFI bridge to C++ implementation of UpdateStep."""
     _lib = ctypes.CDLL("./updatestep.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'updatestep'
+    _func_name = 'updatestep_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -127,7 +123,7 @@ def _updatestep_ffi(predicted_state, model_params, z):
 def _querystance_ffi(current_state):
     """FFI bridge to C++ implementation of QueryStance."""
     _lib = ctypes.CDLL("./querystance.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'querystance'
+    _func_name = 'querystance_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

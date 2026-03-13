@@ -7,6 +7,11 @@ environments.
 
 from __future__ import annotations
 
+try:
+    import juliacall
+except ImportError:
+    pass
+
 import importlib
 
 from . import biosppy

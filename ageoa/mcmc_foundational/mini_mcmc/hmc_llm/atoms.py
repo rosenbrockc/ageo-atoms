@@ -1,8 +1,8 @@
 from __future__ import annotations
+from typing import Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
-from typing import Callable
 import numpy as np
 
 import icontract
@@ -14,10 +14,10 @@ from pathlib import Path
 
 
 from .witnesses import (
+    witness_collectposteriorchain,
+    witness_hamiltoniantransitionkernel,
     witness_initializehmckernelstate,
     witness_initializesamplerrng,
-    witness_hamiltoniantransitionkernel,
-    witness_collectposteriorchain,
 )
 
 @register_atom(witness_initializehmckernelstate)

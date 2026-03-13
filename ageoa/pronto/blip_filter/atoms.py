@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_bandpass_filter, witness_heart_rate_computation, witness_peak_correction, witness_r_peak_detection, witness_template_extraction
 
 import ctypes
 import ctypes.util
@@ -103,7 +103,7 @@ from pathlib import Path
 def _bandpass_filter_ffi(signal):
     """FFI bridge to C++ implementation of Bandpass Filter."""
     _lib = ctypes.CDLL("./bandpass_filter.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'bandpass_filter'
+    _func_name = 'bandpass_filter_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -112,7 +112,7 @@ def _bandpass_filter_ffi(signal):
 def _r_peak_detection_ffi(filtered):
     """FFI bridge to C++ implementation of R-Peak Detection."""
     _lib = ctypes.CDLL("./r_peak_detection.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'r_peak_detection'
+    _func_name = 'r_peak_detection_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -121,7 +121,7 @@ def _r_peak_detection_ffi(filtered):
 def _peak_correction_ffi(filtered, rpeaks):
     """FFI bridge to C++ implementation of Peak Correction."""
     _lib = ctypes.CDLL("./peak_correction.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'peak_correction'
+    _func_name = 'peak_correction_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -130,7 +130,7 @@ def _peak_correction_ffi(filtered, rpeaks):
 def _template_extraction_ffi(filtered, rpeaks):
     """FFI bridge to C++ implementation of Template Extraction."""
     _lib = ctypes.CDLL("./template_extraction.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'template_extraction'
+    _func_name = 'template_extraction_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -139,7 +139,7 @@ def _template_extraction_ffi(filtered, rpeaks):
 def _heart_rate_computation_ffi(rpeaks):
     """FFI bridge to C++ implementation of Heart Rate Computation."""
     _lib = ctypes.CDLL("./heart_rate_computation.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'heart_rate_computation'
+    _func_name = 'heart_rate_computation_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

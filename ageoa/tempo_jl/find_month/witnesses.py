@@ -1,13 +1,5 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_date(offset: AbstractArray) -> AbstractArray:
     """Ghost witness for Date."""

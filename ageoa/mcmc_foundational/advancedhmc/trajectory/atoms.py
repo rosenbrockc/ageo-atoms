@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,9 +7,8 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_buildnutstree, witness_nutstransitionkernel
 
-from typing import Callable
 from juliacall import Main as jl
 
 

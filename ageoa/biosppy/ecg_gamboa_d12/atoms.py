@@ -12,7 +12,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_gamboa_segmenter
 
   # type: ignore[import-untyped]
 @register_atom(witness_gamboa_segmenter)

@@ -1,18 +1,11 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_bernoulli_probabilistic_oracle(p: AbstractArray, x: AbstractArray) -> AbstractArray:
+def witness_bernoulli_probabilistic_oracle(p: AbstractScalar, x: AbstractArray) -> AbstractArray:
     """Ghost witness for Bernoulli_Probabilistic_Oracle."""
     result = AbstractArray(
-        shape=p.shape,
+        shape=x.shape,
         dtype="float64",
     )
     return result

@@ -1,21 +1,7 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractMCMCTrace, AbstractRNGState, AbstractScalar, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-    from ageoa.ghost.abstract import AbstractMCMCTrace
-    from ageoa.ghost.abstract import AbstractRNGState
-except ImportError:
-    pass
 
 def witness_hestonpathsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
     """Ghost witness for MCMC sampler: HestonPathSampler."""
@@ -23,4 +9,5 @@ def witness_hestonpathsampler(trace: AbstractMCMCTrace, target: AbstractDistribu
         raise ValueError(
             f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
         )
+        
     return trace.step(accepted=True), rng.advance(n_draws=1)

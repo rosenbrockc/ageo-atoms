@@ -1,13 +1,6 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
 def witness_dataset_state_initialization(sequence_labels: AbstractArray, sequence_strs: AbstractArray, fasta_file: AbstractArray) -> AbstractArray:
     """Ghost witness for dataset_state_initialization."""

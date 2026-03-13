@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_foot_sensing_state_update, witness_mode_snapshot_readout
 
 import ctypes
 import ctypes.util
@@ -59,7 +59,7 @@ from pathlib import Path
 def _foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_sensing_command: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of Foot Sensing State Update."""
     _lib = ctypes.CDLL("./foot_sensing_state_update.so")
-    _func_name = 'foot_sensing_state_update'
+    _func_name = 'foot_sensing_state_update_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -69,7 +69,7 @@ def _foot_sensing_state_update_ffi(foot_sensing_state_in: ctypes.c_void_p, foot_
 def _mode_snapshot_readout_ffi(mode_state_in: ctypes.c_void_p) -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of Mode Snapshot Readout."""
     _lib = ctypes.CDLL("./mode_snapshot_readout.so")
-    _func_name = 'mode_snapshot_readout'
+    _func_name = 'mode_snapshot_readout_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _result: ctypes.c_void_p = _func(mode_state_in)

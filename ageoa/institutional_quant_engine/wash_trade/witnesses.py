@@ -1,17 +1,9 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_detect_wash_trade_rings(trade_graph: AbstractArray) -> AbstractArray:
-    """Ghost witness for detect_wash_trade_rings."""
+def witness_detect_wash_trade_rings(trade_graph, *args, **kwargs):
     result = AbstractArray(
         shape=trade_graph.shape,
-        dtype="float64",
-    )
+        dtype="float64",)
+    
     return result

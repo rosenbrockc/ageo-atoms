@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_posequeryaccessors, witness_velocitystatereadout
 
 import ctypes
 import ctypes.util
@@ -45,7 +45,6 @@ def posequeryaccessors() -> object:
 
 """Auto-generated FFI bindings for cpp implementations."""
 
-# from __future__ import annotations
 
 import ctypes
 import ctypes.util
@@ -55,7 +54,7 @@ from pathlib import Path
 def _velocitystatereadout_ffi(state_in: object) -> object:
     """FFI bridge to C++ implementation of VelocityStateReadout."""
     _lib = ctypes.CDLL("./velocitystatereadout.so")
-    _func_name = 'velocitystatereadout'
+    _func_name = 'velocitystatereadout_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -64,7 +63,7 @@ def _velocitystatereadout_ffi(state_in: object) -> object:
 def _posequeryaccessors_ffi() -> object:
     """FFI bridge to C++ implementation of PoseQueryAccessors."""
     _lib = ctypes.CDLL("./posequeryaccessors.so")
-    _func_name = 'posequeryaccessors'
+    _func_name = 'posequeryaccessors_prime'
     _func = _lib[_func_name]
     _func.restype = ctypes.c_void_p
     return _func()

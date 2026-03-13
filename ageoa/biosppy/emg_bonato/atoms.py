@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import List, Any, Optional, Tuple, Dict
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,7 +7,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_bonato_onset_detection
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -23,7 +24,7 @@ def bonato_onset_detection(signal: np.ndarray, rest: np.ndarray, sampling_rate: 
     Args:
         signal: Input signal trace as a 1D numpy array.
         rest: Signal segment corresponding to a rest period, used for noise estimation.
-        sampling_rate: The signal's sampling frequency in Hz.
+        sampling_rate: The signal_primes sampling frequency in Hz.
         threshold: The amplitude threshold for marking a potential onset.
         active_state_duration: The minimum duration (in seconds) an active state must be maintained to be confirmed.
         samples_above_fail: Number of consecutive samples that must be above the threshold to initiate an active state.

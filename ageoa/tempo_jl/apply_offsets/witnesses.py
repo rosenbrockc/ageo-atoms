@@ -1,34 +1,26 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_show(io: AbstractArray, s: AbstractArray) -> AbstractArray:
+def witness_show(io: AbstractScalar, s: AbstractScalar) -> AbstractScalar:
     """Ghost witness for Show."""
-    result = AbstractArray(
-        shape=io.shape,
+    result = AbstractScalar(
+        dtype="str",
+    )
+    return result
+
+
+def witness__zero_offset(seconds: AbstractScalar) -> AbstractScalar:
+    """Ghost witness for Zero Offset."""
+    result = AbstractScalar(
         dtype="float64",
     )
     return result
 
-def witness__zero_offset(seconds: AbstractArray) -> AbstractArray:
-    """Ghost witness for  Zero Offset."""
-    result = AbstractArray(
-        shape=seconds.shape,
-        dtype="float64",
-    )
-    return result
 
-def witness_apply_offsets(sec: AbstractArray, ts1: AbstractArray, ts2: AbstractArray) -> AbstractArray:
+def witness_apply_offsets(sec: AbstractScalar, ts1: AbstractScalar, ts2: AbstractScalar) -> AbstractScalar:
     """Ghost witness for Apply Offsets."""
-    result = AbstractArray(
-        shape=sec.shape,
+    result = AbstractScalar(
         dtype="float64",
     )
     return result

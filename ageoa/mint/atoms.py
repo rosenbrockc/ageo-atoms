@@ -3,7 +3,7 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_axial_attention, witness_rotary_positional_embeddings
 
 
 

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .atoms import graph_time_scale_management, high_precision_duration
 from .apply_offsets.atoms import show as apply_offsets_show, apply_offsets
 from .find_month.atoms import date as find_month_date, show as find_month_show, time as find_month_time, datetime as find_month_datetime

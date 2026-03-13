@@ -1,4 +1,5 @@
 from __future__ import annotations
+import icontract
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -11,9 +12,9 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_solnik_onset_detect
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_solnik_onset_detect
 # Witness functions should be imported from the generated witnesses module
 def witness_solnik_onset_detect(*args, **kwargs): pass
 @register_atom(witness_solnik_onset_detect)  # type: ignore[untyped-decorator]

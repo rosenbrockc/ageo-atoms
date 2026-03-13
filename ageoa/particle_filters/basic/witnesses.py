@@ -1,16 +1,6 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, AbstractMCMCTrace, AbstractRNGState
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-    from ageoa.ghost.abstract import AbstractMCMCTrace
-    from ageoa.ghost.abstract import AbstractRNGState
-except ImportError:
-    pass
 
 def witness_filter_step_preparation_and_dispatch(up: AbstractArray, b: AbstractArray, a: AbstractArray, o: AbstractArray) -> AbstractArray:
     """Ghost witness for Filter Step Preparation And Dispatch."""

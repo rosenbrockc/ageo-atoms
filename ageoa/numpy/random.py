@@ -54,7 +54,7 @@ def rand(
 
     Returns:
         Random values.
-    
+
     """
     gen = _resolve_generator(seed=seed, rng=rng)
     if gen is None:
@@ -99,7 +99,7 @@ def uniform(
 
     Returns:
         Drawn samples from the parameterized uniform distribution.
-    
+
     """
     gen = _resolve_generator(seed=seed, rng=rng)
     if gen is None:
@@ -118,6 +118,6 @@ def default_rng(seed: SeedLike = None) -> np.random.Generator:
 
     Returns:
         The initialized generator object.
-    
+
     """
     return np.random.default_rng(seed)

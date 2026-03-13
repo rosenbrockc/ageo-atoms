@@ -1,4 +1,8 @@
 from __future__ import annotations
+from typing import Any
+Permutation: Any = Any
+
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,21 +10,23 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 
-from .witnesses import witness_validate_square_matrix_shape
-from .witnesses import witness_compute_absolute_weighted_index_distances
-from .witnesses import witness_aggregate_maximum_distance_as_bandwidth
-from .witnesses import witness_validate_symmetric_input
-from .witnesses import witness_initialize_reduction_state
-from .witnesses import witness_propose_greedy_permutation_step
-from .witnesses import witness_update_state_with_improvement_criterion
-from .witnesses import witness_extract_final_permutation
-from .witnesses import witness_enforce_threshold_sparsity
-from .witnesses import witness_build_sparse_graph_view
-from .witnesses import witness_compute_symmetric_bandwidth_reducing_order
-from .witnesses import witness_validate_symmetric_input
-from .witnesses import witness_build_threshold_search_space
-from .witnesses import witness_enumerate_threshold_based_permutations
-from .witnesses import witness_select_minimum_bandwidth_permutation
+from .witnesses import (
+    witness_aggregate_maximum_distance_as_bandwidth,
+    witness_build_sparse_graph_view,
+    witness_build_threshold_search_space,
+    witness_compute_absolute_weighted_index_distances,
+    witness_compute_symmetric_bandwidth_reducing_order,
+    witness_enforce_threshold_sparsity,
+    witness_enumerate_threshold_based_permutations,
+    witness_extract_final_permutation,
+    witness_initialize_reduction_state,
+    witness_propose_greedy_permutation_step,
+    witness_select_minimum_bandwidth_permutation,
+    witness_update_state_with_improvement_criterion,
+    witness_validate_square_matrix_shape,
+    witness_validate_symmetric_input
+)
+from ageoa.ghost.abstract import Permutation
 
 
 @register_atom(witness_validate_square_matrix_shape)

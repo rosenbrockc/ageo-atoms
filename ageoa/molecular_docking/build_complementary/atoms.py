@@ -1,4 +1,8 @@
 from __future__ import annotations
+from typing import Any
+Graph: Any = Any
+
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,7 +10,8 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_constructcomplementarygraph
+from ageoa.ghost.abstract import Graph
 
 # Witness functions should be imported from the generated witnesses module
 def witness_constructcomplementarygraph(*args, **kwargs): pass

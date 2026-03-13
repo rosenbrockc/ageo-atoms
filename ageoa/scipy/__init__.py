@@ -1,3 +1,4 @@
+from __future__ import annotations
 from . import linalg
 from . import optimize
 from . import integrate

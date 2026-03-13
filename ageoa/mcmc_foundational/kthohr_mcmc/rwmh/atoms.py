@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Callable, cast
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -7,7 +8,6 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 
-from typing import Callable
 import ctypes
 import ctypes.util
 from pathlib import Path
@@ -35,7 +35,6 @@ def constructrandomwalkmetropoliskernel(target_log_kernel: Callable[[np.ndarray]
 import ctypes
 import ctypes.util
 from pathlib import Path
-from typing import cast
 
 
 def _constructrandomwalkmetropoliskernel_ffi(target_log_kernel: ctypes.c_void_p) -> ctypes.c_void_p:
@@ -45,4 +44,3 @@ def _constructrandomwalkmetropoliskernel_ffi(target_log_kernel: ctypes.c_void_p)
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     return cast(ctypes.c_void_p, _func(target_log_kernel))
-    return _func(target_log_kernel)

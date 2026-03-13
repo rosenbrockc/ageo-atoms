@@ -1,9 +1,9 @@
-"""Auto-generated Pydantic state models for cross-window state."""
-
 from __future__ import annotations
+"""Auto-generated Pydantic state models for cross-window state."""
 
 from typing import Any
 
+import numpy as np
 import torch
 import jax
 import jax.numpy as jnp

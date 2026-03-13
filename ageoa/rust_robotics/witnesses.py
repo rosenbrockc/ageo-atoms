@@ -1,10 +1,6 @@
-"""Ghost witnesses."""
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-from typing import Callable
-
-import numpy as np
-
-from ageoa.ghost.abstract import AbstractArray
 
 def witness_n_joint_arm_solver(data: AbstractArray) -> AbstractArray:
     """Witness for n_joint_arm_solver."""
@@ -35,7 +31,7 @@ def witness_pure_pursuit(
 
 
 def witness_rk4(
-    func: Callable[[np.ndarray, float], np.ndarray],
+    func: object,
     x0: AbstractArray,
     t0: float,
     tf: float,

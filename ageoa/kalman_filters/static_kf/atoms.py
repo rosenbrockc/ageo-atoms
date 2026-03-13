@@ -7,7 +7,7 @@ import numpy as np
 import icontract
 from typing import Any, Callable, TypeVar, cast
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_exposecovariance, witness_exposelatentmean, witness_initializelineargaussianstatemodel, witness_predictlatentstate, witness_updatewithmeasurement
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import ctypes

@@ -11,7 +11,7 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_rowselfattention
 import icontract  # type: ignore[import-untyped]
 # Witness functions should be imported from the generated witnesses module
 def witness_rowselfattention(*args, **kwargs): pass

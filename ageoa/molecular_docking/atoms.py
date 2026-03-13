@@ -1,11 +1,11 @@
+from __future__ import annotations
 """Auto-generated verified atom wrapper."""
 
+import networkx as nx
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
-
-
+from .witnesses import witness_greedy_lattice_mapping, witness_quantum_mwis_solver
 
 @register_atom(witness_quantum_mwis_solver)
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")

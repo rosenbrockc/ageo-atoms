@@ -1,20 +1,20 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import *
-def witness_meanfieldvariationalfit(
-    q_dist: AbstractDistribution | None = None,
-    p_dist: AbstractDistribution | None = None,
-    n_samples: int = 1,
-) -> AbstractDistribution:
-    """Ghost witness for VI fit: MeanFieldVariationalFit returns a posterior-like distribution."""
-    if n_samples < 1:
-        raise ValueError(f"n_samples must be >= 1, got {n_samples}")
-    if q_dist is not None and p_dist is not None and q_dist.event_shape != p_dist.event_shape:
-        raise ValueError(
-            f"q event_shape {q_dist.event_shape} vs p event_shape {p_dist.event_shape}"
-        )
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-    if q_dist is not None:
-        return q_dist
-    if p_dist is not None:
-        return p_dist
-    raise ValueError("At least one of q_dist or p_dist must be provided")
+
+def witness_meanfieldvariationalfit(theta_shape_dict: AbstractArray, log_prior_fun: AbstractArray, log_lik_fun: AbstractArray, M: AbstractScalar, constrain_fun_dict: AbstractArray, seed: AbstractScalar, var_param_inits: AbstractArray, opt_method: AbstractScalar, verbose: AbstractScalar) -> tuple[AbstractArray, AbstractArray, AbstractArray, AbstractScalar]:
+    """Ghost witness for MeanFieldVariationalFit."""
+    result = AbstractArray(
+        shape=theta_shape_dict.shape,
+        dtype="float64",
+    )
+    return result
+
+
+def witness_posteriordrawsampling(free_means: AbstractArray, free_sds: AbstractArray, constrain_fun_dict: AbstractArray, n_draws: AbstractScalar, fun_to_apply: AbstractArray, rng_state_in: AbstractScalar) -> tuple[AbstractArray, AbstractScalar]:
+    """Ghost witness for PosteriorDrawSampling."""
+    result = AbstractArray(
+        shape=free_means.shape,
+        dtype="float64",
+    )
+    return result

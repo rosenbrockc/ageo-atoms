@@ -1,6 +1,7 @@
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -11,10 +12,11 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from .witnesses import witness_cubicsplinefit, witness_rbfinterpolatorfit
 
 # Witness functions should be imported from the generated witnesses module
 
-@register_atom(witness_cubicsplinefit)  # type: ignore[name-defined, untyped-decorator]
+@register_atom(witness_cubicsplinefit)
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.require(lambda y: y is not None, "y cannot be None")
 @icontract.require(lambda axis: axis is not None, "axis cannot be None")
@@ -36,7 +38,7 @@ def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | t
     """
     raise NotImplementedError("Wire to original implementation")
 
-@register_atom(witness_rbfinterpolatorfit)  # type: ignore[name-defined, untyped-decorator]
+@register_atom(witness_rbfinterpolatorfit)
 @icontract.require(lambda y: isinstance(y, (float, int, np.number)), "y must be numeric")
 @icontract.require(lambda smoothing: isinstance(smoothing, (float, int, np.number)), "smoothing must be numeric")
 @icontract.require(lambda epsilon: isinstance(epsilon, (float, int, np.number)), "epsilon must be numeric")

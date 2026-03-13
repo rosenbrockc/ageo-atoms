@@ -12,7 +12,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_gan_reconstruction
 
 # Witness functions should be imported from the generated witnesses module
 def witness_gan_reconstruction(*args, **kwargs): pass

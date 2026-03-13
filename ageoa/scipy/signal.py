@@ -1,9 +1,10 @@
+from __future__ import annotations
+from typing import Tuple, Union
 import os
 
 import numpy as np
 import scipy.signal
 import icontract
-from typing import Union
 
 from ageoa.ghost.registry import register_atom
 from ageoa.ghost.witnesses import (
@@ -77,7 +78,7 @@ def butter(
 
     Returns:
         Tuple of (b, a) numerator and denominator polynomials.
-    
+
     """
     b, a = scipy.signal.butter(N, Wn, btype=btype, analog=analog, output=output, fs=fs)
     return b, a
@@ -118,7 +119,7 @@ def cheby1(
 
     Returns:
         Tuple of (b, a) numerator and denominator polynomials.
-    
+
     """
     b, a = scipy.signal.cheby1(N, rp, Wn, btype=btype, analog=analog, output=output, fs=fs)
     return b, a
@@ -159,7 +160,7 @@ def cheby2(
 
     Returns:
         Tuple of (b, a) numerator and denominator polynomials.
-    
+
     """
     b, a = scipy.signal.cheby2(N, rs, Wn, btype=btype, analog=analog, output=output, fs=fs)
     return b, a
@@ -200,7 +201,7 @@ def firwin(
 
     Returns:
         1D array of FIR filter coefficients with length numtaps.
-    
+
     """
     return scipy.signal.firwin(
         numtaps, cutoff, width=width, window=window,
@@ -236,7 +237,7 @@ def sosfilt(
 
     Returns:
         The filtered output with the same shape as x.
-    
+
     """
     result = scipy.signal.sosfilt(sos, x, axis=axis, zi=zi)
     if zi is not None:
@@ -272,7 +273,7 @@ def lfilter(
 
     Returns:
         The filtered output with the same shape as x.
-    
+
     """
     result = scipy.signal.lfilter(b, a, x, axis=axis, zi=zi)
     if zi is not None:
@@ -320,7 +321,7 @@ def freqz(
     Returns:
         Tuple of (w, h) where w is the frequency array and h is the
         complex frequency response.
-    
+
     """
     w, h = scipy.signal.freqz(
         b, a=a, worN=worN, whole=whole, fs=fs,

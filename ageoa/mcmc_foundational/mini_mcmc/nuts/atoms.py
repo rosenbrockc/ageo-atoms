@@ -1,83 +1,55 @@
 from __future__ import annotations
+from typing import Any, Callable
+HMCState: Any = Any
+NUTS_Trajectory: Any = Any
+Position: Any = Any
+State: Any = Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
-from typing import Callable
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_nuts_recursive_tree_build
 
 import ctypes
 import ctypes.util
 from pathlib import Path
 
 
-# Witness functions should be imported from the generated witnesses module
-
-@register_atom(witness_initialize_sampler)
-@icontract.require(lambda target: isinstance(target, (float, int, np.number)), "target must be numeric")
-@icontract.require(lambda target_accept_p: isinstance(target_accept_p, (float, int, np.number)), "target_accept_p must be numeric")
-@icontract.ensure(lambda result: result is not None, "initialize_sampler output must not be None")
-def initialize_sampler(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, target_accept_p: float, seed: int) -> np.ndarray:
-    """Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.
-
-    Args:
-        target: The log-probability density function of the target distribution. Must be a pure function (oracle).
-        initial_positions: Starting points for the MCMC chains.
-        target_accept_p: The target acceptance probability for step size adaptation.
-        seed: Seed for the pseudo-random number generator.
-
-    Returns:
-        An immutable data structure containing the complete initial state of the sampler, including the PRNGKey, step size, and initial positions.
-    """
-    raise NotImplementedError("Wire to original implementation")
-
-@register_atom(witness_run_mcmc_sampler)
-@icontract.require(lambda sampler_state_in: sampler_state_in is not None, "sampler_state_in cannot be None")
-@icontract.require(lambda n_collect: n_collect is not None, "n_collect cannot be None")
-@icontract.require(lambda n_discard: n_discard is not None, "n_discard cannot be None")
-@icontract.ensure(lambda result: all(r is not None for r in result), "run_mcmc_sampler all outputs must not be None")
-def run_mcmc_sampler(sampler_state_in: np.ndarray, n_collect: int, n_discard: int) -> tuple[np.ndarray, np.ndarray]:
-    """Executes the NUTS MCMC algorithm for a given number of warm-up and collection steps, producing posterior samples.
+@register_atom(witness_nuts_recursive_tree_build)
+@icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
+@icontract.require(lambda log_slice_variable: isinstance(log_slice_variable, (float, int, np.number)), "log_slice_variable must be numeric")
+@icontract.require(lambda log_prob_oracle: isinstance(log_prob_oracle, (float, int, np.number)), "log_prob_oracle must be numeric")
+@icontract.require(lambda integrator_fn: isinstance(integrator_fn, (float, int, np.number)), "integrator_fn must be numeric")
+@icontract.ensure(lambda result: result is not None, "nuts_recursive_tree_build output must not be None")
+def nuts_recursive_tree_build(direction_val: int, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: int) -> NUTS_Trajectory:
+    """Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step.
 
     Args:
-        sampler_state_in: The current state of the NUTS sampler.
-        n_collect: Number of posterior samples to generate and collect.
-        n_discard: Number of warm-up (burn-in) samples to discard before collection.
+        direction_val: Determines the direction of integration, typically +1 for forward or -1 for backward.
+        step_size: The step size (epsilon) for the leapfrog integrator.
+        log_slice_variable: The logarithm of the uniform slice variable 'u', used for the generalized HMC acceptance criterion.
+        initial_hmc_state: The initial state for this subtree, containing position, momentum, potential energy (prev_U), and kinetic energy (prev_K).
+        log_prob_oracle: An oracle function (box_log_kernel_fn) that computes the log probability (potential energy) of the target distribution for a given position.
+        integrator_fn: The leapfrog integrator function (leap_frog_fn) used to propose new states along the trajectory.
+        tree_depth: The current recursion depth of the tree-building process.
 
     Returns:
-        posterior_samples: Collected samples from the posterior distribution.
-        final_sampler_state: The final state of the sampler after the run, including the updated PRNGKey.
+        Returns a composite object representing the built trajectory, including the leftmost/rightmost states, the proposed sample, a flag indicating a U-turn, a divergence flag, and summed acceptance probabilities.
     """
     raise NotImplementedError("Wire to original implementation")
 
 
-"""Auto-generated FFI bindings for rust implementations."""
+"""Auto-generated FFI bindings for cpp implementations."""
 
 
-import ctypes
-import ctypes.util
-from pathlib import Path
-
-
-def _initialize_sampler_ffi(target, initial_positions, target_accept_p, seed):
-    """FFI bridge to Rust implementation of initialize_sampler."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'initialize_sampler'
+def _nuts_recursive_tree_build_ffi(direction_val, step_size, log_slice_variable, initial_hmc_state, log_prob_oracle, integrator_fn, tree_depth):
+    """FFI bridge to C++ implementation of nuts_recursive_tree_build."""
+    _lib = ctypes.CDLL("./nuts_recursive_tree_build.so")
+    _func_name = 'nuts_recursive_tree_build'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(target, initial_positions, target_accept_p, seed)
-
-def _run_mcmc_sampler_ffi(sampler_state_in, n_collect, n_discard):
-    """FFI bridge to Rust implementation of run_mcmc_sampler."""
-    # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
-    _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'run_mcmc_sampler'
-    _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
-    _func.restype = ctypes.c_void_p
-    return _func(sampler_state_in, n_collect, n_discard)
+    return _func(direction_val, step_size, log_slice_variable, initial_hmc_state, log_prob_oracle, integrator_fn, tree_depth)

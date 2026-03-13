@@ -1,15 +1,10 @@
-"""Auto-generated ghost witness functions for engzee_segmenter."""
-
 from __future__ import annotations
-
-try:
-    from ageoa.ghost.abstract import AbstractArray, AbstractScalar
-except ImportError:
-    pass
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-def witness_engzee_signal_segmentation(
-    signal: AbstractArray, sampling_rate: AbstractScalar, threshold: AbstractScalar
+def witness_engzee_signal_segmentation(signal: AbstractSignal,
+    sampling_rate: AbstractScalar,
+    threshold: AbstractScalar,
 ) -> AbstractArray:
     """Ghost witness for engzee_signal_segmentation.
 

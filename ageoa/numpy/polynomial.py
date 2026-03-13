@@ -33,7 +33,7 @@ def polyval(x: Any, c: CoefficientLike) -> Any:
 
     Returns:
         The values of the polynomial at points x.
-    
+
     """
     return poly.polyval(x, c)
 
@@ -54,7 +54,7 @@ def polyfit(x: ArrayLike, y: ArrayLike, deg: int) -> np.ndarray:
 
     Returns:
         Polynomial coefficients ordered from low to high.
-    
+
     """
     return poly.polyfit(x, y, deg)
 
@@ -72,7 +72,7 @@ def polyder(c: CoefficientLike, m: int = 1) -> np.ndarray:
 
     Returns:
         Coefficients of the derivative.
-    
+
     """
     return poly.polyder(c, m=m)
 
@@ -92,7 +92,7 @@ def polyint(c: CoefficientLike, m: int = 1, k: ArrayLike | float = 0) -> np.ndar
 
     Returns:
         Coefficients of the integral.
-    
+
     """
     return poly.polyint(c, m=m, k=k)
 
@@ -110,7 +110,7 @@ def polyadd(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
 
     Returns:
         Coefficients of the sum.
-    
+
     """
     return poly.polyadd(c1, c2)
 
@@ -128,7 +128,7 @@ def polymul(c1: CoefficientLike, c2: CoefficientLike) -> np.ndarray:
 
     Returns:
         Coefficients of the product.
-    
+
     """
     return poly.polymul(c1, c2)
 
@@ -143,6 +143,6 @@ def polyroots(c: CoefficientLike) -> np.ndarray:
 
     Returns:
         Roots of the polynomial.
-    
+
     """
     return poly.polyroots(c)

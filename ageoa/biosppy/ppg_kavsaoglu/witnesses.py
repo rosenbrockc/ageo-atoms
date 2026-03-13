@@ -1,15 +1,8 @@
-"""Ghost witnesses for PPG Kavsaoglu onset detection atoms."""
-
 from __future__ import annotations
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractScalar
-except ImportError:
-    pass
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-def witness_detectonsetevents(
-    signal: AbstractSignal,
+def witness_detectonsetevents(signal: AbstractSignal,
     sampling_rate: AbstractScalar,
     alpha: AbstractScalar,
     k: AbstractScalar,

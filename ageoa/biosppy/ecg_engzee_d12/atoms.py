@@ -11,11 +11,10 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_engzee_qrs_segmentation  # type: ignore[import-untyped]
 
-# Witness functions should be imported from the generated witnesses module
-@register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator, name-defined]
-@register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator, name-defined]
+@register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator]
+def engzee_qrs_segmentation(signal: np.ndarray, sampling_rate: float, threshold: float) -> np.ndarray:
     """Detects and segments QRS complexes from a raw ECG signal using the Engelse & Zeelenberg algorithm, applying a threshold-based decision rule on the transformed signal to locate R-peak positions and extract beat boundaries.
 
     Args:

@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_torqueadjustmentidentitystage
 
 import ctypes
 import ctypes.util
@@ -39,7 +39,7 @@ from pathlib import Path
 def _torqueadjustmentidentitystage_ffi() -> ctypes.c_void_p:
     """FFI bridge to C++ implementation of TorqueAdjustmentIdentityStage."""
     _lib = ctypes.CDLL("./torqueadjustmentidentitystage.so")
-    _func_name = 'torqueadjustmentidentitystage'
+    _func_name = 'torqueadjustmentidentitystage_prime'
     _func = _lib[_func_name]
     _func.restype = ctypes.c_void_p
     return ctypes.c_void_p(_func())

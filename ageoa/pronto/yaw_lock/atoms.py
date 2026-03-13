@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any, Callable, cast
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,9 +7,8 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_configurecorrectionandyawslippolicy, witness_initializeyawlockstate, witness_readinitialjointangles, witness_readrobotstandingstatus, witness_setjointposeandinitialangles, witness_setrobotstandingstatus, witness_setstandinglinktargets
 from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
-from typing import Any, Callable, cast
 import ctypes
 import ctypes.util
 from pathlib import Path

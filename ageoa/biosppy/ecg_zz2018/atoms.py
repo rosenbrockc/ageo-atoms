@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_calculatebeatagreementsqi, witness_calculatecompositesqi_zz2018, witness_calculatefrequencypowersqi, witness_calculatekurtosissqi
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -76,7 +76,7 @@ def calculatekurtosissqi(signal: NDArray, fisher: bool) -> float:
 
     Args:
         signal: The input signal waveform.
-        fisher: Flag to indicate if Fisher's definition of kurtosis is used.
+        fisher: Flag to indicate if Fisher_primes definition of kurtosis is used.
 
     Returns:
         The kurtosis-based SQI score.

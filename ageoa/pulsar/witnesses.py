@@ -1,11 +1,8 @@
-"""Ghost Witness functions for Pulsar Folding pipeline."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-from ageoa.ghost.abstract import AbstractScalar, AbstractSignal
 
-
-def witness_de_disperse(
+def witness_dedisperse(
     data: AbstractSignal,
     DM: float,
     fchan: float,

@@ -1,34 +1,14 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_pair_distance_compatibility_check(L_feature_min_max: AbstractArray, R_features_distance: AbstractArray, interaction_distance: AbstractArray) -> AbstractArray:
+def witness_pair_distance_compatibility_check(L_feature_min_max, R_features_distance, interaction_distance, *args, **kwargs):
     """Ghost witness for Pair Distance Compatibility Check."""
-    result = AbstractArray(
-        shape=L_feature_min_max.shape,
-        dtype="float64",
-    )
-    return result
+    return AbstractScalar(dtype="bool")
 
-def witness_weighted_interaction_edge_derivation(L_features: AbstractArray, R_features: AbstractArray, L_distance_matrix: AbstractArray, R_distance_matrix: AbstractArray, interaction_distance: AbstractArray, distance_match: AbstractArray) -> AbstractArray:
+def witness_weighted_interaction_edge_derivation(L_features, R_features, L_distance_matrix, R_distance_matrix, interaction_distance, distance_match, *args, **kwargs):
     """Ghost witness for Weighted Interaction Edge Derivation."""
-    result = AbstractArray(
-        shape=L_features.shape,
-        dtype="float64",
-    )
-    return result
+    return ([], [])
 
-def witness_networkx_weighted_graph_materialization(edges: AbstractArray, nodes: AbstractArray) -> AbstractArray:
+def witness_networkx_weighted_graph_materialization(edges, nodes, *args, **kwargs):
     """Ghost witness for NetworkX Weighted Graph Materialization."""
-    result = AbstractArray(
-        shape=edges.shape,
-        dtype="float64",
-    )
-    return result
+    return AbstractArray(shape=(1,), dtype="float64")

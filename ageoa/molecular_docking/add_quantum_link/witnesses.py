@@ -1,18 +1,10 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_addquantumlink(G: AbstractArray, node_A: AbstractArray, node_B: AbstractArray, chain_size: AbstractArray) -> AbstractArray:
+def witness_addquantumlink(G: AbstractArray, node_A: AbstractArray, node_B: AbstractArray, chain_size: AbstractScalar) -> AbstractArray:
     """Ghost witness for AddQuantumLink."""
     result = AbstractArray(
         shape=G.shape,
-        dtype="float64",
-    )
+        dtype="float64",)
+    
     return result

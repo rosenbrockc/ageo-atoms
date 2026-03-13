@@ -11,7 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_assemblezz2018sqi, witness_computebeatagreementsqi, witness_computefrequencysqi, witness_computekurtosissqi
 
 # Witness functions should be imported from the generated witnesses module
 

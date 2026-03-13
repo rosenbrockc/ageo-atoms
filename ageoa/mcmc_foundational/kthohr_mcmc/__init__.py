@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .aees.atoms import metropolishastingstransitionkernel, targetlogkerneloracle
 from .de.atoms import build_de_transition_kernel
 from .hmc.atoms import buildhmckernelfromlogdensityoracle

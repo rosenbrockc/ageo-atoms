@@ -1,6 +1,7 @@
+from __future__ import annotations
+from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -13,7 +14,6 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import scipy.spatial
-from typing import Any
 witness_voronoitessellation: Any = None
 witness_delaunaytriangulation: Any = None
 

@@ -1,20 +1,12 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_inverse_schmitt_trigger_transform(input_signal: AbstractSignal) -> AbstractSignal:
+def witness_inverse_schmitt_trigger_transform(input_signal: AbstractArray) -> AbstractArray:
     """Ghost witness for inverse_schmitt_trigger_transform."""
     result = AbstractSignal(
         shape=input_signal.shape,
         dtype="float64",
-        sampling_rate=getattr(input_signal, 'sampling_rate', 44100.0),
-        domain="time",
-    )
+        sampling_rate=getattr(input_signal, 'sampling_rate_prime', 44100.0),
+        domain="time",)
+    
     return result

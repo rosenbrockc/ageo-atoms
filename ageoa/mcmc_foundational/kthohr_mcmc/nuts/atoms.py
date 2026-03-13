@@ -1,4 +1,9 @@
 from __future__ import annotations
+from typing import Any, Callable
+HMCState: Any = Any
+NUTS_Trajectory: Any = Any
+Position: Any = Any
+State: Any = Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,14 +11,12 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_nuts_recursive_tree_build
 
 import ctypes
 import ctypes.util
 from pathlib import Path
 
-
-# Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_nuts_recursive_tree_build)
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
@@ -21,8 +24,8 @@ from pathlib import Path
 @icontract.require(lambda log_prob_oracle: isinstance(log_prob_oracle, (float, int, np.number)), "log_prob_oracle must be numeric")
 @icontract.require(lambda integrator_fn: isinstance(integrator_fn, (float, int, np.number)), "integrator_fn must be numeric")
 @icontract.ensure(lambda result: result is not None, "nuts_recursive_tree_build output must not be None")
-def nuts_recursive_tree_build(direction_val: integer, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: integer) -> NUTS_Trajectory:
-    """Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step. It takes an initial state and integration parameters, explores a trajectory using a provided leapfrog integrator, and selects a new state from the trajectory based on a slice variable and a U-turn condition. This represents the core computational kernel of a single NUTS transition.
+def nuts_recursive_tree_build(direction_val: int, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: int) -> NUTS_Trajectory:
+    """Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step.
 
     Args:
         direction_val: Determines the direction of integration, typically +1 for forward or -1 for backward.
@@ -42,15 +45,10 @@ def nuts_recursive_tree_build(direction_val: integer, step_size: float, log_slic
 """Auto-generated FFI bindings for cpp implementations."""
 
 
-import ctypes
-import ctypes.util
-from pathlib import Path
-
-
 def _nuts_recursive_tree_build_ffi(direction_val, step_size, log_slice_variable, initial_hmc_state, log_prob_oracle, integrator_fn, tree_depth):
     """FFI bridge to C++ implementation of nuts_recursive_tree_build."""
     _lib = ctypes.CDLL("./nuts_recursive_tree_build.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'nuts_recursive_tree_build'
+    _func_name = 'nuts_recursive_tree_build'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

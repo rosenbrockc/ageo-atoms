@@ -1,18 +1,7 @@
-"""Auto-generated ghost witnesses for opaque DL boundaries."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractArray
-except ImportError:
-    pass
 
 def witness_rotaryembedding(q: AbstractArray, k: AbstractArray) -> AbstractArray:
     """Ghost witness for opaque boundary: RotaryEmbedding."""

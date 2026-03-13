@@ -1,6 +1,7 @@
+from __future__ import annotations
+from typing import Any, Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
 
 import numpy as np
 import torch
@@ -12,7 +13,6 @@ import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
-from typing import Any, Callable
 from scipy.optimize import OptimizeResult
 # Witness functions should be imported from the generated witnesses module
 witness_shgoglobaloptimization: Callable[..., Any] = lambda *args, **kwargs: None
@@ -26,6 +26,7 @@ witness_differentialevolutionoptimization: Callable[..., Any] = lambda *args, **
 @icontract.require(lambda n: n is not None, "n cannot be None")
 @icontract.require(lambda iters: iters is not None, "iters cannot be None")
 def shgoglobaloptimization(func: Callable[..., float], bounds: Any, args: tuple[Any, ...], constraints: Any, n: int, iters: int, callback: Any, minimizer_kwargs: dict[str, Any], options: dict[str, Any], sampling_method: Any) -> OptimizeResult:
+    raise NotImplementedError("Stub")
 @icontract.require(lambda minimizer_kwargs: minimizer_kwargs is not None, "minimizer_kwargs cannot be None")
 @icontract.require(lambda options: options is not None, "options cannot be None")
 @icontract.require(lambda sampling_method: sampling_method is not None, "sampling_method cannot be None")
@@ -52,6 +53,7 @@ def shgoglobaloptimization(func, bounds, args: tuple, constraints, n: int, iters
 
 @register_atom(witness_differentialevolutionoptimization)
 def differentialevolutionoptimization(func: Callable[..., float], bounds: Any, args: tuple[Any, ...], strategy: str, maxiter: int, popsize: int, tol: float, mutation: Any, recombination: float, seed: Any, callback: Any, disp: bool, polish: bool, init: Any, atol: float, updating: str, workers: Any, constraints: Any, x0: Any) -> OptimizeResult:
+    raise NotImplementedError("Stub")
 @icontract.require(lambda mutation: isinstance(mutation, (float, int, np.number)), "mutation must be numeric")
 @icontract.require(lambda recombination: isinstance(recombination, (float, int, np.number)), "recombination must be numeric")
 @icontract.require(lambda atol: isinstance(atol, (float, int, np.number)), "atol must be numeric")

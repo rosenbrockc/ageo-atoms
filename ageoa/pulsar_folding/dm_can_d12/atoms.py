@@ -12,7 +12,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_dm_candidate_filter
 
 def witness_dm_candidate_filter(*args, **kwargs): pass  # replaced at runtime by the generated witnesses module
 

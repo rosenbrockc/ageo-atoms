@@ -40,7 +40,7 @@ def solve(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 
     Returns:
         Solution to the system a x = b. Shape matches b.
-    
+
     """
     return np.linalg.solve(a, b)
 
@@ -58,7 +58,7 @@ def inv(a: np.ndarray) -> np.ndarray:
 
     Returns:
         Inverse of the matrix a. Shape matches a.
-    
+
     """
     return np.linalg.inv(a)
 
@@ -74,7 +74,7 @@ def det(a: np.ndarray) -> Any:
 
     Returns:
         Determinant of a.
-    
+
     """
     return np.linalg.det(a)
 
@@ -109,6 +109,6 @@ def norm(
 
     Returns:
         Norm of the matrix or vector.
-    
+
     """
     return np.linalg.norm(x, ord=ord, axis=axis, keepdims=keepdims)

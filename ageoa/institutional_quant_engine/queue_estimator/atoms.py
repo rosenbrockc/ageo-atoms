@@ -6,13 +6,13 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_initializeorderstate, witness_updatequeueontrade
 
 # Import the original class for __new__ instantiation
 # from <source_module> import QueueTracker
 
 # State model should be imported from the generated state_models module
-# from <state_module> import OrderState
+from .state_models import OrderState
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -35,7 +35,7 @@ def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float, s
         tuple[A data structure representing the initial state, containing my_qty, orders_ahead, and is_filled status., OrderState]:
             The first element is the functional result, the second is the updated state.
     """
-    obj = QueueTracker.__new__(QueueTracker)
+    obj = object()
     obj.is_filled = state.is_filled
     obj.my_qty = state.my_qty
     obj.orders_ahead = state.orders_ahead
@@ -64,7 +64,7 @@ def updatequeueontrade(current_order_state: OrderState, trade_qty: float, state:
         tuple[A new data structure representing the updated state of the order after the trade., OrderState]:
             The first element is the functional result, the second is the updated state.
     """
-    obj = QueueTracker.__new__(QueueTracker)
+    obj = object()
     obj.is_filled = state.is_filled
     obj.my_qty = state.my_qty
     obj.orders_ahead = state.orders_ahead

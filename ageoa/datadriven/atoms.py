@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 """DataDrivenDiffEq Sparse Identification of Nonlinear Dynamics (SINDy) Macro-Atoms."""
 
 
@@ -11,7 +12,7 @@ from pydantic import BaseModel, Field
 
 
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_discover_equations
 
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _jl: Any | None = None
@@ -127,7 +128,11 @@ def discover_equations(
 
     basis_res = jl.seval("DataDrivenDiffEq.get_basis(res)")
     jl.basis_res = basis_res
-    equations = [line.strip() for line in str(basis_res).splitlines() if line.strip()]
+    equations = []
+    for _line in str(basis_res).splitlines():
+        stripped = _line.strip()
+        if stripped:
+            equations.append(stripped)
 
     param_map = jl.seval("DataDrivenDiffEq.get_parameter_map(basis_res)")
     params: dict[str, float] = {}

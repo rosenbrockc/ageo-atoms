@@ -11,11 +11,11 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_dedispersionkernel
 
 # Witness functions should be imported from the generated witnesses module
 
-@register_atom(witness_dedispersionkernel)  # type: ignore[name-defined]
+@register_atom(witness_dedispersionkernel)
 @icontract.require(lambda input_data: input_data is not None, "input_data cannot be None")
 @icontract.require(lambda delay_table: delay_table is not None, "delay_table cannot be None")
 @icontract.require(lambda dm_steps: dm_steps is not None, "dm_steps cannot be None")

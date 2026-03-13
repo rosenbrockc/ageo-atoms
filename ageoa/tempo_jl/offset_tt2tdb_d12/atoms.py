@@ -11,7 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_tt2tdb_offset
 
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
@@ -22,7 +22,7 @@ def witness_tt2tdb_offset(*args, **kwargs): pass  # Witness functions should be 
 @icontract.require(lambda seconds: isinstance(seconds, (float, int, np.number)), "seconds must be numeric")
 @icontract.ensure(lambda result, **kwargs: result is not None, "TT2TDB_Offset output must not be None")
 def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: ignore[type-arg]
-    """Computes the relativistic time scale offset between Terrestrial Time (TT) and Barycentric Dynamical Time (TDB) in seconds, using a sinusoidal approximation of the periodic correction term derived from Earth's orbital eccentricity.
+    """Computes the relativistic time scale offset between Terrestrial Time (TT) and Barycentric Dynamical Time (TDB) in seconds, using a sinusoidal approximation of the periodic correction term derived from Earth_primes orbital eccentricity.
 
     Args:
         seconds: Elapsed seconds from a reference epoch (typically J2000.0); unbounded real number

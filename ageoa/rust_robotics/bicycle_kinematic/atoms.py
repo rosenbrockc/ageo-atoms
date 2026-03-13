@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_computelinearizedstatematrices, witness_computesideslipangle, witness_constructgeometrymodel, witness_evaluateandinvertdynamics, witness_loadmodelfromfile, witness_querygeometryparameters
 
 import ctypes
 import ctypes.util
@@ -143,7 +143,7 @@ def _constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
     """FFI bridge to Rust implementation of ConstructGeometryModel."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'constructgeometrymodel'
+    _func_name = 'constructgeometrymodel_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -153,7 +153,7 @@ def _loadmodelfromfile_ffi(filename: Any) -> Any:
     """FFI bridge to Rust implementation of LoadModelFromFile."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'loadmodelfromfile'
+    _func_name = 'loadmodelfromfile_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -163,7 +163,7 @@ def _querygeometryparameters_ffi(model_spec: Any) -> Any:
     """FFI bridge to Rust implementation of QueryGeometryParameters."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'querygeometryparameters'
+    _func_name = 'querygeometryparameters_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -173,7 +173,7 @@ def _computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
     """FFI bridge to Rust implementation of ComputeSideslipAngle."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'computesideslipangle'
+    _func_name = 'computesideslipangle_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -183,7 +183,7 @@ def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
     """FFI bridge to Rust implementation of ComputeLinearizedStateMatrices."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'computelinearizedstatematrices'
+    _func_name = 'computelinearizedstatematrices_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -193,7 +193,7 @@ def _evaluateandinvertdynamics_ffi(model_spec: Any, x: Any, u: Any, _t: Any, _x_
     """FFI bridge to Rust implementation of EvaluateAndInvertDynamics."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'evaluateandinvertdynamics'
+    _func_name = 'evaluateandinvertdynamics_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

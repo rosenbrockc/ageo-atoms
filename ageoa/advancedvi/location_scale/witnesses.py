@@ -1,14 +1,5 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-except ImportError:
-    pass
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 def witness_evaluate_log_probability_density(dist: AbstractDistribution, samples: AbstractArray) -> AbstractScalar:
     """Ghost witness for log-prob: evaluate_log_probability_density."""

@@ -1,15 +1,8 @@
-"""Auto-generated ghost witnesses for opaque DL boundaries."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractArray
-except ImportError:
-    pass
-
-def witness_rotaryembedding(q: AbstractArray, k: AbstractArray) -> AbstractArray:
+def witness_rotaryembedding(q: AbstractArray, k: AbstractArray) -> tuple:
     """Ghost witness for opaque boundary: RotaryEmbedding."""
     q_shape = tuple(q.shape)
     k_shape = tuple(k.shape)

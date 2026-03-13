@@ -1,7 +1,7 @@
 """Abstract value types for Ghost Witness metadata propagation.
 
-These models carry *only* metadata about signals and state — shape, dtype,
-sampling rate, domain — never the actual sample data.  Witnesses consume
+These models carry *only* metadata about signals and state - shape, dtype,
+sampling rate, domain - never the actual sample data.  Witnesses consume
 and produce these types to simulate a computation graph at near-zero cost.
 """
 
@@ -307,3 +307,6 @@ class AbstractMCMCTrace(BaseModel):
             is_warmed_up=new_n >= self.warmup_steps,
             accept_rate=round(new_rate, 6),
         )
+
+# Concrete sentinel for Ghost Witness propagation.
+ANYTHING = "ANYTHING"

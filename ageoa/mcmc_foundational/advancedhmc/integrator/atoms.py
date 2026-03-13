@@ -10,7 +10,7 @@ from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
-from .witnesses import witness_temperingfactorcomputation, witness_hamiltonianphasepointtransition
+from .witnesses import witness_hamiltonianphasepointtransition, witness_temperingfactorcomputation
 @register_atom(witness_temperingfactorcomputation)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
 @icontract.require(lambda r: r is not None, "r cannot be None")

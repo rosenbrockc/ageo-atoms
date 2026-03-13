@@ -1,9 +1,10 @@
+from __future__ import annotations
+from typing import Union
 import os
 
 import numpy as np
 import scipy.fft
 import icontract
-from typing import Union
 
 from ageoa.ghost.registry import register_atom
 from ageoa.ghost.witnesses import witness_dct, witness_idct
@@ -59,7 +60,7 @@ def dct(
 
     Returns:
         The DCT of the input array, real-valued, with shape preserved.
-    
+
     """
     return scipy.fft.dct(x, type=type, n=n, axis=axis, norm=norm, overwrite_x=overwrite_x)
 
@@ -104,6 +105,6 @@ def idct(
 
     Returns:
         The IDCT of the input array, real-valued, with shape preserved.
-    
+
     """
     return scipy.fft.idct(x, type=type, n=n, axis=axis, norm=norm, overwrite_x=overwrite_x)

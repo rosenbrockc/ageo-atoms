@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .atoms import quantum_mwis_solver, greedy_lattice_mapping
 from .add_quantum_link.atoms import addquantumlink
 from .build_complementary.atoms import constructcomplementarygraph

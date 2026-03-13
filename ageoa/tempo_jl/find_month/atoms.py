@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_date, witness_datetime, witness_show, witness_time
 
 from juliacall import Main as jl
 

@@ -1,20 +1,9 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
-def witness_tdmasolver(a: AbstractArray, aL: AbstractArray, ai: AbstractArray, b: AbstractArray, bL: AbstractArray, bi: AbstractArray, c: AbstractArray, c': AbstractArray, cL: AbstractArray, cf: AbstractArray, ci: AbstractArray, ci1: AbstractArray, ci1': AbstractArray, d: AbstractArray, d': AbstractArray, dL: AbstractArray, df: AbstractArray, di: AbstractArray, di1': AbstractArray, forM_: AbstractArray, fromList: AbstractArray, head: AbstractArray, last: AbstractArray, length: AbstractArray, map: AbstractArray, new: AbstractArray, read: AbstractArray, reverse: AbstractArray, runST: AbstractArray, thaw: AbstractArray, toList: AbstractArray, unsafeFreeze: AbstractArray, write: AbstractArray, x: AbstractArray, xi1: AbstractArray, xn: AbstractArray) -> AbstractArray:
+def witness_tdmasolver(a: AbstractArray, aL: AbstractArray, ai: AbstractArray, b: AbstractArray, bL: AbstractArray, bi: AbstractArray, c: AbstractArray, c_prime: AbstractArray, cL: AbstractArray, cf: AbstractArray, ci: AbstractArray, ci1: AbstractArray, ci1_prime: AbstractArray, d: AbstractArray, d_prime: AbstractArray, dL: AbstractArray, df: AbstractArray, di: AbstractArray, di1_prime: AbstractArray, forM_: AbstractArray, fromList: AbstractArray, head: AbstractArray, last: AbstractArray, length: AbstractArray, map: AbstractArray, new: AbstractArray, read: AbstractArray, reverse: AbstractArray, runST: AbstractArray, thaw: AbstractArray, toList: AbstractArray, unsafeFreeze: AbstractArray, write: AbstractArray, x: AbstractArray, xi1: AbstractArray, xn: AbstractArray) -> AbstractArray:
     """Ghost witness for Tdmasolver."""
     result = AbstractArray(
         shape=a.shape,

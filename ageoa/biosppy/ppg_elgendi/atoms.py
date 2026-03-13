@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_detect_signal_onsets_elgendi2013
 
 # Witness functions should be imported from the generated witnesses module
 

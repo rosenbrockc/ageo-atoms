@@ -1,21 +1,6 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, AbstractMCMCTrace, AbstractRNGState
 
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-    from ageoa.ghost.abstract import AbstractMCMCTrace
-    from ageoa.ghost.abstract import AbstractRNGState
-except ImportError:
-    pass
 
 def witness_continuousmultivariatesampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
     """Ghost witness for MCMC sampler: ContinuousMultivariateSampler."""

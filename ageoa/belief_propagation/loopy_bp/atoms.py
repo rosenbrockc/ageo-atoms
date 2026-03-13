@@ -5,12 +5,12 @@ from __future__ import annotations
 
 import numpy as np
 import icontract
+from typing import Any
 from ageoa.ghost.registry import register_atom
+from .state_models import BPState
 
 
 # Domain-specific type aliases
-PGMGraph = object  # Factor graph structure
-BPState = object   # Loopy-BP cross-window persistent state
 from .witnesses import (
     witness_initialize_message_passing_state,
     witness_run_loopy_message_passing_and_belief_query,
@@ -20,7 +20,7 @@ from .witnesses import (
 @register_atom(witness_initialize_message_passing_state)
 @icontract.require(lambda pgm: pgm is not None, "pgm cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_message_passing_state(pgm: PGMGraph, state: BPState) -> tuple[object, BPState]:
+def initialize_message_passing_state(pgm: Any, state: BPState) -> tuple[object, BPState]:
     """Build the immutable loopy-belief-propagation state from the PGM.
 
     Args:

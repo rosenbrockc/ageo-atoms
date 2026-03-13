@@ -22,7 +22,7 @@ from .witnesses import witness_update_state_estimate
 @icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def update_state_estimate(prior_state: np.ndarray, prior_cov: np.ndarray, measurement: np.ndarray, utime: int) -> np.ndarray:
-    """Fuses an incoming sensor measurement into the robot's Rigid Body Inertial State (RBIS) estimate using an EKF-style update.
+    """Fuses an incoming sensor measurement into the robot_primes Rigid Body Inertial State (RBIS) estimate using an EKF-style update.
 
     Args:
         prior_state: Prior rigid-body state vector (position, orientation, velocity), shape (n_state,)

@@ -1,21 +1,11 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal, ANYTHING
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_bandpass_filter(signal: AbstractSignal) -> AbstractSignal:
+def witness_bandpass_filter(signal: AbstractArray) -> AbstractArray:
     """Ghost witness for Bandpass Filter."""
-    result = AbstractSignal(
+    result = AbstractArray(
         shape=signal.shape,
         dtype="float64",
-        sampling_rate=getattr(signal, 'sampling_rate', 44100.0),
-        domain="time",
     )
     return result
 
@@ -30,7 +20,7 @@ def witness_r_peak_detection(filtered: AbstractArray) -> AbstractArray:
 def witness_peak_correction(filtered: AbstractArray, rpeaks: AbstractArray) -> AbstractArray:
     """Ghost witness for Peak Correction."""
     result = AbstractArray(
-        shape=filtered.shape,
+        shape=rpeaks.shape,
         dtype="float64",
     )
     return result
@@ -38,7 +28,7 @@ def witness_peak_correction(filtered: AbstractArray, rpeaks: AbstractArray) -> A
 def witness_template_extraction(filtered: AbstractArray, rpeaks: AbstractArray) -> AbstractArray:
     """Ghost witness for Template Extraction."""
     result = AbstractArray(
-        shape=filtered.shape,
+        shape=filtered.shape,  # This is a simplification
         dtype="float64",
     )
     return result

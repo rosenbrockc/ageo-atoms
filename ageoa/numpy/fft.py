@@ -60,7 +60,7 @@ def fft(
         The truncated or zero-padded input, transformed along the
         axis indicated by axis, or the last one if axis is not
         specified.
-    
+
     """
     return np.fft.fft(a, n=n, axis=axis, norm=norm)
 
@@ -103,7 +103,7 @@ def ifft(
         The truncated or zero-padded input, transformed along the
         axis indicated by axis, or the last one if axis is not
         specified.
-    
+
     """
     return np.fft.ifft(a, n=n, axis=axis, norm=norm)
 
@@ -142,7 +142,7 @@ def rfft(
     Returns:
         The positive-frequency terms of the Fourier transform of the
         real input, with shape n//2+1 along the transformed axis.
-    
+
     """
     return np.fft.rfft(a, n=n, axis=axis, norm=norm)
 
@@ -178,7 +178,7 @@ def irfft(
 
     Returns:
         The real-valued inverse FFT result.
-    
+
     """
     return np.fft.irfft(a, n=n, axis=axis, norm=norm)
 
@@ -199,7 +199,7 @@ def fftfreq(n: int, d: float = 1.0) -> np.ndarray:
 
     Returns:
         Array of length n containing the sample frequencies.
-    
+
     """
     return np.fft.fftfreq(n, d=d)
 
@@ -221,6 +221,6 @@ def fftshift(x: ArrayLike, axes: int | Sequence[int] | None = None) -> np.ndarra
 
     Returns:
         The shifted array.
-    
+
     """
     return np.fft.fftshift(x, axes=axes)

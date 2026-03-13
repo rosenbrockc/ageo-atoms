@@ -1,12 +1,5 @@
-"""Ghost witnesses for GAN reconstruction atoms."""
-
 from __future__ import annotations
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractScalar
-except ImportError:
-    pass
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, ANYTHING
 
 def witness_generatereconstructedppg(
     ppg_clean: AbstractSignal,

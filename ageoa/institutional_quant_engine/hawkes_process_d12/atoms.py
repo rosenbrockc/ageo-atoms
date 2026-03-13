@@ -11,10 +11,9 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_hawkesprocesssimulator
 
 # Witness functions should be imported from the generated witnesses module
-witness_hawkesprocesssimulator: object = None
 @register_atom(witness_hawkesprocesssimulator)  # type: ignore[untyped-decorator]
 @icontract.require(lambda mu: isinstance(mu, (float, int, np.number)), "mu must be numeric")
 @icontract.require(lambda alpha: isinstance(alpha, (float, int, np.number)), "alpha must be numeric")

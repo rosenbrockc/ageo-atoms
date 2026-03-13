@@ -6,7 +6,7 @@ import numpy as np
 from typing import Any
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_rowselfattention
 
 # Witness functions should be imported from the generated witnesses module
 

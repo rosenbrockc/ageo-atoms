@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_gradient_oracle_evaluation
 
 from juliacall import Main as jl  # type: ignore[import-untyped]
 

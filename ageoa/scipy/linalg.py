@@ -1,7 +1,8 @@
+from __future__ import annotations
+from typing import Any, Tuple, Union
 import numpy as np
 import scipy.linalg
 import icontract
-from typing import Union, Any, Tuple
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_linalg_det,
@@ -50,7 +51,7 @@ def solve(
 
     Returns:
         Solution to the system a @ x == b. Shape matches b.
-    
+
     """
     return scipy.linalg.solve(
         a,
@@ -81,7 +82,7 @@ def inv(
 
     Returns:
         Inverse of the matrix a.
-    
+
     """
     return scipy.linalg.inv(a, overwrite_a=overwrite_a, check_finite=check_finite)
 
@@ -102,7 +103,7 @@ def det(a: ArrayLike, overwrite_a: bool = False, check_finite: bool = True) -> f
 
     Returns:
         Determinant of a.
-    
+
     """
     return float(scipy.linalg.det(a, overwrite_a=overwrite_a, check_finite=check_finite))
 
@@ -130,7 +131,7 @@ def lu_factor(
     Returns:
         Tuple of (lu, piv) where lu is the LU factor matrix of shape
         (n, n) and piv is the pivot index array of shape (n,).
-    
+
     """
     return scipy.linalg.lu_factor(a, overwrite_a=overwrite_a, check_finite=check_finite)
 
@@ -160,7 +161,7 @@ def lu_solve(
 
     Returns:
         Solution to the system a @ x = b.
-    
+
     """
     return scipy.linalg.lu_solve(
         lu_and_piv,

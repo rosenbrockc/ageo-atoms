@@ -1,13 +1,6 @@
-"""Auto-generated ghost witnesses for opaque DL boundaries."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractArray
-except ImportError:
-    pass
 
 def witness_rowselfattention(x: AbstractArray, self_attn_mask: AbstractArray, self_attn_padding_mask: AbstractArray) -> AbstractArray:
     """Ghost witness for opaque boundary: RowSelfAttention."""

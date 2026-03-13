@@ -1,20 +1,9 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
-def witness_var(s: AbstractArray, t: AbstractArray, t': AbstractArray, v: AbstractArray, vs: AbstractArray) -> AbstractArray:
+def witness_var(s: AbstractArray, t: AbstractArray, t_prime: AbstractArray, v: AbstractArray, vs: AbstractArray) -> AbstractArray:
     """Ghost witness for Var."""
     result = AbstractArray(
         shape=s.shape,
@@ -38,7 +27,7 @@ def witness_vol(x: AbstractArray) -> AbstractArray:
     )
     return result
 
-def witness_vol(interpolatedVs: AbstractArray, mats: AbstractArray, mats': AbstractArray, quotes: AbstractArray, strike: AbstractArray, sts: AbstractArray, t: AbstractArray, tInterp: AbstractArray, timeFromZero: AbstractArray, vInterp: AbstractArray) -> AbstractArray:
+def witness_vol(interpolatedVs: AbstractArray, mats: AbstractArray, mats_prime: AbstractArray, quotes: AbstractArray, strike: AbstractArray, sts: AbstractArray, t: AbstractArray, tInterp: AbstractArray, timeFromZero: AbstractArray, vInterp: AbstractArray) -> AbstractArray:
     """Ghost witness for Vol."""
     result = AbstractArray(
         shape=interpolatedVs.shape,
@@ -46,7 +35,7 @@ def witness_vol(interpolatedVs: AbstractArray, mats: AbstractArray, mats': Abstr
     )
     return result
 
-def witness_allfort(map: AbstractArray, quotes: AbstractArray, sts: AbstractArray, t': AbstractArray, x: AbstractArray) -> AbstractArray:
+def witness_allfort(map: AbstractArray, quotes: AbstractArray, sts: AbstractArray, t_prime: AbstractArray, x: AbstractArray) -> AbstractArray:
     """Ghost witness for Allfort."""
     result = AbstractArray(
         shape=map.shape,

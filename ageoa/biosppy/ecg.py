@@ -13,12 +13,12 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 # Import the original class for __new__ instantiation
-# from <source_module> import ECGProcessor
+from .ecg_processor import ECGProcessor
 
 # State model should be imported from the generated state_models module
-# from <state_module> import ECGPipelineState
+from .ecg_state import ECGPipelineState
 
-# Witness functions should be imported from the generated witnesses module
+from .ecg_witnesses import witness_bandpass_filter, witness_r_peak_detection, witness_peak_correction, witness_template_extraction, witness_heart_rate_computation
 
 @register_atom(witness_bandpass_filter)
 @icontract.require(lambda signal: isinstance(signal, np.ndarray), "signal must be a numpy array")

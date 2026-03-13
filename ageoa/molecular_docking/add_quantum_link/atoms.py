@@ -1,4 +1,9 @@
 from __future__ import annotations
+from typing import Any
+Graph: Any = Any
+Node: Any = Any
+
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,7 +11,8 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_addquantumlink
+from ageoa.ghost.abstract import Graph, Node
 
 # Witness functions should be imported from the generated witnesses module
 

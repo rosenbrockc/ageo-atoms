@@ -1,15 +1,8 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_optimizationlooporchestration(algorithm: AbstractArray, max_iter: AbstractArray, prob: AbstractArray, q_init: AbstractArray, rng_state_in: AbstractArray) -> AbstractArray:
+def witness_optimizationlooporchestration(algorithm: AbstractArray, max_iter: AbstractScalar, prob: AbstractArray, q_init: AbstractArray, rng_state_in: AbstractArray) -> tuple[AbstractArray, AbstractArray, AbstractArray]:
     """Ghost witness for OptimizationLoopOrchestration."""
     result = AbstractArray(
         shape=algorithm.shape,

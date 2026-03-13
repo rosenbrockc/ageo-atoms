@@ -11,9 +11,13 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
 
-from ageoa.hftbacktest.witnesses import witness_initialize_glft_state, witness_update_glft_coefficients, witness_evaluate_spread_conditions  # type: ignore
+
+from .witnesses import (
+    witness_initialize_glft_state,
+    witness_update_glft_coefficients,
+    witness_evaluate_spread_conditions,
+)
 @register_atom(witness_initialize_glft_state)
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "initialize_glft_state all outputs must not be None")
 def initialize_glft_state() -> tuple[float, float]:

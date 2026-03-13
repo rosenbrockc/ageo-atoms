@@ -12,9 +12,9 @@ import icontract
 
 import networkx as nx  # type: ignore
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_rotaryembedding
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_rotaryembedding
 # Witness functions should be imported from the generated witnesses module
 def witness_rotaryembedding(*args, **kwargs): pass  # placeholder: replace with actual witness import
 @register_atom(witness_rotaryembedding)  # type: ignore[untyped-decorator]

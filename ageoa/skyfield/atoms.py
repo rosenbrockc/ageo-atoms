@@ -11,13 +11,17 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import (
+    witness_compute_spherical_coordinate_rates,
+    witness_calculate_vector_angle,
+)
+
 
 @register_atom(witness_compute_spherical_coordinate_rates)
 @icontract.require(lambda r: r is not None, "r cannot be None")
 @icontract.require(lambda v: v is not None, "v cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "compute_spherical_coordinate_rates output must not be None")
-def compute_spherical_coordinate_rates(r: numpy.ndarray, v: numpy.ndarray) -> tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]:
+def compute_spherical_coordinate_rates(r: np.ndarray, v: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Computes spherical coordinate rates.
 
     Args:
@@ -32,7 +36,7 @@ def compute_spherical_coordinate_rates(r: numpy.ndarray, v: numpy.ndarray) -> tu
 @register_atom(witness_calculate_vector_angle)
 @icontract.require(lambda u: u is not None, "u cannot be None")
 @icontract.require(lambda v: v is not None, "v cannot be None")
-def calculate_vector_angle(u: numpy.ndarray, v: numpy.ndarray) -> float:
+def calculate_vector_angle(u: np.ndarray, v: np.ndarray) -> float:
     """Computes the angle between two vectors.
 
     Args:

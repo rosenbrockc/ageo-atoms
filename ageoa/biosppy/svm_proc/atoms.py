@@ -2,6 +2,7 @@ from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
+from typing import Any
 import numpy as np
 import torch
 import jax
@@ -11,7 +12,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_assess_classification, witness_assess_runs, witness_combination, witness_cross_validation, witness_get_auth_rates, witness_get_id_rates, witness_get_subject_results, witness_majority_rule
 
 # Witness functions should be imported from the generated witnesses module
 

@@ -1,7 +1,8 @@
+from __future__ import annotations
+from typing import Any, Optional, Sequence, Tuple, Union
 import numpy as np
 import scipy.stats
 import icontract
-from typing import Union, Any, Tuple, Optional, Sequence
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_describe,
@@ -41,7 +42,7 @@ def describe(
         DescribeResult object containing nobs, minmax, mean, variance,
         skewness (measure of distribution asymmetry), and kurtosis
         (measure of distribution tail heaviness).
-    
+
     """
     return scipy.stats.describe(
         a,
@@ -106,7 +107,7 @@ def pearsonr(x: ArrayLike, y: ArrayLike) -> Any:
 
     Returns:
         PearsonRResult object with statistic and pvalue.
-    
+
     """
     return scipy.stats.pearsonr(x, y)
 
@@ -132,7 +133,7 @@ def spearmanr(
 
     Returns:
         SignificanceResult object with statistic and pvalue.
-    
+
     """
     return scipy.stats.spearmanr(
         a,
@@ -154,6 +155,6 @@ def norm(loc: float = 0, scale: float = 1) -> Any:
 
     Returns:
         A frozen normal distribution object.
-    
+
     """
     return scipy.stats.norm(loc=loc, scale=scale)

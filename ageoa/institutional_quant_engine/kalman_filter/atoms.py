@@ -1,4 +1,6 @@
 from __future__ import annotations
+from typing import Any
+KalmanFilter: Any = Any
 """Auto-generated stateful atom wrappers following the ageoa pattern."""
 
 
@@ -11,16 +13,14 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_kalmanfilterinit, witness_kalmanmeasurementupdate
 
-from typing import Any
 
 # Import the original class for __new__ instantiation
 # from <source_module> import KalmanFilter
-KalmanFilter: Any
 
 # State model should be imported from the generated state_models module
-# from <state_module> import KalmanState
+from .state_models import KalmanState
 
 # Witness functions should be imported from the generated witnesses module
 witness_kalmanfilterinit: Any
@@ -54,10 +54,11 @@ def kalmanfilterinit(process_variance: float, measurement_variance: float, estim
         "X": obj.X,
         "P": obj.P,
         "Q": obj.Q,
-@register_atom(witness_kalmanmeasurementupdate)  # type: ignore[untyped-decorator]
         "R": obj.R,
+    })
     result = (obj.P, obj.Q, obj.R, obj.X)
     return result, new_state
+
 
 @register_atom(witness_kalmanmeasurementupdate)
 @icontract.require(lambda P: isinstance(P, (float, int, np.number)), "P must be numeric")
@@ -69,7 +70,7 @@ def kalmanfilterinit(process_variance: float, measurement_variance: float, estim
 def kalmanmeasurementupdate(P: float, Q: float, R: float, X: float, measurement: float, state: KalmanState) -> tuple[tuple[float, float], KalmanState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
-    Pure functional Kalman predict-and-update kernel. Consumes the current immutable state tuple (P, Q, R, X) together with a scalar measurement and produces a brand-new state tuple (P_new, X_new). Internally fuses the time-update (predict) step — advancing P by Q — with the measurement-update step that computes the Kalman gain, corrects the state estimate X, and contracts P by the complement of the gain. Returns new objects; the input state is never mutated.
+    Pure functional Kalman predict-and-update kernel. Consumes the current immutable state tuple (P, Q, R, X) together with a scalar measurement and produces a brand-new state tuple (P_new, X_new). Internally fuses the time-update (predict) step - advancing P by Q - with the measurement-update step that computes the Kalman gain, corrects the state estimate X, and contracts P by the complement of the gain. Returns new objects; the input state is never mutated.
 
     Args:
         P: > 0

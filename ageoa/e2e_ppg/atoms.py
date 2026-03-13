@@ -3,7 +3,7 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_kazemi_peak_detection, witness_ppg_reconstruction, witness_ppg_sqa
 
 
 

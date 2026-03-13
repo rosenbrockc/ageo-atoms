@@ -13,7 +13,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+# from .witnesses import witness_hamilton_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 

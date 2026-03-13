@@ -1,4 +1,5 @@
 from __future__ import annotations
+import numpy as np
 import jax.numpy as jnp
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any

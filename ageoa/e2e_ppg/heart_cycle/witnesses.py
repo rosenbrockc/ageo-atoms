@@ -1,15 +1,8 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_detect_heart_cycles(ppg: AbstractSignal, sampling_rate: AbstractSignal) -> AbstractSignal:
+def witness_detect_heart_cycles(ppg: AbstractSignal, sampling_rate: AbstractScalar) -> AbstractSignal:
     """Ghost witness for detect_heart_cycles."""
     result = AbstractSignal(
         shape=ppg.shape,

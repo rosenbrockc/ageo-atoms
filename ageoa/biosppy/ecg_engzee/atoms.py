@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_engzee_signal_segmentation
 from ageoa.biosppy.ecg_engzee.witnesses import witness_engzee_signal_segmentation
 
 

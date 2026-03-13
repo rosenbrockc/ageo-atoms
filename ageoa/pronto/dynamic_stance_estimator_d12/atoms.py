@@ -1,8 +1,9 @@
 from __future__ import annotations
+from typing import Any
+StanceState: Any = Any
 """Auto-generated atom wrappers and FFI bindings following the ageoa pattern."""
 
 
-from typing import Any
 
 import ctypes
 import ctypes.util
@@ -16,7 +17,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_stanceestimation, witness_stancestateinit
 
 
 # Witness functions should be imported from the generated witnesses module
@@ -29,7 +30,7 @@ def witness_stanceestimation(*args, **kwargs): pass
 @icontract.require(lambda config: config is not None, "config cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "StanceStateInit output must not be None")
 def stancestateinit(config: dict[str, Any]) -> StanceState:
-    """Bootstraps the internal state containers for the dynamic stance estimator — allocates covariance matrices (P, Q, R), latent mean/variance buffers, and any persistent bookkeeping needed before the first estimation step.
+    """Bootstraps the internal state containers for the dynamic stance estimator - allocates covariance matrices (P, Q, R), latent mean/variance buffers, and any persistent bookkeeping needed before the first estimation step.
 
     Args:
         config: Must contain at minimum noise hyperparameters and dimensionality spec
@@ -60,7 +61,7 @@ def stanceestimation(stance_state: StanceState, observation: np.ndarray[Any, np.
 def stancestateinit_ffi(config: Any) -> Any:
     """FFI bridge to C++ implementation of StanceStateInit."""
     _lib = ctypes.CDLL("./stancestateinit.so")
-    _func_name = 'stancestateinit'
+    _func_name = 'stancestateinit_prime'
     _func = _lib[_func_name]
     _func.restype = ctypes.c_void_p
     return _func(config)
@@ -69,7 +70,7 @@ def stancestateinit_ffi(config: Any) -> Any:
 def stanceestimation_ffi(stance_state: Any, observation: Any) -> Any:
     """FFI bridge to C++ implementation of StanceEstimation."""
     _lib = ctypes.CDLL("./stanceestimation.so")
-    _func_name = 'stanceestimation'
+    _func_name = 'stanceestimation_prime'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

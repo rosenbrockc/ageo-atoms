@@ -1,13 +1,16 @@
-def witness_normalize_and_batch_clean_segment(
-    clean_segment: AbstractArray,
-    sampling_rate: AbstractScalar,
-) -> AbstractArray:
-    """Ghost witness for normalize_and_batch_clean_segment.
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, ANYTHING
 
-    The real function normalises the raw segment and wraps it in a leading
-    batch dimension so that downstream vectorised operations work correctly.
-    The witness must mirror that shape contract: (1, *segment_shape).  The
-    original witness incorrectly returned `shape=clean_segment.shape` (no
+def witness_gan_reconstruction(
+    ppg_clean: AbstractArray,
+    noise: AbstractArray,
+    sampling_rate: AbstractScalar,
+    generator: AbstractArray,
+    device: AbstractScalar,
+) -> AbstractArray:
+    """Ghost witness for gan_reconstruction.
+    
+    Original witness incorrectly returned `shape=clean_segment.shape` (no
     batch axis), which made the abstract graph see a shape-preserving
     identity at this node and caused the simulator to detect a cycle among
     {'normalize_and_batch_clean_segment',
@@ -18,7 +21,7 @@ def witness_normalize_and_batch_clean_segment(
     Prepending the batch dimension breaks that cycle.
     """
     result = AbstractArray(
-        shape=(1,) + clean_segment.shape,
+        shape=(1,) + ppg_clean.shape,
         dtype="float64",
     )
     return result

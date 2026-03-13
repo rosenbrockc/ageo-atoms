@@ -1,15 +1,9 @@
-"""Auto-generated ghost witness functions for christov_segmenter."""
-
 from __future__ import annotations
-
-try:
-    from ageoa.ghost.abstract import AbstractArray, AbstractScalar
-except ImportError:
-    pass
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-def witness_christovqrsdetect(
-    signal: AbstractArray, sampling_rate: AbstractScalar
+def witness_christovqrsdetect(signal: AbstractSignal,
+    sampling_rate: AbstractScalar,
 ) -> AbstractArray:
     """Ghost witness for christovqrsdetect.
 

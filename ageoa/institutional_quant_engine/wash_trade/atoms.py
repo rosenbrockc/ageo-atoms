@@ -1,4 +1,7 @@
 from __future__ import annotations
+from typing import Any
+Boolean: Any = Any
+
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,6 +9,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_detect_wash_trade_rings
+from ageoa.ghost.abstract import Boolean
 
 
 @register_atom(witness_detect_wash_trade_rings)

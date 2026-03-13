@@ -1,14 +1,6 @@
-"""Ghost witnesses for SciPy wrapper atoms."""
-
 from __future__ import annotations
-
 from typing import Any, Sequence
-
-from ageoa.ghost.abstract import (
-    AbstractArray,
-    AbstractDistribution,
-    AbstractScalar,
-)
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 
 def _as_array_or_scalar(

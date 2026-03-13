@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import Tuple
 import os
 
 import numpy as np
@@ -76,7 +78,7 @@ def graph_laplacian(
 
     Returns:
         The graph Laplacian as a sparse matrix of shape (n, n).
-    
+
     """
     result = scipy.sparse.csgraph.laplacian(W, normed=normed, return_diag=return_diag)
     if return_diag:
@@ -114,7 +116,7 @@ def graph_fourier_transform(
         Tuple of (x_hat, eigenvalues, eigenvectors) where x_hat are the
         GFT coefficients, eigenvalues are the graph frequencies, and
         eigenvectors are the GFT basis vectors.
-    
+
     """
     n = L.shape[0]
     if k is None or k >= n - 1:
@@ -147,7 +149,7 @@ def inverse_graph_fourier_transform(
 
     Returns:
         Reconstructed graph signal of length n.
-    
+
     """
     return eigenvectors @ x_hat
 
@@ -183,7 +185,7 @@ def heat_kernel_diffusion(
 
     Returns:
         The diffused graph signal of length n.
-    
+
     """
     n = L.shape[0]
     if k is None or k >= n - 1:

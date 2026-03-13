@@ -64,7 +64,7 @@ def array(
 
     Returns:
         An array object satisfying the specified requirements.
-    
+
     """
     return np.array(
         object,
@@ -90,7 +90,7 @@ def zeros(shape: ShapeLike, dtype: DTypeLike = float, order: str = "C") -> np.nd
 
     Returns:
         Array of zeros with the given shape, dtype, and order.
-    
+
     """
     return np.zeros(shape, dtype=dtype, order=order)
 
@@ -113,7 +113,7 @@ def dot(a: ArrayLike, b: ArrayLike, out: np.ndarray | None = None) -> Any:
         Returns the dot product of a and b. If a and b are both
         scalars or both 1-D arrays then a scalar is returned;
         otherwise an array is returned.
-    
+
     """
     return np.dot(a, b, out=out)
 
@@ -141,7 +141,7 @@ def vstack(
     Returns:
         The array formed by stacking the given arrays, which will be
         at least 2-D.
-    
+
     """
     return np.vstack(tup, dtype=dtype, casting=casting)
 
@@ -166,6 +166,6 @@ def reshape(a: np.ndarray, newshape: ShapeLike, order: str = "C") -> np.ndarray:
     Returns:
         This will be a new view object if possible; otherwise, it will
         be a copy.
-    
+
     """
     return np.reshape(a, newshape, order=order)

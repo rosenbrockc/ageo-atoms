@@ -1,13 +1,13 @@
 from __future__ import annotations
+from typing import Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
-from typing import Callable
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_mala_proposal_adjustment
 
 import ctypes
 import ctypes.util
@@ -44,7 +44,7 @@ from pathlib import Path
 def _mala_proposal_adjustment_ffi(step_size, vals_bound, mala_mean_fn):
     """FFI bridge to C++ implementation of mala_proposal_adjustment."""
     _lib = ctypes.CDLL("./mala_proposal_adjustment.so")
-    _func_name = atom.method_names[0] if atom.method_names else 'mala_proposal_adjustment'
+    _func_name = 'mala_proposal_adjustment'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p

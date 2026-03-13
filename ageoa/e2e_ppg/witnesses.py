@@ -1,6 +1,6 @@
-"""Ghost witnesses."""
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-from ageoa.ghost.abstract import AbstractArray
 
 def witness_kazemi_peak_detection(data: AbstractArray) -> AbstractArray:
     """Witness for kazemi_peak_detection."""

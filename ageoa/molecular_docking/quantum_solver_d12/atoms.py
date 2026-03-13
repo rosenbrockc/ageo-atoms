@@ -1,7 +1,8 @@
 from __future__ import annotations
+from typing import Any
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from typing import Any
 
 import numpy as np
 import torch
@@ -12,7 +13,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_adiabaticpulseassembler, witness_interactionboundscomputer, witness_quantumcircuitsampler, witness_quantumsolutionextractor, witness_quantumsolverorchestrator
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -56,7 +57,6 @@ def interactionboundscomputer(register_coord: Any, graph: Any) -> tuple[float, f
 @icontract.require(lambda register: register is not None, "register cannot be None")
 @icontract.require(lambda parameters: parameters is not None, "parameters cannot be None")
 def adiabaticpulseassembler(register: Any, parameters: dict) -> Any:
-def adiabaticpulseassembler(register: Pulser Register object defining qubit positions, parameters: dict containing u_min, u_max, and sweep duration / resolution settings) -> Pulser Sequence object encoding the full adiabatic schedule:
     """Constructs the time-dependent adiabatic pulse sequence (Omega, delta ramps) for the neutral-atom device given the register layout and physical parameters derived from U bounds. Returns an immutable pulse-schedule object consumed by the simulation runner.
     Args:
         register: Input data.
@@ -75,7 +75,6 @@ def adiabaticpulseassembler(register: Pulser Register object defining qubit posi
 @icontract.require(lambda run_emu_mps: run_emu_mps is not None, "run_emu_mps cannot be None")
 @icontract.require(lambda run_sv: run_sv is not None, "run_sv cannot be None")
 def quantumcircuitsampler(parameters: dict, register: Any, list_perm: list, run_qutip: bool, run_emu_mps: bool, run_sv: bool) -> dict[str, int]:
-def quantumcircuitsampler(parameters: dict wrapping the adiabatic_sequence and any sweep/shot settings, register: Pulser Register object, list_perm: list of permutation indices for ensemble averaging, run_qutip: bool — enable QuTiP master-equation backend, run_emu_mps: bool — enable EMU-MPS tensor-network backend, run_sv: bool — enable exact state-vector backend) -> dict[bitstring, int] — aggregated measurement counts across shots and permutations:
     """Executes the adiabatic sequence on the selected quantum backend (QuTiP, EMU-MPS, or state-vector) and returns raw bitstring count distributions. Backend selection is config-gated; each backend path is independently optional.
 
         parameters: Input data.
@@ -95,7 +94,6 @@ def quantumcircuitsampler(parameters: dict wrapping the adiabatic_sequence and a
 @icontract.require(lambda register: register is not None, "register cannot be None")
 @icontract.require(lambda num_solutions: num_solutions is not None, "num_solutions cannot be None")
 def quantumsolutionextractor(count_dist: dict[str, int], register: Any, num_solutions: int) -> tuple[list, list]:
-def quantumsolutionextractor(count_dist: dict[bitstring, int] — raw measurement counts from the sampler, register: Pulser Register — used for node-index to qubit-index mapping, num_solutions: int — number of top solutions to extract) -> tuple[list of node-set dicts ranked by measurement frequency, list of int — occurrence counts corresponding to each solution]:
     """Post-processes the raw measurement count distribution to decode, rank, and filter the top-k bitstring solutions corresponding to valid independent sets (or QUBO ground states), mapping them back to the original graph node labelling.
 
     Args:

@@ -1,14 +1,25 @@
 from __future__ import annotations
+from typing import Any, Callable, Dict, List, Set, Collection, cast
+Map = Dict
+Graph: Any = Any
+GraphNode: Any = Any
+LatticeInstance: Any = Any
+LatticeNode: Any = Any
+MappingContext: Any = Any
+MappingState: Any = Any
+NodeId: Any = Any
+Subgraph: Any = Any
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
 import numpy as np
 
 import icontract
-from typing import Any, Callable, Collection, Dict as Map, List, Set, cast
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_assemblestaticmappingcontext, witness_initializefrontierfromstartnode, witness_rungreedymappingpipeline, witness_scoreandextendgreedycandidates, witness_validatecurrentmapping
 from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
+from ageoa.ghost.abstract import Graph
 
 register_atom = cast(
     Callable[[Any], Callable[[Callable[..., Any]], Callable[..., Any]]],
@@ -16,7 +27,6 @@ register_atom = cast(
 )
 
 # Generated type placeholders.
-Graph = Any
 LatticeInstance = Any
 Subgraph = Any
 MappingContext = Any

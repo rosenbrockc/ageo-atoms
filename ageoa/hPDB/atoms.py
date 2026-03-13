@@ -1,8 +1,6 @@
+from __future__ import annotations
+from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
-
-from __future__ import annotations
-
-from __future__ import annotations
 
 from typing import Iterator, Optional, Any
 import torch

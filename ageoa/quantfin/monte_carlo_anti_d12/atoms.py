@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -10,8 +11,9 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
+from typing import Any
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_avg, witness_evolve, witness_insertcf, witness_insertcflist, witness_maxstep, witness_process, witness_quicksim, witness_quicksimanti, witness_runmc, witness_runsim, witness_runsimulation, witness_runsimulationanti, witness_simulatestate
 
 import ctypes
 import ctypes.util
@@ -65,7 +67,7 @@ def quicksimanti(mdl: Any, opts: Any, pureMT: Any, runSimulationAnti: Any, trial
 
 @register_atom(witness_evolve)
 @icontract.ensure(lambda result, **kwargs: result is not None, "Evolve output must not be None")
-def evolve(anti: Any, evolve: Any, evolve': Any, get: Any, maxStep: Any, mdl: Any, ms: Any, t1: Any, t2: Any, timeDiff: Any, timeOffset: Any, unless: Any) -> Any:
+def evolve(anti: Any, evolve: Any, evolve_prime: Any, get: Any, maxStep: Any, mdl: Any, ms: Any, t1: Any, t2: Any, timeDiff: Any, timeOffset: Any, unless: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_maxstep)
@@ -92,12 +94,12 @@ def runsim(ccs: Any, div: Any, modl: Any, runSimulation: Any, seed: Any, trials:
 
 @register_atom(witness_process)
 @icontract.ensure(lambda result, **kwargs: result is not None, "Process output must not be None")
-def process(allcfs: Any, amt: Any, anti: Any, c: Any, ccs: Any, cfList: Any, cfs: Any, cft: Any, d: Any, discCFs: Any, discount: Any, evolve: Any, flip: Any, foldl': Any, fst: Any, gets: Any, insert: Any, insertCF: Any, insertCFList: Any, map: Any, mf: Any, modl: Any, newCFs: Any, obs: Any, obsMap: Any, obsMap': Any, process: Any, t: Any, xs: Any) -> Any:
+def process(allcfs: Any, amt: Any, anti: Any, c: Any, ccs: Any, cfList: Any, cfs: Any, cft: Any, d: Any, discCFs: Any, discount: Any, evolve: Any, flip: Any, foldl_prime: Any, fst: Any, gets: Any, insert: Any, insertCF: Any, insertCFList: Any, map: Any, mf: Any, modl: Any, newCFs: Any, obs: Any, obsMap: Any, obsMap_prime: Any, process: Any, t: Any, xs: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_process)
 @icontract.ensure(lambda result, **kwargs: result is not None, "Process output must not be None")
-def process(anti: Any, ccs: Any, cfList: Any, discCFs: Any, evolve: Any, flip: Any, foldl': Any, fst: Any, gets: Any, insert: Any, insertCF: Any, insertCFList: Any, map: Any, mf: Any, modl: Any, newCFs: Any, obs: Any, obsMap: Any, obsMap': Any, process: Any, t: Any, xs: Any) -> Any:
+def process(anti: Any, ccs: Any, cfList: Any, discCFs: Any, evolve: Any, flip: Any, foldl_prime: Any, fst: Any, gets: Any, insert: Any, insertCF: Any, insertCFList: Any, map: Any, mf: Any, modl: Any, newCFs: Any, obs: Any, obsMap: Any, obsMap_prime: Any, process: Any, t: Any, xs: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_process)
@@ -119,14 +121,14 @@ def process(anti: Any, cf: Any, cfAmount: Any, cfTime: Any, cfs: Any, d: Any, di
 
 @register_atom(witness_process)
 @icontract.require(lambda discCFs: discCFs is not None, "discCFs cannot be None")
-@icontract.require(lambda return: return is not None, "return cannot be None")
+@icontract.require(lambda return_val: return_val is not None, "return cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Process output must not be None")
-def process(discCFs: Any, return: Any) -> Any:
+def process(discCFs: Any, return_val: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_insertcf)
 @icontract.ensure(lambda result, **kwargs: result is not None, "Insertcf output must not be None")
-def insertcf(amt: Any, amt': Any, cfs: Any, insertCF: Any, otherwise: Any, t: Any, t': Any) -> Any:
+def insertcf(amt: Any, amt_prime: Any, cfs: Any, insertCF: Any, otherwise: Any, t: Any, t_prime: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_insertcf)
@@ -146,17 +148,17 @@ def avg(fromIntegral: Any, sum: Any, trials: Any, v: Any) -> Any:
 
 @register_atom(witness_insertcflist)
 @icontract.ensure(lambda result, **kwargs: result is not None, "Insertcflist output must not be None")
-def insertcflist(cfList: Any, flip: Any, foldl': Any, insertCF: Any, xs: Any) -> Any:
+def insertcflist(cfList: Any, flip: Any, foldl_prime: Any, insertCF: Any, xs: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_insertcflist)
 @icontract.require(lambda cfList: cfList is not None, "cfList cannot be None")
 @icontract.require(lambda flip: flip is not None, "flip cannot be None")
-@icontract.require(lambda foldl': foldl' is not None, "foldl' cannot be None")
+@icontract.require(lambda foldl_prime: foldl_prime is not None, "foldl_prime cannot be None")
 @icontract.require(lambda insertCF: insertCF is not None, "insertCF cannot be None")
 @icontract.require(lambda xs: xs is not None, "xs cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Insertcflist output must not be None")
-def insertcflist(cfList: Any, flip: Any, foldl': Any, insertCF: Any, xs: Any) -> Any:
+def insertcflist(cfList: Any, flip: Any, foldl_prime: Any, insertCF: Any, xs: Any) -> Any:
     raise NotImplementedError("Wire to original implementation")
 
 
@@ -172,7 +174,7 @@ def runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampl
     """FFI bridge to Haskell implementation of Runmc."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runmc.so")
-    _func_name = 'runMC'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -182,7 +184,7 @@ def runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
     """FFI bridge to Haskell implementation of Runsimulation."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsimulation.so")
-    _func_name = 'runSimulation'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -192,7 +194,7 @@ def runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
     """FFI bridge to Haskell implementation of Runsimulationanti."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsimulationanti.so")
-    _func_name = 'runSimulationAnti'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -202,7 +204,7 @@ def quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
     """FFI bridge to Haskell implementation of Quicksim."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./quicksim.so")
-    _func_name = 'quickSim'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -212,27 +214,27 @@ def quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
     """FFI bridge to Haskell implementation of Quicksimanti."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./quicksimanti.so")
-    _func_name = 'quickSimAnti'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
     return _func(mdl, opts, pureMT, runSimulationAnti, trials)
 
-def evolve_ffi(anti, evolve, evolve', get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless):
+def evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless):
     """FFI bridge to Haskell implementation of Evolve."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./evolve.so")
-    _func_name = 'evolve'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(anti, evolve, evolve', get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless)
+    return _func(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless)
 
 def maxstep_ffi():
     """FFI bridge to Haskell implementation of Maxstep."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./maxstep.so")
-    _func_name = 'maxStep'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.restype = ctypes.c_void_p
     return _func()
@@ -241,7 +243,7 @@ def simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
     """FFI bridge to Haskell implementation of Simulatestate."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./simulatestate.so")
-    _func_name = 'simulateState'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -251,67 +253,67 @@ def runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
     """FFI bridge to Haskell implementation of Runsim."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./runsim.so")
-    _func_name = 'runSim'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
     return _func(ccs, div, modl, runSimulation, seed, trials, x)
 
-def process_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl', fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap', process, t, xs):
+def process_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
     """FFI bridge to Haskell implementation of Process."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
-    _func_name = 'process'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl', fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap', process, t, xs)
+    return _func(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
-def process_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl', fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap', process, t, xs):
+def process_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
     """FFI bridge to Haskell implementation of Process."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
-    _func_name = 'process'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(anti, ccs, cfList, discCFs, evolve, flip, foldl', fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap', process, t, xs)
+    return _func(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
 def process_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process):
     """FFI bridge to Haskell implementation of Process."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
-    _func_name = 'process'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
     return _func(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process)
 
-def process_ffi(discCFs, return):
+def process_ffi(discCFs, return_val):
     """FFI bridge to Haskell implementation of Process."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./process.so")
-    _func_name = 'process'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(discCFs, return)
+    return _func(discCFs, return_val)
 
-def insertcf_ffi(amt, amt', cfs, insertCF, otherwise, t, t'):
+def insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
     """FFI bridge to Haskell implementation of Insertcf."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcf.so")
-    _func_name = 'insertCF'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(amt, amt', cfs, insertCF, otherwise, t, t')
+    return _func(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime)
 
 def insertcf_ffi(cf):
     """FFI bridge to Haskell implementation of Insertcf."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcf.so")
-    _func_name = 'insertCF'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
@@ -321,28 +323,28 @@ def avg_ffi(fromIntegral, sum, trials, v):
     """FFI bridge to Haskell implementation of Avg."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./avg.so")
-    _func_name = 'avg'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
     return _func(fromIntegral, sum, trials, v)
 
-def insertcflist_ffi(cfList, flip, foldl', insertCF, xs):
+def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
     """FFI bridge to Haskell implementation of Insertcflist."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcflist.so")
-    _func_name = 'insertCFList'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(cfList, flip, foldl', insertCF, xs)
+    return _func(cfList, flip, foldl_prime, insertCF, xs)
 
-def insertcflist_ffi(cfList, flip, foldl', insertCF, xs):
+def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
     """FFI bridge to Haskell implementation of Insertcflist."""
     # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./insertcflist.so")
-    _func_name = 'insertCFList'
+    _func_name = 'placeholder'
     _func = _lib[_func_name]
     _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
-    return _func(cfList, flip, foldl', insertCF, xs)
+    return _func(cfList, flip, foldl_prime, insertCF, xs)

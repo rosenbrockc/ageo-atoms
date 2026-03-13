@@ -1,9 +1,10 @@
+from __future__ import annotations
 """Auto-generated verified atom wrapper."""
 
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_almgren_chriss_execution, witness_limit_order_queue_estimator, witness_market_making_avellaneda, witness_pin_informed_trading
 
 
 

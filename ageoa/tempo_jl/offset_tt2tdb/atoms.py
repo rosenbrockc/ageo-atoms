@@ -12,7 +12,7 @@ from .witnesses import witness_offset_tt2tdb
 @icontract.require(lambda seconds: seconds is not None, "seconds cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def offset_tt2tdb(seconds: float) -> float:
-    """Returns the periodic TT-to-TDB time-scale offset (seconds) due to relativistic effects from Earth's elliptical orbit.
+    """Returns the periodic TT-to-TDB time-scale offset (seconds) due to relativistic effects from Earth_primes elliptical orbit.
 
     Args:
         seconds: TT epoch expressed in seconds since J2000.0

@@ -1,18 +1,7 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
 def witness_computebeatagreementsqi(detector_1: AbstractArray, detector_2: AbstractArray, fs: AbstractArray, mode: AbstractArray, search_window: AbstractArray) -> AbstractArray:
     """Ghost witness for ComputeBeatAgreementSQI."""
@@ -27,7 +16,7 @@ def witness_computefrequencysqi(ecg_signal: AbstractSignal, fs: AbstractSignal, 
     result = AbstractSignal(
         shape=ecg_signal.shape,
         dtype="float64",
-        sampling_rate=getattr(ecg_signal, 'sampling_rate', 44100.0),
+        sampling_rate=getattr(ecg_signal, 'sampling_rate_prime', 44100.0),
         domain="time",
     )
     return result

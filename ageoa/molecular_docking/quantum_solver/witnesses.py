@@ -1,23 +1,12 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractMCMCTrace, AbstractRNGState, AbstractScalar, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-    from ageoa.ghost.abstract import AbstractMCMCTrace
-    from ageoa.ghost.abstract import AbstractRNGState
-except ImportError:
-    pass
-
-def witness_quantumproblemdefinition(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
+def witness_quantumproblemdefinition(family, event_shape, *args, **kwargs):
     """Ghost witness for prior init: QuantumProblemDefinition."""
     return AbstractDistribution(
         family=family,
-        event_shape=event_shape,
-    )
+        event_shape=event_shape,)
+
 
 def witness_adiabaticquantumsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
     """Ghost witness for MCMC sampler: AdiabaticQuantumSampler."""
@@ -31,6 +20,6 @@ def witness_solutionextraction(measurement_counts: AbstractArray, final_register
     """Ghost witness for SolutionExtraction."""
     result = AbstractArray(
         shape=measurement_counts.shape,
-        dtype="float64",
-    )
+        dtype="float64",)
+
     return result

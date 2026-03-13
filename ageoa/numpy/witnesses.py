@@ -1,12 +1,6 @@
-"""Ghost witnesses for NumPy wrapper atoms."""
-
 from __future__ import annotations
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, AbstractRNGState
 from typing import Any, Sequence
-
-from ageoa.ghost.abstract import AbstractArray, AbstractRNGState, AbstractScalar
-
-
 ShapeLike = int | Sequence[int] | None
 AbstractValue = AbstractArray | AbstractScalar
 

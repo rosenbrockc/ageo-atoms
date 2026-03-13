@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -11,10 +12,9 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_marketmakerstateinit, witness_optimalquotecalculation
 
 # Witness functions should be imported from the generated witnesses module
-from typing import Any
 @register_atom(witness_marketmakerstateinit)  # type: ignore[untyped-decorator]
 def witness_optimalquotecalculation(*args, **kwargs): pass
 @register_atom(witness_marketmakerstateinit)
@@ -22,7 +22,7 @@ def witness_optimalquotecalculation(*args, **kwargs): pass
 @icontract.require(lambda inventory: isinstance(inventory, (float, int, np.number)), "inventory must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "MarketMakerStateInit all outputs must not be None")
 def marketmakerstateinit(s0: float, inventory: float) -> tuple[float, float, float, float, float]:
-    """Bootstraps the market-maker's immutable parameter state from a supplied initial mid-price and inventory position, materialising the five scalar fields — risk-aversion (gamma), market-depth (k), inventory (q), mid-price (s), and volatility (sigma) — that all downstream computations consume as pure inputs.
+    """Bootstraps the market-maker's immutable parameter state from a supplied initial mid-price and inventory position, materialising the five scalar fields - risk-aversion (gamma), market-depth (k), inventory (q), mid-price (s), and volatility (sigma) - that all downstream computations consume as pure inputs.
 
     Args:
         s0: s0 > 0

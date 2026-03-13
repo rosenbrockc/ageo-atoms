@@ -1,13 +1,6 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
 def witness_posterior_randmodel(pri: AbstractArray, G: AbstractArray, data: AbstractArray) -> AbstractArray:
     """Ghost witness for Posterior Randmodel."""
@@ -17,7 +10,7 @@ def witness_posterior_randmodel(pri: AbstractArray, G: AbstractArray, data: Abst
     )
     return result
 
-def witness_posterior_randmodel(pri: AbstractArray, G: AbstractArray, data: AbstractArray, w: AbstractArray) -> AbstractArray:
+def witness_posterior_randmodel_weighted(pri: AbstractArray, G: AbstractArray, data: AbstractArray, w: AbstractArray) -> AbstractArray:
     """Ghost witness for Posterior Randmodel."""
     result = AbstractArray(
         shape=pri.shape,

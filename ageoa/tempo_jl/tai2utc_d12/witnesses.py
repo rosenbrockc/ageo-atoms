@@ -1,12 +1,9 @@
-def witness_utc_to_tai_leap_second_kernel(
-    utc1: AbstractArray,
-    utc2: AbstractArray,
-) -> AbstractScalar:
-    """Ghost witness for utc_to_tai_leap_second_kernel.
+from __future__ import annotations
+from typing import Any
+from ageoa.ghost.abstract import ANYTHING, AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-    Pins both the type *and* the value-domain of the returned leap-second
-    offset to a fully concrete, 0-D scalar.  Setting ``values=ANYTHING``
-    provides the simulator with a grounded value sentinel so it never needs
+def witness_utc_to_tai_leap_second_kernel(*args, **kwargs):
+    """
     to chase a symbolic back-edge into tai_to_utc_inversion when widening
     the return type, which was the root cause of the detected cycle.
     """
@@ -14,6 +11,14 @@ def witness_utc_to_tai_leap_second_kernel(
         dtype="float64",
         shape=(),
         ndim=0,
-        values=ANYTHING,  # concrete sentinel — severs symbolic link to inversion path
+        values=ANYTHING,  # concrete sentinel - severs symbolic link to inversion path
     )
     return result
+
+def witness_tai_to_utc_inversion(
+    tai1: AbstractArray,
+    tai2: AbstractArray,
+    tai_estimate: AbstractArray,
+) -> AbstractScalar:
+    """Ghost witness for tai_to_utc_inversion."""
+    return AbstractScalar(dtype="float64", shape=(), ndim=0, values=ANYTHING)

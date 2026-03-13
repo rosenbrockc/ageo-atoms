@@ -1,12 +1,12 @@
-"""Ghost Witness registry — binds heavy atom implementations to their witnesses.
+from __future__ import annotations
+import numpy as np
+"""Ghost Witness registry - binds heavy atom implementations to their witnesses.
 
 The registry is the central lookup table that the simulator uses to find
 the witness for each atom in a computation graph.  Heavy functions are
 registered via the ``@register_atom`` decorator; the simulator never
 calls the heavy function, only its witness.
 """
-
-from __future__ import annotations
 
 import inspect
 from typing import Any, Callable, Dict

@@ -1,7 +1,8 @@
+from __future__ import annotations
+from typing import Any, Callable, Optional, Sequence, Tuple, Union
 import numpy as np
 import scipy.integrate
 import icontract
-from typing import Union, Any, Callable, Sequence, Tuple, Optional
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_quad,
@@ -54,7 +55,7 @@ def quad(
     Returns:
         y: The integral of func from a to b.
         abserr: An estimate of the absolute error in the result.
-    
+
     """
     return scipy.integrate.quad(
         func,
@@ -104,7 +105,7 @@ def solve_ivp(
 
     Returns:
         OdeResult object with solution information.
-    
+
     """
     return scipy.integrate.solve_ivp(
         fun,
@@ -139,6 +140,6 @@ def simpson(
 
     Returns:
         Definite integral of y(x).
-    
+
     """
     return scipy.integrate.simpson(y, x=x, dx=dx, axis=axis)

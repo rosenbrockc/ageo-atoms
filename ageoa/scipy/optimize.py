@@ -1,7 +1,8 @@
+from __future__ import annotations
+from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
 import numpy as np
 import scipy.optimize
 import icontract
-from typing import Union, Any, Callable, Sequence, Dict, Optional, Tuple
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_curve_fit,
@@ -51,7 +52,7 @@ def minimize(
 
     Returns:
         The optimization result represented as a ``OptimizeResult`` object.
-    
+
     """
     return scipy.optimize.minimize(
         fun,
@@ -97,7 +98,7 @@ def root(
 
     Returns:
         The solution represented as a ``OptimizeResult`` object.
-    
+
     """
     return scipy.optimize.root(
         fun,
@@ -145,7 +146,7 @@ def linprog(
     Returns:
         A ``scipy.optimize.OptimizeResult`` consisting of the following
         fields: x, fun, success, slack, con, status, message, nit.
-    
+
     """
     return scipy.optimize.linprog(
         c,
@@ -200,7 +201,7 @@ def curve_fit(
         popt: Optimal values for the parameters so that the sum of the
             squared residuals of f(xdata, *popt) - ydata is minimized.
         pcov: The estimated covariance of popt.
-    
+
     """
     return scipy.optimize.curve_fit(
         f,

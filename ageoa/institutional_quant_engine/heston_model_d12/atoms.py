@@ -1,7 +1,8 @@
 from __future__ import annotations
+from typing import Any
+import icontract
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from typing import Any
 
 import numpy as np
 import torch
@@ -11,9 +12,9 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_hestonpathsampler
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_hestonpathsampler
 # Witness functions should be imported from the generated witnesses module
 witness_hestonpathsampler: object = None  # placeholder; replace with actual witness import
 @register_atom(witness_hestonpathsampler)  # type: ignore[misc]

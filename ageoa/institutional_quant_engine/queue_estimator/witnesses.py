@@ -1,26 +1,15 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-except ImportError:
-    pass
-
-def witness_initializeorderstate(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
+def witness_initializeorderstate(my_order_id, my_qty, orders_ahead, state, *args, **kwargs):
     """Ghost witness for prior init: InitializeOrderState."""
-    return AbstractDistribution(
-        family=family,
-        event_shape=event_shape,
-    )
+    return AbstractArray(shape=(1,), dtype="float64")
+    
 
-def witness_updatequeueontrade(current_order_state: AbstractArray, trade_qty: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
+def witness_updatequeueontrade(current_order_state, trade_qty, state, *args, **kwargs):
     """Ghost witness for UpdateQueueOnTrade."""
     result = AbstractArray(
-        shape=current_order_state.shape,
-        dtype="float64",
-    )
-    return result, state
+        shape=(1,),
+        dtype="float64",)
+    new_state = AbstractArray(shape=(1,), dtype="float64")
+    return result, new_state

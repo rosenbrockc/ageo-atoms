@@ -1,4 +1,15 @@
 from __future__ import annotations
+from typing import Any, Dict, List, Optional, Tuple
+Boolean: Any = Any
+CountDistribution: Any = Any
+Integer: Any = Any
+Permutation: Any = Any
+ProblemGraph: Any = Any
+QuantumRegister: Any = Any
+RegisterCoordinates: Any = Any
+Solution: Any = Any
+
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,7 +17,8 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_adiabaticquantumsampler, witness_quantumproblemdefinition, witness_solutionextraction
+from ageoa.ghost.abstract import Boolean, Integer, QuantumRegister, Permutation, CountDistribution, Solution
 
 # Witness functions should be imported from the generated witnesses module
 

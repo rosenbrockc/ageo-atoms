@@ -12,13 +12,13 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_filterstateinit, witness_filterstep
 
 # Import the original class for __new__ instantiation
-# from <source_module> import OnlineFilter
+from biosppy.signals.tools import OnlineFilter
 
 # State model should be imported from the generated state_models module
-# from <state_module> import FilterParamState
+from .state_models import FilterParamState
 
 # Witness functions should be imported from the generated witnesses module
 

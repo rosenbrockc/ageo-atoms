@@ -1,15 +1,8 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_gan_patch_reconstruction(ppg_clean: AbstractSignal, noise: AbstractSignal, sampling_rate: AbstractSignal, generator: AbstractSignal, device: AbstractSignal) -> AbstractSignal:
+def witness_gan_patch_reconstruction(ppg_clean: AbstractSignal, noise: AbstractSignal, sampling_rate: AbstractScalar, generator: AbstractSignal, device: AbstractSignal) -> AbstractSignal:
     """Ghost witness for GAN Patch Reconstruction."""
     result = AbstractSignal(
         shape=ppg_clean.shape,

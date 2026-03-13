@@ -1,15 +1,8 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_encodedistancematrix(mat_list: AbstractArray, max_cdr3: AbstractArray, max_epi: AbstractArray) -> AbstractArray:
+def witness_encodedistancematrix(mat_list: AbstractArray, max_cdr3: AbstractScalar, max_epi: AbstractScalar) -> AbstractArray:
     """Ghost witness for EncodeDistanceMatrix."""
     result = AbstractArray(
         shape=mat_list.shape,

@@ -1,6 +1,5 @@
-"""Ghost witnesses."""
-
-from ageoa.ghost.abstract import AbstractArray
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 def witness_quantum_mwis_solver(data: AbstractArray) -> AbstractArray:
     """Witness for quantum_mwis_solver."""

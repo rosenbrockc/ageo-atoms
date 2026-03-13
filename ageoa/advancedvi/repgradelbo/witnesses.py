@@ -1,15 +1,8 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
-
-def witness_gradient_oracle_evaluation(rng_in: AbstractArray, obj: AbstractArray, adtype: AbstractArray, out_in: AbstractArray, state_in: AbstractArray, params: AbstractArray, restructure: AbstractArray) -> AbstractArray:
+def witness_gradient_oracle_evaluation(rng_in: AbstractArray, obj: AbstractArray, adtype: AbstractArray, out_in: AbstractArray, state_in: AbstractArray, params: AbstractArray, restructure: AbstractArray) -> tuple[AbstractArray, AbstractArray, AbstractArray, AbstractArray]:
     """Ghost witness for Gradient Oracle Evaluation."""
     result = AbstractArray(
         shape=rng_in.shape,

@@ -3,7 +3,7 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_dijkstra_path_planning, witness_n_joint_arm_solver
 
 
 

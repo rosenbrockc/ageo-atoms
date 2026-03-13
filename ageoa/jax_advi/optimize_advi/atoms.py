@@ -6,7 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_meanfieldvariationalfit, witness_posteriordrawsampling
 
 # Witness functions should be imported from the generated witnesses module
 def witness_meanfieldvariationalfit(*args, **kwargs): pass

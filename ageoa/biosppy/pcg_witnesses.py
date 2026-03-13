@@ -9,7 +9,7 @@ except ImportError:
 
 def witness_shannon_energy(signal: AbstractSignal) -> AbstractSignal:
     """Ghost witness for Shannon Energy calculation.
-    
+
     Postconditions:
         - Output shape matches input.
         - Domain is 'envelope'.
@@ -25,7 +25,7 @@ def witness_shannon_energy(signal: AbstractSignal) -> AbstractSignal:
 
 def witness_pcg_segmentation(envelope: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
     """Ghost witness for Cyclic Event Segmentation.
-    
+
     Postconditions:
         - Returns (s1_indices, s2_indices).
     """

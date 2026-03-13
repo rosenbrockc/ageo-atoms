@@ -1,4 +1,13 @@
 from __future__ import annotations
+from typing import Any, Collection, List, Set, Dict, Tuple
+Graph: Any = Any
+GreedyMappingContext: Any = Any
+LatticeInstance: Any = Any
+MappingState: Any = Any
+NodeId: Any = Any
+ScoredNode: Any = Any
+Subgraph: Any = Any
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -10,13 +19,11 @@ import haiku as hk
 
 import networkx as nx  # type: ignore
 import icontract
-from typing import Any, Collection
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_construct_mapping_state_via_greedy_expansion, witness_init_problem_context, witness_orchestrate_generation_and_validate
+from ageoa.ghost.abstract import Graph
 
 # Fallback symbols for type-checking generated wrappers.
-Graph = Any
-LatticeInstance = Any
 Subgraph = Any
 GreedyMappingContext = Any
 NodeId = Any
@@ -25,6 +32,7 @@ ScoredNode = Any
 
 def witness_init_problem_context(*args, **kwargs): pass
 def witness_construct_mapping_state_via_greedy_expansion(*args, **kwargs): pass
+def witness_orchestrate_generation_and_validate(*args, **kwargs): pass
 @register_atom(witness_init_problem_context)  # type: ignore[untyped-decorator]
 @register_atom(witness_init_problem_context)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")

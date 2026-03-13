@@ -1,14 +1,15 @@
 from __future__ import annotations
+import numpy as np
 """AlphaFold 3D Equivariant Structural Atoms."""
 
 
 import haiku as hk
+import jax.numpy as jnp
 
 import icontract
 from typing import Tuple
 
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
 from ageoa.alphafold.state_models import AlphaFoldStructuralState
 from ageoa.alphafold.witnesses import (
     witness_invariant_point_attention,
@@ -43,7 +44,7 @@ def invariant_point_attention(
     # Placeholder for actual IPA logic
     # In a real scenario, this would call hk.Module methods
     nodes_updated = nodes + jnp.zeros_like(nodes)
-    
+
     new_state = state.model_copy(update={"nodes": nodes_updated})
     return nodes_updated, new_state
 
@@ -67,7 +68,7 @@ def equivariant_frame_update(
     """
     # Placeholder for frame update logic (rotation/translation)
     updated_frames = frames
-    
+
     new_state = state.model_copy(update={"frames": updated_frames})
     return updated_frames, new_state
 
@@ -93,5 +94,5 @@ def coordinate_reconstruction(
     # Placeholder for coordinate reconstruction
     n_res = torsions.shape[0]
     coords = jnp.zeros((n_res, 37, 3))
-    
+
     return coords, state

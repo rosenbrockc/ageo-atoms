@@ -10,17 +10,17 @@ import jax.numpy as jnp
 import haiku as hk
 
 import networkx as nx  # type: ignore
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+import icontract
 from ageoa.ghost.registry import register_atom
-# Witness functions should be imported from the generated witnesses module
-witness_forwardmultidimensionalfft: Any = None
-@register_atom(witness_forwardmultidimensionalfft)  # type: ignore[untyped-decorator]
-witness_hermitianspectraltransform: Any = None
+from .witnesses import (
+    witness_forwardmultidimensionalfft,
+    witness_inversemultidimensionalfft,
+    witness_hermitianspectraltransform,
+)
 
 @register_atom(witness_forwardmultidimensionalfft)
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda s: s is not None, "s cannot be None")
-def forwardmultidimensionalfft(a: np.ndarray[Any, np.dtype[Any]], s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray[Any, np.dtype[Any]]:
 @icontract.require(lambda norm: norm is not None, "norm cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "ForwardMultidimensionalFFT output must not be None")
 def forwardmultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray:
@@ -30,17 +30,16 @@ def forwardmultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[in
         a: spatial or time-domain input array
         s: output shape along each transformed axis; None preserves input size
         axes: axes over which the FFT is computed; None applies to all axes
-        norm: normalization mode — None (backward), 'ortho', or 'forward'
+        norm: normalization mode - None (backward), 'ortho', or 'forward'
 
     Returns:
         full complex frequency-domain representation
-@register_atom(witness_inversemultidimensionalfft)  # type: ignore[untyped-decorator]
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_inversemultidimensionalfft)
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda s: s is not None, "s cannot be None")
-def inversemultidimensionalfft(a: np.ndarray[Any, np.dtype[Any]], s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray[Any, np.dtype[Any]]:
 @icontract.require(lambda norm: norm is not None, "norm cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "InverseMultidimensionalFFT output must not be None")
 def inversemultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[int] | None, norm: str | None) -> np.ndarray:
@@ -50,17 +49,16 @@ def inversemultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[in
         a: frequency-domain input spectrum
         s: output shape along each transformed axis; None preserves input size
         axes: axes over which the IFFT is computed; None applies to all axes
-        norm: normalization mode — None (backward), 'ortho', or 'forward'
+        norm: normalization mode - None (backward), 'ortho', or 'forward'
 
     Returns:
         reconstructed spatial or time-domain array; imaginary part negligible for real-valued originals
-@register_atom(witness_hermitianspectraltransform)  # type: ignore[untyped-decorator]
+    """
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_hermitianspectraltransform)
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda n: n is not None, "n cannot be None")
-def hermitianspectraltransform(a: np.ndarray[Any, np.dtype[Any]], n: int | None, axis: int, norm: str | None) -> np.ndarray[Any, np.dtype[Any]]:
 @icontract.require(lambda norm: norm is not None, "norm cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "HermitianSpectralTransform output must not be None")
 def hermitianspectraltransform(a: np.ndarray, n: int | None, axis: int, norm: str | None) -> np.ndarray:
@@ -70,7 +68,7 @@ def hermitianspectraltransform(a: np.ndarray, n: int | None, axis: int, norm: st
         a: Hermitian-symmetric complex signal for hfft; real-valued spectrum for ihfft
         n: desired output length along the transformed axis; None infers from input
         axis: single axis over which the transform is applied; default -1
-        norm: normalization mode — None (backward), 'ortho', or 'forward'
+        norm: normalization mode - None (backward), 'ortho', or 'forward'
 
     Returns:
         real-valued output spectrum for hfft; Hermitian-symmetric complex array for ihfft

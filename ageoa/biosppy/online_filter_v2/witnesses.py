@@ -1,18 +1,7 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
-
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 import networkx as nx  # type: ignore
 
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-except ImportError:
-    pass
 
 def witness_filterstateinit(b: AbstractArray, a: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for FilterStateInit."""
@@ -27,7 +16,7 @@ def witness_filterstep(signal: AbstractSignal, b: AbstractSignal, a: AbstractSig
     result = AbstractSignal(
         shape=signal.shape,
         dtype="float64",
-        sampling_rate=getattr(signal, 'sampling_rate', 44100.0),
+        sampling_rate=getattr(signal, 'sampling_rate_prime', 44100.0),
         domain="time",
     )
     return result, state

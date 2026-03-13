@@ -9,7 +9,7 @@ except ImportError:
 
 def witness_gamboa_segmenter(signal: AbstractSignal) -> AbstractSignal:
     """Ghost witness for Derivative-Based Onset Detection.
-    
+
     Postconditions:
         - Output is a 1D array of onset indices.
         - Domain is 'index'.
@@ -25,7 +25,7 @@ def witness_gamboa_segmenter(signal: AbstractSignal) -> AbstractSignal:
 
 def witness_eda_feature_extraction(signal: AbstractSignal, onsets: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal, AbstractSignal]:
     """Ghost witness for Transient Feature Extraction.
-    
+
     Postconditions:
         - Returns (amplitudes, rise_times, decay_times).
     """

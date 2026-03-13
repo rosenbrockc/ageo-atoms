@@ -3,7 +3,7 @@
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *
+from .witnesses import witness_dm_can_brute_force, witness_spline_bandpass_correction
 
 
 

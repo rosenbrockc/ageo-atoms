@@ -1,23 +1,12 @@
-"""Concrete Ghost Witnesses for DSP atoms.
-
-Each witness function mirrors the *contract* of its heavy counterpart but
-operates only on ``AbstractSignal`` metadata.  The witness:
-
-1. Checks domain / shape / dtype preconditions (raises ``ValueError`` on
-   violation — the simulator catches this as a ``PlanError``).
-2. Propagates metadata to describe the output signal.
-
-Witnesses are registered against the heavy atoms via ``@register_atom``
-in this module's ``register_all()`` function, which must be called once
-at import time (handled by the ``ghost`` package ``__init__``).
-"""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 from typing import Tuple
 
 from ageoa.ghost.abstract import (
     AbstractSignal,
+    AbstractArray,
+    AbstractScalar,
     AbstractBeatPool,
     AbstractDistribution,
     AbstractMCMCTrace,
@@ -350,7 +339,7 @@ def witness_peak_detect(sig: AbstractSignal) -> AbstractSignal:
         - Input must be in time domain.
     Postconditions:
         - Output is a list of integer indices.
-        - Shape is (0,) — dynamic length, unknown until runtime.
+        - Shape is (0,) - dynamic length, unknown until runtime.
     """
     sig.assert_domain("time")
     return AbstractSignal(
@@ -842,16 +831,13 @@ def witness_bijector_transform(
 @register_atom(witness_kalman_gain)
 def kalman_gain(P: AbstractMatrix, H: AbstractMatrix) -> AbstractMatrix:
     """Heavy atom for Kalman Gain (placeholder)."""
-    pass
 
 
 @register_atom(witness_bijector_transform)
 def bijector_transform(dist: AbstractDistribution) -> tuple[AbstractDistribution, AbstractSignal]:
     """Heavy atom for bijector transform (placeholder)."""
-    pass
 
 
 @register_atom(witness_vi_elbo)
 def vi_elbo(q_dist: AbstractDistribution, p_dist: AbstractDistribution, n_samples: int = 1) -> AbstractScalar:
     """Heavy atom for VI ELBO (placeholder)."""
-    pass

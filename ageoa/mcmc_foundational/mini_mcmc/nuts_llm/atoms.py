@@ -1,8 +1,8 @@
 from __future__ import annotations
+from typing import Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
-from typing import Callable
 import numpy as np
 
 import icontract

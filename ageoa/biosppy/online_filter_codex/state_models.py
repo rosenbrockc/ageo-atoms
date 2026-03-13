@@ -1,6 +1,6 @@
-"""Auto-generated Pydantic state models for cross-window state."""
-
 from __future__ import annotations
+import numpy as np
+"""Auto-generated Pydantic state models for cross-window state."""
 
 from typing import Any
 

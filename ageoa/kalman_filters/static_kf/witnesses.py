@@ -1,20 +1,12 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
-
 from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
 
 
-
-try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
-    from ageoa.ghost.abstract import AbstractDistribution
-except ImportError:
-    pass
-
-def witness_initializelineargaussianstatemodel(event_shape: tuple[int, ...], family: str = "normal") -> AbstractDistribution:
+def witness_initializelineargaussianstatemodel(initial_state: AbstractArray, initial_covariance: AbstractArray, transition_matrix: AbstractArray, process_noise: AbstractArray, observation_matrix: AbstractArray, measurement_noise: AbstractArray) -> AbstractDistribution:
     """Ghost witness for prior init: InitializeLinearGaussianStateModel."""
     return AbstractDistribution(
-        family=family,
-        event_shape=event_shape,
+        family="linear_gaussian",
+        event_shape=initial_state.shape,
     )
 
 def witness_predictlatentstate(state_model: AbstractArray) -> AbstractArray:

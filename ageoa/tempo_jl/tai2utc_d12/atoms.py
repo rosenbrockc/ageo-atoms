@@ -11,7 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import *  # type: ignore[import-untyped]
+from .witnesses import witness_tai_to_utc_inversion, witness_utc_to_tai_leap_second_kernel
 
 from juliacall import Main as jl  # type: ignore[import-untyped]
 

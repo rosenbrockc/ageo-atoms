@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any, Callable
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -7,9 +8,8 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 
-from typing import Any, Callable
 
-from .witnesses import witness_initializemarketmakerstate, witness_computeinventoryadjustedquotes
+from .witnesses import witness_computeinventoryadjustedquotes, witness_initializemarketmakerstate
 
 @register_atom(witness_initializemarketmakerstate)
 @icontract.require(lambda inventory: isinstance(inventory, (float, int, np.number)), "inventory must be numeric")

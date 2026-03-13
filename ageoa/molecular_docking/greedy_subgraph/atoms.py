@@ -1,4 +1,9 @@
 from __future__ import annotations
+from typing import Any
+Boolean: Any = Any
+Node: Any = Any
+
+import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -6,6 +11,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_greedy_maximum_subgraph
+from ageoa.ghost.abstract import Boolean, Node
 
 
 @register_atom(witness_greedy_maximum_subgraph)

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from .atoms import rbis_state_estimation
 from .backlash_filter.atoms import initializebacklashfilterstate, updatealphaparameter, updatecrossingtimemaximum
 from .blip_filter.atoms import bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation

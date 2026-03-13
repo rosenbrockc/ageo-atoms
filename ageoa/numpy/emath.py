@@ -32,7 +32,7 @@ def sqrt(x: ArrayLike) -> Any:
     Returns:
         The square root of x. If x was a scalar, so is the result,
         otherwise an array is returned.
-    
+
     """
     return np.emath.sqrt(x)
 
@@ -52,7 +52,7 @@ def log(x: ArrayLike) -> Any:
     Returns:
         The log of x. If x was a scalar, so is the result,
         otherwise an array is returned.
-    
+
     """
     return np.emath.log(x)
 
@@ -72,7 +72,7 @@ def log10(x: ArrayLike) -> Any:
     Returns:
         The log base 10 of x. If x was a scalar, so is the result,
         otherwise an array is returned.
-    
+
     """
     return np.emath.log10(x)
 
@@ -94,7 +94,7 @@ def logn(n: Numeric, x: ArrayLike) -> Any:
     Returns:
         The log base n of x. If x was a scalar, so is the result,
         otherwise an array is returned.
-    
+
     """
     return np.emath.logn(n, x)
 

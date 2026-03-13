@@ -23,7 +23,7 @@ witness_combinatoricssampler: None = None
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "ContinuousMultivariateSampler all outputs must not be None")
 def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.ndarray, size: int | tuple[int, ...] | None, check_valid: str, tol: float) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
-    """Draws samples from continuous multivariate distributions (Multivariate Normal and Dirichlet). These are the canonical prior/posterior distributions in Bayesian models — MVN for latent Gaussian states and Dirichlet for simplex-valued concentration parameters. Both are stateless, producing IID draws given distribution parameters.
+    """Draws samples from continuous multivariate distributions (Multivariate Normal and Dirichlet). These are the canonical prior/posterior distributions in Bayesian models - MVN for latent Gaussian states and Dirichlet for simplex-valued concentration parameters. Both are stateless, producing IID draws given distribution parameters.
 
     Args:
         mean: length must match leading dim of cov

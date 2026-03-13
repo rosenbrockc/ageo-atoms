@@ -1,7 +1,8 @@
+from __future__ import annotations
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
+from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from __future__ import annotations
-from typing import Any
 
 import numpy as np
 import torch
@@ -12,16 +13,18 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
+from .witnesses import (
+    witness_singlesourceshortestpath,
+    witness_allpairsshortestpath,
+    witness_minimumspanningtree,
+)
 
-witness_singlesourceshortestpath: Any = None
-witness_allpairsshortestpath: Any = None
-@register_atom(witness_singlesourceshortestpath)  # type: ignore[untyped-decorator]
 
 @register_atom(witness_singlesourceshortestpath)
 @icontract.require(lambda limit: isinstance(limit, (float, int, np.number)), "limit must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "SingleSourceShortestPath all outputs must not be None")
 def singlesourceshortestpath(csgraph: Any, directed: bool, indices: Any, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> Any:
-    """Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent — locate optimal routes from a set of origins — and return a distance matrix plus an optional predecessor map.
+    """Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent - locate optimal routes from a set of origins - and return a distance matrix plus an optional predecessor map.
 
     Args:
         csgraph: valid scipy sparse graph; Dijkstra requires non-negative weights
@@ -36,7 +39,7 @@ def singlesourceshortestpath(csgraph: Any, directed: bool, indices: Any, return_
         dist_matrix: inf where no path exists; K = len(indices) or N when indices=None
         predecessors: emitted only when return_predecessors=True; -9999 for unreachable nodes
     """
-@register_atom(witness_allpairsshortestpath)  # type: ignore[untyped-decorator]
+    raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_allpairsshortestpath)
 @icontract.require(lambda csgraph: csgraph is not None, "csgraph cannot be None")
@@ -57,7 +60,7 @@ def allpairsshortestpath(csgraph: Any, directed: bool, return_predecessors: bool
         dist_matrix: inf where no path exists; diagonal is 0
         predecessors: emitted only when return_predecessors=True
     """
-@register_atom(witness_minimumspanningtree)  # type: ignore[untyped-decorator]
+    raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_minimumspanningtree)
 @icontract.require(lambda csgraph: csgraph is not None, "csgraph cannot be None")
