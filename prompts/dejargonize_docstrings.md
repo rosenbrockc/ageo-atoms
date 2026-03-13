@@ -87,3 +87,20 @@ Run this prompt against each file individually. For each function:
 2. Infer domain from the directory path (e.g., `biosppy/ecg_hamilton` → biomedical ECG processing)
 3. Rewrite the docstring following the rules above
 4. If you cannot confidently explain what a function does from context alone, add a `# TODO: domain expert review needed` comment above the function and make your best attempt
+
+## Validation
+
+After rewriting, run the jargon scorer to verify improvement:
+
+```bash
+# Score all docstrings (only shows score ≥ 0.4 by default)
+python validate_jargon.py
+
+# CI gate: fails if any docstring scores ≥ 0.4
+python validate_jargon.py --ci
+
+# Check a single file you just edited
+python validate_jargon.py ageoa/biosppy/ecg_hamilton/atoms.py --all
+```
+
+The scorer (`validate_jargon.py` at the repo root) is fully deterministic and uses four weighted signals: acronym density, rare-word ratio, Flesch–Kincaid grade level, and unexplained-acronym ratio. Target a score below **0.4** for every docstring. A score above **0.6** indicates the docstring is likely unintelligible to a non-domain-expert.
