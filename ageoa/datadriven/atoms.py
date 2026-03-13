@@ -128,11 +128,7 @@ def discover_equations(
 
     basis_res = jl.seval("DataDrivenDiffEq.get_basis(res)")
     jl.basis_res = basis_res
-    equations = []
-    for _line in str(basis_res).splitlines():
-        stripped = _line.strip()
-        if stripped:
-            equations.append(stripped)
+    equations = [line.strip() for line in str(basis_res).splitlines() if line.strip()]
 
     param_map = jl.seval("DataDrivenDiffEq.get_parameter_map(basis_res)")
     params: dict[str, float] = {}
