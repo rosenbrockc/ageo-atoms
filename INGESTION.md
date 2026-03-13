@@ -4,7 +4,10 @@ This document specifies the exact procedure for wrapping an existing library
 function (numpy, scipy, etc.) as a verified atom in the `ageoa` package.
 Every atom must satisfy the rules below so that the
 [ageo-matcher](https://github.com/rosenbrockc/ageo-matcher) pipeline can
-index, match, assemble, type-check, and export it correctly.
+index, match, assemble, type-check, export, and catalog-sync it correctly.
+Repository-level verification is now part of that contract: before matcher
+catalogs are rebuilt, the atoms repo must pass both the static completeness
+verifier and the source-local audit.
 
 ---
 
@@ -751,6 +754,13 @@ file lives in `tests/` and is named `test_{submodule}.py` (e.g.,
 **Tests must use `icontract.ViolationError`** for precondition violation
 assertions, never bare `Exception`.
 
+These tests are necessary but no longer sufficient for ingestion readiness.
+The matcher's catalog sync path now runs two repository-level gates before it
+rebuilds indexes: `scripts/verify_atoms_repo.py` and `scripts/audit.py`.
+That means an atom can still be blocked from catalog sync if it has missing
+imports, undefined witness symbols, unresolved implementation symbols, syntax
+errors, or other static completeness issues even when its unit tests pass.
+
 ### Category 1: Positive path (correct inputs produce correct output)
 
 Call the atom with valid inputs and assert the output is numerically correct
@@ -959,7 +969,41 @@ Tests (all five categories, class-based):
   [ ] Postcondition verification: explicitly assert @ensure properties
   [ ] Edge cases: boundary sizes, empty inputs, degenerate cases
   [ ] Upstream parity: output matches direct library call
+
+Repository verification and sync readiness:
+  [ ] `python ../ageo-matcher/scripts/verify_atoms_repo.py . --package ageoa` passes cleanly
+  [ ] `python scripts/audit.py` passes cleanly
+  [ ] `../ageo-matcher/sync_catalog.sh` completes without verifier warnings or errors
 ```
+
+### 14.1 Repository verification and catalog sync
+
+Before updating matcher indexes or skill catalogs for `ageoa`, run these
+commands from the atoms repo or matcher repo as appropriate:
+
+```bash
+python ../ageo-matcher/scripts/verify_atoms_repo.py . --package ageoa
+python scripts/audit.py
+../ageo-matcher/sync_catalog.sh
+```
+
+What each gate does:
+- `verify_atoms_repo.py`: static completeness check for undefined witness
+  symbols, missing state-model imports, unresolved implementation symbols,
+  missing common aliases like `np`, and syntax errors. With `--import-smoke`
+  it also attempts module imports.
+- `scripts/audit.py`: repository-specific audit of atom/witness/CDG structure
+  against the ingestion contract.
+- `sync_catalog.sh`: runs `ageom sources sync`, executes both verifiers for
+  every configured source, and only then rebuilds the matcher's Python
+  declaration index and skill index.
+
+Important current behavior:
+- `sync_catalog.sh` fails on any verifier error.
+- `sync_catalog.sh` also treats warnings as failures by default
+  (`SYNC_CATALOG_MAX_VERIFIER_WARNINGS=0`).
+- Fix verifier output until it is clean before expecting matcher catalog
+  updates to succeed.
 
 ---
 
