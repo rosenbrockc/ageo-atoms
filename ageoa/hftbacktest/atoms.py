@@ -44,11 +44,11 @@ def update_glft_coefficients(last_c1: float, last_c2: float, xi: float, gamma: f
     Args:
         last_c1: The previous state of the 'c1' coefficient.
         last_c2: The previous state of the 'c2' coefficient.
-        xi: Input data.
-        gamma: Input data.
-        delta: Input data.
-        A: Input data.
-        k: Input data.
+        xi: Risk aversion parameter; must be > 0.
+        gamma: Inventory risk parameter; must be > 0.
+        delta: Order size; must be > 0.
+        A: Trading intensity parameter A; must be > 0.
+        k: Trading intensity parameter k; must be > 0.
 
     Returns:
         next_c1: The updated state of the 'c1' coefficient.
@@ -70,13 +70,13 @@ def evaluate_spread_conditions(c1: float, c2: float, delta: float, volatility: f
     Args:
         c1: Current value of the 'c1' coefficient.
         c2: Current value of the 'c2' coefficient.
-        delta: Input data.
-        volatility: Input data.
-        adj1: Input data.
-        threshold: Input data.
+        delta: Order size; must be > 0.
+        volatility: Market volatility (sigma); must be >= 0.
+        adj1: Adjustment factor for half spread.
+        threshold: Ratio threshold for validity check; must be > 0.
 
     Returns:
-        half_spread: Result data.
-        is_valid_ratio: Result data.
+        half_spread: Computed half-spread value.
+        is_valid_ratio: True if half_spread / c1 ratio is within the threshold.
     """
     raise NotImplementedError("Wire to original implementation")

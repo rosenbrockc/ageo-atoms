@@ -1,16 +1,11 @@
 from __future__ import annotations
-from typing import Any
-"""Auto-generated atom wrappers following the ageoa pattern."""
 
+"""Atom wrappers for characteristic-function option pricing."""
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
+from typing import Callable
+
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_cf, witness_charfuncoption, witness_f
 
@@ -19,94 +14,195 @@ import ctypes.util
 from pathlib import Path
 
 
-# Witness functions should be imported from the generated witnesses module
+# ---------------------------------------------------------------------------
+# charfuncoption
+# ---------------------------------------------------------------------------
 
 @register_atom(witness_charfuncoption)
-@icontract.require(lambda cf: cf is not None, "cf cannot be None")
-@icontract.require(lambda charFuncMart: charFuncMart is not None, "charFuncMart cannot be None")
-@icontract.require(lambda d: d is not None, "d cannot be None")
-@icontract.require(lambda damp: damp is not None, "damp cannot be None")
-@icontract.require(lambda damp_prime: damp_prime is not None, "damp_prime cannot be None")
-@icontract.require(lambda disc: disc is not None, "disc cannot be None")
-@icontract.require(lambda exp: exp is not None, "exp cannot be None")
-@icontract.require(lambda f: f is not None, "f cannot be None")
-@icontract.require(lambda fg: fg is not None, "fg cannot be None")
-@icontract.require(lambda func1: func1 is not None, "func1 cannot be None")
-@icontract.require(lambda func2: func2 is not None, "func2 cannot be None")
-@icontract.require(lambda i: i is not None, "i cannot be None")
-@icontract.require(lambda intF: intF is not None, "intF cannot be None")
-@icontract.require(lambda k: k is not None, "k cannot be None")
-@icontract.require(lambda leftTerm: leftTerm is not None, "leftTerm cannot be None")
-@icontract.require(lambda log: log is not None, "log cannot be None")
-@icontract.require(lambda model: model is not None, "model cannot be None")
-@icontract.require(lambda opt: opt is not None, "opt cannot be None")
-@icontract.require(lambda p1: p1 is not None, "p1 cannot be None")
-@icontract.require(lambda p2: p2 is not None, "p2 cannot be None")
-@icontract.require(lambda pi: pi is not None, "pi cannot be None")
-@icontract.require(lambda q: q is not None, "q cannot be None")
-@icontract.require(lambda realPart: realPart is not None, "realPart cannot be None")
-@icontract.require(lambda rightTerm: rightTerm is not None, "rightTerm cannot be None")
-@icontract.require(lambda s: s is not None, "s cannot be None")
-@icontract.require(lambda strike: strike is not None, "strike cannot be None")
-@icontract.require(lambda tmat: tmat is not None, "tmat cannot be None")
-@icontract.require(lambda v: v is not None, "v cannot be None")
-@icontract.require(lambda v_prime: v_prime is not None, "v_prime cannot be None")
-@icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.require(lambda yc: yc is not None, "yc cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Charfuncoption output must not be None")
-def charfuncoption(arg0: Any, cf: Any, charFuncMart: Any, d: Any, damp: Any, damp_prime: Any, disc: Any, exp: Any, f: Any, fg: Any, func1: Any, func2: Any, i: Any, intF: Any, k: Any, leftTerm: Any, log: Any, model: Any, opt: Any, p1: Any, p2: Any, pi: Any, q: Any, realPart: Any, rightTerm: Any, s: Any, strike: Any, tmat: Any, v: Any, v_prime: Any, x: Any, yc: Any) -> Any:
+@icontract.require(lambda strike: isinstance(strike, float) and strike > 0.0, "strike must be a positive float")
+@icontract.require(lambda tmat: isinstance(tmat, float) and tmat > 0.0, "tmat -- time to maturity must be positive")
+@icontract.require(lambda damp: isinstance(damp, float), "damp must be a float")
+@icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
+def charfuncoption(
+    arg0: float,
+    cf: Callable,
+    charFuncMart: Callable,
+    d: float,
+    damp: float,
+    damp_prime: float,
+    disc: Callable,
+    exp: Callable,
+    f: Callable,
+    fg: object,
+    func1: Callable,
+    func2: Callable,
+    i: complex,
+    intF: Callable,
+    k: float,
+    leftTerm: complex,
+    log: Callable,
+    model: object,
+    opt: object,
+    p1: float,
+    p2: float,
+    pi: float,
+    q: float,
+    realPart: Callable,
+    rightTerm: complex,
+    s: float,
+    strike: float,
+    tmat: float,
+    v: complex,
+    v_prime: complex,
+    x: float,
+    yc: object,
+) -> float:
+    """Price a European option via characteristic-function inversion.
+
+    Uses Fourier inversion of the model characteristic function to
+    compute call or put prices.  The integration is damped to improve
+    convergence.
+
+    Args:
+        arg0: Auxiliary numeric argument passed through the pipeline.
+        cf: Characteristic function evaluated at a complex frequency.
+        charFuncMart: Martingale-corrected characteristic function builder.
+        d: Discount factor at maturity.
+        damp: Damping coefficient for the Fourier integrand.
+        damp_prime: Shifted damping coefficient used inside the integrand.
+        disc: Discounting function from a yield curve.
+        exp: Complex exponential function.
+        f: Inner integrand helper that combines left and right terms.
+        fg: Forward-generating yield curve object.
+        func1: First probability integrand for the call decomposition.
+        func2: Second probability integrand for the call decomposition.
+        i: Imaginary unit (0 + 1j).
+        intF: Numerical integration routine (lower, upper, tolerance).
+        k: Log-strike used in the Fourier transform.
+        leftTerm: Left multiplier in the integrand numerator.
+        log: Natural logarithm function.
+        model: Pricing model that implements the characteristic function.
+        opt: Option type indicator (put or call).
+        p1: First exercise probability from the inversion integral.
+        p2: Second exercise probability from the inversion integral.
+        pi: Mathematical constant pi.
+        q: Forward price adjustment factor.
+        realPart: Extract the real part of a complex number.
+        rightTerm: Right multiplier (the characteristic function value).
+        s: Current spot price.
+        strike: Option strike price.
+        tmat: Time to maturity in years.
+        v: Complex integration variable.
+        v_prime: Shifted complex integration variable.
+        x: Intermediate workspace scalar.
+        yc: Yield curve used for discounting.
+
+    Returns:
+        Fair value of the option as a float.
+    """
     raise NotImplementedError("Wire to original implementation")
+
+
+# ---------------------------------------------------------------------------
+# f  (integrand helper)
+# ---------------------------------------------------------------------------
 
 @register_atom(witness_f)
-@icontract.ensure(lambda result, **kwargs: result is not None, "F output must not be None")
-def f(exp: Any, i: Any, k: Any, leftTerm: Any, realPart: Any, rightTerm: Any, v: Any, v_prime: Any) -> Any:
+@icontract.require(lambda k: isinstance(k, complex), "k must be complex")
+@icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
+def f(
+    exp: Callable,
+    i: complex,
+    k: complex,
+    leftTerm: complex,
+    realPart: Callable,
+    rightTerm: complex,
+    v: complex,
+    v_prime: complex,
+) -> float:
+    """Evaluate the real-valued integrand for characteristic-function pricing.
+
+    Combines the complex exponential, the damping-dependent left term,
+    and the characteristic-function right term, then extracts the real
+    part.
+
+    Args:
+        exp: Complex exponential function.
+        i: Imaginary unit (0 + 1j).
+        k: Log-strike as a complex number.
+        leftTerm: Damping-dependent numerator factor.
+        realPart: Extract the real part of a complex value.
+        rightTerm: Characteristic function value at the shifted frequency.
+        v: Real-valued integration variable promoted to complex.
+        v_prime: Shifted integration variable.
+
+    Returns:
+        Real part of the integrand at the given frequency.
+    """
     raise NotImplementedError("Wire to original implementation")
+
+
+# ---------------------------------------------------------------------------
+# cf  (characteristic function evaluator)
+# ---------------------------------------------------------------------------
 
 @register_atom(witness_cf)
-@icontract.require(lambda charFuncMart: charFuncMart is not None, "charFuncMart cannot be None")
-@icontract.require(lambda fg: fg is not None, "fg cannot be None")
-@icontract.require(lambda model: model is not None, "model cannot be None")
-@icontract.require(lambda tmat: tmat is not None, "tmat cannot be None")
-@icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Cf output must not be None")
-def cf(charFuncMart: Any, fg: Any, model: Any, tmat: Any, x: Any) -> Any:
+@icontract.require(lambda tmat: isinstance(tmat, float) and tmat > 0.0, "tmat must be a positive float")
+@icontract.require(lambda x: isinstance(x, complex), "x must be complex")
+@icontract.ensure(lambda result: isinstance(result, complex), "result must be complex")
+def cf(
+    charFuncMart: Callable,
+    fg: object,
+    model: object,
+    tmat: float,
+    x: complex,
+) -> complex:
+    """Evaluate the martingale-corrected characteristic function.
+
+    Delegates to the model's characteristic function generator and
+    applies forward-generation adjustments so the discounted price
+    process is a martingale.
+
+    Args:
+        charFuncMart: Builder that returns the corrected char function.
+        fg: Forward-generating yield curve object.
+        model: Pricing model providing the raw characteristic function.
+        tmat: Time to maturity in years.
+        x: Complex frequency at which to evaluate.
+
+    Returns:
+        Complex value of the characteristic function at frequency *x*.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
-"""Auto-generated FFI bindings for haskell implementations."""
-
-
-import ctypes
-import ctypes.util
-from pathlib import Path
-
+# ---------------------------------------------------------------------------
+# FFI bindings (auto-generated, kept for reference)
+# ---------------------------------------------------------------------------
 
 def charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc):
-    """Wrapper that calls the Haskell version of charfuncoption. Passes arguments through and returns the result."""
-    # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
+    """Wrapper that calls the Haskell version of charfuncoption."""
     _lib = ctypes.CDLL("./charfuncoption.so")
     _func_name = 'placeholder'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p] * 32
     _func.restype = ctypes.c_void_p
     return _func(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc)
 
 def f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
-    """Wrapper that calls the Haskell version of f. Passes arguments through and returns the result."""
-    # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
+    """Wrapper that calls the Haskell version of f."""
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p] * 8
     _func.restype = ctypes.c_void_p
     return _func(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime)
 
 def cf_ffi(charFuncMart, fg, model, tmat, x):
-    """Wrapper that calls the Haskell version of cf. Passes arguments through and returns the result."""
-    # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
+    """Wrapper that calls the Haskell version of cf."""
     _lib = ctypes.CDLL("./cf.so")
     _func_name = 'placeholder'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p] * 5
     _func.restype = ctypes.c_void_p
     return _func(charFuncMart, fg, model, tmat, x)

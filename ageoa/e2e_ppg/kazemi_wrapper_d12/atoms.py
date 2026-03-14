@@ -1,23 +1,17 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_normalizesignal, witness_wrapperevaluate
-from typing import Any
 
-# Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_normalizesignal)
-@icontract.require(lambda arr: arr is not None, "arr cannot be None")
+@icontract.require(lambda arr: isinstance(arr, np.ndarray), "arr must be a numpy array")
+@icontract.require(lambda arr: arr.size > 0, "arr must be non-empty")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "normalizesignal must return a numpy array")
 def normalizesignal(arr: np.ndarray) -> np.ndarray:
     """Normalizes a raw array to a standard scale, producing a unit-normalized output suitable for downstream comparison or scoring.
 
@@ -25,22 +19,25 @@ def normalizesignal(arr: np.ndarray) -> np.ndarray:
         arr: non-empty, finite values
 
     Returns:
-        same shape as input, normalized
+        same shape as input, normalized between 0 and 1
     """
     raise NotImplementedError("Wire to original implementation")
 
+
 @register_atom(witness_wrapperevaluate)
-@icontract.require(lambda prediction: prediction is not None, "prediction cannot be None")
-@icontract.require(lambda raw_signal: raw_signal is not None, "raw_signal cannot be None")
-@icontract.require(lambda normalized_arr: normalized_arr is not None, "normalized_arr cannot be None")
-def wrapperevaluate(prediction: Any, raw_signal: np.ndarray, normalized_arr: np.ndarray) -> Any:
-    """
+@icontract.require(lambda prediction: isinstance(prediction, np.ndarray), "prediction must be a numpy array")
+@icontract.require(lambda raw_signal: isinstance(raw_signal, np.ndarray), "raw_signal must be a numpy array")
+@icontract.require(lambda normalized_arr: isinstance(normalized_arr, np.ndarray), "normalized_arr must be a numpy array")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "wrapperevaluate must return a numpy array")
+def wrapperevaluate(prediction: np.ndarray, raw_signal: np.ndarray, normalized_arr: np.ndarray) -> np.ndarray:
+    """Post-processes model predictions against the raw signal and normalized array to extract final peak indices.
+
     Args:
-        prediction: Input data.
-        raw_signal: non-empty, finite values
-        normalized_arr: output of NormalizeSignal
+        prediction: model output predictions array
+        raw_signal: non-empty, finite values; original raw signal
+        normalized_arr: output of normalizesignal; values in [0, 1]
 
     Returns:
-        Result data.
+        Array of integer indices identifying detected peaks in the signal.
     """
     raise NotImplementedError("Wire to original implementation")

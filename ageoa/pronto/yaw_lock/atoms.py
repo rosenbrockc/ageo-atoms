@@ -1,6 +1,6 @@
 from __future__ import annotations
-from typing import Any, Callable, cast
 """Auto-generated atom wrappers following the ageoa pattern."""
+from typing import Any, Callable, cast
 
 
 import numpy as np
@@ -14,17 +14,10 @@ import ctypes.util
 from pathlib import Path
 
 
-register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom); YawLockState = object; 
-def witness_initializeyawlockstate(*args, **kwargs): pass
-def witness_configurecorrectionandyawslippolicy(*args, **kwargs): pass
-def witness_setrobotstandingstatus(*args, **kwargs): pass
-def witness_readrobotstandingstatus(*args, **kwargs): pass
-def witness_setjointposeandinitialangles(*args, **kwargs): pass
-def witness_readinitialjointangles(*args, **kwargs): pass
-def witness_setstandinglinktargets(*args, **kwargs): pass
+register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom)
+YawLockState = object
 
 @register_atom(witness_initializeyawlockstate)
-@icontract.require(lambda: True, "no preconditions")
 @icontract.ensure(lambda result: result is not None, "InitializeYawLockState output must not be None")
 def initializeyawlockstate() -> YawLockState:
     """Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).
@@ -48,7 +41,7 @@ def configurecorrectionandyawslippolicy(state_in: YawLockState, correction_perio
     Args:
         state_in: Immutable input state.
         correction_period_in: Expected positive.
-        yaw_slip_detect_in: Input data.
+        yaw_slip_detect_in: Whether yaw-slip detection is enabled.
         yaw_slip_threshold_degrees_in: Non-negative threshold.
         yaw_slip_disable_period_in: Expected non-negative.
 
@@ -66,7 +59,7 @@ def setrobotstandingstatus(state_in: YawLockState, is_robot_standing_in: bool) -
 
     Args:
         state_in: Immutable input state.
-        is_robot_standing_in: Input data.
+        is_robot_standing_in: True if the robot is currently standing.
 
     Returns:
         New object with is_robot_standing replaced.
@@ -83,7 +76,7 @@ def readrobotstandingstatus(state_in: YawLockState) -> bool:
         state_in: Immutable input state.
 
     Returns:
-        Result data.
+        Current robot standing status boolean.
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -117,7 +110,7 @@ def readinitialjointangles(state_in: YawLockState) -> object:
         state_in: Immutable input state.
 
     Returns:
-        Result data.
+        Stored initial joint angle snapshot from the state.
     """
     raise NotImplementedError("Wire to original implementation")
 
@@ -131,8 +124,8 @@ def setstandinglinktargets(state_in: YawLockState, left_standing_link_in: object
 
     Args:
         state_in: Immutable input state.
-        left_standing_link_in: Input data.
-        right_standing_link_in: Input data.
+        left_standing_link_in: Identifier for the left standing link.
+        right_standing_link_in: Identifier for the right standing link.
 
     Returns:
         New object with left_standing_link and right_standing_link replaced.

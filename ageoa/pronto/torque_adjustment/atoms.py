@@ -16,14 +16,12 @@ from pathlib import Path
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_torqueadjustmentidentitystage)  # type: ignore[untyped-decorator,name-defined]
-@icontract.require(lambda: True, "no preconditions")
-@icontract.ensure(lambda result: True, "no postconditions")
+@icontract.ensure(lambda result: result is None, "identity stage must return None")
 def torqueadjustmentidentitystage() -> None:
     """Represents the entry-point stage with no observable computation, state access, or side effects.
 
-Returns:
-    Description.
-
+    Returns:
+        None. Identity stage performs no computation.
     """
     raise NotImplementedError("Wire to original implementation")
 

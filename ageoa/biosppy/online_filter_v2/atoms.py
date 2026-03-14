@@ -25,7 +25,8 @@ from .state_models import FilterParamState
 @register_atom(witness_filterstateinit)
 @icontract.require(lambda b: b is not None, "b cannot be None")
 @icontract.require(lambda a: a is not None, "a cannot be None")
-def filterstateinit(b: Any, a: Any, state: FilterParamState) -> tuple[tuple[Any, Any, Any], FilterParamState]:
+@icontract.ensure(lambda result, **kwargs: result[0] is not None, "filterstateinit must return a non-None result tuple")
+def filterstateinit(b: np.ndarray, a: np.ndarray, state: FilterParamState) -> tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterParamState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
 Initializes the Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter by storing numerator (b) and denominator (a) coefficients and bootstrapping the delay-line state vector (zi) to zeros. reset() is an integral part of this initialization stage and can also be re-invoked to flush the delay line between signals.
@@ -54,7 +55,8 @@ Returns:
 @icontract.require(lambda b: b is not None, "b cannot be None")
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda zi: zi is not None, "zi cannot be None")
-def filterstep(signal: Any, b: Any, a: Any, zi: Any, state: FilterParamState) -> tuple[tuple[Any, Any], FilterParamState]:
+@icontract.ensure(lambda result, **kwargs: result[0] is not None, "filterstep must return a non-None result tuple")
+def filterstep(signal: np.ndarray, b: np.ndarray, a: np.ndarray, zi: np.ndarray, state: FilterParamState) -> tuple[tuple[np.ndarray, np.ndarray], FilterParamState]:
     """Applies the online Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.
 
 Args:

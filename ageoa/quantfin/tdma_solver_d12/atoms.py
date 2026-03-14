@@ -1,16 +1,11 @@
 from __future__ import annotations
-from typing import Any
-"""Auto-generated atom wrappers following the ageoa pattern."""
 
+"""Atom wrappers for tridiagonal matrix (TDMA) solver utilities."""
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
 import icontract
+from typing import Callable, List
+
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_cotraversevec, witness_tdmasolver
 
@@ -19,66 +14,148 @@ import ctypes.util
 from pathlib import Path
 
 
-# Witness functions should be imported from the generated witnesses module
+# ---------------------------------------------------------------------------
+# tdmasolver
+# ---------------------------------------------------------------------------
 
 @register_atom(witness_tdmasolver)
-@icontract.require(lambda a: a is not None, "a cannot be None")
-@icontract.require(lambda aL: aL is not None, "aL cannot be None")
-@icontract.require(lambda ai: ai is not None, "ai cannot be None")
-@icontract.require(lambda b: b is not None, "b cannot be None")
-@icontract.require(lambda bL: bL is not None, "bL cannot be None")
-@icontract.require(lambda bi: bi is not None, "bi cannot be None")
-@icontract.require(lambda c: c is not None, "c cannot be None")
-@icontract.require(lambda c_prime: c_prime is not None, "c_prime cannot be None")
-@icontract.require(lambda cL: cL is not None, "cL cannot be None")
-@icontract.require(lambda cf: cf is not None, "cf cannot be None")
-@icontract.require(lambda ci: ci is not None, "ci cannot be None")
-@icontract.require(lambda ci1: ci1 is not None, "ci1 cannot be None")
-@icontract.require(lambda ci1_prime: ci1_prime is not None, "ci1_prime cannot be None")
-@icontract.require(lambda d: d is not None, "d cannot be None")
-@icontract.require(lambda d_prime: d_prime is not None, "d_prime cannot be None")
-@icontract.require(lambda dL: dL is not None, "dL cannot be None")
-@icontract.require(lambda df: df is not None, "df cannot be None")
-@icontract.require(lambda di: di is not None, "di cannot be None")
-@icontract.require(lambda di1_prime: di1_prime is not None, "di1_prime cannot be None")
-@icontract.require(lambda forM_: forM_ is not None, "forM_ cannot be None")
-@icontract.require(lambda fromList: fromList is not None, "fromList cannot be None")
-@icontract.require(lambda head: head is not None, "head cannot be None")
-@icontract.require(lambda last: last is not None, "last cannot be None")
-@icontract.require(lambda length: length is not None, "length cannot be None")
-@icontract.require(lambda map: map is not None, "map cannot be None")
-@icontract.require(lambda new: new is not None, "new cannot be None")
-@icontract.require(lambda read: read is not None, "read cannot be None")
-@icontract.require(lambda reverse: reverse is not None, "reverse cannot be None")
-@icontract.require(lambda runST: runST is not None, "runST cannot be None")
-@icontract.require(lambda thaw: thaw is not None, "thaw cannot be None")
-@icontract.require(lambda toList: toList is not None, "toList cannot be None")
-@icontract.require(lambda unsafeFreeze: unsafeFreeze is not None, "unsafeFreeze cannot be None")
-@icontract.require(lambda write: write is not None, "write cannot be None")
-@icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.require(lambda xi1: xi1 is not None, "xi1 cannot be None")
-@icontract.require(lambda xn: xn is not None, "xn cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "Tdmasolver output must not be None")
-def tdmasolver(a: Any, aL: Any, ai: Any, b: Any, bL: Any, bi: Any, c: Any, c_prime: Any, cL: Any, cf: Any, ci: Any, ci1: Any, ci1_prime: Any, d: Any, d_prime: Any, dL: Any, df: Any, di: Any, di1_prime: Any, forM_: Any, fromList: Any, head: Any, last: Any, length: Any, map: Any, new: Any, read: Any, reverse: Any, runST: Any, thaw: Any, toList: Any, unsafeFreeze: Any, write: Any, x: Any, xi1: Any, xn: Any) -> Any:
+@icontract.require(lambda a: isinstance(a, list) and len(a) > 0, "a must be a non-empty list")
+@icontract.require(lambda b: isinstance(b, list) and len(b) > 0, "b must be a non-empty list")
+@icontract.require(lambda c: isinstance(c, list) and len(c) > 0, "c must be a non-empty list")
+@icontract.require(lambda d: isinstance(d, list) and len(d) > 0, "d must be a non-empty list")
+@icontract.ensure(lambda result: isinstance(result, list), "result must be a list")
+@icontract.ensure(lambda result: len(result) > 0, "result must be non-empty")
+def tdmasolver(
+    a: list,
+    aL: list,
+    ai: float,
+    b: list,
+    bL: list,
+    bi: float,
+    c: list,
+    c_prime: list,
+    cL: list,
+    cf: list,
+    ci: float,
+    ci1: float,
+    ci1_prime: float,
+    d: list,
+    d_prime: list,
+    dL: list,
+    df: list,
+    di: float,
+    di1_prime: float,
+    forM_: Callable,
+    fromList: Callable,
+    head: Callable,
+    last: Callable,
+    length: Callable,
+    map: Callable,
+    new: Callable,
+    read: Callable,
+    reverse: Callable,
+    runST: Callable,
+    thaw: Callable,
+    toList: Callable,
+    unsafeFreeze: Callable,
+    write: Callable,
+    x: list,
+    xi1: float,
+    xn: list,
+) -> list:
+    """Solve a tridiagonal matrix system using the Thomas algorithm (TDMA).
+
+    Performs forward elimination and back-substitution on a tridiagonal
+    system Ax = d where A is decomposed into sub-diagonal *a*, main
+    diagonal *b*, and super-diagonal *c*.
+
+    Args:
+        a: Sub-diagonal coefficient list.
+        aL: Sub-diagonal raw input list.
+        ai: Current sub-diagonal element during sweep.
+        b: Main diagonal coefficient list.
+        bL: Main diagonal raw input list.
+        bi: Current main diagonal element during sweep.
+        c: Super-diagonal coefficient list.
+        c_prime: Modified super-diagonal after forward sweep.
+        cL: Super-diagonal raw input list.
+        cf: Frozen super-diagonal vector after forward pass.
+        ci: Current super-diagonal element.
+        ci1: Previous super-diagonal element for back-sub.
+        ci1_prime: Modified previous super-diagonal element.
+        d: Right-hand side vector.
+        d_prime: Modified right-hand side after forward sweep.
+        dL: Right-hand side raw input list.
+        df: Frozen right-hand side vector after forward pass.
+        di: Current right-hand side element.
+        di1_prime: Modified previous right-hand side element.
+        forM_: Monadic for-each loop combinator.
+        fromList: Convert a list to an immutable vector.
+        head: Return first element of a list.
+        last: Return last element of a list.
+        length: Return length of a vector.
+        map: Map a function over a list.
+        new: Allocate a new mutable vector.
+        read: Read an element from a mutable vector.
+        reverse: Reverse a list.
+        runST: Execute a stateful computation.
+        thaw: Thaw an immutable vector into a mutable one.
+        toList: Convert a vector to a list.
+        unsafeFreeze: Freeze a mutable vector without copying.
+        write: Write an element into a mutable vector.
+        x: Solution vector workspace.
+        xi1: Next solution element during back-substitution.
+        xn: Mutable solution vector.
+
+    Returns:
+        Solution list for the tridiagonal system.
+    """
     raise NotImplementedError("Wire to original implementation")
+
+
+# ---------------------------------------------------------------------------
+# cotraversevec
+# ---------------------------------------------------------------------------
 
 @register_atom(witness_cotraversevec)
-@icontract.ensure(lambda result, **kwargs: result is not None, "Cotraversevec output must not be None")
-def cotraversevec(enumFromN: Any, f: Any, fmap: Any, i: Any, l: Any, m: Any, map: Any) -> Any:
+@icontract.require(lambda l: isinstance(l, int) and l > 0, "l must be a positive integer")
+@icontract.require(lambda f: callable(f), "f must be callable")
+@icontract.ensure(lambda result: result is not None, "result must not be None")
+def cotraversevec(
+    enumFromN: Callable,
+    f: Callable,
+    fmap: Callable,
+    i: int,
+    l: int,
+    m: object,
+    map: Callable,
+) -> list:
+    """Apply a co-traversal over unboxed vectors.
+
+    Maps an index-wise extraction function across a functor of vectors,
+    producing a single vector of aggregated results.
+
+    Args:
+        enumFromN: Generate an index range starting from a given value.
+        f: Aggregation function applied to each index slice.
+        fmap: Functor map over the input structure.
+        i: Current index into the vector.
+        l: Length of the output vector.
+        m: Functor-wrapped collection of input vectors.
+        map: Map function for the output vector.
+
+    Returns:
+        Aggregated vector produced by co-traversal.
+    """
     raise NotImplementedError("Wire to original implementation")
 
 
-"""Auto-generated FFI bindings for haskell implementations."""
-
-
-import ctypes
-import ctypes.util
-from pathlib import Path
-
+# ---------------------------------------------------------------------------
+# FFI bindings (auto-generated, kept for reference)
+# ---------------------------------------------------------------------------
 
 def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn):
     """Wrapper that calls the Haskell version of tdmasolver. Passes arguments through and returns the result."""
-    # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./tdmasolver.so")
     _func_name = 'placeholder'
     _func = _lib[_func_name]
@@ -88,7 +165,6 @@ def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime,
 
 def cotraversevec_ffi(enumFromN, f, fmap, i, l, m, map):
     """Wrapper that calls the Haskell version of cotraversevec. Passes arguments through and returns the result."""
-    # Ensure Haskell is compiled with -dynamic -fPIC and has hs_init()
     _lib = ctypes.CDLL("./cotraversevec.so")
     _func_name = 'placeholder'
     _func = _lib[_func_name]

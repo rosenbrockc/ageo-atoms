@@ -1,7 +1,6 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
+from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 
 import numpy as np
@@ -23,7 +22,7 @@ from .witnesses import (
 @register_atom(witness_singlesourceshortestpath)
 @icontract.require(lambda limit: isinstance(limit, (float, int, np.number)), "limit must be numeric")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "SingleSourceShortestPath all outputs must not be None")
-def singlesourceshortestpath(csgraph: Any, directed: bool, indices: Any, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> Any:
+def singlesourceshortestpath(csgraph: np.ndarray, directed: bool, indices: np.ndarray | int | None, return_predecessors: bool, unweighted: bool, limit: float, min_only: bool) -> tuple[np.ndarray, ...] | np.ndarray:
     """Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent - locate optimal routes from a set of origins - and return a distance matrix plus an optional predecessor map.
 
     Args:
@@ -47,7 +46,7 @@ def singlesourceshortestpath(csgraph: Any, directed: bool, indices: Any, return_
 @icontract.require(lambda return_predecessors: return_predecessors is not None, "return_predecessors cannot be None")
 @icontract.require(lambda unweighted: unweighted is not None, "unweighted cannot be None")
 @icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "AllPairsShortestPath all outputs must not be None")
-def allpairsshortestpath(csgraph: Any, directed: bool, return_predecessors: bool, unweighted: bool) -> Any:
+def allpairsshortestpath(csgraph: np.ndarray, directed: bool, return_predecessors: bool, unweighted: bool) -> tuple[np.ndarray, ...] | np.ndarray:
     """Computes the full N×N shortest-path distance matrix for every source–destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.
 
     Args:
@@ -66,7 +65,7 @@ def allpairsshortestpath(csgraph: Any, directed: bool, return_predecessors: bool
 @icontract.require(lambda csgraph: csgraph is not None, "csgraph cannot be None")
 @icontract.require(lambda overwrite: overwrite is not None, "overwrite cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "MinimumSpanningTree output must not be None")
-def minimumspanningtree(csgraph: Any, overwrite: bool) -> Any:
+def minimumspanningtree(csgraph: np.ndarray, overwrite: bool) -> np.ndarray:
     """Extracts the Minimum Spanning Tree (MST) of a sparse undirected weighted graph. Returns a new sparse matrix containing only the tree edges that connect all nodes with minimum total weight.
 
     Args:

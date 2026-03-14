@@ -1,30 +1,25 @@
 from __future__ import annotations
-from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
+import pandas as pd
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_hrppipelinerun
 
-# Witness functions should be imported from the generated witnesses module
 
-@register_atom(witness_hrppipelinerun)  # type: ignore[untyped-decorator]
-@icontract.require(lambda data: data is not None, "data cannot be None")
-def hrppipelinerun(data: Any) -> Any:
+@register_atom(witness_hrppipelinerun)
+@icontract.require(lambda data: isinstance(data, pd.DataFrame), "data must be a pandas DataFrame")
+@icontract.require(lambda data: data.shape[1] >= 2, "data must have at least 2 asset columns")
+@icontract.ensure(lambda result: isinstance(result, np.ndarray), "hrppipelinerun must return a numpy array")
+def hrppipelinerun(data: pd.DataFrame) -> np.ndarray:
     """Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.
 
     Args:
-        data: No NaN values; N >= 2; T > N recommended for stable covariance estimation
+        data: asset returns DataFrame; no NaN values; N >= 2 columns; T > N rows recommended for stable covariance estimation
 
     Returns:
-        All weights in [0, 1]; sum == 1.0
+        Linkage matrix or portfolio weight array; all weights in [0, 1]; sum == 1.0
     """
     raise NotImplementedError("Wire to original implementation")

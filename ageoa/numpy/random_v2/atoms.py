@@ -11,11 +11,7 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
-
-# Witness functions used as atom registration keys
-witness_continuousmultivariatesampler: None = None
-witness_discreteeventsampler: None = None
-witness_combinatoricssampler: None = None
+from .witnesses import witness_continuousmultivariatesampler, witness_discreteeventsampler, witness_combinatoricssampler
 @register_atom(witness_continuousmultivariatesampler)  # type: ignore[untyped-decorator]
 @icontract.require(lambda mean: isinstance(mean, (float, int, np.number)), "mean must be numeric")
 @icontract.require(lambda cov: isinstance(cov, (float, int, np.number)), "cov must be numeric")

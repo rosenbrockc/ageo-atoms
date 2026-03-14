@@ -36,6 +36,7 @@ def compute_spherical_coordinate_rates(r: np.ndarray, v: np.ndarray) -> tuple[np
 @register_atom(witness_calculate_vector_angle)
 @icontract.require(lambda u: u is not None, "u cannot be None")
 @icontract.require(lambda v: v is not None, "v cannot be None")
+@icontract.ensure(lambda result: result is not None, "calculate_vector_angle output must not be None")
 def calculate_vector_angle(u: np.ndarray, v: np.ndarray) -> float:
     """Computes the angle between two vectors.
 

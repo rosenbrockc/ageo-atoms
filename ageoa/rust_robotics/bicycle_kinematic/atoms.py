@@ -20,15 +20,8 @@ StateDerivativeVector = Any
 Matrix = Any
 string = str
 
-def witness_constructgeometrymodel(*args, **kwargs): pass
-def witness_loadmodelfromfile(*args, **kwargs): pass
-def witness_querygeometryparameters(*args, **kwargs): pass
-def witness_computesideslipangle(*args, **kwargs): pass
-def witness_computelinearizedstatematrices(*args, **kwargs): pass
-def witness_evaluateandinvertdynamics(*args, **kwargs): pass
-atom: Any = None
 
-# Witness functions should be imported from the generated witnesses module
+# Witness functions are imported from the generated witnesses module
 
 @register_atom(witness_constructgeometrymodel)  # type: ignore[untyped-decorator]
 @icontract.require(lambda length_front: isinstance(length_front, (float, int, np.number)), "length_front must be numeric")
@@ -139,27 +132,27 @@ import ctypes.util
 from pathlib import Path
 
 
-def _constructgeometrymodel_ffi(length_front: Any, length_rear: Any) -> Any:
+def _constructgeometrymodel_ffi(length_front: ctypes.c_double, length_rear: ctypes.c_double) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of construct geometry model. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'constructgeometrymodel_prime'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_double, ctypes.c_double]
     _func.restype = ctypes.c_void_p
     return _func(length_front, length_rear)
 
-def _loadmodelfromfile_ffi(filename: Any) -> Any:
+def _loadmodelfromfile_ffi(filename: ctypes.c_char_p) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of load model from file. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'loadmodelfromfile_prime'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_char_p]
     _func.restype = ctypes.c_void_p
     return _func(filename)
 
-def _querygeometryparameters_ffi(model_spec: Any) -> Any:
+def _querygeometryparameters_ffi(model_spec: ctypes.c_void_p) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of query geometry parameters. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -169,17 +162,17 @@ def _querygeometryparameters_ffi(model_spec: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(model_spec)
 
-def _computesideslipangle_ffi(model_spec: Any, road_wheel_angle: Any) -> Any:
+def _computesideslipangle_ffi(model_spec: ctypes.c_void_p, road_wheel_angle: ctypes.c_double) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of compute sideslip angle. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'computesideslipangle_prime'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_double]
     _func.restype = ctypes.c_void_p
     return _func(model_spec, road_wheel_angle)
 
-def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
+def _computelinearizedstatematrices_ffi(model_spec: ctypes.c_void_p, x: ctypes.c_void_p, u: ctypes.c_void_p) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of compute linearized state matrices. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
@@ -189,12 +182,12 @@ def _computelinearizedstatematrices_ffi(model_spec: Any, x: Any, u: Any) -> Any:
     _func.restype = ctypes.c_void_p
     return _func(model_spec, x, u)
 
-def _evaluateandinvertdynamics_ffi(model_spec: Any, x: Any, u: Any, _t: Any, _x_dot: Any) -> Any:
+def _evaluateandinvertdynamics_ffi(model_spec: ctypes.c_void_p, x: ctypes.c_void_p, u: ctypes.c_void_p, _t: ctypes.c_double, _x_dot: ctypes.c_void_p) -> ctypes.c_void_p:
     """Wrapper that calls the Rust version of evaluate and invert dynamics. Passes arguments through and returns the result."""
     # Ensure the Rust library is compiled with #[no_mangle] and pub extern "C"
     _lib = ctypes.CDLL("./target/release/librust_robotics.so")
     _func_name = 'evaluateandinvertdynamics_prime'
     _func = _lib[_func_name]
-    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+    _func.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_double, ctypes.c_void_p]
     _func.restype = ctypes.c_void_p
     return _func(model_spec, x, u, _t, _x_dot)

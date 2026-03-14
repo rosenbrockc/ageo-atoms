@@ -31,14 +31,12 @@ def velocitystatereadout(state_in: object) -> tuple[object, object]:
     raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_posequeryaccessors)  # type: ignore[untyped-decorator,name-defined]
-@icontract.require(lambda: True, "no preconditions")
 @icontract.ensure(lambda result: result is not None, "PoseQueryAccessors output must not be None")
 def posequeryaccessors() -> object:
     """Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.
 
-
     Returns:
-        No persistent state mutation in provided summaries.
+        Pose query accessor object with no persistent state mutation.
     """
     raise NotImplementedError("Wire to original implementation")
 

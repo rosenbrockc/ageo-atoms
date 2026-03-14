@@ -14,8 +14,7 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import scipy.spatial
-witness_voronoitessellation: Any = None
-witness_delaunaytriangulation: Any = None
+from .witnesses import witness_voronoitessellation, witness_delaunaytriangulation
 
 @register_atom(witness_voronoitessellation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda incremental: incremental is not None, "incremental cannot be None")

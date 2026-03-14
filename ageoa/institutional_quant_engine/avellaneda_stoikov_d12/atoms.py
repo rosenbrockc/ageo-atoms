@@ -1,41 +1,34 @@
 from __future__ import annotations
-from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_marketmakerstateinit, witness_optimalquotecalculation
 
-# Witness functions should be imported from the generated witnesses module
-@register_atom(witness_marketmakerstateinit)  # type: ignore[untyped-decorator]
-def witness_optimalquotecalculation(*args, **kwargs): pass
+
 @register_atom(witness_marketmakerstateinit)
 @icontract.require(lambda s0: isinstance(s0, (float, int, np.number)), "s0 must be numeric")
+@icontract.require(lambda s0: s0 > 0, "s0 must be positive")
 @icontract.require(lambda inventory: isinstance(inventory, (float, int, np.number)), "inventory must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "MarketMakerStateInit all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "MarketMakerStateInit all outputs must not be None")
 def marketmakerstateinit(s0: float, inventory: float) -> tuple[float, float, float, float, float]:
     """Bootstraps the market-maker's immutable parameter state from a supplied initial mid-price and inventory position, materialising the five scalar fields - risk-aversion (gamma), market-depth (k), inventory (q), mid-price (s), and volatility (sigma) - that all downstream computations consume as pure inputs.
 
     Args:
-        s0: s0 > 0
-        inventory: Input data.
+        s0: initial mid-price; must be > 0
+        inventory: current inventory position; may be negative (short)
 
     Returns:
-        gamma: gamma > 0
-        k: k > 0
-        q: Result data.
-        s: s > 0
-        sigma: sigma > 0
+        gamma: risk-aversion coefficient; gamma > 0
+        k: market-depth parameter; k > 0
+        q: inventory level
+        s: mid-price; s > 0
+        sigma: volatility estimate; sigma > 0
     """
-@register_atom(witness_optimalquotecalculation)  # type: ignore[untyped-decorator]
+    raise NotImplementedError("Wire to original implementation")
+
 
 @register_atom(witness_optimalquotecalculation)
 @icontract.require(lambda gamma: isinstance(gamma, (float, int, np.number)), "gamma must be numeric")
@@ -43,20 +36,21 @@ def marketmakerstateinit(s0: float, inventory: float) -> tuple[float, float, flo
 @icontract.require(lambda q: isinstance(q, (float, int, np.number)), "q must be numeric")
 @icontract.require(lambda s: isinstance(s, (float, int, np.number)), "s must be numeric")
 @icontract.require(lambda sigma: isinstance(sigma, (float, int, np.number)), "sigma must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "OptimalQuoteCalculation all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "OptimalQuoteCalculation all outputs must not be None")
 def optimalquotecalculation(gamma: float, k: float, q: float, s: float, sigma: float) -> tuple[float, float, float, float]:
-    """
+    """Computes optimal bid and ask quotes using the Avellaneda-Stoikov market-making framework, deriving a reservation price and optimal spread from the current inventory, volatility, and market-depth parameters.
+
     Args:
-        gamma: gamma > 0
-        k: k > 0
-        q: Input data.
-        s: s > 0
-        sigma: sigma > 0
+        gamma: risk-aversion coefficient; gamma > 0
+        k: market-depth parameter; k > 0
+        q: current inventory position
+        s: current mid-price; s > 0
+        sigma: volatility estimate; sigma > 0
 
     Returns:
-        bid_price: bid_price < s
-        ask_price: ask_price > s
-        reservation_price: Result data.
-        optimal_spread: optimal_spread > 0
+        bid_price: optimal bid; bid_price < s when q > 0
+        ask_price: optimal ask; ask_price > s when q > 0
+        reservation_price: indifference price adjusted for inventory risk
+        optimal_spread: distance between ask and bid; optimal_spread > 0
     """
     raise NotImplementedError("Wire to original implementation")

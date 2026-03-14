@@ -1,6 +1,6 @@
 from __future__ import annotations
-from typing import Any
 """Auto-generated atom wrappers following the ageoa pattern."""
+from typing import Any
 
 
 import numpy as np
@@ -22,11 +22,11 @@ from pathlib import Path
 
 @register_atom(witness_stateestimatorinit)
 @icontract.ensure(lambda result, **kwargs: result is not None, "StateEstimatorInit output must not be None")
-def stateestimatorinit() -> Any:
+def stateestimatorinit() -> object:
     """Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.
 
     Returns:
-        All matrices must be positive-semi-definite where applicable; initial state vector must be finite.
+        Initialized state estimator with positive-semi-definite covariance matrices and finite state vector.
     """
     raise NotImplementedError("Wire to original implementation")
 

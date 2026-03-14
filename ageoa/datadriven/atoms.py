@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Any
 """DataDrivenDiffEq Sparse Identification of Nonlinear Dynamics (SINDy) Macro-Atoms."""
 
 
@@ -15,11 +14,11 @@ from ageoa.ghost.registry import register_atom
 from .witnesses import witness_discover_equations
 
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-_jl: Any | None = None
+_jl: object | None = None
 _datadriven_loaded = False
 
 
-def _get_jl() -> Any:
+def _get_jl() -> object:
     """Lazily import the Julia language bridge and load DataDriven packages once."""
     global _jl, _datadriven_loaded
     if _jl is None:
@@ -85,17 +84,21 @@ def discover_equations(
     max_degree: int = 4,
     lambda_val: float = 0.1,
 ) -> EquationResult:
-    """Sparsity-promoting symbolic regression for discovering governing equations from data.
+    """Find sparse governing equations from data using symbolic regression.
+
+    Fits a polynomial basis to the input data and applies the Alternating
+    Direction Method of Multipliers (ADMM) to select the fewest terms that
+    explain the target matrix.
 
     Args:
-        X (np.ndarray): Description.
-        Y (np.ndarray): Description.
-        variable_names (List[str]): Description.
-        max_degree (int): Description.
-        lambda_val (float): Description.
+        X: Feature matrix of shape (n_features, n_samples).
+        Y: Target matrix of shape (n_targets, n_samples).
+        variable_names: Julia-valid identifiers for each feature row in X.
+        max_degree: Maximum polynomial degree for the basis; must be > 0.
+        lambda_val: Sparsity weight for ADMM; must be > 0.
 
     Returns:
-        EquationResult: Description.
+        Discovered symbolic equations and parameter map.
     """
     names = _validate_variable_names(variable_names)
     if X.shape[0] != len(names):

@@ -2,7 +2,7 @@ from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
-from typing import Any
+from typing import Any, Union
 import numpy as np
 import torch
 import jax
@@ -23,7 +23,7 @@ from .witnesses import witness_assess_classification, witness_assess_runs, witne
 @icontract.require(lambda FN: FN is not None, "FN cannot be None")
 @icontract.require(lambda thresholds: thresholds is not None, "thresholds cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Get Auth Rates output must not be None")
-def get_auth_rates(TP: Any, FP: Any, TN: Any, FN: Any, thresholds: Any) -> Any:
+def get_auth_rates(TP: np.ndarray, FP: np.ndarray, TN: np.ndarray, FN: np.ndarray, thresholds: np.ndarray) -> dict:
     """Compute authentication rates from correct and incorrect prediction counts at each threshold.
 
     Args:
@@ -45,7 +45,7 @@ def get_auth_rates(TP: Any, FP: Any, TN: Any, FN: Any, thresholds: Any) -> Any:
 @icontract.require(lambda N: N is not None, "N cannot be None")
 @icontract.require(lambda thresholds: thresholds is not None, "thresholds cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Get Id Rates output must not be None")
-def get_id_rates(H: Any, M: Any, R: Any, N: Any, thresholds: Any) -> Any:
+def get_id_rates(H: np.ndarray, M: np.ndarray, R: np.ndarray, N: int, thresholds: np.ndarray) -> dict:
     """Compute identification rates for a Support Vector Machine (SVM) biometric classifier. Derives accuracy, miss rate, reject rate, and Equal Error Rate (EER) from hits, misses, and rejections at each decision threshold.
 
     Args:
@@ -68,7 +68,7 @@ def get_id_rates(H: Any, M: Any, R: Any, N: Any, thresholds: Any) -> Any:
 @icontract.require(lambda subject_dict: subject_dict is not None, "subject_dict cannot be None")
 @icontract.require(lambda subject_idx: subject_idx is not None, "subject_idx cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Get Subject Results output must not be None")
-def get_subject_results(results: Any, subject: Any, thresholds: Any, subjects: Any, subject_dict: Any, subject_idx: Any) -> Any:
+def get_subject_results(results: dict, subject: object, thresholds: np.ndarray, subjects: list, subject_dict: dict, subject_idx: list) -> dict:
     """Compute authentication and identification performance metrics for a
 given subject.
 
@@ -109,7 +109,7 @@ assessment : dict
 @icontract.require(lambda results: results is not None, "results cannot be None")
 @icontract.require(lambda thresholds: thresholds is not None, "thresholds cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Assess Classification output must not be None")
-def assess_classification(results: Any, thresholds: Any) -> Any:
+def assess_classification(results: dict, thresholds: np.ndarray) -> dict:
     """Assess the performance of a biometric classification test.
 
 Parameters
@@ -137,7 +137,7 @@ assessment : dict
 @icontract.require(lambda results: results is not None, "results cannot be None")
 @icontract.require(lambda subjects: subjects is not None, "subjects cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Assess Runs output must not be None")
-def assess_runs(results: Any, subjects: Any) -> Any:
+def assess_runs(results: list, subjects: list) -> dict:
     """Assess the performance of multiple biometric classification runs.
 
 Parameters
@@ -165,7 +165,7 @@ assessment : dict
 @icontract.require(lambda results: results is not None, "results cannot be None")
 @icontract.require(lambda weights: weights is not None, "weights cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Combination output must not be None")
-def combination(results: Any, weights: Any) -> Any:
+def combination(results: dict, weights: dict) -> tuple:
     """Combine results from multiple classifiers.
 
 Parameters
@@ -199,7 +199,7 @@ classes : array
 @icontract.require(lambda labels: labels is not None, "labels cannot be None")
 @icontract.require(lambda random: random is not None, "random cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Majority Rule output must not be None")
-def majority_rule(labels: Any, random: Any) -> Any:
+def majority_rule(labels: Union[np.ndarray, list], random: bool) -> tuple:
     """Determine the most frequent class label.
 
 Parameters
@@ -233,7 +233,7 @@ Returns
 @icontract.require(lambda train_size: train_size is not None, "train_size cannot be None")
 @icontract.require(lambda random_state: random_state is not None, "random_state cannot be None")
 @icontract.ensure(lambda result, **kwargs: result is not None, "Cross Validation output must not be None")
-def cross_validation(labels: Any, n_iter: Any, test_size: Any, train_size: Any, random_state: Any) -> Any:
+def cross_validation(labels: Union[list, np.ndarray], n_iter: int, test_size: Union[float, int], train_size: Union[float, int, None], random_state: Union[int, None]) -> object:
     """Return a Cross Validation (CV) iterator.
 
 Wraps the StratifiedShuffleSplit iterator from sklearn.model_selection.

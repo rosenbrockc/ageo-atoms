@@ -11,14 +11,13 @@ import haiku as hk
 import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import witness_compute_topo_loss
+from .witnesses import witness_compute_topo_loss, witness_topological_loss_computation
 from typing import TypeAlias
 
 from jax import numpy as jnp
 
 Array: TypeAlias = jnp.ndarray
 Scalar: TypeAlias = float
-witness_topological_loss_computation = lambda: True
 
 @register_atom(witness_topological_loss_computation)
 @icontract.require(lambda tau: isinstance(tau, (float, int, np.number)), "tau must be numeric")
