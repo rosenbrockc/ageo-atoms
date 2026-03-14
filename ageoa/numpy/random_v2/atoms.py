@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from .witnesses import witness_continuousmultivariatesampler, witness_discreteeventsampler, witness_combinatoricssampler
@@ -17,7 +12,7 @@ from .witnesses import witness_continuousmultivariatesampler, witness_discreteev
 @icontract.require(lambda cov: isinstance(cov, (float, int, np.number)), "cov must be numeric")
 @icontract.require(lambda alpha: isinstance(alpha, (float, int, np.number)), "alpha must be numeric")
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "ContinuousMultivariateSampler all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "ContinuousMultivariateSampler all outputs must not be None")
 def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.ndarray, size: int | tuple[int, ...] | None, check_valid: str, tol: float) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
     """Draws samples from continuous multivariate distributions: Multivariate Normal (MVN) and Dirichlet. Produces independent, identically distributed (IID) draws given distribution parameters.
 
@@ -37,7 +32,7 @@ def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.n
 
 @register_atom(witness_discreteeventsampler)  # type: ignore[untyped-decorator]
 @icontract.require(lambda pvals: isinstance(pvals, (float, int, np.number)), "pvals must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "DiscreteEventSampler output must not be None")
+@icontract.ensure(lambda result: result is not None, "DiscreteEventSampler output must not be None")
 def discreteeventsampler(n: int, pvals: np.ndarray, size: int | tuple[int, ...] | None) -> np.ndarray:  # type: ignore[type-arg]
     """Draws integer count vectors from the Multinomial distribution. Represents a single stateless stochastic step that maps a probability simplex (pvals) and a trial count (n) to an observed frequency vector. Commonly used to simulate categorical observations in generative models and particle filters.
 
@@ -53,7 +48,7 @@ def discreteeventsampler(n: int, pvals: np.ndarray, size: int | tuple[int, ...] 
 
 @register_atom(witness_combinatoricssampler)  # type: ignore[untyped-decorator]
 @icontract.require(lambda p: isinstance(p, (float, int, np.number)), "p must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "CombinatoricsSampler all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "CombinatoricsSampler all outputs must not be None")
 def combinatoricssampler(x: int | np.ndarray, axis: int, a: int | np.ndarray, size: int | tuple[int, ...] | None, replace: bool, p: np.ndarray | None) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
     """Randomly permutes or selects elements from a sequence. Permutation shuffles all elements; choice draws a sample with or without replacement.
 

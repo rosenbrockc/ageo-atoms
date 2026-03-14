@@ -4,12 +4,7 @@ from typing import Any
 
 import typing
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_find_fof_clusters
@@ -22,7 +17,7 @@ from .witnesses import witness_find_fof_clusters
 @icontract.require(lambda mode: mode is not None, "mode cannot be None")
 @icontract.require(lambda max_neighbors: max_neighbors is not None, "max_neighbors cannot be None")
 @icontract.require(lambda batch_size: batch_size is not None, "batch_size cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "find_fof_clusters output must not be None")
+@icontract.ensure(lambda result: result is not None, "find_fof_clusters output must not be None")
 def find_fof_clusters(x: np.ndarray, b: float, L: float, mode: str, max_neighbors: int, batch_size: int) -> np.ndarray:
     """Computes friends-of-friends (FOF) clusters for a set of points on a periodic grid. This is a core clustering algorithm used in cosmology and astrophysics to identify gravitationally bound structures.
 

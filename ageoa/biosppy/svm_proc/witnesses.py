@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_get_auth_rates(TP: AbstractArray, FP: AbstractArray, TN: AbstractArray, FN: AbstractArray, thresholds: AbstractArray) -> AbstractArray:

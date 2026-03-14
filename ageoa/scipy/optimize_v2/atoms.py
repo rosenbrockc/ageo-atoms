@@ -5,12 +5,7 @@ from __future__ import annotations
 from typing import Callable
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
@@ -28,7 +23,7 @@ from .witnesses import witness_shgoglobaloptimization, witness_differentialevolu
 @icontract.require(lambda minimizer_kwargs: minimizer_kwargs is not None, "minimizer_kwargs cannot be None")
 @icontract.require(lambda options: options is not None, "options cannot be None")
 @icontract.require(lambda sampling_method: sampling_method is not None, "sampling_method cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ShgoGlobalOptimization output must not be None")
+@icontract.ensure(lambda result: result is not None, "ShgoGlobalOptimization output must not be None")
 def shgoglobaloptimization(func: Callable[..., float], bounds: list[tuple[float, float]], args: tuple, constraints: list[dict] | dict, n: int, iters: int, callback: Callable | None, minimizer_kwargs: dict, options: dict, sampling_method: str | Callable) -> OptimizeResult:
     """Finds the global minimum of a scalar function using Simplicial Homology Global Optimization (SHGO): iteratively samples the bounded search space via simplicial or quasi-random methods, builds a simplicial complex to locate local minima candidates, and refines each candidate with a local minimizer.
 
@@ -54,7 +49,7 @@ def shgoglobaloptimization(func: Callable[..., float], bounds: list[tuple[float,
 @icontract.require(lambda mutation: isinstance(mutation, (float, int, np.number, tuple)), "mutation must be numeric or tuple")
 @icontract.require(lambda recombination: isinstance(recombination, (float, int, np.number)), "recombination must be numeric")
 @icontract.require(lambda atol: isinstance(atol, (float, int, np.number)), "atol must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "DifferentialEvolutionOptimization output must not be None")
+@icontract.ensure(lambda result: result is not None, "DifferentialEvolutionOptimization output must not be None")
 def differentialevolutionoptimization(func: Callable[..., float], bounds: list[tuple[float, float]], args: tuple, strategy: str, maxiter: int, popsize: int, tol: float, mutation: float | tuple[float, float], recombination: float, seed: int | np.random.RandomState | None, callback: Callable | None, disp: bool, polish: bool, init: str | np.ndarray, atol: float, updating: str, workers: int | Callable, constraints: list[dict] | dict | None, x0: np.ndarray | None) -> OptimizeResult:
     """Finds the global minimum of a scalar function using Differential Evolution (DE), a population-based optimization method. Applies stochastic mutation and crossover each generation to explore the bounded search space.
 

@@ -254,6 +254,7 @@ def evolve(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_maxstep)
+@icontract.require(lambda: True, "no preconditions for zero-parameter factory")
 @icontract.ensure(lambda result: isinstance(result, float) and result > 0.0, "maxStep must be a positive float")
 def maxstep() -> float:
     """Return the default maximum discretization time step.
@@ -344,6 +345,7 @@ def runsim(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_process)
+@icontract.require(lambda discCFs: isinstance(discCFs, (int, float)), "discCFs must be numeric")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def process(
     allcfs: list,
@@ -425,6 +427,7 @@ def process(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_process)
+@icontract.require(lambda discCFs: isinstance(discCFs, (int, float)), "discCFs must be numeric")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def process(
     anti: bool,
@@ -562,6 +565,7 @@ def process(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_insertcf)
+@icontract.require(lambda cfs: isinstance(cfs, list), "cfs must be a list")
 @icontract.ensure(lambda result: isinstance(result, list), "result must be a list")
 def insertcf(
     amt: float,
@@ -598,6 +602,7 @@ def insertcf(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_insertcf)
+@icontract.require(lambda cf: cf is not None, "cf must not be None")
 @icontract.ensure(lambda result: isinstance(result, list) and len(result) == 1, "result must be a single-element list")
 def insertcf(
     cf: object,
@@ -647,6 +652,7 @@ def avg(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_insertcflist)
+@icontract.require(lambda cfList: isinstance(cfList, list), "cfList must be a list")
 @icontract.ensure(lambda result: isinstance(result, list), "result must be a list")
 def insertcflist(
     cfList: list,
@@ -709,7 +715,7 @@ def insertcflist(
 # FFI bindings (auto-generated, kept for reference)
 # ---------------------------------------------------------------------------
 
-def runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampleRVarTWith):
+def _runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampleRVarTWith):
     """Wrapper that calls the Haskell version of runmc."""
     _lib = ctypes.CDLL("./runmc.so")
     _func_name = 'placeholder'
@@ -718,7 +724,7 @@ def runmc_ffi(evalState, evalStateT, flip, initState, lift, mc, randState, sampl
     _func.restype = ctypes.c_void_p
     return _func(evalState, evalStateT, flip, initState, lift, mc, randState, sampleRVarTWith)
 
-def runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
+def _runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
     """Wrapper that calls the Haskell version of runsimulation."""
     _lib = ctypes.CDLL("./runsimulation.so")
     _func_name = 'placeholder'
@@ -727,7 +733,7 @@ def runsimulation_ffi(anti, ccs, modl, run, runMC, seed, trials, undefined):
     _func.restype = ctypes.c_void_p
     return _func(anti, ccs, modl, run, runMC, seed, trials, undefined)
 
-def runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
+def _runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
     """Call the Haskell version of run-simulation-anti. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./runsimulationanti.so")
     _func_name = 'placeholder'
@@ -736,7 +742,7 @@ def runsimulationanti_ffi(ccs, modl, runSim, seed, trials):
     _func.restype = ctypes.c_void_p
     return _func(ccs, modl, runSim, seed, trials)
 
-def quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
+def _quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
     """Wrapper that calls the Haskell version of quicksim."""
     _lib = ctypes.CDLL("./quicksim.so")
     _func_name = 'placeholder'
@@ -745,7 +751,7 @@ def quicksim_ffi(mdl, opts, pureMT, runSimulation, trials):
     _func.restype = ctypes.c_void_p
     return _func(mdl, opts, pureMT, runSimulation, trials)
 
-def quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
+def _quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
     """Wrapper that calls the Haskell version of quicksimanti."""
     _lib = ctypes.CDLL("./quicksimanti.so")
     _func_name = 'placeholder'
@@ -754,7 +760,7 @@ def quicksimanti_ffi(mdl, opts, pureMT, runSimulationAnti, trials):
     _func.restype = ctypes.c_void_p
     return _func(mdl, opts, pureMT, runSimulationAnti, trials)
 
-def evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless):
+def _evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless):
     """Wrapper that calls the Haskell version of evolve."""
     _lib = ctypes.CDLL("./evolve.so")
     _func_name = 'placeholder'
@@ -763,7 +769,7 @@ def evolve_ffi(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDi
     _func.restype = ctypes.c_void_p
     return _func(anti, evolve, evolve_prime, get, maxStep, mdl, ms, t1, t2, timeDiff, timeOffset, unless)
 
-def maxstep_ffi():
+def _maxstep_ffi():
     """Wrapper that calls the Haskell version of maxstep."""
     _lib = ctypes.CDLL("./maxstep.so")
     _func_name = 'placeholder'
@@ -771,7 +777,7 @@ def maxstep_ffi():
     _func.restype = ctypes.c_void_p
     return _func()
 
-def simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
+def _simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
     """Wrapper that calls the Haskell version of simulatestate."""
     _lib = ctypes.CDLL("./simulatestate.so")
     _func_name = 'placeholder'
@@ -780,7 +786,7 @@ def simulatestate_ffi(anti, avg, ccb, modl, replicateM, singleTrial, trials):
     _func.restype = ctypes.c_void_p
     return _func(anti, avg, ccb, modl, replicateM, singleTrial, trials)
 
-def runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
+def _runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
     """Wrapper that calls the Haskell version of runsim."""
     _lib = ctypes.CDLL("./runsim.so")
     _func_name = 'placeholder'
@@ -789,7 +795,7 @@ def runsim_ffi(ccs, div, modl, runSimulation, seed, trials, x):
     _func.restype = ctypes.c_void_p
     return _func(ccs, div, modl, runSimulation, seed, trials, x)
 
-def process_full_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
+def _process_full_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
     """Wrapper that calls the Haskell version of process (full variant)."""
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -798,7 +804,7 @@ def process_full_ffi(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, di
     _func.restype = ctypes.c_void_p
     return _func(allcfs, amt, anti, c, ccs, cfList, cfs, cft, d, discCFs, discount, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
-def process_no_cfs_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
+def _process_no_cfs_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs):
     """Wrapper that calls the Haskell version of process (no pending CFs)."""
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -807,7 +813,7 @@ def process_no_cfs_ffi(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fs
     _func.restype = ctypes.c_void_p
     return _func(anti, ccs, cfList, discCFs, evolve, flip, foldl_prime, fst, gets, insert, insertCF, insertCFList, map, mf, modl, newCFs, obs, obsMap, obsMap_prime, process, t, xs)
 
-def process_cfs_only_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process):
+def _process_cfs_only_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process):
     """Wrapper that calls the Haskell version of process (CFs only)."""
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -816,7 +822,7 @@ def process_cfs_only_ffi(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, 
     _func.restype = ctypes.c_void_p
     return _func(anti, cf, cfAmount, cfTime, cfs, d, discCFs, discount, evolve, modl, obsMap, process)
 
-def process_base_ffi(discCFs, return_val):
+def _process_base_ffi(discCFs, return_val):
     """Wrapper that calls the Haskell version of process (base case)."""
     _lib = ctypes.CDLL("./process.so")
     _func_name = 'placeholder'
@@ -825,7 +831,7 @@ def process_base_ffi(discCFs, return_val):
     _func.restype = ctypes.c_void_p
     return _func(discCFs, return_val)
 
-def insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
+def _insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
     """Wrapper that calls the Haskell version of insertcf (recursive)."""
     _lib = ctypes.CDLL("./insertcf.so")
     _func_name = 'placeholder'
@@ -834,7 +840,7 @@ def insertcf_ffi(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime):
     _func.restype = ctypes.c_void_p
     return _func(amt, amt_prime, cfs, insertCF, otherwise, t, t_prime)
 
-def insertcf_base_ffi(cf):
+def _insertcf_base_ffi(cf):
     """Wrapper that calls the Haskell version of insertcf (base case)."""
     _lib = ctypes.CDLL("./insertcf.so")
     _func_name = 'placeholder'
@@ -843,7 +849,7 @@ def insertcf_base_ffi(cf):
     _func.restype = ctypes.c_void_p
     return _func(cf)
 
-def avg_ffi(fromIntegral, sum, trials, v):
+def _avg_ffi(fromIntegral, sum, trials, v):
     """Wrapper that calls the Haskell version of avg."""
     _lib = ctypes.CDLL("./avg.so")
     _func_name = 'placeholder'
@@ -852,7 +858,7 @@ def avg_ffi(fromIntegral, sum, trials, v):
     _func.restype = ctypes.c_void_p
     return _func(fromIntegral, sum, trials, v)
 
-def insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
+def _insertcflist_ffi(cfList, flip, foldl_prime, insertCF, xs):
     """Wrapper that calls the Haskell version of insertcflist."""
     _lib = ctypes.CDLL("./insertcflist.so")
     _func_name = 'placeholder'

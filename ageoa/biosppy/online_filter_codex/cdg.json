@@ -50,14 +50,14 @@
         {
           "name": "b",
           "type_desc": "normalized numerator coefficient array",
-          "constraints": "",
+          "constraints": "valid normalized numerator coefficient array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "a",
           "type_desc": "normalized denominator coefficient array",
-          "constraints": "",
+          "constraints": "valid normalized denominator coefficient array",
           "required": true,
           "default_value_repr": ""
         },
@@ -122,7 +122,7 @@
         {
           "name": "filtered_signal",
           "type_desc": "1-D array of filtered output samples, same length as input signal",
-          "constraints": "",
+          "constraints": "1-D numeric array",
           "required": true,
           "default_value_repr": ""
         },
@@ -143,7 +143,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "ImmutableStatefulRationalLinearSequenceTransform. Applies a causal, rational linear transform \u2014 defined by a numerator and denominator polynomial coefficient pair \u2014 to a finite chunk of a scalar sequence, consuming an immutable delay-line memory vector that encodes the system's dependence on past inputs and outputs. The transform advances the internal memory by exactly the length of the input chunk and emits an output sequence of identical length, with the updated memory vector returned as a new, independent value rather than a mutation. This enables pure-functional, chunk-by-chunk composition of an infinite streaming computation by threading state-out into state-in across successive invocations.. Applications: Control systems engineering: applying a discretized PID or lead-lag compensator transfer function to a real-time sensor measurement stream, where each control loop tick is one chunk and the delay-line state preserves integrator/differentiator memory across ticks, Econometrics / time-series analysis: implementing an ARMA(p, q) model step to recursively produce one-step-ahead conditional expectations from an incoming block of observations, threading the lag-vector state across rolling estimation windows, Computational neuroscience: simulating the dendritic low-pass integration of a synaptic conductance waveform in a leaky integrate-and-fire neuron, where each chunk is a simulation time-step block and the state vector encodes the membrane potential history, Geophysics / seismology: applying a causal Butterworth or Chebyshev bandpass transform to continuous seismometer recordings ingested in fixed-size telemetry packets, preserving phase continuity across packet boundaries via the immutable state thread",
+      "conceptual_summary": "ImmutableStatefulRationalLinearSequenceTransform. Applies a causal, rational linear transform — defined by a numerator and denominator polynomial coefficient pair — to a finite chunk of a scalar sequence, consuming an immutable delay-line memory vector that encodes the system's dependence on past inputs and outputs. The transform advances the internal memory by exactly the length of the input chunk and emits an output sequence of identical length, with the updated memory vector returned as a new, independent value rather than a mutation. This enables pure-functional, chunk-by-chunk composition of an infinite streaming computation by threading state-out into state-in across successive invocations.. Applications: Control systems engineering: applying a discretized PID or lead-lag compensator transfer function to a real-time sensor measurement stream, where each control loop tick is one chunk and the delay-line state preserves integrator/differentiator memory across ticks, Econometrics / time-series analysis: implementing an ARMA(p, q) model step to recursively produce one-step-ahead conditional expectations from an incoming block of observations, threading the lag-vector state across rolling estimation windows, Computational neuroscience: simulating the dendritic low-pass integration of a synaptic conductance waveform in a leaky integrate-and-fire neuron, where each chunk is a simulation time-step block and the state vector encodes the membrane potential history, Geophysics / seismology: applying a causal Butterworth or Chebyshev bandpass transform to continuous seismometer recordings ingested in fixed-size telemetry packets, preserving phase continuity across packet boundaries via the immutable state thread",
       "critic_notes": "",
       "decomposition_rationale": ""
     }
@@ -171,15 +171,6 @@
       "source_id": "filterstateinit",
       "target_id": "filterstep",
       "output_name": "zi",
-      "input_name": "zi",
-      "source_type": "array",
-      "target_type": "array",
-      "requires_glue": false
-    },
-    {
-      "source_id": "filterstep",
-      "target_id": "filterstep",
-      "output_name": "zi_out",
       "input_name": "zi",
       "source_type": "array",
       "target_type": "array",

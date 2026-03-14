@@ -5,12 +5,7 @@ from __future__ import annotations
 from typing import List, Optional, Sequence, Tuple, Union
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_binarysearchinsertion, witness_lexicographicindirectsort, witness_partialsortpartition
@@ -21,7 +16,7 @@ from .witnesses import witness_binarysearchinsertion, witness_lexicographicindir
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda v: v is not None, "v cannot be None")
 @icontract.require(lambda side: side is not None, "side cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "BinarySearchInsertion output must not be None")
+@icontract.ensure(lambda result: result is not None, "BinarySearchInsertion output must not be None")
 def binarysearchinsertion(a: np.ndarray, v: np.ndarray, side: str = 'left', sorter: Optional[np.ndarray] = None) -> np.ndarray:
     """Locates insertion points for values into a sorted array using binary search, supporting left/right side preference and an optional indirect sorter index.
 
@@ -38,7 +33,7 @@ def binarysearchinsertion(a: np.ndarray, v: np.ndarray, side: str = 'left', sort
 
 @register_atom(witness_lexicographicindirectsort)
 @icontract.require(lambda keys: keys is not None, "keys cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "LexicographicIndirectSort output must not be None")
+@icontract.ensure(lambda result: result is not None, "LexicographicIndirectSort output must not be None")
 def lexicographicindirectsort(keys: Sequence[np.ndarray], axis: int = -1) -> np.ndarray:
     """Performs lexicographic indirect sort of a sequence of keys.
 
@@ -56,7 +51,7 @@ def lexicographicindirectsort(keys: Sequence[np.ndarray], axis: int = -1) -> np.
 @icontract.require(lambda kth: kth is not None, "kth cannot be None")
 @icontract.require(lambda axis: axis is not None, "axis cannot be None")
 @icontract.require(lambda kind: kind is not None, "kind cannot be None")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "PartialSortPartition all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "PartialSortPartition all outputs must not be None")
 def partialsortpartition(a: np.ndarray, kth: Union[int, Sequence[int]], axis: Optional[int] = -1, kind: str = 'introselect', order: Optional[Union[str, List[str]]] = None) -> Tuple[np.ndarray, np.ndarray]:
     """Performs partial sort partitioning of an array.
 

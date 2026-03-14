@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_shgoglobaloptimization(func: AbstractArray, bounds: AbstractArray, args: AbstractArray, constraints: AbstractArray, n: AbstractArray, iters: AbstractArray, callback: AbstractArray, minimizer_kwargs: AbstractArray, options: AbstractArray, sampling_method: AbstractArray) -> AbstractArray:

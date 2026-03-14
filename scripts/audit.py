@@ -142,8 +142,26 @@ def audit_atoms(atoms_path: Path) -> FileAudit:
         elif "Args:" not in docstring and len(func.args.args) > 1:
             audit.fail("A-DOC", f"{fname}: docstring missing 'Args:' section")
 
-    # --- Heavy imports ---
+    # --- Heavy imports (only flag unconditional module-level imports) ---
+    skip_ids: set[int] = set()
     for node in ast.walk(tree):
+        # Skip TYPE_CHECKING blocks
+        if isinstance(node, ast.If):
+            test = node.test
+            is_tc = (isinstance(test, ast.Name) and test.id == "TYPE_CHECKING") or (
+                isinstance(test, ast.Attribute) and test.attr == "TYPE_CHECKING"
+            )
+            if is_tc:
+                for child in ast.walk(node):
+                    skip_ids.add(id(child))
+        # Skip function bodies (lazy/conditional imports are fine)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            for child in ast.walk(node):
+                skip_ids.add(id(child))
+
+    for node in ast.walk(tree):
+        if id(node) in skip_ids:
+            continue
         if isinstance(node, ast.Import):
             for alias in node.names:
                 root_mod = alias.name.split(".")[0]
@@ -182,8 +200,24 @@ def audit_witnesses(witnesses_path: Path) -> FileAudit:
         audit.fail("W-MISSING", "no witness functions found")
         return audit
 
-    # --- Heavy imports ---
+    # --- Heavy imports (only flag unconditional module-level imports) ---
+    skip_ids: set[int] = set()
     for node in ast.walk(tree):
+        if isinstance(node, ast.If):
+            test = node.test
+            is_tc = (isinstance(test, ast.Name) and test.id == "TYPE_CHECKING") or (
+                isinstance(test, ast.Attribute) and test.attr == "TYPE_CHECKING"
+            )
+            if is_tc:
+                for child in ast.walk(node):
+                    skip_ids.add(id(child))
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            for child in ast.walk(node):
+                skip_ids.add(id(child))
+
+    for node in ast.walk(tree):
+        if id(node) in skip_ids:
+            continue
         if isinstance(node, ast.Import):
             for alias in node.names:
                 root_mod = alias.name.split(".")[0]

@@ -894,15 +894,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "orchestrate_generation_and_validate",
-      "target_id": "construct_mapping_state_via_greedy_expansion",
-      "output_name": "mapping_state",
-      "input_name": "mapping_state_in",
-      "source_type": "MappingState",
-      "target_type": "MappingState",
-      "requires_glue": false
-    },
-    {
       "source_id": "construct_mapping_state_via_greedy_expansion",
       "target_id": "orchestrate_generation_and_validate",
       "output_name": "mapping_state_out",

@@ -1,13 +1,11 @@
 from __future__ import annotations
-import numpy as np
 """AlphaFold 3D Equivariant Structural Atoms."""
 
+from typing import Tuple
 
-import haiku as hk
-import jax.numpy as jnp
+import numpy as np
 
 import icontract
-from typing import Tuple
 
 from ageoa.ghost.registry import register_atom
 from ageoa.alphafold.state_models import AlphaFoldStructuralState
@@ -17,16 +15,16 @@ from ageoa.alphafold.witnesses import (
     witness_coordinate_reconstruction,
 )
 
+
 @register_atom(witness_invariant_point_attention)
 @icontract.require(lambda nodes, pairs: nodes.shape[0] == pairs.shape[0] == pairs.shape[1], "Sequence length mismatch")
-@hk.transparent
 @icontract.ensure(lambda result, nodes: result[0].shape == nodes.shape, "IPA must preserve node shape")
 def invariant_point_attention(
-    nodes: jnp.ndarray,
-    pairs: jnp.ndarray,
-    frames: jnp.ndarray,
+    nodes: np.ndarray,
+    pairs: np.ndarray,
+    frames: np.ndarray,
     state: AlphaFoldStructuralState
-) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
+) -> Tuple[np.ndarray, AlphaFoldStructuralState]:
     """Equivariant (i.e., the output transforms consistently under rotations and translations of the input) attention mechanism over structured 3D point sets.
 
     Processes 3D points and orientation frames.
@@ -41,21 +39,16 @@ def invariant_point_attention(
         Tuple of (updated_nodes, new_state) where updated_nodes has the
         same shape as the input nodes.
     """
-    # Placeholder for actual IPA logic
-    # In a real scenario, this would call hk.Module methods
-    nodes_updated = nodes + jnp.zeros_like(nodes)
-
-    new_state = state.model_copy(update={"nodes": nodes_updated})
-    return nodes_updated, new_state
+    raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_equivariant_frame_update)
 @icontract.require(lambda frames, nodes: len(nodes.shape) >= 1, "Nodes must have at least one dimension")
 @icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (frames, state) tuple")
 def equivariant_frame_update(
-    frames: jnp.ndarray,
-    nodes: jnp.ndarray,
+    frames: np.ndarray,
+    nodes: np.ndarray,
     state: AlphaFoldStructuralState
-) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
+) -> Tuple[np.ndarray, AlphaFoldStructuralState]:
     """Updates 3D rigid frames using predicted gradients.
 
     Args:
@@ -66,21 +59,17 @@ def equivariant_frame_update(
     Returns:
         Tuple of (updated_frames, new_state).
     """
-    # Placeholder for frame update logic (rotation/translation)
-    updated_frames = frames
-
-    new_state = state.model_copy(update={"frames": updated_frames})
-    return updated_frames, new_state
+    raise NotImplementedError("Wire to original implementation")
 
 @register_atom(witness_coordinate_reconstruction)
 @icontract.require(lambda torsions: torsions.shape[-1] == 2, "Torsions must be represented as (sin, cos) pairs")
 @icontract.ensure(lambda result: result is not None and len(result) == 2, "Result must be a (coords, state) tuple")
 @icontract.ensure(lambda result: result[0].ndim == 3 and result[0].shape[-1] == 3, "Coordinates must have shape (n_res, n_atoms, 3)")
 def coordinate_reconstruction(
-    frames: jnp.ndarray,
-    torsions: jnp.ndarray,
+    frames: np.ndarray,
+    torsions: np.ndarray,
     state: AlphaFoldStructuralState
-) -> Tuple[jnp.ndarray, AlphaFoldStructuralState]:
+) -> Tuple[np.ndarray, AlphaFoldStructuralState]:
     """Converts rigid frames and torsion angles (dihedral angles between four consecutive atoms that define the protein backbone geometry) into full 3D coordinates.
 
     Args:
@@ -91,8 +80,4 @@ def coordinate_reconstruction(
     Returns:
         Tuple of (coords, state) where coords has shape (n_res, n_atoms, 3).
     """
-    # Placeholder for coordinate reconstruction
-    n_res = torsions.shape[0]
-    coords = jnp.zeros((n_res, 37, 3))
-
-    return coords, state
+    raise NotImplementedError("Wire to original implementation")

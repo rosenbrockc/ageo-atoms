@@ -83,7 +83,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "threshold_gated_extrema_locator_in_transformed_1d_sequence. Applies a domain-specific differential/nonlinear transform to a uniformly sampled scalar time-series to amplify a target morphological feature (sharp, high-energy transients) while suppressing background variation, then sweeps a scalar threshold across the transformed signal to emit a sorted set of integer indices marking local maxima that exceed the detection boundary. The result partitions the original sequence into contiguous segments whose boundaries are anchored at the detected extremal events, converting a continuous amplitude stream into a discrete event sequence.. Applications: Seismology \u2014 detecting P-wave and S-wave onset indices in a continuous ground-motion acceleration time-series recorded at a fixed sampling rate, segmenting the stream into inter-arrival intervals for earthquake localisation, Neurophysiology \u2014 locating action potential spike peaks in a extracellular multi-unit electrode voltage trace, partitioning the recording into inter-spike intervals for neural firing-rate estimation, Mechanical fault detection \u2014 identifying high-amplitude impulse events in a vibration sensor time-series from a rotating machine bearing, segmenting the signal into cycles to compute defect repetition frequency, Astrophysics / radio astronomy \u2014 pinpointing pulse arrival times of periodic transient emitters (e.g., pulsars) in a de-dispersed time-domain intensity series, converting a continuous flux recording into a discrete sequence of pulse-epoch indices for timing analysis",
+      "conceptual_summary": "threshold_gated_extrema_locator_in_transformed_1d_sequence. Applies a domain-specific differential/nonlinear transform to a uniformly sampled scalar time-series to amplify a target morphological feature (sharp, high-energy transients) while suppressing background variation, then sweeps a scalar threshold across the transformed signal to emit a sorted set of integer indices marking local maxima that exceed the detection boundary. The result partitions the original sequence into contiguous segments whose boundaries are anchored at the detected extremal events, converting a continuous amplitude stream into a discrete event sequence.. Applications: Seismology — detecting P-wave and S-wave onset indices in a continuous ground-motion acceleration time-series recorded at a fixed sampling rate, segmenting the stream into inter-arrival intervals for earthquake localisation, Neurophysiology — locating action potential spike peaks in a extracellular multi-unit electrode voltage trace, partitioning the recording into inter-spike intervals for neural firing-rate estimation, Mechanical fault detection — identifying high-amplitude impulse events in a vibration sensor time-series from a rotating machine bearing, segmenting the signal into cycles to compute defect repetition frequency, Astrophysics / radio astronomy — pinpointing pulse arrival times of periodic transient emitters (e.g., pulsars) in a de-dispersed time-domain intensity series, converting a continuous flux recording into a discrete sequence of pulse-epoch indices for timing analysis",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -97,7 +97,7 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float (Hz)",
-          "constraints": "",
+          "constraints": "positive finite scalar",
           "required": true,
           "default_value_repr": ""
         },
@@ -120,63 +120,63 @@
         {
           "name": "changeM",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Miterate",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v250ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1200ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1500ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v180ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p10ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p20ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "err_kill",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -305,28 +305,28 @@
         {
           "name": "y2",
           "type_desc": "1-D float numpy array",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Miterate",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mmth",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mmp",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -335,7 +335,7 @@
         {
           "name": "MM",
           "type_desc": "1-D float numpy array, length 3",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array, length 3",
           "required": true,
           "default_value_repr": ""
         },
@@ -356,7 +356,7 @@
         {
           "name": "NN",
           "type_desc": "1-D float numpy array, length 2",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array, length 2",
           "required": true,
           "default_value_repr": ""
         },
@@ -400,14 +400,14 @@
         {
           "name": "y2",
           "type_desc": "1-D float numpy array",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y2_len",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -421,63 +421,63 @@
         {
           "name": "changeM",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Miterate",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1500ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "MM",
           "type_desc": "1-D float numpy array, length 3",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array, length 3",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "MMidx",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "integer indices",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "NN",
           "type_desc": "1-D float numpy array, length 2",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array, length 2",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "NNidx",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "integer indices",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mmth",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mmp",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -558,35 +558,35 @@
         {
           "name": "y2",
           "type_desc": "1-D float numpy array",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Th",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "inc",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "changeM",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "err_kill",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -607,14 +607,14 @@
         {
           "name": "v250ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1200ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -623,7 +623,7 @@
         {
           "name": "nthfplus",
           "type_desc": "int (global sample index)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -667,56 +667,56 @@
         {
           "name": "signal",
           "type_desc": "1-D float array",
-          "constraints": "",
+          "constraints": "1-D numeric array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y2",
           "type_desc": "1-D float numpy array",
-          "constraints": "",
+          "constraints": "valid 1-D float numpy array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "nthfplus",
           "type_desc": "int (global sample index)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ThNew",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v180ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p10ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p20ms",
           "type_desc": "int (samples)",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y2_len",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }

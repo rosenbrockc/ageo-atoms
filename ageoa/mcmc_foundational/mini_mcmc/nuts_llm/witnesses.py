@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-def witness_initializenutsstate(*args, **kwargs):
+def witness_initializenutsstate(*args, **kwargs) -> tuple[AbstractArray, AbstractArray]:
     """Shape-and-type check for mcmc sampler: initialize nuts state. Returns output metadata without running the real computation."""
     target = AbstractArray(shape=(1,), dtype="float64")
     trace = AbstractArray(shape=(1,), dtype="float64")

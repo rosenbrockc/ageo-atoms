@@ -34,35 +34,35 @@
       "inputs": [
         {
           "name": "ppg_clean",
-          "type_desc": "array-like | Tensor \u2014 clean PPG waveform segment(s)",
+          "type_desc": "array-like | Tensor — clean PPG waveform segment(s)",
           "constraints": "shape compatible with generator input; values typically normalized",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "noise",
-          "type_desc": "array-like | Tensor \u2014 additive noise to condition or corrupt the input",
+          "type_desc": "array-like | Tensor — additive noise to condition or corrupt the input",
           "constraints": "same shape as ppg_clean; treated as frozen/static stochastic input",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sampling_rate",
-          "type_desc": "int | float \u2014 signal sampling rate in Hz",
+          "type_desc": "int | float — signal sampling rate in Hz",
           "constraints": "positive; determines temporal resolution of the waveform",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "generator",
-          "type_desc": "nn.Module | callable \u2014 pre-trained GAN generator network",
+          "type_desc": "nn.Module | callable — pre-trained GAN generator network",
           "constraints": "stateless inference only; weights frozen during call",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "device",
-          "type_desc": "str | torch.device \u2014 compute device (e.g. 'cpu', 'cuda')",
+          "type_desc": "str | torch.device — compute device (e.g. 'cpu', 'cuda')",
           "constraints": "generator and tensors must reside on same device",
           "required": true,
           "default_value_repr": ""
@@ -71,7 +71,7 @@
       "outputs": [
         {
           "name": "reconstructed_signal",
-          "type_desc": "array-like | Tensor \u2014 GAN-reconstructed signal",
+          "type_desc": "array-like | Tensor — GAN-reconstructed signal",
           "constraints": "same temporal length as input; values in generator output range",
           "required": true,
           "default_value_repr": ""
@@ -87,7 +87,7 @@
         "accumulate_reconstructed_noise_and_advance_window"
       ],
       "depth": 1,
-      "type_signature": "(ppg_clean: array-like | Tensor \u2014 clean PPG waveform segment(s), noise: array-like | Tensor \u2014 additive noise to condition or corrupt the input, sampling_rate: int | float \u2014 signal sampling rate in Hz, generator: nn.Module | callable \u2014 pre-trained GAN generator network, device: str | torch.device \u2014 compute device (e.g. 'cpu', 'cuda')) -> array-like | Tensor \u2014 GAN-reconstructed signal",
+      "type_signature": "(ppg_clean: array-like | Tensor — clean PPG waveform segment(s), noise: array-like | Tensor — additive noise to condition or corrupt the input, sampling_rate: int | float — signal sampling rate in Hz, generator: nn.Module | callable — pre-trained GAN generator network, device: str | torch.device — compute device (e.g. 'cpu', 'cuda')) -> array-like | Tensor — GAN-reconstructed signal",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -95,7 +95,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "frozen_adversarial_manifold_projector. A pre-trained generative adversarial decoder maps a corrupted or composite input signal \u2014 formed by superimposing a structured reference waveform with a stochastic noise tensor \u2014 onto a learned target-domain manifold, producing a denoised or cross-modal reconstruction of identical temporal dimensionality. The generator network, whose weights are fully frozen, acts as a deterministic oracle over a learned latent-to-signal mapping, effectively performing a conditional nonlinear projection from a noisy observation space into a cleaner, structurally regularized output space. The noise tensor functions as a fixed stochastic conditioning variable that parameterizes the generative transform rather than being filtered away, making this a noise-conditioned signal-morphing operation rather than a classical filter.. Applications: Astrophysics \u2014 Reconstructing clean stellar flux light curves from telescope photometry contaminated by atmospheric turbulence and instrument shot noise, using a GAN trained on synthetic stellar variability models to project noisy cadence-sampled observations onto a physically plausible emission manifold, Seismology \u2014 Translating surface-recorded seismic waveforms (corrupted by anthropogenic noise or sensor drift) into estimated subsurface ground-motion signatures by conditioning a frozen generative decoder on the raw trace plus a static noise realization, enabling cross-modal waveform domain transfer, Materials Science \u2014 Mapping noisy electron microscopy scan-line signals (e.g., STEM intensity profiles corrupted by beam instability) to denoised, structurally regularized 1-D lattice profiles by projecting the composite input through a GAN generator trained on idealized crystallographic simulations, Neuroimaging \u2014 Converting low-SNR single-trial EEG epoch tensors, additively corrupted by muscle artifacts modeled as frozen noise, into reconstructed cortical source-space time series via a pre-trained adversarial decoder that has learned the manifold of clean evoked-response waveforms",
+      "conceptual_summary": "frozen_adversarial_manifold_projector. A pre-trained generative adversarial decoder maps a corrupted or composite input signal — formed by superimposing a structured reference waveform with a stochastic noise tensor — onto a learned target-domain manifold, producing a denoised or cross-modal reconstruction of identical temporal dimensionality. The generator network, whose weights are fully frozen, acts as a deterministic oracle over a learned latent-to-signal mapping, effectively performing a conditional nonlinear projection from a noisy observation space into a cleaner, structurally regularized output space. The noise tensor functions as a fixed stochastic conditioning variable that parameterizes the generative transform rather than being filtered away, making this a noise-conditioned signal-morphing operation rather than a classical filter.. Applications: Astrophysics — Reconstructing clean stellar flux light curves from telescope photometry contaminated by atmospheric turbulence and instrument shot noise, using a GAN trained on synthetic stellar variability models to project noisy cadence-sampled observations onto a physically plausible emission manifold, Seismology — Translating surface-recorded seismic waveforms (corrupted by anthropogenic noise or sensor drift) into estimated subsurface ground-motion signatures by conditioning a frozen generative decoder on the raw trace plus a static noise realization, enabling cross-modal waveform domain transfer, Materials Science — Mapping noisy electron microscopy scan-line signals (e.g., STEM intensity profiles corrupted by beam instability) to denoised, structurally regularized 1-D lattice profiles by projecting the composite input through a GAN generator trained on idealized crystallographic simulations, Neuroimaging — Converting low-SNR single-trial EEG epoch tensors, additively corrupted by muscle artifacts modeled as frozen noise, into reconstructed cortical source-space time series via a pre-trained adversarial decoder that has learned the manifold of clean evoked-response waveforms",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -510,15 +510,6 @@
       "requires_glue": false
     },
     {
-      "source_id": "normalize_and_batch_clean_segment",
-      "target_id": "generate_reconstructed_segment",
-      "output_name": "ppg_test",
-      "input_name": "ppg_test",
-      "source_type": "torch.FloatTensor",
-      "target_type": "torch.FloatTensor",
-      "requires_glue": false
-    },
-    {
       "source_id": "generate_reconstructed_segment",
       "target_id": "detect_peaks_in_reconstructed_and_clean",
       "output_name": "noise_rec",
@@ -575,24 +566,6 @@
     {
       "source_id": "accumulate_reconstructed_noise_and_advance_window",
       "target_id": "normalize_and_batch_clean_segment",
-      "output_name": "ppg_clean_next",
-      "input_name": "ppg_clean",
-      "source_type": "np.ndarray",
-      "target_type": "np.ndarray",
-      "requires_glue": false
-    },
-    {
-      "source_id": "accumulate_reconstructed_noise_and_advance_window",
-      "target_id": "stitch_clean_and_reconstructed_waveforms",
-      "output_name": "ppg_clean_next",
-      "input_name": "ppg_clean",
-      "source_type": "np.ndarray",
-      "target_type": "np.ndarray",
-      "requires_glue": false
-    },
-    {
-      "source_id": "accumulate_reconstructed_noise_and_advance_window",
-      "target_id": "detect_peaks_in_reconstructed_and_clean",
       "output_name": "ppg_clean_next",
       "input_name": "ppg_clean",
       "source_type": "np.ndarray",

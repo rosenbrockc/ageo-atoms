@@ -564,7 +564,7 @@ def witness_matrix_op(A: "AbstractArray", B: "AbstractArray") -> "AbstractArray"
     )
 
 
-def witness_identity(x):
+def witness_identity(x: AbstractArray) -> AbstractArray:
     """Pass-through witness for atoms with no structural constraints."""
     return x
 

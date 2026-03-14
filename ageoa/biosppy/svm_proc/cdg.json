@@ -42,35 +42,35 @@
         {
           "name": "TP",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "FP",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "TN",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "FN",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "thresholds",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -79,7 +79,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -109,35 +109,35 @@
         {
           "name": "H",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "M",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "R",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "N",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "thresholds",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -146,7 +146,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -176,42 +176,42 @@
         {
           "name": "results",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "subject",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "thresholds",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "subjects",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "subject_dict",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "subject_idx",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -220,7 +220,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -250,14 +250,14 @@
         {
           "name": "results",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "thresholds",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -266,7 +266,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -296,14 +296,14 @@
         {
           "name": "results",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "subjects",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -312,7 +312,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -342,14 +342,14 @@
         {
           "name": "results",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "weights",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -358,7 +358,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -388,14 +388,14 @@
         {
           "name": "labels",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "random",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -404,7 +404,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -434,35 +434,35 @@
         {
           "name": "labels",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "n_iter",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "test_size",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "train_size",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "random_state",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid state object",
           "required": true,
           "default_value_repr": ""
         }
@@ -471,7 +471,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }

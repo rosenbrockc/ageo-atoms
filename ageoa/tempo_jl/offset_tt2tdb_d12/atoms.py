@@ -3,12 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_tt2tdb_offset
@@ -20,7 +15,7 @@ def witness_tt2tdb_offset(*args, **kwargs): pass  # Witness functions should be 
 
 @register_atom(witness_tt2tdb_offset)  # type: ignore[untyped-decorator]
 @icontract.require(lambda seconds: isinstance(seconds, (float, int, np.number)), "seconds must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "TT2TDB_Offset output must not be None")
+@icontract.ensure(lambda result: result is not None, "TT2TDB_Offset output must not be None")
 def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: ignore[type-arg]
     """Computes the small time correction (seconds) between two astronomical clock standards.
 
@@ -39,6 +34,6 @@ def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: i
 from juliacall import Main as jl
 
 
-def tt2tdb_offset_ffi(seconds: float) -> float:
+def _tt2tdb_offset_ffi(seconds: float) -> float:
     """Wrapper that calls the Julia version of tt2 tdb offset. Passes arguments through and returns the result."""
     return float(jl.eval("tt2tdb_offset(seconds)"))

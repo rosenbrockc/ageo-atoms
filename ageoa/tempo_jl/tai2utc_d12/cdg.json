@@ -35,14 +35,14 @@
       "inputs": [
         {
           "name": "utc1",
-          "type_desc": "float \u2014 first part of two-part UTC Julian date",
+          "type_desc": "float — first part of two-part UTC Julian date",
           "constraints": "finite; utc1+utc2 must be within the supported leap-second table range",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "utc2",
-          "type_desc": "float \u2014 second part of two-part UTC Julian date",
+          "type_desc": "float — second part of two-part UTC Julian date",
           "constraints": "finite; together with utc1 represents a valid UTC epoch",
           "required": true,
           "default_value_repr": ""
@@ -51,14 +51,14 @@
       "outputs": [
         {
           "name": "tai1",
-          "type_desc": "float \u2014 first part of two-part TAI Julian date",
+          "type_desc": "float — first part of two-part TAI Julian date",
           "constraints": "tai1 + tai2 = utc1 + utc2 + leap_seconds/86400",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tai2",
-          "type_desc": "float \u2014 second part of two-part TAI Julian date",
+          "type_desc": "float — second part of two-part TAI Julian date",
           "constraints": "precision-preserving companion to tai1",
           "required": true,
           "default_value_repr": ""
@@ -75,7 +75,7 @@
         "restore_original_split_order_for_tai"
       ],
       "depth": 1,
-      "type_signature": "(utc1: float \u2014 first part of two-part UTC Julian date, utc2: float \u2014 second part of two-part UTC Julian date) -> tuple[float \u2014 first part of two-part TAI Julian date, float \u2014 second part of two-part TAI Julian date]",
+      "type_signature": "(utc1: float — first part of two-part UTC Julian date, utc2: float — second part of two-part UTC Julian date) -> tuple[float — first part of two-part TAI Julian date, float — second part of two-part TAI Julian date]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -83,7 +83,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "piecewise_scalar_offset_resolver_via_lookup_table_projection. Given a two-part high-precision scalar encoding of a point on a continuous timeline, this transform projects that scalar into a discrete calendar-coordinate space solely to locate the applicable correction offset within a piecewise-constant lookup table. The resolved offset is then lifted back into the original scalar encoding space and added to the input pair, producing a new two-part scalar that is numerically equivalent to the original plus the correction, while preserving the full floating-point precision of the two-part representation. The operation is a piecewise-constant scalar translation whose correction magnitude is determined by the region of the timeline the input falls within.. Applications: Geodesy / GNSS signal processing: translating between two different epoch-referenced coordinate frames (e.g., GPS time vs. UTC) where the offset between frames accumulates in discrete, historically recorded steps \u2014 the exact structural analog of resolving a piecewise-constant cumulative correction indexed by a calendar projection., Thermodynamic calibration pipelines: converting a raw sensor scalar reading to a corrected physical quantity using a piecewise-constant calibration table keyed by temperature or pressure regime, where the applicable correction coefficient is resolved by first projecting the raw reading into a discrete regime index., Compiler / runtime version resolution: mapping a floating-point semantic-version scalar (or integer build timestamp) to the applicable ABI compatibility offset by projecting the version into a discrete range table, then adding the resolved symbol-offset delta to produce a corrected memory address or symbol index \u2014 structurally identical piecewise lookup-and-add., Epidemiological cohort studies: adjusting a continuous age or exposure-duration scalar by a piecewise-constant population-risk-stratum offset (resolved via projection of the scalar into a discrete age-band or exposure-band table), producing a corrected risk-adjusted scalar for downstream statistical modeling.",
+      "conceptual_summary": "piecewise_scalar_offset_resolver_via_lookup_table_projection. Given a two-part high-precision scalar encoding of a point on a continuous timeline, this transform projects that scalar into a discrete calendar-coordinate space solely to locate the applicable correction offset within a piecewise-constant lookup table. The resolved offset is then lifted back into the original scalar encoding space and added to the input pair, producing a new two-part scalar that is numerically equivalent to the original plus the correction, while preserving the full floating-point precision of the two-part representation. The operation is a piecewise-constant scalar translation whose correction magnitude is determined by the region of the timeline the input falls within.. Applications: Geodesy / GNSS signal processing: translating between two different epoch-referenced coordinate frames (e.g., GPS time vs. UTC) where the offset between frames accumulates in discrete, historically recorded steps — the exact structural analog of resolving a piecewise-constant cumulative correction indexed by a calendar projection., Thermodynamic calibration pipelines: converting a raw sensor scalar reading to a corrected physical quantity using a piecewise-constant calibration table keyed by temperature or pressure regime, where the applicable correction coefficient is resolved by first projecting the raw reading into a discrete regime index., Compiler / runtime version resolution: mapping a floating-point semantic-version scalar (or integer build timestamp) to the applicable ABI compatibility offset by projecting the version into a discrete range table, then adding the resolved symbol-offset delta to produce a corrected memory address or symbol index — structurally identical piecewise lookup-and-add., Epidemiological cohort studies: adjusting a continuous age or exposure-duration scalar by a piecewise-constant population-risk-stratum offset (resolved via projection of the scalar into a discrete age-band or exposure-band table), producing a corrected risk-adjusted scalar for downstream statistical modeling.",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -204,7 +204,7 @@
       "node_id": "lookup_leap_second_offset_today",
       "parent_id": "utc_to_tai_leap_second_kernel",
       "name": "lookup_leap_second_offset_today",
-      "description": "Queries the leap-seconds table with the Julian date offset from J2000 to obtain the TAI-UTC difference \u0394t0 applicable at 0h of the current UTC day.",
+      "description": "Queries the leap-seconds table with the Julian date offset from J2000 to obtain the TAI-UTC difference Δt0 applicable at 0h of the current UTC day.",
       "concept_type": "searching",
       "inputs": [
         {
@@ -476,26 +476,26 @@
       "node_id": "tai_to_utc_inversion",
       "parent_id": "tai2utc_root",
       "name": "tai_to_utc_inversion",
-      "description": "Entry-point atom. Inverts the UTC\u2192TAI mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.",
+      "description": "Entry-point atom. Inverts the UTC→TAI mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.",
       "concept_type": "arithmetic",
       "inputs": [
         {
           "name": "tai1",
-          "type_desc": "float \u2014 first part of two-part TAI Julian date",
+          "type_desc": "float — first part of two-part TAI Julian date",
           "constraints": "finite; must fall within the supported leap-second table range",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tai2",
-          "type_desc": "float \u2014 second part of two-part TAI Julian date",
+          "type_desc": "float — second part of two-part TAI Julian date",
           "constraints": "finite; precision-preserving companion to tai1",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tai_estimate",
-          "type_desc": "float pair \u2014 TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual",
+          "type_desc": "float pair — TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual",
           "constraints": "fed from utc_to_tai_leap_second_kernel output on each iteration",
           "required": true,
           "default_value_repr": ""
@@ -504,21 +504,21 @@
       "outputs": [
         {
           "name": "utc1",
-          "type_desc": "float \u2014 first part of recovered two-part UTC Julian date",
-          "constraints": "utc1 + utc2 + leap_seconds/86400 \u2248 tai1 + tai2 within floating-point epsilon",
+          "type_desc": "float — first part of recovered two-part UTC Julian date",
+          "constraints": "utc1 + utc2 + leap_seconds/86400 ≈ tai1 + tai2 within floating-point epsilon",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "utc2",
-          "type_desc": "float \u2014 second part of recovered two-part UTC Julian date",
+          "type_desc": "float — second part of recovered two-part UTC Julian date",
           "constraints": "precision-preserving companion to utc1",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "candidate_utc",
-          "type_desc": "float pair \u2014 current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation",
+          "type_desc": "float pair — current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation",
           "constraints": "updated each iteration; becomes final utc1/utc2 on convergence",
           "required": true,
           "default_value_repr": ""
@@ -532,7 +532,7 @@
         "restore_utc_output_order"
       ],
       "depth": 1,
-      "type_signature": "(tai1: float \u2014 first part of two-part TAI Julian date, tai2: float \u2014 second part of two-part TAI Julian date, tai_estimate: float pair \u2014 TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual) -> tuple[float \u2014 first part of recovered two-part UTC Julian date, float \u2014 second part of recovered two-part UTC Julian date, float pair \u2014 current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation]",
+      "type_signature": "(tai1: float — first part of two-part TAI Julian date, tai2: float — second part of two-part TAI Julian date, tai_estimate: float pair — TAI value returned by utc_to_tai_leap_second_kernel for the candidate UTC; used to compute and reduce the residual) -> tuple[float — first part of recovered two-part UTC Julian date, float — second part of recovered two-part UTC Julian date, float pair — current UTC trial value forwarded to utc_to_tai_leap_second_kernel for evaluation]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -540,7 +540,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "iterative_residual_inversion_of_tabulated_monotone_offset_bijection. Given a target scalar y encoded as a high-precision two-part float, and a forward mapping f(x) = x + \u03b4(x) where \u03b4(x) is a piecewise-constant step function defined over a lookup table, this atom iteratively refines a candidate pre-image x\u0302 by evaluating the residual \u03b5 = f(x\u0302) - y via the forward kernel and subtracting it from the current estimate until |\u03b5| falls within floating-point epsilon. The algorithm exploits the near-identity structure of the offset (\u03b4 << x) to seed x\u0302\u2080 \u2248 y, enabling rapid convergence\u2014typically in one to two iterations\u2014without requiring an analytical inverse. Precision is preserved throughout via a compensated two-part scalar representation that prevents catastrophic cancellation during residual computation.. Applications: Signal processing \u2014 recovering original sample timestamps from a non-uniformly resampled time axis when the resampling warp function is defined by a piecewise-constant interpolation table (e.g., inverting a frame-rate conversion map to align heterogeneous sensor streams), Thermodynamics / materials science \u2014 inverting a tabulated piecewise-linear enthalpy-to-temperature lookup (e.g., JANAF or NIST tables with discrete phase-transition discontinuities) to recover temperature from a measured enthalpy value with full double-precision fidelity, Geodesy / cartography \u2014 recovering geodetic latitude from projected northing in a tabulated map projection (e.g., transverse Mercator with discrete zonal corrections) where no closed-form inverse exists and a forward-evaluation residual loop achieves sub-millimeter accuracy, Pharmacokinetics / chronobiology \u2014 inverting a piecewise-constant clearance schedule to recover the precise dosing or event time corresponding to a measured plasma concentration, where the clearance function changes discretely at known physiological phase boundaries",
+      "conceptual_summary": "iterative_residual_inversion_of_tabulated_monotone_offset_bijection. Given a target scalar y encoded as a high-precision two-part float, and a forward mapping f(x) = x + δ(x) where δ(x) is a piecewise-constant step function defined over a lookup table, this atom iteratively refines a candidate pre-image x̂ by evaluating the residual ε = f(x̂) - y via the forward kernel and subtracting it from the current estimate until |ε| falls within floating-point epsilon. The algorithm exploits the near-identity structure of the offset (δ << x) to seed x̂₀ ≈ y, enabling rapid convergence—typically in one to two iterations—without requiring an analytical inverse. Precision is preserved throughout via a compensated two-part scalar representation that prevents catastrophic cancellation during residual computation.. Applications: Signal processing — recovering original sample timestamps from a non-uniformly resampled time axis when the resampling warp function is defined by a piecewise-constant interpolation table (e.g., inverting a frame-rate conversion map to align heterogeneous sensor streams), Thermodynamics / materials science — inverting a tabulated piecewise-linear enthalpy-to-temperature lookup (e.g., JANAF or NIST tables with discrete phase-transition discontinuities) to recover temperature from a measured enthalpy value with full double-precision fidelity, Geodesy / cartography — recovering geodetic latitude from projected northing in a tabulated map projection (e.g., transverse Mercator with discrete zonal corrections) where no closed-form inverse exists and a forward-evaluation residual loop achieves sub-millimeter accuracy, Pharmacokinetics / chronobiology — inverting a piecewise-constant clearance schedule to recover the precise dosing or event time corresponding to a measured plasma concentration, where the clearance function changes discretely at known physiological phase boundaries",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -1000,15 +1000,6 @@
       "input_name": "u2",
       "source_type": "float",
       "target_type": "float",
-      "requires_glue": false
-    },
-    {
-      "source_id": "tai_to_utc_inversion",
-      "target_id": "utc_to_tai_leap_second_kernel",
-      "output_name": "candidate_utc",
-      "input_name": "utc1",
-      "source_type": "float pair",
-      "target_type": "float pair",
       "requires_glue": false
     },
     {

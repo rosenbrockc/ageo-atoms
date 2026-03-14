@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_forwardmultidimensionalfft(a: AbstractSignal, s: AbstractSignal, axes: AbstractSignal, norm: AbstractSignal) -> AbstractSignal:

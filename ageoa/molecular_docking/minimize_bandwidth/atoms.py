@@ -2,7 +2,6 @@ from __future__ import annotations
 from typing import Any
 Permutation: Any = Any
 
-import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 

@@ -1,7 +1,6 @@
 from __future__ import annotations
 """Auto-generated verified atom wrapper."""
 
-import networkx as nx
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom

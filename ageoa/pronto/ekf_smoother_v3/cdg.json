@@ -31,7 +31,15 @@
       "name": "StateEstimatorInit",
       "description": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
       "concept_type": "state_init",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "_trigger",
+          "type_desc": "NoneType",
+          "constraints": "sentinel input for zero-parameter initializer",
+          "required": false,
+          "default_value_repr": "None"
+        }
+      ],
       "outputs": [
         {
           "name": "estimator_state",

@@ -75,7 +75,7 @@
         {
           "name": "prediction",
           "type_desc": "numeric or array value",
-          "constraints": "",
+          "constraints": "valid numeric or array value",
           "required": true,
           "default_value_repr": ""
         },
@@ -98,7 +98,7 @@
         {
           "name": "result",
           "type_desc": "evaluation output",
-          "constraints": "",
+          "constraints": "valid evaluation output",
           "required": true,
           "default_value_repr": ""
         }
@@ -119,7 +119,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "NormalizedReferenceComparator. Accepts a candidate scalar or vector alongside a raw, unnormalized reference signal, orchestrates a preprocessing pipeline that maps the raw signal into a canonical scale or distribution, then performs a comparative evaluation between the candidate and the normalized reference to produce a structured result. The operation acts as a top-level dispatch controller: it sequences subordinate transforms (normalization, then comparison) and conditionally routes execution based on the structural validity and shape of the inputs. The final output encodes the degree of agreement, divergence, or classification outcome between the submitted candidate and the normalized reference space.. Applications: Anomaly detection in sensor networks: a candidate sensor reading is compared against a z-score-normalized historical baseline signal to classify it as nominal or anomalous \u2014 the orchestrator sequences ingestion, normalization, and threshold comparison, Genomic variant scoring: a proposed variant effect score (candidate) is evaluated against a normalized population-level allele frequency distribution (raw reference signal rescaled to [0,1]), routing to pathogenic or benign classification, Quality control in additive manufacturing: a measured geometric deviation vector (candidate) is compared against a min-max normalized tolerance signal derived from CAD specifications, producing a pass/fail or deviation-magnitude result, Cognitive load assessment in HCI research: a user's real-time physiological response metric (candidate) is benchmarked against a normalized baseline response series recorded during a calibration phase, yielding a relative cognitive load score",
+      "conceptual_summary": "NormalizedReferenceComparator. Accepts a candidate scalar or vector alongside a raw, unnormalized reference signal, orchestrates a preprocessing pipeline that maps the raw signal into a canonical scale or distribution, then performs a comparative evaluation between the candidate and the normalized reference to produce a structured result. The operation acts as a top-level dispatch controller: it sequences subordinate transforms (normalization, then comparison) and conditionally routes execution based on the structural validity and shape of the inputs. The final output encodes the degree of agreement, divergence, or classification outcome between the submitted candidate and the normalized reference space.. Applications: Anomaly detection in sensor networks: a candidate sensor reading is compared against a z-score-normalized historical baseline signal to classify it as nominal or anomalous — the orchestrator sequences ingestion, normalization, and threshold comparison, Genomic variant scoring: a proposed variant effect score (candidate) is evaluated against a normalized population-level allele frequency distribution (raw reference signal rescaled to [0,1]), routing to pathogenic or benign classification, Quality control in additive manufacturing: a measured geometric deviation vector (candidate) is compared against a min-max normalized tolerance signal derived from CAD specifications, producing a pass/fail or deviation-magnitude result, Cognitive load assessment in HCI research: a user's real-time physiological response metric (candidate) is benchmarked against a normalized baseline response series recorded during a calibration phase, yielding a relative cognitive load score",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -166,7 +166,7 @@
       "node_id": "detect_peak_candidates",
       "parent_id": "wrapperevaluate",
       "name": "detect_peak_candidates",
-      "description": "Scans the normalized prediction using a sliding window (size 15, or 7 near the end) to locate candidate peak indices. For each window where the threshold \u2265 0.70 is met, finds the position of the maximum normalized value; if ties exist, resolves them by selecting the position of the maximum in the corresponding raw signal window. Advances the cursor by the window size after each match, or by 1 otherwise.",
+      "description": "Scans the normalized prediction using a sliding window (size 15, or 7 near the end) to locate candidate peak indices. For each window where the threshold ≥ 0.70 is met, finds the position of the maximum normalized value; if ties exist, resolves them by selecting the position of the maximum in the corresponding raw signal window. Advances the cursor by the window size after each match, or by 1 otherwise.",
       "concept_type": "searching",
       "inputs": [
         {

@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_kalmanfilterinit(process_variance: AbstractArray, measurement_variance: AbstractArray, estimated_measurement_variance: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:

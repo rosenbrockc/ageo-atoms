@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_topological_loss_computation(key: AbstractArray, logits: AbstractArray, pos32: AbstractArray, nbr_idx: AbstractArray, b: AbstractArray, max_iters: AbstractArray, tau: AbstractArray) -> AbstractArray:

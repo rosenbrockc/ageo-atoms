@@ -56,7 +56,7 @@
         {
           "name": "mode",
           "type_desc": "A string or enum indicating the specific algorithm or mode to use for the computation.",
-          "constraints": "",
+          "constraints": "non-empty string",
           "required": true,
           "default_value_repr": ""
         },

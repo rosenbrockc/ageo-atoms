@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-def witness_isleapyear(year: AbstractArray, *args, **kwargs):
+def witness_isleapyear(year: AbstractArray, *args, **kwargs) -> AbstractArray:
     """Shape-and-type check for isleapyear. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=year.shape,

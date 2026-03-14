@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_singlesourceshortestpath(csgraph: AbstractArray, directed: AbstractArray, indices: AbstractArray, return_predecessors: AbstractArray, unweighted: AbstractArray, limit: AbstractArray, min_only: AbstractArray) -> AbstractArray:

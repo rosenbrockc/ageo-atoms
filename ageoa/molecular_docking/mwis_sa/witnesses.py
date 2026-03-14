@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-def witness_load_graphs_from_folder(folder_path, *args, **kwargs):
+def witness_load_graphs_from_folder(folder_path: AbstractArray, *args, **kwargs) -> AbstractArray:
     """Shape-and-type check for load graphs from folder. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=(1,),

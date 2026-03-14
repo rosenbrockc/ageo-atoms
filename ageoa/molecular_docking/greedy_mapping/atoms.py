@@ -9,7 +9,6 @@ MappingContext: Any = Any
 MappingState: Any = Any
 NodeId: Any = Any
 Subgraph: Any = Any
-import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 

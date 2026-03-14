@@ -18,6 +18,7 @@ BacklashFilterState = np.ndarray
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_initializebacklashfilterstate)
+@icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
 @icontract.ensure(lambda result: result is not None, "InitializeBacklashFilterState output must not be None")
 def initializebacklashfilterstate() -> BacklashFilterState:
     """Create the initial immutable state object for the filter parameters.

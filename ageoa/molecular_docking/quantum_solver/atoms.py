@@ -9,7 +9,6 @@ QuantumRegister: Any = Any
 RegisterCoordinates: Any = Any
 Solution: Any = Any
 
-import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 

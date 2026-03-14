@@ -3,12 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_asi_signal_segmenter
@@ -18,7 +13,7 @@ from .witnesses import witness_asi_signal_segmenter
 @register_atom(witness_asi_signal_segmenter)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.require(lambda Pth: isinstance(Pth, (float, int, np.number)), "Pth must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "ASI_signal_segmenter output must not be None")
+@icontract.ensure(lambda result: result is not None, "ASI_signal_segmenter output must not be None")
 def asi_signal_segmenter(signal: np.ndarray, sampling_rate: float, Pth: float) -> np.ndarray:  # type: ignore[type-arg]
     """Segments an input signal into discrete intervals by applying a power/amplitude threshold (Pth) relative to the signal_primes sampling rate. Identifies contiguous regions where signal energy exceeds or falls below the threshold, returning segment boundary indices or masked signal regions.
 

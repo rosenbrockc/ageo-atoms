@@ -33,41 +33,41 @@
       "node_id": "var",
       "parent_id": "localVol_root",
       "name": "Var",
-      "description": "",
+      "description": "Atomic operation: Var",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "s",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "t",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "t'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "vs",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -76,7 +76,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -100,76 +100,76 @@
       "node_id": "localvol",
       "parent_id": "localVol_root",
       "name": "Localvol",
-      "description": "",
+      "description": "Atomic operation: Localvol",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "dwdt",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "otherwise",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "rcurve",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "s0",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "solution",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sqrt",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "t",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "w",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -178,7 +178,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -202,13 +202,13 @@
       "node_id": "vol",
       "parent_id": "localVol_root",
       "name": "Vol",
-      "description": "",
+      "description": "Atomic operation: Vol",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -217,7 +217,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -241,76 +241,76 @@
       "node_id": "vol",
       "parent_id": "localVol_root",
       "name": "Vol",
-      "description": "",
+      "description": "Atomic operation: Vol",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "interpolatedVs",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mats",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mats'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "quotes",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "strike",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sts",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "t",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tInterp",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "timeFromZero",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "vInterp",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -319,7 +319,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -343,41 +343,41 @@
       "node_id": "allfort",
       "parent_id": "localVol_root",
       "name": "Allfort",
-      "description": "",
+      "description": "Atomic operation: Allfort",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "map",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "quotes",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sts",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "t'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -386,7 +386,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }

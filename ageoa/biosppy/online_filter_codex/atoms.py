@@ -4,12 +4,7 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_filterstateinit, witness_filterstep
@@ -25,7 +20,7 @@ from .state_models import FilterParamState
 @register_atom(witness_filterstateinit)
 @icontract.require(lambda b: b is not None, "b cannot be None")
 @icontract.require(lambda a: a is not None, "a cannot be None")
-@icontract.ensure(lambda result, **kwargs: result[0] is not None, "filterstateinit must return a non-None result tuple")
+@icontract.ensure(lambda result: result[0] is not None, "filterstateinit must return a non-None result tuple")
 def filterstateinit(b: np.ndarray, a: np.ndarray, state: FilterParamState) -> tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterParamState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
@@ -55,7 +50,7 @@ Returns:
 @icontract.require(lambda b: b is not None, "b cannot be None")
 @icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.require(lambda zi: zi is not None, "zi cannot be None")
-@icontract.ensure(lambda result, **kwargs: result[0] is not None, "filterstep must return a non-None result tuple")
+@icontract.ensure(lambda result: result[0] is not None, "filterstep must return a non-None result tuple")
 def filterstep(signal: np.ndarray, b: np.ndarray, a: np.ndarray, zi: np.ndarray, state: FilterParamState) -> tuple[tuple[np.ndarray, np.ndarray], FilterParamState]:
     """Applies the online Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.
 

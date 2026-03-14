@@ -3,12 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_dm_candidate_filter
@@ -19,7 +14,7 @@ from .witnesses import witness_dm_candidate_filter
 @icontract.require(lambda fchan: isinstance(fchan, (float, int, np.number)), "fchan must be numeric")
 @icontract.require(lambda width: isinstance(width, (float, int, np.number)), "width must be numeric")
 @icontract.require(lambda tsamp: isinstance(tsamp, (float, int, np.number)), "tsamp must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "dm_candidate_filter output must not be None")
+@icontract.ensure(lambda result: result is not None, "dm_candidate_filter output must not be None")
 def dm_candidate_filter(data: np.ndarray, data_base: np.ndarray, sens: float, DM_base: float, candidates: np.ndarray, fchan: float, width: float, tsamp: float) -> np.ndarray:
     """Filters Dispersion Measure (DM) candidates for pulsar detection. Compares observed data against a base DM model using sensitivity and channel parameters to keep only viable candidates.
 

@@ -95,6 +95,7 @@ def randomint(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_randomword64)
+@icontract.require(lambda x: isinstance(x, int) and x >= 0, "x -- generator state must be non-negative")
 @icontract.ensure(lambda result: isinstance(result, tuple) and len(result) == 2, "result must be a (word64, new_state) tuple")
 def randomword64(
     buildWord64_prime: Callable,
@@ -367,6 +368,7 @@ def split(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_f)
+@icontract.require(lambda a1: isinstance(a1, int) and a1 >= 0, "a1 must be a non-negative integer")
 @icontract.ensure(lambda result: isinstance(result, int) and result >= 0, "result must be non-negative")
 def f(
     a_prime: int,
@@ -404,6 +406,7 @@ def f(
 # ---------------------------------------------------------------------------
 
 @register_atom(witness_f)
+@icontract.require(lambda e1: isinstance(e1, int) and e1 >= 0, "e1 must be a non-negative integer")
 @icontract.ensure(lambda result: isinstance(result, int) and result >= 0, "result must be non-negative")
 def f(
     acc: int,
@@ -440,7 +443,7 @@ def f(
 # FFI bindings (auto-generated, kept for reference)
 # ---------------------------------------------------------------------------
 
-def randomword32_ffi(c, state, state_prime, x, xor):
+def _randomword32_ffi(c, state, state_prime, x, xor):
     """Wrapper that calls the Haskell version of randomword32."""
     _lib = ctypes.CDLL("./randomword32.so")
     _func_name = 'placeholder'
@@ -449,7 +452,7 @@ def randomword32_ffi(c, state, state_prime, x, xor):
     _func.restype = ctypes.c_void_p
     return _func(c, state, state_prime, x, xor)
 
-def randomint_ffi(fromIntegral, g, g_prime, i):
+def _randomint_ffi(fromIntegral, g, g_prime, i):
     """Wrapper that calls the Haskell version of randomint."""
     _lib = ctypes.CDLL("./randomint.so")
     _func_name = 'placeholder'
@@ -458,7 +461,7 @@ def randomint_ffi(fromIntegral, g, g_prime, i):
     _func.restype = ctypes.c_void_p
     return _func(fromIntegral, g, g_prime, i)
 
-def randomword64_ffi(buildWord64_prime, x, x_prime, y1, y2):
+def _randomword64_ffi(buildWord64_prime, x, x_prime, y1, y2):
     """Wrapper that calls the Haskell version of randomword64."""
     _lib = ctypes.CDLL("./randomword64.so")
     _func_name = 'placeholder'
@@ -467,7 +470,7 @@ def randomword64_ffi(buildWord64_prime, x, x_prime, y1, y2):
     _func.restype = ctypes.c_void_p
     return _func(buildWord64_prime, x, x_prime, y1, y2)
 
-def randomdouble_ffi(div, fromIntegral, val, x, x_prime):
+def _randomdouble_ffi(div, fromIntegral, val, x, x_prime):
     """Wrapper that calls the Haskell version of randomdouble."""
     _lib = ctypes.CDLL("./randomdouble.so")
     _func_name = 'placeholder'
@@ -476,7 +479,7 @@ def randomdouble_ffi(div, fromIntegral, val, x, x_prime):
     _func.restype = ctypes.c_void_p
     return _func(div, fromIntegral, val, x, x_prime)
 
-def randomint64_ffi(fromIntegral, g, g_prime, i):
+def _randomint64_ffi(fromIntegral, g, g_prime, i):
     """Wrapper that calls the Haskell version of randomint64."""
     _lib = ctypes.CDLL("./randomint64.so")
     _func_name = 'placeholder'
@@ -485,7 +488,7 @@ def randomint64_ffi(fromIntegral, g, g_prime, i):
     _func.restype = ctypes.c_void_p
     return _func(fromIntegral, g, g_prime, i)
 
-def addmod64_ffi(a, b, m, mod):
+def _addmod64_ffi(a, b, m, mod):
     """Wrapper that calls the Haskell version of addmod64."""
     _lib = ctypes.CDLL("./addmod64.so")
     _func_name = 'placeholder'
@@ -494,7 +497,7 @@ def addmod64_ffi(a, b, m, mod):
     _func.restype = ctypes.c_void_p
     return _func(a, b, m, mod)
 
-def mulmod64_ffi(a, b, f, m):
+def _mulmod64_ffi(a, b, f, m):
     """Wrapper that calls the Haskell version of mulmod64."""
     _lib = ctypes.CDLL("./mulmod64.so")
     _func_name = 'placeholder'
@@ -503,7 +506,7 @@ def mulmod64_ffi(a, b, f, m):
     _func.restype = ctypes.c_void_p
     return _func(a, b, f, m)
 
-def powmod64_ffi(a, e, f, m):
+def _powmod64_ffi(a, e, f, m):
     """Wrapper that calls the Haskell version of powmod64."""
     _lib = ctypes.CDLL("./powmod64.so")
     _func_name = 'placeholder'
@@ -512,7 +515,7 @@ def powmod64_ffi(a, e, f, m):
     _func.restype = ctypes.c_void_p
     return _func(a, e, f, m)
 
-def skip_ffi(d, st, st_prime):
+def _skip_ffi(d, st, st_prime):
     """Wrapper that calls the Haskell version of skip."""
     _lib = ctypes.CDLL("./skip.so")
     _func_name = 'placeholder'
@@ -521,7 +524,7 @@ def skip_ffi(d, st, st_prime):
     _func.restype = ctypes.c_void_p
     return _func(d, st, st_prime)
 
-def next_ffi(fromIntegral, g, g_prime, w):
+def _next_ffi(fromIntegral, g, g_prime, w):
     """Wrapper that calls the Haskell version of next."""
     _lib = ctypes.CDLL("./next.so")
     _func_name = 'placeholder'
@@ -530,7 +533,7 @@ def next_ffi(fromIntegral, g, g_prime, w):
     _func.restype = ctypes.c_void_p
     return _func(fromIntegral, g, g_prime, w)
 
-def split_ffi(g, skip, skipConst):
+def _split_ffi(g, skip, skipConst):
     """Wrapper that calls the Haskell version of split."""
     _lib = ctypes.CDLL("./split.so")
     _func_name = 'placeholder'
@@ -539,7 +542,7 @@ def split_ffi(g, skip, skipConst):
     _func.restype = ctypes.c_void_p
     return _func(g, skip, skipConst)
 
-def f_mulmod_ffi(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime):
+def _f_mulmod_ffi(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime):
     """Wrapper that calls the Haskell version of f (mulmod64 loop)."""
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'
@@ -548,7 +551,7 @@ def f_mulmod_ffi(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime):
     _func.restype = ctypes.c_void_p
     return _func(a_prime, a1, b_prime, b1, f, otherwise, r, r_prime)
 
-def f_powmod_ffi(acc, acc_prime, e_prime, e1, f, otherwise, sqr, sqr_prime):
+def _f_powmod_ffi(acc, acc_prime, e_prime, e1, f, otherwise, sqr, sqr_prime):
     """Wrapper that calls the Haskell version of f (powmod64 loop)."""
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'

@@ -30,258 +30,258 @@
       "node_id": "tdmasolver",
       "parent_id": "tdmaSolver_root",
       "name": "Tdmasolver",
-      "description": "",
+      "description": "Atomic operation: Tdmasolver",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "a",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "aL",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ai",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "b",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "bL",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "bi",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "c",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "c'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "cL",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "cf",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ci",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ci1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ci1'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "d",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "d'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "dL",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "df",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "di",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "di1'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "forM_",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fromList",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "head",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "last",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "length",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "map",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "new",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "read",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "reverse",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "runST",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "thaw",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "toList",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "unsafeFreeze",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "write",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "xi1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "xn",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -290,7 +290,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -314,55 +314,55 @@
       "node_id": "cotraversevec",
       "parent_id": "tdmaSolver_root",
       "name": "Cotraversevec",
-      "description": "",
+      "description": "Atomic operation: Cotraversevec",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "enumFromN",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fmap",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "l",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "map",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -371,7 +371,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }

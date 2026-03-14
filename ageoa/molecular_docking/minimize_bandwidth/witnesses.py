@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-def witness_validate_square_matrix_shape(mat, *args, **kwargs):
+def witness_validate_square_matrix_shape(mat: AbstractArray, *args, **kwargs) -> AbstractArray:
     result = AbstractArray(
         shape=mat.shape,
         dtype="float64",)

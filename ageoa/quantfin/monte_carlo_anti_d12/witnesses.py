@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_runmc(evalState: AbstractArray, evalStateT: AbstractArray, flip: AbstractArray, initState: AbstractArray, lift: AbstractArray, mc: AbstractArray, randState: AbstractArray, sampleRVarTWith: AbstractArray) -> AbstractArray:
@@ -53,7 +52,7 @@ def witness_evolve(anti: AbstractArray, evolve: AbstractArray, evolve_prime: Abs
 
 def witness_maxstep() -> AbstractArray:
     """Shape-and-type check for maxstep. Returns output metadata without running the real computation."""
-    return None
+    return AbstractArray(shape=(1,), dtype="float64")
 
 def witness_simulatestate(anti: AbstractArray, avg: AbstractArray, ccb: AbstractArray, modl: AbstractArray, replicateM: AbstractArray, singleTrial: AbstractArray, trials: AbstractArray) -> AbstractArray:
     """Shape-and-type check for simulatestate. Returns output metadata without running the real computation."""

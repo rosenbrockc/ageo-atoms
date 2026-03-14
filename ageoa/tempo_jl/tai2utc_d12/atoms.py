@@ -3,12 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_tai_to_utc_inversion, witness_utc_to_tai_leap_second_kernel
@@ -21,7 +16,7 @@ from juliacall import Main as jl  # type: ignore[import-untyped]
 @register_atom(witness_utc_to_tai_leap_second_kernel)  # type: ignore[name-defined, untyped-decorator]
 @icontract.require(lambda utc1: isinstance(utc1, (float, int, np.number)), "utc1 must be numeric")
 @icontract.require(lambda utc2: isinstance(utc2, (float, int, np.number)), "utc2 must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "utc_to_tai_leap_second_kernel all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "utc_to_tai_leap_second_kernel all outputs must not be None")
 def utc_to_tai_leap_second_kernel(utc1: float, utc2: float) -> tuple[float, float]:
     """Converts a two-part Coordinated Universal Time (UTC) Julian date to International Atomic Time (TAI) by resolving the applicable leap-second offset. Internally converts Julian date to calendar date (jd2cal) to locate the correct leap-second table entry, then adds the offset to produce the TAI two-part Julian date.
 
@@ -38,7 +33,7 @@ Returns:
 @icontract.require(lambda tai1: isinstance(tai1, (float, int, np.number)), "tai1 must be numeric")
 @icontract.require(lambda tai2: isinstance(tai2, (float, int, np.number)), "tai2 must be numeric")
 @icontract.require(lambda tai_estimate: isinstance(tai_estimate, (float, int, np.number)), "tai_estimate must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "tai_to_utc_inversion all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "tai_to_utc_inversion all outputs must not be None")
 def tai_to_utc_inversion(tai1: float, tai2: float, tai_estimate: float) -> tuple[float, float, float]:
     """Entry-point atom. Inverts the Coordinated Universal Time (UTC)→International Atomic Time (TAI) mapping to recover UTC from a given TAI epoch. Uses an iterative bracketing strategy: seeds a candidate UTC estimate, calls the utc_to_tai_leap_second_kernel to evaluate the forward mapping, then refines until the residual is within floating-point tolerance.
 
@@ -60,10 +55,10 @@ Returns:
 from juliacall import Main as jl
 
 
-def utc_to_tai_leap_second_kernel_ffi(utc1: float, utc2: float) -> object:
+def _utc_to_tai_leap_second_kernel_ffi(utc1: float, utc2: float) -> object:
     """Wrapper that calls the Julia version of utc to tai leap second kernel. Passes arguments through and returns the result."""
     return jl.eval("utc_to_tai_leap_second_kernel(utc1, utc2)")
 
-def tai_to_utc_inversion_ffi(tai1: float, tai2: float, tai_estimate: float) -> object:
+def _tai_to_utc_inversion_ffi(tai1: float, tai2: float, tai_estimate: float) -> object:
     """Wrapper that calls the Julia version of tai to utc inversion. Passes arguments through and returns the result."""
     return jl.eval("tai_to_utc_inversion(tai1, tai2, tai_estimate)")

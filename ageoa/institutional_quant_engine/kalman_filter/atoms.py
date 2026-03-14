@@ -5,12 +5,7 @@ KalmanFilter: Any = Any
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_kalmanfilterinit, witness_kalmanmeasurementupdate
@@ -29,7 +24,7 @@ witness_kalmanmeasurementupdate: Any
 @icontract.require(lambda process_variance: isinstance(process_variance, (float, int, np.number)), "process_variance must be numeric")
 @icontract.require(lambda measurement_variance: isinstance(measurement_variance, (float, int, np.number)), "measurement_variance must be numeric")
 @icontract.require(lambda estimated_measurement_variance: isinstance(estimated_measurement_variance, (float, int, np.number)), "estimated_measurement_variance must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "KalmanFilterInit all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "KalmanFilterInit all outputs must not be None")
 def kalmanfilterinit(process_variance: float, measurement_variance: float, estimated_measurement_variance: float, state: KalmanState) -> tuple[tuple[float, float, float, float], KalmanState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 
@@ -66,7 +61,7 @@ def kalmanfilterinit(process_variance: float, measurement_variance: float, estim
 @icontract.require(lambda R: isinstance(R, (float, int, np.number)), "R must be numeric")
 @icontract.require(lambda X: isinstance(X, (float, int, np.number)), "X must be numeric")
 @icontract.require(lambda measurement: isinstance(measurement, (float, int, np.number)), "measurement must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "KalmanMeasurementUpdate all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "KalmanMeasurementUpdate all outputs must not be None")
 def kalmanmeasurementupdate(P: float, Q: float, R: float, X: float, measurement: float, state: KalmanState) -> tuple[tuple[float, float], KalmanState]:
     """Stateless wrapper: Functional Core, Imperative Shell.
 

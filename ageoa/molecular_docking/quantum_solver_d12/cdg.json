@@ -39,28 +39,28 @@
         {
           "name": "graph",
           "type_desc": "NetworkX-compatible graph encoding the MIS/QUBO problem",
-          "constraints": "",
+          "constraints": "valid NetworkX-compatible graph encoding the MIS/QUBO problem",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "coordinates_layout",
           "type_desc": "dict or array mapping node IDs to 2-D spatial coordinates",
-          "constraints": "",
+          "constraints": "valid dict or array mapping node IDs to 2-D spatial coordinates",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "num_sol",
-          "type_desc": "int \u2014 number of top solutions to return",
+          "type_desc": "int — number of top solutions to return",
           "constraints": "num_sol >= 1",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "display_info",
-          "type_desc": "bool \u2014 whether to emit visualisation / diagnostic output",
-          "constraints": "",
+          "type_desc": "bool — whether to emit visualisation / diagnostic output",
+          "constraints": "boolean flag",
           "required": true,
           "default_value_repr": ""
         }
@@ -76,7 +76,7 @@
         {
           "name": "count_dist",
           "type_desc": "raw measurement count distribution forwarded for downstream inspection",
-          "constraints": "",
+          "constraints": "non-empty string",
           "required": true,
           "default_value_repr": ""
         }
@@ -92,7 +92,7 @@
         "rank_and_extract_solutions"
       ],
       "depth": 1,
-      "type_signature": "(graph: NetworkX-compatible graph encoding the MIS/QUBO problem, coordinates_layout: dict or array mapping node IDs to 2-D spatial coordinates, num_sol: int \u2014 number of top solutions to return, display_info: bool \u2014 whether to emit visualisation / diagnostic output) -> tuple[list of bitstring / node-set solutions ranked by frequency, raw measurement count distribution forwarded for downstream inspection]",
+      "type_signature": "(graph: NetworkX-compatible graph encoding the MIS/QUBO problem, coordinates_layout: dict or array mapping node IDs to 2-D spatial coordinates, num_sol: int — number of top solutions to return, display_info: bool — whether to emit visualisation / diagnostic output) -> tuple[list of bitstring / node-set solutions ranked by frequency, raw measurement count distribution forwarded for downstream inspection]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -100,7 +100,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "ConditionalEndToEndPipelineOrchestrator. Composes a sequence of heterogeneous sub-transforms \u2014 structural encoding, constraint parameterization, temporal schedule construction, probabilistic state evolution, and argmax-ranked extraction \u2014 into a single callable facade that maps a combinatorial structure and its spatial embedding directly to an ordered set of candidate solutions. A boolean flag conditionally activates a side-effectful diagnostic emission branch without altering the primary data flow. The pipeline functions as a deterministic wiring layer: it owns no algorithmic logic itself but enforces execution order and data contracts across all constituent modules.. Applications: Computational chemistry \u2014 orchestrating a molecular conformation search pipeline where a bond-graph and 3-D atomic coordinate embedding are wired through energy minimization, constraint propagation, and Boltzmann-ranked conformer extraction, with optional structural visualization gated by a debug flag, Operations research / logistics \u2014 end-to-end solver facade for a graph-encoded vehicle routing or facility-location QUBO, composing distance-matrix construction, penalty parameterization, heuristic annealing, and ranked itinerary extraction into a single callable with optional diagnostic trace output, Epidemiological network modeling \u2014 pipeline entry point that accepts a contact-network graph with geospatial node coordinates, sequences compartmental model parameterization, stochastic simulation, and frequency-ranked outbreak trajectory extraction, conditionally emitting intervention visualizations, VLSI / circuit placement \u2014 orchestration layer that accepts a netlist hypergraph and die-floorplan coordinate map, chains capacitance-aware register construction, timing-constraint scheduling, placement simulation, and top-K ranked layout extraction, with optional routing-diagram output gated by a verbosity flag",
+      "conceptual_summary": "ConditionalEndToEndPipelineOrchestrator. Composes a sequence of heterogeneous sub-transforms — structural encoding, constraint parameterization, temporal schedule construction, probabilistic state evolution, and argmax-ranked extraction — into a single callable facade that maps a combinatorial structure and its spatial embedding directly to an ordered set of candidate solutions. A boolean flag conditionally activates a side-effectful diagnostic emission branch without altering the primary data flow. The pipeline functions as a deterministic wiring layer: it owns no algorithmic logic itself but enforces execution order and data contracts across all constituent modules.. Applications: Computational chemistry — orchestrating a molecular conformation search pipeline where a bond-graph and 3-D atomic coordinate embedding are wired through energy minimization, constraint propagation, and Boltzmann-ranked conformer extraction, with optional structural visualization gated by a debug flag, Operations research / logistics — end-to-end solver facade for a graph-encoded vehicle routing or facility-location QUBO, composing distance-matrix construction, penalty parameterization, heuristic annealing, and ranked itinerary extraction into a single callable with optional diagnostic trace output, Epidemiological network modeling — pipeline entry point that accepts a contact-network graph with geospatial node coordinates, sequences compartmental model parameterization, stochastic simulation, and frequency-ranked outbreak trajectory extraction, conditionally emitting intervention visualizations, VLSI / circuit placement — orchestration layer that accepts a netlist hypergraph and die-floorplan coordinate map, chains capacitance-aware register construction, timing-constraint scheduling, placement simulation, and top-K ranked layout extraction, with optional routing-diagram output gated by a verbosity flag",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -213,7 +213,7 @@
         {
           "name": "reg",
           "type_desc": "Register",
-          "constraints": "",
+          "constraints": "valid Register",
           "required": true,
           "default_value_repr": ""
         },
@@ -273,14 +273,14 @@
         {
           "name": "coord",
           "type_desc": "dict[node_id, (float,float)]",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "graph",
           "type_desc": "NetworkX Graph",
-          "constraints": "",
+          "constraints": "valid NetworkX Graph",
           "required": true,
           "default_value_repr": ""
         }
@@ -289,7 +289,7 @@
         {
           "name": "detuning_maximum",
           "type_desc": "float",
-          "constraints": "2 \u00d7 interaction upper bound",
+          "constraints": "2 × interaction upper bound",
           "required": true,
           "default_value_repr": ""
         },
@@ -320,34 +320,34 @@
       "node_id": "build_dmm_weight_map",
       "parent_id": "quantumsolverorchestrator",
       "name": "build_dmm_weight_map",
-      "description": "Normalise permuted weights, compute the reversed (1 \u2212 w) DMM weight array, calculate the spread detuning from the minimum normalised weight, and package everything into the params dict ready for pulse scheduling.",
+      "description": "Normalise permuted weights, compute the reversed (1 − w) DMM weight array, calculate the spread detuning from the minimum normalised weight, and package everything into the params dict ready for pulse scheduling.",
       "concept_type": "data_assembly",
       "inputs": [
         {
           "name": "permuted_weights",
           "type_desc": "list[float]",
-          "constraints": "",
+          "constraints": "finite numeric",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "detuning_maximum",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "amplitude_maximum",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "opt_reg",
           "type_desc": "Register",
-          "constraints": "",
+          "constraints": "valid Register",
           "required": true,
           "default_value_repr": ""
         },
@@ -361,7 +361,7 @@
         {
           "name": "list_perm",
           "type_desc": "list[int]",
-          "constraints": "",
+          "constraints": "valid list[int]",
           "required": true,
           "default_value_repr": ""
         }
@@ -401,7 +401,7 @@
       "node_id": "route_and_run_quantum_simulation",
       "parent_id": "quantumsolverorchestrator",
       "name": "route_and_run_quantum_simulation",
-      "description": "Branch on register size: for < 22 atoms run the statevector simulator; for \u2265 22 atoms run the MPS emulator. Returns the raw measurement count distribution from simple_quantum_loop.",
+      "description": "Branch on register size: for < 22 atoms run the statevector simulator; for ≥ 22 atoms run the MPS emulator. Returns the raw measurement count distribution from simple_quantum_loop.",
       "concept_type": "conditional_routing",
       "inputs": [
         {
@@ -428,14 +428,14 @@
         {
           "name": "list_perm",
           "type_desc": "list[int]",
-          "constraints": "",
+          "constraints": "valid list[int]",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "weights_rev",
           "type_desc": "np.ndarray[float]",
-          "constraints": "",
+          "constraints": "numeric weight array",
           "required": true,
           "default_value_repr": ""
         }
@@ -444,7 +444,7 @@
         {
           "name": "count_dist",
           "type_desc": "dict[str, int]",
-          "constraints": "bitstring \u2192 shot count",
+          "constraints": "bitstring → shot count",
           "required": true,
           "default_value_repr": ""
         }
@@ -474,21 +474,21 @@
         {
           "name": "count_dist",
           "type_desc": "dict[str, int]",
-          "constraints": "",
+          "constraints": "non-negative integer",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "reg",
           "type_desc": "Register",
-          "constraints": "",
+          "constraints": "valid Register",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "num_sol",
           "type_desc": "int",
-          "constraints": "\u2265 1",
+          "constraints": "≥ 1",
           "required": true,
           "default_value_repr": ""
         }
@@ -497,7 +497,7 @@
         {
           "name": "solution",
           "type_desc": "list[set | str]",
-          "constraints": "ranked by measurement frequency, length \u2264 num_sol",
+          "constraints": "ranked by measurement frequency, length ≤ num_sol",
           "required": true,
           "default_value_repr": ""
         },
@@ -541,7 +541,7 @@
         {
           "name": "graph",
           "type_desc": "problem graph whose edges define connected atom pairs",
-          "constraints": "",
+          "constraints": "valid problem graph whose edges define connected atom pairs",
           "required": true,
           "default_value_repr": ""
         }
@@ -549,14 +549,14 @@
       "outputs": [
         {
           "name": "u_min",
-          "type_desc": "float \u2014 minimum interaction energy U across all edges",
+          "type_desc": "float — minimum interaction energy U across all edges",
           "constraints": "u_min > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "u_max",
-          "type_desc": "float \u2014 maximum interaction energy U across all edges",
+          "type_desc": "float — maximum interaction energy U across all edges",
           "constraints": "u_max >= u_min",
           "required": true,
           "default_value_repr": ""
@@ -570,7 +570,7 @@
         "compute_u_max_from_disconnected_distances"
       ],
       "depth": 1,
-      "type_signature": "(register_coord: array of (x, y) positions for each qubit in the register, graph: problem graph whose edges define connected atom pairs) -> tuple[float \u2014 minimum interaction energy U across all edges, float \u2014 maximum interaction energy U across all edges]",
+      "type_signature": "(register_coord: array of (x, y) positions for each qubit in the register, graph: problem graph whose edges define connected atom pairs) -> tuple[float — minimum interaction energy U across all edges, float — maximum interaction energy U across all edges]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -578,7 +578,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "EdgeWeightedPairwiseExtremaExtractor. Given a set of N points embedded in 2D Euclidean space and a graph topology defining which point-pairs are structurally related, this operation computes a monotonic scalar function (inverse-power of pairwise Euclidean distance) over all edges and extracts the global minimum and maximum of that scalar field. The result collapses the full edge-weight distribution into a two-element bounding envelope, projecting an N\u00d7N relational tensor down to a scalar range [f_min, f_max] that characterizes the spread of pairwise interaction intensities across the defined topology.. Applications: Wireless sensor network calibration: given sensor node coordinates and a communication-graph topology, extract the minimum and maximum signal-attenuation bounds across active links to set adaptive transmission power envelopes, Molecular dynamics force-field parameterization: given atom 3D coordinates and a bond-graph, compute the min/max pairwise van-der-Waals or Lennard-Jones potential across bonded pairs to bound the energy landscape before integrator time-step selection, Urban infrastructure resilience planning: given geospatial coordinates of facilities (e.g., substations, hospitals) and a dependency graph, extract the min/max proximity-based coupling strength to identify the tightest and loosest structural dependencies for cascading-failure analysis, Manifold learning pre-processing: given a point cloud embedded in 2D (or any low-dimensional projection) and a k-NN graph, compute the edge-weight extrema to set the bandwidth parameter \u03c3 of a kernel (e.g., Gaussian) before constructing a diffusion map or spectral embedding",
+      "conceptual_summary": "EdgeWeightedPairwiseExtremaExtractor. Given a set of N points embedded in 2D Euclidean space and a graph topology defining which point-pairs are structurally related, this operation computes a monotonic scalar function (inverse-power of pairwise Euclidean distance) over all edges and extracts the global minimum and maximum of that scalar field. The result collapses the full edge-weight distribution into a two-element bounding envelope, projecting an N×N relational tensor down to a scalar range [f_min, f_max] that characterizes the spread of pairwise interaction intensities across the defined topology.. Applications: Wireless sensor network calibration: given sensor node coordinates and a communication-graph topology, extract the minimum and maximum signal-attenuation bounds across active links to set adaptive transmission power envelopes, Molecular dynamics force-field parameterization: given atom 3D coordinates and a bond-graph, compute the min/max pairwise van-der-Waals or Lennard-Jones potential across bonded pairs to bound the energy landscape before integrator time-step selection, Urban infrastructure resilience planning: given geospatial coordinates of facilities (e.g., substations, hospitals) and a dependency graph, extract the min/max proximity-based coupling strength to identify the tightest and loosest structural dependencies for cascading-failure analysis, Manifold learning pre-processing: given a point cloud embedded in 2D (or any low-dimensional projection) and a k-NN graph, compute the edge-weight extrema to set the bandwidth parameter σ of a kernel (e.g., Gaussian) before constructing a diffusion map or spectral embedding",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -776,14 +776,14 @@
         {
           "name": "register",
           "type_desc": "Pulser Register object defining qubit positions",
-          "constraints": "",
+          "constraints": "valid Pulser Register object defining qubit positions",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "parameters",
           "type_desc": "dict containing u_min, u_max, and sweep duration / resolution settings",
-          "constraints": "",
+          "constraints": "valid dict containing u_min, u_max, and sweep duration / resolution settings",
           "required": true,
           "default_value_repr": ""
         }
@@ -928,14 +928,14 @@
         {
           "name": "omega_list",
           "type_desc": "list[float]",
-          "constraints": "5-point amplitude breakpoints in rad/\u00b5s, must start and end near zero",
+          "constraints": "5-point amplitude breakpoints in rad/µs, must start and end near zero",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "delta_list",
           "type_desc": "list[float]",
-          "constraints": "5-point detuning breakpoints in rad/\u00b5s",
+          "constraints": "5-point detuning breakpoints in rad/µs",
           "required": true,
           "default_value_repr": ""
         }
@@ -1147,42 +1147,42 @@
         {
           "name": "parameters",
           "type_desc": "dict wrapping the adiabatic_sequence and any sweep/shot settings",
-          "constraints": "",
+          "constraints": "valid dict wrapping the adiabatic_sequence and any sweep/shot settings",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "register",
           "type_desc": "Pulser Register object",
-          "constraints": "",
+          "constraints": "valid Pulser Register object",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "list_perm",
           "type_desc": "list of permutation indices for ensemble averaging",
-          "constraints": "",
+          "constraints": "valid list of permutation indices for ensemble averaging",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "run_qutip",
-          "type_desc": "bool \u2014 enable QuTiP master-equation backend",
-          "constraints": "",
+          "type_desc": "bool — enable QuTiP master-equation backend",
+          "constraints": "boolean flag",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "run_emu_mps",
-          "type_desc": "bool \u2014 enable EMU-MPS tensor-network backend",
-          "constraints": "",
+          "type_desc": "bool — enable EMU-MPS tensor-network backend",
+          "constraints": "finite numeric",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "run_sv",
-          "type_desc": "bool \u2014 enable exact state-vector backend",
-          "constraints": "",
+          "type_desc": "bool — enable exact state-vector backend",
+          "constraints": "boolean flag",
           "required": true,
           "default_value_repr": ""
         }
@@ -1190,7 +1190,7 @@
       "outputs": [
         {
           "name": "count_dist",
-          "type_desc": "dict[bitstring, int] \u2014 aggregated measurement counts across shots and permutations",
+          "type_desc": "dict[bitstring, int] — aggregated measurement counts across shots and permutations",
           "constraints": "sum of counts == total shots",
           "required": true,
           "default_value_repr": ""
@@ -1206,7 +1206,7 @@
         "reorder_bitstrings_by_permutation"
       ],
       "depth": 1,
-      "type_signature": "(parameters: dict wrapping the adiabatic_sequence and any sweep/shot settings, register: Pulser Register object, list_perm: list of permutation indices for ensemble averaging, run_qutip: bool \u2014 enable QuTiP master-equation backend, run_emu_mps: bool \u2014 enable EMU-MPS tensor-network backend, run_sv: bool \u2014 enable exact state-vector backend) -> dict[bitstring, int] \u2014 aggregated measurement counts across shots and permutations",
+      "type_signature": "(parameters: dict wrapping the adiabatic_sequence and any sweep/shot settings, register: Pulser Register object, list_perm: list of permutation indices for ensemble averaging, run_qutip: bool — enable QuTiP master-equation backend, run_emu_mps: bool — enable EMU-MPS tensor-network backend, run_sv: bool — enable exact state-vector backend) -> dict[bitstring, int] — aggregated measurement counts across shots and permutations",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -1274,7 +1274,7 @@
         {
           "name": "seq",
           "type_desc": "pulser.Sequence",
-          "constraints": "",
+          "constraints": "valid pulser.Sequence",
           "required": true,
           "default_value_repr": ""
         },
@@ -1327,7 +1327,7 @@
         {
           "name": "seq",
           "type_desc": "pulser.Sequence",
-          "constraints": "",
+          "constraints": "valid pulser.Sequence",
           "required": true,
           "default_value_repr": ""
         },
@@ -1387,7 +1387,7 @@
         {
           "name": "seq",
           "type_desc": "pulser.Sequence",
-          "constraints": "",
+          "constraints": "valid pulser.Sequence",
           "required": true,
           "default_value_repr": ""
         },
@@ -1454,7 +1454,7 @@
         {
           "name": "seq",
           "type_desc": "pulser.Sequence",
-          "constraints": "",
+          "constraints": "valid pulser.Sequence",
           "required": true,
           "default_value_repr": ""
         },
@@ -1573,21 +1573,21 @@
       "inputs": [
         {
           "name": "count_dist",
-          "type_desc": "dict[bitstring, int] \u2014 raw measurement counts from the sampler",
-          "constraints": "",
+          "type_desc": "dict[bitstring, int] — raw measurement counts from the sampler",
+          "constraints": "non-negative integer",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "register",
-          "type_desc": "Pulser Register \u2014 used for node-index to qubit-index mapping",
-          "constraints": "",
+          "type_desc": "Pulser Register — used for node-index to qubit-index mapping",
+          "constraints": "valid Pulser Register — used for node-index to qubit-index mapping",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "num_solutions",
-          "type_desc": "int \u2014 number of top solutions to extract",
+          "type_desc": "int — number of top solutions to extract",
           "constraints": "num_solutions >= 1",
           "required": true,
           "default_value_repr": ""
@@ -1603,8 +1603,8 @@
         },
         {
           "name": "solution_counts",
-          "type_desc": "list of int \u2014 occurrence counts corresponding to each solution",
-          "constraints": "",
+          "type_desc": "list of int — occurrence counts corresponding to each solution",
+          "constraints": "non-negative integer",
           "required": true,
           "default_value_repr": ""
         }
@@ -1612,7 +1612,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(count_dist: dict[bitstring, int] \u2014 raw measurement counts from the sampler, register: Pulser Register \u2014 used for node-index to qubit-index mapping, num_solutions: int \u2014 number of top solutions to extract) -> tuple[list of node-set dicts ranked by measurement frequency, list of int \u2014 occurrence counts corresponding to each solution]",
+      "type_signature": "(count_dist: dict[bitstring, int] — raw measurement counts from the sampler, register: Pulser Register — used for node-index to qubit-index mapping, num_solutions: int — number of top solutions to extract) -> tuple[list of node-set dicts ranked by measurement frequency, list of int — occurrence counts corresponding to each solution]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -1987,48 +1987,12 @@
       "requires_glue": false
     },
     {
-      "source_id": "adiabaticpulseassembler",
-      "target_id": "quantumcircuitsampler",
-      "output_name": "adiabatic_sequence",
-      "input_name": "parameters.adiabatic_sequence",
-      "source_type": "Pulser Sequence",
-      "target_type": "Pulser Sequence (wrapped in parameters dict)",
-      "requires_glue": false
-    },
-    {
-      "source_id": "quantumsolverorchestrator",
-      "target_id": "quantumcircuitsampler",
-      "output_name": "register",
-      "input_name": "register",
-      "source_type": "Pulser Register",
-      "target_type": "Pulser Register",
-      "requires_glue": false
-    },
-    {
       "source_id": "quantumcircuitsampler",
       "target_id": "quantumsolutionextractor",
       "output_name": "count_dist",
       "input_name": "count_dist",
       "source_type": "dict[bitstring, int]",
       "target_type": "dict[bitstring, int]",
-      "requires_glue": false
-    },
-    {
-      "source_id": "quantumsolverorchestrator",
-      "target_id": "quantumsolutionextractor",
-      "output_name": "register",
-      "input_name": "register",
-      "source_type": "Pulser Register",
-      "target_type": "Pulser Register",
-      "requires_glue": false
-    },
-    {
-      "source_id": "quantumsolverorchestrator",
-      "target_id": "quantumsolutionextractor",
-      "output_name": "num_sol",
-      "input_name": "num_solutions",
-      "source_type": "int",
-      "target_type": "int",
       "requires_glue": false
     },
     {

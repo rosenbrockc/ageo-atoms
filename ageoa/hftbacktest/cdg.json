@@ -33,7 +33,15 @@
       "name": "initialize_glft_state",
       "description": "Initializes the state for the GLFT model coefficients.",
       "concept_type": "state_init",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "_trigger",
+          "type_desc": "NoneType",
+          "constraints": "sentinel input for zero-parameter initializer",
+          "required": false,
+          "default_value_repr": "None"
+        }
+      ],
       "outputs": [
         {
           "name": "initial_c1",
@@ -89,35 +97,35 @@
         {
           "name": "xi",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "gamma",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "delta",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "A",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -177,28 +185,28 @@
         {
           "name": "delta",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "volatility",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "adj1",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "threshold",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite scalar",
           "required": true,
           "default_value_repr": ""
         }
@@ -207,14 +215,14 @@
         {
           "name": "half_spread",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "is_valid_ratio",
           "type_desc": "bool",
-          "constraints": "",
+          "constraints": "boolean flag",
           "required": true,
           "default_value_repr": ""
         }
@@ -247,28 +255,28 @@
         {
           "name": "c1",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "c2",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "delta",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "volatility",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -314,14 +322,14 @@
         {
           "name": "half_spread",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "c1",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },

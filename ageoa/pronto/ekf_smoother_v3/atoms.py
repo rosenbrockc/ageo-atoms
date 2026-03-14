@@ -4,12 +4,7 @@ from typing import Any
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_stateestimatorinit
@@ -21,7 +16,8 @@ from pathlib import Path
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_stateestimatorinit)
-@icontract.ensure(lambda result, **kwargs: result is not None, "StateEstimatorInit output must not be None")
+@icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
+@icontract.ensure(lambda result: result is not None, "StateEstimatorInit output must not be None")
 def stateestimatorinit() -> object:
     """Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.
 
@@ -38,7 +34,7 @@ import ctypes
 import ctypes.util
 from pathlib import Path
 
-def stateestimatorinit_ffi() -> ctypes.c_void_p:
+def _stateestimatorinit_ffi() -> ctypes.c_void_p:
     _lib = ctypes.CDLL("./stateestimatorinit.so")
     _func_name = 'stateestimatorinit_prime'
     _func = _lib[_func_name]

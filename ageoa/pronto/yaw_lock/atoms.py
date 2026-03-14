@@ -18,6 +18,7 @@ register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callab
 YawLockState = object
 
 @register_atom(witness_initializeyawlockstate)
+@icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
 @icontract.ensure(lambda result: result is not None, "InitializeYawLockState output must not be None")
 def initializeyawlockstate() -> YawLockState:
     """Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).

@@ -41,41 +41,41 @@
       "node_id": "randomword32",
       "parent_id": "skip_root",
       "name": "Randomword32",
-      "description": "",
+      "description": "Atomic operation: Randomword32",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "c",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "state",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid state object",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "state'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid state object",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "xor",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -84,7 +84,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -108,34 +108,34 @@
       "node_id": "randomint",
       "parent_id": "skip_root",
       "name": "Randomint",
-      "description": "",
+      "description": "Atomic operation: Randomint",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "fromIntegral",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -144,7 +144,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -168,41 +168,41 @@
       "node_id": "randomword64",
       "parent_id": "skip_root",
       "name": "Randomword64",
-      "description": "",
+      "description": "Atomic operation: Randomword64",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "buildWord64''",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x''",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y2",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -211,7 +211,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -235,41 +235,41 @@
       "node_id": "randomdouble",
       "parent_id": "skip_root",
       "name": "Randomdouble",
-      "description": "",
+      "description": "Atomic operation: Randomdouble",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "div",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fromIntegral",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "val",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -278,7 +278,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -302,34 +302,34 @@
       "node_id": "randomint64",
       "parent_id": "skip_root",
       "name": "Randomint64",
-      "description": "",
+      "description": "Atomic operation: Randomint64",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "fromIntegral",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -338,7 +338,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -362,34 +362,34 @@
       "node_id": "addmod64",
       "parent_id": "skip_root",
       "name": "Addmod64",
-      "description": "",
+      "description": "Atomic operation: Addmod64",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "a",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "b",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "mod",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -398,7 +398,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -422,34 +422,34 @@
       "node_id": "mulmod64",
       "parent_id": "skip_root",
       "name": "Mulmod64",
-      "description": "",
+      "description": "Atomic operation: Mulmod64",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "a",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "b",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -458,7 +458,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -482,34 +482,34 @@
       "node_id": "powmod64",
       "parent_id": "skip_root",
       "name": "Powmod64",
-      "description": "",
+      "description": "Atomic operation: Powmod64",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "a",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "e",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "m",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -518,7 +518,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -542,27 +542,27 @@
       "node_id": "skip",
       "parent_id": "skip_root",
       "name": "Skip",
-      "description": "",
+      "description": "Atomic operation: Skip",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "d",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "st",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "st'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -571,7 +571,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -595,34 +595,34 @@
       "node_id": "next",
       "parent_id": "skip_root",
       "name": "Next",
-      "description": "",
+      "description": "Atomic operation: Next",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "fromIntegral",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "g'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "w",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -631,7 +631,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -655,27 +655,27 @@
       "node_id": "split",
       "parent_id": "skip_root",
       "name": "Split",
-      "description": "",
+      "description": "Atomic operation: Split",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "g",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "skip",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "skipConst",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -684,7 +684,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -708,62 +708,62 @@
       "node_id": "f",
       "parent_id": "skip_root",
       "name": "F",
-      "description": "",
+      "description": "Atomic operation: F",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "a'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "a1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "b'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "b1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "otherwise",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "r",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "r'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -772,7 +772,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -796,62 +796,62 @@
       "node_id": "f",
       "parent_id": "skip_root",
       "name": "F",
-      "description": "",
+      "description": "Atomic operation: F",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "acc",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "acc'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "e'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "e1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "otherwise",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sqr",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sqr'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -860,7 +860,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }

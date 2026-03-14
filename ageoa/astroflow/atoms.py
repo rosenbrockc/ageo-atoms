@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_dedispersionkernel
@@ -24,7 +19,7 @@ from .witnesses import witness_dedispersionkernel
 @icontract.require(lambda nchans: nchans is not None, "nchans cannot be None")
 @icontract.require(lambda shared_mem_size: shared_mem_size is not None, "shared_mem_size cannot be None")
 @icontract.require(lambda block_dim_x: block_dim_x is not None, "block_dim_x cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "DedispersionKernel output must not be None")
+@icontract.ensure(lambda result: result is not None, "DedispersionKernel output must not be None")
 def dedispersionkernel(input_data: "np.ndarray[np.generic]", delay_table: "np.ndarray[np.generic]", dm_steps: int, time_downsample: int, down_ndata: int, nchans: int, shared_mem_size: int, block_dim_x: int) -> "np.ndarray[np.generic]":
     """Applies a dedispersion kernel to input data using a pre-computed delay table, transforming the data across different dispersion measure (DM) steps.
 

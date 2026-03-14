@@ -194,7 +194,7 @@ def allfort(
 # FFI bindings (auto-generated, kept for reference)
 # ---------------------------------------------------------------------------
 
-def var_ffi(s, t, t_prime, v, vs):
+def _var_ffi(s, t, t_prime, v, vs):
     """Wrapper that calls the Haskell version of var."""
     _lib = ctypes.CDLL("./var.so")
     _func_name = 'placeholder'
@@ -203,7 +203,7 @@ def var_ffi(s, t, t_prime, v, vs):
     _func.restype = ctypes.c_void_p
     return _func(s, t, t_prime, v, vs)
 
-def localvol_ffi(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w):
+def _localvol_ffi(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w):
     """Wrapper that calls the Haskell version of localvol."""
     _lib = ctypes.CDLL("./localvol.so")
     _func_name = 'placeholder'
@@ -212,7 +212,7 @@ def localvol_ffi(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w):
     _func.restype = ctypes.c_void_p
     return _func(dwdt, k, otherwise, rcurve, s0, solution, sqrt, t, v, w)
 
-def vol_ffi(x):
+def _vol_ffi(x):
     """Wrapper that calls the Haskell version of vol (flat surface)."""
     _lib = ctypes.CDLL("./vol.so")
     _func_name = 'placeholder'
@@ -221,7 +221,7 @@ def vol_ffi(x):
     _func.restype = ctypes.c_void_p
     return _func(x)
 
-def vol_grid_ffi(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, timeFromZero, vInterp):
+def _vol_grid_ffi(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, timeFromZero, vInterp):
     """Wrapper that calls the Haskell version of vol (grid surface)."""
     _lib = ctypes.CDLL("./vol.so")
     _func_name = 'placeholder'
@@ -230,7 +230,7 @@ def vol_grid_ffi(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInte
     _func.restype = ctypes.c_void_p
     return _func(interpolatedVs, mats, mats_prime, quotes, strike, sts, t, tInterp, timeFromZero, vInterp)
 
-def allfort_ffi(map, quotes, sts, t_prime, x):
+def _allfort_ffi(map, quotes, sts, t_prime, x):
     """Wrapper that calls the Haskell version of allfort."""
     _lib = ctypes.CDLL("./allfort.so")
     _func_name = 'placeholder'

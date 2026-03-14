@@ -154,7 +154,7 @@ def cotraversevec(
 # FFI bindings (auto-generated, kept for reference)
 # ---------------------------------------------------------------------------
 
-def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn):
+def _tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn):
     """Wrapper that calls the Haskell version of tdmasolver. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./tdmasolver.so")
     _func_name = 'placeholder'
@@ -163,7 +163,7 @@ def tdmasolver_ffi(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime,
     _func.restype = ctypes.c_void_p
     return _func(a, aL, ai, b, bL, bi, c, c_prime, cL, cf, ci, ci1, ci1_prime, d, d_prime, dL, df, di, di1_prime, forM_, fromList, head, last, length, map, new, read, reverse, runST, thaw, toList, unsafeFreeze, write, x, xi1, xn)
 
-def cotraversevec_ffi(enumFromN, f, fmap, i, l, m, map):
+def _cotraversevec_ffi(enumFromN, f, fmap, i, l, m, map):
     """Wrapper that calls the Haskell version of cotraversevec. Passes arguments through and returns the result."""
     _lib = ctypes.CDLL("./cotraversevec.so")
     _func_name = 'placeholder'

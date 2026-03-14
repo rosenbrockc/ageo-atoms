@@ -180,7 +180,7 @@ def cf(
 # FFI bindings (auto-generated, kept for reference)
 # ---------------------------------------------------------------------------
 
-def charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc):
+def _charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc):
     """Wrapper that calls the Haskell version of charfuncoption."""
     _lib = ctypes.CDLL("./charfuncoption.so")
     _func_name = 'placeholder'
@@ -189,7 +189,7 @@ def charfuncoption_ffi(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f
     _func.restype = ctypes.c_void_p
     return _func(arg0, cf, charFuncMart, d, damp, damp_prime, disc, exp, f, fg, func1, func2, i, intF, k, leftTerm, log, model, opt, p1, p2, pi, q, realPart, rightTerm, s, strike, tmat, v, v_prime, x, yc)
 
-def f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
+def _f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
     """Wrapper that calls the Haskell version of f."""
     _lib = ctypes.CDLL("./f.so")
     _func_name = 'placeholder'
@@ -198,7 +198,7 @@ def f_ffi(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime):
     _func.restype = ctypes.c_void_p
     return _func(exp, i, k, leftTerm, realPart, rightTerm, v, v_prime)
 
-def cf_ffi(charFuncMart, fg, model, tmat, x):
+def _cf_ffi(charFuncMart, fg, model, tmat, x):
     """Wrapper that calls the Haskell version of cf."""
     _lib = ctypes.CDLL("./cf.so")
     _func_name = 'placeholder'

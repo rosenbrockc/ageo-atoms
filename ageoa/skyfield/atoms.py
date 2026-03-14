@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import (
@@ -20,7 +15,7 @@ from .witnesses import (
 @register_atom(witness_compute_spherical_coordinate_rates)
 @icontract.require(lambda r: r is not None, "r cannot be None")
 @icontract.require(lambda v: v is not None, "v cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "compute_spherical_coordinate_rates output must not be None")
+@icontract.ensure(lambda result: result is not None, "compute_spherical_coordinate_rates output must not be None")
 def compute_spherical_coordinate_rates(r: np.ndarray, v: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Computes spherical coordinate rates.
 

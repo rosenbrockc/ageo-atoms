@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_asi_signal_segmenter(signal: AbstractSignal, sampling_rate: AbstractSignal, Pth: AbstractSignal) -> AbstractSignal:

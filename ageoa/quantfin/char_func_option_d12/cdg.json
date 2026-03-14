@@ -31,230 +31,230 @@
       "node_id": "charfuncoption",
       "parent_id": "charFuncOption_root",
       "name": "Charfuncoption",
-      "description": "",
+      "description": "Atomic operation: Charfuncoption",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "cf",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "charFuncMart",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "d",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "damp",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "damp'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "disc",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "exp",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fg",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "func1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "func2",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "intF",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "leftTerm",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "log",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "model",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "opt",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p1",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "p2",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "pi",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "q",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "realPart",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "rightTerm",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "s",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "strike",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tmat",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "yc",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -263,7 +263,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -287,62 +287,62 @@
       "node_id": "f",
       "parent_id": "charFuncOption_root",
       "name": "F",
-      "description": "",
+      "description": "Atomic operation: F",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "exp",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "leftTerm",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "realPart",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "rightTerm",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v'",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -351,7 +351,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -375,41 +375,41 @@
       "node_id": "cf",
       "parent_id": "charFuncOption_root",
       "name": "Cf",
-      "description": "",
+      "description": "Atomic operation: Cf",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "charFuncMart",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fg",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "model",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "tmat",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -418,7 +418,7 @@
         {
           "name": "result",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }

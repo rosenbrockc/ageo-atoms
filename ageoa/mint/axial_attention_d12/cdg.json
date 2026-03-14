@@ -35,21 +35,21 @@
         {
           "name": "x",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "self_attn_mask",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "self_attn_padding_mask",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -58,7 +58,7 @@
         {
           "name": "output",
           "type_desc": "Any",
-          "constraints": "",
+          "constraints": "valid Any",
           "required": true,
           "default_value_repr": ""
         }
@@ -74,7 +74,7 @@
       "is_opaque": true,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "IntraSequenceContextualWeightedAggregation. Each positional element in a structured sequence computes a normalized affinity score against every other element in the same sequence, producing a set of attention weights that act as a soft, learned routing map. These weights are then used to compute a weighted sum of value representations, replacing each element's raw representation with a context-aware aggregate that encodes global intra-sequence relational structure. The transform is parameterized and differentiable, allowing the routing map itself to be optimized end-to-end with respect to a downstream objective.. Applications: Genomics & Proteomics: Re-encode each residue in an amino acid or nucleotide sequence by weighting contributions from all other residues, capturing long-range co-evolutionary dependencies or tertiary structural contacts without requiring an explicit contact map \u2014 directly applicable to protein structure prediction and RNA secondary structure modeling., Physical Simulation & Particle Systems: Treat each particle or mesh node as a sequence element; the transform computes pairwise interaction weights (analogous to influence potentials) and aggregates neighbor states into updated nodal representations, enabling learned N-body or finite-element surrogate models where the interaction topology is data-driven rather than hand-specified., Temporal Causal Inference & Time-Series Analysis: Apply the masked variant to a multivariate time-series where the positional mask enforces strict temporal ordering, producing a representation of each time-step that is informed only by its causal past \u2014 useful for anomaly detection, regime-change identification, or latent-variable state estimation in sensor fusion, econometrics, or climate modeling., Combinatorial Optimization & Graph Reasoning: Encode the nodes of a graph as a sequence and use the padding mask to restrict attention to actual edges; the output vectors become node embeddings that incorporate neighborhood context in a single differentiable pass, enabling learned heuristics for scheduling, routing, or constraint satisfaction problems where pairwise relational structure governs feasibility.",
+      "conceptual_summary": "IntraSequenceContextualWeightedAggregation. Each positional element in a structured sequence computes a normalized affinity score against every other element in the same sequence, producing a set of attention weights that act as a soft, learned routing map. These weights are then used to compute a weighted sum of value representations, replacing each element's raw representation with a context-aware aggregate that encodes global intra-sequence relational structure. The transform is parameterized and differentiable, allowing the routing map itself to be optimized end-to-end with respect to a downstream objective.. Applications: Genomics & Proteomics: Re-encode each residue in an amino acid or nucleotide sequence by weighting contributions from all other residues, capturing long-range co-evolutionary dependencies or tertiary structural contacts without requiring an explicit contact map — directly applicable to protein structure prediction and RNA secondary structure modeling., Physical Simulation & Particle Systems: Treat each particle or mesh node as a sequence element; the transform computes pairwise interaction weights (analogous to influence potentials) and aggregates neighbor states into updated nodal representations, enabling learned N-body or finite-element surrogate models where the interaction topology is data-driven rather than hand-specified., Temporal Causal Inference & Time-Series Analysis: Apply the masked variant to a multivariate time-series where the positional mask enforces strict temporal ordering, producing a representation of each time-step that is informed only by its causal past — useful for anomaly detection, regime-change identification, or latent-variable state estimation in sensor fusion, econometrics, or climate modeling., Combinatorial Optimization & Graph Reasoning: Encode the nodes of a graph as a sequence and use the padding mask to restrict attention to actual edges; the output vectors become node embeddings that incorporate neighborhood context in a single differentiable pass, enabling learned heuristics for scheduling, routing, or constraint satisfaction problems where pairwise relational structure governs feasibility.",
       "critic_notes": "",
       "decomposition_rationale": ""
     }

@@ -4,12 +4,7 @@ from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractSc
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from .witnesses import witness_cubicsplinefit, witness_rbfinterpolatorfit
@@ -22,7 +17,7 @@ from .witnesses import witness_cubicsplinefit, witness_rbfinterpolatorfit
 @icontract.require(lambda axis: axis is not None, "axis cannot be None")
 @icontract.require(lambda bc_type: bc_type is not None, "bc_type cannot be None")
 @icontract.require(lambda extrapolate: extrapolate is not None, "extrapolate cannot be None")
-@icontract.ensure(lambda result, **kwargs: result is not None, "CubicSplineFit output must not be None")
+@icontract.ensure(lambda result: result is not None, "CubicSplineFit output must not be None")
 def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | tuple | None = None, extrapolate: bool | str | None = None) -> object:  # type: ignore[type-arg]
     """Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.
 
@@ -42,7 +37,7 @@ def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | t
 @icontract.require(lambda y: isinstance(y, (float, int, np.number)), "y must be numeric")
 @icontract.require(lambda smoothing: isinstance(smoothing, (float, int, np.number)), "smoothing must be numeric")
 @icontract.require(lambda epsilon: isinstance(epsilon, (float, int, np.number)), "epsilon must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "RBFInterpolatorFit output must not be None")
+@icontract.ensure(lambda result: result is not None, "RBFInterpolatorFit output must not be None")
 def rbfinterpolatorfit(y: np.ndarray, d: np.ndarray, neighbors: int | None = None, smoothing: float | np.ndarray | None = None, kernel: str | None = None, epsilon: float | None = None, degree: int | None = None) -> object:  # type: ignore[type-arg]
     """Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.
 

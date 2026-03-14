@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
-def witness_foot_sensing_state_update(foot_sensing_state_in, *args, **kwargs):
+def witness_foot_sensing_state_update(foot_sensing_state_in: AbstractArray, *args, **kwargs) -> AbstractArray:
     """Shape-and-type check for foot sensing state update. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=foot_sensing_state_in.shape,

@@ -1,9 +1,12 @@
 from __future__ import annotations
-from typing import Any
-
-import networkx as nx
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from typing import Any
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import networkx as nx
 
 import numpy as np
 
@@ -16,8 +19,17 @@ PulseSequence = Any  # pulser.Sequence (pulse-level quantum control object)
 QuantumRegister = Any  # pulser.Register (atom arrangement on QPU)
 
 
+def _is_nx_graph(obj: object) -> bool:
+    """Check if obj is a networkx Graph without a top-level import."""
+    try:
+        import networkx  # lazy import
+        return isinstance(obj, networkx.Graph)
+    except ImportError:
+        return False
+
+
 @register_atom(witness_quantumsolverorchestrator)
-@icontract.require(lambda graph: isinstance(graph, nx.Graph), "graph must be a networkx Graph")
+@icontract.require(lambda graph: _is_nx_graph(graph), "graph must be a networkx Graph")
 @icontract.require(lambda coordinates_layout: isinstance(coordinates_layout, dict), "coordinates_layout must be a dict")
 @icontract.require(lambda num_sol: num_sol >= 1, "num_sol must be >= 1")
 @icontract.ensure(lambda result: isinstance(result[0], list) and len(result[0]) > 0, "solutions list must be non-empty")
@@ -48,7 +60,7 @@ def quantumsolverorchestrator(graph: nx.Graph, coordinates_layout: dict[str, np.
 
 @register_atom(witness_interactionboundscomputer)
 @icontract.require(lambda register_coord: isinstance(register_coord, dict) and len(register_coord) > 0, "register_coord must be a non-empty dict")
-@icontract.require(lambda graph: isinstance(graph, nx.Graph), "graph must be a networkx Graph")
+@icontract.require(lambda graph: _is_nx_graph(graph), "graph must be a networkx Graph")
 @icontract.ensure(lambda result: result[0] > 0, "u_min must be positive")
 @icontract.ensure(lambda result: result[1] >= result[0], "u_max must be >= u_min")
 def interactionboundscomputer(register_coord: dict[str, np.ndarray], graph: nx.Graph) -> tuple[float, float]:

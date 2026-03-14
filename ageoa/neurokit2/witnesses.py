@@ -1,6 +1,5 @@
 from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
-import networkx as nx  # type: ignore
 
 
 def witness_zhao2018hrvanalysis(ecg_cleaned: AbstractSignal, rpeaks: AbstractSignal, sampling_rate: AbstractSignal, window: AbstractSignal, mode: AbstractSignal) -> AbstractSignal:

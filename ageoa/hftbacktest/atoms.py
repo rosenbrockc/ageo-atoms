@@ -3,12 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 
@@ -19,7 +14,8 @@ from .witnesses import (
     witness_evaluate_spread_conditions,
 )
 @register_atom(witness_initialize_glft_state)
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "initialize_glft_state all outputs must not be None")
+@icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
+@icontract.ensure(lambda result: all(r is not None for r in result), "initialize_glft_state all outputs must not be None")
 def initialize_glft_state() -> tuple[float, float]:
     """Initializes the state for the Gueant-Lehalle-Fernandez-Tapia (GLFT) High-Frequency Trading (HFT) market-making model coefficients.
 
@@ -37,7 +33,7 @@ def initialize_glft_state() -> tuple[float, float]:
 @icontract.require(lambda delta: isinstance(delta, (float, int, np.number)), "delta must be numeric")
 @icontract.require(lambda A: isinstance(A, (float, int, np.number)), "A must be numeric")
 @icontract.require(lambda k: isinstance(k, (float, int, np.number)), "k must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "update_glft_coefficients all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "update_glft_coefficients all outputs must not be None")
 def update_glft_coefficients(last_c1: float, last_c2: float, xi: float, gamma: float, delta: float, A: float, k: float) -> tuple[float, float]:
     """Updates the Gueant-Lehalle-Fernandez-Tapia (GLFT) model coefficients based on market parameters and the previous state.
 
@@ -63,7 +59,7 @@ def update_glft_coefficients(last_c1: float, last_c2: float, xi: float, gamma: f
 @icontract.require(lambda volatility: isinstance(volatility, (float, int, np.number)), "volatility must be numeric")
 @icontract.require(lambda adj1: isinstance(adj1, (float, int, np.number)), "adj1 must be numeric")
 @icontract.require(lambda threshold: isinstance(threshold, (float, int, np.number)), "threshold must be numeric")
-@icontract.ensure(lambda result, **kwargs: all(r is not None for r in result), "evaluate_spread_conditions all outputs must not be None")
+@icontract.ensure(lambda result: all(r is not None for r in result), "evaluate_spread_conditions all outputs must not be None")
 def evaluate_spread_conditions(c1: float, c2: float, delta: float, volatility: float, adj1: float, threshold: float) -> tuple[float, bool]:
     """Computes the half-spread from the current state and checks if it meets a validity condition against the c1 coefficient.
 

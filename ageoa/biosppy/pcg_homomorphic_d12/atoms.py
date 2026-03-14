@@ -3,12 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
 
-import networkx as nx  # type: ignore
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_homomorphicfilter
@@ -17,7 +12,7 @@ from .witnesses import witness_homomorphicfilter
 
 @register_atom(witness_homomorphicfilter)  # type: ignore[name-defined, untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
-@icontract.ensure(lambda result, **kwargs: result is not None, "HomomorphicFilter output must not be None")
+@icontract.ensure(lambda result: result is not None, "HomomorphicFilter output must not be None")
 def homomorphicfilter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:  # type: ignore[type-arg]
     """Applies a homomorphic filter to a phonocardiogram (PCG) heart-sound signal. Takes the logarithm, filters in the frequency domain, then exponentiates back to extract the signal envelope with compressed dynamic range.
 

@@ -75,7 +75,7 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "adaptive_impulse_onset_detector. Applies a cascade of nonlinear signal transformations (e.g., differentiation, squaring, moving-window integration) to a uniformly-sampled 1-D scalar time series in order to amplify transient high-energy events relative to baseline activity. An adaptive threshold, which continuously updates based on recent signal statistics, is then swept across the transformed envelope to mark the discrete sample indices where impulse-like events begin and end. The result is a sparse set of integer indices that partition the original time axis into event and non-event regions.. Applications: Seismology \u2014 detecting the precise onset and termination indices of P-wave and S-wave arrivals within a continuously recorded ground-motion time series, where the transient energy bursts of seismic phases must be distinguished from ambient noise using an adaptive baseline that adjusts for varying microseismic activity levels., Industrial condition monitoring \u2014 locating high-energy mechanical impact events (e.g., bearing defect impulses, tool-chatter spikes) within a vibration-sensor data stream sampled at kilohertz rates, enabling real-time fault detection without manual threshold tuning as machine operating conditions drift., Neuroscience / extracellular electrophysiology \u2014 identifying spike-event indices in a raw multi-unit neural recording voltage trace, where action-potential waveforms appear as brief, high-amplitude transients superimposed on a fluctuating local-field-potential background that requires a continuously adapting detection boundary., Acoustic event detection \u2014 segmenting a continuous audio waveform (e.g., bat echolocation calls, gunshot acoustics, sonar pings) into discrete call-onset and call-offset indices by transforming the raw pressure signal into a smoothed energy envelope and applying a time-varying threshold that tracks ambient background loudness.",
+      "conceptual_summary": "adaptive_impulse_onset_detector. Applies a cascade of nonlinear signal transformations (e.g., differentiation, squaring, moving-window integration) to a uniformly-sampled 1-D scalar time series in order to amplify transient high-energy events relative to baseline activity. An adaptive threshold, which continuously updates based on recent signal statistics, is then swept across the transformed envelope to mark the discrete sample indices where impulse-like events begin and end. The result is a sparse set of integer indices that partition the original time axis into event and non-event regions.. Applications: Seismology — detecting the precise onset and termination indices of P-wave and S-wave arrivals within a continuously recorded ground-motion time series, where the transient energy bursts of seismic phases must be distinguished from ambient noise using an adaptive baseline that adjusts for varying microseismic activity levels., Industrial condition monitoring — locating high-energy mechanical impact events (e.g., bearing defect impulses, tool-chatter spikes) within a vibration-sensor data stream sampled at kilohertz rates, enabling real-time fault detection without manual threshold tuning as machine operating conditions drift., Neuroscience / extracellular electrophysiology — identifying spike-event indices in a raw multi-unit neural recording voltage trace, where action-potential waveforms appear as brief, high-amplitude transients superimposed on a fluctuating local-field-potential background that requires a continuously adapting detection boundary., Acoustic event detection — segmenting a continuous audio waveform (e.g., bat echolocation calls, gunshot acoustics, sonar pings) into discrete call-onset and call-offset indices by transforming the raw pressure signal into a smoothed energy envelope and applying a time-varying threshold that tracks ambient background loudness.",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
@@ -98,42 +98,42 @@
         {
           "name": "v100ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v50ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v200ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v300ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v350ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1200ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -177,7 +177,7 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float",
-          "constraints": "",
+          "constraints": "positive finite scalar",
           "required": true,
           "default_value_repr": ""
         }
@@ -223,7 +223,7 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float",
-          "constraints": "",
+          "constraints": "positive finite scalar",
           "required": true,
           "default_value_repr": ""
         }
@@ -269,7 +269,7 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float",
-          "constraints": "",
+          "constraints": "positive finite scalar",
           "required": true,
           "default_value_repr": ""
         }
@@ -315,21 +315,21 @@
         {
           "name": "sampling_rate",
           "type_desc": "positive float",
-          "constraints": "",
+          "constraints": "positive finite scalar",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v350ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "M_th",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -338,7 +338,7 @@
         {
           "name": "MM",
           "type_desc": "1-D float array of length 5",
-          "constraints": "",
+          "constraints": "valid 1-D float array of length 5",
           "required": true,
           "default_value_repr": ""
         },
@@ -352,7 +352,7 @@
         {
           "name": "M",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
@@ -452,126 +452,126 @@
         {
           "name": "MM",
           "type_desc": "1-D float array of length 5",
-          "constraints": "",
+          "constraints": "valid 1-D float array of length 5",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "MMidx",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "integer indices",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "M",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "slope",
           "type_desc": "1-D float array",
-          "constraints": "",
+          "constraints": "valid 1-D float array",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Rdec",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "R",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "RR",
           "type_desc": "1-D float array of length 5",
-          "constraints": "",
+          "constraints": "valid 1-D float array of length 5",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "RRidx",
           "type_desc": "int",
-          "constraints": "",
+          "constraints": "integer indices",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Rm",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "F",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "QRS",
           "type_desc": "list of int",
-          "constraints": "",
+          "constraints": "valid list of int",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "Rpeak",
           "type_desc": "list of int",
-          "constraints": "",
+          "constraints": "valid list of int",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v50ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v200ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v300ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v350ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v1200ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "M_th",
           "type_desc": "float",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
@@ -604,7 +604,7 @@
       "node_id": "refine_rpeaks_on_original_signal",
       "parent_id": "christov_qrs_segmenter",
       "name": "refine_rpeaks_on_original_signal",
-      "description": "For each candidate index in Rpeak_raw, search a \u00b1100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
+      "description": "For each candidate index in Rpeak_raw, search a ±100ms window on the original raw signal to find the true local maximum, deduplicate, sort, and return as a typed integer array.",
       "concept_type": "searching",
       "inputs": [
         {
@@ -624,7 +624,7 @@
         {
           "name": "v100ms",
           "type_desc": "positive int",
-          "constraints": "",
+          "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         }
