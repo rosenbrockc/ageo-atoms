@@ -7,6 +7,8 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_gan_patch_reconstruction, witness_windowed_signal_reconstruction
+from ppg_reconstruction import reconstruction
+from ppg_reconstruction import gan_rec
 
 
 @register_atom(witness_gan_patch_reconstruction)
@@ -26,7 +28,7 @@ Args:
 
 Returns:
     Reconstructed signal patch aligned to target patch length."""
-    raise NotImplementedError("Wire to original implementation")
+    return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)
 
 
 @register_atom(witness_windowed_signal_reconstruction)
@@ -48,4 +50,4 @@ def windowed_signal_reconstruction(sig: np.ndarray, clean_indices: np.ndarray, n
     Returns:
         Reconstructed signal with same length/index domain as input sig.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return reconstruction(sig=sig, clean_indices=clean_indices, noisy_indices=noisy_indices, sampling_rate=sampling_rate, filter_signal=filter_signal)

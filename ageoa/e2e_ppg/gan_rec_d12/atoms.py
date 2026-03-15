@@ -6,6 +6,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_gan_reconstruction
+from ppg_reconstruction import gan_rec
 
 
 @register_atom(witness_gan_reconstruction)
@@ -24,4 +25,4 @@ def gan_reconstruction(ppg_clean: np.ndarray, noise: list[int], sampling_rate: i
 
     Returns:
         Reconstructed noise signal as a list of floats; same temporal length as noise input."""
-    raise NotImplementedError("Wire to original implementation")
+    return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)

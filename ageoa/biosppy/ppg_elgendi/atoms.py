@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_detect_signal_onsets_elgendi2013
+from biosppy.signals.ppg import find_onsets_elgendi2013
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -31,4 +32,4 @@ Args:
 
 Returns:
     An array of integer indices corresponding to the detected onsets within the input signal."""
-    raise NotImplementedError("Wire to original implementation")
+    return find_onsets_elgendi2013(signal=signal, sampling_rate=sampling_rate, peakwindow=peakwindow, beatwindow=beatwindow, beatoffset=beatoffset, mindelay=mindelay)["onsets"]

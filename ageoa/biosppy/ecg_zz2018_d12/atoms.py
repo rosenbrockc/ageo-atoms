@@ -7,6 +7,9 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_assemblezz2018sqi, witness_computebeatagreementsqi, witness_computefrequencysqi, witness_computekurtosissqi
+from biosppy.signals.ecg import bSQI
+from biosppy.signals.ecg import fSQI
+from biosppy.signals.ecg import kSQI
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -27,7 +30,7 @@ def computebeatagreementsqi(detector_1: object, detector_2: object, fs: float, m
     Returns:
         normalized detector agreement score (0 = no agreement, 1 = full agreement)
     """
-    raise NotImplementedError("Wire to original implementation")
+    return bSQI(detector_1=detector_1, detector_2=detector_2, fs=fs, mode=mode, search_window=search_window)
 
 @register_atom(witness_computefrequencysqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
@@ -46,7 +49,7 @@ def computefrequencysqi(ecg_signal: object, fs: float, nseg: int, num_spectrum: 
     Returns:
         spectral quality ratio/score
     """
-    raise NotImplementedError("Wire to original implementation")
+    return fSQI(ecg_signal=ecg_signal, fs=fs, nseg=nseg, num_spectrum=num_spectrum, dem_spectrum=dem_spectrum, mode=mode)
 
 @register_atom(witness_computekurtosissqi)
 @icontract.require(lambda signal: signal is not None, "signal cannot be None")
@@ -62,7 +65,7 @@ def computekurtosissqi(signal: object, fisher: bool) -> float:
     Returns:
         kurtosis-derived quality score
     """
-    raise NotImplementedError("Wire to original implementation")
+    return kSQI(signal=signal, fisher=fisher)
 
 @register_atom(witness_assemblezz2018sqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
@@ -89,4 +92,4 @@ def assemblezz2018sqi(signal: object, detector_1: object, detector_2: object, fs
     Returns:
         final composite quality output
     """
-    raise NotImplementedError("Wire to original implementation")
+    return {"b_sqi": b_sqi, "f_sqi": f_sqi, "k_sqi": k_sqi}

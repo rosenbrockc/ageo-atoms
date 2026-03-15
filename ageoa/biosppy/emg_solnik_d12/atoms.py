@@ -8,6 +8,7 @@ import numpy as np
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_solnik_onset_detect
+from biosppy.signals.emg import solnik_onset_detector
 @register_atom(witness_solnik_onset_detect)
 @icontract.require(lambda signal: signal is not None, "signal cannot be None")
 @icontract.require(lambda rest: rest is not None, "rest cannot be None")
@@ -28,4 +29,4 @@ def solnik_onset_detect(signal: np.ndarray, rest: float, sampling_rate: float, t
     Returns:
         values in [0, len(signal)-1], monotonically increasing
     """
-    raise NotImplementedError("Wire to original implementation")
+    return solnik_onset_detector(signal=signal, rest=rest, sampling_rate=sampling_rate, threshold=threshold, active_state_duration=active_state_duration)["onsets"]

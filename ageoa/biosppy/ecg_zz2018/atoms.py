@@ -7,6 +7,10 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_calculatebeatagreementsqi, witness_calculatecompositesqi_zz2018, witness_calculatefrequencypowersqi, witness_calculatekurtosissqi
+from biosppy.signals.ecg import ZZ2018
+from biosppy.signals.ecg import bSQI
+from biosppy.signals.ecg import fSQI
+from biosppy.signals.ecg import kSQI
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -28,7 +32,7 @@ def calculatecompositesqi_zz2018(signal: NDArray, detector_1: NDArray, detector_
     Returns:
         The final composite SQI score.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return ZZ2018(signal=signal, detector_1=detector_1, detector_2=detector_2, fs=fs, search_window=search_window, nseg=nseg, mode=mode)
 
 @register_atom(witness_calculatebeatagreementsqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
@@ -45,7 +49,7 @@ Args:
 
 Returns:
     The beat agreement Signal Quality Index (SQI) score."""
-    raise NotImplementedError("Wire to original implementation")
+    return bSQI(detector_1=detector_1, detector_2=detector_2, fs=fs, mode=mode, search_window=search_window)
 
 @register_atom(witness_calculatefrequencypowersqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
@@ -63,7 +67,7 @@ Args:
 
 Returns:
     The frequency power Signal Quality Index (SQI) score."""
-    raise NotImplementedError("Wire to original implementation")
+    return fSQI(ecg_signal=ecg_signal, fs=fs, nseg=nseg, num_spectrum=num_spectrum, dem_spectrum=dem_spectrum, mode=mode)
 
 @register_atom(witness_calculatekurtosissqi)
 @icontract.require(lambda signal: signal is not None, "signal cannot be None")
@@ -78,4 +82,4 @@ Args:
 
 Returns:
     The kurtosis-based Signal Quality Index (SQI) score."""
-    raise NotImplementedError("Wire to original implementation")
+    return kSQI(signal=signal, fisher=fisher)

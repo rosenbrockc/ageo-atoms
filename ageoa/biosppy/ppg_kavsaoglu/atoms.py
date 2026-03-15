@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_detectonsetevents
+from biosppy.signals.ppg import find_onsets_kavsaoglu2016
 
 @register_atom(witness_detectonsetevents)
 @icontract.require(lambda signal: signal.ndim >= 1, "signal must be at least 1-D")
@@ -30,4 +31,4 @@ Args:
 
 Returns:
     Detected onset locations/times; may be empty."""
-    raise NotImplementedError("Wire to original implementation")
+    return find_onsets_kavsaoglu2016(signal=signal, sampling_rate=sampling_rate, alpha=alpha, k=k, init_bpm=init_bpm, min_delay=min_delay, max_BPM=max_BPM)["onsets"]

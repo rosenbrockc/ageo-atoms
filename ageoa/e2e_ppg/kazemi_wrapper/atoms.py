@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_wrapperpredictionsignalcomputation, witness_signalarraynormalization
+from kazemi_peak_detection import normalize
 
 
 @register_atom(witness_wrapperpredictionsignalcomputation)
@@ -38,4 +39,4 @@ def signalarraynormalization(arr: np.ndarray) -> np.ndarray:
     Returns:
         Normalized array with same shape as input.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return normalize(arr)

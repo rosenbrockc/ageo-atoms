@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_detect_heart_cycles
+from ppg_sqa import heart_cycle_detection
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -24,4 +25,4 @@ def detect_heart_cycles(ppg: np.ndarray, sampling_rate: float) -> np.ndarray:
     Returns:
         Indices of detected heart cycle boundaries.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return heart_cycle_detection(ppg=ppg, sampling_rate=sampling_rate)

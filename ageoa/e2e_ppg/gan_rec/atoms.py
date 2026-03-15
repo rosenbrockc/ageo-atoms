@@ -12,6 +12,7 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 from .witnesses import witness_generatereconstructedppg
+from ppg_reconstruction import gan_rec
 
 @register_atom(witness_generatereconstructedppg)
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
@@ -28,4 +29,4 @@ Args:
 
 Returns:
     Generated/reconstructed PPG signal; shape determined by generator architecture."""
-    raise NotImplementedError("Wire to original implementation")
+    return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)

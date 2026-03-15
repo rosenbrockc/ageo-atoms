@@ -7,6 +7,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from biosppy.signals.ecg import hamilton_segmenter as _hamilton_segmenter
 # from .witnesses import witness_hamilton_segmenter
 
 # Witness functions should be imported from the generated witnesses module
@@ -24,4 +25,4 @@ def hamilton_segmenter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:
     Returns:
         indices within [0, len(signal))
     """
-    raise NotImplementedError("Wire to original implementation")
+    return _hamilton_segmenter(signal=signal, sampling_rate=sampling_rate)["rpeaks"]

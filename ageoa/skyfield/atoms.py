@@ -10,6 +10,8 @@ from .witnesses import (
     witness_compute_spherical_coordinate_rates,
     witness_calculate_vector_angle,
 )
+from skyfield.functions import angle_between
+from skyfield.functions import _to_spherical_and_rates
 
 
 @register_atom(witness_compute_spherical_coordinate_rates)
@@ -26,7 +28,7 @@ def compute_spherical_coordinate_rates(r: np.ndarray, v: np.ndarray) -> tuple[np
     Returns:
         A tuple containing the rates of change for range, right ascension, and declination.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return _to_spherical_and_rates(r, v)
 
 @register_atom(witness_calculate_vector_angle)
 @icontract.require(lambda u: u is not None, "u cannot be None")
@@ -42,4 +44,4 @@ def calculate_vector_angle(u: np.ndarray, v: np.ndarray) -> float:
     Returns:
         The angle in radians.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return angle_between(u, v)

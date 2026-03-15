@@ -8,6 +8,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_bonato_onset_detection
+from biosppy.signals.emg import bonato_onset_detector
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -33,4 +34,4 @@ def bonato_onset_detection(signal: np.ndarray, rest: np.ndarray, sampling_rate: 
     Returns:
         A list of integer indices corresponding to the detected onset locations in the signal.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return bonato_onset_detector(signal=signal, rest=rest, sampling_rate=sampling_rate, threshold=threshold, active_state_duration=active_state_duration, samples_above_fail=samples_above_fail, fail_size=fail_size)["onsets"]

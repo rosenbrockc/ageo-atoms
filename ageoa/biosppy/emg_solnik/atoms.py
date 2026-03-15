@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_threshold_based_onset_detection
+from biosppy.signals.emg import solnik_onset_detector
 
 @register_atom(witness_threshold_based_onset_detection)
 @icontract.require(lambda signal: signal.ndim >= 1, "signal must be at least 1-D")
@@ -27,4 +28,4 @@ def threshold_based_onset_detection(signal: np.ndarray, rest: np.ndarray, sampli
     Returns:
         Indices marking detected onsets that satisfy threshold and duration criteria.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return solnik_onset_detector(signal=signal, rest=rest, sampling_rate=sampling_rate, threshold=threshold, active_state_duration=active_state_duration)["onsets"]

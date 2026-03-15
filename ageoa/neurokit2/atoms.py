@@ -7,6 +7,8 @@ import icontract
 from typing import Any, Union
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_averageqrstemplate, witness_zhao2018hrvanalysis
+from neurokit2.ecg.ecg_quality import _ecg_quality_averageQRS
+from neurokit2.ecg.ecg_quality import _ecg_quality_zhao2018
 
 # Placeholder witness functions
 
@@ -29,7 +31,7 @@ def zhao2018hrvanalysis(ecg_cleaned: np.ndarray, rpeaks: np.ndarray, sampling_ra
     Returns:
         beat-timing variability features
     """
-    raise NotImplementedError("Wire to original implementation")
+    return _ecg_quality_zhao2018(ecg_cleaned=ecg_cleaned, rpeaks=rpeaks, sampling_rate=sampling_rate, window=window, mode=mode)
 @register_atom(witness_averageqrstemplate)
 @icontract.require(lambda ecg_cleaned: ecg_cleaned is not None, "ecg_cleaned cannot be None")
 @icontract.require(lambda rpeaks: rpeaks is not None, "rpeaks cannot be None")
@@ -45,4 +47,4 @@ def averageqrstemplate(ecg_cleaned: np.ndarray, rpeaks: np.ndarray, sampling_rat
 
     Returns:
         averaged beat shape"""
-    raise NotImplementedError("Wire to original implementation")
+    return _ecg_quality_averageQRS(ecg_cleaned=ecg_cleaned, rpeaks=rpeaks, sampling_rate=sampling_rate)

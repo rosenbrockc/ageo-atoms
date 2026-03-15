@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_homomorphicfilter
+from biosppy.signals.pcg import homomorphic_filter
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -23,4 +24,4 @@ def homomorphicfilter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:  
     Returns:
         same shape as input signal
     """
-    raise NotImplementedError("Wire to original implementation")
+    return homomorphic_filter(signal=signal, sampling_rate=sampling_rate)["homomorphic_envelope"]

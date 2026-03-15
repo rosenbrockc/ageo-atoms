@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_gamboa_segmenter
+from biosppy.signals.ecg import gamboa_segmenter as _gamboa_segmenter
 
   # type: ignore[import-untyped]
 @register_atom(witness_gamboa_segmenter)
@@ -22,4 +23,4 @@ def gamboa_segmenter(signal: np.ndarray, sampling_rate: float, tol: float) -> np
     Returns:
         indices within [0, len(signal))
     """
-    raise NotImplementedError("Wire to original implementation")
+    return _gamboa_segmenter(signal=signal, sampling_rate=sampling_rate, tol=tol)["rpeaks"]

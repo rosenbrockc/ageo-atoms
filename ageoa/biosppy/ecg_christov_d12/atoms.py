@@ -6,6 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from biosppy.signals.ecg import christov_segmenter
 # from .witnesses import witness_christov_qrs_segmenter
 
 # Witness functions should be imported from the generated witnesses module
@@ -22,4 +23,4 @@ Args:
 
 Returns:
     indices must be within bounds of the input signal; sorted ascending"""
-    raise NotImplementedError("Wire to original implementation")
+    return christov_segmenter(signal=signal, sampling_rate=sampling_rate)["rpeaks"]

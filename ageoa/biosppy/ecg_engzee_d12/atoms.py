@@ -8,6 +8,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_engzee_qrs_segmentation  # type: ignore[import-untyped]
+from biosppy.signals.ecg import engzee_segmenter
 
 @register_atom(witness_engzee_qrs_segmentation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
@@ -23,4 +24,4 @@ def engzee_qrs_segmentation(signal: np.ndarray, sampling_rate: float, threshold:
     Returns:
         indices into the input signal where R-peaks are detected; sorted ascending
     """
-    raise NotImplementedError("Wire to original implementation")
+    return engzee_segmenter(signal=signal, sampling_rate=sampling_rate, threshold=threshold)["rpeaks"]

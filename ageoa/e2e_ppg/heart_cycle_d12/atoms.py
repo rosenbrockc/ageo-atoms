@@ -6,6 +6,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_heart_cycle_detection
+from ppg_sqa import heart_cycle_detection as _heart_cycle_detection
 
 
 @register_atom(witness_heart_cycle_detection)
@@ -21,4 +22,4 @@ def heart_cycle_detection(ppg: np.ndarray, sampling_rate: float) -> list[int]:
 
     Returns:
         indices within [0, len(ppg))"""
-    raise NotImplementedError("Wire to original implementation")
+    return _heart_cycle_detection(ppg=ppg, sampling_rate=sampling_rate)

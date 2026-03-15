@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_gamboa_segmentation
+from biosppy.signals.ecg import gamboa_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -26,4 +27,4 @@ def gamboa_segmentation(signal: np.ndarray, sampling_rate: float, tol: float) ->
     Returns:
         An array of indices indicating the start and end points of the identified segments.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return gamboa_segmenter(signal=signal, sampling_rate=sampling_rate, tol=tol)["rpeaks"]

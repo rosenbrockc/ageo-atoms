@@ -9,6 +9,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_detect_onsets_with_rest_aware_thresholds
+from biosppy.signals.emg import abbink_onset_detector
 
 @register_atom(witness_detect_onsets_with_rest_aware_thresholds)
 @icontract.require(lambda signal: signal.ndim >= 1, "signal must be at least 1-D")
@@ -32,4 +33,4 @@ def detect_onsets_with_rest_aware_thresholds(signal: npt.NDArray[np.float64], re
     Returns:
         Onset detection results aligned with input signal timeline.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return abbink_onset_detector(signal=signal, rest=rest, sampling_rate=sampling_rate, size=size, alarm_size=alarm_size, threshold=threshold, transition_threshold=transition_threshold)["onsets"]

@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_hamilton_segmentation
+from biosppy.signals.ecg import hamilton_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -22,4 +23,4 @@ Args:
 
 Returns:
     Array of indices corresponding to the detected R-peaks."""
-    raise NotImplementedError("Wire to original implementation")
+    return hamilton_segmenter(signal=signal, sampling_rate=sampling_rate)["rpeaks"]

@@ -6,6 +6,7 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+from biosppy.signals.ecg import ASI_segmenter
 # from .witnesses import *
 
 # Witness functions should be imported from the generated witnesses module
@@ -25,4 +26,4 @@ def thresholdbasedsignalsegmentation(signal: np.ndarray, sampling_rate: float, P
     Returns:
         derived deterministically from inputs
     """
-    raise NotImplementedError("Wire to original implementation")
+    return ASI_segmenter(signal=signal, sampling_rate=sampling_rate, Pth=Pth)["rpeaks"]

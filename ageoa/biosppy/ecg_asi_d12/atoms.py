@@ -7,6 +7,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_asi_signal_segmenter
+from biosppy.signals.ecg import ASI_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -25,4 +26,4 @@ def asi_signal_segmenter(signal: np.ndarray, sampling_rate: float, Pth: float) -
     Returns:
         0 <= start_sample < end_sample <= len(signal); non-overlapping, sorted ascending
     """
-    raise NotImplementedError("Wire to original implementation")
+    return ASI_segmenter(signal=signal, sampling_rate=sampling_rate, Pth=Pth)["rpeaks"]

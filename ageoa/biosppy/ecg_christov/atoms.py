@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_christovqrsdetect
 from ageoa.biosppy.ecg_christov.witnesses import witness_christovqrsdetect
+from biosppy.signals.ecg import christov_segmenter
 
 
 @register_atom(witness_christovqrsdetect)
@@ -31,4 +32,4 @@ Args:
 Returns:
     Array of R-peak indices, monotonically increasing, values in
     [0, len(signal)-1]."""
-    raise NotImplementedError("Wire to original implementation")
+    return christov_segmenter(signal=signal, sampling_rate=sampling_rate)["rpeaks"]

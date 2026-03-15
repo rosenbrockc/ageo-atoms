@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import witness_homomorphic_signal_filtering
+from biosppy.signals.pcg import homomorphic_filter
 
 @register_atom(witness_homomorphic_signal_filtering)
 @icontract.require(lambda signal: signal.ndim >= 1, "signal must be at least 1-D")
@@ -23,4 +24,4 @@ def homomorphic_signal_filtering(signal: np.ndarray, sampling_rate: float) -> np
     Returns:
         Filtered output signal with same temporal support as input.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return homomorphic_filter(signal=signal, sampling_rate=sampling_rate)["homomorphic_envelope"]

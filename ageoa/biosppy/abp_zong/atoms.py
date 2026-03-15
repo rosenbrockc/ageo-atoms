@@ -8,6 +8,7 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 from .witnesses import witness_audio_onset_detection
+from biosppy.signals.abp import find_onsets_zong2003
 
 @register_atom(witness_audio_onset_detection)
 @icontract.require(lambda signal: signal is not None, "signal cannot be None")
@@ -35,4 +36,4 @@ def audio_onset_detection(signal: NDArray[np.float64], sampling_rate: float, sm_
     Returns:
         Detected onset positions (e.g., sample indices or times).
     """
-    raise NotImplementedError("Wire to original implementation")
+    return find_onsets_zong2003(signal=signal, sampling_rate=sampling_rate, sm_size=sm_size, size=size, alpha=alpha, wrange=wrange, d1_th=d1_th, d2_th=d2_th)["onsets"]

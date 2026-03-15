@@ -7,6 +7,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_engzee_signal_segmentation
 from ageoa.biosppy.ecg_engzee.witnesses import witness_engzee_signal_segmentation
+from biosppy.signals.ecg import engzee_segmenter
 
 
 @register_atom(witness_engzee_signal_segmentation)
@@ -33,4 +34,4 @@ Args:
 Returns:
     Array of R-peak indices, monotonically increasing, values in
     [0, len(signal)-1]."""
-    raise NotImplementedError("Wire to original implementation")
+    return engzee_segmenter(signal=signal, sampling_rate=sampling_rate, threshold=threshold)["rpeaks"]
