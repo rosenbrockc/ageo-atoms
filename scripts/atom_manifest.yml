@@ -1,0 +1,192 @@
+# Atom-to-upstream function mapping.
+# Used by harvest_io.py to instrument upstream repos and capture I/O fixtures.
+#
+# Fields:
+#   atom        — ageoa atom key (module_path:function_name)
+#   upstream:
+#     repo      — directory name under third_party/
+#     module    — Python dotted import path (or Julia/Rust equivalent)
+#     function  — upstream callable name
+#     language  — python | julia | rust
+
+# ── BioSPPy ECG segmenters ──────────────────────────────────────────────────
+
+- atom: biosppy/ecg_hamilton:hamilton_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: hamilton_segmenter
+    language: python
+
+- atom: biosppy/ecg_hamilton_d12:hamilton_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: hamilton_segmenter
+    language: python
+
+- atom: biosppy/ecg_christov:christovqrsdetect
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: christov_segmenter
+    language: python
+
+- atom: biosppy/ecg_christov_d12:christov_qrs_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: christov_segmenter
+    language: python
+
+- atom: biosppy/ecg_engzee:engzee_signal_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: engzee_segmenter
+    language: python
+
+- atom: biosppy/ecg_engzee_d12:engzee_qrs_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: engzee_segmenter
+    language: python
+
+- atom: biosppy/ecg_gamboa:gamboa_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: gamboa_segmenter
+    language: python
+
+- atom: biosppy/ecg_gamboa_d12:gamboa_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: gamboa_segmenter
+    language: python
+
+- atom: biosppy/ecg_asi:thresholdbasedsignalsegmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ASI_segmenter
+    language: python
+
+- atom: biosppy/ecg_asi_d12:asi_signal_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ASI_segmenter
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatecompositesqi_zz2018
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ZZ2018
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatebeatagreementsqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: bSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatefrequencypowersqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: fSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatekurtosissqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: kSQI
+    language: python
+
+# ── BioSPPy other modalities ────────────────────────────────────────────────
+
+- atom: biosppy/pcg_homomorphic:homomorphic_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.pcg
+    function: homomorphic_filter
+    language: python
+
+# ── Tempo.jl ─────────────────────────────────────────────────────────────────
+
+- atom: tempo_jl/tai2utc:tai2utc
+  upstream:
+    repo: Tempo.jl
+    module: Tempo
+    function: tai2utc
+    language: julia
+
+- atom: tempo_jl/utc2tai:utc2tai
+  upstream:
+    repo: Tempo.jl
+    module: Tempo
+    function: utc2tai
+    language: julia
+
+- atom: tempo_jl/find_year:find_year
+  upstream:
+    repo: Tempo.jl
+    module: Tempo
+    function: find_year
+    language: julia
+
+- atom: tempo_jl/find_month:find_month
+  upstream:
+    repo: Tempo.jl
+    module: Tempo
+    function: find_month
+    language: julia
+
+- atom: tempo_jl/jd2cal:jd2cal
+  upstream:
+    repo: Tempo.jl
+    module: Tempo
+    function: jd2cal
+    language: julia
+
+# ── mini-mcmc (Rust) ────────────────────────────────────────────────────────
+
+- atom: mcmc_foundational/mini_mcmc/hmc:initializehmcstate
+  upstream:
+    repo: mini-mcmc
+    crate: mini-mcmc
+    function: HMC::new
+    language: rust
+
+# ── skyfield ─────────────────────────────────────────────────────────────────
+
+- atom: skyfield/earth_satellite:propagate_satellite_state
+  upstream:
+    repo: skyfield
+    module: skyfield.sgp4lib
+    function: EarthSatellite.at
+    language: python
+
+# ── kalman_filters ───────────────────────────────────────────────────────────
+
+- atom: kalman_filters/static_kf:predict
+  upstream:
+    repo: kalman_filters
+    module: kalman_filters.kf
+    function: KalmanFilter.predict
+    language: python
+
+# ── astroflow ────────────────────────────────────────────────────────────────
+
+- atom: astroflow:dedispersionkernel
+  upstream:
+    repo: astroflow
+    module: astroflow.dedispersion
+    function: dedisperse
+    language: python
