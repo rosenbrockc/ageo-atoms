@@ -28,7 +28,9 @@ def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.n
         mvn_samples: drawn IID from N(mean, cov)
         dirichlet_samples: rows sum to 1; drawn from Dir(alpha)
     """
-    raise NotImplementedError("Wire to original implementation")
+    mvn_samples = np.random.multivariate_normal(mean, cov, size=size, check_valid=check_valid, tol=tol)
+    dirichlet_samples = np.random.dirichlet(alpha, size=size)
+    return mvn_samples, dirichlet_samples
 
 @register_atom(witness_discreteeventsampler)  # type: ignore[untyped-decorator]
 @icontract.require(lambda pvals: isinstance(pvals, (float, int, np.number)), "pvals must be numeric")
@@ -44,7 +46,7 @@ def discreteeventsampler(n: int, pvals: np.ndarray, size: int | tuple[int, ...] 
     Returns:
         each row sums to n; counts[i] >= 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.random.multinomial(n, pvals, size=size)
 
 @register_atom(witness_combinatoricssampler)  # type: ignore[untyped-decorator]
 @icontract.require(lambda p: isinstance(p, (float, int, np.number)), "p must be numeric")
@@ -64,4 +66,6 @@ def combinatoricssampler(x: int | np.ndarray, axis: int, a: int | np.ndarray, si
         permuted: all elements of x present exactly once
         selected: drawn from a along axis; respects replace flag
     """
-    raise NotImplementedError("Wire to original implementation")
+    permuted = np.random.permutation(x)
+    selected = np.random.choice(a, size=size, replace=replace, p=p)
+    return permuted, selected

@@ -24,7 +24,7 @@ def initializemarketmakerstate(s0: float, inventory: float) -> dict[str, float]:
     Returns:
         Immutable state; contains all persistent fields previously stored on self.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return {"s": s0, "q": inventory, "sigma": 0.02, "gamma": 0.1, "k": 1.5, "T": 1.0, "t": 0.0}
 
 @register_atom(witness_computeinventoryadjustedquotes)
 @icontract.require(lambda state_model: isinstance(state_model, dict), "state_model must be a dict")
@@ -38,4 +38,18 @@ def computeinventoryadjustedquotes(state_model: dict[str, float]) -> dict[str, f
     Returns:
         Pure arithmetic output derived from state_model.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import math
+    s = state_model["s"]
+    q = state_model["q"]
+    sigma = state_model["sigma"]
+    gamma = state_model["gamma"]
+    k = state_model["k"]
+    T = state_model.get("T", 1.0)
+    t = state_model.get("t", 0.0)
+    # Reservation price adjusted for inventory
+    reservation_price = s - q * gamma * (sigma ** 2) * (T - t)
+    # Optimal spread
+    spread = gamma * (sigma ** 2) * (T - t) + (2.0 / gamma) * math.log(1 + gamma / k)
+    bid = reservation_price - spread / 2.0
+    ask = reservation_price + spread / 2.0
+    return {"reservation_price": reservation_price, "bid": bid, "ask": ask, "spread": spread}

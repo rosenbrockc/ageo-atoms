@@ -29,7 +29,7 @@ def binarysearchinsertion(a: np.ndarray, v: np.ndarray, side: str = 'left', sort
     Returns:
         values in [0, len(a)]; same shape as v
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.searchsorted(a, v, side=side, sorter=sorter)
 
 @register_atom(witness_lexicographicindirectsort)
 @icontract.require(lambda keys: keys is not None, "keys cannot be None")
@@ -44,7 +44,7 @@ def lexicographicindirectsort(keys: Sequence[np.ndarray], axis: int = -1) -> np.
     Returns:
         permutation that sorts keys lexicographically; shape matches key array shape along sort axis
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.lexsort(keys)
 
 @register_atom(witness_partialsortpartition)
 @icontract.require(lambda a: a is not None, "a cannot be None")
@@ -66,4 +66,4 @@ def partialsortpartition(a: np.ndarray, kth: Union[int, Sequence[int]], axis: Op
         partitioned_array: same shape/dtype as a; k-th elements in correct sorted positions (from partition)
         partition_indices: indirect permutation achieving the partition; same shape as a (from argpartition)
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.partition(a, kth, axis=axis, kind=kind, order=order), np.argpartition(a, kth, axis=axis, kind=kind, order=order)

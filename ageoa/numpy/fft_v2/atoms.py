@@ -30,7 +30,7 @@ def forwardmultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[in
     Returns:
         full complex frequency-domain representation
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.fft.fftn(a, s=s, axes=axes, norm=norm)
 
 @register_atom(witness_inversemultidimensionalfft)
 @icontract.require(lambda a: a is not None, "a cannot be None")
@@ -49,7 +49,7 @@ def inversemultidimensionalfft(a: np.ndarray, s: list[int] | None, axes: list[in
     Returns:
         reconstructed spatial or time-domain array; imaginary part negligible for real-valued originals
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.fft.ifftn(a, s=s, axes=axes, norm=norm)
 
 @register_atom(witness_hermitianspectraltransform)
 @icontract.require(lambda a: a is not None, "a cannot be None")
@@ -68,4 +68,4 @@ def hermitianspectraltransform(a: np.ndarray, n: int | None, axis: int, norm: st
     Returns:
         real-valued output spectrum for hfft; Hermitian-symmetric complex array for ihfft
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.fft.hfft(a, n=n, axis=axis, norm=norm)

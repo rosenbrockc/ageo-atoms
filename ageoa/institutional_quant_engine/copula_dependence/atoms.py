@@ -27,4 +27,15 @@ def simulate_copula_dependence(returns: np.ndarray, rho: float, df: int) -> np.n
     Returns:
         Simulated correlated uniform marginals, shape (n_samples, n_assets)
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.stats import t as t_dist
+    n_samples, n_assets = returns.shape
+    # Generate correlated t-distributed samples
+    corr_matrix = np.full((n_assets, n_assets), rho)
+    np.fill_diagonal(corr_matrix, 1.0)
+    L = np.linalg.cholesky(corr_matrix)
+    Z = np.random.standard_normal((n_samples, n_assets))
+    chi2 = np.random.chisquare(df, size=(n_samples, 1))
+    T = (Z @ L.T) / np.sqrt(chi2 / df)
+    # Transform to uniform marginals via CDF
+    U = t_dist.cdf(T, df)
+    return U

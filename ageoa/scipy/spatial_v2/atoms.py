@@ -26,7 +26,7 @@ def voronoitessellation(points: np.ndarray, incremental: bool, qhull_options: st
     Returns:
         Voronoi tessellation result
     """
-    raise NotImplementedError("Wire to original implementation")
+    return scipy.spatial.Voronoi(points, incremental=incremental, qhull_options=qhull_options if qhull_options else None)
 
 @register_atom(witness_delaunaytriangulation)  # type: ignore[untyped-decorator]
 @icontract.require(lambda incremental: incremental is not None, "incremental cannot be None")
@@ -43,4 +43,4 @@ def delaunaytriangulation(points: np.ndarray, incremental: bool, qhull_options: 
     Returns:
         dual graph of Voronoi diagram for same point set
     """
-    raise NotImplementedError("Wire to original implementation")
+    return scipy.spatial.Delaunay(points, incremental=incremental, qhull_options=qhull_options if qhull_options else None)

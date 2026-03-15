@@ -27,7 +27,10 @@ def marketmakerstateinit(s0: float, inventory: float) -> tuple[float, float, flo
         s: mid-price; s > 0
         sigma: volatility estimate; sigma > 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    gamma = 0.1
+    k = 1.5
+    sigma = 0.02
+    return (gamma, k, inventory, s0, sigma)
 
 
 @register_atom(witness_optimalquotecalculation)
@@ -53,4 +56,9 @@ def optimalquotecalculation(gamma: float, k: float, q: float, s: float, sigma: f
         reservation_price: indifference price adjusted for inventory risk
         optimal_spread: distance between ask and bid; optimal_spread > 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    import math
+    reservation_price = s - q * gamma * (sigma ** 2)
+    spread = gamma * (sigma ** 2) + (2.0 / gamma) * math.log(1 + gamma / k)
+    bid_price = reservation_price - spread / 2.0
+    ask_price = reservation_price + spread / 2.0
+    return (bid_price, ask_price, reservation_price, spread)

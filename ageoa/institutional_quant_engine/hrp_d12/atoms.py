@@ -22,4 +22,32 @@ def hrppipelinerun(data: pd.DataFrame) -> np.ndarray:
     Returns:
         Linkage matrix or portfolio weight array; all weights in [0, 1]; sum == 1.0
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.cluster.hierarchy import linkage, leaves_list
+    from scipy.spatial.distance import squareform
+    returns = data.values
+    cov = np.cov(returns, rowvar=False)
+    std = np.sqrt(np.diag(cov))
+    corr = cov / np.outer(std, std)
+    corr = np.clip(corr, -1, 1)
+    dist = np.sqrt(0.5 * (1 - corr))
+    np.fill_diagonal(dist, 0)
+    link = linkage(squareform(dist), method='single')
+    n = returns.shape[1]
+    sort_ix = list(leaves_list(link))
+    weights = np.ones(n)
+    clusters = [sort_ix]
+    while clusters:
+        new_clusters = []
+        for cluster in clusters:
+            if len(cluster) <= 1:
+                continue
+            mid = len(cluster) // 2
+            left, right = cluster[:mid], cluster[mid:]
+            lvar = np.var(returns[:, left].sum(axis=1))
+            rvar = np.var(returns[:, right].sum(axis=1))
+            alpha = 1 - lvar / (lvar + rvar) if (lvar + rvar) > 0 else 0.5
+            weights[left] *= alpha
+            weights[right] *= (1 - alpha)
+            new_clusters.extend([left, right])
+        clusters = new_clusters
+    return weights / weights.sum()

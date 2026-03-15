@@ -25,4 +25,11 @@ def fit_gpd_tail(returns: np.ndarray, threshold_quantile: float) -> np.ndarray:
     Returns:
         Array of [shape, loc, scale] GPD parameters fit to the exceedance tail
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.stats import genpareto
+    losses = -returns  # convert to losses
+    threshold = np.quantile(losses, 1 - threshold_quantile)
+    exceedances = losses[losses > threshold] - threshold
+    if len(exceedances) < 2:
+        return np.array([0.0, threshold, 1.0])
+    shape, loc, scale = genpareto.fit(exceedances, floc=0)
+    return np.array([shape, threshold, scale])

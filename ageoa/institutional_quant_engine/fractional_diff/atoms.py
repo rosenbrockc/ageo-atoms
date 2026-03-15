@@ -26,4 +26,17 @@ def fractional_differentiator(series: pd.Series, d: float, threshold: float) -> 
     Returns:
         The fractionally differentiated series.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Compute fractional differentiation weights
+    w = [1.0]
+    for k in range(1, len(series)):
+        w_new = -w[-1] / k * (d - k + 1)
+        if abs(w_new) < threshold:
+            break
+        w.append(w_new)
+    weights = np.array(w[::-1])
+    width = len(weights)
+    df_fd = pd.Series(index=series.index, dtype='float64')
+    for i in range(width, len(series)):
+        window = series.iloc[i - width:i].values
+        df_fd.iloc[i] = np.dot(weights, window)
+    return df_fd.dropna()

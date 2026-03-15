@@ -40,4 +40,14 @@ def hestonpathsampler(S0: float, v0: float, rho: float, kappa: float, theta: flo
         S_paths: all entries > 0; stock price paths from S0.
         v_paths: all entries >= 0; variance paths from v0.
     """
-    raise NotImplementedError("Wire to original implementation")
+    N = int(T / dt)
+    Z = np.random.multivariate_normal([0, 0], [[1, rho], [rho, 1]], (num_sims, N))
+    Z_s, Z_v = Z[:, :, 0], Z[:, :, 1]
+    S = np.zeros((num_sims, N))
+    v = np.zeros((num_sims, N))
+    S[:, 0] = S0
+    v[:, 0] = v0
+    for t in range(1, N):
+        v[:, t] = np.maximum(v[:, t-1] + kappa * (theta - v[:, t-1]) * dt + sigma_v * np.sqrt(v[:, t-1]) * np.sqrt(dt) * Z_v[:, t], 0)
+        S[:, t] = S[:, t-1] * np.exp(-0.5 * v[:, t-1] * dt + np.sqrt(v[:, t-1]) * np.sqrt(dt) * Z_s[:, t])
+    return S, v

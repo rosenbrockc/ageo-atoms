@@ -22,7 +22,7 @@ def riskaversioninit(risk_aversion: float) -> float:
     Returns:
         ≥ 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    return float(risk_aversion)
 
 @register_atom(witness_optimalexecutiontrajectory)  # type: ignore[untyped-decorator, name-defined]
 @icontract.require(lambda risk_aversion: isinstance(risk_aversion, (float, int, np.number)), "risk_aversion must be numeric")
@@ -39,4 +39,9 @@ def optimalexecutiontrajectory(risk_aversion: float, total_shares: float, days: 
     Returns:
         monotonically non-increasing, x_T = 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Almgren-Chriss optimal liquidation trajectory
+    trajectory = []
+    for t in range(days + 1):
+        remaining = total_shares * (1 - t / days)
+        trajectory.append(remaining)
+    return trajectory

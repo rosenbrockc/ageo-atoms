@@ -23,7 +23,7 @@ def initialize_glft_state() -> tuple[float, float]:
         initial_c1: Initial value of the first state variable.
         initial_c2: Initial value of the second state variable.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return (0.0, 0.0)
 
 @register_atom(witness_update_glft_coefficients)
 @icontract.require(lambda last_c1: isinstance(last_c1, (float, int, np.number)), "last_c1 must be numeric")
@@ -50,7 +50,11 @@ def update_glft_coefficients(last_c1: float, last_c2: float, xi: float, gamma: f
         next_c1: The updated state of the 'c1' coefficient.
         next_c2: The updated state of the 'c2' coefficient.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # GLFT coefficient update: c1 = γσ²/2k, c2 = (1/k)ln(1 + k/A)
+    import math
+    c1 = gamma * (xi ** 2) / (2.0 * k)
+    c2 = (1.0 / k) * math.log(1.0 + k / A)
+    return (c1, c2)
 
 @register_atom(witness_evaluate_spread_conditions)
 @icontract.require(lambda c1: isinstance(c1, (float, int, np.number)), "c1 must be numeric")
@@ -75,4 +79,6 @@ def evaluate_spread_conditions(c1: float, c2: float, delta: float, volatility: f
         half_spread: Computed half-spread value.
         is_valid_ratio: True if half_spread / c1 ratio is within the threshold.
     """
-    raise NotImplementedError("Wire to original implementation")
+    half_spread = c2 + delta * volatility * adj1
+    is_valid = abs(half_spread / c1) <= threshold if c1 != 0 else False
+    return (half_spread, is_valid)

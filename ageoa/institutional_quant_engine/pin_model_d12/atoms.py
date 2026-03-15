@@ -23,4 +23,12 @@ def pinlikelihoodevaluator(params: dict[str, float], B: float | np.ndarray, S: f
 
     Returns:
         real-valued likelihood score; -inf indicates zero likelihood"""
-    raise NotImplementedError("Wire to original implementation")
+    alpha = float(params.get("alpha", 0))
+    delta = float(params.get("delta", 0))
+    mu = float(params.get("mu", 0))
+    epsilon = float(params.get("epsilon", 0))
+    B = np.asarray(B, dtype=float)
+    S = np.asarray(S, dtype=float)
+    expected_B = alpha * delta * mu + epsilon
+    expected_S = alpha * (1 - delta) * mu + epsilon
+    return float(np.sum((B - expected_B) ** 2 + (S - expected_S) ** 2))

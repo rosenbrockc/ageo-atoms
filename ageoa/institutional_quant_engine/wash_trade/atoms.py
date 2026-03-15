@@ -9,7 +9,6 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_detect_wash_trade_rings
-from ageoa.ghost.abstract import Boolean
 
 
 @register_atom(witness_detect_wash_trade_rings)
@@ -27,4 +26,15 @@ def detect_wash_trade_rings(trade_graph: np.ndarray) -> np.ndarray:
     Returns:
         Boolean mask of participants flagged as part of a wash-trading ring, shape (n_traders,)
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Detect wash trading rings via cycle detection in adjacency matrix
+    n = trade_graph.shape[0]
+    flagged = np.zeros(n, dtype=bool)
+    # A trader is in a wash ring if there's a cycle through them
+    # Check: A^k has nonzero diagonal for cycle of length k
+    A = (trade_graph > 0).astype(float)
+    power = A.copy()
+    for k in range(2, min(n + 1, 6)):  # check cycles up to length 5
+        power = power @ A
+        diag = np.diag(power)
+        flagged |= (diag > 0)
+    return flagged.astype(np.float64)

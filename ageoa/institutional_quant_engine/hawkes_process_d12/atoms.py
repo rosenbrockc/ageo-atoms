@@ -27,4 +27,17 @@ def hawkesprocesssimulator(mu: float, alpha: float, beta: float, T: float) -> np
     Returns:
         monotonically increasing, all values in (0, T]
     """
-    raise NotImplementedError("Wire to original implementation")
+    t = 0.0
+    points = []
+    while t < T:
+        past = np.array(points) if points else np.array([])
+        upper_bound = mu + np.sum(alpha * np.exp(-beta * (t - past)))
+        dt = -np.log(np.random.uniform()) / upper_bound
+        t += dt
+        if t >= T:
+            break
+        past_new = np.array(points) if points else np.array([])
+        actual_intensity = mu + np.sum(alpha * np.exp(-beta * (t - past_new)))
+        if np.random.uniform() < actual_intensity / upper_bound:
+            points.append(t)
+    return np.array(points)

@@ -29,4 +29,21 @@ def kalman_hedge_ratio(asset_a: np.ndarray, asset_b: np.ndarray, delta: float) -
     Returns:
         Array of time-varying Kalman-estimated hedge ratios, same length as inputs
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Kalman filter for time-varying hedge ratio
+    n = len(asset_a)
+    beta = np.zeros(n)
+    P = 1.0  # state covariance
+    R = 1.0  # measurement noise
+    Q = delta  # state noise
+    beta[0] = 0.0
+    for t in range(1, n):
+        # Predict
+        P_pred = P + Q
+        # Update
+        y = asset_a[t]
+        H = asset_b[t]
+        S = H * P_pred * H + R
+        K = P_pred * H / S
+        beta[t] = beta[t - 1] + K * (y - H * beta[t - 1])
+        P = (1 - K * H) * P_pred
+    return beta

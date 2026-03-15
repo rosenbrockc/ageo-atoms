@@ -28,7 +28,18 @@ def market_making_avellaneda(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Avellaneda-Stoikov: data is price series, returns bid/ask spreads
+    import math
+    sigma = np.std(np.diff(data)) if len(data) > 1 else 0.01
+    gamma = 0.1
+    k = 1.5
+    T = len(data)
+    spreads = np.zeros(len(data))
+    for t in range(len(data)):
+        remaining = (T - t) / T
+        spread = gamma * (sigma ** 2) * remaining + (2.0 / gamma) * math.log(1 + gamma / k)
+        spreads[t] = spread
+    return spreads
 
 @register_atom(witness_almgren_chriss_execution)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -48,7 +59,10 @@ def almgren_chriss_execution(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Almgren-Chriss: data is initial share count vector, returns optimal trajectory
+    n = len(data)
+    trajectory = np.array([data[0] * (1 - t / n) for t in range(n)])
+    return trajectory
 
 @register_atom(witness_pin_informed_trading)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -68,7 +82,13 @@ def pin_informed_trading(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # PIN: data contains [buy_volumes, sell_volumes], estimate PIN
+    mid = len(data) // 2
+    B, S = data[:mid], data[mid:]
+    total = np.sum(B) + np.sum(S)
+    imbalance = np.abs(np.sum(B) - np.sum(S))
+    pin = imbalance / total if total > 0 else 0.0
+    return np.array([pin])
 
 @register_atom(witness_limit_order_queue_estimator)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -88,4 +108,7 @@ def limit_order_queue_estimator(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Limit order queue estimator: data is queue sizes, estimate position
+    cumsum = np.cumsum(data)
+    total = cumsum[-1] if len(cumsum) > 0 else 1.0
+    return cumsum / total if total > 0 else cumsum

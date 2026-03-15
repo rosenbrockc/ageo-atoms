@@ -33,7 +33,8 @@ def singlesourceshortestpath(csgraph: np.ndarray, directed: bool, indices: np.nd
         dist_matrix: inf where no path exists; K = len(indices) or N when indices=None
         predecessors: emitted only when return_predecessors=True; -9999 for unreachable nodes
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.sparse.csgraph import dijkstra
+    return dijkstra(csgraph, directed=directed, indices=indices, return_predecessors=return_predecessors, unweighted=unweighted, limit=limit, min_only=min_only)
 
 @register_atom(witness_allpairsshortestpath)
 @icontract.require(lambda csgraph: csgraph is not None, "csgraph cannot be None")
@@ -54,7 +55,8 @@ def allpairsshortestpath(csgraph: np.ndarray, directed: bool, return_predecessor
         dist_matrix: inf where no path exists; diagonal is 0
         predecessors: emitted only when return_predecessors=True
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.sparse.csgraph import floyd_warshall
+    return floyd_warshall(csgraph, directed=directed, return_predecessors=return_predecessors, unweighted=unweighted)
 
 @register_atom(witness_minimumspanningtree)
 @icontract.require(lambda csgraph: csgraph is not None, "csgraph cannot be None")
@@ -70,4 +72,5 @@ def minimumspanningtree(csgraph: np.ndarray, overwrite: bool) -> np.ndarray:
     Returns:
         upper-triangular; contains exactly N-1 edges for a connected graph; edge weights preserved from input
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.sparse.csgraph import minimum_spanning_tree as _mst
+    return _mst(csgraph, overwrite=overwrite)

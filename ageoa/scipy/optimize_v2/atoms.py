@@ -42,7 +42,8 @@ def shgoglobaloptimization(func: Callable[..., float], bounds: list[tuple[float,
     Returns:
         OptimizeResult with x, fun, and convergence metadata.
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.optimize import shgo as _shgo
+    return _shgo(func, bounds, args=args, constraints=constraints, n=n, iters=iters, callback=callback, minimizer_kwargs=minimizer_kwargs, options=options, sampling_method=sampling_method)
 
 
 @register_atom(witness_differentialevolutionoptimization)
@@ -77,4 +78,5 @@ def differentialevolutionoptimization(func: Callable[..., float], bounds: list[t
     Returns:
         OptimizeResult with x, fun, and convergence metadata.
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.optimize import differential_evolution as _de
+    return _de(func, bounds, args=args, strategy=strategy, maxiter=maxiter, popsize=popsize, tol=tol, mutation=mutation, recombination=recombination, seed=seed, callback=callback, disp=disp, polish=polish, init=init, atol=atol, updating=updating, workers=workers, constraints=constraints, x0=x0)

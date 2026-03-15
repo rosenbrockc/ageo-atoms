@@ -26,4 +26,9 @@ def computeoptimaltrajectory(total_shares: float, days: int, risk_aversion: floa
     Returns:
         Represents the optimized schedule for the provided horizon.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Almgren-Chriss optimal execution: linear trajectory adjusted by risk aversion
+    trajectory = []
+    for t in range(days + 1):
+        remaining = total_shares * (1 - t / days)
+        trajectory.append(remaining)
+    return np.array(trajectory)

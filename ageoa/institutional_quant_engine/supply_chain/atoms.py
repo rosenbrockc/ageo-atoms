@@ -27,4 +27,10 @@ def propagate_supply_shock(adjacency: np.ndarray, initial_shock: np.ndarray) -> 
     Returns:
         Propagated impact scores at each downstream node, shape (n_nodes,)
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Propagate shock through DAG: impact = (I - A)^{-1} @ shock
+    n = adjacency.shape[0]
+    impact = initial_shock.copy().astype(float)
+    # Iterative propagation (converges for DAGs)
+    for _ in range(n):
+        impact = initial_shock + adjacency.T @ impact
+    return impact

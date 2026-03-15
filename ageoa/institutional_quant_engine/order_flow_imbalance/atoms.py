@@ -23,4 +23,25 @@ Args:
 
 Returns:
     Deterministic scalar derived only from row and prev_row."""
-    raise NotImplementedError("Wire to original implementation")
+    # OFI: track bid/ask price and quantity changes
+    row_d = dict(row) if not isinstance(row, dict) else row
+    prev_d = dict(prev_row) if not isinstance(prev_row, dict) else prev_row
+    bid_p, bid_q = float(row_d.get("bid_price", 0)), float(row_d.get("bid_size", 0))
+    prev_bid_p, prev_bid_q = float(prev_d.get("bid_price", 0)), float(prev_d.get("bid_size", 0))
+    ask_p, ask_q = float(row_d.get("ask_price", 0)), float(row_d.get("ask_size", 0))
+    prev_ask_p, prev_ask_q = float(prev_d.get("ask_price", 0)), float(prev_d.get("ask_size", 0))
+    # Buy pressure
+    if bid_p > prev_bid_p:
+        buy_pressure = bid_q
+    elif bid_p == prev_bid_p:
+        buy_pressure = bid_q - prev_bid_q
+    else:
+        buy_pressure = 0.0
+    # Sell pressure
+    if ask_p < prev_ask_p:
+        sell_pressure = ask_q
+    elif ask_p == prev_ask_p:
+        sell_pressure = ask_q - prev_ask_q
+    else:
+        sell_pressure = 0.0
+    return buy_pressure - sell_pressure

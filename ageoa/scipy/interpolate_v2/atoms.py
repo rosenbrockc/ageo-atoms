@@ -31,7 +31,8 @@ def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | t
     Returns:
         supports __call__(x_new), .derivative(), .antiderivative()
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.interpolate import CubicSpline
+    return CubicSpline(x, y, axis=axis, bc_type=bc_type, extrapolate=extrapolate)
 
 @register_atom(witness_rbfinterpolatorfit)
 @icontract.require(lambda y: isinstance(y, (float, int, np.number)), "y must be numeric")
@@ -53,4 +54,5 @@ def rbfinterpolatorfit(y: np.ndarray, d: np.ndarray, neighbors: int | None = Non
     Returns:
         supports __call__(x_new) where x_new is shape (m_points, n_dims)
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.interpolate import RBFInterpolator
+    return RBFInterpolator(y, d, neighbors=neighbors, smoothing=smoothing, kernel=kernel, epsilon=epsilon, degree=degree)
