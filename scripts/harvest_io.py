@@ -13,11 +13,19 @@ Usage::
 """
 from __future__ import annotations
 
+# Force non-interactive matplotlib backend before anything imports it
+import matplotlib
+matplotlib.use("Agg")
+
 import argparse
 import functools
 import importlib
 import logging
+import os
 import sys
+
+# Suppress interactive GUI for any library
+os.environ.setdefault("MPLBACKEND", "Agg")
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +51,20 @@ MAX_RECORDS_PER_FUNCTION = 10  # keep fixtures small
 # ---------------------------------------------------------------------------
 
 
+def _resolve_attr(obj: Any, dotted: str) -> tuple[Any, str, Any]:
+    """Resolve ``"ClassName.method"`` to ``(parent_obj, attr_name, value)``.
+
+    For a simple name like ``"func"``, returns ``(obj, "func", obj.func)``.
+    For ``"Class.method"``, returns ``(Class, "method", Class.method)``.
+    """
+    parts = dotted.split(".")
+    parent = obj
+    for part in parts[:-1]:
+        parent = getattr(parent, part)
+    attr_name = parts[-1]
+    return parent, attr_name, getattr(parent, attr_name)
+
+
 def make_recorder(
     module: Any,
     func_name: str,
@@ -50,9 +72,10 @@ def make_recorder(
 ) -> list[dict]:
     """Replace *module.func_name* with a recording wrapper.
 
+    Supports dotted names like ``"ClassName.method"``.
     Returns the mutable list that accumulates call records.
     """
-    original = getattr(module, func_name)
+    parent, attr_name, original = _resolve_attr(module, func_name)
     records: list[dict] = []
 
     @functools.wraps(original)
@@ -71,12 +94,13 @@ def make_recorder(
                 logger.debug("Serialization failed for %s: %s", func_name, exc)
         return result
 
-    setattr(module, func_name, wrapper)
+    setattr(parent, attr_name, wrapper)
     return records
 
 
 def restore_original(module: Any, func_name: str, original: Any) -> None:
-    setattr(module, func_name, original)
+    parent, attr_name, _ = _resolve_attr(module, func_name)
+    setattr(parent, attr_name, original)
 
 
 # ---------------------------------------------------------------------------
@@ -95,6 +119,8 @@ def load_manifest(
     for entry in entries:
         up = entry["upstream"]
         if up.get("language") != "python":
+            continue
+        if not up.get("repo") or not up.get("function"):
             continue
         if repo_filter and up["repo"] != repo_filter:
             continue
@@ -146,7 +172,7 @@ def harvest_with_tests(entries: list[dict]) -> dict[str, list[dict]]:
             atom_key = entry["atom"]
             try:
                 mod = importlib.import_module(up["module"])
-                original = getattr(mod, up["function"])
+                _, _, original = _resolve_attr(mod, up["function"])
                 records = make_recorder(mod, up["function"], atom_key)
                 originals.append((mod, up["function"], original))
                 entry_records[atom_key] = records
@@ -182,11 +208,17 @@ def harvest_with_tests(entries: list[dict]) -> dict[str, list[dict]]:
 
 def _run_repo_tests(repo: str, repo_path: Path) -> None:
     """Attempt to run the repo's test suite."""
-    test_dirs = [
+    # Check common test directory locations
+    candidates = [
         repo_path / "tests",
         repo_path / "test",
     ]
-    test_dir = next((d for d in test_dirs if d.is_dir()), None)
+    # Also check inside the package directory (e.g., skyfield/skyfield/tests/)
+    for child in repo_path.iterdir():
+        if child.is_dir() and not child.name.startswith("."):
+            candidates.append(child / "tests")
+            candidates.append(child / "test")
+    test_dir = next((d for d in candidates if d.is_dir()), None)
 
     if test_dir is None:
         logger.info("No test directory found for %s, skipping test run", repo)
@@ -194,18 +226,33 @@ def _run_repo_tests(repo: str, repo_path: Path) -> None:
 
     try:
         import pytest  # noqa: F811
+        import signal as _signal
 
         logger.info("Running tests for %s from %s", repo, test_dir)
-        pytest.main(
-            [
-                str(test_dir),
-                "-x",            # stop on first failure
-                "--no-header",
-                "-q",
-                "--tb=no",
-                "-p", "no:warnings",
-            ]
-        )
+
+        # Timeout handler for repos with long/hanging tests
+        def _timeout_handler(signum, frame):
+            raise TimeoutError(f"Test suite for {repo} timed out")
+
+        old_handler = _signal.signal(_signal.SIGALRM, _timeout_handler)
+        _signal.alarm(120)  # 2 minute timeout per repo
+        try:
+            pytest.main(
+                [
+                    str(test_dir),
+                    "-x",            # stop on first failure
+                    "--no-header",
+                    "-q",
+                    "--tb=no",
+                    "-p", "no:warnings",
+                    "--timeout=30",  # per-test timeout (if pytest-timeout installed)
+                ]
+            )
+        finally:
+            _signal.alarm(0)
+            _signal.signal(_signal.SIGALRM, old_handler)
+    except TimeoutError:
+        logger.warning("Test suite timed out for %s", repo)
     except Exception as exc:
         logger.warning("Test run failed for %s: %s", repo, exc)
 

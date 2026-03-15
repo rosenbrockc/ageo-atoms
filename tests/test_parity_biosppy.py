@@ -203,6 +203,26 @@ class TestCalculatekurtosissqi:
             pytest.skip("stub")
         _assert_outputs_match(result, expected)
 
+class TestComputekurtosissqi:
+    FIXTURE = FIXTURES_DIR / "ecg_zz2018_d12/computekurtosissqi.json"
+
+    @pytest.fixture(autouse=True)
+    def _load(self):
+        with open(self.FIXTURE) as f:
+            self.cases = json.load(f)
+
+    @pytest.mark.parametrize("idx", range(1))
+    def test_parity(self, idx):
+        case = self.cases[idx]
+        atom_fn = _import_atom("biosppy/ecg_zz2018_d12:computekurtosissqi")
+        inputs = _deserialize(case["inputs"])
+        expected = _deserialize(case["output"])
+        try:
+            result = atom_fn(**inputs)
+        except NotImplementedError:
+            pytest.skip("stub")
+        _assert_outputs_match(result, expected)
+
 class TestHomomorphicSegmentation:
     FIXTURE = FIXTURES_DIR / "pcg_homomorphic/homomorphic_segmentation.json"
 
@@ -215,6 +235,66 @@ class TestHomomorphicSegmentation:
     def test_parity(self, idx):
         case = self.cases[idx]
         atom_fn = _import_atom("biosppy/pcg_homomorphic:homomorphic_segmentation")
+        inputs = _deserialize(case["inputs"])
+        expected = _deserialize(case["output"])
+        try:
+            result = atom_fn(**inputs)
+        except NotImplementedError:
+            pytest.skip("stub")
+        _assert_outputs_match(result, expected)
+
+class TestHomomorphicSignalFiltering:
+    FIXTURE = FIXTURES_DIR / "pcg_homomorphic/homomorphic_signal_filtering.json"
+
+    @pytest.fixture(autouse=True)
+    def _load(self):
+        with open(self.FIXTURE) as f:
+            self.cases = json.load(f)
+
+    @pytest.mark.parametrize("idx", range(2))
+    def test_parity(self, idx):
+        case = self.cases[idx]
+        atom_fn = _import_atom("biosppy/pcg_homomorphic:homomorphic_signal_filtering")
+        inputs = _deserialize(case["inputs"])
+        expected = _deserialize(case["output"])
+        try:
+            result = atom_fn(**inputs)
+        except NotImplementedError:
+            pytest.skip("stub")
+        _assert_outputs_match(result, expected)
+
+class TestHomomorphicfilter:
+    FIXTURE = FIXTURES_DIR / "pcg_homomorphic_d12/homomorphicfilter.json"
+
+    @pytest.fixture(autouse=True)
+    def _load(self):
+        with open(self.FIXTURE) as f:
+            self.cases = json.load(f)
+
+    @pytest.mark.parametrize("idx", range(1))
+    def test_parity(self, idx):
+        case = self.cases[idx]
+        atom_fn = _import_atom("biosppy/pcg_homomorphic_d12:homomorphicfilter")
+        inputs = _deserialize(case["inputs"])
+        expected = _deserialize(case["output"])
+        try:
+            result = atom_fn(**inputs)
+        except NotImplementedError:
+            pytest.skip("stub")
+        _assert_outputs_match(result, expected)
+
+class TestDetectonsetevents:
+    FIXTURE = FIXTURES_DIR / "ppg_kavsaoglu/detectonsetevents.json"
+
+    @pytest.fixture(autouse=True)
+    def _load(self):
+        with open(self.FIXTURE) as f:
+            self.cases = json.load(f)
+
+    @pytest.mark.parametrize("idx", range(2))
+    def test_parity(self, idx):
+        case = self.cases[idx]
+        atom_fn = _import_atom("biosppy/ppg_kavsaoglu:detectonsetevents")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
