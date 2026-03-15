@@ -24,7 +24,8 @@ def wrapperpredictionsignalcomputation(prediction: np.ndarray, raw_signal: np.nd
     Returns:
         Processed signal array combining prediction and raw signal.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Combine prediction with raw signal: multiply prediction confidence by raw signal
+    return prediction * raw_signal
 
 
 @register_atom(witness_signalarraynormalization)

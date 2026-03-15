@@ -25,4 +25,10 @@ def encodedistancematrix(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int
     Returns:
         A single numpy array containing the padded and stacked matrices.
     """
-    raise NotImplementedError("Wire to original implementation")
+    padded = []
+    for mat in mat_list:
+        h, w = mat.shape
+        pad_h = max_cdr3 - h
+        pad_w = max_epi - w
+        padded.append(np.pad(mat, ((0, pad_h), (0, pad_w)), mode='constant', constant_values=0))
+    return np.stack(padded, axis=0)

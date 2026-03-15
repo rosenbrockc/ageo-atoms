@@ -30,7 +30,28 @@ def dataset_state_initialization(
     Returns:
         read-only dataset state object
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = {"sequence_labels": list(sequence_labels), "sequence_strs": list(sequence_strs)}
+    if fasta_file:
+        # Parse FASTA file if provided
+        labels, strs = [], []
+        with open(fasta_file) as f:
+            label, seq = None, []
+            for line in f:
+                line = line.strip()
+                if line.startswith(">"):
+                    if label is not None:
+                        labels.append(label)
+                        strs.append("".join(seq))
+                    label = line[1:]
+                    seq = []
+                else:
+                    seq.append(line)
+            if label is not None:
+                labels.append(label)
+                strs.append("".join(seq))
+        state["sequence_labels"] = labels
+        state["sequence_strs"] = strs
+    return state
 
 
 @register_atom(witness_dataset_length_query)
@@ -45,7 +66,7 @@ def dataset_length_query(dataset_state: object) -> int:
     Returns:
         Number of sequences, >= 0.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return len(dataset_state["sequence_labels"])
 
 
 @register_atom(witness_dataset_item_retrieval)
@@ -61,7 +82,7 @@ def dataset_item_retrieval(dataset_state: object, idx: int) -> tuple[str, str]:
     Returns:
         Tuple of (label, sequence_str).
     """
-    raise NotImplementedError("Wire to original implementation")
+    return (dataset_state["sequence_labels"][idx], dataset_state["sequence_strs"][idx])
 
 
 @register_atom(witness_token_budget_batch_planning)
@@ -81,4 +102,20 @@ def token_budget_batch_planning(
     Returns:
         List of batches, each a list of dataset indices.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Greedy bin-packing by token count
+    seqs = dataset_state["sequence_strs"]
+    sizes = [(i, len(s) + extra_toks_per_seq) for i, s in enumerate(seqs)]
+    sizes.sort(key=lambda x: x[1], reverse=True)
+    batches = []
+    current_batch = []
+    current_tokens = 0
+    for idx, tok_count in sizes:
+        if current_tokens + tok_count > toks_per_batch and current_batch:
+            batches.append(current_batch)
+            current_batch = []
+            current_tokens = 0
+        current_batch.append(idx)
+        current_tokens += tok_count
+    if current_batch:
+        batches.append(current_batch)
+    return batches

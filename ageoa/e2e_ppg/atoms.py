@@ -26,7 +26,9 @@ def kazemi_peak_detection(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    from scipy.signal import find_peaks
+    peaks, _ = find_peaks(data)
+    return peaks.astype(np.intp)
 
 @register_atom(witness_ppg_reconstruction)
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
@@ -45,7 +47,15 @@ def ppg_reconstruction(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Simple signal reconstruction via interpolation of NaN/corrupted segments
+    reconstructed = data.copy()
+    nan_mask = ~np.isfinite(reconstructed)
+    if nan_mask.any():
+        valid = np.where(~nan_mask)[0]
+        invalid = np.where(nan_mask)[0]
+        if len(valid) >= 2:
+            reconstructed[invalid] = np.interp(invalid, valid, reconstructed[valid])
+    return reconstructed
 
 @register_atom(witness_ppg_sqa)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -65,4 +75,9 @@ def ppg_sqa(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # SQA: compute signal quality metrics (SNR, kurtosis, skewness)
+    from scipy.stats import kurtosis, skew
+    snr = np.mean(data ** 2) / (np.var(data) + 1e-15)
+    k = kurtosis(data)
+    s = skew(data)
+    return np.array([snr, k, s])

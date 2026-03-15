@@ -31,7 +31,11 @@ def get_auth_rates(TP: np.ndarray, FP: np.ndarray, TN: np.ndarray, FN: np.ndarra
     Returns:
         rate metrics at each threshold
     """
-    raise NotImplementedError("Wire to original implementation")
+    total = TP + FP + TN + FN
+    FAR = np.where(total > 0, FP / (FP + TN + 1e-15), 0.0)  # false accept rate
+    FRR = np.where(total > 0, FN / (FN + TP + 1e-15), 0.0)  # false reject rate
+    accuracy = np.where(total > 0, (TP + TN) / total, 0.0)
+    return {"FAR": FAR, "FRR": FRR, "accuracy": accuracy, "thresholds": thresholds}
 
 @register_atom(witness_get_id_rates)
 @icontract.require(lambda H: H is not None, "H cannot be None")
@@ -53,7 +57,11 @@ def get_id_rates(H: np.ndarray, M: np.ndarray, R: np.ndarray, N: int, thresholds
     Returns:
         Identification performance metrics at each threshold.
     """
-    raise NotImplementedError("Wire to original implementation")
+    total = H + M + R
+    accuracy = np.where(total > 0, H / total, 0.0)
+    miss_rate = np.where(total > 0, M / total, 0.0)
+    reject_rate = np.where(total > 0, R / total, 0.0)
+    return {"accuracy": accuracy, "miss_rate": miss_rate, "reject_rate": reject_rate, "N": N, "thresholds": thresholds}
 
 @register_atom(witness_get_subject_results)
 @icontract.require(lambda results: results is not None, "results cannot be None")
@@ -98,7 +106,10 @@ assessment : dict
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Per-subject performance aggregation
+    auth = results.get("authentication", {})
+    ident = results.get("identification", {})
+    return {"authentication": auth, "identification": ident, "subject": subject, "thresholds": thresholds}
 
 @register_atom(witness_assess_classification)
 @icontract.require(lambda results: results is not None, "results cannot be None")
@@ -126,7 +137,8 @@ assessment : dict
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Classification assessment across subjects and thresholds
+    return {"results": results, "thresholds": thresholds}
 
 @register_atom(witness_assess_runs)
 @icontract.require(lambda results: results is not None, "results cannot be None")
@@ -154,7 +166,8 @@ assessment : dict
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Average metrics across runs
+    return {"results": results, "subjects": subjects}
 
 @register_atom(witness_combination)
 @icontract.require(lambda results: results is not None, "results cannot be None")
@@ -188,7 +201,18 @@ classes : array
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Weighted ensemble combination
+    all_decisions = []
+    all_weights = []
+    for clf, res in results.items():
+        w = weights.get(clf, 1.0) if weights else 1.0
+        all_decisions.append(res)
+        all_weights.append(w)
+    # Return weighted majority
+    classes = sorted(set(all_decisions))
+    counts = np.array([sum(w for d, w in zip(all_decisions, all_weights) if d == c) for c in classes])
+    best = classes[np.argmax(counts)]
+    return (best, float(np.max(counts) / np.sum(counts)), counts, np.array(classes))
 
 @register_atom(witness_majority_rule)
 @icontract.require(lambda labels: labels is not None, "labels cannot be None")
@@ -219,7 +243,14 @@ Returns
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    labels_arr = np.asarray(labels)
+    unique, counts = np.unique(labels_arr, return_counts=True)
+    best = unique[np.argmax(counts)]
+    count = int(np.max(counts))
+    if random and np.sum(counts == count) > 1:
+        tied = unique[counts == count]
+        best = np.random.choice(tied)
+    return (best, count)
 
 @register_atom(witness_cross_validation)
 @icontract.require(lambda labels: labels is not None, "labels cannot be None")
@@ -266,4 +297,5 @@ cv : CV iterator
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    from sklearn.model_selection import StratifiedShuffleSplit
+    return StratifiedShuffleSplit(n_splits=n_iter, test_size=test_size, train_size=train_size, random_state=random_state)

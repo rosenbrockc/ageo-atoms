@@ -24,4 +24,19 @@ def rotaryembedding(q: torch.Tensor, k: torch.Tensor) -> Tuple[torch.Tensor, tor
     Returns:
         Position-encoded query and key tensors.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import torch
+    seq_len = q.shape[-2]
+    head_dim = q.shape[-1]
+    freqs = 1.0 / (10000 ** (torch.arange(0, head_dim, 2, dtype=torch.float32, device=q.device) / head_dim))
+    positions = torch.arange(seq_len, dtype=torch.float32, device=q.device)
+    angles = torch.outer(positions, freqs)
+    cos_a = torch.cos(angles)
+    sin_a = torch.sin(angles)
+    def _rotate(x):
+        x1 = x[..., 0::2]
+        x2 = x[..., 1::2]
+        rotated = torch.empty_like(x)
+        rotated[..., 0::2] = x1 * cos_a - x2 * sin_a
+        rotated[..., 1::2] = x1 * sin_a + x2 * cos_a
+        return rotated
+    return (_rotate(q), _rotate(k))

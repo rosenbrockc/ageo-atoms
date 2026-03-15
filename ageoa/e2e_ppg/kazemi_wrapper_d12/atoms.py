@@ -41,4 +41,8 @@ def wrapperevaluate(prediction: np.ndarray, raw_signal: np.ndarray, normalized_a
     Returns:
         Array of integer indices identifying detected peaks in the signal.
     """
-    raise NotImplementedError("Wire to original implementation")
+    from scipy.signal import find_peaks
+    # Post-process: apply prediction threshold on normalized signal
+    combined = prediction * normalized_arr
+    peaks, _ = find_peaks(combined, height=0.5)
+    return peaks.astype(np.intp)
