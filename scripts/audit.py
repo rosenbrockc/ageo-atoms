@@ -401,6 +401,64 @@ def audit_cdg(cdg_path: Path) -> FileAudit:
 
 
 # ---------------------------------------------------------------------------
+# Uncertainty audit
+# ---------------------------------------------------------------------------
+
+def audit_uncertainty(uj_path: Path) -> FileAudit:
+    """Validate an uncertainty.json file when present."""
+    audit = FileAudit(str(uj_path))
+
+    try:
+        data = json.loads(uj_path.read_text())
+    except json.JSONDecodeError as e:
+        audit.fail("U-PARSE", f"Invalid JSON: {e}")
+        return audit
+
+    # Must have "atom" field
+    if not isinstance(data.get("atom"), str) or not data["atom"]:
+        audit.fail("U-ATOM", "Missing or empty 'atom' field")
+
+    estimates = data.get("estimates")
+    if not isinstance(estimates, list):
+        audit.fail("U-SCHEMA", "'estimates' must be a list")
+        return audit
+
+    for i, entry in enumerate(estimates):
+        if not isinstance(entry, dict):
+            audit.fail("U-SCHEMA", f"estimates[{i}] is not an object")
+            continue
+
+        # scalar_factor > 0
+        sf = entry.get("scalar_factor")
+        if sf is not None:
+            if not isinstance(sf, (int, float)) or sf <= 0:
+                audit.fail("U-FACTOR", f"estimates[{i}].scalar_factor must be > 0, got {sf}")
+
+        # confidence in [0, 1]
+        conf = entry.get("confidence")
+        if conf is not None:
+            if not isinstance(conf, (int, float)) or conf < 0 or conf > 1:
+                audit.fail("U-CONF", f"estimates[{i}].confidence must be in [0,1], got {conf}")
+
+        # mode must be a known string
+        mode = entry.get("mode")
+        valid_modes = {"heuristic", "empirical", "analytic", "unknown"}
+        if mode is not None and mode not in valid_modes:
+            audit.fail("U-MODE", f"estimates[{i}].mode '{mode}' not in {valid_modes}")
+
+    return audit
+
+
+def has_ndarray_signature(atoms_path: Path) -> bool:
+    """Check if any atom function has np.ndarray in its signature."""
+    try:
+        text = atoms_path.read_text()
+    except OSError:
+        return False
+    return "ndarray" in text
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -430,6 +488,7 @@ def main() -> None:
     atom_results: list[FileAudit] = []
     witness_results: list[FileAudit] = []
     cdg_results: list[FileAudit] = []
+    uncertainty_results: list[FileAudit] = []
 
     rule_counts: dict[str, int] = defaultdict(int)
 
@@ -438,16 +497,26 @@ def main() -> None:
         atoms_path = d / "atoms.py"
         witnesses_path = d / "witnesses.py"
         cdg_path = d / "cdg.json"
+        uj_path = d / "uncertainty.json"
 
         a = audit_atoms(atoms_path) if atoms_path.exists() else FileAudit(str(atoms_path), [Violation("A-MISSING", "atoms.py not found")])
         w = audit_witnesses(witnesses_path) if witnesses_path.exists() else FileAudit(str(witnesses_path), [Violation("W-MISSING", "witnesses.py not found")])
         c = audit_cdg(cdg_path) if cdg_path.exists() else FileAudit(str(cdg_path), [Violation("C-MISSING", "cdg.json not found")])
 
+        # Validate uncertainty.json when present; warn when ndarray atom lacks one
+        if uj_path.exists():
+            u = audit_uncertainty(uj_path)
+        else:
+            u = FileAudit(str(uj_path))
+            if has_ndarray_signature(atoms_path):
+                u.fail("U-MISSING", "ndarray atom lacks uncertainty.json")
+
         atom_results.append(a)
         witness_results.append(w)
         cdg_results.append(c)
+        uncertainty_results.append(u)
 
-        for v in a.violations + w.violations + c.violations:
+        for v in a.violations + w.violations + c.violations + u.violations:
             rule_counts[v.rule] += 1
 
     # --- Print results by category ---
@@ -481,6 +550,16 @@ def main() -> None:
             c_pass += 1
     print(f"\n  {c_pass}/{len(dirs)} pass\n")
 
+    print("=" * 60)
+    print("UNCERTAINTY (uncertainty.json)")
+    print("=" * 60)
+    u_pass = 0
+    for d, u in zip(dirs, uncertainty_results):
+        print_audit(d.relative_to(BASE), u)
+        if u.passed:
+            u_pass += 1
+    print(f"\n  {u_pass}/{len(dirs)} pass\n")
+
     # --- Rule violation summary ---
     print("=" * 60)
     print("VIOLATION SUMMARY")
@@ -509,6 +588,13 @@ def main() -> None:
         "C-CYCLE": "Cycle in DAG",
         "C-ORPHAN": "Unreachable atomic leaf",
         "C-FIELDS": "Missing optional boolean fields",
+        "U-PARSE": "uncertainty.json invalid JSON",
+        "U-ATOM": "Missing or empty atom field",
+        "U-SCHEMA": "Invalid estimates schema",
+        "U-FACTOR": "scalar_factor must be > 0",
+        "U-CONF": "confidence must be in [0,1]",
+        "U-MODE": "Unknown uncertainty mode",
+        "U-MISSING": "ndarray atom lacks uncertainty.json",
     }
 
     if rule_counts:
@@ -523,7 +609,8 @@ def main() -> None:
     print(f"\n  Total: {total_v} violations across {len(dirs)} directories")
     print(f"  Atoms: {a_pass}/{len(dirs)} pass | "
           f"Witnesses: {w_pass}/{len(dirs)} pass | "
-          f"CDGs: {c_pass}/{len(dirs)} pass")
+          f"CDGs: {c_pass}/{len(dirs)} pass | "
+          f"Uncertainty: {u_pass}/{len(dirs)} pass")
 
     # Exit code
     sys.exit(0 if total_v == 0 else 1)
