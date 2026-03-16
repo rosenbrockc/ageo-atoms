@@ -20,7 +20,7 @@ from .witnesses import (
 @register_atom(witness_initialize_message_passing_state)
 @icontract.require(lambda pgm: pgm is not None, "pgm cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_message_passing_state(pgm, state: BPState) -> tuple[object, BPState]:
+def initialize_message_passing_state(pgm: object, state: BPState) -> tuple[object, BPState]:
     """Build the immutable loopy Belief Propagation (BP) state from the Probabilistic Graphical Model (PGM).
 
     Args:

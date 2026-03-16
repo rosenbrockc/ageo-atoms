@@ -11,7 +11,6 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_addquantumlink
-from ageoa.ghost.abstract import Graph, Node
 
 # Witness functions should be imported from the generated witnesses module
 

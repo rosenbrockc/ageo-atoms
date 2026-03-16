@@ -11,9 +11,7 @@ from .witnesses import witness_optimizationlooporchestration
 # juliacall unavailable; reimplemented in pure numpy
 
 
-def witness_optimizationlooporchestration(*args, **kwargs): pass
-
-@register_atom(witness_optimizationlooporchestration)  # type: ignore[untyped-decorator]
+@register_atom(witness_optimizationlooporchestration)
 @icontract.require(lambda algorithm: algorithm is not None, "algorithm cannot be None")
 @icontract.require(lambda max_iter: max_iter is not None, "max_iter cannot be None")
 @icontract.require(lambda prob: prob is not None, "prob cannot be None")

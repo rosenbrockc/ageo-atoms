@@ -8,13 +8,10 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_configurecorrectionandyawslippolicy, witness_initializeyawlockstate, witness_readinitialjointangles, witness_readrobotstandingstatus, witness_setjointposeandinitialangles, witness_setrobotstandingstatus, witness_setstandinglinktargets
-from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
 import ctypes
 import ctypes.util
 from pathlib import Path
 
-
-register_atom = cast(Callable[[object], Callable[[Callable[..., object]], Callable[..., object]]], _register_atom)
 YawLockState = object
 
 @register_atom(witness_initializeyawlockstate)

@@ -11,9 +11,7 @@ from .witnesses import witness_gradient_oracle_evaluation
 # juliacall unavailable; reimplemented in pure numpy
 
 
-# Witness functions should be imported from the generated witnesses module
-def witness_gradient_oracle_evaluation(*args, **kwargs): pass
-@register_atom(witness_gradient_oracle_evaluation)  # type: ignore[untyped-decorator]
+@register_atom(witness_gradient_oracle_evaluation)
 @icontract.require(lambda rng_in: rng_in is not None, "rng_in cannot be None")
 @icontract.require(lambda obj: obj is not None, "obj cannot be None")
 @icontract.require(lambda adtype: adtype is not None, "adtype cannot be None")

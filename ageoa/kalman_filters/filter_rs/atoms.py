@@ -13,14 +13,7 @@ import ctypes.util
 from pathlib import Path
 
 
-def witness_initializekalmanstatemodel(*args, **kwargs): pass
-def witness_predictlatentstateandcovariance(*args, **kwargs): pass
-def witness_predictlatentstatesteadystate(*args, **kwargs): pass
-def witness_evaluatemeasurementoracle(*args, **kwargs): pass
-def witness_updateposteriorstateandcovariance(*args, **kwargs): pass
-def witness_updateposteriorstatesteadystate(*args, **kwargs): pass
-
-@register_atom(witness_initializekalmanstatemodel)  # type: ignore[untyped-decorator]
+@register_atom(witness_initializekalmanstatemodel)
 @icontract.require(lambda init_config: init_config is not None, "init_config cannot be None")
 @icontract.ensure(lambda result: result is not None, "InitializeKalmanStateModel output must not be None")
 def initializekalmanstatemodel(init_config: object) -> object:

@@ -5,23 +5,12 @@ from __future__ import annotations
 import numpy as np
 
 import icontract
-from typing import Any, Callable, TypeVar, cast
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_exposecovariance, witness_exposelatentmean, witness_initializelineargaussianstatemodel, witness_predictlatentstate, witness_updatewithmeasurement
-from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
 import ctypes
 import ctypes.util
 from pathlib import Path
-
-
-
-# Witness functions should be imported from the generated witnesses module
-def witness_initializelineargaussianstatemodel(*args, **kwargs): pass
-def witness_predictlatentstate(*args, **kwargs): pass
-def witness_updatewithmeasurement(*args, **kwargs): pass
-def witness_exposelatentmean(*args, **kwargs): pass
-def witness_exposecovariance(*args, **kwargs): pass
 
 @register_atom(witness_initializelineargaussianstatemodel)
 @icontract.require(lambda initial_state: isinstance(initial_state, (float, int, np.number)), "initial_state must be numeric")

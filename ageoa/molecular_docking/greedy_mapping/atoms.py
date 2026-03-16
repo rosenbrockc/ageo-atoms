@@ -1,15 +1,7 @@
 from __future__ import annotations
+"""Auto-generated atom wrappers following the ageoa pattern."""
 from typing import Any, Callable, Dict, List, Set, Collection, cast
 Map = Dict
-Graph: Any = Any
-GraphNode: Any = Any
-LatticeInstance: Any = Any
-LatticeNode: Any = Any
-MappingContext: Any = Any
-MappingState: Any = Any
-NodeId: Any = Any
-Subgraph: Any = Any
-"""Auto-generated atom wrappers following the ageoa pattern."""
 
 
 import numpy as np
@@ -17,15 +9,9 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_assemblestaticmappingcontext, witness_initializefrontierfromstartnode, witness_rungreedymappingpipeline, witness_scoreandextendgreedycandidates, witness_validatecurrentmapping
-from ageoa.ghost.registry import register_atom as _register_atom  # type: ignore[import-untyped]
-from ageoa.ghost.abstract import Graph
-
-register_atom = cast(
-    Callable[[Any], Callable[[Callable[..., Any]], Callable[..., Any]]],
-    _register_atom,
-)
 
 # Generated type placeholders.
+Graph = Any
 LatticeInstance = Any
 Subgraph = Any
 MappingContext = Any
@@ -33,13 +19,6 @@ NodeId = Any
 GraphNode = Any
 LatticeNode = Any
 MappingState = Any
-
-# Witness placeholders for generated decorators.
-def witness_assemblestaticmappingcontext(*args, **kwargs): pass
-def witness_initializefrontierfromstartnode(*args, **kwargs): pass
-def witness_scoreandextendgreedycandidates(*args, **kwargs): pass
-def witness_validatecurrentmapping(*args, **kwargs): pass
-def witness_rungreedymappingpipeline(*args, **kwargs): pass
 
 @register_atom(witness_assemblestaticmappingcontext)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")

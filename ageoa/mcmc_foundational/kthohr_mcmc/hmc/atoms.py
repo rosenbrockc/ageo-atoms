@@ -13,10 +13,8 @@ import ctypes
 import ctypes.util
 from pathlib import Path
 
-# Witness functions should be imported from the generated witnesses module
-def witness_buildhmckernelfromlogdensityoracle(*args, **kwargs): pass
 
-@register_atom(witness_buildhmckernelfromlogdensityoracle)  # type: ignore[untyped-decorator]
+@register_atom(witness_buildhmckernelfromlogdensityoracle)
 @icontract.require(lambda target_log_kernel: callable(target_log_kernel), "target_log_kernel must be callable")
 @icontract.ensure(lambda result: result is not None, "BuildHMCKernelFromLogDensityOracle output must not be None")
 def buildhmckernelfromlogdensityoracle(target_log_kernel: Callable[[np.ndarray], float]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:

@@ -11,9 +11,7 @@ from .witnesses import witness_tt2tdb_offset
 from juliacall import Main as jl  # type: ignore[import-untyped]
 
 
-def witness_tt2tdb_offset(*args, **kwargs): pass  # Witness functions should be imported from the generated witnesses module
-
-@register_atom(witness_tt2tdb_offset)  # type: ignore[untyped-decorator]
+@register_atom(witness_tt2tdb_offset)
 @icontract.require(lambda seconds: isinstance(seconds, (float, int, np.number)), "seconds must be numeric")
 @icontract.ensure(lambda result: result is not None, "TT2TDB_Offset output must not be None")
 def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: ignore[type-arg]

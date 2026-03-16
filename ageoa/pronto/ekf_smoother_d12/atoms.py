@@ -9,15 +9,11 @@ import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
-# from .witnesses import witness_stateestimatorinit
+from .witnesses import witness_stateestimatorinit
 
 import ctypes
 import ctypes.util
 from pathlib import Path
-
-
-# Witness functions should be imported from the generated witnesses module
-def witness_stateestimatorinit(*args, **kwargs): pass
 
 @register_atom(witness_stateestimatorinit)
 @icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
