@@ -24,7 +24,22 @@ def stateestimatorinit() -> object:
     Returns:
         Initialized state estimator with positive-semi-definite covariance matrices and finite state vector.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Default 6-DOF state: [x, y, z, vx, vy, vz]
+    n = 6
+    x = np.zeros(n, dtype=np.float64)
+    P = np.eye(n, dtype=np.float64) * 1e2
+    A = np.eye(n, dtype=np.float64)
+    dt = 0.01
+    A[0, 3] = dt
+    A[1, 4] = dt
+    A[2, 5] = dt
+    Q = np.eye(n, dtype=np.float64) * 1e-3
+    H = np.eye(n, dtype=np.float64)
+    R = np.eye(n, dtype=np.float64) * 1e-1
+    return {
+        'x': x, 'P': P, 'A': A, 'Q': Q, 'H': H, 'R': R,
+        'x_history': [], 'P_history': [], 'x_pred_history': [], 'P_pred_history': [],
+    }
 
 
 """Auto-generated FFI bindings for cpp implementations."""

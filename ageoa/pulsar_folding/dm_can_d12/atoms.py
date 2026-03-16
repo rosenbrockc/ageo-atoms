@@ -31,4 +31,11 @@ def dm_candidate_filter(data: np.ndarray, data_base: np.ndarray, sens: float, DM
     Returns:
         subset of input candidates
     """
-    raise NotImplementedError("Wire to original implementation")
+    # DM candidate filter: compute SNR for each candidate DM
+    snr_values = []
+    for dm in candidates:
+        delay = 4.148808e3 * dm * (fchan ** -2)
+        shifted = np.roll(data, -int(delay.mean() / tsamp) if hasattr(delay, 'mean') else -int(delay / tsamp))
+        snr = np.mean(shifted) / sens
+        snr_values.append(snr)
+    return np.array(snr_values)

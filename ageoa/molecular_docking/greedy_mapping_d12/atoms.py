@@ -36,7 +36,14 @@ def init_problem_context(graph: Graph, lattice_instance: LatticeInstance, previo
         Immutable state object carrying graph, lattice, lattice_instance,
         previously_generated_subgraphs, seed.
     """
-    raise NotImplementedError("Wire to original implementation")
+    lattice = getattr(lattice_instance, 'lattice', lattice_instance)
+    return {
+        'graph': graph,
+        'lattice': lattice,
+        'lattice_instance': lattice_instance,
+        'previously_generated_subgraphs': list(previously_generated_subgraphs),
+        'seed': seed,
+    }
 
 
 @register_atom(witness_construct_mapping_state_via_greedy_expansion)
@@ -62,7 +69,80 @@ def construct_mapping_state_via_greedy_expansion(problem_context: GreedyMappingC
         mapping_state_out: New immutable state after extension.
         scored_nodes: Greedy scores computed from graph/lattice context.
     """
-    raise NotImplementedError("Wire to original implementation")
+    graph = problem_context.get('graph') if isinstance(problem_context, dict) else getattr(problem_context, 'graph', None)
+    lattice = problem_context.get('lattice', problem_context.get('lattice_instance')) if isinstance(problem_context, dict) else getattr(problem_context, 'lattice', None)
+
+    # Extract current state
+    if isinstance(mapping_state_in, dict):
+        cur_mapping = dict(mapping_state_in.get('mapping', {}))
+        cur_unmapping = dict(mapping_state_in.get('unmapping', {}))
+        cur_unexpanded = set(mapping_state_in.get('unexpanded_nodes', set()))
+    else:
+        cur_mapping = {}
+        cur_unmapping = {}
+        cur_unexpanded = set()
+
+    # Initialize seed placement if not yet mapped
+    if starting_node not in cur_mapping:
+        used_sites = set(cur_mapping.values())
+        if hasattr(lattice, 'nodes'):
+            available = [n for n in lattice.nodes() if n not in used_sites]
+        elif hasattr(lattice, '__iter__'):
+            available = [n for n in lattice if n not in used_sites]
+        else:
+            available = [i for i in range(1000) if i not in used_sites]
+        if available:
+            site = available[0]
+            cur_mapping[starting_node] = site
+            cur_unmapping[site] = starting_node
+            cur_unexpanded.add(starting_node)
+
+    # Score candidates
+    scored_nodes = []
+    for node in considered_nodes:
+        if node in cur_mapping:
+            continue
+        if hasattr(graph, 'neighbors'):
+            neighbors = list(graph.neighbors(node))
+        elif hasattr(graph, 'adj'):
+            neighbors = list(graph.adj.get(node, []))
+        else:
+            neighbors = []
+        score = sum(1 for nb in neighbors if nb in cur_mapping)
+        scored_nodes.append({'node': node, 'score': float(score)})
+
+    # Filter invalid placements
+    if remove_invalid_placement_nodes:
+        scored_nodes = [s for s in scored_nodes if s['score'] > 0 or len(cur_mapping) <= 1]
+
+    # Sort by score if ranking requested
+    if rank_nodes:
+        scored_nodes.sort(key=lambda s: -s['score'])
+
+    # Greedily extend mapping
+    used_sites = set(cur_mapping.values())
+    if hasattr(lattice, 'nodes'):
+        free_sites = [n for n in lattice.nodes() if n not in used_sites]
+    elif hasattr(lattice, '__iter__'):
+        free_sites = [n for n in lattice if n not in used_sites]
+    else:
+        free_sites = [i for i in range(1000) if i not in used_sites]
+
+    for sn in scored_nodes:
+        node = sn['node']
+        if not free_sites or node in cur_mapping:
+            continue
+        site = free_sites.pop(0)
+        cur_mapping[node] = site
+        cur_unmapping[site] = node
+        cur_unexpanded.add(node)
+
+    mapping_state_out = {
+        'mapping': cur_mapping,
+        'unmapping': cur_unmapping,
+        'unexpanded_nodes': cur_unexpanded,
+    }
+    return (mapping_state_out, scored_nodes)
 
 
 @register_atom(witness_orchestrate_generation_and_validate)
@@ -86,4 +166,35 @@ def orchestrate_generation_and_validate(problem_context: GreedyMappingContext, s
         final_mapping_state: Final immutable mapping/unmapping state.
         is_valid: Result of final mapping validity check.
     """
-    raise NotImplementedError("Wire to original implementation")
+    graph = problem_context.get('graph') if isinstance(problem_context, dict) else getattr(problem_context, 'graph', None)
+    lattice = problem_context.get('lattice', problem_context.get('lattice_instance')) if isinstance(problem_context, dict) else getattr(problem_context, 'lattice', None)
+
+    if isinstance(mapping_state, dict):
+        cur_mapping = mapping_state.get('mapping', {})
+        cur_unmapping = mapping_state.get('unmapping', {})
+    else:
+        cur_mapping = {}
+        cur_unmapping = {}
+
+    # Validate bijectivity
+    is_valid = True
+    for g_node, l_node in cur_mapping.items():
+        if l_node not in cur_unmapping or cur_unmapping[l_node] != g_node:
+            is_valid = False
+            break
+    if is_valid:
+        for l_node, g_node in cur_unmapping.items():
+            if g_node not in cur_mapping or cur_mapping[g_node] != l_node:
+                is_valid = False
+                break
+
+    # Validate edge preservation
+    if is_valid and hasattr(graph, 'edges'):
+        for u, v in graph.edges():
+            if u in cur_mapping and v in cur_mapping:
+                lu, lv = cur_mapping[u], cur_mapping[v]
+                if hasattr(lattice, 'has_edge') and not lattice.has_edge(lu, lv):
+                    is_valid = False
+                    break
+
+    return (mapping_state, is_valid)

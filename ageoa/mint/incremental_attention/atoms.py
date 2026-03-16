@@ -22,4 +22,16 @@ def enable_incremental_state_configuration(cls: type) -> type:
     Returns:
         Configured class/object representing incremental-state behavior without hidden mutation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Add incremental state tracking capability to a class
+    if not hasattr(cls, '_incremental_state'):
+        cls._incremental_state = {}
+    original_init = cls.__init__ if hasattr(cls, '__init__') else lambda self: None
+
+    def new_init(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        self._incremental_state = {}
+
+    cls.__init__ = new_init
+    cls.get_incremental_state = lambda self, key: self._incremental_state.get(key)
+    cls.set_incremental_state = lambda self, key, value: self._incremental_state.update({key: value})
+    return cls

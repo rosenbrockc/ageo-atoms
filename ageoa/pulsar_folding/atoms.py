@@ -25,7 +25,17 @@ def dm_can_brute_force(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Brute-force DM search: try shifts and find SNR-maximizing one
+    best_snr = -np.inf
+    best_profile = data.copy()
+    n = len(data)
+    for shift in range(n):
+        rolled = np.roll(data, -shift)
+        snr = np.mean(rolled) / (np.std(rolled) + 1e-15)
+        if snr > best_snr:
+            best_snr = snr
+            best_profile = rolled
+    return best_profile
 
 @register_atom(witness_spline_bandpass_correction)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -45,4 +55,8 @@ def spline_bandpass_correction(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    # Spline bandpass correction: fit and subtract a smooth baseline
+    from scipy.interpolate import UnivariateSpline
+    x = np.arange(len(data), dtype=np.float64)
+    spline = UnivariateSpline(x, data, s=len(data))
+    return data - spline(x)

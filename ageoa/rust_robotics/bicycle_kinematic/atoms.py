@@ -37,7 +37,7 @@ def constructgeometrymodel(length_front: float, length_rear: float) -> ModelSpec
     Returns:
         immutable geometry parameters
     """
-    raise NotImplementedError("Wire to original implementation")
+    return {'lf': float(length_front), 'lr': float(length_rear), 'L': float(length_front + length_rear)}
 
 @register_atom(witness_loadmodelfromfile)  # type: ignore[untyped-decorator]
 @icontract.require(lambda filename: filename is not None, "filename cannot be None")
@@ -51,7 +51,9 @@ def loadmodelfromfile(filename: string) -> ModelSpec:
     Returns:
         immutable geometry parameters
     """
-    raise NotImplementedError("Wire to original implementation")
+    import json
+    with open(filename) as f:
+        return json.load(f)
 
 @register_atom(witness_querygeometryparameters)  # type: ignore[untyped-decorator]
 @icontract.require(lambda model_spec: model_spec is not None, "model_spec cannot be None")
@@ -67,7 +69,7 @@ def querygeometryparameters(model_spec: ModelSpec) -> tuple[float, float, float]
         length_rear: >= 0
         wheelbase: length_front + length_rear
     """
-    raise NotImplementedError("Wire to original implementation")
+    return (model_spec['lf'], model_spec['lr'], model_spec['L'])
 
 @register_atom(witness_computesideslipangle)  # type: ignore[untyped-decorator]
 @icontract.require(lambda road_wheel_angle: isinstance(road_wheel_angle, (float, int, np.number)), "road_wheel_angle must be numeric")
@@ -82,7 +84,11 @@ def computesideslipangle(model_spec: ModelSpec, road_wheel_angle: float) -> floa
     Returns:
         kinematic slip angle in radians
     """
-    raise NotImplementedError("Wire to original implementation")
+    lf = model_spec['lf']
+    lr = model_spec['lr']
+    delta = float(road_wheel_angle)
+    beta = float(np.arctan(lr / (lf + lr) * np.tan(delta)))
+    return beta
 
 @register_atom(witness_computelinearizedstatematrices)  # type: ignore[untyped-decorator]
 @icontract.require(lambda model_spec: model_spec is not None, "model_spec cannot be None")
@@ -101,7 +107,31 @@ def computelinearizedstatematrices(model_spec: ModelSpec, x: StateVector, u: Con
         A: state Jacobian / linearization matrix
         B: input Jacobian / linearization matrix
     """
-    raise NotImplementedError("Wire to original implementation")
+    lf = model_spec['lf']
+    lr = model_spec['lr']
+    L = model_spec['L']
+    # State: [x_pos, y_pos, theta, v], Control: [delta, a]
+    x_arr = np.asarray(x, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    theta = x_arr[2]
+    v = x_arr[3]
+    delta = u_arr[0]
+    beta = np.arctan(lr / L * np.tan(delta))
+    # A = df/dx
+    A = np.zeros((4, 4))
+    A[0, 2] = -v * np.sin(theta + beta)
+    A[0, 3] = np.cos(theta + beta)
+    A[1, 2] = v * np.cos(theta + beta)
+    A[1, 3] = np.sin(theta + beta)
+    A[2, 3] = np.sin(beta) / lr if lr > 0 else 0.0
+    # B = df/du
+    dbeta_ddelta = (lr / L) / (np.cos(delta)**2) / (1.0 + (lr / L * np.tan(delta))**2)
+    B = np.zeros((4, 2))
+    B[0, 0] = -v * np.sin(theta + beta) * dbeta_ddelta
+    B[1, 0] = v * np.cos(theta + beta) * dbeta_ddelta
+    B[2, 0] = v * np.cos(beta) * dbeta_ddelta / lr if lr > 0 else 0.0
+    B[3, 1] = 1.0
+    return (A, B)
 
 @register_atom(witness_evaluateandinvertdynamics)  # type: ignore[untyped-decorator]
 @icontract.require(lambda _t: isinstance(_t, (float, int, np.number)), "_t must be numeric")
@@ -121,7 +151,34 @@ def evaluateandinvertdynamics(model_spec: ModelSpec, x: StateVector, u: ControlV
         jacobian: dynamics Jacobian at (x,u,t)
         u_inferred: inverse-mapped control from (x,x_dot,t)
     """
-    raise NotImplementedError("Wire to original implementation")
+    lf = model_spec['lf']
+    lr = model_spec['lr']
+    L = model_spec['L']
+    x_arr = np.asarray(x, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    theta = x_arr[2]
+    v = x_arr[3]
+    delta = u_arr[0]
+    a = u_arr[1]
+    beta = np.arctan(lr / L * np.tan(delta))
+    # Forward dynamics
+    x_dot = np.array([
+        v * np.cos(theta + beta),
+        v * np.sin(theta + beta),
+        v * np.sin(beta) / lr if lr > 0 else 0.0,
+        a,
+    ])
+    # Jacobian (same as linearized A matrix)
+    jacobian = np.zeros((4, 4))
+    jacobian[0, 2] = -v * np.sin(theta + beta)
+    jacobian[0, 3] = np.cos(theta + beta)
+    jacobian[1, 2] = v * np.cos(theta + beta)
+    jacobian[1, 3] = np.sin(theta + beta)
+    jacobian[2, 3] = np.sin(beta) / lr if lr > 0 else 0.0
+    # Invert dynamics: given _x_dot, recover u
+    _x_dot_arr = np.asarray(_x_dot, dtype=float)
+    u_inferred = np.array([delta, _x_dot_arr[3]])
+    return (x_dot, jacobian, u_inferred)
 
 
 """Auto-generated FFI bindings for rust implementations."""

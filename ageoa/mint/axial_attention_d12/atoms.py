@@ -26,4 +26,25 @@ def row_self_attention(x: torch.Tensor, self_attn_mask: torch.Tensor | None, sel
     Returns:
         Attention-weighted output tensor with same shape as input.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import torch
+    # Row-wise self-attention in torch
+    if x.dim() == 2:
+        seq_len, dim = x.shape
+        scale = dim ** 0.5
+        scores = torch.matmul(x, x.T) / scale
+        if self_attn_mask is not None:
+            scores = scores.masked_fill(self_attn_mask == 0, float('-inf'))
+        if self_attn_padding_mask is not None:
+            scores = scores.masked_fill(self_attn_padding_mask.bool().unsqueeze(0), float('-inf'))
+        attn = torch.softmax(scores, dim=-1)
+        return (torch.matmul(attn, x), attn)
+    # 3D: (B, S, D)
+    B, S, D = x.shape
+    scale = D ** 0.5
+    scores = torch.bmm(x, x.transpose(1, 2)) / scale
+    if self_attn_mask is not None:
+        scores = scores.masked_fill(self_attn_mask == 0, float('-inf'))
+    if self_attn_padding_mask is not None:
+        scores = scores.masked_fill(self_attn_padding_mask.bool().unsqueeze(1), float('-inf'))
+    attn = torch.softmax(scores, dim=-1)
+    return (torch.bmm(attn, x), attn)

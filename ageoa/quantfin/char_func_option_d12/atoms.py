@@ -100,7 +100,19 @@ def charfuncoption(
     Returns:
         Fair value of the option as a float.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Characteristic-function option pricing via Fourier inversion.
+    # k = log(strike), d = discount factor, s = spot price
+    # p1 and p2 are the two exercise probabilities from numerical integration
+    # of func1 and func2 (the damped integrands).
+    # Call price = d * (s * q * p1 - strike * p2)
+    k_val = log(strike)
+    d_val = disc(tmat)
+    q_val = q if isinstance(q, (int, float)) else 1.0
+    # Compute the two probability integrals via the provided integrator
+    p1_val = 0.5 + (1.0 / pi) * intF(func1, 1e-8, 1000.0, 1e-8)
+    p2_val = 0.5 + (1.0 / pi) * intF(func2, 1e-8, 1000.0, 1e-8)
+    price = d_val * (s * q_val * p1_val - strike * p2_val)
+    return float(price)
 
 
 # ---------------------------------------------------------------------------
@@ -139,7 +151,10 @@ def f(
     Returns:
         Real part of the integrand at the given frequency.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Evaluate the real-valued integrand for char-func pricing.
+    # integrand = Re(exp(-i * v * k) * leftTerm * rightTerm)
+    val = exp(-i * v * k) * leftTerm * rightTerm
+    return float(realPart(val))
 
 
 # ---------------------------------------------------------------------------
@@ -173,7 +188,10 @@ def cf(
     Returns:
         Complex value of the characteristic function at frequency *x*.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Evaluate the martingale-corrected characteristic function.
+    # Delegates to charFuncMart which builds the corrected CF from the model.
+    cf_func = charFuncMart(model, fg, tmat)
+    return cf_func(x)
 
 
 # ---------------------------------------------------------------------------

@@ -28,7 +28,13 @@ def velocitystatereadout(state_in: object) -> tuple[object, object]:
         velocity: Derived from xd_b_.
         velocity_covariance: Directly from vel_cov_; no mutation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    if isinstance(state_in, dict):
+        velocity = state_in.get('xd_b', state_in.get('velocity', np.zeros(3)))
+        velocity_covariance = state_in.get('vel_cov', state_in.get('velocity_covariance', np.eye(3)))
+    else:
+        velocity = getattr(state_in, 'xd_b', np.zeros(3))
+        velocity_covariance = getattr(state_in, 'vel_cov', np.eye(3))
+    return (velocity, velocity_covariance)
 
 @register_atom(witness_posequeryaccessors)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
@@ -39,7 +45,11 @@ def posequeryaccessors() -> object:
     Returns:
         Pose query accessor object with no persistent state mutation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Stateless accessor: return a dict with identity pose fields
+    return {
+        'position': np.zeros(3, dtype=np.float64),
+        'orientation': np.eye(3, dtype=np.float64),
+    }
 
 
 """Auto-generated FFI bindings for cpp implementations."""

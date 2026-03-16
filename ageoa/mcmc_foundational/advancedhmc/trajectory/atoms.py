@@ -31,7 +31,29 @@ def buildnutstree(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], float], s
     Returns:
         A binary tree containing the states of the trajectory segment.
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = np.array(start_state, dtype=np.float64).copy()
+    dim = state.shape[0]
+    rng_int = int(np.sum(np.abs(rng))) % (2**31)
+    local_rng = np.random.RandomState(rng_int)
+
+    for _depth in range(tree_depth):
+        grad = np.zeros(dim)
+        eps = 1e-5
+        for i in range(dim):
+            s_plus = state.copy()
+            s_plus[i] += eps
+            s_minus = state.copy()
+            s_minus[i] -= eps
+            grad[i] = (hamiltonian(s_plus) - hamiltonian(s_minus)) / (2.0 * eps)
+        step_size = 0.1
+        state = state + direction * step_size * grad
+
+        # U-turn check via dot product of velocity and displacement
+        displacement = state - start_state
+        if np.dot(displacement, direction * grad) < 0:
+            break
+
+    return state
 
 @register_atom(witness_nutstransitionkernel)
 @icontract.require(lambda rng: rng is not None, "rng cannot be None")
@@ -52,7 +74,55 @@ def nutstransitionkernel(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], fl
         next_state: The accepted next state in the Markov chain.
         transition_stats: Diagnostic information about the transition, like acceptance probability and tree depth.
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = np.array(initial_state, dtype=np.float64).copy()
+    dim = state.shape[0]
+    step_size = float(trajectory_params[0]) if trajectory_params.size > 0 else 0.1
+    max_depth = int(trajectory_params[1]) if trajectory_params.size > 1 else 10
+
+    rng_int = int(np.sum(np.abs(rng))) % (2**31)
+    local_rng = np.random.RandomState(rng_int)
+
+    # Sample momentum
+    momentum = local_rng.randn(dim)
+
+    def _energy(s):
+        return -hamiltonian(s) + 0.5 * np.dot(momentum, momentum)
+
+    current_energy = _energy(state)
+
+    # Leapfrog integration
+    pos = state.copy()
+    mom = momentum.copy()
+    eps = 1e-5
+    for _step in range(max(1, int(max_depth))):
+        grad = np.zeros(dim)
+        for i in range(dim):
+            p = pos.copy(); p[i] += eps
+            m = pos.copy(); m[i] -= eps
+            grad[i] = (hamiltonian(p) - hamiltonian(m)) / (2.0 * eps)
+        mom = mom + 0.5 * step_size * grad
+        pos = pos + step_size * mom
+        for i in range(dim):
+            p = pos.copy(); p[i] += eps
+            m = pos.copy(); m[i] -= eps
+            grad[i] = (hamiltonian(p) - hamiltonian(m)) / (2.0 * eps)
+        mom = mom + 0.5 * step_size * grad
+
+    proposed_energy = -hamiltonian(pos) + 0.5 * np.dot(mom, mom)
+    log_accept = -(proposed_energy - current_energy)
+    accept_prob = min(1.0, np.exp(log_accept))
+
+    if local_rng.rand() < accept_prob:
+        new_state = pos
+    else:
+        new_state = state
+
+    diagnostics = {
+        "accept_prob": np.array(accept_prob),
+        "tree_depth": np.array(max_depth),
+        "energy": np.array(proposed_energy),
+    }
+    return (new_state, diagnostics)
 
 
 """Auto-generated FFI bindings for julia implementations."""

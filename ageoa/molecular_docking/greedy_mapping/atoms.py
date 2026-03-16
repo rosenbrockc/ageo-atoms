@@ -59,7 +59,14 @@ def assemblestaticmappingcontext(graph: Graph, lattice_instance: LatticeInstance
     Returns:
         contains graph, lattice, lattice_instance, previously_generated_subgraphs, seed as immutable fields
     """
-    raise NotImplementedError("Wire to original implementation")
+    lattice = getattr(lattice_instance, 'lattice', lattice_instance)
+    return {
+        'graph': graph,
+        'lattice': lattice,
+        'lattice_instance': lattice_instance,
+        'previously_generated_subgraphs': list(previously_generated_subgraphs),
+        'seed': seed,
+    }
 
 @register_atom(witness_initializefrontierfromstartnode)
 @icontract.require(lambda mapping_context: mapping_context is not None, "mapping_context cannot be None")
@@ -81,7 +88,31 @@ def initializefrontierfromstartnode(mapping_context: MappingContext, starting_no
     Returns:
         returns new mapping/unmapping/frontier state; no hidden mutation
     """
-    raise NotImplementedError("Wire to original implementation")
+    new_mapping = dict(mapping)
+    new_unmapping = dict(unmapping)
+    new_unexpanded = set(unexpanded_nodes)
+
+    # Assign starting node to first available lattice node
+    lattice = mapping_context.get('lattice', mapping_context.get('lattice_instance'))
+    used_lattice_nodes = set(new_mapping.values())
+    if hasattr(lattice, 'nodes'):
+        available = [n for n in lattice.nodes() if n not in used_lattice_nodes]
+    elif hasattr(lattice, '__iter__'):
+        available = [n for n in lattice if n not in used_lattice_nodes]
+    else:
+        available = [i for i in range(1000) if i not in used_lattice_nodes]
+
+    if available and starting_node not in new_mapping:
+        lattice_node = available[0]
+        new_mapping[starting_node] = lattice_node
+        new_unmapping[lattice_node] = starting_node
+        new_unexpanded.add(starting_node)
+
+    return {
+        'mapping': new_mapping,
+        'unmapping': new_unmapping,
+        'unexpanded_nodes': new_unexpanded,
+    }
 
 @register_atom(witness_scoreandextendgreedycandidates)
 @icontract.require(lambda mapping_context: mapping_context is not None, "mapping_context cannot be None")
@@ -110,7 +141,53 @@ def scoreandextendgreedycandidates(mapping_context: MappingContext, considered_n
         extended_mapping_state: new mapping/unmapping/frontier after greedy extension
         candidate_scores: deterministic from inputs
     """
-    raise NotImplementedError("Wire to original implementation")
+    graph = mapping_context.get('graph')
+    new_mapping = dict(mapping)
+    new_unmapping = dict(unmapping)
+    new_unexpanded = set(unexpanded_nodes)
+    candidate_scores = {}
+
+    # Score each candidate node based on neighbor connectivity
+    for node in considered_nodes:
+        if node in new_mapping:
+            continue
+        # Score: count how many of node's neighbors are already mapped
+        if hasattr(graph, 'neighbors'):
+            neighbors = list(graph.neighbors(node))
+        elif hasattr(graph, 'adj'):
+            neighbors = list(graph.adj.get(node, []))
+        else:
+            neighbors = []
+        score = sum(1 for nb in neighbors if nb in new_mapping)
+        candidate_scores[node] = float(score)
+
+    # Filter invalid placements if requested
+    valid_candidates = list(candidate_scores.keys())
+    if remove_invalid_placement_nodes:
+        valid_candidates = [n for n in valid_candidates if candidate_scores[n] > 0 or len(new_mapping) == 0]
+
+    # Sort by score if ranking requested
+    if rank_nodes:
+        valid_candidates.sort(key=lambda n: -candidate_scores.get(n, 0))
+
+    # Greedily extend: assign candidates to free lattice neighbors
+    free_sites = list(free_lattice_neighbors)
+    for node in valid_candidates:
+        if not free_sites:
+            break
+        if node in new_mapping:
+            continue
+        site = free_sites.pop(0)
+        new_mapping[node] = site
+        new_unmapping[site] = node
+        new_unexpanded.add(node)
+
+    extended_state = {
+        'mapping': new_mapping,
+        'unmapping': new_unmapping,
+        'unexpanded_nodes': new_unexpanded,
+    }
+    return (extended_state, candidate_scores)
 
 @register_atom(witness_validatecurrentmapping)
 @icontract.require(lambda mapping_context: mapping_context is not None, "mapping_context cannot be None")
@@ -128,7 +205,27 @@ def validatecurrentmapping(mapping_context: MappingContext, mapping: Map[GraphNo
     Returns:
         true iff all structural constraints hold
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Check bijectivity: mapping and unmapping must be consistent inverses
+    for g_node, l_node in mapping.items():
+        if l_node not in unmapping or unmapping[l_node] != g_node:
+            return False
+    for l_node, g_node in unmapping.items():
+        if g_node not in mapping or mapping[g_node] != l_node:
+            return False
+
+    # Check edge preservation: every edge in the graph between mapped nodes
+    # must correspond to an edge (adjacency) in the lattice
+    graph = mapping_context.get('graph')
+    lattice = mapping_context.get('lattice', mapping_context.get('lattice_instance'))
+
+    if hasattr(graph, 'edges'):
+        for u, v in graph.edges():
+            if u in mapping and v in mapping:
+                lu, lv = mapping[u], mapping[v]
+                if hasattr(lattice, 'has_edge'):
+                    if not lattice.has_edge(lu, lv):
+                        return False
+    return True
 
 @register_atom(witness_rungreedymappingpipeline)
 @icontract.require(lambda mapping_context: mapping_context is not None, "mapping_context cannot be None")
@@ -155,4 +252,16 @@ def rungreedymappingpipeline(mapping_context: MappingContext, starting_node: Nod
         generated_subgraph: greedy-generated UD subgraph
         final_mapping_state: final immutable mapping/unmapping/frontier snapshot
     """
-    raise NotImplementedError("Wire to original implementation")
+    final_state = extended_mapping_state if mapping_is_valid else initialized_mapping_state
+    final_mapping = final_state.get('mapping', {}) if isinstance(final_state, dict) else final_state
+
+    # Build the generated subgraph from the final mapping
+    graph = mapping_context.get('graph')
+    mapped_nodes = set(final_mapping.keys()) if isinstance(final_mapping, dict) else set()
+
+    if hasattr(graph, 'subgraph'):
+        generated_subgraph = graph.subgraph(mapped_nodes).copy()
+    else:
+        generated_subgraph = {'nodes': list(mapped_nodes), 'mapping': dict(final_mapping) if isinstance(final_mapping, dict) else {}}
+
+    return (generated_subgraph, final_state)

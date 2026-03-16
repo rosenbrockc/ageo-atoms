@@ -26,7 +26,7 @@ def graph_time_scale_management(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    return data
 
 @register_atom(witness_high_precision_duration)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -46,4 +46,4 @@ def high_precision_duration(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    return np.array([np.floor(data), data - np.floor(data)])

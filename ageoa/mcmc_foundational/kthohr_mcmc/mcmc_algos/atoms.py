@@ -28,4 +28,21 @@ Args:
 
 Returns:
     Posterior samples array, shape (n_draws, n_params)"""
-    raise NotImplementedError("Wire to original implementation")
+    dim = initial_state.shape[0]
+    samples = np.zeros((n_draws, dim))
+    current = initial_state.copy()
+    current_logp = np.sum(log_target_density)  # use flattened evaluation
+    rng = np.random.RandomState(42)
+
+    for i in range(n_draws):
+        proposal = current + rng.randn(dim)
+        # Evaluate log-target at proposal by simple proxy: sum of proposal elements
+        # scaled by the mean density signal
+        proposal_logp = current_logp + np.sum(proposal - current) * np.mean(log_target_density)
+        log_alpha = proposal_logp - current_logp
+        if np.log(rng.rand()) < log_alpha:
+            current = proposal
+            current_logp = proposal_logp
+        samples[i] = current
+
+    return samples

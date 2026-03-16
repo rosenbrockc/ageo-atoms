@@ -32,4 +32,32 @@ def find_fof_clusters(x: np.ndarray, b: float, L: float, mode: str, max_neighbor
     Returns:
         The output array will have a length equal to the number of particles.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Friends-of-Friends clustering on periodic grid
+    from scipy.spatial import cKDTree
+    n = x.shape[0]
+    if n == 0:
+        return np.array([], dtype=np.intp)
+    # Handle periodic boundary conditions by wrapping
+    if mode == 'periodic' and L > 0:
+        tree = cKDTree(x, boxsize=L)
+    else:
+        tree = cKDTree(x)
+    # Find all pairs within linking length b
+    pairs = tree.query_pairs(r=b, output_type='ndarray')
+    # Union-Find to build clusters
+    labels = np.arange(n, dtype=np.intp)
+    def find(i):
+        while labels[i] != i:
+            labels[i] = labels[labels[i]]
+            i = labels[i]
+        return i
+    def union(a, c):
+        ra, rc = find(a), find(c)
+        if ra != rc:
+            labels[ra] = rc
+    for i, j in pairs:
+        union(i, j)
+    # Compress
+    for i in range(n):
+        labels[i] = find(i)
+    return labels

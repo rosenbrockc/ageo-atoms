@@ -22,4 +22,6 @@ def bernoulli_probabilistic_oracle(p: float, x: np.ndarray) -> np.ndarray:
     Returns:
         Elementwise Bernoulli log-likelihood values.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Bernoulli log-likelihood: x*log(p) + (1-x)*log(1-p)
+    p_clamped = np.clip(float(p), 1e-15, 1.0 - 1e-15)
+    return x * np.log(p_clamped) + (1.0 - x) * np.log(1.0 - p_clamped)

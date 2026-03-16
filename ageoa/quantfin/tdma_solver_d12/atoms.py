@@ -110,7 +110,30 @@ def tdmasolver(
     Returns:
         Solution list for the tridiagonal system.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Thomas algorithm (TDMA) for tridiagonal systems.
+    # Forward elimination + back substitution.
+    n = len(b)
+    # Work with copies
+    c_mod = [0.0] * n
+    d_mod = [0.0] * n
+
+    # Forward sweep
+    c_mod[0] = c[0] / b[0]
+    d_mod[0] = d[0] / b[0]
+    for idx in range(1, n):
+        a_val = a[idx] if idx < len(a) else 0.0
+        c_val = c[idx] if idx < len(c) else 0.0
+        denom = b[idx] - a_val * c_mod[idx - 1]
+        c_mod[idx] = c_val / denom if denom != 0.0 else 0.0
+        d_mod[idx] = (d[idx] - a_val * d_mod[idx - 1]) / denom if denom != 0.0 else 0.0
+
+    # Back substitution
+    x_sol = [0.0] * n
+    x_sol[n - 1] = d_mod[n - 1]
+    for idx in range(n - 2, -1, -1):
+        x_sol[idx] = d_mod[idx] - c_mod[idx] * x_sol[idx + 1]
+
+    return x_sol
 
 
 # ---------------------------------------------------------------------------
@@ -147,7 +170,10 @@ def cotraversevec(
     Returns:
         Aggregated vector produced by co-traversal.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Co-traverse: apply f at each index across the functor of vectors.
+    # enumFromN generates indices [0..l-1], f aggregates at each index.
+    indices = enumFromN(0, l)
+    return list(map(lambda idx: f(fmap(lambda vec: vec[idx], m)), indices))
 
 
 # ---------------------------------------------------------------------------

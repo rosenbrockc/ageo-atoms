@@ -19,4 +19,10 @@ def offset_tt2tdb(seconds: float) -> float:
 
     Returns:
         offset in seconds, accurate to ~40 microseconds over 1900-2100"""
-    raise NotImplementedError("Wire to original implementation")
+    import math
+    k = 1.657e-3
+    eb = 1.671e-2
+    m0 = 6.239996
+    m1 = 1.99096871e-7
+    g = m0 + m1 * seconds
+    return k * math.sin(g + eb * math.sin(g))

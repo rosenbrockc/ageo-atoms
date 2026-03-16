@@ -30,7 +30,7 @@ def mala_proposal_adjustment(step_size: float, vals_bound: np.ndarray, mala_mean
     Returns:
         The calculated adjustment to be used in the MALA proposal.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return vals_bound + (step_size**2 / 2.0) * mala_mean_fn(vals_bound)
 
 
 """Auto-generated FFI bindings for cpp implementations."""

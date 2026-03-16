@@ -25,7 +25,12 @@ def tt2tdb_offset(seconds: float | np.ndarray) -> float | np.ndarray:  # type: i
     Returns:
         offset in seconds; typically within +/-0.002 s
     """
-    raise NotImplementedError("Wire to original implementation")
+    k = 1.657e-3
+    eb = 1.671e-2
+    m0 = 6.239996
+    m1 = 1.99096871e-7
+    g = m0 + m1 * np.asarray(seconds, dtype=float)
+    return k * np.sin(g + eb * np.sin(g))
 
 
 """Auto-generated FFI bindings for julia implementations."""

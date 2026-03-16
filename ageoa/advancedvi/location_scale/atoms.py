@@ -8,10 +8,8 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_evaluate_log_probability_density
 
-from juliacall import Main as jl
+# juliacall unavailable; reimplemented in pure numpy
 
-
-# Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_evaluate_log_probability_density)
 @icontract.require(lambda q: q is not None, "q cannot be None")
@@ -27,15 +25,10 @@ def evaluate_log_probability_density(q: np.ndarray, z: np.ndarray) -> float:
     Returns:
         The resulting log-probability density.
     """
-    raise NotImplementedError("Wire to original implementation")
-
-
-"""Auto-generated FFI bindings for julia implementations."""
-
-
-from juliacall import Main as jl
-
-
-def _evaluate_log_probability_density_ffi(q, z):
-    """Wrapper that calls the Julia version of evaluate log probability density. Passes arguments through and returns the result."""
-    return jl.eval("evaluate_log_probability_density(q, z)")
+    # Location-scale Gaussian logpdf: q = [mu, log_sigma], z = sample
+    d = len(q) // 2
+    mu = q[:d]
+    log_sigma = q[d:]
+    sigma = np.exp(log_sigma)
+    # log N(z; mu, sigma^2) = -0.5*d*log(2*pi) - sum(log_sigma) - 0.5*sum(((z-mu)/sigma)^2)
+    return float(-0.5 * d * np.log(2 * np.pi) - np.sum(log_sigma) - 0.5 * np.sum(((z - mu) / sigma) ** 2))

@@ -27,7 +27,26 @@ Args:
 Returns:
     tai1: tai1 + tai2 = utc1 + utc2 + leap_seconds/86400
     tai2: precision-preserving companion to tai1"""
-    raise NotImplementedError("Wire to original implementation")
+    import bisect
+    DJ2000 = 2451545.0
+    _LEAP_JD2000 = [
+        -10957.5, -10774.5, -10592.5, -10227.5, -9862.5, -9497.5, -9132.5,
+        -8767.5, -8402.5, -8037.5, -7487.5, -7122.5, -6757.5, -6027.5,
+        -5114.5, -4383.5, -4018.5, -3470.5, -3105.5, -2740.5, -2192.5,
+        -1644.5, -914.5, 1640.5, 2736.5, 4019.5, 5114.5, 6209.5,
+    ]
+    _LEAP_SECONDS = [
+        10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0,
+        20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0,
+        30.0, 31.0, 32.0, 33.0, 34.0, 35.0, 36.0, 37.0,
+    ]
+    jd2000_day = (utc1 - DJ2000) + utc2
+    idx = bisect.bisect_right(_LEAP_JD2000, jd2000_day) - 1
+    if idx < 0:
+        delta_at = 0.0
+    else:
+        delta_at = _LEAP_SECONDS[idx]
+    return (utc1, utc2 + delta_at / 86400.0)
 
 @register_atom(witness_tai_to_utc_inversion)  # type: ignore[name-defined, untyped-decorator]
 @icontract.require(lambda tai1: isinstance(tai1, (float, int, np.number)), "tai1 must be numeric")
@@ -46,7 +65,33 @@ Returns:
     utc1: utc1 + utc2 + leap_seconds/86400 ≈ tai1 + tai2 within floating-point epsilon
     utc2: precision-preserving companion to utc1
     candidate_utc: updated each iteration; becomes final utc1/utc2 on convergence"""
-    raise NotImplementedError("Wire to original implementation")
+    import bisect
+    DJ2000 = 2451545.0
+    _LEAP_JD2000 = [
+        -10957.5, -10774.5, -10592.5, -10227.5, -9862.5, -9497.5, -9132.5,
+        -8767.5, -8402.5, -8037.5, -7487.5, -7122.5, -6757.5, -6027.5,
+        -5114.5, -4383.5, -4018.5, -3470.5, -3105.5, -2740.5, -2192.5,
+        -1644.5, -914.5, 1640.5, 2736.5, 4019.5, 5114.5, 6209.5,
+    ]
+    _LEAP_SECONDS = [
+        10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0,
+        20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0,
+        30.0, 31.0, 32.0, 33.0, 34.0, 35.0, 36.0, 37.0,
+    ]
+    u1, u2 = tai1, tai2
+    for _ in range(2):
+        jd2000_day = (u1 - DJ2000) + u2
+        idx = bisect.bisect_right(_LEAP_JD2000, jd2000_day) - 1
+        if idx < 0:
+            delta_at = 0.0
+        else:
+            delta_at = _LEAP_SECONDS[idx]
+        g1 = u1
+        g2 = u2 + delta_at / 86400.0
+        u2 += tai1 - g1
+        u2 += tai2 - g2
+    candidate_utc = u1 + u2
+    return (u1, u2, candidate_utc)
 
 
 """Auto-generated FFI bindings for julia implementations."""

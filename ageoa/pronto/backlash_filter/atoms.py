@@ -28,7 +28,8 @@ def initializebacklashfilterstate() -> BacklashFilterState:
     Returns:
         BacklashFilterState: The initial filter state.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # State layout: [alpha_, t_crossing_max_, last_output_, last_crossing_time_]
+    return np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
 
 @register_atom(witness_updatealphaparameter)
 @icontract.ensure(lambda result: result is not None, "UpdateAlphaParameter output must not be None")
@@ -44,7 +45,9 @@ def updatealphaparameter(state_in: BacklashFilterState, alpha_in: float) -> Back
     Returns:
         BacklashFilterState: Same as state_in, except alpha_ = alpha_in.
     """
-    raise NotImplementedError("Wire to original implementation")
+    out = state_in.copy()
+    out[0] = float(alpha_in)
+    return out
 
 @register_atom(witness_updatecrossingtimemaximum)
 @icontract.ensure(lambda result: result is not None, "UpdateCrossingTimeMaximum output must not be None")
@@ -60,7 +63,9 @@ def updatecrossingtimemaximum(state_in: BacklashFilterState, t_crossing_max_in: 
     Returns:
         Same as state_in, except t_crossing_max_ = t_crossing_max_in.
     """
-    raise NotImplementedError("Wire to original implementation")
+    out = state_in.copy()
+    out[1] = float(t_crossing_max_in)
+    return out
 
 
 """Auto-generated FFI bindings for cpp implementations."""

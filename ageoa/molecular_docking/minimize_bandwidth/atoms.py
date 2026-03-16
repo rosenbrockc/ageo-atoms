@@ -28,6 +28,28 @@ from .witnesses import (
 from ageoa.ghost.abstract import Permutation
 
 
+def _matrix_bandwidth(mat: np.ndarray) -> int:
+    """Compute the bandwidth of a matrix: max |i-j| where mat[i,j] != 0."""
+    rows, cols = np.nonzero(mat)
+    if len(rows) == 0:
+        return 0
+    return int(np.max(np.abs(rows - cols)))
+
+
+def _permute_matrix(mat: np.ndarray, perm: list[int]) -> np.ndarray:
+    """Permute rows and columns of a matrix according to perm."""
+    p = np.array(perm)
+    return mat[np.ix_(p, p)]
+
+
+def _minimize_bandwidth_rcm(mat: np.ndarray) -> np.ndarray:
+    """Compute reverse Cuthill-McKee ordering for bandwidth reduction."""
+    from scipy.sparse import csr_matrix
+    from scipy.sparse.csgraph import reverse_cuthill_mckee
+    sparse = csr_matrix(mat)
+    return reverse_cuthill_mckee(sparse, symmetric_mode=True)
+
+
 @register_atom(witness_validate_square_matrix_shape)
 @icontract.require(lambda mat: mat is not None, "mat cannot be None")
 @icontract.require(lambda mat: isinstance(mat, np.ndarray), "mat must be np.ndarray")
@@ -42,7 +64,9 @@ def validate_square_matrix_shape(mat: np.ndarray) -> np.ndarray:
     Returns:
         square_mat: same data as input, guaranteed square
     """
-    raise NotImplementedError("Wire to original implementation")
+    if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
+        raise ValueError(f"Matrix must be square, got shape {mat.shape}")
+    return mat
 
 
 @register_atom(witness_compute_absolute_weighted_index_distances)
@@ -58,7 +82,9 @@ def compute_absolute_weighted_index_distances(square_mat: np.ndarray) -> object:
     Returns:
         weighted_distances: non-negative, one value per matrix entry
     """
-    raise NotImplementedError("Wire to original implementation")
+    n = square_mat.shape[0]
+    rows, cols = np.meshgrid(np.arange(n), np.arange(n), indexing='ij')
+    return np.abs(square_mat * (rows - cols))
 
 
 @register_atom(witness_aggregate_maximum_distance_as_bandwidth)
@@ -73,7 +99,8 @@ def aggregate_maximum_distance_as_bandwidth(weighted_distances: object) -> float
     Returns:
         bandwidth: >= 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    arr = np.asarray(weighted_distances)
+    return float(arr.max()) if arr.size > 0 else 0.0
 
 
 @register_atom(witness_validate_symmetric_input)
@@ -90,7 +117,9 @@ def validate_symmetric_input(matrix: np.ndarray) -> np.ndarray:
     Returns:
         symmetric_matrix: Same values as input; guaranteed symmetric or function fails
     """
-    raise NotImplementedError("Wire to original implementation")
+    if not np.allclose(matrix, matrix.T, atol=1e-8):
+        raise ValueError("Matrix is not symmetric within tolerance 1e-8")
+    return matrix
 
 
 @register_atom(witness_initialize_reduction_state)
@@ -107,7 +136,20 @@ def initialize_reduction_state(symmetric_matrix: np.ndarray) -> np.ndarray:
     Returns:
         iteration_state: working_matrix=abs(copy), accumulated_permutation=identity permutation, bandwidth=matrix_bandwidth(working_matrix), remaining_iterations=100
     """
-    raise NotImplementedError("Wire to original implementation")
+    working_matrix = np.abs(symmetric_matrix.copy())
+    n = working_matrix.shape[0]
+    acc_perm = list(range(n))
+    # Compute bandwidth: max |i - j| for non-zero entries
+    rows, cols = np.nonzero(working_matrix)
+    bw = int(np.max(np.abs(rows - cols))) if len(rows) > 0 else 0
+    state = np.empty(1, dtype=object)
+    state[0] = {
+        'working_matrix': working_matrix,
+        'accumulated_permutation': acc_perm,
+        'bandwidth': bw,
+        'remaining_iterations': 100,
+    }
+    return state
 
 
 @register_atom(witness_propose_greedy_permutation_step)
@@ -125,7 +167,12 @@ def propose_greedy_permutation_step(iteration_state: object) -> tuple[object, li
         candidate_matrix: permute_matrix(current working_matrix, candidate_permutation)
         candidate_bandwidth: matrix_bandwidth(candidate_matrix)
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = iteration_state[0] if hasattr(iteration_state, '__getitem__') else iteration_state
+    wm = state['working_matrix']
+    candidate_perm = list(_minimize_bandwidth_rcm(wm))
+    candidate_matrix = _permute_matrix(wm, candidate_perm)
+    candidate_bw = _matrix_bandwidth(candidate_matrix)
+    return iteration_state, candidate_perm, candidate_matrix, candidate_bw
 
 
 @register_atom(witness_update_state_with_improvement_criterion)
@@ -149,7 +196,31 @@ def update_state_with_improvement_criterion(current_iteration_state: object, can
         next_iteration_state: Counter decremented; if candidate improves bandwidth, state is updated, otherwise state remains effectively terminal
         continue_search: True only when candidate_bandwidth < current bandwidth and budget not exhausted
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = current_iteration_state[0] if hasattr(current_iteration_state, '__getitem__') else current_iteration_state
+    remaining = state['remaining_iterations'] - 1
+    current_bw = state['bandwidth']
+
+    if candidate_bandwidth < current_bw and remaining > 0:
+        # Compose permutations
+        old_perm = state['accumulated_permutation']
+        new_acc = [old_perm[i] for i in candidate_permutation]
+        new_state = np.empty(1, dtype=object)
+        new_state[0] = {
+            'working_matrix': candidate_matrix,
+            'accumulated_permutation': new_acc,
+            'bandwidth': candidate_bandwidth,
+            'remaining_iterations': remaining,
+        }
+        return (new_state, True)
+    else:
+        new_state = np.empty(1, dtype=object)
+        new_state[0] = {
+            'working_matrix': state['working_matrix'],
+            'accumulated_permutation': state['accumulated_permutation'],
+            'bandwidth': current_bw,
+            'remaining_iterations': remaining,
+        }
+        return (new_state, False)
 
 
 @register_atom(witness_extract_final_permutation)
@@ -164,7 +235,8 @@ def extract_final_permutation(terminal_state: object) -> list[int]:
     Returns:
         acc_permutation: Final accumulated row/column reordering permutation
     """
-    raise NotImplementedError("Wire to original implementation")
+    state = terminal_state[0] if hasattr(terminal_state, '__getitem__') else terminal_state
+    return list(state['accumulated_permutation'])
 
 
 @register_atom(witness_enforce_threshold_sparsity)
@@ -184,7 +256,9 @@ def enforce_threshold_sparsity(mat: np.ndarray, threshold: float) -> np.ndarray:
     Returns:
         thresholded_matrix: Same shape as mat; entries < threshold replaced with 0
     """
-    raise NotImplementedError("Wire to original implementation")
+    result = mat.copy()
+    result[np.abs(result) < threshold] = 0.0
+    return result
 
 
 @register_atom(witness_build_sparse_graph_view)
@@ -201,7 +275,8 @@ def build_sparse_graph_view(thresholded_matrix: np.ndarray) -> np.ndarray:
     Returns:
         sparse_matrix: Equivalent numeric structure to thresholded_matrix
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Return as-is since downstream expects np.ndarray; sparsity is implicit
+    return thresholded_matrix.copy()
 
 
 @register_atom(witness_compute_symmetric_bandwidth_reducing_order)
@@ -218,7 +293,7 @@ def compute_symmetric_bandwidth_reducing_order(sparse_matrix: np.ndarray) -> np.
     Returns:
         reordered_matrix: Permutation of row/column indices for reduced bandwidth
     """
-    raise NotImplementedError("Wire to original implementation")
+    return np.asarray(_minimize_bandwidth_rcm(sparse_matrix))
 
 
 @register_atom(witness_validate_symmetric_input)
@@ -235,7 +310,9 @@ def validate_symmetric_input(mat: np.ndarray) -> np.ndarray:
     Returns:
         validated_mat: symmetric within atol=1e-8
     """
-    raise NotImplementedError("Wire to original implementation")
+    if not np.allclose(mat, mat.T, atol=1e-8):
+        raise ValueError("Matrix is not symmetric within tolerance 1e-8")
+    return mat
 
 
 @register_atom(witness_build_threshold_search_space)
@@ -252,7 +329,9 @@ def build_threshold_search_space(validated_mat: np.ndarray) -> tuple[float, np.n
         mat_amplitude: ptp(abs(validated_mat).ravel())
         truncation_values: range [0.1, 1.0) with step 0.01
     """
-    raise NotImplementedError("Wire to original implementation")
+    mat_amplitude = float(np.ptp(np.abs(validated_mat).ravel()))
+    truncation_values = np.arange(0.1, 1.0, 0.01)
+    return mat_amplitude, truncation_values
 
 
 @register_atom(witness_enumerate_threshold_based_permutations)
@@ -275,7 +354,14 @@ def enumerate_threshold_based_permutations(validated_mat: np.ndarray, mat_amplit
     Returns:
         candidate_permutations: each item is a valid row/column permutation
     """
-    raise NotImplementedError("Wire to original implementation")
+    perms = []
+    for tv in truncation_values:
+        threshold = tv * mat_amplitude
+        thresholded = validated_mat.copy()
+        thresholded[np.abs(thresholded) < threshold] = 0.0
+        perm = _minimize_bandwidth_rcm(thresholded)
+        perms.append(perm)
+    return np.array(perms)
 
 
 @register_atom(witness_select_minimum_bandwidth_permutation)
@@ -294,4 +380,13 @@ def select_minimum_bandwidth_permutation(validated_mat: np.ndarray, candidate_pe
     Returns:
         optimal_permutation: argmin over matrix_bandwidth(permute_matrix(validated_mat, perm))
     """
-    raise NotImplementedError("Wire to original implementation")
+    best_perm = None
+    best_bw = float('inf')
+    for perm in candidate_permutations:
+        perm_list = list(perm)
+        permuted = _permute_matrix(validated_mat, perm_list)
+        bw = _matrix_bandwidth(permuted)
+        if bw < best_bw:
+            best_bw = bw
+            best_perm = perm_list
+    return best_perm if best_perm is not None else list(range(validated_mat.shape[0]))

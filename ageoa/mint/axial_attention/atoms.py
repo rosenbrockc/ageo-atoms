@@ -26,4 +26,30 @@ def rowselfattention(x: np.ndarray, self_attn_mask: np.ndarray, self_attn_paddin
     Returns:
         Attention-weighted output tensor with same shape as input.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Row-wise self-attention in numpy
+    # x shape: (batch, seq_len, dim) or (seq_len, dim)
+    if x.ndim == 2:
+        seq_len, dim = x.shape
+        scale = np.sqrt(dim)
+        scores = x @ x.T / scale
+        # Apply masks
+        if self_attn_mask is not None:
+            scores = np.where(self_attn_mask != 0, scores, -1e9)
+        if self_attn_padding_mask is not None:
+            scores = np.where(~self_attn_padding_mask.astype(bool).reshape(-1, 1), scores, -1e9)
+        scores -= scores.max(axis=-1, keepdims=True)
+        attn = np.exp(scores) / (np.exp(scores).sum(axis=-1, keepdims=True) + 1e-15)
+        return attn @ x
+    # 3D: batch attention
+    B, S, D = x.shape
+    scale = np.sqrt(D)
+    scores = np.matmul(x, x.transpose(0, 2, 1)) / scale
+    if self_attn_mask is not None:
+        scores = np.where(self_attn_mask != 0, scores, -1e9)
+    if self_attn_padding_mask is not None:
+        mask = self_attn_padding_mask.astype(bool)
+        if mask.ndim == 2:
+            scores = np.where(~mask[:, np.newaxis, :], scores, -1e9)
+    scores -= scores.max(axis=-1, keepdims=True)
+    attn = np.exp(scores) / (np.exp(scores).sum(axis=-1, keepdims=True) + 1e-15)
+    return np.matmul(attn, x)

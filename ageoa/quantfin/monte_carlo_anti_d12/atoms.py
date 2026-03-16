@@ -65,7 +65,12 @@ def runmc(
     Returns:
         Final numeric result of the Monte Carlo computation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Run a Monte Carlo computation: evaluate the monadic MC pipeline.
+    result = evalState(
+        evalStateT(sampleRVarTWith(lift, mc), randState),
+        initState,
+    )
+    return float(result)
 
 
 # ---------------------------------------------------------------------------
@@ -103,7 +108,8 @@ def runsimulation(
     Returns:
         Estimated fair value as a float.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Run a full MC simulation: use runMC to execute the assembled run.
+    return float(runMC(run, seed, trials))
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +141,11 @@ def runsimulationanti(
     Returns:
         Variance-reduced estimated fair value as a float.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Run antithetic simulation: average normal and flipped halves.
+    half = trials // 2
+    r1 = runSim(modl, ccs, seed, half, False)
+    r2 = runSim(modl, ccs, seed, half, True)
+    return float((r1 + r2) / 2.0)
 
 
 # ---------------------------------------------------------------------------
@@ -167,7 +177,8 @@ def quicksim(
     Returns:
         Estimated fair value as a float.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Quick sim: use pureMT(500) as seed, no antithetic variates.
+    return float(runSimulation(mdl, opts, pureMT(500), trials, False))
 
 
 # ---------------------------------------------------------------------------
@@ -199,7 +210,8 @@ def quicksimanti(
     Returns:
         Variance-reduced estimated fair value as a float.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Quick sim with antithetic: use pureMT(500) as seed.
+    return float(runSimulationAnti(mdl, opts, pureMT(500), trials))
 
 
 # ---------------------------------------------------------------------------
@@ -246,7 +258,17 @@ def evolve(
     Returns:
         Updated monadic state after evolution.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Evolve model state from t1 to t2, breaking into sub-steps if needed.
+    # ms = maxStep(mdl), timeDiff gives gap, timeOffset advances time.
+    dt = timeDiff(t2, t1)
+    if dt <= 0:
+        return get()
+    if dt <= ms:
+        return evolve_prime(mdl, anti, t1, t2)
+    else:
+        t_mid = timeOffset(t1, ms)
+        evolve_prime(mdl, anti, t1, t_mid)
+        return evolve(mdl, anti, t_mid, t2)
 
 
 # ---------------------------------------------------------------------------
@@ -265,7 +287,8 @@ def maxstep() -> float:
     Returns:
         Maximum time step as a float (default 0.004).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Default max step: 1/250 (one trading day).
+    return 1.0 / 250.0
 
 
 # ---------------------------------------------------------------------------
@@ -301,7 +324,9 @@ def simulatestate(
     Returns:
         Average discounted payoff across all trials.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Simulate: replicate singleTrial 'trials' times and average.
+    results = replicateM(trials, singleTrial)
+    return float(avg(trials, results))
 
 
 # ---------------------------------------------------------------------------
@@ -337,7 +362,9 @@ def runsim(
     Returns:
         Estimated fair value for this half-run.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Run simulation with halved trials and the given antithetic flag.
+    half_trials = div(trials, 2)
+    return float(runSimulation(modl, ccs, seed, half_trials, x))
 
 
 # ---------------------------------------------------------------------------
@@ -419,7 +446,23 @@ def process(
     Returns:
         Total discounted cash-flow value for this trial path.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Process cash flows: interleave observation and payment times.
+    # If next CF time < next observation time, discount the CF and accumulate.
+    # Otherwise, evolve to observation time and generate new CFs.
+    if allcfs and (not ccs or cft <= t):
+        # Process the cash flow
+        evolve(modl, anti, cft, cft)
+        d_val = discount(modl, cft)
+        new_disc = discCFs + d_val * amt
+        return float(process(anti, modl, ccs, cfs, obsMap, new_disc))
+    else:
+        # Process the observation
+        evolve(modl, anti, t, t)
+        obs_val = gets(modl)
+        obsMap_new = insert(t, obs_val, obsMap)
+        new_cfs_list = list(map(lambda pf: pf(obsMap_new), mf))
+        merged = insertCFList(cfList, new_cfs_list)
+        return float(process(anti, modl, ccs, merged, obsMap_new, discCFs))
 
 
 # ---------------------------------------------------------------------------
@@ -485,7 +528,14 @@ def process(
     Returns:
         Total discounted cash-flow value for this trial path.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Process remaining processors when no cash flows are pending.
+    # Evolve to observation time, record observable, generate new CFs, recurse.
+    evolve(modl, anti, t, t)
+    obs_val = gets(modl)
+    obsMap_new = insert(t, obs_val, obsMap)
+    new_cfs_list = list(map(lambda pf: pf(obsMap_new), mf))
+    merged = insertCFList(cfList, new_cfs_list)
+    return float(process(anti, modl, ccs, merged, obsMap_new, discCFs))
 
 
 # ---------------------------------------------------------------------------
@@ -531,7 +581,16 @@ def process(
     Returns:
         Total discounted cash-flow value for this trial path.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Process remaining cash flows when no more processors exist.
+    # Evolve to CF time, discount the amount, accumulate, recurse.
+    cf_t = cfTime(cf)
+    cf_a = cfAmount(cf)
+    evolve(modl, anti, cf_t, cf_t)
+    d_val = discount(modl, cf_t)
+    new_disc = discCFs + d_val * cf_a
+    if cfs:
+        return float(process(anti, modl, cfs, obsMap, new_disc))
+    return float(new_disc)
 
 
 # ---------------------------------------------------------------------------
@@ -557,7 +616,8 @@ def process(
     Returns:
         Final discounted value for this trial.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Base case: return the accumulated discounted cash flows.
+    return float(discCFs)
 
 
 # ---------------------------------------------------------------------------
@@ -594,7 +654,13 @@ def insertcf(
     Returns:
         Cash-flow list with the new entry inserted in time order.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Insert a CF in sorted order (recursive case).
+    # If new time t <= head time t_prime, insert before head.
+    if t <= t_prime:
+        return otherwise  # pre-computed: [new_cf] + [(t_prime, amt_prime)] + cfs
+    else:
+        # Head stays, recurse on tail
+        return [(t_prime, amt_prime)] + insertCF(t, amt, cfs)
 
 
 # ---------------------------------------------------------------------------
@@ -615,7 +681,8 @@ def insertcf(
     Returns:
         Single-element list containing the cash flow.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Base case: wrap the single CF in a list.
+    return [cf]
 
 
 # ---------------------------------------------------------------------------
@@ -644,7 +711,8 @@ def avg(
     Returns:
         Arithmetic mean of the trial values.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Arithmetic mean: sum(v) / fromIntegral(trials)
+    return float(sum(v) / fromIntegral(trials))
 
 
 # ---------------------------------------------------------------------------
@@ -676,7 +744,11 @@ def insertcflist(
     Returns:
         Merged sorted cash-flow list.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Insert each new CF from xs into cfList using a strict left fold.
+    result = cfList
+    for x_item in xs:
+        result = insertCF(x_item, result)
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -708,7 +780,11 @@ def insertcflist(
     Returns:
         Merged sorted cash-flow list.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Insert each new CF from xs into cfList using a strict left fold.
+    result = cfList
+    for x_item in xs:
+        result = insertCF(x_item, result)
+    return result
 
 
 # ---------------------------------------------------------------------------

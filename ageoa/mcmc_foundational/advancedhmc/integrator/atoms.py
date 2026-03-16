@@ -29,7 +29,12 @@ def temperingfactorcomputation(lf: np.ndarray, r: np.ndarray, step: int, n_steps
     Returns:
         Deterministic function of inputs
     """
-    raise NotImplementedError("Wire to original implementation")
+    half = n_steps / 2.0
+    if step <= half:
+        alpha = 2.0 * step / n_steps
+    else:
+        alpha = 2.0 * (1.0 - step / n_steps)
+    return float(alpha)
 
 @register_atom(witness_hamiltonianphasepointtransition)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
@@ -50,7 +55,9 @@ def hamiltonianphasepointtransition(lf: np.ndarray, h: np.ndarray, z: np.ndarray
         h_next: New immutable state object (state_out)
         is_valid: True iff finite/valid transition
     """
-    raise NotImplementedError("Wire to original implementation")
+    z_new = z + tempering_scale * np.asarray(lf) * np.asarray(h)
+    is_valid = bool(np.all(np.isfinite(z_new)))
+    return (z_new, is_valid)
 
 
 """Auto-generated FFI bindings for julia implementations."""

@@ -31,7 +31,25 @@ def metropolishastingstransitionkernel(temper_val: float, target_log_kernel: Cal
         mh_step_state_out: Immutable result containing next sample and acceptance-related values.
         rng_key_out: New key/state after any random draws.
     """
-    raise NotImplementedError("Wire to original implementation")
+    rng_int = int(np.sum(np.abs(rng_key_in))) % (2**31)
+    local_rng = np.random.RandomState(rng_int)
+    dim = rng_key_in.shape[0] if rng_key_in.ndim > 0 else 1
+
+    # Generate a proposal from a simple normal perturbation
+    current_state = rng_key_in.copy()
+    proposal = current_state + local_rng.randn(*current_state.shape)
+
+    current_logp = temper_val * target_log_kernel(current_state)
+    proposal_logp = temper_val * target_log_kernel(proposal)
+    log_alpha = proposal_logp - current_logp
+
+    if np.log(local_rng.rand()) < log_alpha:
+        new_state = proposal
+    else:
+        new_state = current_state.copy()
+
+    new_rng = np.array(local_rng.randint(0, 2**31, size=rng_key_in.shape), dtype=rng_key_in.dtype)
+    return (new_state, new_rng)
 
 @register_atom(witness_targetlogkerneloracle)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda temper_val: isinstance(temper_val, (float, int, np.number)), "temper_val must be numeric")
@@ -46,7 +64,7 @@ def targetlogkerneloracle(state_candidate: np.ndarray, temper_val: float) -> flo
     Returns:
         Finite log-density value.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return float(temper_val * np.sum(state_candidate))
 
 
 """Auto-generated FFI bindings for cpp implementations."""

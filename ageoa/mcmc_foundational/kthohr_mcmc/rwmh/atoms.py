@@ -25,7 +25,19 @@ Args:
 
 Returns:
     Pure Markov Chain Monte Carlo (MCMC) kernel; chain_state is immutable (e.g., latent sample and cached log_prob), PRNGKey must be explicitly split/threaded."""
-    raise NotImplementedError("Wire to original implementation")
+    def _rwmh_kernel(state: np.ndarray, rng: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        rng_int = int(np.sum(np.abs(rng))) % (2**31)
+        local_rng = np.random.RandomState(rng_int)
+        proposal = state + local_rng.randn(*state.shape)
+        log_ratio = target_log_kernel(proposal) - target_log_kernel(state)
+        if np.log(local_rng.rand()) < log_ratio:
+            new_state = proposal
+        else:
+            new_state = state.copy()
+        new_rng = np.array(local_rng.randint(0, 2**31, size=rng.shape), dtype=rng.dtype)
+        return (new_state, new_rng)
+
+    return _rwmh_kernel
 
 
 """Auto-generated FFI bindings for cpp implementations."""

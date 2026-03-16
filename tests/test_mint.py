@@ -7,9 +7,9 @@ from ageoa.mint.atoms import axial_attention, rotary_positional_embeddings
 
 
 class TestAxialAttention:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            axial_attention(np.array([[1.0, 2.0], [3.0, 4.0]]))
+    def test_returns_result(self):
+        result = axial_attention(np.array([[1.0, 2.0], [3.0, 4.0]]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +25,9 @@ class TestAxialAttention:
 
 
 class TestRotaryPositionalEmbeddings:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            rotary_positional_embeddings(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = rotary_positional_embeddings(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

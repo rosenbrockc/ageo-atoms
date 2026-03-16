@@ -23,7 +23,38 @@ def quantum_mwis_solver(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    from scipy.spatial.distance import pdist, squareform
+
+    # If 2D, interpret as adjacency + weights: use simulated annealing on QUBO
+    if data.ndim >= 2:
+        n = data.shape[0]
+        # Build QUBO: diagonal = -weights (node degree as proxy), off-diag = penalty
+        adj = (data != 0).astype(float)
+        np.fill_diagonal(adj, 0)
+        weights = np.sum(np.abs(data), axis=1)
+        penalty = 2.0 * np.max(weights) + 1.0
+        Q = -np.diag(weights) + penalty * adj
+
+        # Simulated annealing on binary vector
+        rng = np.random.RandomState(42)
+        x = np.zeros(n, dtype=float)
+        energy = 0.0
+        T = 1.0
+        for step in range(1000):
+            T = max(1.0 / (1 + step), 1e-6)
+            i = rng.randint(n)
+            x_new = x.copy()
+            x_new[i] = 1.0 - x_new[i]
+            e_new = x_new @ Q @ x_new
+            delta = e_new - energy
+            if delta < 0 or rng.rand() < np.exp(-delta / T):
+                x = x_new
+                energy = e_new
+        return x
+    else:
+        # 1D: return binary indicator of above-median values
+        median = np.median(data)
+        return (data >= median).astype(float)
 
 @register_atom(witness_greedy_lattice_mapping)
 @icontract.require(lambda data: data.shape[0] > 0, "data must not be empty along first axis")
@@ -42,4 +73,30 @@ def greedy_lattice_mapping(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    from scipy.spatial.distance import cdist
+
+    n = data.shape[0]
+    # Build adjacency from input (treat as interaction matrix)
+    adj = (data != 0).astype(float)
+    np.fill_diagonal(adj, 0)
+
+    # Compute node degrees for greedy ordering
+    degrees = np.sum(adj, axis=1)
+    sorted_nodes = np.argsort(-degrees)
+
+    # Generate 2D lattice positions: ceil(sqrt(n)) x ceil(sqrt(n))
+    side = int(np.ceil(np.sqrt(n)))
+    lattice_positions = np.array([[i, j] for i in range(side) for j in range(side)])
+
+    # Greedy assignment: assign highest-degree nodes to most central lattice positions
+    center = np.array([side / 2.0, side / 2.0])
+    lattice_dists = np.linalg.norm(lattice_positions - center, axis=1)
+    sorted_lattice = np.argsort(lattice_dists)
+
+    # Build mapping: node index -> lattice index
+    mapping = np.full(n, -1, dtype=int)
+    for rank, node_idx in enumerate(sorted_nodes):
+        if rank < len(sorted_lattice):
+            mapping[node_idx] = sorted_lattice[rank]
+
+    return mapping

@@ -32,4 +32,13 @@ def greedy_maximum_subgraph(adjacency: np.ndarray, scores: np.ndarray) -> np.nda
     Returns:
         Boolean mask of selected subgraph nodes, shape (n_nodes,)
     """
-    raise NotImplementedError("Wire to original implementation")
+    n = adjacency.shape[0]
+    selected = np.zeros(n, dtype=bool)
+    # Sort nodes by score descending
+    order = np.argsort(-scores)
+    for idx in order:
+        # Check if adding this node conflicts with any already-selected node
+        conflicts = adjacency[idx] & selected
+        if not np.any(conflicts):
+            selected[idx] = True
+    return selected

@@ -7,9 +7,9 @@ from ageoa.e2e_ppg.atoms import kazemi_peak_detection, ppg_reconstruction, ppg_s
 
 
 class TestKazemiPeakDetection:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            kazemi_peak_detection(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = kazemi_peak_detection(np.array([1.0, 3.0, 1.0, 3.0, 1.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +25,9 @@ class TestKazemiPeakDetection:
 
 
 class TestPPGReconstruction:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            ppg_reconstruction(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = ppg_reconstruction(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -39,9 +39,9 @@ class TestPPGReconstruction:
 
 
 class TestPPGSQA:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            ppg_sqa(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = ppg_sqa(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

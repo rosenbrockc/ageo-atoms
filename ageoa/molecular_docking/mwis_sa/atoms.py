@@ -24,7 +24,16 @@ def load_graphs_from_folder(folder_path: str) -> list[np.ndarray]:
     Returns:
         list[np.ndarray]: Description.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import os
+    graphs = []
+    if os.path.isdir(folder_path):
+        for fname in sorted(os.listdir(folder_path)):
+            fpath = os.path.join(folder_path, fname)
+            if fname.endswith('.npy'):
+                graphs.append(np.load(fpath))
+            elif fname.endswith('.csv'):
+                graphs.append(np.loadtxt(fpath, delimiter=','))
+    return graphs
 
 @register_atom(witness_is_independent_set)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
@@ -44,7 +53,11 @@ def is_independent_set(graph: np.ndarray, subset: list[int]) -> bool:
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    for i in range(len(subset)):
+        for j in range(i + 1, len(subset)):
+            if graph[subset[i], subset[j]] != 0:
+                return False
+    return True
 
 @register_atom(witness_calculate_weight)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
@@ -63,7 +76,8 @@ def calculate_weight(graph: np.ndarray, node_list: list[int]) -> float:
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Node weights are stored on the diagonal of the adjacency matrix
+    return float(sum(graph[n, n] for n in node_list))
 
 @register_atom(witness_to_qubo)
 @icontract.require(lambda graph: graph is not None, "graph cannot be None")
@@ -79,4 +93,15 @@ def to_qubo(graph: np.ndarray, penalty: float) -> np.ndarray:
     Returns:
         QUBO matrix encoding the MWIS objective
     """
-    raise NotImplementedError("Wire to original implementation")
+    n = graph.shape[0]
+    Q = np.zeros((n, n), dtype=float)
+    # Diagonal: negative node weights (we minimize, so negate for maximization)
+    for i in range(n):
+        Q[i, i] = -graph[i, i]
+    # Off-diagonal: penalty for edges
+    for i in range(n):
+        for j in range(i + 1, n):
+            if graph[i, j] != 0:
+                Q[i, j] = penalty
+                Q[j, i] = penalty
+    return Q

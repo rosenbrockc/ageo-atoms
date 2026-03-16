@@ -27,7 +27,7 @@ def show(io: str, s: str) -> str:
     Returns:
         str: Description.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return str(s)
 
 @register_atom(witness__zero_offset)
 @icontract.require(lambda seconds: seconds is not None, "seconds cannot be None")
@@ -41,7 +41,7 @@ def _zero_offset(seconds: float) -> float:
     Returns:
         float: Description.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return 0.0
 
 @register_atom(witness_apply_offsets)
 @icontract.require(lambda sec: sec is not None, "sec cannot be None")
@@ -59,7 +59,7 @@ def apply_offsets(sec: float, ts1: float, ts2: float) -> float:
     Returns:
         float: Description.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return sec + ts1 - ts2
 
 
 """Auto-generated FFI bindings for julia implementations."""

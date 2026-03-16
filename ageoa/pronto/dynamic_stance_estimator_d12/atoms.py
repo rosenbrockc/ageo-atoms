@@ -30,7 +30,14 @@ def stancestateinit(config: dict[str, float]) -> StanceState:
     Returns:
         Initialized StanceState object
     """
-    raise NotImplementedError("Wire to original implementation")
+    n_legs = int(config.get('n_legs', 4))
+    force_threshold = config.get('force_threshold', 50.0)
+    return {
+        'stance': np.zeros(n_legs, dtype=np.float64),
+        'force_threshold': np.array([force_threshold], dtype=np.float64),
+        'n_legs': np.array([n_legs], dtype=np.int64),
+        'grf_history': np.zeros(n_legs, dtype=np.float64),
+    }
 
 
 @register_atom(witness_stanceestimation)  # type: ignore[untyped-decorator]
@@ -47,7 +54,17 @@ def stanceestimation(stance_state: StanceState, observation: np.ndarray) -> tupl
         stance_state_out: New object; never mutates stance_state_in
         stance_estimate: Posterior mean of the stance vector at the current time step
     """
-    raise NotImplementedError("Wire to original implementation")
+    obs = np.atleast_1d(np.asarray(observation, dtype=np.float64))
+    threshold = float(stance_state['force_threshold'][0])
+    # Compare ground reaction force against threshold per leg
+    stance_estimate = (obs >= threshold).astype(np.float64)
+    stance_state_out = {
+        'stance': stance_estimate.copy(),
+        'force_threshold': stance_state['force_threshold'].copy(),
+        'n_legs': stance_state['n_legs'].copy(),
+        'grf_history': obs.copy(),
+    }
+    return (stance_state_out, stance_estimate)
 
 
 def _stancestateinit_ffi(config: dict[str, float]) -> ctypes.c_void_p:

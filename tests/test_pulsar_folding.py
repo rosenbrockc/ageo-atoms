@@ -7,9 +7,9 @@ from ageoa.pulsar_folding.atoms import dm_can_brute_force, spline_bandpass_corre
 
 
 class TestDMCanBruteForce:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            dm_can_brute_force(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = dm_can_brute_force(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +25,9 @@ class TestDMCanBruteForce:
 
 
 class TestSplineBandpassCorrection:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            spline_bandpass_correction(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = spline_bandpass_correction(np.array([1.0, 2.0, 3.0, 2.5, 1.5]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

@@ -45,7 +45,13 @@ def initializelineargaussianstatemodel(initial_state: object, initial_covariance
     Returns:
         Immutable object; no hidden mutation
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.atleast_1d(np.asarray(initial_state, dtype=float))
+    P = np.atleast_2d(np.asarray(initial_covariance, dtype=float))
+    F = np.atleast_2d(np.asarray(transition_matrix, dtype=float))
+    Q = np.atleast_2d(np.asarray(process_noise, dtype=float))
+    H = np.atleast_2d(np.asarray(observation_matrix, dtype=float))
+    R = np.atleast_2d(np.asarray(measurement_noise, dtype=float))
+    return {'x': x, 'P': P, 'F': F, 'Q': Q, 'H': H, 'R': R}
 
 @register_atom(witness_predictlatentstate)
 @icontract.require(lambda state_model: state_model is not None, "state_model cannot be None")
@@ -59,7 +65,14 @@ def predictlatentstate(state_model: object) -> object:
     Returns:
         New object with updated x and P only
     """
-    raise NotImplementedError("Wire to original implementation")
+    sm = dict(state_model)
+    F = sm['F']
+    Q = sm['Q']
+    x = sm['x']
+    P = sm['P']
+    x_pred = F @ x
+    P_pred = F @ P @ F.T + Q
+    return {**sm, 'x': x_pred, 'P': P_pred}
 
 @register_atom(witness_updatewithmeasurement)
 @icontract.require(lambda measurement: isinstance(measurement, (float, int, np.number)), "measurement must be numeric")
@@ -74,7 +87,19 @@ def updatewithmeasurement(predicted_state_model: object, measurement: object) ->
     Returns:
         New object; analytical Bayesian posterior update
     """
-    raise NotImplementedError("Wire to original implementation")
+    sm = dict(predicted_state_model)
+    x = sm['x']
+    P = sm['P']
+    H = sm['H']
+    R = sm['R']
+    z = np.atleast_1d(np.asarray(measurement, dtype=float))
+    innovation = z - H @ x
+    S = H @ P @ H.T + R
+    K = P @ H.T @ np.linalg.inv(S)
+    x_post = x + K @ innovation
+    n = len(x)
+    P_post = (np.eye(n) - K @ H) @ P
+    return {**sm, 'x': x_post, 'P': P_post}
 
 @register_atom(witness_exposelatentmean)
 @icontract.require(lambda current_state_model: current_state_model is not None, "current_state_model cannot be None")
@@ -88,7 +113,7 @@ def exposelatentmean(current_state_model: object) -> object:
     Returns:
         Dimension n
     """
-    raise NotImplementedError("Wire to original implementation")
+    return current_state_model['x']
 
 @register_atom(witness_exposecovariance)
 @icontract.require(lambda current_state_model: current_state_model is not None, "current_state_model cannot be None")
@@ -102,7 +127,7 @@ def exposecovariance(current_state_model: object) -> object:
     Returns:
         Shape n x n; symmetric positive semi-definite
     """
-    raise NotImplementedError("Wire to original implementation")
+    return current_state_model['P']
 
 
 def _initializelineargaussianstatemodel_ffi(initial_state: object, initial_covariance: object, transition_matrix: object, process_noise: object, observation_matrix: object, measurement_noise: object) -> object:

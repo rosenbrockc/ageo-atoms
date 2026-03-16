@@ -33,4 +33,13 @@ def addquantumlink(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Gra
     Returns:
         The graph with the added quantum link.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import networkx as nx
+    H = G.copy()
+    if chain_size <= 1:
+        H.add_edge(node_A, node_B)
+    else:
+        chain_nodes = [f"_qlink_{node_A}_{node_B}_{i}" for i in range(chain_size - 1)]
+        path = [node_A] + chain_nodes + [node_B]
+        for u, v in zip(path[:-1], path[1:]):
+            H.add_edge(u, v)
+    return H

@@ -26,7 +26,35 @@ Args:
 
 Returns:
     Pure transition function; any stochastic state (e.g., random number generator (RNG)/PRNGKey) must be explicit input/output."""
-    raise NotImplementedError("Wire to original implementation")
+    def _de_kernel(state: np.ndarray, rng: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        # state is the population matrix: (n_members, dim)
+        rng_int = int(np.sum(np.abs(rng))) % (2**31)
+        local_rng = np.random.RandomState(rng_int)
+
+        if state.ndim == 1:
+            # Single member: just do RW-MH
+            proposal = state + local_rng.randn(*state.shape)
+            log_ratio = target_log_kernel(proposal) - target_log_kernel(state)
+            if np.log(local_rng.rand()) < log_ratio:
+                new_state = proposal
+            else:
+                new_state = state.copy()
+        else:
+            n_members = state.shape[0]
+            new_state = state.copy()
+            F = 2.38 / np.sqrt(2.0 * state.shape[1]) if state.shape[1] > 0 else 1.0
+            for k in range(n_members):
+                idxs = [j for j in range(n_members) if j != k]
+                a, b = local_rng.choice(idxs, size=2, replace=False)
+                proposal = state[k] + F * (state[a] - state[b])
+                log_ratio = target_log_kernel(proposal) - target_log_kernel(state[k])
+                if np.log(local_rng.rand()) < log_ratio:
+                    new_state[k] = proposal
+
+        new_rng = np.array(local_rng.randint(0, 2**31, size=rng.shape), dtype=rng.dtype)
+        return (new_state, new_rng)
+
+    return _de_kernel
 
 
 """Auto-generated FFI bindings for cpp implementations."""

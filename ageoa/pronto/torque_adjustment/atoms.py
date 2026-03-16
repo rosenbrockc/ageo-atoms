@@ -24,7 +24,8 @@ def torqueadjustmentidentitystage() -> None:
     Returns:
         None. Identity stage performs no computation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Identity stage: no computation, return None
+    return None
 
 
 """Auto-generated FFI bindings for cpp implementations."""

@@ -20,4 +20,9 @@ def apccoreevaluation(x: np.ndarray) -> np.ndarray:
     Returns:
         Return value produced solely from x with no persistent state.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Autoregressive Predictive Coding: predict next frame from context
+    # Simple APC: use last-frame predictor (identity shift)
+    if x.ndim == 1:
+        return np.roll(x, -1)
+    # For 2D+ input: shift along time axis (axis 0)
+    return np.roll(x, -1, axis=0)

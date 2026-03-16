@@ -33,4 +33,18 @@ def update_state_estimate(prior_state: np.ndarray, prior_cov: np.ndarray, measur
     Returns:
         Updated state vector after fusing the measurement, shape (n_state,)
     """
-    raise NotImplementedError("Wire to original implementation")
+    # EKF update: fuse measurement into prior state estimate
+    # Use identity measurement model H = I (measurement directly observes state)
+    n_state = prior_state.shape[0]
+    n_meas = measurement.shape[0]
+    H = np.eye(n_meas, n_state, dtype=np.float64)
+    R = np.eye(n_meas, dtype=np.float64) * 1e-2  # measurement noise
+    # Innovation
+    innovation = measurement - H @ prior_state
+    # Innovation covariance
+    S = H @ prior_cov @ H.T + R
+    # Kalman gain
+    K = prior_cov @ H.T @ np.linalg.inv(S)
+    # Updated state
+    x_post = prior_state + K @ innovation
+    return x_post

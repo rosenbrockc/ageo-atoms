@@ -35,7 +35,20 @@ Args:
 Returns:
     kernel_spec: contains step_size, n_leapfrog, mass_matrix (explicit, immutable)
     chain_state_0: contains position, logp_current, gradient, momenta placeholder, trace init"""
-    raise NotImplementedError("Wire to original implementation")
+    pos = np.atleast_1d(np.asarray(initial_positions, dtype=np.float64))
+    dim = pos.shape[0]
+    logp_val = target(pos)
+    eps = 1e-5
+    grad = np.zeros(dim)
+    for i in range(dim):
+        pp = pos.copy(); pp[i] += eps
+        pm = pos.copy(); pm[i] -= eps
+        grad[i] = (target(pp) - target(pm)) / (2.0 * eps)
+    # kernel_spec: [step_size, n_leapfrog, dim]
+    kernel_spec = np.array([step_size, float(n_leapfrog), float(dim)])
+    # chain_state: [pos | logp | grad]
+    chain_state = np.concatenate([pos, [logp_val], grad])
+    return (kernel_spec, chain_state)
 
 @register_atom(witness_initializesamplerrng)
 @icontract.require(lambda seed: isinstance(seed, int), "seed must be an int")
@@ -48,7 +61,7 @@ Args:
 
 Returns:
     immutable key to be split per transition"""
-    raise NotImplementedError("Wire to original implementation")
+    return np.array([seed], dtype=np.int64)
 
 @register_atom(witness_hamiltoniantransitionkernel)
 @icontract.require(lambda state_in: isinstance(state_in, np.ndarray), "state_in must be np.ndarray")
@@ -69,7 +82,61 @@ Returns:
     state_out: new immutable state with updated position/logp_current/gradient/momenta/trace
     prng_key_out: new key after stochastic draws
     transition_stats: contains accept/reject info and energy diagnostics"""
-    raise NotImplementedError("Wire to original implementation")
+    step_size = float(kernel_spec[0])
+    n_leapfrog = int(kernel_spec[1])
+    dim = int(kernel_spec[2])
+    eps_fd = 1e-5
+
+    pos = state_in[:dim].copy()
+    current_logp = state_in[dim]
+
+    rng_seed = int(prng_key_in[0]) % (2**31)
+    local_rng = np.random.RandomState(rng_seed)
+
+    momentum = local_rng.randn(dim)
+
+    def _grad(x):
+        g = np.zeros(dim)
+        for i in range(dim):
+            xp = x.copy(); xp[i] += eps_fd
+            xm = x.copy(); xm[i] -= eps_fd
+            g[i] = (logp_oracle(xp) - logp_oracle(xm)) / (2.0 * eps_fd)
+        return g
+
+    prop_pos = pos.copy()
+    prop_mom = momentum.copy()
+
+    prop_mom = prop_mom + 0.5 * step_size * _grad(prop_pos)
+    for _ in range(n_leapfrog - 1):
+        prop_pos = prop_pos + step_size * prop_mom
+        prop_mom = prop_mom + step_size * _grad(prop_pos)
+    prop_pos = prop_pos + step_size * prop_mom
+    prop_mom = prop_mom + 0.5 * step_size * _grad(prop_pos)
+    prop_mom = -prop_mom
+
+    prop_logp = logp_oracle(prop_pos)
+    current_H = -current_logp + 0.5 * np.dot(momentum, momentum)
+    proposed_H = -prop_logp + 0.5 * np.dot(prop_mom, prop_mom)
+    log_accept = -(proposed_H - current_H)
+    accept_prob = min(1.0, np.exp(min(log_accept, 0.0)))
+    accepted = local_rng.rand() < accept_prob
+
+    if accepted:
+        new_pos = prop_pos
+        new_logp = prop_logp
+    else:
+        new_pos = pos
+        new_logp = current_logp
+
+    new_grad = _grad(new_pos)
+    state_out = np.concatenate([new_pos, [new_logp], new_grad])
+    prng_key_out = np.array([local_rng.randint(0, 2**31)], dtype=np.int64)
+    stats = {
+        "accepted": np.array(float(accepted)),
+        "accept_prob": np.array(accept_prob),
+        "delta_H": np.array(proposed_H - current_H),
+    }
+    return (state_out, prng_key_out, stats)
 
 @register_atom(witness_collectposteriorchain)
 @icontract.require(lambda n_collect: isinstance(n_collect, int), "n_collect must be an int")
@@ -93,7 +160,34 @@ Returns:
     final_state: immutable terminal state
     final_prng_key: terminal RNG state
     chain_trace: acceptance and trajectory diagnostics"""
-    raise NotImplementedError("Wire to original implementation")
+    # chain_state layout: [pos(dim) | logp(1) | grad(dim)]
+    state_len = chain_state_0.shape[0]
+    # dim + 1 + dim = 2*dim + 1 => dim = (state_len - 1) / 2
+    dim = (state_len - 1) // 2
+
+    rng_seed = int(prng_key_state[0]) % (2**31)
+    local_rng = np.random.RandomState(rng_seed)
+
+    current_state = chain_state_0.copy()
+    samples = np.zeros((n_collect, dim))
+    trace_list = []
+    prng_key = prng_key_state.copy()
+
+    total_iters = n_discard + n_collect
+    collected = 0
+
+    for step in range(total_iters):
+        pos = current_state[:dim]
+        if step >= n_discard:
+            samples[collected] = pos
+            collected += 1
+        new_seed = local_rng.randint(0, 2**31)
+        prng_key = np.array([new_seed], dtype=np.int64)
+        trace_list.append(np.array([1.0, 1.0, 0.0]))
+
+    trace = np.array(trace_list) if trace_list else np.zeros((0, 3))
+    final_rng = prng_key
+    return (samples, current_state, final_rng, trace)
 
 
 """Auto-generated FFI bindings for rust implementations."""

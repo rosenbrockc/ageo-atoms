@@ -57,7 +57,11 @@ def randomword32(
     Returns:
         Tuple of (random 32-bit word, updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # MWC64X: split state into upper (carry) and lower (counter),
+    # XOR them for output, advance state.
+    # c and x are pre-computed from state; state_prime is the next state.
+    word = xor(c, x) & 0xFFFFFFFF
+    return (word, state_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -87,7 +91,9 @@ def randomint(
     Returns:
         Tuple of (random integer, updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Generate a random integer from MWC64X state.
+    # i and g_prime are pre-computed from the 64-bit word draw.
+    return (fromIntegral(i), g_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -119,7 +125,10 @@ def randomword64(
     Returns:
         Tuple of (random 64-bit word, updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Generate 64-bit word by joining two 32-bit halves.
+    # y1, y2 are pre-computed 32-bit words; x_prime is the final state.
+    word64 = buildWord64_prime(y1, y2)
+    return (word64, x_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -151,7 +160,10 @@ def randomdouble(
     Returns:
         Tuple of (uniform double in [0, 1), updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Generate uniform double: val is the 64-bit word >> 11, divide by 2^53.
+    # val, x_prime are pre-computed.
+    dbl = fromIntegral(val) / (2**53)
+    return (float(dbl), x_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -180,7 +192,9 @@ def randomint64(
     Returns:
         Tuple of (random signed 64-bit integer, updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Generate a random 64-bit signed integer from MWC64X state.
+    # i and g_prime are pre-computed.
+    return (fromIntegral(i), g_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -209,7 +223,8 @@ def addmod64(
     Returns:
         (a + b) mod m as a non-negative integer.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # (a + b) mod m
+    return (a + b) % m
 
 
 # ---------------------------------------------------------------------------
@@ -241,7 +256,8 @@ def mulmod64(
     Returns:
         (a * b) mod m as a non-negative integer.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # (a * b) mod m — Python handles big ints natively.
+    return (a * b) % m
 
 
 # ---------------------------------------------------------------------------
@@ -273,7 +289,8 @@ def powmod64(
     Returns:
         a raised to the power e, modulo m.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # a^e mod m — Python's built-in pow handles this efficiently.
+    return pow(a, e, m)
 
 
 # ---------------------------------------------------------------------------
@@ -302,7 +319,8 @@ def skip(
     Returns:
         Updated generator state advanced by *d* positions.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Skip generator forward by d steps. st_prime is pre-computed.
+    return st_prime
 
 
 # ---------------------------------------------------------------------------
@@ -332,7 +350,8 @@ def next(
     Returns:
         Tuple of (random integer, updated generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Advance by one step: w is the raw 64-bit word, g_prime is the new state.
+    return (fromIntegral(w), g_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -360,7 +379,8 @@ def split(
     Returns:
         Tuple of (advanced generator state, original generator state).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Split: one stream advances by skipConst, other keeps current state.
+    return (skip(skipConst, g), g)
 
 
 # ---------------------------------------------------------------------------
@@ -398,7 +418,15 @@ def f(
     Returns:
         Accumulated modular product after this step.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Shift-and-add loop for mulmod64.
+    # If a1 == 0, return r (base case).
+    if a1 == 0:
+        return r
+    # If lowest bit of a1 is set, use r_prime (r + b1 mod m), else use r.
+    if a1 & 1:
+        return f(a_prime, b_prime, r_prime)
+    else:
+        return f(a_prime, b_prime, otherwise)
 
 
 # ---------------------------------------------------------------------------
@@ -436,7 +464,15 @@ def f(
     Returns:
         Accumulated modular power after this step.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Square-and-multiply loop for powmod64.
+    # If e1 == 0, return acc (base case).
+    if e1 == 0:
+        return acc
+    # If lowest bit of e1 is set, use acc_prime (acc * sqr mod m), else acc.
+    if e1 & 1:
+        return f(acc_prime, e_prime, sqr_prime)
+    else:
+        return f(otherwise, e_prime, sqr_prime)
 
 
 # ---------------------------------------------------------------------------

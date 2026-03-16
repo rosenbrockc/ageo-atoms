@@ -41,7 +41,23 @@ Returns:
     free_sds: Optimized latent standard deviations; strictly positive.
     objective_fun: Pure ELBO-like objective closure.
     rng_state_out: Advanced RNG state returned as new immutable value."""
-    raise NotImplementedError("Wire to original implementation")
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'third_party', 'jax_advi'))
+    from jax_advi.advi import optimize_advi_mean_field
+    seed_int = int(seed) if not isinstance(seed, int) else seed
+    result = optimize_advi_mean_field(
+        theta_shape_dict=theta_shape_dict,
+        log_prior_fun=log_prior_fun,
+        log_lik_fun=log_lik_fun,
+        M=M,
+        constrain_fun_dict=constrain_fun_dict,
+        seed=seed_int,
+        var_param_inits=var_param_inits,
+        opt_method=opt_method,
+        verbose=verbose,
+    )
+    rng_state_out = seed_int + 1
+    return (result['free_means'], result['free_sds'], result['objective_fun'], rng_state_out)
 
 @register_atom(witness_posteriordrawsampling)  # type: ignore[untyped-decorator]
 @icontract.require(lambda free_means: free_means is not None, "free_means cannot be None")
@@ -65,4 +81,15 @@ Args:
 Returns:
     posterior_draws: Samples in constrained parameter space (or transformed output).
     rng_state_out: Advanced random number generator (RNG) state returned as new immutable value."""
-    raise NotImplementedError("Wire to original implementation")
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'third_party', 'jax_advi'))
+    from jax_advi.advi import get_posterior_draws
+    rng_state_int = int(rng_state_in) if not isinstance(rng_state_in, int) else rng_state_in
+    draws = get_posterior_draws(
+        free_means=free_means,
+        free_sds=free_sds,
+        constrain_fun_dict=constrain_fun_dict,
+        n_draws=n_draws,
+        fun_to_apply=fun_to_apply if fun_to_apply is not None else (lambda x: x),
+    )
+    return (draws, rng_state_int + 1)

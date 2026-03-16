@@ -32,7 +32,9 @@ def initializekalmanstatemodel(init_config: object) -> object:
     Returns:
         read-only state object
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.asarray(init_config.get('x', init_config.get('initial_state', [0.0])), dtype=float)
+    P = np.asarray(init_config.get('P', init_config.get('initial_covariance', np.eye(len(x)))), dtype=float)
+    return {'x': x, 'P': P}
 
 @register_atom(witness_predictlatentstateandcovariance)  # type: ignore[untyped-decorator]
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -54,7 +56,15 @@ def predictlatentstateandcovariance(state_in: object, u: object, B: object, F: o
     Returns:
         new immutable object; x_pred and P_pred updated
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.asarray(state_in['x'], dtype=float)
+    P = np.asarray(state_in['P'], dtype=float)
+    F_mat = np.asarray(F, dtype=float)
+    B_mat = np.asarray(B, dtype=float)
+    Q_mat = np.asarray(Q, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    x_pred = F_mat @ x + B_mat @ u_arr
+    P_pred = F_mat @ P @ F_mat.T + Q_mat
+    return {'x': x_pred, 'P': P_pred}
 
 @register_atom(witness_predictlatentstatesteadystate)  # type: ignore[untyped-decorator]
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -72,7 +82,12 @@ def predictlatentstatesteadystate(state_in: object, u: object, B: object) -> obj
     Returns:
         new immutable object
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.asarray(state_in['x'], dtype=float)
+    P = np.asarray(state_in['P'], dtype=float)
+    B_mat = np.asarray(B, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    x_pred = x + B_mat @ u_arr
+    return {'x': x_pred, 'P': P}
 
 @register_atom(witness_evaluatemeasurementoracle)  # type: ignore[untyped-decorator]
 @icontract.require(lambda x: x is not None, "x cannot be None")
@@ -91,7 +106,12 @@ def evaluatemeasurementoracle(x: object, z: object, H: object) -> tuple[object, 
         z_pred: z_pred = Hx
         innovation: innovation = z - z_pred
     """
-    raise NotImplementedError("Wire to original implementation")
+    x_arr = np.asarray(x, dtype=float)
+    z_arr = np.asarray(z, dtype=float)
+    H_mat = np.asarray(H, dtype=float)
+    z_pred = H_mat @ x_arr
+    innovation = z_arr - z_pred
+    return (z_pred, innovation)
 
 @register_atom(witness_updateposteriorstateandcovariance)  # type: ignore[untyped-decorator]
 @icontract.require(lambda predicted_state: predicted_state is not None, "predicted_state cannot be None")
@@ -113,7 +133,17 @@ def updateposteriorstateandcovariance(predicted_state: object, z: object, R: obj
     Returns:
         new immutable object; x_post and P_post updated
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.asarray(predicted_state['x'], dtype=float)
+    P = np.asarray(predicted_state['P'], dtype=float)
+    H_mat = np.asarray(H, dtype=float)
+    R_mat = np.asarray(R, dtype=float)
+    inn = np.asarray(innovation, dtype=float)
+    S = H_mat @ P @ H_mat.T + R_mat
+    K = P @ H_mat.T @ np.linalg.inv(S)
+    x_post = x + K @ inn
+    n = len(x)
+    P_post = (np.eye(n) - K @ H_mat) @ P
+    return {'x': x_post, 'P': P_post}
 
 @register_atom(witness_updateposteriorstatesteadystate)  # type: ignore[untyped-decorator]
 @icontract.require(lambda predicted_state_steady: predicted_state_steady is not None, "predicted_state_steady cannot be None")
@@ -131,7 +161,17 @@ def updateposteriorstatesteadystate(predicted_state_steady: object, z: object, i
     Returns:
         new immutable object
     """
-    raise NotImplementedError("Wire to original implementation")
+    x = np.asarray(predicted_state_steady['x'], dtype=float)
+    P = np.asarray(predicted_state_steady['P'], dtype=float)
+    inn = np.asarray(innovation, dtype=float)
+    # Steady-state: use precomputed gain if available, otherwise just add innovation
+    K = predicted_state_steady.get('K', None)
+    if K is not None:
+        K_mat = np.asarray(K, dtype=float)
+        x_post = x + K_mat @ inn
+    else:
+        x_post = x + inn
+    return {'x': x_post, 'P': P}
 
 
 """Auto-generated FFI bindings for rust implementations."""

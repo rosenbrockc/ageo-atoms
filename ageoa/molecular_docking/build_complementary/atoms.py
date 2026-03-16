@@ -22,4 +22,5 @@ def constructcomplementarygraph(graph: nx.Graph) -> nx.Graph:
     Returns:
         Result data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import networkx as nx
+    return nx.complement(graph)

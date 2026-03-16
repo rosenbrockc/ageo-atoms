@@ -8,7 +8,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_normal_gamma_posterior_update
 
-from juliacall import Main as jl  # type: ignore[import-untyped]
+# juliacall unavailable; reimplemented in pure numpy
 
 
 # Witness functions should be imported from the generated witnesses module
@@ -27,15 +27,21 @@ def normal_gamma_posterior_update(prior: object, ss: object) -> object:
     Returns:
         Returned as a new immutable object; input prior is not mutated.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Normal-Gamma conjugate update
+    # prior: {mu0, kappa0, alpha0, beta0}
+    # ss: {n, mean, var} (sufficient statistics)
+    mu0 = prior.get('mu0', prior.get('mu', 0.0)) if isinstance(prior, dict) else prior[0]
+    kappa0 = prior.get('kappa0', prior.get('kappa', 1.0)) if isinstance(prior, dict) else prior[1]
+    alpha0 = prior.get('alpha0', prior.get('alpha', 1.0)) if isinstance(prior, dict) else prior[2]
+    beta0 = prior.get('beta0', prior.get('beta', 1.0)) if isinstance(prior, dict) else prior[3]
 
+    n = ss.get('n', ss.get('count', 0)) if isinstance(ss, dict) else ss[0]
+    x_bar = ss.get('mean', ss.get('x_bar', 0.0)) if isinstance(ss, dict) else ss[1]
+    s2 = ss.get('var', ss.get('s2', 0.0)) if isinstance(ss, dict) else ss[2]
 
-"""Auto-generated FFI bindings for julia implementations."""
+    kappa_n = kappa0 + n
+    mu_n = (kappa0 * mu0 + n * x_bar) / kappa_n
+    alpha_n = alpha0 + n / 2.0
+    beta_n = beta0 + 0.5 * n * s2 + 0.5 * kappa0 * n * (x_bar - mu0) ** 2 / kappa_n
 
-# from __future__ import annotations
-from juliacall import Main as jl  # type: ignore[import-untyped]
-from juliacall import Main as jl
-
-def _normal_gamma_posterior_update_ffi(prior: object, ss: object) -> object:
-    """Wrapper that calls the Julia version of normal gamma posterior update. Passes arguments through and returns the result."""
-    return jl.eval("normal_gamma_posterior_update(prior, ss)")
+    return {'mu0': mu_n, 'kappa0': kappa_n, 'alpha0': alpha_n, 'beta0': beta_n}

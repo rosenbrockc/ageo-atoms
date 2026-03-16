@@ -7,9 +7,9 @@ from ageoa.tempo_jl.atoms import graph_time_scale_management, high_precision_dur
 
 
 class TestGraphTimeScaleManagement:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            graph_time_scale_management(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = graph_time_scale_management(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +25,9 @@ class TestGraphTimeScaleManagement:
 
 
 class TestHighPrecisionDuration:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            high_precision_duration(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = high_precision_duration(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

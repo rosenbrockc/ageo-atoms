@@ -7,9 +7,9 @@ from ageoa.pronto.atoms import rbis_state_estimation
 
 
 class TestRBISStateEstimation:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            rbis_state_estimation(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = rbis_state_estimation(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

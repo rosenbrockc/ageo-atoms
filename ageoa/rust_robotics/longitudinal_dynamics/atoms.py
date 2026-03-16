@@ -18,6 +18,8 @@ from .witnesses import (
 )
 
 
+_MODEL = {'mass': 1500.0, 'area_frontal': 2.2, 'Cd': 0.3, 'rho': 1.225, 'Cr': 0.01, 'g': 9.81}
+
 @register_atom(witness_initialize_model)
 @icontract.require(lambda mass: isinstance(mass, (float, int, np.number)), "mass must be numeric")
 @icontract.require(lambda area_frontal: isinstance(area_frontal, (float, int, np.number)), "area_frontal must be numeric")
@@ -32,7 +34,17 @@ def initialize_model(mass: float, area_frontal: float) -> object:
     Returns:
         Immutable model value object for downstream pure calls.
     """
-    raise NotImplementedError("Wire to original implementation")
+    global _MODEL
+    model = {
+        'mass': float(mass),
+        'area_frontal': float(area_frontal),
+        'Cd': 0.3,
+        'rho': 1.225,
+        'Cr': 0.01,
+        'g': 9.81,
+    }
+    _MODEL = model
+    return model
 
 
 @register_atom(witness_compute_aerodynamic_force)
@@ -47,7 +59,11 @@ def compute_aerodynamic_force(velocity: float) -> float:
     Returns:
         Drag force in model units.
     """
-    raise NotImplementedError("Wire to original implementation")
+    v = float(velocity)
+    area = _MODEL['area_frontal']
+    rho = _MODEL['rho']
+    Cd = _MODEL['Cd']
+    return float(0.5 * rho * Cd * area * v * v)
 
 
 @register_atom(witness_compute_rolling_force)
@@ -62,7 +78,11 @@ def compute_rolling_force(grade_angle: float) -> float:
     Returns:
         Rolling force in model units.
     """
-    raise NotImplementedError("Wire to original implementation")
+    grade = float(grade_angle)
+    mass = _MODEL['mass']
+    g = _MODEL['g']
+    Cr = _MODEL['Cr']
+    return float(mass * g * Cr * np.cos(grade))
 
 
 @register_atom(witness_compute_gravity_grade_force)
@@ -77,7 +97,10 @@ def compute_gravity_grade_force(grade_angle: float) -> float:
     Returns:
         Gravity force in model units.
     """
-    raise NotImplementedError("Wire to original implementation")
+    grade = float(grade_angle)
+    mass = _MODEL['mass']
+    g = _MODEL['g']
+    return float(mass * g * np.sin(grade))
 
 
 @register_atom(witness_evaluate_dynamics_derivatives)
@@ -96,7 +119,23 @@ def evaluate_dynamics_derivatives(x: np.ndarray, u: np.ndarray, _t: float) -> np
     Returns:
         State derivative vector, same dimension as x.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # State: [position, velocity], Control: [F_traction, grade_angle]
+    x_arr = np.asarray(x, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    velocity = x_arr[1]
+    F_traction = u_arr[0]
+    grade = u_arr[1] if len(u_arr) > 1 else 0.0
+    mass = _MODEL['mass']
+    area = _MODEL['area_frontal']
+    rho = _MODEL['rho']
+    Cd = _MODEL['Cd']
+    Cr = _MODEL['Cr']
+    g = _MODEL['g']
+    F_aero = 0.5 * rho * Cd * area * velocity**2
+    F_roll = mass * g * Cr * np.cos(grade)
+    F_grade = mass * g * np.sin(grade)
+    accel = (F_traction - F_aero - F_roll - F_grade) / mass
+    return np.array([velocity, accel])
 
 
 @register_atom(witness_linearize_dynamics)
@@ -114,7 +153,18 @@ def linearize_dynamics(x: np.ndarray, _u: np.ndarray, _t: float) -> np.ndarray:
     Returns:
         Jacobian matrix, state_dim x state_dim.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Jacobian df/dx for state [position, velocity]
+    x_arr = np.asarray(x, dtype=float)
+    velocity = x_arr[1]
+    mass = _MODEL['mass']
+    area = _MODEL['area_frontal']
+    rho = _MODEL['rho']
+    Cd = _MODEL['Cd']
+    # d(accel)/d(velocity) = -rho*Cd*area*v / mass
+    A = np.zeros((2, 2))
+    A[0, 1] = 1.0
+    A[1, 1] = -rho * Cd * area * velocity / mass
+    return A
 
 
 @register_atom(witness_solve_control_for_target_derivative)
@@ -133,7 +183,23 @@ def solve_control_for_target_derivative(x: np.ndarray, x_dot_desired: np.ndarray
     Returns:
         Control input vector.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Invert dynamics: given desired x_dot, find required control
+    x_arr = np.asarray(x, dtype=float)
+    x_dot_arr = np.asarray(x_dot_desired, dtype=float)
+    velocity = x_arr[1]
+    desired_accel = x_dot_arr[1]
+    mass = _MODEL['mass']
+    area = _MODEL['area_frontal']
+    rho = _MODEL['rho']
+    Cd = _MODEL['Cd']
+    Cr = _MODEL['Cr']
+    g = _MODEL['g']
+    grade = 0.0
+    F_aero = 0.5 * rho * Cd * area * velocity**2
+    F_roll = mass * g * Cr * np.cos(grade)
+    F_grade = mass * g * np.sin(grade)
+    F_traction = mass * desired_accel + F_aero + F_roll + F_grade
+    return np.array([F_traction, grade])
 
 
 @register_atom(witness_deserialize_model_spec)
@@ -148,4 +214,7 @@ def deserialize_model_spec(filename: str) -> object:
     Returns:
         Fully initialized model instance.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import json
+    with open(filename) as f:
+        data = json.load(f)
+    return initialize_model(data.get('mass', 1500.0), data.get('area_frontal', 2.2))

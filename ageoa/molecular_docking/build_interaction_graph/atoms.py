@@ -28,7 +28,15 @@ def pair_distance_compatibility_check(L_feature_min_max: object, R_features_dist
     Returns:
         True when pair satisfies distance constraints.
     """
-    raise NotImplementedError("Wire to original implementation")
+    l_min_max = np.asarray(L_feature_min_max)
+    r_dist = np.asarray(R_features_distance)
+    # Check if any right-side distance falls within the left envelope
+    # expanded by the interaction distance
+    l_min = float(l_min_max.min()) if l_min_max.size > 0 else 0.0
+    l_max = float(l_min_max.max()) if l_min_max.size > 0 else 0.0
+    r_min = float(r_dist.min()) if r_dist.size > 0 else 0.0
+    r_max = float(r_dist.max()) if r_dist.size > 0 else 0.0
+    return bool(abs(l_min - r_min) <= interaction_distance or abs(l_max - r_max) <= interaction_distance)
 
 @register_atom(witness_weighted_interaction_edge_derivation)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
@@ -47,7 +55,30 @@ def weighted_interaction_edge_derivation(L_features: object, R_features: object,
         edges: Each edge contains endpoints and associated weight.
         nodes: Unique nodes participating in edges.
     """
-    raise NotImplementedError("Wire to original implementation")
+    L_feat = list(L_features) if not isinstance(L_features, list) else L_features
+    R_feat = list(R_features) if not isinstance(R_features, list) else R_features
+    L_dm = np.asarray(L_distance_matrix)
+    R_dm = np.asarray(R_distance_matrix)
+    edges: list[tuple[object, object, float]] = []
+    node_set: set[object] = set()
+
+    if not distance_match:
+        return edges, list(node_set)
+
+    for i, l_feat in enumerate(L_feat):
+        for j, r_feat in enumerate(R_feat):
+            # Weight based on how close the distance matrices match
+            l_dists = L_dm[i] if L_dm.ndim > 1 else L_dm
+            r_dists = R_dm[j] if R_dm.ndim > 1 else R_dm
+            # Compute a compatibility score as inverse distance difference
+            weight = max(0.0, interaction_distance - abs(float(np.mean(l_dists)) - float(np.mean(r_dists))))
+            if weight > 0:
+                node_pair = (l_feat, r_feat)
+                edges.append((node_pair[0], node_pair[1], weight))
+                node_set.add(node_pair[0])
+                node_set.add(node_pair[1])
+
+    return edges, list(node_set)
 
 @register_atom(witness_networkx_weighted_graph_materialization)
 @icontract.require(lambda edges: edges is not None, "edges cannot be None")
@@ -62,4 +93,9 @@ def networkx_weighted_graph_materialization(edges: list[tuple[object, object, fl
     Returns:
         Contains all provided nodes and weighted edges.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import networkx as nx
+    G = nx.Graph()
+    G.add_nodes_from(nodes)
+    for u, v, w in edges:
+        G.add_edge(u, v, weight=w)
+    return G

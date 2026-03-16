@@ -7,9 +7,9 @@ from ageoa.rust_robotics.atoms import n_joint_arm_solver, dijkstra_path_planning
 
 
 class TestNJointArmSolver:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            n_joint_arm_solver(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = n_joint_arm_solver(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +25,10 @@ class TestNJointArmSolver:
 
 
 class TestDijkstraPathPlanning:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            dijkstra_path_planning(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        adj = np.array([[0.0, 1.0, 4.0], [1.0, 0.0, 2.0], [4.0, 2.0, 0.0]])
+        result = dijkstra_path_planning(adj)
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

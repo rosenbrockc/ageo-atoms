@@ -28,7 +28,12 @@ def modelspecloadingandsizing(filename: str) -> tuple[np.ndarray, float]:
     Returns:
         Tuple of (model_spec, state_dim_ratio).
     """
-    raise NotImplementedError("Wire to original implementation")
+    import json
+    with open(filename) as f:
+        data = json.load(f)
+    link_lengths = np.array(data.get('link_lengths', [1.0]), dtype=float)
+    total_reach = float(np.sum(link_lengths))
+    return (link_lengths, total_reach)
 
 
 @register_atom(witness_kinematicgoalfeasibility)
@@ -57,7 +62,12 @@ def kinematicgoalfeasibility(
     Returns:
         Tuple of (ik_state, position_error, goal_distance_squared).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Compute IK feasibility and goal distance
+    pos_err = np.asarray(position_desired, dtype=float) - np.asarray(position_current, dtype=float)
+    goal_dist_sq = float(np.sum((np.asarray(position_goal, dtype=float) - np.asarray(position_current, dtype=float))**2))
+    # Use desired angles as the IK state
+    ik_state = np.asarray(angles_desired, dtype=float).copy()
+    return (ik_state, pos_err, goal_dist_sq)
 
 
 @register_atom(witness_dynamicsandlinearizationkernel)
@@ -76,7 +86,13 @@ def dynamicsandlinearizationkernel(x: np.ndarray, u: np.ndarray, _t: float) -> t
     Returns:
         Tuple of (x_dot, jacobian).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Simple joint dynamics: x_dot = u (velocity control), Jacobian = I
+    x_arr = np.asarray(x, dtype=float)
+    u_arr = np.asarray(u, dtype=float)
+    n = len(x_arr)
+    x_dot = u_arr[:n] if len(u_arr) >= n else np.zeros(n)
+    jacobian = np.eye(n)
+    return (x_dot, jacobian)
 
 
 @register_atom(witness_controlinputsynthesis)
@@ -95,4 +111,10 @@ def controlinputsynthesis(_x: np.ndarray, _x_dot: np.ndarray, _t: float) -> np.n
     Returns:
         Control command compatible with dynamics input.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # PD controller: u = -Kp * x - Kd * x_dot
+    x_arr = np.asarray(_x, dtype=float)
+    x_dot_arr = np.asarray(_x_dot, dtype=float)
+    Kp = 10.0
+    Kd = 2.0
+    u = -Kp * x_arr - Kd * x_dot_arr
+    return u

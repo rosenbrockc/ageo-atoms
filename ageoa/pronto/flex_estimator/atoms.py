@@ -9,7 +9,7 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_estimate_flex_deflection
-from ageoa.ghost.abstract import Boolean
+# Boolean already defined as type alias above
 
 
 @register_atom(witness_estimate_flex_deflection)
@@ -35,4 +35,12 @@ def estimate_flex_deflection(hip_positions: np.ndarray, hip_efforts: np.ndarray,
     Returns:
         Estimated flex deflection vector per leg, shape (4,)
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Estimate flex deflection using joint effort and stance mask
+    # For stance legs, deflection is proportional to torque (compliance model)
+    # For swing legs, deflection is zero
+    compliance = 1e-3  # rad/Nm compliance constant
+    deflection = np.zeros(hip_efforts.shape[0], dtype=np.float64)
+    for i in range(hip_efforts.shape[0]):
+        if stance_mask[i]:
+            deflection[i] = compliance * hip_efforts[i]
+    return deflection

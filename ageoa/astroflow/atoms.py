@@ -36,4 +36,24 @@ def dedispersionkernel(input_data: "np.ndarray[np.generic]", delay_table: "np.nd
     Returns:
         The transformed, dedispersed data.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # CPU reimplementation of GPU dedispersion kernel
+    input_arr = np.asarray(input_data)
+    delays = np.asarray(delay_table, dtype=np.intp)
+
+    # Output: (dm_steps, down_ndata)
+    output = np.zeros((dm_steps, down_ndata), dtype=input_arr.dtype)
+
+    for dm_idx in range(dm_steps):
+        for t_out in range(down_ndata):
+            t_start = t_out * time_downsample
+            acc = 0.0
+            for chan in range(nchans):
+                delay = int(delays[dm_idx * nchans + chan]) if delays.ndim == 1 else int(delays[dm_idx, chan])
+                t_in = t_start + delay
+                if 0 <= t_in < input_arr.shape[-1] if input_arr.ndim == 1 else input_arr.shape[0]:
+                    if input_arr.ndim == 1:
+                        acc += float(input_arr[t_in])
+                    else:
+                        acc += float(input_arr[t_in, chan] if input_arr.ndim == 2 else input_arr[chan, t_in])
+            output[dm_idx, t_out] = acc / max(nchans, 1)
+    return output

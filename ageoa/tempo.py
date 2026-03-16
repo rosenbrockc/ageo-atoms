@@ -13,37 +13,16 @@ from ageoa.tempo_witnesses import witness_offset_tai2tdb, witness_offset_tt2tdb
 
 FloatLike = Union[float, np.float64, int]
 
-_jl: Any | None = None
-_tempo_loaded = False
-_offset_tt2tdb_bcast: Any | None = None
-_offset_tai2tt_bcast: Any | None = None
+def _compute_tt2tdb(seconds: float) -> float:
+    """Fairhead & Bretagnon series for TT-TDB offset."""
+    T = seconds / (86400.0 * 36525.0)  # Julian centuries from J2000
+    M = 6.24006 + 0.017202 * T * 36525.0  # Mean anomaly of Earth
+    return 0.001657 * np.sin(M)
 
 
-def _get_jl() -> Any:
-    """Import juliacall lazily and load Tempo once."""
-    global _jl, _tempo_loaded
-    if _jl is None:
-        from juliacall import Main as jl_main
-
-        _jl = jl_main
-    if not _tempo_loaded:
-        _jl.seval("using Tempo")
-        _tempo_loaded = True
-    return _jl
-
-
-def _get_tt2tdb_bcast() -> Any:
-    global _offset_tt2tdb_bcast
-    if _offset_tt2tdb_bcast is None:
-        _offset_tt2tdb_bcast = _get_jl().seval("x -> Tempo.offset_tt2tdb.(x)")
-    return _offset_tt2tdb_bcast
-
-
-def _get_tai2tt_bcast() -> Any:
-    global _offset_tai2tt_bcast
-    if _offset_tai2tt_bcast is None:
-        _offset_tai2tt_bcast = _get_jl().seval("x -> Tempo.offset_tai2tt.(x)")
-    return _offset_tai2tt_bcast
+def _compute_tai2tt(seconds: float) -> float:
+    """TAI to TT offset is a fixed 32.184 seconds."""
+    return 32.184
 
 
 @register_atom(witness_offset_tt2tdb)
@@ -59,9 +38,7 @@ def offset_tt2tdb(seconds: Any) -> Any:
 @offset_tt2tdb.register(np.float64)
 @icontract.ensure(lambda result: isinstance(result, float), "result must be float")
 def _(seconds: FloatLike) -> float:
-    sec_f64 = float(seconds)
-    jl = _get_jl()
-    return float(jl.Tempo.offset_tt2tdb(sec_f64))
+    return _compute_tt2tdb(float(seconds))
 
 
 @offset_tt2tdb.register(np.ndarray)
@@ -73,9 +50,9 @@ def _(seconds: FloatLike) -> float:
 )
 def _(seconds: np.ndarray) -> np.ndarray:
     sec_f64 = seconds.astype(np.float64, copy=False)
-    bcast = _get_tt2tdb_bcast()
-    res = bcast(sec_f64)
-    return np.asarray(res, dtype=np.float64)
+    T = sec_f64 / (86400.0 * 36525.0)
+    M = 6.24006 + 0.017202 * T * 36525.0
+    return 0.001657 * np.sin(M)
 
 
 @register_atom(witness_offset_tai2tdb)
@@ -92,10 +69,9 @@ def offset_tai2tdb(seconds: Any) -> Any:
 @icontract.ensure(lambda result: isinstance(result, float), "result must be float")
 def _(seconds: FloatLike) -> float:
     sec_f64 = float(seconds)
-    jl = _get_jl()
-    tai2tt = float(jl.Tempo.offset_tai2tt(sec_f64))
+    tai2tt = _compute_tai2tt(sec_f64)
     tt_sec = sec_f64 + tai2tt
-    tt2tdb = float(jl.Tempo.offset_tt2tdb(tt_sec))
+    tt2tdb = _compute_tt2tdb(tt_sec)
     return tai2tt + tt2tdb
 
 
@@ -108,10 +84,9 @@ def _(seconds: FloatLike) -> float:
 )
 def _(seconds: np.ndarray) -> np.ndarray:
     sec_f64 = seconds.astype(np.float64, copy=False)
-    bcast_tai2tt = _get_tai2tt_bcast()
-    bcast_tt2tdb = _get_tt2tdb_bcast()
-
-    tai2tt = np.asarray(bcast_tai2tt(sec_f64), dtype=np.float64)
+    tai2tt = np.full_like(sec_f64, 32.184)
     tt_sec = sec_f64 + tai2tt
-    tt2tdb = np.asarray(bcast_tt2tdb(tt_sec), dtype=np.float64)
+    T = tt_sec / (86400.0 * 36525.0)
+    M = 6.24006 + 0.017202 * T * 36525.0
+    tt2tdb = 0.001657 * np.sin(M)
     return tai2tt + tt2tdb

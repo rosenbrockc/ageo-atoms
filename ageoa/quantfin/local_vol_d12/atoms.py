@@ -44,7 +44,9 @@ def var(
     Returns:
         Implied variance (volatility squared times time).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Implied variance = vol^2 * t
+    # v is already the implied vol at (s, t), t_prime is timeFromZero(t)
+    return float(v * v * t_prime)
 
 
 # ---------------------------------------------------------------------------
@@ -89,7 +91,16 @@ def localvol(
     Returns:
         Local volatility at the given (k, t) point.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Dupire local volatility: sigma_local = sqrt(dwdt / solution)
+    # where dwdt = dw/dt, solution is the denominator from the Dupire formula.
+    # The 'otherwise' parameter is the fallback when the formula is degenerate.
+    # Pre-computed: dwdt, w, solution, v
+    if solution <= 0.0 or not np.isfinite(solution):
+        return float(abs(otherwise))
+    local_var = dwdt / solution
+    if local_var < 0.0:
+        return float(abs(otherwise))
+    return float(sqrt(local_var))
 
 
 # ---------------------------------------------------------------------------
@@ -111,7 +122,8 @@ def vol(x: float) -> float:
     Returns:
         Implied volatility (constant).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Flat vol surface: just return the stored constant.
+    return float(abs(x))
 
 
 # ---------------------------------------------------------------------------
@@ -154,7 +166,13 @@ def vol(
     Returns:
         Interpolated implied volatility at (strike, t).
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Interpolate vol from a grid surface.
+    # interpolatedVs contains strike-interpolated vol values at each maturity.
+    # mats_prime contains maturity floats. Use tInterp along time axis.
+    t_val = timeFromZero(t)
+    # interpolatedVs[i] = vInterp(strike, sts, quotes_at_mat_i)
+    # Final interpolation along time using tInterp
+    return float(tInterp(t_val, mats_prime, interpolatedVs))
 
 
 # ---------------------------------------------------------------------------
@@ -187,7 +205,9 @@ def allfort(
     Returns:
         List of quoted volatilities for every strike at the given maturity.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Extract all quoted volatilities for a single maturity slice.
+    # Map over strikes, looking up each one at the given maturity.
+    return list(map(lambda s: quotes.get((s, t_prime), 0.0), sts))
 
 
 # ---------------------------------------------------------------------------

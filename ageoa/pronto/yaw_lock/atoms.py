@@ -27,7 +27,18 @@ def initializeyawlockstate() -> YawLockState:
     Returns:
         Deterministic persistent state object with fields: correction_period, yaw_slip_detect, yaw_slip_threshold_degrees, yaw_slip_disable_period, is_robot_standing, joint_name, joint_position, joint_angles_init, left_standing_link, right_standing_link.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return {
+        'correction_period': 1.0,
+        'yaw_slip_detect': False,
+        'yaw_slip_threshold_degrees': 5.0,
+        'yaw_slip_disable_period': 1.0,
+        'is_robot_standing': False,
+        'joint_name': None,
+        'joint_position': None,
+        'joint_angles_init': None,
+        'left_standing_link': None,
+        'right_standing_link': None,
+    }
 
 @register_atom(witness_configurecorrectionandyawslippolicy)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -49,7 +60,12 @@ def configurecorrectionandyawslippolicy(state_in: YawLockState, correction_perio
     Returns:
         New object with correction_period, yaw_slip_detect, yaw_slip_threshold_degrees, yaw_slip_disable_period replaced.
     """
-    raise NotImplementedError("Wire to original implementation")
+    new_state = dict(state_in)
+    new_state['correction_period'] = correction_period_in
+    new_state['yaw_slip_detect'] = yaw_slip_detect_in
+    new_state['yaw_slip_threshold_degrees'] = yaw_slip_threshold_degrees_in
+    new_state['yaw_slip_disable_period'] = yaw_slip_disable_period_in
+    return new_state
 
 @register_atom(witness_setrobotstandingstatus)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -65,7 +81,9 @@ def setrobotstandingstatus(state_in: YawLockState, is_robot_standing_in: bool) -
     Returns:
         New object with is_robot_standing replaced.
     """
-    raise NotImplementedError("Wire to original implementation")
+    new_state = dict(state_in)
+    new_state['is_robot_standing'] = is_robot_standing_in
+    return new_state
 
 @register_atom(witness_readrobotstandingstatus)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -79,7 +97,7 @@ def readrobotstandingstatus(state_in: YawLockState) -> bool:
     Returns:
         Current robot standing status boolean.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return state_in['is_robot_standing']
 
 @register_atom(witness_setjointposeandinitialangles)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -99,7 +117,11 @@ def setjointposeandinitialangles(state_in: YawLockState, joint_name_in: object, 
     Returns:
         New object with joint_name, joint_position, joint_angles_init replaced.
     """
-    raise NotImplementedError("Wire to original implementation")
+    new_state = dict(state_in)
+    new_state['joint_name'] = joint_name_in
+    new_state['joint_position'] = joint_position_in
+    new_state['joint_angles_init'] = joint_angles_init_in
+    return new_state
 
 @register_atom(witness_readinitialjointangles)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -113,7 +135,7 @@ def readinitialjointangles(state_in: YawLockState) -> object:
     Returns:
         Stored initial joint angle snapshot from the state.
     """
-    raise NotImplementedError("Wire to original implementation")
+    return state_in['joint_angles_init']
 
 @register_atom(witness_setstandinglinktargets)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
@@ -131,7 +153,10 @@ def setstandinglinktargets(state_in: YawLockState, left_standing_link_in: object
     Returns:
         New object with left_standing_link and right_standing_link replaced.
     """
-    raise NotImplementedError("Wire to original implementation")
+    new_state = dict(state_in)
+    new_state['left_standing_link'] = left_standing_link_in
+    new_state['right_standing_link'] = right_standing_link_in
+    return new_state
 
 
 """Auto-generated FFI bindings for cpp implementations."""

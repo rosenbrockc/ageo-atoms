@@ -10,7 +10,7 @@ import numpy as np
 
 from ageoa.ghost.registry import register_atom
 from ageoa.pulsar.witnesses import (
-    witness_de_disperse,
+    witness_dedisperse,
     witness_delay_from_dm,
     witness_fold_signal,
     witness_snr,
@@ -36,7 +36,7 @@ def delay_from_DM(DM: float, freq_emitted: float) -> float:
     return 0.0
 
 
-@register_atom(witness_de_disperse)
+@register_atom(witness_dedisperse)
 @icontract.require(lambda data: data.ndim == 2, "Input data must be 2D (Time, Frequency)")
 @icontract.require(lambda tsamp: tsamp > 0, "tsamp must be positive")
 @icontract.require(lambda width: width > 0, "Channel width must be positive")

@@ -27,7 +27,28 @@ def inverse_schmitt_trigger_transform(input_signal: object) -> object:
     Returns:
         Matches implementation-defined output type/shape.
     """
-    raise NotImplementedError("Wire to original implementation")
+    import numpy as np
+    # Inverse Schmitt trigger: output goes high when input drops below
+    # low_threshold, goes low when input rises above high_threshold
+    if isinstance(input_signal, dict):
+        signal = np.asarray(input_signal.get('signal', []), dtype=np.float64)
+        low_thresh = float(input_signal.get('low_threshold', 0.3))
+        high_thresh = float(input_signal.get('high_threshold', 0.7))
+        prev_output = bool(input_signal.get('prev_output', False))
+    else:
+        signal = np.atleast_1d(np.asarray(input_signal, dtype=np.float64))
+        low_thresh, high_thresh = 0.3, 0.7
+        prev_output = False
+
+    output = np.empty(signal.shape, dtype=np.float64)
+    state = prev_output
+    for i in range(len(signal)):
+        if signal[i] <= low_thresh:
+            state = True
+        elif signal[i] >= high_thresh:
+            state = False
+        output[i] = float(state)
+    return output
 
 
 """Auto-generated FFI bindings for cpp implementations."""

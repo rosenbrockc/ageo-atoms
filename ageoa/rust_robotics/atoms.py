@@ -25,7 +25,11 @@ def n_joint_arm_solver(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    angles = data.ravel()
+    cumulative = np.cumsum(angles)
+    x = np.sum(np.cos(cumulative))
+    y = np.sum(np.sin(cumulative))
+    return np.array([x, y])
 
 @register_atom(witness_dijkstra_path_planning)
 @icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
@@ -45,4 +49,21 @@ def dijkstra_path_planning(data: np.ndarray) -> np.ndarray:
     Returns:
         Processed output array.
     """
-    raise NotImplementedError("Skeleton for future ingestion.")
+    adj = np.array(data, dtype=float)
+    n = adj.shape[0]
+    dist = np.full(n, np.inf)
+    dist[0] = 0.0
+    visited = np.zeros(n, dtype=bool)
+    for _ in range(n):
+        # pick unvisited node with smallest distance
+        unvisited_dist = np.where(visited, np.inf, dist)
+        u = int(np.argmin(unvisited_dist))
+        if dist[u] == np.inf:
+            break
+        visited[u] = True
+        for v in range(n):
+            if adj[u, v] > 0 and not visited[v]:
+                alt = dist[u] + adj[u, v]
+                if alt < dist[v]:
+                    dist[v] = alt
+    return dist

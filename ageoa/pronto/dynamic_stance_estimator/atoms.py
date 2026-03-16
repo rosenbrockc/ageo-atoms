@@ -13,7 +13,7 @@ from .witnesses import witness_initializefilter, witness_predictstep, witness_qu
 import ctypes
 import ctypes.util
 from pathlib import Path
-from ageoa.ghost.abstract import StateModelSpec
+# StateModelSpec already defined as type alias above
 
 
 @register_atom(witness_initializefilter)
@@ -39,7 +39,9 @@ def initializefilter(initial_x: np.ndarray, initial_P: np.ndarray, A: np.ndarray
         initial_state: Contains initial x and P
         model_params: Contains A, H, Q, R
     """
-    raise NotImplementedError("Wire to original implementation")
+    initial_state = {'x': initial_x.copy(), 'P': initial_P.copy()}
+    model_params = {'A': A.copy(), 'H': H.copy(), 'Q': Q.copy(), 'R': R.copy()}
+    return (initial_state, model_params)
 
 @register_atom(witness_predictstep)
 @icontract.require(lambda dt: isinstance(dt, (float, int, np.number)), "dt must be numeric")
@@ -55,7 +57,13 @@ def predictstep(current_state: StateModelSpec, model_params: ModelParamsSpec, dt
     Returns:
         Predicted state (x_prior, P_prior)
     """
-    raise NotImplementedError("Wire to original implementation")
+    A = model_params['A']
+    Q = model_params['Q']
+    x = current_state['x']
+    P = current_state['P']
+    x_prior = A @ x
+    P_prior = A @ P @ A.T + Q
+    return {'x': x_prior, 'P': P_prior}
 
 @register_atom(witness_updatestep)
 @icontract.require(lambda predicted_state: predicted_state is not None, "predicted_state cannot be None")
@@ -73,7 +81,17 @@ def updatestep(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z
     Returns:
         Updated state (x_posterior, P_posterior)
     """
-    raise NotImplementedError("Wire to original implementation")
+    H = model_params['H']
+    R = model_params['R']
+    x = predicted_state['x']
+    P = predicted_state['P']
+    innovation = z - H @ x
+    S = H @ P @ H.T + R
+    K = P @ H.T @ np.linalg.inv(S)
+    x_post = x + K @ innovation
+    n = x.shape[0]
+    P_post = (np.eye(n) - K @ H) @ P
+    return {'x': x_post, 'P': P_post}
 
 @register_atom(witness_querystance)
 @icontract.require(lambda current_state: current_state is not None, "current_state cannot be None")
@@ -87,7 +105,7 @@ def querystance(current_state: StateModelSpec) -> float:
     Returns:
         The estimated position
     """
-    raise NotImplementedError("Wire to original implementation")
+    return float(current_state['x'][0])
 
 
 """Auto-generated FFI bindings for cpp implementations."""

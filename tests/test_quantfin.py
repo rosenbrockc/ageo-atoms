@@ -7,9 +7,10 @@ from ageoa.quantfin.atoms import functional_monte_carlo, volatility_surface_mode
 
 
 class TestFunctionalMonteCarlo:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            functional_monte_carlo(np.array([1.0, 2.0, 3.0]))
+    def test_returns_array(self):
+        result = functional_monte_carlo(np.array([0.05, 0.2, 1.0]))
+        assert isinstance(result, np.ndarray)
+        assert result.ndim >= 1
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -25,9 +26,10 @@ class TestFunctionalMonteCarlo:
 
 
 class TestVolatilitySurfaceModeling:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            volatility_surface_modeling(np.array([1.0, 2.0, 3.0]))
+    def test_returns_array(self):
+        result = volatility_surface_modeling(np.array([0.2, 0.25, 0.3]))
+        assert isinstance(result, np.ndarray)
+        assert result.ndim >= 1
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

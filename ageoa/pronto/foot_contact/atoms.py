@@ -29,7 +29,10 @@ def foot_sensing_state_update(foot_sensing_state_in: dict[str, bool], foot_sensi
     Returns:
         New state object; no in-place mutation.
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Pure state transition: merge command into state
+    new_state = dict(foot_sensing_state_in)
+    new_state.update(foot_sensing_command)
+    return new_state
 
 @register_atom(witness_mode_snapshot_readout)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda mode_state_in: mode_state_in is not None, "mode_state_in cannot be None")
@@ -44,7 +47,13 @@ def mode_snapshot_readout(mode_state_in: object) -> tuple[object, object]:
         mode: Current classifier mode.
         previous_mode: Previous classifier mode.
     """
-    raise NotImplementedError("Wire to original implementation")
+    if isinstance(mode_state_in, dict):
+        mode = mode_state_in.get('mode', None)
+        previous_mode = mode_state_in.get('previous_mode', None)
+    else:
+        mode = getattr(mode_state_in, 'mode', mode_state_in)
+        previous_mode = getattr(mode_state_in, 'previous_mode', mode_state_in)
+    return (mode, previous_mode)
 
 
 """Auto-generated FFI bindings for cpp implementations."""

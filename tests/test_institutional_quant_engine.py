@@ -12,9 +12,9 @@ from ageoa.institutional_quant_engine.atoms import (
 
 
 class TestMarketMakingAvellaneda:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            market_making_avellaneda(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = market_making_avellaneda(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -30,9 +30,9 @@ class TestMarketMakingAvellaneda:
 
 
 class TestAlmgrenChrissExecution:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            almgren_chriss_execution(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = almgren_chriss_execution(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -48,9 +48,9 @@ class TestAlmgrenChrissExecution:
 
 
 class TestPINInformedTrading:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            pin_informed_trading(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = pin_informed_trading(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -66,9 +66,9 @@ class TestPINInformedTrading:
 
 
 class TestLimitOrderQueueEstimator:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            limit_order_queue_estimator(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = limit_order_queue_estimator(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):

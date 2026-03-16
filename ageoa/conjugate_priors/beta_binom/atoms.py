@@ -8,7 +8,7 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_posterior_randmodel
 
-from juliacall import Main as jl
+# juliacall unavailable; reimplemented in pure numpy
 
 
 # Witness functions should be imported from the generated witnesses module
@@ -27,9 +27,12 @@ def posterior_randmodel(pri: np.ndarray, G: np.ndarray, data: np.ndarray) -> np.
         data: Observed data array.
 
     Returns:
-        Description.
+        Posterior Beta parameters [alpha', beta'].
     """
-    raise NotImplementedError("Wire to original implementation")
+    # Beta-Binomial conjugate update: pri = [alpha, beta]
+    alpha = pri[0] + np.sum(data)
+    beta = pri[1] + len(data) - np.sum(data)
+    return np.array([alpha, beta])
 
 @register_atom(witness_posterior_randmodel)
 @icontract.require(lambda pri: pri is not None, "pri cannot be None")
@@ -47,21 +50,9 @@ def posterior_randmodel_weighted(pri: np.ndarray, G: np.ndarray, data: np.ndarra
         w: Per-observation weight array.
 
     Returns:
-        Description.
+        Posterior Beta parameters [alpha', beta'] with weighted observations.
     """
-    raise NotImplementedError("Wire to original implementation")
-
-
-"""Auto-generated FFI bindings for julia implementations."""
-
-
-from juliacall import Main as jl
-
-
-def _posterior_randmodel_ffi(pri, G, data):
-    """Wrapper that calls the Julia version of posterior randmodel. Passes arguments through and returns the result."""
-    return jl.eval("posterior_randmodel(pri, G, data)")
-
-def _posterior_randmodel_ffi(pri, G, data, w):
-    """Wrapper that calls the Julia version of posterior randmodel. Passes arguments through and returns the result."""
-    return jl.eval("posterior_randmodel(pri, G, data, w)")
+    # Weighted Beta-Binomial conjugate update
+    alpha = pri[0] + np.sum(w * data)
+    beta = pri[1] + np.sum(w * (1.0 - data))
+    return np.array([alpha, beta])

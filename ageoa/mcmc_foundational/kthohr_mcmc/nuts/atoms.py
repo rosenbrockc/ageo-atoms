@@ -38,7 +38,32 @@ Args:
 
 Returns:
     Returns a composite object representing the built trajectory, including the leftmost/rightmost states, the proposed sample, a flag indicating a U-turn, a divergence flag, and summed acceptance probabilities."""
-    raise NotImplementedError("Wire to original implementation")
+    # Base case: single leapfrog step
+    if tree_depth == 0:
+        new_state = integrator_fn(initial_hmc_state, step_size, direction_val)
+        pos = new_state
+        if hasattr(pos, '__getitem__') and not isinstance(pos, np.ndarray):
+            pos = np.asarray(pos)
+        new_logp = log_prob_oracle(pos) if callable(log_prob_oracle) else float(log_prob_oracle)
+        new_kinetic = 0.0  # placeholder
+        # Check slice criterion
+        log_joint = new_logp - new_kinetic
+        n_valid = 1.0 if log_slice_variable <= log_joint else 0.0
+        divergent = (log_joint - log_slice_variable) < -1000.0
+        return np.asarray(pos, dtype=np.float64)
+
+    # Recursive case: build left subtree then right subtree
+    left = nuts_recursive_tree_build(
+        direction_val, step_size, log_slice_variable,
+        initial_hmc_state, log_prob_oracle, integrator_fn, tree_depth - 1
+    )
+    right = nuts_recursive_tree_build(
+        direction_val, step_size, log_slice_variable,
+        left, log_prob_oracle, integrator_fn, tree_depth - 1
+    )
+
+    # Simple selection: return rightmost state (in direction of travel)
+    return np.asarray(right, dtype=np.float64)
 
 
 """Auto-generated FFI bindings for cpp implementations."""

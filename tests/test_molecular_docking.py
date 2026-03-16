@@ -7,9 +7,9 @@ from ageoa.molecular_docking.atoms import quantum_mwis_solver, greedy_lattice_ma
 
 
 class TestQuantumMWISSolver:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            quantum_mwis_solver(np.array([1.0, 2.0, 3.0]))
+    def test_returns_result(self):
+        result = quantum_mwis_solver(np.array([1.0, 2.0, 3.0]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
@@ -21,9 +21,9 @@ class TestQuantumMWISSolver:
 
 
 class TestGreedyLatticeMapping:
-    def test_raises_not_implemented(self):
-        with pytest.raises(NotImplementedError):
-            greedy_lattice_mapping(np.array([[1.0, 2.0], [3.0, 4.0]]))
+    def test_returns_result(self):
+        result = greedy_lattice_mapping(np.array([[1.0, 2.0], [3.0, 4.0]]))
+        assert isinstance(result, np.ndarray)
 
     def test_precondition_none(self):
         with pytest.raises(icontract.ViolationError):
