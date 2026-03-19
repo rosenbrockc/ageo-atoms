@@ -93,9 +93,9 @@
     },
     "scientific_python": {
       "reviewed_atoms": 80,
-      "approved": 29,
+      "approved": 36,
       "fixed": 25,
-      "blocked": 26,
+      "blocked": 19,
       "deprecated": 0
     },
     "signal_biosignal": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 49
+    "upstream_reference_count": 56
   },
   "reviewed_atoms": [
     {
@@ -8707,16 +8707,32 @@
       "path": "ageoa/numpy/arrays.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The casting policy is explicitly enumerated in NumPy and safe to optimize.",
+      "tunable_params": [
         {
           "name": "casting",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "same_kind"
+          "kind": "categorical",
+          "default": "same_kind",
+          "choices": [
+            "no",
+            "equiv",
+            "safe",
+            "same_kind",
+            "unsafe"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "dtype_casting_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.vstack.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported casting policies for vstack."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:123",
         "wrapper_symbol": "ageoa.numpy.arrays.vstack",
@@ -8725,13 +8741,23 @@
         "delegate_calls": [
           "sum"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.vstack.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/arrays.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.vstack.html",
+          "notes": "Docs enumerate casting choices no, equiv, safe, same_kind, and unsafe."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -10137,16 +10163,28 @@
       "path": "ageoa/numpy/search_sort_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "NumPy explicitly documents a single supported partition kind, so the selector is source-backed and safe though degenerate.",
+      "tunable_params": [
         {
           "name": "kind",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "introselect"
+          "kind": "categorical",
+          "default": "introselect",
+          "choices": [
+            "introselect"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "partition_algorithm",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.partition.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly state that introselect is the supported partition selection algorithm."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.numpy.search_sort_v2.partialsortpartition@ageoa/numpy/search_sort_v2/atoms.py:55",
         "wrapper_symbol": "ageoa.numpy.search_sort_v2.partialsortpartition",
@@ -10155,13 +10193,23 @@
         "delegate_calls": [
           "all"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.partition.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/search_sort_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.partition.html",
+          "notes": "Docs specify kind={introselect} for numpy.partition."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14569,9 +14617,35 @@
       "path": "ageoa/scipy/integrate.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The weighting-function family is explicitly documented and safe to optimize when used with the corresponding wvar semantics. Numeric tolerances and workspace limits remain blocked.",
+      "tunable_params": [
+        {
+          "name": "weight",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "cos",
+            "sin",
+            "alg",
+            "alg-loga",
+            "alg-logb",
+            "alg-log",
+            "cauchy"
+          ],
+          "constraints": {
+            "type": "enum",
+            "notes": "Non-None weight requires compatible wvar semantics and disables points."
+          },
+          "semantic_role": "integrand_weight_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported weighted-integration families and the associated wvar requirements."
+        }
+      ],
       "blocked_params": [
         {
           "name": "epsabs",
@@ -14590,10 +14664,6 @@
         },
         {
           "name": "points",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "weight",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -14626,13 +14696,23 @@
         "wrapper_path": "ageoa/scipy/integrate.py",
         "wrapper_line": 19,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/integrate.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+          "notes": "Docs enumerate weight values cos, sin, alg, alg-loga, alg-logb, alg-log, and cauchy, and describe their required wvar semantics."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15162,7 +15242,7 @@
       "family": "scientific_python",
       "module_family": "scipy",
       "status": "approved",
-      "reason": "The sigma interpretation toggle is explicitly documented and safe to optimize. Method selection remains blocked because compatibility depends on bounds and problem structure.",
+      "reason": "The curve-fit solver family is explicitly documented and safe to optimize. Sigma magnitude and initial-guess controls remain blocked.",
       "tunable_params": [
         {
           "name": "absolute_sigma",
@@ -15181,6 +15261,27 @@
           "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html",
           "source_confidence": "high",
           "reason": "SciPy docs define absolute_sigma as the boolean switch for interpreting sigma in an absolute sense."
+        },
+        {
+          "name": "method",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "lm",
+            "trf",
+            "dogbox"
+          ],
+          "constraints": {
+            "type": "enum",
+            "notes": "lm requires an unconstrained problem and sufficient observations."
+          },
+          "semantic_role": "least_squares_solver_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate curve_fit methods lm, trf, and dogbox, with None selecting the default solver policy."
         }
       ],
       "blocked_params": [
@@ -16126,23 +16227,65 @@
       "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The graph interpretation and predecessor-output toggles are explicitly documented and safe to optimize.",
+      "tunable_params": [
         {
           "name": "directed",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "graph_directionality_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.floyd_warshall.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define directed as the switch between directed and undirected shortest paths."
         },
         {
           "name": "return_predecessors",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "predecessor_output_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.floyd_warshall.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define return_predecessors as the boolean selector for returning the predecessor matrix."
         },
         {
           "name": "unweighted",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "edge_weight_usage_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.floyd_warshall.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define unweighted as the boolean switch between weighted path cost and hop count."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:45",
         "wrapper_symbol": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath",
@@ -16152,13 +16295,23 @@
           "floyd_warshall",
           "all"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.floyd_warshall.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/sparse_graph_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.floyd_warshall.html",
+          "notes": "Docs define directed, return_predecessors, and unweighted as boolean switches for Floyd-Warshall shortest paths."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -16203,28 +16356,85 @@
       "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The graph interpretation and predecessor/hop-mode toggles are explicitly documented and safe to optimize. Numeric limit remains blocked.",
+      "tunable_params": [
         {
           "name": "directed",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "graph_directionality_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define directed as the switch between directed and undirected path search."
         },
         {
           "name": "return_predecessors",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "predecessor_output_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define return_predecessors as the boolean selector for returning the predecessor matrix."
         },
         {
           "name": "unweighted",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "limit",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "edge_weight_usage_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define unweighted as the boolean switch between weighted path cost and hop count."
         },
         {
           "name": "min_only",
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "distance_reduction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define min_only as the boolean selector for returning only the minimum distance per source."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "limit",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -16237,13 +16447,23 @@
           "dijkstra",
           "all"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/sparse_graph_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html",
+          "notes": "Docs define directed, return_predecessors, unweighted, and min_only as boolean switches for Dijkstra shortest paths."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -16254,16 +16474,31 @@
       "path": "ageoa/scipy/spatial_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The incremental construction toggle is explicitly documented and safe to optimize. Free-form Qhull options remain blocked.",
+      "tunable_params": [
+        {
+          "name": "incremental",
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "incremental_construction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define incremental as the boolean switch enabling incremental triangulation construction."
+        }
+      ],
       "blocked_params": [
         {
           "name": "points",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "incremental",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -16277,13 +16512,23 @@
         "wrapper_path": "ageoa/scipy/spatial_v2/atoms.py",
         "wrapper_line": 35,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/spatial_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html",
+          "notes": "Docs define incremental as a boolean switch that allows adding new points incrementally."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -16294,16 +16539,31 @@
       "path": "ageoa/scipy/spatial_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The incremental construction toggle is explicitly documented and safe to optimize. Free-form Qhull options remain blocked.",
+      "tunable_params": [
+        {
+          "name": "incremental",
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "incremental_construction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Voronoi.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define incremental as the boolean switch enabling incremental Voronoi construction."
+        }
+      ],
       "blocked_params": [
         {
           "name": "points",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "incremental",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -16317,13 +16577,23 @@
         "wrapper_path": "ageoa/scipy/spatial_v2/atoms.py",
         "wrapper_line": 18,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Voronoi.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/spatial_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Voronoi.html",
+          "notes": "Docs define incremental as a boolean switch enabling incremental Voronoi construction."
         }
       ],
       "audit_method": "conservative_wrapper_review",
