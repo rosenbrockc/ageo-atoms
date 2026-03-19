@@ -58,9 +58,9 @@
     },
     "molecular_docking": {
       "reviewed_atoms": 44,
-      "approved": 0,
+      "approved": 4,
       "fixed": 24,
-      "blocked": 20,
+      "blocked": 16,
       "deprecated": 0
     },
     "probabilistic_inference": {
@@ -72,9 +72,9 @@
     },
     "quant_finance": {
       "reviewed_atoms": 84,
-      "approved": 7,
+      "approved": 8,
       "fixed": 28,
-      "blocked": 49,
+      "blocked": 48,
       "deprecated": 0
     },
     "quantum_optimization": {
@@ -100,9 +100,9 @@
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 11,
+      "approved": 14,
       "fixed": 40,
-      "blocked": 15,
+      "blocked": 12,
       "deprecated": 0
     },
     "state_estimation": {
@@ -1369,15 +1369,30 @@
       "atom": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation",
       "path": "ageoa/biosppy/ecg_engzee/atoms.py",
       "family": "signal_biosignal",
-      "status": "blocked",
-      "reason": "threshold is clearly behavior-shaping and has a documented default of 0.48, but the upstream code/docs do not provide a generally recommended search range. The earlier locally inferred interval was removed under the stricter provenance rule.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "Engzee segmentation exposes a source-backed threshold sensitivity interval plus required signal metadata.",
+      "tunable_params": [
         {
           "name": "threshold",
+          "kind": "float",
           "default": 0.48,
-          "reason": "Upstream default is documented, but no source-backed safe optimization interval was found."
-        },
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.02,
+          "constraints": {
+            "type": "open_interval",
+            "lower_inclusive": false,
+            "upper_inclusive": false
+          },
+          "semantic_role": "qrs_detection_sensitivity",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_contract_and_third_party_default",
+          "source_reference": "ageoa/biosppy/ecg_engzee/atoms.py | third_party/BioSPPy/biosppy/signals/ecg.py#engzee_segmenter",
+          "source_confidence": "high",
+          "reason": "The wrapper constrains threshold to (0, 1) and the upstream BioSPPy implementation exposes the same parameter with default 0.48."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "sampling_rate",
           "reason": "Required signal metadata, not a hyperparameter."
@@ -1427,15 +1442,30 @@
       "path": "ageoa/biosppy/ecg_engzee_d12/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The D12 Engzee wrapper delegates to the same BioSPPy thresholded segmenter and can safely expose the same threshold interval.",
+      "tunable_params": [
         {
           "name": "threshold",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.48,
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.02,
+          "constraints": {
+            "type": "open_interval",
+            "lower_inclusive": false,
+            "upper_inclusive": false
+          },
+          "semantic_role": "qrs_detection_sensitivity",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_contract_and_third_party_default",
+          "source_reference": "ageoa/biosppy/ecg_engzee/atoms.py | third_party/BioSPPy/biosppy/signals/ecg.py#engzee_segmenter",
+          "source_confidence": "medium",
+          "reason": "The wrapper constrains threshold to (0, 1) and the upstream BioSPPy implementation exposes the same parameter with default 0.48."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.biosppy.ecg_engzee_d12.engzee_qrs_segmentation@ageoa/biosppy/ecg_engzee_d12/atoms.py:16",
         "wrapper_symbol": "ageoa.biosppy.ecg_engzee_d12.engzee_qrs_segmentation",
@@ -1444,13 +1474,23 @@
         "delegate_calls": [
           "biosppy.signals.ecg.engzee_segmenter"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#engzee_segmenter"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_engzee_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#engzee_segmenter",
+          "notes": "BioSPPy exposes threshold on engzee_segmenter with default 0.48."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -3919,15 +3959,29 @@
       "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
       "family": "signal_biosignal",
       "module_family": "e2e_ppg",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The reconstruction wrapper exposes a single documented boolean policy switch for enabling the filtering path.",
+      "tunable_params": [
         {
           "name": "filter_signal",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "post_reconstruction_filter_toggle",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring",
+          "source_reference": "ageoa/e2e_ppg/reconstruction/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper explicitly defines filter_signal as the boolean switch controlling whether the filtering path is applied to the reconstructed output."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
         "wrapper_symbol": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
@@ -4598,9 +4652,27 @@
       "path": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
       "family": "quant_finance",
       "module_family": "institutional_quant_engine",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "Fractional differentiation exposes a documented bounded order parameter d, while threshold remains separately blocked pending a source-backed optimizer range.",
+      "tunable_params": [
+        {
+          "name": "d",
+          "kind": "float",
+          "default": 0.5,
+          "min": 0.0,
+          "max": 1.0,
+          "step": 0.05,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "fractional_differentiation_order",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring",
+          "source_reference": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper docstring explicitly states that the differentiation order d satisfies 0 <= d <= 1."
+        }
+      ],
       "blocked_params": [
         {
           "name": "threshold",
@@ -7634,21 +7706,50 @@
       "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
       "family": "molecular_docking",
       "module_family": "molecular_docking",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The greedy mapping pipeline exposes documented boolean policy switches for pruning and ranking, while mapping_is_valid remains a derived upstream signal.",
+      "tunable_params": [
         {
           "name": "remove_invalid_placement_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_pruning_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements remove_invalid_placement_nodes as the boolean switch for pruning invalid placements during greedy expansion."
         },
         {
           "name": "rank_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_ordering_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements rank_nodes as the boolean switch for score-based ordering during greedy expansion."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "mapping_is_valid",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "reason": "Derived validation result from an upstream atom; not a tunable hyperparameter."
         }
       ],
       "implementation_locator": {
@@ -7681,21 +7782,50 @@
       "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
       "family": "molecular_docking",
       "module_family": "molecular_docking",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
-        {
-          "name": "free_lattice_neighbors",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+      "status": "approved",
+      "reason": "The greedy mapping extension kernel exposes documented boolean policy switches for pruning and ranking, while free_lattice_neighbors remains threaded state.",
+      "tunable_params": [
         {
           "name": "remove_invalid_placement_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_pruning_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements remove_invalid_placement_nodes as the boolean switch for pruning invalid placements during greedy expansion."
         },
         {
           "name": "rank_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_ordering_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements rank_nodes as the boolean switch for score-based ordering during greedy expansion."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "free_lattice_neighbors",
+          "reason": "Threaded state input describing currently available placement sites; not a Principal hyperparameter candidate."
         }
       ],
       "implementation_locator": {
@@ -7767,19 +7897,47 @@
       "path": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
       "family": "molecular_docking",
       "module_family": "molecular_docking",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The D12 greedy-mapping expansion wrapper exposes documented boolean policy switches for pruning and ranking.",
+      "tunable_params": [
         {
           "name": "remove_invalid_placement_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_pruning_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements remove_invalid_placement_nodes as the boolean switch for pruning invalid placements during greedy expansion."
         },
         {
           "name": "rank_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_ordering_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements rank_nodes as the boolean switch for score-based ordering during greedy expansion."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.molecular_docking.greedy_mapping_d12.construct_mapping_state_via_greedy_expansion@ageoa/molecular_docking/greedy_mapping_d12/atoms.py:57",
         "wrapper_symbol": "ageoa.molecular_docking.greedy_mapping_d12.construct_mapping_state_via_greedy_expansion",
@@ -7852,19 +8010,47 @@
       "path": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
       "family": "molecular_docking",
       "module_family": "molecular_docking",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The D12 greedy-mapping orchestration wrapper exposes documented boolean policy switches for pruning and ranking.",
+      "tunable_params": [
         {
           "name": "remove_invalid_placement_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_pruning_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements remove_invalid_placement_nodes as the boolean switch for pruning invalid placements during greedy expansion."
         },
         {
           "name": "rank_nodes",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "candidate_ordering_policy",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/molecular_docking/greedy_mapping_d12/atoms.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper documents and implements rank_nodes as the boolean switch for score-based ordering during greedy expansion."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.molecular_docking.greedy_mapping_d12.orchestrate_generation_and_validate@ageoa/molecular_docking/greedy_mapping_d12/atoms.py:155",
         "wrapper_symbol": "ageoa.molecular_docking.greedy_mapping_d12.orchestrate_generation_and_validate",
@@ -15727,7 +15913,7 @@
       "family": "scientific_python",
       "module_family": "scipy",
       "status": "approved",
-      "reason": "The structural matrix assumption is explicitly enumerated in SciPy and safe to optimize. Lower-triangle selection remains a plumbing/control choice.",
+      "reason": "SciPy solve exposes documented finite choices for matrix-structure assumption and triangular half selection.",
       "tunable_params": [
         {
           "name": "assume_a",
@@ -15748,15 +15934,27 @@
           "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html",
           "source_confidence": "high",
           "reason": "SciPy docs explicitly enumerate the supported matrix-structure assumptions for solve."
-        }
-      ],
-      "blocked_params": [
+        },
         {
           "name": "lower",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": false
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "triangular_half_selection",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs_and_wrapper_docstring",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html | ageoa/scipy/linalg.py",
+          "source_confidence": "high",
+          "reason": "SciPy documents lower as the boolean selector for using the lower versus upper triangle when the matrix structure permits it."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
         "wrapper_symbol": "ageoa.scipy.linalg.solve",
