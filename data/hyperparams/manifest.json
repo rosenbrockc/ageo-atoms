@@ -93,9 +93,9 @@
     },
     "scientific_python": {
       "reviewed_atoms": 80,
-      "approved": 18,
-      "fixed": 27,
-      "blocked": 35,
+      "approved": 25,
+      "fixed": 25,
+      "blocked": 30,
       "deprecated": 0
     },
     "signal_biosignal": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 38
+    "upstream_reference_count": 45
   },
   "reviewed_atoms": [
     {
@@ -9935,9 +9935,29 @@
       "path": "ageoa/numpy/random_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The covariance-validity handling mode is explicitly documented and safe to optimize. Numeric tolerance, size, and distribution parameters remain blocked.",
+      "tunable_params": [
+        {
+          "name": "check_valid",
+          "kind": "categorical",
+          "default": "warn",
+          "choices": [
+            "warn",
+            "raise",
+            "ignore"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "covariance_validation_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.multivariate_normal.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported covariance validation policies."
+        }
+      ],
       "blocked_params": [
         {
           "name": "alpha",
@@ -9945,10 +9965,6 @@
         },
         {
           "name": "size",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "check_valid",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -9964,13 +9980,23 @@
         "delegate_calls": [
           "all"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.multivariate_normal.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/random_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.multivariate_normal.html",
+          "notes": "Docs enumerate check_valid choices warn, raise, and ignore."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14566,9 +14592,32 @@
       "path": "ageoa/scipy/integrate.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "fixed",
-      "reason": "Conservative repository-wide pass found only data, metadata, or API-plumbing inputs and no approved tunable search space.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The ODE solver family is explicitly documented and safe to optimize within the standard solve_ivp method set. Dense-output and vectorization flags remain API controls.",
+      "tunable_params": [
+        {
+          "name": "method",
+          "kind": "categorical",
+          "default": "RK45",
+          "choices": [
+            "RK23",
+            "RK45",
+            "DOP853",
+            "Radau",
+            "BDF",
+            "LSODA"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "ode_solver_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the standard solve_ivp solver methods and their intended use."
+        }
+      ],
       "blocked_params": [
         {
           "name": "t_eval",
@@ -14577,11 +14626,6 @@
         {
           "name": "args",
           "reason": "Library/API control, metadata, or runtime plumbing; not a Principal hyperparameter candidate in the conservative pass."
-        },
-        {
-          "name": "method",
-          "reason": "Library/API control, metadata, or runtime plumbing; not a Principal hyperparameter candidate in the conservative pass.",
-          "default": "RK45"
         },
         {
           "name": "dense_output",
@@ -14604,13 +14648,23 @@
         "wrapper_path": "ageoa/scipy/integrate.py",
         "wrapper_line": 80,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/integrate.py",
           "notes": "Conservative wrapper audit only. No source-backed hyperparameter search space is approved for this atom."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+          "notes": "Docs enumerate RK23, RK45, DOP853, Radau, BDF, and LSODA as solve_ivp methods and describe stiff vs non-stiff guidance."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14621,19 +14675,51 @@
       "path": "ageoa/scipy/interpolate_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The spline boundary-condition family and extrapolation policy are explicitly documented and safe to optimize. Numeric axis/data controls remain fixed inputs.",
+      "tunable_params": [
         {
           "name": "bc_type",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": "not-a-knot",
+          "choices": [
+            "not-a-knot",
+            "periodic",
+            "clamped",
+            "natural"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "spline_boundary_condition",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported string boundary-condition modes for CubicSpline."
         },
         {
           "name": "extrapolate",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            true,
+            false,
+            "periodic"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "extrapolation_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported extrapolation policies for CubicSpline."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.interpolate_v2.cubicsplinefit@ageoa/scipy/interpolate_v2/atoms.py:21",
         "wrapper_symbol": "ageoa.scipy.interpolate_v2.cubicsplinefit",
@@ -14642,13 +14728,23 @@
         "delegate_calls": [
           "CubicSpline"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/interpolate_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html",
+          "notes": "Docs enumerate bc_type string values not-a-knot, periodic, clamped, natural, and extrapolate values bool/periodic/None."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14659,9 +14755,34 @@
       "path": "ageoa/scipy/interpolate_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The radial-basis kernel family is explicitly documented and safe to optimize. Numeric smoothing, epsilon, degree, and neighbor count remain blocked.",
+      "tunable_params": [
+        {
+          "name": "kernel",
+          "kind": "categorical",
+          "default": "thin_plate_spline",
+          "choices": [
+            "linear",
+            "thin_plate_spline",
+            "cubic",
+            "quintic",
+            "multiquadric",
+            "inverse_multiquadric",
+            "inverse_quadratic",
+            "gaussian"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "rbf_kernel_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported RBF kernel families."
+        }
+      ],
       "blocked_params": [
         {
           "name": "neighbors",
@@ -14688,13 +14809,23 @@
         "delegate_calls": [
           "RBFInterpolator"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/interpolate_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html",
+          "notes": "Docs enumerate the supported kernel values and note that epsilon/degree constraints are kernel-dependent."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14946,18 +15077,32 @@
       "path": "ageoa/scipy/optimize.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The sigma interpretation toggle is explicitly documented and safe to optimize. Method selection remains blocked because compatibility depends on bounds and problem structure.",
+      "tunable_params": [
+        {
+          "name": "absolute_sigma",
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "sigma_interpretation_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define absolute_sigma as the boolean switch for interpreting sigma in an absolute sense."
+        }
+      ],
       "blocked_params": [
         {
           "name": "sigma",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "absolute_sigma",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": false
         },
         {
           "name": "p0",
@@ -14970,13 +15115,23 @@
         "wrapper_path": "ageoa/scipy/optimize.py",
         "wrapper_line": 167,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/optimize.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html",
+          "notes": "Docs define absolute_sigma as a boolean controlling whether sigma is interpreted absolutely."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14987,9 +15142,29 @@
       "path": "ageoa/scipy/optimize.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "fixed",
-      "reason": "Conservative repository-wide pass found only data, metadata, or API-plumbing inputs and no approved tunable search space.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The current recommended HiGHS solver-family choices are explicitly documented and safe to optimize. Legacy linprog methods remain intentionally excluded.",
+      "tunable_params": [
+        {
+          "name": "method",
+          "kind": "categorical",
+          "default": "highs",
+          "choices": [
+            "highs",
+            "highs-ds",
+            "highs-ipm"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "linear_program_solver_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly recommend the HiGHS family methods for new linprog code and enumerate highs, highs-ds, and highs-ipm."
+        }
+      ],
       "blocked_params": [
         {
           "name": "A_ub",
@@ -15016,11 +15191,6 @@
           "reason": "Library/API control, metadata, or runtime plumbing; not a Principal hyperparameter candidate in the conservative pass."
         },
         {
-          "name": "method",
-          "reason": "Library/API control, metadata, or runtime plumbing; not a Principal hyperparameter candidate in the conservative pass.",
-          "default": "highs"
-        },
-        {
           "name": "callback",
           "reason": "Library/API control, metadata, or runtime plumbing; not a Principal hyperparameter candidate in the conservative pass."
         },
@@ -15035,13 +15205,23 @@
         "wrapper_path": "ageoa/scipy/optimize.py",
         "wrapper_line": 118,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/optimize.py",
           "notes": "Conservative wrapper audit only. No source-backed hyperparameter search space is approved for this atom."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html",
+          "notes": "Docs enumerate highs, highs-ds, and highs-ipm and recommend them for new code; legacy methods are excluded from approval."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15664,16 +15844,29 @@
       "path": "ageoa/scipy/sparse_graph.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The normalized-vs-unnormalized Laplacian choice is explicitly documented and safe to optimize.",
+      "tunable_params": [
         {
           "name": "normed",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": false
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "laplacian_normalization_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.laplacian.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define normed as the switch between normalized and unnormalized graph Laplacians."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.sparse_graph.graph_laplacian@ageoa/scipy/sparse_graph.py:63",
         "wrapper_symbol": "ageoa.scipy.sparse_graph.graph_laplacian",
@@ -15684,13 +15877,23 @@
           "_is_square_sparse",
           "_eigenvalues_nonneg"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.laplacian.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/sparse_graph.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.laplacian.html",
+          "notes": "Docs define normed as the boolean selector for the normalized Laplacian."
         }
       ],
       "audit_method": "conservative_wrapper_review",
