@@ -65,9 +65,9 @@
     },
     "probabilistic_inference": {
       "reviewed_atoms": 35,
-      "approved": 0,
+      "approved": 1,
       "fixed": 16,
-      "blocked": 19,
+      "blocked": 18,
       "deprecated": 0
     },
     "quant_finance": {
@@ -100,9 +100,9 @@
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 9,
+      "approved": 10,
       "fixed": 40,
-      "blocked": 17,
+      "blocked": 16,
       "deprecated": 0
     },
     "state_estimation": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 70
+    "upstream_reference_count": 77
   },
   "reviewed_atoms": [
     {
@@ -818,28 +818,52 @@
       "path": "ageoa/bayes_rs/bernoulli/atoms.py",
       "family": "probabilistic_inference",
       "module_family": "bayes_rs",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The Bernoulli probability parameter is explicitly documented in the wrapper as a probability in [0, 1], so it is safe to expose as a bounded scalar search space.",
+      "tunable_params": [
         {
           "name": "p",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.5,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "bernoulli_success_probability",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/bayes_rs/bernoulli/atoms.py",
+          "source_confidence": "high",
+          "reason": "The wrapper documents p as a Bernoulli probability parameter with 0 <= p <= 1; the implementation only clips internally for numerical stability."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.bayes_rs.bernoulli.bernoulli_probabilistic_oracle@ageoa/bayes_rs/bernoulli/atoms.py:15",
         "wrapper_symbol": "ageoa.bayes_rs.bernoulli.bernoulli_probabilistic_oracle",
         "wrapper_path": "ageoa/bayes_rs/bernoulli/atoms.py",
         "wrapper_line": 15,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/bayes/src/prob/bernoulli.rs"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/bayes_rs/bernoulli/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/bayes/src/prob/bernoulli.rs",
+          "notes": "Underlying Bernoulli logic in bayes-rs treats theta as the Bernoulli probability parameter."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -932,7 +956,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "Zong2003 exposes defaults for smoothing and derivative thresholds, but the reviewed source/docs do not provide optimizer-ready ranges for sm_size, size, alpha, d1_th, or d2_th.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -964,13 +988,32 @@
         "delegate_calls": [
           "biosppy.signals.abp.find_onsets_zong2003"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/abp.py#find_onsets_zong2003"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.abp.find_onsets_zong2003"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/abp_zong/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/abp.py#find_onsets_zong2003",
+          "notes": "BioSPPy source provides defaults sm_size=0.25 s, alpha=2.0, d1_th=0, d2_th=0.15 s but no tuning intervals."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.abp.find_onsets_zong2003",
+          "notes": "Docs describe parameter semantics but do not provide search heuristics or safe bounds."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -1472,7 +1515,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "tol has an upstream default of 0.002, but neither the Gamboa source nor the BioSPPy docs provide a documented tuning interval or heuristic policy for safe optimization.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -1488,13 +1531,32 @@
         "delegate_calls": [
           "biosppy.signals.ecg.gamboa_segmenter"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#gamboa_segmenter"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.gamboa_segmenter"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_gamboa_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#gamboa_segmenter",
+          "notes": "Default tol is 0.002."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.gamboa_segmenter",
+          "notes": "Docs identify tol as a tolerance parameter but provide no search interval."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2378,7 +2440,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "Solnik onset detection treats threshold as a scale factor on rest variability, but the reviewed source/docs do not provide a source-backed tuning interval beyond the semantic definition.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -2394,13 +2456,32 @@
         "delegate_calls": [
           "biosppy.signals.emg.solnik_onset_detector"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/emg.py#solnik_onset_detector"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.solnik_onset_detector"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/emg_solnik/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/emg.py#solnik_onset_detector",
+          "notes": "BioSPPy source defines threshold as a scale factor in mean_rest + threshold * std_dev_rest, but does not provide a recommended range."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.solnik_onset_detector",
+          "notes": "Docs describe threshold semantically without optimizer bounds."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2862,24 +2943,68 @@
       "path": "ageoa/biosppy/ppg_kavsaoglu/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The Kavsao\u011flu onset detector exposes several parameters with explicit legal domains in the upstream BioSPPy source. The initial BPM guess remains blocked because no source-backed upper-bound or search policy is documented.",
+      "tunable_params": [
         {
           "name": "alpha",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "init_bpm",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.2,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "open_left_closed_right_interval"
+          },
+          "semantic_role": "bpm_smoothing_factor",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_kavsaoglu2016 | https://biosppy.readthedocs.io/en/main/biosppy.signals.html",
+          "source_confidence": "high",
+          "reason": "Upstream BioSPPy source explicitly validates alpha in ]0, 1]."
         },
         {
           "name": "min_delay",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.6,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "minimum_inter_onset_fraction",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_kavsaoglu2016 | https://biosppy.readthedocs.io/en/main/biosppy.signals.html",
+          "source_confidence": "high",
+          "reason": "Upstream BioSPPy source explicitly validates min_delay between 0 and 1 inclusive."
         },
         {
           "name": "max_BPM",
+          "kind": "float",
+          "default": 150.0,
+          "min_value": 0.0,
+          "max_value": 248.0,
+          "step": 1.0,
+          "log_scale": false,
+          "constraints": {
+            "type": "open_interval",
+            "notes": "The wrapper requires max_BPM > 0 and upstream BioSPPy rejects values >= 248."
+          },
+          "semantic_role": "maximum_valid_bpm",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_contract_and_third_party_code",
+          "source_reference": "ageoa/biosppy/ppg_kavsaoglu/atoms.py | third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_kavsaoglu2016",
+          "source_confidence": "medium",
+          "reason": "The wrapper contract requires a positive BPM bound and upstream BioSPPy rejects values >= 248."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "init_bpm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -2891,13 +3016,32 @@
         "delegate_calls": [
           "biosppy.signals.ppg.find_onsets_kavsaoglu2016"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_kavsaoglu2016"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/main/biosppy.signals.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ppg_kavsaoglu/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_kavsaoglu2016",
+          "notes": "BioSPPy source validates alpha in ]0,1], min_delay in [0,1], and max_BPM < 248."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/main/biosppy.signals.html",
+          "notes": "Docs list the Kavsao\u011flu detector defaults and parameter semantics."
         }
       ],
       "audit_method": "conservative_wrapper_review",
