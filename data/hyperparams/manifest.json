@@ -72,9 +72,9 @@
     },
     "quant_finance": {
       "reviewed_atoms": 84,
-      "approved": 4,
+      "approved": 5,
       "fixed": 28,
-      "blocked": 52,
+      "blocked": 51,
       "deprecated": 0
     },
     "quantum_optimization": {
@@ -100,9 +100,9 @@
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 8,
+      "approved": 9,
       "fixed": 40,
-      "blocked": 18,
+      "blocked": 17,
       "deprecated": 0
     },
     "state_estimation": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 61
+    "upstream_reference_count": 70
   },
   "reviewed_atoms": [
     {
@@ -2252,7 +2252,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "Abbink-onset parameters are documented, but the available BioSPPy source and cited Abbink 1998 reference do not provide source-backed optimizer bounds for size, alarm_size, threshold, or transition_threshold.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -2280,13 +2280,32 @@
         "delegate_calls": [
           "biosppy.signals.emg.abbink_onset_detector"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/emg.py#abbink_onset_detector"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.abbink_onset_detector"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/emg_abbink/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/emg.py#abbink_onset_detector",
+          "notes": "BioSPPy source cites Abbink et al. 1998 and defines the parameters, but not their tuning ranges."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.abbink_onset_detector",
+          "notes": "Docs describe semantics only; no search intervals are provided."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2298,7 +2317,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "Bonato-onset parameters are documented, but neither BioSPPy nor the cited Bonato 1998 reference exposes optimizer-ready numeric bounds for threshold, samples_above_fail, or fail_size.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -2322,13 +2341,32 @@
         "delegate_calls": [
           "biosppy.signals.emg.bonato_onset_detector"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/emg.py#bonato_onset_detector"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.bonato_onset_detector"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/emg_bonato/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/emg.py#bonato_onset_detector",
+          "notes": "BioSPPy source cites Bonato et al. 1998 and requires explicit threshold / samples_above_fail / fail_size, but does not provide legal search intervals."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.emg.bonato_onset_detector",
+          "notes": "Docs define the parameters semantically without tuning ranges."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2760,7 +2798,7 @@
       "family": "signal_biosignal",
       "module_family": "biosppy",
       "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
+      "reason": "Elgendi2013 exposes documented default windows, but the available BioSPPy source only provides tuned point values and filter-frequency ranges, not safe optimizer bounds for peakwindow, beatwindow, beatoffset, or mindelay.",
       "tunable_params": [],
       "blocked_params": [
         {
@@ -2788,13 +2826,32 @@
         "delegate_calls": [
           "biosppy.signals.ppg.find_onsets_elgendi2013"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_elgendi2013"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ppg.find_onsets_elgendi2013"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ppg_elgendi/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ppg.py#find_onsets_elgendi2013",
+          "notes": "BioSPPy source documents defaults peakwindow=0.111, beatwindow=0.667, beatoffset=0.02, mindelay=0.3 and only cites separate optimal filter-frequency ranges from Elgendi 2013."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ppg.find_onsets_elgendi2013",
+          "notes": "Docs describe the window parameters but do not provide search intervals or tuning heuristics."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2944,20 +3001,51 @@
       "path": "ageoa/biosppy/svm_proc/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
-        {
-          "name": "n_iter",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+      "status": "approved",
+      "reason": "The float-valued split fractions are explicitly documented by StratifiedShuffleSplit and safe to optimize. Iteration count and integer-valued split forms remain blocked.",
+      "tunable_params": [
         {
           "name": "test_size",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.1,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval",
+            "notes": "Manifest-controlled search uses the documented float proportion form; integer sample-count form remains out of scope."
+          },
+          "semantic_role": "test_split_fraction",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/biometrics.py#cross_validation | https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html",
+          "source_confidence": "high",
+          "reason": "BioSPPy wraps StratifiedShuffleSplit, whose docs specify float test_size as a proportion between 0.0 and 1.0."
         },
         {
           "name": "train_size",
+          "kind": "float",
+          "default": null,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval",
+            "notes": "Manifest-controlled search uses the documented float proportion form; integer sample-count form remains out of scope."
+          },
+          "semantic_role": "train_split_fraction",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/biometrics.py#cross_validation | https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html",
+          "source_confidence": "high",
+          "reason": "BioSPPy wraps StratifiedShuffleSplit, whose docs specify float train_size as a proportion between 0.0 and 1.0."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "n_iter",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -2969,13 +3057,32 @@
         "delegate_calls": [
           "StratifiedShuffleSplit"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/biometrics.py#cross_validation"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/svm_proc/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/biometrics.py#cross_validation",
+          "notes": "BioSPPy cross_validation wraps StratifiedShuffleSplit with default test_size=0.1 and train_size=None."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html",
+          "notes": "Docs specify float test_size/train_size as proportions between 0.0 and 1.0."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -4264,15 +4371,30 @@
       "path": "ageoa/institutional_quant_engine/evt_model/atoms.py",
       "family": "quant_finance",
       "module_family": "institutional_quant_engine",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The tail-threshold quantile is explicitly a quantile probability and safe to optimize on the documented [0, 1] domain. The downstream EVT fit itself remains fixed.",
+      "tunable_params": [
         {
           "name": "threshold_quantile",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "float",
+          "default": 0.05,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.01,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval",
+            "notes": "This parameter is passed to numpy.quantile via 1 - threshold_quantile. Extreme endpoints can be degenerate, but the legal quantile domain is [0, 1]."
+          },
+          "semantic_role": "tail_selection_quantile",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_api_docs",
+          "source_reference": "ageoa/institutional_quant_engine/evt_model/atoms.py | https://numpy.org/doc/stable/reference/generated/numpy.quantile.html",
+          "source_confidence": "high",
+          "reason": "The wrapper defines threshold_quantile as a quantile threshold, and NumPy documents quantile probabilities as values between 0 and 1 inclusive."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.institutional_quant_engine.evt_model.fit_gpd_tail@ageoa/institutional_quant_engine/evt_model/atoms.py:18",
         "wrapper_symbol": "ageoa.institutional_quant_engine.evt_model.fit_gpd_tail",
@@ -4281,13 +4403,23 @@
         "delegate_calls": [
           "genpareto.fit"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.quantile.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/institutional_quant_engine/evt_model/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.quantile.html",
+          "notes": "Docs specify q as probabilities between 0 and 1 inclusive."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15793,7 +15925,7 @@
       "family": "scientific_python",
       "module_family": "scipy",
       "status": "approved",
-      "reason": "The differential-evolution strategy family, initialization policies, and update/refinement controls are explicitly documented and safe to optimize. Only open-ended numeric controls remain blocked.",
+      "reason": "The differential-evolution strategy family, initialization policies, and documented scalar controls are explicitly supported. Only open-ended iteration/tolerance controls and tuple mutation dithering remain blocked.",
       "tunable_params": [
         {
           "name": "strategy",
@@ -15897,6 +16029,25 @@
           "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
           "source_confidence": "high",
           "reason": "SciPy docs explicitly enumerate the supported string initialization policies."
+        },
+        {
+          "name": "mutation",
+          "kind": "float",
+          "default": 0.5,
+          "min_value": 0.0,
+          "max_value": 2.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "half_open_interval_right",
+            "notes": "Manifest-controlled search only covers the documented scalar mutation form; tuple dithering remains blocked."
+          },
+          "semantic_role": "differential_weight",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly state that scalar mutation should be in the range [0, 2)."
         }
       ],
       "blocked_params": [
