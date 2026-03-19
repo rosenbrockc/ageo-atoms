@@ -93,9 +93,9 @@
     },
     "scientific_python": {
       "reviewed_atoms": 80,
-      "approved": 25,
+      "approved": 29,
       "fixed": 25,
-      "blocked": 30,
+      "blocked": 26,
       "deprecated": 0
     },
     "signal_biosignal": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 45
+    "upstream_reference_count": 49
   },
   "reviewed_atoms": [
     {
@@ -14399,21 +14399,53 @@
       "path": "ageoa/scipy/fft.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The DCT type family and normalization mode are explicitly documented and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
         {
           "name": "type",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": 2
-        },
-        {
-          "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": 2,
+          "choices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "dct_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.dct.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate DCT types 1, 2, 3, and 4."
         },
         {
           "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.dct.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported DCT normalization modes."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "n",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -14425,13 +14457,23 @@
         "delegate_calls": [
           "_roundtrip_close"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.dct.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.dct.html",
+          "notes": "Docs enumerate DCT types 1-4 and norm choices backward, ortho, and forward; None uses the default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14442,21 +14484,53 @@
       "path": "ageoa/scipy/fft.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The inverse DCT type family and normalization mode are explicitly documented and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
         {
           "name": "type",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": 2
-        },
-        {
-          "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": 2,
+          "choices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "dct_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.idct.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate IDCT types 1, 2, 3, and 4."
         },
         {
           "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.idct.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported IDCT normalization modes."
+        }
+      ],
+      "blocked_params": [
+        {
+          "name": "n",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -14468,13 +14542,23 @@
         "delegate_calls": [
           "_roundtrip_close"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.idct.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.fft.idct.html",
+          "notes": "Docs enumerate IDCT types 1-4 and norm choices backward, ortho, and forward; None uses the default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15232,9 +15316,42 @@
       "path": "ageoa/scipy/optimize.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The solver method family is explicitly documented and safe to optimize at the wrapper level. Numeric tolerance remains blocked.",
+      "tunable_params": [
+        {
+          "name": "method",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "Nelder-Mead",
+            "Powell",
+            "CG",
+            "BFGS",
+            "Newton-CG",
+            "L-BFGS-B",
+            "TNC",
+            "COBYLA",
+            "COBYQA",
+            "SLSQP",
+            "trust-constr",
+            "dogleg",
+            "trust-ncg",
+            "trust-exact",
+            "trust-krylov"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "optimizer_method_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs enumerate the supported minimize methods for generic use."
+        }
+      ],
       "blocked_params": [
         {
           "name": "tol",
@@ -15252,13 +15369,23 @@
         "wrapper_path": "ageoa/scipy/optimize.py",
         "wrapper_line": 21,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/optimize.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html",
+          "notes": "Docs enumerate the standard minimize methods, including simplex, gradient, constrained, and trust-region families."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15269,9 +15396,36 @@
       "path": "ageoa/scipy/optimize.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The root solver family is explicitly documented and safe to optimize at the wrapper level. Numeric tolerance remains blocked.",
+      "tunable_params": [
+        {
+          "name": "method",
+          "kind": "categorical",
+          "default": "hybr",
+          "choices": [
+            "hybr",
+            "lm",
+            "broyden1",
+            "broyden2",
+            "anderson",
+            "linearmixing",
+            "diagbroyden",
+            "excitingmixing",
+            "krylov",
+            "df-sane"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "root_solver_family",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs enumerate the supported root-finding methods."
+        }
+      ],
       "blocked_params": [
         {
           "name": "tol",
@@ -15289,13 +15443,23 @@
         "wrapper_path": "ageoa/scipy/optimize.py",
         "wrapper_line": 75,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/optimize.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html",
+          "notes": "Docs enumerate hybr, lm, broyden1, broyden2, anderson, linearmixing, diagbroyden, excitingmixing, krylov, and df-sane."
         }
       ],
       "audit_method": "conservative_wrapper_review",
