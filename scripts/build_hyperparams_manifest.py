@@ -429,6 +429,9 @@ def create_db(manifest: dict) -> None:
           choices_json TEXT,
           constraints_json TEXT,
           semantic_role TEXT,
+          range_source TEXT,
+          source_reference TEXT,
+          source_confidence TEXT,
           reason TEXT,
           FOREIGN KEY(atom_id) REFERENCES atoms(atom_id)
         );
@@ -487,11 +490,11 @@ def create_db(manifest: dict) -> None:
         for group_name, status in (('tunable_params', 'approved'), ('blocked_params', 'blocked')):
             for item in entry.get(group_name, []):
                 cur.execute(
-                    'INSERT INTO hyperparams(atom_id, name, status, kind, default_value, min_value, max_value, step_value, log_scale, choices_json, constraints_json, semantic_role, reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    'INSERT INTO hyperparams(atom_id, name, status, kind, default_value, min_value, max_value, step_value, log_scale, choices_json, constraints_json, semantic_role, range_source, source_reference, source_confidence, reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     (
                         entry['atom_id'], item['name'], status, item.get('kind'), json.dumps(item.get('default')), json.dumps(item.get('min_value')),
                         json.dumps(item.get('max_value')), json.dumps(item.get('step')), int(bool(item.get('log_scale'))), json.dumps(item.get('choices')),
-                        json.dumps(item.get('constraints')), item.get('semantic_role'), item.get('reason')
+                        json.dumps(item.get('constraints')), item.get('semantic_role'), item.get('range_source'), item.get('source_reference'), item.get('source_confidence'), item.get('reason')
                     ),
                 )
         for prov in entry.get('provenance', []):

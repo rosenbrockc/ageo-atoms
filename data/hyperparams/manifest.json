@@ -100,9 +100,9 @@
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 0,
+      "approved": 3,
       "fixed": 40,
-      "blocked": 26,
+      "blocked": 23,
       "deprecated": 0
     },
     "state_estimation": {
@@ -1590,19 +1590,34 @@
       "atom": "ageoa.biosppy.ecg_zz2018.calculatebeatagreementsqi",
       "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
       "family": "signal_biosignal",
-      "status": "blocked",
-      "reason": "search_window and mode are clearly behavior-shaping, but the sources reviewed do not justify a safe optimizer range or decision policy.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The categorical beat-agreement mode is source-backed and safe to optimize. Numeric window sizing remains blocked until a documented search policy exists.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "matching",
+            "n_double"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "agreement_metric_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.bSQI",
+          "source_confidence": "high",
+          "reason": "BioSPPy docs and upstream source explicitly enumerate simple, matching, and n_double as the supported comparison modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "search_window",
           "default": 150,
           "reason": "Documented in ms with an upstream default, but no safe search range."
-        },
-        {
-          "name": "mode",
-          "default": "simple",
-          "reason": "Upstream allows 'simple', 'matching', and 'n_double'; this may be an algorithm-selection choice rather than a hyperparameter."
         }
       ],
       "provenance": [
@@ -1648,9 +1663,28 @@
       "atom": "ageoa.biosppy.ecg_zz2018.calculatecompositesqi_zz2018",
       "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
       "family": "signal_biosignal",
-      "status": "blocked",
-      "reason": "search_window, nseg, and mode are documented with defaults, but they change the evaluation policy of a composite SQI routine and need family-level audit before tuning.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The categorical fusion mode is source-backed and safe to optimize. Numeric controls remain blocked until the upstream method provides defensible range guidance.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "fuzzy"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fusion_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ZZ2018",
+          "source_confidence": "high",
+          "reason": "BioSPPy docs and upstream source explicitly enumerate simple and fuzzy as the supported evaluation modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "search_window",
@@ -1661,11 +1695,6 @@
           "name": "nseg",
           "default": 1024,
           "reason": "Documented default frequency resolution, but no general optimizer policy."
-        },
-        {
-          "name": "mode",
-          "default": "simple",
-          "reason": "Documented choice between simple and fuzzy; may be better modeled as algorithm choice than a hyperparameter."
         }
       ],
       "provenance": [
@@ -8423,19 +8452,33 @@
       "atom": "ageoa.neurokit2.zhao2018hrvanalysis",
       "path": "ageoa/neurokit2/atoms.py",
       "family": "signal_biosignal",
-      "status": "blocked",
-      "reason": "window and mode are documented with defaults and semantics, but no reviewed source provided optimizer search ranges. mode may also be better modeled as a family-level method choice.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The categorical Zhao 2018 fusion mode is source-backed and safe to optimize. The numeric window parameter remains blocked pending documented search bounds.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "fuzzy"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fusion_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://neuropsychology.github.io/NeuroKit/functions/ecg.html#ecg-quality",
+          "source_confidence": "high",
+          "reason": "NeuroKit2 docs and upstream source explicitly enumerate simple and fuzzy as the supported Zhao 2018 fusion approaches."
+        }
+      ],
       "blocked_params": [
         {
           "name": "window",
           "default": 1024,
           "reason": "Documented default in the upstream helper, but no approved search interval."
-        },
-        {
-          "name": "mode",
-          "default": "simple",
-          "reason": "Documented choices are simple and fuzzy; this may be a method-choice axis rather than a hyperparameter."
         }
       ],
       "provenance": [
