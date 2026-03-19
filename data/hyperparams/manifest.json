@@ -72,9 +72,9 @@
     },
     "quant_finance": {
       "reviewed_atoms": 84,
-      "approved": 5,
+      "approved": 7,
       "fixed": 28,
-      "blocked": 51,
+      "blocked": 49,
       "deprecated": 0
     },
     "quantum_optimization": {
@@ -100,9 +100,9 @@
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 10,
+      "approved": 11,
       "fixed": 40,
-      "blocked": 16,
+      "blocked": 15,
       "deprecated": 0
     },
     "state_estimation": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 77
+    "upstream_reference_count": 78
   },
   "reviewed_atoms": [
     {
@@ -3329,28 +3329,52 @@
       "path": "ageoa/biosppy/svm_proc/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The majority-rule tie-break policy is explicitly documented as a boolean toggle and is safe to optimize.",
+      "tunable_params": [
         {
           "name": "random",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "tie_break_policy",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_wrapper_docstring",
+          "source_reference": "third_party/BioSPPy/biosppy/biometrics.py#majority_rule | ageoa/biosppy/svm_proc/atoms.py",
+          "source_confidence": "high",
+          "reason": "BioSPPy defines random as the boolean toggle for random tie-breaking versus first-label selection."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.biosppy.svm_proc.majority_rule@ageoa/biosppy/svm_proc/atoms.py:221",
         "wrapper_symbol": "ageoa.biosppy.svm_proc.majority_rule",
         "wrapper_path": "ageoa/biosppy/svm_proc/atoms.py",
         "wrapper_line": 221,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/biometrics.py#majority_rule"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/svm_proc/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/biometrics.py#majority_rule",
+          "notes": "BioSPPy majority_rule documents random=True to choose randomly on ties, otherwise choose the first element."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -4695,9 +4719,28 @@
       "path": "ageoa/institutional_quant_engine/heston_model/atoms.py",
       "family": "quant_finance",
       "module_family": "institutional_quant_engine",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The Heston correlation parameter rho has an explicit finite domain [-1, 1] in the wrapper semantics and is safe to optimize. The remaining positive-scale parameters still lack source-backed search bounds.",
+      "tunable_params": [
+        {
+          "name": "rho",
+          "kind": "float",
+          "default": 0.0,
+          "min_value": -1.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "price_variance_correlation",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/institutional_quant_engine/heston_model/atoms.py",
+          "source_confidence": "high",
+          "reason": "The wrapper documents rho as the correlation between price and variance on [-1, 1], and uses it directly in the 2x2 covariance matrix."
+        }
+      ],
       "blocked_params": [
         {
           "name": "S0",
@@ -4717,10 +4760,6 @@
         },
         {
           "name": "sigma_v",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "rho",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -4755,9 +4794,28 @@
       "path": "ageoa/institutional_quant_engine/heston_model_d12/atoms.py",
       "family": "quant_finance",
       "module_family": "institutional_quant_engine",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The Heston correlation parameter rho has an explicit finite domain [-1, 1] in the wrapper semantics and is safe to optimize. The remaining positive-scale parameters still lack source-backed search bounds.",
+      "tunable_params": [
+        {
+          "name": "rho",
+          "kind": "float",
+          "default": 0.0,
+          "min_value": -1.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "price_variance_correlation",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_docstring_and_implementation",
+          "source_reference": "ageoa/institutional_quant_engine/heston_model_d12/atoms.py",
+          "source_confidence": "high",
+          "reason": "The wrapper documents rho as the correlation between price and variance on [-1, 1], and uses it directly in the 2x2 covariance matrix."
+        }
+      ],
       "blocked_params": [
         {
           "name": "S0",
@@ -4765,10 +4823,6 @@
         },
         {
           "name": "v0",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "rho",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
