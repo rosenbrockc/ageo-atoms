@@ -72,9 +72,9 @@
     },
     "quant_finance": {
       "reviewed_atoms": 84,
-      "approved": 0,
+      "approved": 4,
       "fixed": 28,
-      "blocked": 56,
+      "blocked": 52,
       "deprecated": 0
     },
     "quantum_optimization": {
@@ -93,16 +93,16 @@
     },
     "scientific_python": {
       "reviewed_atoms": 80,
-      "approved": 36,
+      "approved": 38,
       "fixed": 25,
-      "blocked": 19,
+      "blocked": 17,
       "deprecated": 0
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 6,
+      "approved": 8,
       "fixed": 40,
-      "blocked": 20,
+      "blocked": 18,
       "deprecated": 0
     },
     "state_estimation": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 56
+    "upstream_reference_count": 61
   },
   "reviewed_atoms": [
     {
@@ -1878,9 +1878,28 @@
       "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The ZZ2018 quality-estimator mode is explicitly documented and safe to optimize. Numeric SQI thresholds and windows remain blocked.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "fuzzy"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "quality_fusion_mode",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/signals/ecg.py#ZZ2018 | https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ZZ2018",
+          "source_confidence": "high",
+          "reason": "BioSPPy source and docs explicitly enumerate simple and fuzzy as the supported ZZ2018 processing modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "search_window",
@@ -1888,10 +1907,6 @@
         },
         {
           "name": "nseg",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "mode",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -1913,13 +1928,32 @@
         "wrapper_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
         "wrapper_line": 77,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#ZZ2018"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ZZ2018"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#ZZ2018",
+          "notes": "ZZ2018 documents mode as simple or fuzzy."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ZZ2018",
+          "notes": "BioSPPy docs describe the two supported processing modes."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -2075,15 +2109,29 @@
       "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The kurtosis-definition toggle is explicitly documented and safe to optimize. No numeric search bounds are introduced.",
+      "tunable_params": [
         {
           "name": "fisher",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "kurtosis_definition",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_api_docs",
+          "source_reference": "third_party/BioSPPy/biosppy/signals/ecg.py#kSQI | https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kurtosis.html",
+          "source_confidence": "high",
+          "reason": "BioSPPy forwards fisher directly to scipy.stats.kurtosis, which documents the boolean Fisher/Pearson toggle."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:58",
         "wrapper_symbol": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi",
@@ -2092,13 +2140,32 @@
         "delegate_calls": [
           "biosppy.signals.ecg.kSQI"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#kSQI"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kurtosis.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#kSQI",
+          "notes": "kSQI accepts fisher=True/False and forwards it to scipy.stats.kurtosis."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kurtosis.html",
+          "notes": "SciPy docs define fisher=True as Fisher and fisher=False as Pearson kurtosis."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -4964,16 +5031,31 @@
       "path": "ageoa/jFOF/atoms.py",
       "family": "scientific_python",
       "module_family": "jFOF",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The linked-cell FoF mode is structurally documented and safe to optimize. Neighbor-count and batch-size numerics remain blocked.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "precompute",
+          "choices": [
+            "precompute",
+            "streaming"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "neighbor_search_execution_mode",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code",
+          "source_reference": "third_party/jFOF/fof/foflc.py | third_party/jFOF/ingest_wrapper.py",
+          "source_confidence": "medium",
+          "reason": "The upstream JAX implementation explicitly documents precompute and streaming as the two execution modes, with a speed-memory tradeoff."
+        }
+      ],
       "blocked_params": [
         {
           "name": "L",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "mode",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -4996,13 +5078,32 @@
           "union",
           "find"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/jFOF/fof/foflc.py"
+          },
+          {
+            "type": "third_party_source",
+            "reference": "third_party/jFOF/ingest_wrapper.py"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/jFOF/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/jFOF/fof/foflc.py",
+          "notes": "fof_clusters_grid_periodic documents mode=\"precompute\" | \"streaming\" with explicit memory/runtime tradeoffs."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/jFOF/ingest_wrapper.py",
+          "notes": "Repository ingest wrapper defaults mode to precompute."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -12283,14 +12384,29 @@
       "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "family": "quant_finance",
       "module_family": "quantfin",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The antithetic-variates toggle is explicit in the upstream Monte Carlo API and safe to optimize. Trial counts and time-step controls remain blocked.",
+      "tunable_params": [
         {
           "name": "anti",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "variance_reduction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_repo_docs",
+          "source_reference": "third_party/quantfin/src/Quant/MonteCarlo.hs | third_party/quantfin/README.md",
+          "source_confidence": "high",
+          "reason": "The upstream quantfin Monte Carlo API documents anti as the boolean antithetic-variates switch, and provides separate antithetic helper entry points."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "maxStep",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -12320,13 +12436,28 @@
           "timeOffset",
           "evolve"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs",
+          "notes": "runSimulation and simulateState use Bool anti, and runSimulationAnti averages True/False branches."
+        },
+        {
+          "type": "repo_readme",
+          "reference": "third_party/quantfin/README.md",
+          "notes": "README includes the explicit quickSimAnti antithetic example."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -12798,14 +12929,29 @@
       "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "family": "quant_finance",
       "module_family": "quantfin",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The antithetic-variates toggle is explicit in the upstream Monte Carlo API and safe to optimize. Trial counts and time-step controls remain blocked.",
+      "tunable_params": [
         {
           "name": "anti",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "variance_reduction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_repo_docs",
+          "source_reference": "third_party/quantfin/src/Quant/MonteCarlo.hs | third_party/quantfin/README.md",
+          "source_confidence": "high",
+          "reason": "The upstream quantfin Monte Carlo API documents anti as the boolean antithetic-variates switch, and provides separate antithetic helper entry points."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "trials",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -12819,13 +12965,28 @@
         "delegate_calls": [
           "runMC"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs",
+          "notes": "runSimulation and simulateState use Bool anti, and runSimulationAnti averages True/False branches."
+        },
+        {
+          "type": "repo_readme",
+          "reference": "third_party/quantfin/README.md",
+          "notes": "README includes the explicit quickSimAnti antithetic example."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -12870,14 +13031,29 @@
       "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "family": "quant_finance",
       "module_family": "quantfin",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The antithetic-variates toggle is explicit in the upstream Monte Carlo API and safe to optimize. Trial counts and time-step controls remain blocked.",
+      "tunable_params": [
         {
           "name": "anti",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "variance_reduction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_repo_docs",
+          "source_reference": "third_party/quantfin/src/Quant/MonteCarlo.hs | third_party/quantfin/README.md",
+          "source_confidence": "high",
+          "reason": "The upstream quantfin Monte Carlo API documents anti as the boolean antithetic-variates switch, and provides separate antithetic helper entry points."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "trials",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -12892,13 +13068,28 @@
           "replicateM",
           "avg"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs",
+          "notes": "runSimulation and simulateState use Bool anti, and runSimulationAnti averages True/False branches."
+        },
+        {
+          "type": "repo_readme",
+          "reference": "third_party/quantfin/README.md",
+          "notes": "README includes the explicit quickSimAnti antithetic example."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -12943,16 +13134,31 @@
       "path": "ageoa/quantfin/montecarlo.py",
       "family": "quant_finance",
       "module_family": "quantfin",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The antithetic-variates toggle is explicit in the upstream Monte Carlo API and safe to optimize. Trial counts and time-step controls remain blocked.",
+      "tunable_params": [
+        {
+          "name": "anti",
+          "kind": "bool",
+          "default": false,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "variance_reduction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "third_party_code_and_repo_docs",
+          "source_reference": "third_party/quantfin/src/Quant/MonteCarlo.hs | third_party/quantfin/README.md",
+          "source_confidence": "high",
+          "reason": "The upstream quantfin Monte Carlo API documents anti as the boolean antithetic-variates switch, and provides separate antithetic helper entry points."
+        }
+      ],
       "blocked_params": [
         {
           "name": "trials",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "anti",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -12966,13 +13172,28 @@
           "simulator",
           "simulator_name.strip"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/quantfin/montecarlo.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/quantfin/src/Quant/MonteCarlo.hs",
+          "notes": "runSimulation and simulateState use Bool anti, and runSimulationAnti averages True/False branches."
+        },
+        {
+          "type": "repo_readme",
+          "reference": "third_party/quantfin/README.md",
+          "notes": "README includes the explicit quickSimAnti antithetic example."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15571,14 +15792,114 @@
       "path": "ageoa/scipy/optimize_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The differential-evolution strategy family, initialization policies, and update/refinement controls are explicitly documented and safe to optimize. Only open-ended numeric controls remain blocked.",
+      "tunable_params": [
         {
           "name": "strategy",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": "best1bin",
+          "choices": [
+            "best1bin",
+            "best1exp",
+            "rand1bin",
+            "rand1exp",
+            "rand2bin",
+            "rand2exp",
+            "randtobest1bin",
+            "randtobest1exp",
+            "currenttobest1bin",
+            "currenttobest1exp",
+            "best2exp",
+            "best2bin"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "differential_evolution_strategy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported differential_evolution strategies."
         },
+        {
+          "name": "updating",
+          "kind": "categorical",
+          "default": "immediate",
+          "choices": [
+            "immediate",
+            "deferred"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "best_vector_update_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly define immediate vs deferred updating and the parallelization tradeoff."
+        },
+        {
+          "name": "polish",
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "post_optimization_local_refinement",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define polish as the boolean toggle for final local minimization refinement."
+        },
+        {
+          "name": "recombination",
+          "kind": "float",
+          "default": 0.7,
+          "min_value": 0.0,
+          "max_value": 1.0,
+          "step": 0.05,
+          "log_scale": false,
+          "constraints": {
+            "type": "closed_interval"
+          },
+          "semantic_role": "crossover_probability",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly state that recombination should be in the range [0, 1]."
+        },
+        {
+          "name": "init",
+          "kind": "categorical",
+          "default": "latinhypercube",
+          "choices": [
+            "latinhypercube",
+            "sobol",
+            "halton",
+            "random"
+          ],
+          "constraints": {
+            "type": "enum",
+            "notes": "Manifest-controlled search only covers documented string policies; array-specified initial populations remain blocked."
+          },
+          "semantic_role": "population_initialization_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported string initialization policies."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "maxiter",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -15592,23 +15913,11 @@
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
-          "name": "recombination",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
           "name": "disp",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
-          "name": "polish",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
           "name": "atol",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "updating",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -15620,13 +15929,23 @@
         "delegate_calls": [
           "_de"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/optimize_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.differential_evolution.html",
+          "notes": "Docs enumerate strategy choices, updating modes, initialization policies, and polish semantics."
         }
       ],
       "audit_method": "conservative_wrapper_review",
