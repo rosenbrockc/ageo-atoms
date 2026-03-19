@@ -49,6 +49,9 @@ Only expose parameters that:
 Create a machine-readable manifest, for example:
 - `data/hyperparams/manifest.json`
 
+Generate a query index from that manifest:
+- `data/hyperparams/manifest.sqlite`
+
 Each atom entry should record:
 - module path
 - atom name
@@ -234,9 +237,15 @@ These require extra review:
 
 Recommended files:
 - `data/hyperparams/manifest.json`
-- `scripts/audit_hyperparams.py`
+- `data/hyperparams/manifest.sqlite`
+- `scripts/build_hyperparams_manifest.py`
 - `scripts/report_hyperparams.py`
 - `tests/test_hyperparams_manifest.py`
+
+Source-of-truth rule:
+- edit `manifest.json` through reviewed audit work
+- regenerate `manifest.sqlite` from the JSON manifest
+- do not hand-edit the SQLite file
 
 Recommended script behaviors:
 - enumerate atom modules under `ageoa/`
