@@ -1,0 +1,660 @@
+{
+  "schema_version": "0.2",
+  "repo": "ageo-atoms",
+  "audit_policy": {
+    "source_order": [
+      "wrapper_code",
+      "third_party_source",
+      "official_api_docs",
+      "paper_or_method_doc",
+      "targeted_web_search"
+    ],
+    "approval_rule": "Do not approve a tunable search range unless upstream code/docs/papers justify a safe domain."
+  },
+  "status_definitions": {
+    "approved": "Safe tunables identified with bounded, source-backed domains.",
+    "fixed": "Atom should not expose tunables.",
+    "blocked": "Potential tunables exist but source-backed search bounds are not yet justified.",
+    "deprecated": "Do not prioritize for tuning support."
+  },
+  "family_summary": {
+    "signal_biosignal": {
+      "reviewed_atoms": 11,
+      "approved": 0,
+      "fixed": 4,
+      "blocked": 7,
+      "deprecated": 0
+    },
+    "scipy_signal": {
+      "reviewed_atoms": 7,
+      "approved": 0,
+      "fixed": 3,
+      "blocked": 4,
+      "deprecated": 0
+    },
+    "heartpy": {
+      "reviewed_atoms": 1,
+      "approved": 0,
+      "fixed": 0,
+      "blocked": 0,
+      "deprecated": 1
+    }
+  },
+  "reviewed_atoms": [
+    {
+      "atom": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation",
+      "path": "ageoa/biosppy/ecg_hamilton/atoms.py",
+      "family": "signal_biosignal",
+      "status": "fixed",
+      "reason": "The wrapper exposes only the signal and sampling rate. The upstream algorithm has internal constants, but they are not surfaced as atom parameters and should remain part of the primitive implementation.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "sampling_rate",
+          "reason": "Required signal metadata, not a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_hamilton/atoms.py",
+          "notes": "Wrapper exposes only signal and sampling_rate."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#hamilton_segmenter",
+          "notes": "Algorithm uses internal fixed constants rather than user-exposed behavior knobs."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.hamilton_segmenter",
+          "notes": "Official docs list only signal and sampling_rate."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_christov.christovqrsdetect",
+      "path": "ageoa/biosppy/ecg_christov/atoms.py",
+      "family": "signal_biosignal",
+      "status": "fixed",
+      "reason": "The wrapper exposes only signal and sampling rate, so tuning should happen by selecting a different detector atom rather than mutating required metadata.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "sampling_rate",
+          "reason": "Required signal metadata, not a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_christov/atoms.py",
+          "notes": "Only signal and sampling_rate are surfaced."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.christov_segmenter",
+          "notes": "Official docs list only signal and sampling_rate."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation",
+      "path": "ageoa/biosppy/ecg_engzee/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "threshold is clearly behavior-shaping and has a documented default of 0.48, but the upstream code/docs do not provide a generally recommended search range. The earlier locally inferred interval was removed under the stricter provenance rule.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "threshold",
+          "default": 0.48,
+          "reason": "Upstream default is documented, but no source-backed safe optimization interval was found."
+        },
+        {
+          "name": "sampling_rate",
+          "reason": "Required signal metadata, not a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_engzee/atoms.py",
+          "notes": "Wrapper contract constrains threshold to (0, 1), but that contract is local and not sufficient by itself for optimizer range approval."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#engzee_segmenter",
+          "notes": "Default threshold is 0.48."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.engzee_segmenter",
+          "notes": "Docs describe threshold as the detection threshold, but do not give a recommended tuning range."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_asi.thresholdbasedsignalsegmentation",
+      "path": "ageoa/biosppy/ecg_asi/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "Pth is a free parameter in the upstream detector with documented default 5.0, but the sources reviewed do not justify a robust cross-signal search interval.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "Pth",
+          "default": 5.0,
+          "reason": "Free parameter used in exponential decay; needs source-backed range guidance."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_asi/atoms.py",
+          "notes": "Wrapper exposes Pth directly."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#ASI_segmenter",
+          "notes": "Default Pth is 5.0; described as a free parameter used in exponential decay."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ASI_segmenter",
+          "notes": "Docs repeat the free-parameter description but do not give tuning heuristics or safe bounds."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_gamboa.gamboa_segmentation",
+      "path": "ageoa/biosppy/ecg_gamboa/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "tol has an upstream default of 0.002, but neither the code nor the docs provide a documented range or heuristic policy for tuning it safely.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "tol",
+          "default": 0.002,
+          "reason": "Tolerance parameter with a default, but no source-backed optimizer bounds."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_gamboa/atoms.py",
+          "notes": "Wrapper exposes tol directly."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#gamboa_segmenter",
+          "notes": "Default tol is 0.002."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.gamboa_segmenter",
+          "notes": "Docs identify tol as a tolerance parameter but provide no recommended search interval."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_zz2018.calculatecompositesqi_zz2018",
+      "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "search_window, nseg, and mode are documented with defaults, but they change the evaluation policy of a composite SQI routine and need family-level audit before tuning.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "search_window",
+          "default": 100,
+          "reason": "Documented default in ms, but no source-backed search range."
+        },
+        {
+          "name": "nseg",
+          "default": 1024,
+          "reason": "Documented default frequency resolution, but no general optimizer policy."
+        },
+        {
+          "name": "mode",
+          "default": "simple",
+          "reason": "Documented choice between simple and fuzzy; may be better modeled as algorithm choice than a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_zz2018/atoms.py",
+          "notes": "Wrapper exposes search_window, nseg, and mode."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#ZZ2018",
+          "notes": "Defaults are fs=1000, search_window=100, nseg=1024, mode='simple'."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.ZZ2018",
+          "notes": "Docs list the parameters and defaults, but no optimization guidance."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_zz2018.calculatebeatagreementsqi",
+      "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "search_window and mode are clearly behavior-shaping, but the sources reviewed do not justify a safe optimizer range or decision policy.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "search_window",
+          "default": 150,
+          "reason": "Documented in ms with an upstream default, but no safe search range."
+        },
+        {
+          "name": "mode",
+          "default": "simple",
+          "reason": "Upstream allows 'simple', 'matching', and 'n_double'; this may be an algorithm-selection choice rather than a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_zz2018/atoms.py",
+          "notes": "Wrapper exposes mode and search_window."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#bSQI",
+          "notes": "search_window is in ms; mode choices are simple, matching, n_double."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.bSQI",
+          "notes": "Docs describe mode semantics and default search_window=150."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_zz2018.calculatefrequencypowersqi",
+      "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "nseg and mode are documented, but changing the numerator/denominator bands or PSD resolution affects metric definition rather than just tuning a stable task-level hyperparameter.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "nseg",
+          "default": 1024,
+          "reason": "Documented frequency-axis resolution, but no source-backed optimization bounds."
+        },
+        {
+          "name": "num_spectrum",
+          "default": [
+            5,
+            20
+          ],
+          "reason": "Defines the numerator band of the SQI itself; should not be tuned generically without paper-level review."
+        },
+        {
+          "name": "dem_spectrum",
+          "default": null,
+          "reason": "Defines denominator band semantics and should remain fixed absent paper-level justification."
+        },
+        {
+          "name": "mode",
+          "default": "simple",
+          "reason": "The alternative 'bas' changes the scoring rule and is better treated as a family-level design choice."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_zz2018/atoms.py",
+          "notes": "Wrapper exposes nseg, num_spectrum, dem_spectrum, and mode."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#fSQI",
+          "notes": "Defaults are nseg=1024, num_spectrum=[5, 20], dem_spectrum=None, mode='simple'."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.fSQI",
+          "notes": "Docs describe the band semantics and mode choices."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.biosppy.ecg_zz2018.calculatekurtosissqi",
+      "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
+      "family": "signal_biosignal",
+      "status": "fixed",
+      "reason": "fisher selects the statistical convention of kurtosis rather than a tunable algorithmic tradeoff for deployed pipelines.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "fisher",
+          "reason": "Estimator convention selector, not a task hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/biosppy/ecg_zz2018/atoms.py",
+          "notes": "Wrapper exposes fisher only."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#kSQI",
+          "notes": "fisher toggles Fisher vs Pearson kurtosis convention."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.kSQI",
+          "notes": "Docs describe fisher as a statistical-definition choice."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.neurokit2.averageqrstemplate",
+      "path": "ageoa/neurokit2/atoms.py",
+      "family": "signal_biosignal",
+      "status": "fixed",
+      "reason": "The wrapper exposes only ecg_cleaned, rpeaks, and sampling_rate. There are no source-backed behavior knobs to tune at the atom boundary.",
+      "tunable_params": [],
+      "blocked_params": [],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/neurokit2/atoms.py",
+          "notes": "averageqrstemplate has no optional behavior controls."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/NeuroKit2/neurokit2/ecg/ecg_quality.py#_ecg_quality_averageQRS",
+          "notes": "Upstream helper accepts only ecg_cleaned, rpeaks, sampling_rate."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://neuropsychology.github.io/NeuroKit/functions/ecg.html#ecg-quality",
+          "notes": "Docs describe averageQRS as a fixed quality method, not a tunable family."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.neurokit2.zhao2018hrvanalysis",
+      "path": "ageoa/neurokit2/atoms.py",
+      "family": "signal_biosignal",
+      "status": "blocked",
+      "reason": "window and mode are documented with defaults and semantics, but no reviewed source provided optimizer search ranges. mode may also be better modeled as a family-level method choice.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "window",
+          "default": 1024,
+          "reason": "Documented default in the upstream helper, but no approved search interval."
+        },
+        {
+          "name": "mode",
+          "default": "simple",
+          "reason": "Documented choices are simple and fuzzy; this may be a method-choice axis rather than a hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/neurokit2/atoms.py",
+          "notes": "Wrapper exposes window and mode."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/NeuroKit2/neurokit2/ecg/ecg_quality.py#_ecg_quality_zhao2018",
+          "notes": "Defaults are window=1024 and mode='simple'."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://neuropsychology.github.io/NeuroKit/functions/ecg.html#ecg-quality",
+          "notes": "Docs describe approach choices simple/fuzzy and the omitted qSQI reweighting."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.heartpy.placeholder",
+      "path": "ageoa/heartpy/atoms.py",
+      "family": "heartpy",
+      "status": "deprecated",
+      "reason": "The current module contains no substantive atom wrappers, only scaffolding. There is nothing to audit for tuning until real wrappers are ingested.",
+      "tunable_params": [],
+      "blocked_params": [],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/heartpy/atoms.py",
+          "notes": "File currently contains import scaffolding and no registered atoms."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.butter",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "blocked",
+      "reason": "N and Wn are meaningful design parameters, but safe optimizer ranges depend on application-specific passbands and whether fs is normalized. No task-agnostic range was justified from the official docs.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "N",
+          "reason": "The order is documented, but no general optimizer range is recommended."
+        },
+        {
+          "name": "Wn",
+          "reason": "Domain is explicitly tied to fs and Nyquist normalization, so search bounds must be family- and dataset-aware."
+        },
+        {
+          "name": "btype",
+          "reason": "Filter type changes semantic role and should usually be treated as algorithm choice."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper exposes N, Wn, btype, output, and fs."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html",
+          "notes": "Docs define Wn relative to fs/Nyquist but do not give a generic optimization policy."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.cheby1",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "blocked",
+      "reason": "rp is a real design control, but exposing N, rp, and Wn safely requires an application-specific filter-design policy rather than a global optimizer interval.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "N",
+          "reason": "Order has no task-agnostic safe optimizer range."
+        },
+        {
+          "name": "rp",
+          "reason": "Passband ripple is meaningful but needs a family-specific design policy."
+        },
+        {
+          "name": "Wn",
+          "reason": "Frequency bounds depend on fs and task semantics."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper exposes N, rp, Wn, btype, and fs."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cheby1.html",
+          "notes": "Docs define rp and Wn, but do not provide a task-agnostic tuning range."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.cheby2",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "blocked",
+      "reason": "rs is a real design control, but safe exposure of N, rs, and Wn requires a filter-family policy rather than a globally guessed interval.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "N",
+          "reason": "Order has no task-agnostic safe optimizer range."
+        },
+        {
+          "name": "rs",
+          "reason": "Stopband attenuation is meaningful but needs family-specific bounds."
+        },
+        {
+          "name": "Wn",
+          "reason": "Critical-frequency bounds depend on fs and task semantics."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper exposes N, rs, Wn, btype, and fs."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cheby2.html",
+          "notes": "Docs define rs and Wn, but do not provide optimizer-ready ranges."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.firwin",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "blocked",
+      "reason": "numtaps, cutoff, width, and window are all meaningful, but the official docs frame them as design parameters whose valid use depends on fs, Nyquist handling, and the desired passband. No global optimizer bounds were justified.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "numtaps",
+          "reason": "Meaningful design parameter, but task-agnostic optimizer bounds were not justified."
+        },
+        {
+          "name": "cutoff",
+          "reason": "Explicitly tied to fs and filter semantics."
+        },
+        {
+          "name": "width",
+          "reason": "Transition-width tuning should be family- and task-specific."
+        },
+        {
+          "name": "window",
+          "reason": "Choice of window affects stopband-vs-transition tradeoff, but approved categorical search space should be derived from a family policy, not ad hoc examples."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper exposes numtaps, cutoff, width, window, pass_zero, scale, and fs."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.firwin.html",
+          "notes": "Docs define valid usage, defaults, and example windows, but do not provide a general optimizer policy."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.sosfilt",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "fixed",
+      "reason": "This is a filter-application primitive. Upstream tuning should target the filter-design atoms that produce sos, not the execution wrapper itself.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "axis",
+          "reason": "Data-layout/plumbing choice, not algorithmic tuning."
+        },
+        {
+          "name": "zi",
+          "reason": "State initialization, not a stable hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper is a direct application primitive around sos coefficients."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.lfilter",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "fixed",
+      "reason": "This is a generic filter-execution primitive. Tuning should occur in the atoms that generate coefficients or upstream model structure.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "axis",
+          "reason": "Data-layout/plumbing choice, not algorithmic tuning."
+        },
+        {
+          "name": "zi",
+          "reason": "State initialization, not a stable hyperparameter."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper is a direct execution primitive."
+        }
+      ]
+    },
+    {
+      "atom": "ageoa.scipy.signal.freqz",
+      "path": "ageoa/scipy/signal.py",
+      "family": "scipy_signal",
+      "status": "fixed",
+      "reason": "freqz is a diagnostic/analysis primitive. Its arguments change evaluation resolution and display semantics, not task behavior in a deployed algorithm.",
+      "tunable_params": [],
+      "blocked_params": [
+        {
+          "name": "worN",
+          "reason": "Analysis-resolution parameter, not a model hyperparameter."
+        },
+        {
+          "name": "whole",
+          "reason": "Diagnostic mode selector."
+        },
+        {
+          "name": "include_nyquist",
+          "reason": "Diagnostic mode selector."
+        }
+      ],
+      "provenance": [
+        {
+          "type": "wrapper_code",
+          "reference": "ageoa/scipy/signal.py",
+          "notes": "Wrapper computes frequency response rather than performing task behavior."
+        }
+      ]
+    }
+  ]
+}
