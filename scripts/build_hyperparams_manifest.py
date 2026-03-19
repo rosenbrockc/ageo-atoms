@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 AGEOA = ROOT / 'ageoa'
 MANIFEST_PATH = ROOT / 'data' / 'hyperparams' / 'manifest.json'
 DB_PATH = ROOT / 'data' / 'hyperparams' / 'manifest.sqlite'
+REFERENCES_REGISTRY_PATH = ROOT / 'data' / 'references' / 'registry.json'
 
 DOMAIN_MAP = {
     'advancedvi': 'probabilistic_inference',
@@ -393,6 +394,12 @@ def write_manifest(manifest: dict) -> None:
 
 
 def create_db(manifest: dict) -> None:
+    # Load reference registry for denormalized scholarly_references table
+    ref_registry: dict[str, dict] = {}
+    if REFERENCES_REGISTRY_PATH.exists():
+        reg = json.loads(REFERENCES_REGISTRY_PATH.read_text())
+        ref_registry = reg.get('references', {})
+
     if DB_PATH.exists():
         DB_PATH.unlink()
     conn = sqlite3.connect(DB_PATH)
@@ -446,12 +453,30 @@ def create_db(manifest: dict) -> None:
           key TEXT PRIMARY KEY,
           value TEXT NOT NULL
         );
+        CREATE TABLE scholarly_references (
+          atom_id TEXT NOT NULL,
+          ref_id TEXT NOT NULL,
+          ref_type TEXT NOT NULL,
+          doi TEXT,
+          url TEXT,
+          title TEXT,
+          authors_json TEXT,
+          year INTEGER,
+          venue TEXT,
+          match_type TEXT,
+          similarity_score REAL,
+          confidence TEXT,
+          FOREIGN KEY(atom_id) REFERENCES atoms(atom_id)
+        );
         CREATE INDEX idx_atoms_fqdn ON atoms(fqdn);
         CREATE INDEX idx_atoms_domain_family ON atoms(domain_family);
         CREATE INDEX idx_atoms_status ON atoms(status);
         CREATE INDEX idx_impl_ref_value ON implementation_refs(ref_value);
         CREATE INDEX idx_hyperparams_atom_name ON hyperparams(atom_id, name);
         CREATE INDEX idx_provenance_atom ON provenance(atom_id);
+        CREATE INDEX idx_scholarly_refs_atom ON scholarly_references(atom_id);
+        CREATE INDEX idx_scholarly_refs_doi ON scholarly_references(doi);
+        CREATE INDEX idx_scholarly_refs_refid ON scholarly_references(ref_id);
         '''
     )
     cur.executemany(
@@ -503,6 +528,17 @@ def create_db(manifest: dict) -> None:
                     'INSERT INTO provenance(atom_id, source_type, reference, notes) VALUES (?, ?, ?, ?)',
                     (entry['atom_id'], prov.get('type', 'unknown'), prov['reference'], prov.get('notes')),
                 )
+        for ref_id in entry.get('scholarly_references', []):
+            ref = ref_registry.get(ref_id, {})
+            match_meta = ref.get('match_metadata', {})
+            cur.execute(
+                'INSERT INTO scholarly_references(atom_id, ref_id, ref_type, doi, url, title, authors_json, year, venue, match_type, similarity_score, confidence) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                (
+                    entry['atom_id'], ref_id, ref.get('type', 'unknown'), ref.get('doi'), ref.get('url'),
+                    ref.get('title'), json.dumps(ref.get('authors', [])), ref.get('year'), ref.get('venue'),
+                    match_meta.get('match_type'), match_meta.get('similarity_score'), match_meta.get('confidence'),
+                ),
+            )
     conn.commit()
     conn.close()
 

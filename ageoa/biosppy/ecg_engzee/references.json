@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "atom_id": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation@ageoa/biosppy/ecg_engzee/atoms.py:23",
+  "references": ["engzee1979"],
+  "auto_attribution_runs": []
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "atom_id": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation@ageoa/biosppy/ecg_hamilton/atoms.py:17",
+  "references": ["hamilton1986"],
+  "auto_attribution_runs": []
+}

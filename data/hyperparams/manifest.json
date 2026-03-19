@@ -1435,7 +1435,10 @@
           }
         ]
       },
-      "atom_id": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation@ageoa/biosppy/ecg_engzee/atoms.py:23"
+      "atom_id": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation@ageoa/biosppy/ecg_engzee/atoms.py:23",
+      "scholarly_references": [
+        "engzee1979"
+      ]
     },
     {
       "atom": "ageoa.biosppy.ecg_engzee_d12.engzee_qrs_segmentation",
@@ -1652,7 +1655,10 @@
           }
         ]
       },
-      "atom_id": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation@ageoa/biosppy/ecg_hamilton/atoms.py:17"
+      "atom_id": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation@ageoa/biosppy/ecg_hamilton/atoms.py:17",
+      "scholarly_references": [
+        "hamilton1986"
+      ]
     },
     {
       "atom": "ageoa.biosppy.ecg_hamilton_d12.hamilton_segmenter",
@@ -12667,7 +12673,10 @@
         }
       ],
       "audit_method": "conservative_wrapper_review",
-      "atom_id": "ageoa.quantfin.functional_monte_carlo@ageoa/quantfin/atoms.py:19"
+      "atom_id": "ageoa.quantfin.functional_monte_carlo@ageoa/quantfin/atoms.py:19",
+      "scholarly_references": [
+        "glasserman2003"
+      ]
     },
     {
       "atom": "ageoa.quantfin.local_vol_d12.allfort",

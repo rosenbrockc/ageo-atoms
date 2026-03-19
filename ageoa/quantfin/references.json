@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "atom_id": "ageoa.quantfin.functional_monte_carlo@ageoa/quantfin/atoms.py:19",
+  "references": ["glasserman2003"],
+  "auto_attribution_runs": []
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "references": {
+    "hamilton1986": {
+      "ref_id": "hamilton1986",
+      "type": "paper",
+      "doi": "10.1109/TBME.1986.325695",
+      "title": "Quantitative Investigation of QRS Detection Rules Using the MIT/BIH Arrhythmia Database",
+      "authors": ["P. S. Hamilton", "W. J. Tompkins"],
+      "year": 1986,
+      "venue": "IEEE Transactions on Biomedical Engineering",
+      "bibtex_raw": "@article{hamilton1986,\n  author  = {Hamilton, P. S. and Tompkins, W. J.},\n  title   = {Quantitative Investigation of {QRS} Detection Rules Using the {MIT/BIH} Arrhythmia Database},\n  journal = {IEEE Transactions on Biomedical Engineering},\n  volume  = {BME-33},\n  number  = {12},\n  pages   = {1157--1165},\n  year    = {1986},\n  doi     = {10.1109/TBME.1986.325695}\n}",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Foundational paper for the Hamilton QRS detector implemented in BioSPPy."
+      }
+    },
+    "engzee1979": {
+      "ref_id": "engzee1979",
+      "type": "paper",
+      "doi": "10.1109/TBME.1979.326338",
+      "title": "A Single Scan Algorithm for QRS-Detection and Feature Extraction",
+      "authors": ["W. Engelse", "C. Zeelenberg"],
+      "year": 1979,
+      "venue": "Computers in Cardiology",
+      "bibtex_raw": "@inproceedings{engzee1979,\n  author    = {Engelse, W. and Zeelenberg, C.},\n  title     = {A Single Scan Algorithm for {QRS}-Detection and Feature Extraction},\n  booktitle = {Computers in Cardiology},\n  year      = {1979},\n  doi       = {10.1109/TBME.1979.326338}\n}",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Original Engelse-Zeelenberg QRS detection algorithm."
+      }
+    },
+    "glasserman2003": {
+      "ref_id": "glasserman2003",
+      "type": "book",
+      "doi": "10.1007/978-0-387-21617-1",
+      "url": "https://link.springer.com/book/10.1007/978-0-387-21617-1",
+      "title": "Monte Carlo Methods in Financial Engineering",
+      "authors": ["Paul Glasserman"],
+      "year": 2003,
+      "venue": "Springer",
+      "bibtex_raw": "@book{glasserman2003,\n  author    = {Glasserman, Paul},\n  title     = {Monte Carlo Methods in Financial Engineering},\n  publisher = {Springer},\n  year      = {2003},\n  doi       = {10.1007/978-0-387-21617-1}\n}",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Standard reference for Monte Carlo methods in quantitative finance."
+      }
+    }
+  }
+}
