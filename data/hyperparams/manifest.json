@@ -93,16 +93,16 @@
     },
     "scientific_python": {
       "reviewed_atoms": 80,
-      "approved": 0,
+      "approved": 18,
       "fixed": 27,
-      "blocked": 53,
+      "blocked": 35,
       "deprecated": 0
     },
     "signal_biosignal": {
       "reviewed_atoms": 66,
-      "approved": 3,
+      "approved": 6,
       "fixed": 40,
-      "blocked": 23,
+      "blocked": 20,
       "deprecated": 0
     },
     "state_estimation": {
@@ -122,7 +122,7 @@
   },
   "implementation_index": {
     "delegate_call_count": 428,
-    "upstream_reference_count": 24
+    "upstream_reference_count": 38
   },
   "reviewed_atoms": [
     {
@@ -1740,9 +1740,28 @@
       "atom": "ageoa.biosppy.ecg_zz2018.calculatefrequencypowersqi",
       "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
       "family": "signal_biosignal",
-      "status": "blocked",
-      "reason": "nseg and mode are documented, but changing the numerator/denominator bands or PSD resolution affects metric definition rather than just tuning a stable task-level hyperparameter.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The categorical frequency-SQI mode is source-backed and safe to optimize. Numeric spectrum bounds remain blocked pending paper-level range guidance.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "bas"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "frequency_ratio_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.fSQI",
+          "source_confidence": "high",
+          "reason": "BioSPPy docs and upstream source explicitly enumerate simple and bas as supported scoring modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "nseg",
@@ -1761,11 +1780,6 @@
           "name": "dem_spectrum",
           "default": null,
           "reason": "Defines denominator band semantics and should remain fixed absent paper-level justification."
-        },
-        {
-          "name": "mode",
-          "default": "simple",
-          "reason": "The alternative 'bas' changes the scoring rule and is better treated as a family-level design choice."
         }
       ],
       "provenance": [
@@ -1916,14 +1930,30 @@
       "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "This wrapper delegates to BioSPPy bSQI, whose categorical comparison mode is explicitly documented and safe to optimize. Numeric window sizing remains blocked.",
+      "tunable_params": [
         {
           "name": "mode",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "matching",
+            "n_double"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "agreement_metric_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.bSQI",
+          "source_confidence": "high",
+          "reason": "BioSPPy docs and upstream source explicitly enumerate simple, matching, and n_double as supported comparison modes."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "search_window",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -1937,13 +1967,32 @@
         "delegate_calls": [
           "biosppy.signals.ecg.bSQI"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#bSQI"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.bSQI"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#bSQI",
+          "notes": "search_window is in ms; mode choices are simple, matching, n_double."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.bSQI",
+          "notes": "Docs describe mode semantics and default search_window=150."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -1954,16 +2003,31 @@
       "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "family": "signal_biosignal",
       "module_family": "biosppy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "This wrapper delegates to BioSPPy fSQI, whose categorical mode is explicitly documented and safe to optimize. Numeric spectrum controls remain blocked.",
+      "tunable_params": [
+        {
+          "name": "mode",
+          "kind": "categorical",
+          "default": "simple",
+          "choices": [
+            "simple",
+            "bas"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "frequency_ratio_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.fSQI",
+          "source_confidence": "high",
+          "reason": "BioSPPy docs and upstream source explicitly enumerate simple and bas as supported scoring modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "nseg",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "mode",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -1975,13 +2039,32 @@
         "delegate_calls": [
           "biosppy.signals.ecg.fSQI"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "third_party_source",
+            "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#fSQI"
+          },
+          {
+            "type": "official_api_docs",
+            "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.fSQI"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "third_party_source",
+          "reference": "third_party/BioSPPy/biosppy/signals/ecg.py#fSQI",
+          "notes": "Defaults are nseg=1024, num_spectrum=[5, 20], dem_spectrum=None, mode='simple'."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://biosppy.readthedocs.io/en/stable/biosppy.signals.html#biosppy.signals.ecg.fSQI",
+          "notes": "Docs describe the band semantics and mode choices."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -8836,16 +8919,33 @@
       "path": "ageoa/numpy/fft.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy FFT API and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
+        {
+          "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fft.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported FFT normalization modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "norm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -8857,13 +8957,23 @@
         "delegate_calls": [
           "_roundtrip_close"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fft.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fft.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -8938,16 +9048,33 @@
       "path": "ageoa/numpy/fft.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy IFFT API and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
+        {
+          "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifft.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported inverse FFT normalization modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "norm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -8959,13 +9086,23 @@
         "delegate_calls": [
           "_roundtrip_close"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifft.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifft.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -8976,16 +9113,33 @@
       "path": "ageoa/numpy/fft.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy inverse real FFT API and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
+        {
+          "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.irfft.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported inverse real FFT normalization modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "norm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -8995,13 +9149,23 @@
         "wrapper_path": "ageoa/numpy/fft.py",
         "wrapper_line": 158,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.irfft.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.irfft.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9012,16 +9176,33 @@
       "path": "ageoa/numpy/fft.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy real FFT API and safe to optimize. Transform length remains blocked.",
+      "tunable_params": [
+        {
+          "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.rfft.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported real FFT normalization modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "norm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -9031,13 +9212,23 @@
         "wrapper_path": "ageoa/numpy/fft.py",
         "wrapper_line": 119,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.rfft.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.rfft.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9048,28 +9239,54 @@
       "path": "ageoa/numpy/fft_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy FFTN API and safe to optimize.",
+      "tunable_params": [
         {
           "name": "norm",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fftn.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported multidimensional FFT normalization modes."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.numpy.fft_v2.forwardmultidimensionalfft@ageoa/numpy/fft_v2/atoms.py:21",
         "wrapper_symbol": "ageoa.numpy.fft_v2.forwardmultidimensionalfft",
         "wrapper_path": "ageoa/numpy/fft_v2/atoms.py",
         "wrapper_line": 21,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fftn.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.fftn.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9080,16 +9297,33 @@
       "path": "ageoa/numpy/fft_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy HFFT API and safe to optimize. Output length remains blocked.",
+      "tunable_params": [
+        {
+          "name": "norm",
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.hfft.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported Hermitian FFT normalization modes."
+        }
+      ],
       "blocked_params": [
         {
           "name": "n",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "norm",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         }
       ],
@@ -9099,13 +9333,23 @@
         "wrapper_path": "ageoa/numpy/fft_v2/atoms.py",
         "wrapper_line": 59,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.hfft.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.hfft.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9116,28 +9360,54 @@
       "path": "ageoa/numpy/fft_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The normalization mode is explicitly enumerated in the NumPy IFFTN API and safe to optimize.",
+      "tunable_params": [
         {
           "name": "norm",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
+          "kind": "categorical",
+          "default": null,
+          "choices": [
+            null,
+            "backward",
+            "ortho",
+            "forward"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fft_normalization_mode",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifftn.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate the supported multidimensional inverse FFT normalization modes."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.numpy.fft_v2.inversemultidimensionalfft@ageoa/numpy/fft_v2/atoms.py:40",
         "wrapper_symbol": "ageoa.numpy.fft_v2.inversemultidimensionalfft",
         "wrapper_path": "ageoa/numpy/fft_v2/atoms.py",
         "wrapper_line": 40,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifftn.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/fft_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.fft.ifftn.html",
+          "notes": "Docs enumerate norm choices backward, ortho, and forward; None uses default normalization."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9598,16 +9868,31 @@
       "path": "ageoa/numpy/random_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The replacement toggle is explicitly documented in NumPy random choice and safe to optimize. Sample size and probability vector remain blocked.",
+      "tunable_params": [
+        {
+          "name": "replace",
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "sampling_replacement_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs define replace as the boolean choice between sampling with and without replacement."
+        }
+      ],
       "blocked_params": [
         {
           "name": "size",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
-        },
-        {
-          "name": "replace",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
         },
         {
@@ -9623,13 +9908,23 @@
         "delegate_calls": [
           "all"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/random_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html",
+          "notes": "Docs define replace as a boolean flag controlling sampling with or without replacement."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -9722,15 +10017,29 @@
       "path": "ageoa/numpy/search_sort_v2/atoms.py",
       "family": "scientific_python",
       "module_family": "numpy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The insertion-side selector is explicitly documented in NumPy searchsorted and safe to optimize. The optional sorter remains blocked.",
+      "tunable_params": [
         {
           "name": "side",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "left"
-        },
+          "kind": "categorical",
+          "default": "left",
+          "choices": [
+            "left",
+            "right"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "tie_break_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html",
+          "source_confidence": "high",
+          "reason": "NumPy docs explicitly enumerate left and right as the supported insertion-side policies."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "sorter",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet."
@@ -9742,13 +10051,23 @@
         "wrapper_path": "ageoa/numpy/search_sort_v2/atoms.py",
         "wrapper_line": 20,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/numpy/search_sort_v2/atoms.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://numpy.org/doc/stable/reference/generated/numpy.searchsorted.html",
+          "notes": "Docs enumerate side choices left and right."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14504,29 +14823,53 @@
       "path": "ageoa/scipy/linalg.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The transpose selector is explicitly enumerated in SciPy and safe to optimize.",
+      "tunable_params": [
         {
           "name": "trans",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": 0
+          "kind": "categorical",
+          "default": 0,
+          "choices": [
+            0,
+            1,
+            2
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "system_orientation",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_solve.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate trans values 0, 1, and 2."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.linalg.lu_solve@ageoa/scipy/linalg.py:142",
         "wrapper_symbol": "ageoa.scipy.linalg.lu_solve",
         "wrapper_path": "ageoa/scipy/linalg.py",
         "wrapper_line": 142,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_solve.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/linalg.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_solve.html",
+          "notes": "Docs define trans=0 for Ax=b, 1 for A^T x=b, and 2 for A^H x=b."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14537,19 +14880,35 @@
       "path": "ageoa/scipy/linalg.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The structural matrix assumption is explicitly enumerated in SciPy and safe to optimize. Lower-triangle selection remains a plumbing/control choice.",
+      "tunable_params": [
+        {
+          "name": "assume_a",
+          "kind": "categorical",
+          "default": "gen",
+          "choices": [
+            "gen",
+            "sym",
+            "her",
+            "pos"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "matrix_structure_assumption",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported matrix-structure assumptions for solve."
+        }
+      ],
       "blocked_params": [
         {
           "name": "lower",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
           "default": false
-        },
-        {
-          "name": "assume_a",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "gen"
         }
       ],
       "implementation_locator": {
@@ -14560,13 +14919,23 @@
         "delegate_calls": [
           "_is_square_2d"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/linalg.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html",
+          "notes": "Docs enumerate assume_a choices gen, sym, her, and pos."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -14860,9 +15229,30 @@
       "atom": "ageoa.scipy.signal.butter",
       "path": "ageoa/scipy/signal.py",
       "family": "scientific_python",
-      "status": "blocked",
-      "reason": "N and Wn are meaningful design parameters, but safe optimizer ranges depend on application-specific passbands and whether fs is normalized. No task-agnostic range was justified from the official docs.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The filter-topology selector is explicitly documented and safe to optimize. Numeric order and cutoff remain blocked.",
+      "tunable_params": [
+        {
+          "name": "btype",
+          "kind": "categorical",
+          "default": "low",
+          "choices": [
+            "low",
+            "high",
+            "band",
+            "stop"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "filter_topology",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_code",
+          "source_reference": "ageoa/scipy/signal.py",
+          "source_confidence": "high",
+          "reason": "The wrapper explicitly constrains the filter family to low, high, band, or stop variants, which preserve the coefficient output contract."
+        }
+      ],
       "blocked_params": [
         {
           "name": "N",
@@ -14871,10 +15261,6 @@
         {
           "name": "Wn",
           "reason": "Domain is explicitly tied to fs and Nyquist normalization, so search bounds must be family- and dataset-aware."
-        },
-        {
-          "name": "btype",
-          "reason": "Filter type changes semantic role and should usually be treated as algorithm choice."
         }
       ],
       "provenance": [
@@ -14913,9 +15299,30 @@
       "atom": "ageoa.scipy.signal.cheby1",
       "path": "ageoa/scipy/signal.py",
       "family": "scientific_python",
-      "status": "blocked",
-      "reason": "rp is a real design control, but exposing N, rp, and Wn safely requires an application-specific filter-design policy rather than a global optimizer interval.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The filter-topology selector is explicitly documented and safe to optimize. Numeric order, ripple, and cutoff remain blocked.",
+      "tunable_params": [
+        {
+          "name": "btype",
+          "kind": "categorical",
+          "default": "low",
+          "choices": [
+            "low",
+            "high",
+            "band",
+            "stop"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "filter_topology",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_code",
+          "source_reference": "ageoa/scipy/signal.py",
+          "source_confidence": "high",
+          "reason": "The wrapper explicitly constrains the filter family to low, high, band, or stop variants, which preserve the coefficient output contract."
+        }
+      ],
       "blocked_params": [
         {
           "name": "N",
@@ -14966,9 +15373,30 @@
       "atom": "ageoa.scipy.signal.cheby2",
       "path": "ageoa/scipy/signal.py",
       "family": "scientific_python",
-      "status": "blocked",
-      "reason": "rs is a real design control, but safe exposure of N, rs, and Wn requires a filter-family policy rather than a globally guessed interval.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The filter-topology selector is explicitly documented and safe to optimize. Numeric order, attenuation, and cutoff remain blocked.",
+      "tunable_params": [
+        {
+          "name": "btype",
+          "kind": "categorical",
+          "default": "low",
+          "choices": [
+            "low",
+            "high",
+            "band",
+            "stop"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "filter_topology",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_code",
+          "source_reference": "ageoa/scipy/signal.py",
+          "source_confidence": "high",
+          "reason": "The wrapper explicitly constrains the filter family to low, high, band, or stop variants, which preserve the coefficient output contract."
+        }
+      ],
       "blocked_params": [
         {
           "name": "N",
@@ -15019,9 +15447,32 @@
       "atom": "ageoa.scipy.signal.firwin",
       "path": "ageoa/scipy/signal.py",
       "family": "scientific_python",
-      "status": "blocked",
-      "reason": "numtaps, cutoff, width, and window are all meaningful, but the official docs frame them as design parameters whose valid use depends on fs, Nyquist handling, and the desired passband. No global optimizer bounds were justified.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The pass-zero selector is explicitly documented and safe to optimize. Numeric tap, cutoff, and window controls remain blocked pending family-specific range policies.",
+      "tunable_params": [
+        {
+          "name": "pass_zero",
+          "kind": "categorical",
+          "default": true,
+          "choices": [
+            true,
+            false,
+            "bandpass",
+            "lowpass",
+            "highpass",
+            "bandstop"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "fir_passband_topology",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.firwin.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported pass_zero values and their filter-type semantics."
+        }
+      ],
       "blocked_params": [
         {
           "name": "numtaps",
@@ -15516,24 +15967,52 @@
       "path": "ageoa/scipy/stats.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
+      "status": "approved",
+      "reason": "The NaN-handling policy and bias correction flag are explicitly documented and safe to optimize. Numeric ddof remains blocked.",
+      "tunable_params": [
+        {
+          "name": "nan_policy",
+          "kind": "categorical",
+          "default": "propagate",
+          "choices": [
+            "propagate",
+            "raise",
+            "omit"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "nan_handling_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.describe.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported nan_policy modes."
+        },
+        {
+          "name": "bias",
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "bias_correction_toggle",
+          "safe_to_optimize": true,
+          "range_source": "wrapper_code",
+          "source_reference": "ageoa/scipy/stats.py",
+          "source_confidence": "medium",
+          "reason": "The wrapper and SciPy docs define bias as a boolean switch for applying or skipping bias correction."
+        }
+      ],
       "blocked_params": [
         {
           "name": "ddof",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
           "default": 1
-        },
-        {
-          "name": "bias",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": true
-        },
-        {
-          "name": "nan_policy",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "propagate"
         }
       ],
       "implementation_locator": {
@@ -15542,13 +16021,23 @@
         "wrapper_path": "ageoa/scipy/stats.py",
         "wrapper_line": 23,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.describe.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/stats.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.describe.html",
+          "notes": "Docs enumerate nan_policy choices propagate, raise, and omit, and document bias as a boolean correction toggle."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15624,34 +16113,72 @@
       "path": "ageoa/scipy/stats.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The NaN-handling policy and alternative-hypothesis selector are explicitly documented and safe to optimize.",
+      "tunable_params": [
         {
           "name": "nan_policy",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "propagate"
+          "kind": "categorical",
+          "default": "propagate",
+          "choices": [
+            "propagate",
+            "raise",
+            "omit"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "nan_handling_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported nan_policy modes."
         },
         {
           "name": "alternative",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "two-sided"
+          "kind": "categorical",
+          "default": "two-sided",
+          "choices": [
+            "two-sided",
+            "less",
+            "greater"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "alternative_hypothesis",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported alternative hypotheses."
         }
       ],
+      "blocked_params": [],
       "implementation_locator": {
         "manifest_key": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
         "wrapper_symbol": "ageoa.scipy.stats.spearmanr",
         "wrapper_path": "ageoa/scipy/stats.py",
         "wrapper_line": 117,
         "delegate_calls": [],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/stats.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html",
+          "notes": "Docs enumerate nan_policy choices propagate, raise, omit and alternative choices two-sided, less, greater."
         }
       ],
       "audit_method": "conservative_wrapper_review",
@@ -15662,25 +16189,67 @@
       "path": "ageoa/scipy/stats.py",
       "family": "scientific_python",
       "module_family": "scipy",
-      "status": "blocked",
-      "reason": "Conservative repository-wide pass found behavior-shaping or scalar control parameters, but no source-backed search bounds have been approved yet.",
-      "tunable_params": [],
-      "blocked_params": [
+      "status": "approved",
+      "reason": "The variance assumption, NaN-handling policy, and alternative-hypothesis selector are explicitly documented and safe to optimize. Numeric trimming remains blocked.",
+      "tunable_params": [
         {
           "name": "equal_var",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": true
+          "kind": "bool",
+          "default": true,
+          "choices": [
+            true,
+            false
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "variance_assumption_toggle",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs define equal_var as the switch between the standard test and Welch\u2019s t-test."
         },
         {
           "name": "nan_policy",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "propagate"
+          "kind": "categorical",
+          "default": "propagate",
+          "choices": [
+            "propagate",
+            "raise",
+            "omit"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "nan_handling_policy",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported nan_policy modes."
         },
         {
           "name": "alternative",
-          "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
-          "default": "two-sided"
-        },
+          "kind": "categorical",
+          "default": "two-sided",
+          "choices": [
+            "two-sided",
+            "less",
+            "greater"
+          ],
+          "constraints": {
+            "type": "enum"
+          },
+          "semantic_role": "alternative_hypothesis",
+          "safe_to_optimize": true,
+          "range_source": "official_api_docs",
+          "source_reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html",
+          "source_confidence": "high",
+          "reason": "SciPy docs explicitly enumerate the supported alternative hypotheses."
+        }
+      ],
+      "blocked_params": [
         {
           "name": "trim",
           "reason": "Behavior-shaping or scalar control parameter found during conservative wrapper audit; no source-backed search range is approved yet.",
@@ -15695,13 +16264,23 @@
         "delegate_calls": [
           "hasattr"
         ],
-        "upstream_references": []
+        "upstream_references": [
+          {
+            "type": "official_api_docs",
+            "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"
+          }
+        ]
       },
       "provenance": [
         {
           "type": "wrapper_code",
           "reference": "ageoa/scipy/stats.py",
           "notes": "Conservative wrapper audit only. This atom still needs upstream source/doc review before Principal can tune it."
+        },
+        {
+          "type": "official_api_docs",
+          "reference": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html",
+          "notes": "Docs define equal_var as Welch toggle, enumerate nan_policy choices, and enumerate alternative choices two-sided, less, greater."
         }
       ],
       "audit_method": "conservative_wrapper_review",
