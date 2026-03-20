@@ -14,6 +14,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import sys
@@ -24,6 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 AGEOA = ROOT / 'ageoa'
 REGISTRY_PATH = ROOT / 'data' / 'references' / 'registry.json'
+MANIFEST_PATH = ROOT / 'data' / 'hyperparams' / 'manifest.json'
 
 # Known algorithm name patterns mapped to ref_ids.
 # This table grows as references are added to the registry.
@@ -39,6 +41,48 @@ def load_registry() -> dict:
     return json.loads(REGISTRY_PATH.read_text())
 
 
+def is_registered(node: ast.FunctionDef) -> bool:
+    for dec in node.decorator_list:
+        target = dec.func if isinstance(dec, ast.Call) else dec
+        if isinstance(target, ast.Name) and target.id == 'register_atom':
+            return True
+        if isinstance(target, ast.Attribute) and target.attr == 'register_atom':
+            return True
+    return False
+
+
+def discover_atom_id(atom_dir: Path) -> str:
+    atoms_path = atom_dir / 'atoms.py'
+    rel_atoms_path = str(atoms_path.relative_to(ROOT))
+
+    if MANIFEST_PATH.exists():
+        manifest = json.loads(MANIFEST_PATH.read_text())
+        matches = [
+            entry.get('atom_id', '')
+            for entry in manifest.get('reviewed_atoms', [])
+            if entry.get('path') == rel_atoms_path and entry.get('atom_id')
+        ]
+        if len(matches) == 1:
+            return matches[0]
+
+    if not atoms_path.exists():
+        return ''
+
+    tree = ast.parse(atoms_path.read_text())
+    rel = atoms_path.relative_to(ROOT).with_suffix('')
+    parts = list(rel.parts)
+    if parts and parts[-1] == 'atoms':
+        parts = parts[:-1]
+    registered = [
+        f'{".".join(parts)}.{node.name}@{atoms_path.relative_to(ROOT)}:{node.lineno}'
+        for node in tree.body
+        if isinstance(node, ast.FunctionDef) and is_registered(node)
+    ]
+    if len(registered) == 1:
+        return registered[0]
+    return ''
+
+
 def load_cdg(atom_dir: Path) -> dict | None:
     cdg_path = atom_dir / 'cdg.json'
     if not cdg_path.exists():
@@ -49,13 +93,19 @@ def load_cdg(atom_dir: Path) -> dict | None:
 def load_atom_refs(atom_dir: Path) -> dict:
     refs_path = atom_dir / 'references.json'
     if refs_path.exists():
-        return json.loads(refs_path.read_text())
-    return {
-        'schema_version': '1.0',
-        'atom_id': '',
-        'references': [],
-        'auto_attribution_runs': [],
-    }
+        data = json.loads(refs_path.read_text())
+    else:
+        data = {
+            'schema_version': '1.0',
+            'atom_id': '',
+            'references': [],
+            'auto_attribution_runs': [],
+        }
+    if not data.get('atom_id'):
+        data['atom_id'] = discover_atom_id(atom_dir)
+    data.setdefault('references', [])
+    data.setdefault('auto_attribution_runs', [])
+    return data
 
 
 def save_atom_refs(atom_dir: Path, data: dict) -> None:
@@ -63,9 +113,60 @@ def save_atom_refs(atom_dir: Path, data: dict) -> None:
     refs_path.write_text(json.dumps(data, indent=2) + '\n')
 
 
+def entry_ref_id(entry: str | dict) -> str:
+    if isinstance(entry, str):
+        return entry
+    return entry.get('ref_id', '')
+
+
+def score_confidence(score: float) -> str:
+    if score >= 0.8:
+        return 'high'
+    if score >= 0.6:
+        return 'medium'
+    return 'low'
+
+
+def upsert_match_entry(entries: list, match: dict) -> None:
+    ref_id = match['ref_id']
+    match_metadata = {
+        'similarity_score': match['similarity_score'],
+        'match_type': 'name_heuristic',
+        'matched_nodes': match['matched_nodes'],
+        'confidence': score_confidence(match['similarity_score']),
+        'notes': 'Auto-detected from CDG node names/descriptions.',
+    }
+    ref_entry = {'ref_id': ref_id, 'match_metadata': match_metadata}
+
+    for idx, entry in enumerate(entries):
+        if entry_ref_id(entry) != ref_id:
+            continue
+        if isinstance(entry, dict):
+            existing_meta = entry.get('match_metadata', {})
+            if existing_meta.get('match_type') == 'manual':
+                return
+            merged_nodes = list(dict.fromkeys(existing_meta.get('matched_nodes', []) + match['matched_nodes']))
+            similarity = max(existing_meta.get('similarity_score') or 0.0, match['similarity_score'])
+            entries[idx] = {
+                'ref_id': ref_id,
+                'match_metadata': {
+                    'similarity_score': similarity,
+                    'match_type': 'name_heuristic',
+                    'matched_nodes': merged_nodes,
+                    'confidence': score_confidence(similarity),
+                    'notes': existing_meta.get('notes') or match_metadata['notes'],
+                },
+            }
+        else:
+            entries[idx] = ref_entry
+        return
+
+    entries.append(ref_entry)
+
+
 def name_heuristic_match(cdg: dict, registry: dict, threshold: float) -> list[dict]:
     """Match CDG node names against known algorithm name patterns."""
-    matches = []
+    best: dict[str, dict] = {}
     known_ref_ids = set(registry.get('references', {}).keys())
 
     for node in cdg.get('nodes', []):
@@ -78,19 +179,22 @@ def name_heuristic_match(cdg: dict, registry: dict, threshold: float) -> list[di
                 continue
             if re.search(pattern, text):
                 if base_score >= threshold:
-                    matches.append({
-                        'ref_id': ref_id,
-                        'node_id': node.get('node_id', ''),
-                        'similarity_score': base_score,
-                        'match_type': 'name_heuristic',
-                    })
-
-    # Deduplicate by ref_id, keeping highest score
-    best: dict[str, dict] = {}
-    for m in matches:
-        rid = m['ref_id']
-        if rid not in best or m['similarity_score'] > best[rid]['similarity_score']:
-            best[rid] = m
+                    node_id = node.get('node_id', '')
+                    match = best.get(ref_id)
+                    if match is None:
+                        best[ref_id] = {
+                            'ref_id': ref_id,
+                            'node_id': node_id,
+                            'matched_nodes': [node_id] if node_id else [],
+                            'similarity_score': base_score,
+                            'match_type': 'name_heuristic',
+                        }
+                        continue
+                    if node_id and node_id not in match['matched_nodes']:
+                        match['matched_nodes'].append(node_id)
+                    if base_score > match['similarity_score']:
+                        match['similarity_score'] = base_score
+                        match['node_id'] = node_id
     return list(best.values())
 
 
@@ -109,8 +213,7 @@ def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool
         atom_refs = load_atom_refs(atom_dir)
 
         for match in matches:
-            if match['ref_id'] not in atom_refs['references']:
-                atom_refs['references'].append(match['ref_id'])
+            upsert_match_entry(atom_refs['references'], match)
 
         atom_refs['auto_attribution_runs'].append({
             'run_id': uuid.uuid4().hex[:12],
@@ -119,6 +222,15 @@ def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool
             'candidates_evaluated': len(registry.get('references', {})),
             'threshold': threshold,
             'matches_above_threshold': len(matches),
+            'matches': [
+                {
+                    'ref_id': match['ref_id'],
+                    'matched_nodes': match['matched_nodes'],
+                    'similarity_score': match['similarity_score'],
+                    'match_type': match['match_type'],
+                }
+                for match in matches
+            ],
         })
 
         save_atom_refs(atom_dir, atom_refs)

@@ -25,6 +25,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import sys
@@ -34,6 +35,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY_PATH = ROOT / 'data' / 'references' / 'registry.json'
+MANIFEST_PATH = ROOT / 'data' / 'hyperparams' / 'manifest.json'
 
 
 def load_registry() -> dict:
@@ -45,6 +47,48 @@ def load_registry() -> dict:
 def save_registry(registry: dict) -> None:
     REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
     REGISTRY_PATH.write_text(json.dumps(registry, indent=2) + '\n')
+
+
+def is_registered(node: ast.FunctionDef) -> bool:
+    for dec in node.decorator_list:
+        target = dec.func if isinstance(dec, ast.Call) else dec
+        if isinstance(target, ast.Name) and target.id == 'register_atom':
+            return True
+        if isinstance(target, ast.Attribute) and target.attr == 'register_atom':
+            return True
+    return False
+
+
+def discover_atom_id(atom_dir: Path) -> str:
+    atoms_path = atom_dir / 'atoms.py'
+    rel_atoms_path = str(atoms_path.relative_to(ROOT))
+
+    if MANIFEST_PATH.exists():
+        manifest = json.loads(MANIFEST_PATH.read_text())
+        matches = [
+            entry.get('atom_id', '')
+            for entry in manifest.get('reviewed_atoms', [])
+            if entry.get('path') == rel_atoms_path and entry.get('atom_id')
+        ]
+        if len(matches) == 1:
+            return matches[0]
+
+    if not atoms_path.exists():
+        return ''
+
+    tree = ast.parse(atoms_path.read_text())
+    rel = atoms_path.relative_to(ROOT).with_suffix('')
+    parts = list(rel.parts)
+    if parts and parts[-1] == 'atoms':
+        parts = parts[:-1]
+    registered = [
+        f'{".".join(parts)}.{node.name}@{atoms_path.relative_to(ROOT)}:{node.lineno}'
+        for node in tree.body
+        if isinstance(node, ast.FunctionDef) and is_registered(node)
+    ]
+    if len(registered) == 1:
+        return registered[0]
+    return ''
 
 
 def resolve_doi(doi: str) -> dict | None:
@@ -111,13 +155,52 @@ def ensure_unique_ref_id(ref_id: str, registry: dict) -> str:
 def load_atom_refs(atom_dir: Path) -> dict:
     refs_path = atom_dir / 'references.json'
     if refs_path.exists():
-        return json.loads(refs_path.read_text())
-    return {
-        'schema_version': '1.0',
-        'atom_id': '',
-        'references': [],
-        'auto_attribution_runs': [],
-    }
+        data = json.loads(refs_path.read_text())
+    else:
+        data = {
+            'schema_version': '1.0',
+            'atom_id': '',
+            'references': [],
+            'auto_attribution_runs': [],
+        }
+    if not data.get('atom_id'):
+        data['atom_id'] = discover_atom_id(atom_dir)
+    data.setdefault('references', [])
+    data.setdefault('auto_attribution_runs', [])
+    return data
+
+
+def entry_ref_id(entry: str | dict) -> str:
+    if isinstance(entry, str):
+        return entry
+    return entry.get('ref_id', '')
+
+
+def upsert_atom_reference(entries: list, ref_entry: dict) -> None:
+    ref_id = ref_entry['ref_id']
+    for idx, entry in enumerate(entries):
+        if entry_ref_id(entry) != ref_id:
+            continue
+        if isinstance(entry, dict):
+            merged = dict(entry)
+            merged['ref_id'] = ref_id
+            merged['match_metadata'] = ref_entry.get('match_metadata', merged.get('match_metadata', {}))
+            entries[idx] = merged
+        else:
+            entries[idx] = ref_entry
+        return
+    entries.append(ref_entry)
+
+
+def find_existing_ref_id(registry: dict, ref_id: str | None, doi: str | None) -> str | None:
+    references = registry.get('references', {})
+    if ref_id and ref_id in references:
+        return ref_id
+    if doi:
+        for existing_ref_id, ref in references.items():
+            if ref.get('doi') == doi:
+                return existing_ref_id
+    return None
 
 
 def save_atom_refs(atom_dir: Path, data: dict) -> None:
@@ -162,10 +245,11 @@ def main() -> None:
     year = args.year or crossref.get('year')
     venue = args.venue or crossref.get('venue', '')
 
-    ref_id = args.ref_id or make_ref_id(authors, year)
-
     registry = load_registry()
-    ref_id = ensure_unique_ref_id(ref_id, registry)
+    ref_id = find_existing_ref_id(registry, args.ref_id, args.doi)
+    if ref_id is None:
+        ref_id = args.ref_id or make_ref_id(authors, year)
+        ref_id = ensure_unique_ref_id(ref_id, registry)
 
     reference = {
         'ref_id': ref_id,
@@ -204,8 +288,10 @@ def main() -> None:
 
     # Update per-atom references.json
     atom_refs = load_atom_refs(atom_dir)
-    if ref_id not in atom_refs['references']:
-        atom_refs['references'].append(ref_id)
+    upsert_atom_reference(atom_refs['references'], {
+        'ref_id': ref_id,
+        'match_metadata': reference['match_metadata'],
+    })
     save_atom_refs(atom_dir, atom_refs)
     print(f'Atom: updated {atom_dir / "references.json"}')
 

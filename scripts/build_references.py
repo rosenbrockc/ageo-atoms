@@ -25,6 +25,24 @@ def load_registry() -> dict:
     return json.loads(REGISTRY_PATH.read_text())
 
 
+def ref_entry_id(entry: str | dict) -> str:
+    if isinstance(entry, str):
+        return entry
+    return entry.get('ref_id', '')
+
+
+def normalize_ref_ids(atom_data: dict) -> list[str]:
+    seen: set[str] = set()
+    ref_ids: list[str] = []
+    for entry in atom_data.get('references', []):
+        ref_id = ref_entry_id(entry)
+        if not ref_id or ref_id in seen:
+            continue
+        seen.add(ref_id)
+        ref_ids.append(ref_id)
+    return ref_ids
+
+
 def collect_atom_refs(atom_filter: str | None = None) -> list[dict]:
     """Walk ageoa/**/references.json and return parsed contents."""
     results = []
@@ -52,14 +70,18 @@ def validate(registry: dict, atom_refs_list: list[dict]) -> list[str]:
     # Every per-atom ref_id must exist in registry
     for atom_data in atom_refs_list:
         src = atom_data.get('_path', '?')
-        for ref_id in atom_data.get('references', []):
+        for entry in atom_data.get('references', []):
+            ref_id = ref_entry_id(entry)
+            if not ref_id:
+                errors.append(f'{src}: reference entry missing ref_id')
+                continue
             if ref_id not in known_ids:
                 errors.append(f'{src}: ref_id "{ref_id}" not found in registry')
 
     return errors
 
 
-def sync_hyperparams_manifest(registry: dict, atom_refs_list: list[dict]) -> int:
+def sync_hyperparams_manifest(registry: dict, atom_refs_list: list[dict], atom_filter: str | None = None) -> int:
     """Add scholarly_references arrays to manifest.json entries. Returns count of atoms updated."""
     manifest = json.loads(MANIFEST_PATH.read_text())
 
@@ -68,17 +90,20 @@ def sync_hyperparams_manifest(registry: dict, atom_refs_list: list[dict]) -> int
     for atom_data in atom_refs_list:
         atom_id = atom_data.get('atom_id', '')
         if atom_id:
-            ref_map[atom_id] = atom_data.get('references', [])
+            ref_map[atom_id] = normalize_ref_ids(atom_data)
 
     updated = 0
+    scoped_run = atom_filter is not None
     for entry in manifest.get('reviewed_atoms', []):
         aid = entry.get('atom_id', '')
         if aid in ref_map:
             entry['scholarly_references'] = ref_map[aid]
             updated += 1
+        elif not scoped_run:
+            entry['scholarly_references'] = []
 
     # Bump schema version
-    if manifest.get('schema_version') == '0.3':
+    if manifest.get('schema_version') in {'0.3', '0.4'}:
         manifest['schema_version'] = '0.4'
 
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + '\n')
@@ -149,7 +174,7 @@ def main() -> None:
         return
 
     # Sync to hyperparams manifest
-    updated = sync_hyperparams_manifest(registry, atom_refs_list)
+    updated = sync_hyperparams_manifest(registry, atom_refs_list, args.atom)
     print(f'Manifest: updated {updated} atom entries with scholarly_references')
 
     # Generate BibTeX

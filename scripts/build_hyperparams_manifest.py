@@ -250,6 +250,7 @@ def attach_impl_locator(entry: dict, atom_meta: dict) -> dict:
     updated['path'] = atom_meta['path']
     updated['module_family'] = atom_meta['module_family']
     updated['family'] = updated.get('family', atom_meta['family'])
+    updated['scholarly_references'] = list(updated.get('scholarly_references', []))
     provenance = updated.get('provenance', [])
     upstream_refs = [
         {'type': item.get('type'), 'reference': item.get('reference')}
@@ -318,6 +319,7 @@ def generate_entry(atom_meta: dict) -> dict:
         'path': atom_meta['path'],
         'family': atom_meta['family'],
         'module_family': atom_meta['module_family'],
+        'scholarly_references': [],
         'status': status,
         'reason': reason,
         'tunable_params': [],
@@ -370,7 +372,7 @@ def build_manifest(existing: dict, atoms: list[dict]) -> dict:
                 upstream_lookup[value].append(entry['atom_id'])
 
     return {
-        'schema_version': '0.3',
+        'schema_version': '0.4',
         'repo': 'ageo-atoms',
         'canonical_source': 'data/hyperparams/manifest.json',
         'runtime_index': 'data/hyperparams/manifest.sqlite',
