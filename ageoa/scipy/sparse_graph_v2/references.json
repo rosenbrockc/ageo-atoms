@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.scipy.sparse_graph_v2.allpairsshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:45": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph_v2.minimumspanningtree@ageoa/scipy/sparse_graph_v2/atoms.py:65": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

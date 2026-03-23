@@ -1,0 +1,455 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.scipy.fft.dct@ageoa/scipy/fft.py:39": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.fft.idct@ageoa/scipy/fft.py:85": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.integrate.quad@ageoa/scipy/integrate.py:19": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.linalg.det@ageoa/scipy/linalg.py:93": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.linalg.inv@ageoa/scipy/linalg.py:69": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.linalg.lu_factor@ageoa/scipy/linalg.py:114": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.linalg.lu_solve@ageoa/scipy/linalg.py:142": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.optimize.linprog@ageoa/scipy/optimize.py:118": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.optimize.minimize@ageoa/scipy/optimize.py:21": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.optimize.root@ageoa/scipy/optimize.py:75": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.butter@ageoa/scipy/signal.py:57": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.cheby1@ageoa/scipy/signal.py:98": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.cheby2@ageoa/scipy/signal.py:139": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.firwin@ageoa/scipy/signal.py:177": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.freqz@ageoa/scipy/signal.py:298": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.lfilter@ageoa/scipy/signal.py:254": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.signal.sosfilt@ageoa/scipy/signal.py:220": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph.graph_fourier_transform@ageoa/scipy/sparse_graph.py:100": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph.graph_laplacian@ageoa/scipy/sparse_graph.py:63": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph.heat_kernel_diffusion@ageoa/scipy/sparse_graph.py:167": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.sparse_graph.inverse_graph_fourier_transform@ageoa/scipy/sparse_graph.py:138": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

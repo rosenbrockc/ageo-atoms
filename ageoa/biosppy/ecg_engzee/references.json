@@ -1,6 +1,30 @@
 {
-  "schema_version": "1.0",
-  "atom_id": "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation@ageoa/biosppy/ecg_engzee/atoms.py:23",
-  "references": ["engzee1979"],
-  "auto_attribution_runs": []
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.biosppy.ecg_engzee.engzee_signal_segmentation@ageoa/biosppy/ecg_engzee/atoms.py:23": {
+      "references": [
+        {
+          "ref_id": "engzee1979",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Engelse-Zeelenberg detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
 }

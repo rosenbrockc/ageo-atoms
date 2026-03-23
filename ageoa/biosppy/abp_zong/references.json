@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.biosppy.abp_zong.audio_onset_detection@ageoa/biosppy/abp_zong/atoms.py:23": {
+      "references": [
+        {
+          "ref_id": "zong2003abp",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact ABP onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

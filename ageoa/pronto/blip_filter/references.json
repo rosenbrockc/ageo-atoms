@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.pronto.blip_filter.bandpass_filter@ageoa/pronto/blip_filter/atoms.py:21": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.blip_filter.heart_rate_computation@ageoa/pronto/blip_filter/atoms.py:119": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.blip_filter.peak_correction@ageoa/pronto/blip_filter/atoms.py:62": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.blip_filter.r_peak_detection@ageoa/pronto/blip_filter/atoms.py:40": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.blip_filter.template_extraction@ageoa/pronto/blip_filter/atoms.py:86": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

@@ -31,7 +31,7 @@ MANIFEST_PATH = ROOT / 'data' / 'hyperparams' / 'manifest.json'
 # This table grows as references are added to the registry.
 # Keys are lowercased regex patterns; values are (ref_id, base_score) tuples.
 NAME_PATTERNS: dict[str, tuple[str, float]] = {
-    r'hamilton': ('hamilton1986', 0.8),
+    r'hamilton(?!ian)': ('hamilton1986', 0.8),
     r'engzee|engelse.*zeelenberg': ('engzee1979', 0.8),
     r'monte.?carlo': ('glasserman2003', 0.6),
 }
@@ -51,36 +51,32 @@ def is_registered(node: ast.FunctionDef) -> bool:
     return False
 
 
-def discover_atom_id(atom_dir: Path) -> str:
-    atoms_path = atom_dir / 'atoms.py'
-    rel_atoms_path = str(atoms_path.relative_to(ROOT))
-
+def discover_atom_ids(atom_dir: Path) -> list[str]:
     if MANIFEST_PATH.exists():
         manifest = json.loads(MANIFEST_PATH.read_text())
+        rel_dir = atom_dir.relative_to(ROOT)
         matches = [
             entry.get('atom_id', '')
             for entry in manifest.get('reviewed_atoms', [])
-            if entry.get('path') == rel_atoms_path and entry.get('atom_id')
+            if Path(entry.get('path', '')).parent == rel_dir and entry.get('atom_id')
         ]
-        if len(matches) == 1:
-            return matches[0]
+        matches = sorted(dict.fromkeys(matches))
+        if matches:
+            return matches
 
-    if not atoms_path.exists():
-        return ''
-
-    tree = ast.parse(atoms_path.read_text())
-    rel = atoms_path.relative_to(ROOT).with_suffix('')
-    parts = list(rel.parts)
-    if parts and parts[-1] == 'atoms':
-        parts = parts[:-1]
-    registered = [
-        f'{".".join(parts)}.{node.name}@{atoms_path.relative_to(ROOT)}:{node.lineno}'
-        for node in tree.body
-        if isinstance(node, ast.FunctionDef) and is_registered(node)
-    ]
-    if len(registered) == 1:
-        return registered[0]
-    return ''
+    registered: list[str] = []
+    for py_path in sorted(atom_dir.glob('*.py')):
+        tree = ast.parse(py_path.read_text())
+        rel = py_path.relative_to(ROOT).with_suffix('')
+        parts = list(rel.parts)
+        if parts and parts[-1] == 'atoms':
+            parts = parts[:-1]
+        registered.extend(
+            f'{".".join(parts)}.{node.name}@{py_path.relative_to(ROOT)}:{node.lineno}'
+            for node in tree.body
+            if isinstance(node, ast.FunctionDef) and is_registered(node)
+        )
+    return sorted(dict.fromkeys(registered))
 
 
 def load_cdg(atom_dir: Path) -> dict | None:
@@ -90,22 +86,57 @@ def load_cdg(atom_dir: Path) -> dict | None:
     return json.loads(cdg_path.read_text())
 
 
-def load_atom_refs(atom_dir: Path) -> dict:
+def load_atom_refs_document(atom_dir: Path) -> dict:
     refs_path = atom_dir / 'references.json'
     if refs_path.exists():
-        data = json.loads(refs_path.read_text())
-    else:
-        data = {
-            'schema_version': '1.0',
-            'atom_id': '',
-            'references': [],
-            'auto_attribution_runs': [],
-        }
-    if not data.get('atom_id'):
-        data['atom_id'] = discover_atom_id(atom_dir)
-    data.setdefault('references', [])
-    data.setdefault('auto_attribution_runs', [])
-    return data
+        return json.loads(refs_path.read_text())
+    return {'schema_version': '1.1', 'atoms': {}}
+
+
+def resolve_target_atom_id(atom_dir: Path, requested_atom_id: str | None, data: dict) -> str:
+    discovered = discover_atom_ids(atom_dir)
+    if requested_atom_id:
+        if discovered and requested_atom_id not in discovered:
+            raise ValueError(f'{requested_atom_id} is not registered under {atom_dir.relative_to(ROOT)}')
+        return requested_atom_id
+
+    atoms = data.get('atoms')
+    if isinstance(atoms, dict) and len(atoms) == 1:
+        return next(iter(atoms))
+
+    legacy_atom_id = data.get('atom_id')
+    if legacy_atom_id:
+        return legacy_atom_id
+
+    if len(discovered) == 1:
+        return discovered[0]
+
+    rel = atom_dir.relative_to(ROOT)
+    raise ValueError(f'{rel} contains multiple atoms; pass --atom-id to disambiguate')
+
+
+def load_atom_refs(atom_dir: Path, requested_atom_id: str | None) -> tuple[dict, str, dict]:
+    data = load_atom_refs_document(atom_dir)
+    atom_id = resolve_target_atom_id(atom_dir, requested_atom_id, data)
+
+    atoms = data.get('atoms')
+    if isinstance(atoms, dict):
+        payload = atoms.setdefault(atom_id, {})
+        payload.setdefault('references', [])
+        payload.setdefault('auto_attribution_runs', [])
+        data['schema_version'] = '1.1'
+        return data, atom_id, payload
+
+    upgraded = {
+        'schema_version': '1.1',
+        'atoms': {
+            atom_id: {
+                'references': data.get('references', []),
+                'auto_attribution_runs': data.get('auto_attribution_runs', []),
+            }
+        },
+    }
+    return upgraded, atom_id, upgraded['atoms'][atom_id]
 
 
 def save_atom_refs(atom_dir: Path, data: dict) -> None:
@@ -198,7 +229,7 @@ def name_heuristic_match(cdg: dict, registry: dict, threshold: float) -> list[di
     return list(best.values())
 
 
-def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool) -> list[dict]:
+def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool, atom_id: str | None = None) -> list[dict]:
     """Run attribution detection for a single atom. Returns matches found."""
     cdg = load_cdg(atom_dir)
     if cdg is None:
@@ -210,7 +241,7 @@ def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool
         return matches
 
     if matches:
-        atom_refs = load_atom_refs(atom_dir)
+        atom_doc, resolved_atom_id, atom_refs = load_atom_refs(atom_dir, atom_id)
 
         for match in matches:
             upsert_match_entry(atom_refs['references'], match)
@@ -233,7 +264,7 @@ def process_atom(atom_dir: Path, registry: dict, threshold: float, dry_run: bool
             ],
         })
 
-        save_atom_refs(atom_dir, atom_refs)
+        save_atom_refs(atom_dir, atom_doc)
 
     return matches
 
@@ -243,6 +274,7 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--atom', help='Single atom directory (relative to repo root)')
     group.add_argument('--all', action='store_true', help='Process all atoms with cdg.json')
+    parser.add_argument('--atom-id', help='Exact manifest atom_id when the target directory contains multiple atoms')
     parser.add_argument('--threshold', type=float, default=0.7, help='Minimum similarity score (default: 0.7)')
     parser.add_argument('--dry-run', action='store_true', help='Print matches without saving')
     args = parser.parse_args()
@@ -254,7 +286,7 @@ def main() -> None:
         if not atom_dir.is_dir():
             print(f'Error: {atom_dir} is not a directory', file=sys.stderr)
             sys.exit(1)
-        matches = process_atom(atom_dir, registry, args.threshold, args.dry_run)
+        matches = process_atom(atom_dir, registry, args.threshold, args.dry_run, args.atom_id)
         if matches:
             print(f'{args.atom}: {len(matches)} match(es)')
             for m in matches:
@@ -268,7 +300,12 @@ def main() -> None:
             if '__pycache__' in cdg_path.parts:
                 continue
             atom_dir = cdg_path.parent
-            matches = process_atom(atom_dir, registry, args.threshold, args.dry_run)
+            try:
+                matches = process_atom(atom_dir, registry, args.threshold, args.dry_run)
+            except ValueError as exc:
+                rel = atom_dir.relative_to(ROOT)
+                print(f'{rel}: skipped ({exc})')
+                continue
             total_atoms += 1
             if matches:
                 total_matches += len(matches)

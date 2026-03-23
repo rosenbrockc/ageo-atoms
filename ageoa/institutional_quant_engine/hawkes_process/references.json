@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.institutional_quant_engine.hawkes_process.sample_hawkes_event_trajectory@ageoa/institutional_quant_engine/hawkes_process/atoms.py:19": {
+      "references": [
+        {
+          "ref_id": "hawkes1971",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Hawkes process attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

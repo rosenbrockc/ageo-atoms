@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.algorithms.graph.bellman_ford@ageoa/algorithms/graph.py:174": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.graph.bfs@ageoa/algorithms/graph.py:77": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.graph.dfs@ageoa/algorithms/graph.py:110": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.graph.dijkstra@ageoa/algorithms/graph.py:143": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.graph.floyd_warshall@ageoa/algorithms/graph.py:205": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.sorting.counting_sort@ageoa/algorithms/sorting.py:109": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.sorting.heapsort@ageoa/algorithms/sorting.py:73": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.sorting.merge_sort@ageoa/algorithms/sorting.py:29": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.sorting.quicksort@ageoa/algorithms/sorting.py:51": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.algorithms.sorting.radix_sort@ageoa/algorithms/sorting.py:146": {
+      "references": [
+        {
+          "ref_id": "clrs2009",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad textbook attribution for classical algorithms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

@@ -43,6 +43,25 @@ def normalize_ref_ids(atom_data: dict) -> list[str]:
     return ref_ids
 
 
+def flatten_atom_refs(data: dict) -> list[dict]:
+    atoms = data.get('atoms')
+    if isinstance(atoms, dict):
+        flattened = []
+        for atom_id, atom_payload in atoms.items():
+            payload = atom_payload if isinstance(atom_payload, dict) else {}
+            flattened.append({
+                'atom_id': atom_id,
+                'references': payload.get('references', []),
+                'auto_attribution_runs': payload.get('auto_attribution_runs', []),
+            })
+        return flattened
+    return [{
+        'atom_id': data.get('atom_id', ''),
+        'references': data.get('references', []),
+        'auto_attribution_runs': data.get('auto_attribution_runs', []),
+    }]
+
+
 def collect_atom_refs(atom_filter: str | None = None) -> list[dict]:
     """Walk ageoa/**/references.json and return parsed contents."""
     results = []
@@ -52,8 +71,9 @@ def collect_atom_refs(atom_filter: str | None = None) -> list[dict]:
         if '__pycache__' in path.parts:
             continue
         data = json.loads(path.read_text())
-        data['_path'] = str(path.relative_to(ROOT))
-        results.append(data)
+        for atom_data in flatten_atom_refs(data):
+            atom_data['_path'] = str(path.relative_to(ROOT))
+            results.append(atom_data)
     return results
 
 

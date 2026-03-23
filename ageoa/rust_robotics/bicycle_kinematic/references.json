@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.rust_robotics.bicycle_kinematic.computelinearizedstatematrices@ageoa/rust_robotics/bicycle_kinematic/atoms.py:98": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.bicycle_kinematic.computesideslipangle@ageoa/rust_robotics/bicycle_kinematic/atoms.py:77": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.bicycle_kinematic.constructgeometrymodel@ageoa/rust_robotics/bicycle_kinematic/atoms.py:30": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.bicycle_kinematic.evaluateandinvertdynamics@ageoa/rust_robotics/bicycle_kinematic/atoms.py:139": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.bicycle_kinematic.loadmodelfromfile@ageoa/rust_robotics/bicycle_kinematic/atoms.py:45": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.bicycle_kinematic.querygeometryparameters@ageoa/rust_robotics/bicycle_kinematic/atoms.py:61": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}
