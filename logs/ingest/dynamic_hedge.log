@@ -1,0 +1,11 @@
+Ingesting procedural 'DynamicHedge' from /Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/strategies/29_dynamic_hedge_kalman.py
+
+Ingestion complete:
+  CDG: 1 nodes, 0 edges
+  Matches: 0
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/dynamic_hedge/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/dynamic_hedge/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/dynamic_hedge/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/dynamic_hedge/trace.jsonl

@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "constructcomplementarygraph",
+      "statement": "(graph: Graph) -> Graph",
+      "informal_desc": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "constructcomplementarygraph",
+          "type_signature": "(graph: Graph) -> Graph",
+          "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+          "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "constructcomplementarygraph",
+          "type_signature": "(graph: Graph) -> Graph",
+          "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+          "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "constructcomplementarygraph",
+            "type_signature": "(graph: Graph) -> Graph",
+            "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+            "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

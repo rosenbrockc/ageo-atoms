@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['analysis', 'custom', 'geometry']
+Ingesting class 'map_to_UDG' from /Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/graph/mapping.py
+
+Ingestion complete:
+  CDG: 7 nodes, 8 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/map_to_udg/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/map_to_udg/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/map_to_udg/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/map_to_udg/trace.jsonl

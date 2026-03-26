@@ -1,0 +1,399 @@
+{
+  "nodes": [
+    {
+      "node_id": "map_to_UDG_root",
+      "parent_id": null,
+      "name": "map_to_UDG",
+      "description": "Ingested pipeline from map_to_UDG",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "graphtoudgmapping"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "graphtoudgmapping",
+      "parent_id": "map_to_UDG_root",
+      "name": "GraphToUDGMapping",
+      "description": "Converts an input graph representation into a UDG-form graph as a pure, stateless transformation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "G",
+          "type_desc": "Graph",
+          "constraints": "Must be a valid graph object accepted by map_to_UDG."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "udg",
+          "type_desc": "Graph",
+          "constraints": "New mapped graph output; no hidden state mutation."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "prepareembeddinginputs",
+        "optimizenodecoordinates",
+        "infergeometricudgedges",
+        "evaluateedgecountconsistency",
+        "assemblenodepositionmapping"
+      ],
+      "depth": 1,
+      "type_signature": "(G: Graph) -> Graph",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Deterministic Relational Topology Canonicalizer. Takes a valid relational graph structure and rewrites it into a constrained UDG-normalized topology via a fixed mapping function. The transformation is pure and stateless: it creates a new graph instance without mutating the input object. The result is a standardized structural representation suitable for downstream algorithms that assume UDG-form inputs.. Applications: Wireless sensor network modeling: normalize arbitrary connectivity data into a proximity-constrained topology for routing analysis, Molecular informatics: convert general interaction graphs into a standardized neighborhood graph for geometric feature extraction, Robotics swarms: map communication/visibility relations into a canonical local-neighbor graph for coordination algorithms, Neuroscience connectomics: transform heterogeneous connectivity encodings into a uniform graph form for comparative network metrics",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "prepareembeddinginputs",
+      "parent_id": "graphtoudgmapping",
+      "name": "PrepareEmbeddingInputs",
+      "description": "Extracts graph topology and creates deterministic optimization inputs for 2D coordinate embedding.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "G",
+          "type_desc": "object",
+          "constraints": "Finite node/edge set"
+        },
+        {
+          "name": "seed",
+          "type_desc": "int",
+          "constraints": "Fixed to 0 for reproducible initialization"
+        },
+        {
+          "name": "distance_scale",
+          "type_desc": "float",
+          "constraints": "Positive; fixed to 5.0 in current implementation"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "adjacency_matrix",
+          "type_desc": "np.ndarray",
+          "constraints": "Node order aligned with node_order"
+        },
+        {
+          "name": "scaled_adjacency",
+          "type_desc": "np.ndarray",
+          "constraints": "adjacency_matrix multiplied by distance_scale"
+        },
+        {
+          "name": "layout_shape",
+          "type_desc": "Tuple[int, int]",
+          "constraints": "Always (N, 2)"
+        },
+        {
+          "name": "initial_guess",
+          "type_desc": "np.ndarray",
+          "constraints": "Length = 2N, generated deterministically from seed"
+        },
+        {
+          "name": "node_order",
+          "type_desc": "Sequence[node]",
+          "constraints": "Same ordering used for adjacency construction"
+        },
+        {
+          "name": "original_edge_count",
+          "type_desc": "int",
+          "constraints": "Equals |E(G)|"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(G: networkx.Graph, seed: int, distance_scale: float) -> tuple[Dense matrix (N x N), Dense matrix (N x N), Tuple[int, int], 1D float array, Sequence[node], int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "optimizenodecoordinates",
+      "parent_id": "graphtoudgmapping",
+      "name": "OptimizeNodeCoordinates",
+      "description": "Runs continuous optimization to find 2D coordinates whose induced distances approximate UDG constraints.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "initial_guess",
+          "type_desc": "np.ndarray",
+          "constraints": "Length = 2N"
+        },
+        {
+          "name": "scaled_adjacency",
+          "type_desc": "np.ndarray",
+          "constraints": "Numeric"
+        },
+        {
+          "name": "layout_shape",
+          "type_desc": "Tuple[int, int]",
+          "constraints": "Second dimension is 2"
+        },
+        {
+          "name": "optimizer_method",
+          "type_desc": "str",
+          "constraints": "COBYLA"
+        },
+        {
+          "name": "optimizer_tol",
+          "type_desc": "float",
+          "constraints": "Positive; set to 1e-6"
+        },
+        {
+          "name": "optimizer_maxiter",
+          "type_desc": "int",
+          "constraints": "Positive; set to 200000"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "coords",
+          "type_desc": "np.ndarray",
+          "constraints": "Reshaped optimizer solution"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(initial_guess: 1D float array, scaled_adjacency: Dense matrix (N x N), layout_shape: Tuple[int, int], optimizer_method: string, optimizer_tol: float, optimizer_maxiter: int) -> 2D float array (N x 2)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "infergeometricudgedges",
+      "parent_id": "graphtoudgmapping",
+      "name": "InferGeometricUDGEdges",
+      "description": "Builds geometric edge candidates from coordinates using blockade-radius neighborhood queries.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "coords",
+          "type_desc": "np.ndarray",
+          "constraints": "Finite coordinates"
+        },
+        {
+          "name": "blockade_radius",
+          "type_desc": "float",
+          "constraints": "Computed as Chadoq2.rydberg_blockade_radius(1.0)"
+        },
+        {
+          "name": "epsilon",
+          "type_desc": "float",
+          "constraints": "Small positive tolerance; set to 1e-9"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "geometric_edges",
+          "type_desc": "Set[Tuple[int, int]]",
+          "constraints": "Pairs within blockade_radius * (1 + epsilon)"
+        },
+        {
+          "name": "geometric_bonds",
+          "type_desc": "np.ndarray",
+          "constraints": "Coordinate rows indexed by geometric_edges tuple form"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(coords: 2D float array (N x 2), blockade_radius: float, epsilon: float) -> tuple[Set[Tuple[int, int]], 2D float array (M x 2)]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluateedgecountconsistency",
+      "parent_id": "graphtoudgmapping",
+      "name": "EvaluateEdgeCountConsistency",
+      "description": "Checks whether inferred geometric connectivity cardinality matches the input graph edge count.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "geometric_bonds",
+          "type_desc": "np.ndarray",
+          "constraints": "M is inferred bond count"
+        },
+        {
+          "name": "original_edge_count",
+          "type_desc": "int",
+          "constraints": "Non-negative"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "edge_count_matches",
+          "type_desc": "bool",
+          "constraints": "True iff M == original_edge_count"
+        },
+        {
+          "name": "edge_count_delta",
+          "type_desc": "int",
+          "constraints": "M - original_edge_count"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(geometric_bonds: 2D float array (M x 2), original_edge_count: int) -> tuple[bool, int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemblenodepositionmapping",
+      "parent_id": "graphtoudgmapping",
+      "name": "AssembleNodePositionMapping",
+      "description": "Produces the final node-to-coordinate mapping in graph node order.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "node_order",
+          "type_desc": "Sequence[node]",
+          "constraints": "Length N"
+        },
+        {
+          "name": "coords",
+          "type_desc": "np.ndarray",
+          "constraints": "First dimension matches node_order length"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "udg_position_map",
+          "type_desc": "Dict[node, Tuple[float, float]]",
+          "constraints": "One coordinate pair per node"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(node_order: Sequence[node], coords: 2D float array (N x 2)) -> Dict[node, Tuple[float, float]]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "prepareembeddinginputs",
+      "target_id": "optimizenodecoordinates",
+      "output_name": "initial_guess",
+      "input_name": "initial_guess",
+      "source_type": "1D float array",
+      "target_type": "1D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepareembeddinginputs",
+      "target_id": "optimizenodecoordinates",
+      "output_name": "scaled_adjacency",
+      "input_name": "scaled_adjacency",
+      "source_type": "Dense matrix (N x N)",
+      "target_type": "Dense matrix (N x N)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepareembeddinginputs",
+      "target_id": "optimizenodecoordinates",
+      "output_name": "layout_shape",
+      "input_name": "layout_shape",
+      "source_type": "Tuple[int, int]",
+      "target_type": "Tuple[int, int]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimizenodecoordinates",
+      "target_id": "infergeometricudgedges",
+      "output_name": "coords",
+      "input_name": "coords",
+      "source_type": "2D float array (N x 2)",
+      "target_type": "2D float array (N x 2)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepareembeddinginputs",
+      "target_id": "evaluateedgecountconsistency",
+      "output_name": "original_edge_count",
+      "input_name": "original_edge_count",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infergeometricudgedges",
+      "target_id": "evaluateedgecountconsistency",
+      "output_name": "geometric_bonds",
+      "input_name": "geometric_bonds",
+      "source_type": "2D float array (M x 2)",
+      "target_type": "2D float array (M x 2)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "prepareembeddinginputs",
+      "target_id": "assemblenodepositionmapping",
+      "output_name": "node_order",
+      "input_name": "node_order",
+      "source_type": "Sequence[node]",
+      "target_type": "Sequence[node]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "optimizenodecoordinates",
+      "target_id": "assemblenodepositionmapping",
+      "output_name": "coords",
+      "input_name": "coords",
+      "source_type": "2D float array (N x 2)",
+      "target_type": "2D float array (N x 2)",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "map_to_UDG"
+  }
+}

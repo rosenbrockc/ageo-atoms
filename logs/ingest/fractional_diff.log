@@ -1,0 +1,11 @@
+Ingesting class 'frac_diff' from /Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/research_math/34_fractional_diff_stationarity.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/fractional_diff/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/fractional_diff/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/fractional_diff/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/fractional_diff/trace.jsonl

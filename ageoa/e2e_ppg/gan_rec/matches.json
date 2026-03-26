@@ -1,0 +1,398 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initializereconstructionbudget",
+      "statement": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+      "informal_desc": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializereconstructionbudget",
+          "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+          "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializereconstructionbudget",
+          "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+          "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializereconstructionbudget",
+            "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+            "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "checkreconstructioncompletion",
+      "statement": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+      "informal_desc": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "checkreconstructioncompletion",
+          "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+          "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "checkreconstructioncompletion",
+          "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+          "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "checkreconstructioncompletion",
+            "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+            "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "synthesizenoisefromcleancontext",
+      "statement": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+      "informal_desc": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "synthesizenoisefromcleancontext",
+          "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "synthesizenoisefromcleancontext",
+          "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "synthesizenoisefromcleancontext",
+            "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+            "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deriveupsampledpeakanchors",
+      "statement": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+      "informal_desc": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deriveupsampledpeakanchors",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deriveupsampledpeakanchors",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deriveupsampledpeakanchors",
+            "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+            "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildalignedreconstructioncandidate",
+      "statement": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+      "informal_desc": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildalignedreconstructioncandidate",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildalignedreconstructioncandidate",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildalignedreconstructioncandidate",
+            "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+            "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "commitchunkandadvancecontext",
+      "statement": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+      "informal_desc": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "commitchunkandadvancecontext",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "commitchunkandadvancecontext",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "commitchunkandadvancecontext",
+            "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+            "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

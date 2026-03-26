@@ -1,0 +1,14 @@
+{
+  "atom": "evaluate_dynamics_derivatives",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 715.572773,
+      "confidence": 0.3,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'x': '(256,)', 'x_dot_desired': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['x', 'x_dot_desired'] [confidence reduced: extreme outlier]"
+    }
+  ]
+}

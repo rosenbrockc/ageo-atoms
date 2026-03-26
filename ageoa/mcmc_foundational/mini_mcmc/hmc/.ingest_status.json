@@ -1,0 +1,30 @@
+{
+  "run_id": "114541b5610d4dcbb41e57b15e7979ce",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mini-mcmc/src/hmc.rs",
+  "class_name": "HMC",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772039918.353631,
+  "last_heartbeat_at": 1772040715.10007,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772040715.10007,
+  "summary": {
+    "cdg_nodes": 24,
+    "cdg_edges": 47,
+    "matches": 20,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

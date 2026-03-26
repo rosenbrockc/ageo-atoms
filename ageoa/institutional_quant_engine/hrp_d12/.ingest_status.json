@@ -1,0 +1,30 @@
+{
+  "run_id": "93d2ae57d996417a896594799651f0b3",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-atoms/third_party/Institutional-Quant-Engine/risk_portfolio/hrp_wrapped.py",
+  "class_name": "HRPPipeline",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772993885.4799008,
+  "last_heartbeat_at": 1772994004.627557,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772994004.627557,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

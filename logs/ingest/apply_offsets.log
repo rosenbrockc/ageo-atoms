@@ -1,0 +1,11 @@
+Ingesting procedural 'apply_offsets' from /Users/conrad/personal/ageo-atoms/third_party/Tempo.jl/src/scales.jl
+
+Ingestion complete:
+  CDG: 4 nodes, 0 edges
+  Matches: 3
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/apply_offsets/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/apply_offsets/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/apply_offsets/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/apply_offsets/trace.jsonl

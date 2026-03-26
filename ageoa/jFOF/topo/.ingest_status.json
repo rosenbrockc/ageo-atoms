@@ -1,0 +1,30 @@
+{
+  "run_id": "732324b61e8448e7b50e86ce58a59b13",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "third_party/jFOF/topo_ingest.py",
+  "class_name": "TopoIngest",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "claude-sonnet-4-5-20250929",
+  "max_depth": 12,
+  "started_at": 1773348396.113735,
+  "last_heartbeat_at": 1773348560.559957,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773348560.559957,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

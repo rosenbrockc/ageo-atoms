@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.pronto.leg_odometer.posequeryaccessors@ageoa/pronto/leg_odometer/atoms.py:42": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.leg_odometer.velocitystatereadout@ageoa/pronto/leg_odometer/atoms.py:21": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

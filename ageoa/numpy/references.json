@@ -1,0 +1,455 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.numpy.arrays.array@ageoa/numpy/arrays.py:37": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.arrays.reshape@ageoa/numpy/arrays.py:151": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:123": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.arrays.zeros@ageoa/numpy/arrays.py:81": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.fft@ageoa/numpy/fft.py:35": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.fftfreq@ageoa/numpy/fft.py:190": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.fftshift@ageoa/numpy/fft.py:210": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.ifft@ageoa/numpy/fft.py:80": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.irfft@ageoa/numpy/fft.py:158": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.fft.rfft@ageoa/numpy/fft.py:119": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.linalg.inv@ageoa/numpy/linalg.py:50": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.linalg.norm@ageoa/numpy/linalg.py:84": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.linalg.solve@ageoa/numpy/linalg.py:30": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyadd@ageoa/numpy/polynomial.py:102": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyder@ageoa/numpy/polynomial.py:64": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyfit@ageoa/numpy/polynomial.py:44": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyint@ageoa/numpy/polynomial.py:83": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polymul@ageoa/numpy/polynomial.py:120": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyroots@ageoa/numpy/polynomial.py:138": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.random.default_rng@ageoa/numpy/random.py:112": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.random.rand@ageoa/numpy/random.py:39": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.random.uniform@ageoa/numpy/random.py:76": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

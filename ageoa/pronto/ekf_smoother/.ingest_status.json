@@ -1,0 +1,20 @@
+{
+  "run_id": "8d45f665a4b047e48978e8305f5ff0c6",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-atoms/third_party/pronto/pronto_core/src/state_est.cpp",
+  "class_name": "StateEstimator",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 1,
+  "started_at": 1772981016.299028,
+  "last_heartbeat_at": 1772981021.330317,
+  "llm_call_inflight": {
+    "prompt_key": "ingester_fix_type",
+    "started_at": 1772981021.330317
+  },
+  "error": "'StateEstimator' not found as class or function in ../ageo-atoms/third_party/pronto/pronto_core/src/state_est.cpp",
+  "ended_at": 1772981016.4112551
+}

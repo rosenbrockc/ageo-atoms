@@ -1,0 +1,30 @@
+{
+  "run_id": "dc821ec772a5445393bf2feeab82e52a",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mini-mcmc/src/nuts.rs",
+  "class_name": "NUTS",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772039918.30901,
+  "last_heartbeat_at": 1772040277.810699,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772040277.810699,
+  "summary": {
+    "cdg_nodes": 9,
+    "cdg_edges": 6,
+    "matches": 7,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

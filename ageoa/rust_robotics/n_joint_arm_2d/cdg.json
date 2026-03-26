@@ -1,0 +1,733 @@
+{
+  "nodes": [
+    {
+      "node_id": "ModelD_root",
+      "parent_id": null,
+      "name": "ModelD",
+      "description": "Ingested pipeline from ModelD",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "modelspecloadingandsizing",
+        "kinematicgoalfeasibility",
+        "dynamicsandlinearizationkernel",
+        "controlinputsynthesis"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "modelspecloadingandsizing",
+      "parent_id": "ModelD_root",
+      "name": "ModelSpecLoadingAndSizing",
+      "description": "Loads serialized model data and exposes structural sizing metadata for downstream computation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filename",
+          "type_desc": "str",
+          "constraints": "valid readable model file path"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelDSpec",
+          "constraints": "deserialized successfully"
+        },
+        {
+          "name": "state_dim_ratio",
+          "type_desc": "float",
+          "constraints": "num_states/num_dim ratio"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filename: str) -> tuple[ModelDSpec, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "SerializedStructureIngestionAndComplexityRatioExtraction. Reads a serialized structured artifact from a valid filesystem path and deserializes it into a typed in-memory specification for computation. It then derives a normalized structural complexity metric by computing the ratio between discrete state cardinality and representational dimensionality. The operation maps persistent encoded data into both an executable structural object and a scalar size invariant.. Applications: Finite-element engineering: load a serialized solver/mesh specification and compute state-variable density per geometric dimension., Robotics autonomy: ingest a serialized transition-system model and compute state-cardinality per latent-coordinate dimension., Computational biology: parse a serialized hidden-state model and compute hidden-state count per observation-space dimension., Network science: load a serialized dynamical graph-process specification and compute process-state count per embedding dimension.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "kinematicgoalfeasibility",
+      "parent_id": "ModelD_root",
+      "name": "KinematicGoalFeasibility",
+      "description": "Computes inverse-kinematic feasibility and goal-distance metrics for desired end-effector targets and initial state construction.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "angles_desired",
+          "type_desc": "np.ndarray",
+          "constraints": "joint-angle target vector"
+        },
+        {
+          "name": "position_desired",
+          "type_desc": "np.ndarray",
+          "constraints": "workspace target position"
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "initial or current state guess"
+        },
+        {
+          "name": "position_current",
+          "type_desc": "np.ndarray",
+          "constraints": "workspace position"
+        },
+        {
+          "name": "position_goal",
+          "type_desc": "np.ndarray",
+          "constraints": "workspace goal position"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "feasible_state_initial",
+          "type_desc": "np.ndarray",
+          "constraints": "state satisfying feasibility constraints"
+        },
+        {
+          "name": "ik_state",
+          "type_desc": "np.ndarray",
+          "constraints": "inverse-kinematics solution candidate"
+        },
+        {
+          "name": "goal_distance_squared",
+          "type_desc": "float",
+          "constraints": "non-negative"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "computegoaldistancemetric",
+        "buildfeasiblestatefromdesiredangles",
+        "extractcurrentendeffectorposition",
+        "computeiktargeterror",
+        "assemblepositionjacobian",
+        "solveleastsquaresjointupdate"
+      ],
+      "depth": 1,
+      "type_signature": "(angles_desired: array-like, position_desired: array-like, x: array-like, position_current: array-like, position_goal: array-like) -> tuple[array-like, array-like, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Constraint-Manifold Projection and Target Discrepancy Evaluation. Maps a target in observation space to a candidate in latent state space using an inverse constraint solver, while also projecting an initial latent-state guess onto a feasible constraint manifold. In parallel, computes a non-negative squared Euclidean discrepancy between a current observation vector and a goal observation vector. The result is a feasibility-adjusted initialization, an inverse-mapped candidate state, and a scalar objective component for downstream optimization or ranking.. Applications: Computational chemistry: project a molecular conformation seed onto valid geometric constraints and infer a conformation that matches target descriptor coordinates., Computer graphics/animation: recover rig control parameters that produce a target marker layout while tracking squared discrepancy to a desired pose trajectory., Medical imaging: estimate latent deformation parameters that align anatomy landmarks to target coordinates and compute residual alignment error., Wireless localization: infer latent source/environment parameters from desired measurement-space targets and evaluate squared position mismatch to a navigation goal.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computegoaldistancemetric",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "ComputeGoalDistanceMetric",
+      "description": "Validate current/goal positions as 2D vectors, compute Cartesian error, and return squared Euclidean goal distance.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "position_current",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        },
+        {
+          "name": "position_goal",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "goal_error_vector",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        },
+        {
+          "name": "goal_distance_squared",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(position_current: array-like, position_goal: array-like) -> tuple[array-like, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "buildfeasiblestatefromdesiredangles",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "BuildFeasibleStateFromDesiredAngles",
+      "description": "Roll forward the planar chain from desired joint angles to construct a feasible per-link state vector [x_i, y_i, cumulative_angle_i].",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "angles_desired",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof"
+        },
+        {
+          "name": "link_lengths",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof"
+        },
+        {
+          "name": "state_dim_ratio",
+          "type_desc": "int",
+          "constraints": "ratio >= 3"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "feasible_state_initial",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof * state_dim_ratio"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(angles_desired: array-like, link_lengths: array-like, state_dim_ratio: integer) -> array-like",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extractcurrentendeffectorposition",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "ExtractCurrentEndEffectorPosition",
+      "description": "Read terminal end-effector (x, y) from the packed state vector using degree-of-freedom and state ratio layout.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof * state_dim_ratio"
+        },
+        {
+          "name": "dof",
+          "type_desc": "int",
+          "constraints": "dof > 0"
+        },
+        {
+          "name": "state_dim_ratio",
+          "type_desc": "int",
+          "constraints": "ratio >= 3"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ee_position_current",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x: array-like, dof: integer, state_dim_ratio: integer) -> array-like",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computeiktargeterror",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "ComputeIKTargetError",
+      "description": "Compute Cartesian error between desired target position and current end-effector position for IK correction.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "ee_position_current",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        },
+        {
+          "name": "position_desired",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ik_error_vector",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        },
+        {
+          "name": "ik_error_squared",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ee_position_current: array-like, position_desired: array-like) -> tuple[array-like, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemblepositionjacobian",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "AssemblePositionJacobian",
+      "description": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof * state_dim_ratio"
+        },
+        {
+          "name": "link_lengths",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof"
+        },
+        {
+          "name": "dof",
+          "type_desc": "int",
+          "constraints": "dof > 0"
+        },
+        {
+          "name": "state_dim_ratio",
+          "type_desc": "int",
+          "constraints": "ratio >= 3"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "position_jacobian",
+          "type_desc": "np.ndarray",
+          "constraints": "shape == (2, dof)"
+        },
+        {
+          "name": "joint_angles_snapshot",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x: array-like, link_lengths: array-like, dof: integer, state_dim_ratio: integer) -> tuple[matrix-like, array-like]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "solveleastsquaresjointupdate",
+      "parent_id": "kinematicgoalfeasibility",
+      "name": "SolveLeastSquaresJointUpdate",
+      "description": "Compute pseudo-inverse of the position Jacobian and map Cartesian error into joint-angle update space.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "position_jacobian",
+          "type_desc": "np.ndarray",
+          "constraints": "shape == (2, dof)"
+        },
+        {
+          "name": "ik_error_vector",
+          "type_desc": "np.ndarray",
+          "constraints": "length == 2"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ik_state",
+          "type_desc": "np.ndarray",
+          "constraints": "length == dof"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(position_jacobian: matrix-like, ik_error_vector: array-like) -> array-like",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "dynamicsandlinearizationkernel",
+      "parent_id": "ModelD_root",
+      "name": "DynamicsAndLinearizationKernel",
+      "description": "Evaluates continuous-time state derivatives and local Jacobian linearization of system dynamics.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "current state"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "control input"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "time index"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "state derivative"
+        },
+        {
+          "name": "jacobian",
+          "type_desc": "np.ndarray",
+          "constraints": "local linearization at (x,u,t)"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "derive_and_validate_system_dimensions",
+        "evaluate_chain_state_derivative",
+        "compute_local_jacobian_linearization"
+      ],
+      "depth": 1,
+      "type_signature": "(x: array-like, u: array-like, _t: float) -> tuple[array-like, matrix]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Local Flow and Sensitivity Linearization Operator. Given a point in a continuous state space, a concurrent conditioning vector, and a scalar index, this operation evaluates the instantaneous velocity field at that point. It then computes the first-order Jacobian of that velocity map to produce a tangent-space linear approximation of nearby evolution. The pair captures both immediate directional change and local sensitivity of that change to perturbations.. Applications: Perturbation and stability analysis of biochemical reaction-network kinetics, Small-signal linearization of electromechanical grid and converter dynamics, Local forecast-sensitivity operators for geophysical fluid data assimilation, Real-time tangent models for deformable-body simulation and control in graphics/robotics",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "derive_and_validate_system_dimensions",
+      "parent_id": "dynamicsandlinearizationkernel",
+      "name": "derive_and_validate_system_dimensions",
+      "description": "Derive structural dimensions (state-to-dimension ratio, total states, degrees of freedom) and enforce compatibility between state size, link count, and input count.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "self",
+          "type_desc": "object",
+          "constraints": "Must expose ratio via SystemHD and link_lengths length"
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "Length defines total state dimension"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "Length must equal DOF"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ratio",
+          "type_desc": "int",
+          "constraints": "num_states_to_num_dim_ratio(self) cast to usize"
+        },
+        {
+          "name": "num_states",
+          "type_desc": "int",
+          "constraints": "x.len()"
+        },
+        {
+          "name": "dof",
+          "type_desc": "int",
+          "constraints": "num_states / ratio, with num_states % ratio == 0"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(self: ModelD<f64> metadata + link_lengths, x: DVector<f64>, u: DVector<f64>) -> tuple[usize, usize, usize]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluate_chain_state_derivative",
+      "parent_id": "dynamicsandlinearizationkernel",
+      "name": "evaluate_chain_state_derivative",
+      "description": "Compute continuous-time state derivatives by accumulating upstream link kinematic contributions to planar velocity components, then assigning joint angle-rate and angular-acceleration components per DOF.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "Indexed in blocks of size ratio"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "One control per DOF"
+        },
+        {
+          "name": "link_lengths",
+          "type_desc": "list[float]",
+          "constraints": "Length equals dof"
+        },
+        {
+          "name": "ratio",
+          "type_desc": "int",
+          "constraints": "Block stride for each DOF state"
+        },
+        {
+          "name": "num_states",
+          "type_desc": "int",
+          "constraints": "Size of output derivative vector"
+        },
+        {
+          "name": "dof",
+          "type_desc": "int",
+          "constraints": "Loop bound for per-joint dynamics"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "Same length as x; translational and rotational derivatives populated"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(x: DVector<f64>, u: DVector<f64>, link_lengths: Vec<f64>, ratio: usize, num_states: usize, dof: usize) -> DVector<f64>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_local_jacobian_linearization",
+      "parent_id": "dynamicsandlinearizationkernel",
+      "name": "compute_local_jacobian_linearization",
+      "description": "Evaluate local Jacobian linearization matrices for dynamics at (x, u, t). In current code this step is declared but not implemented (todo!).",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "self",
+          "type_desc": "object",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "jacobian",
+          "type_desc": "tuple[np.ndarray, np.ndarray]",
+          "constraints": "Intended output; currently unavailable due to todo!()"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(self: ModelD<f64>, x: DVector<f64>, u: DVector<f64>, _t: f64) -> (DMatrix<f64>, DMatrix<f64>)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "controlinputsynthesis",
+      "parent_id": "ModelD_root",
+      "name": "ControlInputSynthesis",
+      "description": "Synthesizes control action from current state and derivative information.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "_x",
+          "type_desc": "np.ndarray",
+          "constraints": "current state"
+        },
+        {
+          "name": "_x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "state derivative estimate"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "time index"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u_cmd",
+          "type_desc": "np.ndarray",
+          "constraints": "control command compatible with dynamics input"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(_x: array-like, _x_dot: array-like, _t: float) -> array-like",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "State-Tangent-to-Input Projection. Computes a vector-valued input by applying a synthesis map to an instantaneous state vector, its first-order time derivative estimate, and a scalar temporal coordinate. The transform converts local phase-space information (position in state space plus tangent direction) into an admissible excitation vector for the governed dynamics. This is a causal per-step feedback projection that may be linear or nonlinear and may vary with time.. Applications: Trajectory stabilization in autonomous aerial navigation using state and rate estimates, Infusion-rate computation in physiological regulation models from concentration states and slopes, Coil-current command synthesis in electromagnetic plasma-shaping systems, Thermal actuator drive generation in semiconductor process chambers from temperature fields and gradients",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "extractcurrentendeffectorposition",
+      "target_id": "computeiktargeterror",
+      "output_name": "ee_position_current",
+      "input_name": "ee_position_current",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "computeiktargeterror",
+      "target_id": "solveleastsquaresjointupdate",
+      "output_name": "ik_error_vector",
+      "input_name": "ik_error_vector",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "assemblepositionjacobian",
+      "target_id": "solveleastsquaresjointupdate",
+      "output_name": "position_jacobian",
+      "input_name": "position_jacobian",
+      "source_type": "matrix-like",
+      "target_type": "matrix-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derive_and_validate_system_dimensions",
+      "target_id": "evaluate_chain_state_derivative",
+      "output_name": "ratio",
+      "input_name": "ratio",
+      "source_type": "usize",
+      "target_type": "usize",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derive_and_validate_system_dimensions",
+      "target_id": "evaluate_chain_state_derivative",
+      "output_name": "num_states",
+      "input_name": "num_states",
+      "source_type": "usize",
+      "target_type": "usize",
+      "requires_glue": false
+    },
+    {
+      "source_id": "derive_and_validate_system_dimensions",
+      "target_id": "evaluate_chain_state_derivative",
+      "output_name": "dof",
+      "input_name": "dof",
+      "source_type": "usize",
+      "target_type": "usize",
+      "requires_glue": false
+    },
+    {
+      "source_id": "kinematicgoalfeasibility",
+      "target_id": "dynamicsandlinearizationkernel",
+      "output_name": "feasible_state_initial",
+      "input_name": "x",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    },
+    {
+      "source_id": "dynamicsandlinearizationkernel",
+      "target_id": "controlinputsynthesis",
+      "output_name": "x_dot",
+      "input_name": "_x_dot",
+      "source_type": "array-like",
+      "target_type": "array-like",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "ModelD"
+  }
+}

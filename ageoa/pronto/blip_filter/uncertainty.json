@@ -1,0 +1,14 @@
+{
+  "atom": "bandpass_filter",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 0.001,
+      "confidence": 0.1,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'filtered': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['filtered'] [confidence reduced: near-zero factor] [factor was 0.0 \u2014 output invariant to input perturbation at tested regime]"
+    }
+  ]
+}

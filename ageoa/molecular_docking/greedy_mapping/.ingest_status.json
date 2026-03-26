@@ -1,0 +1,30 @@
+{
+  "run_id": "a0c9bd741e0241fe8442720893e7765e",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/greedy_lattice_mapping.py",
+  "class_name": "GreedyMapping",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.725834,
+  "last_heartbeat_at": 1771983984.304868,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983984.304868,
+  "summary": {
+    "cdg_nodes": 15,
+    "cdg_edges": 25,
+    "matches": 12,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

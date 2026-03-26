@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['arithmetic', 'greedy', 'searching', 'set_theory', 'signal_filter']
+Ingesting class 'Wrapper_function' from /Users/conrad/personal/ageo-atoms/third_party/E2E-PPG/kazemi_peak_detection.py
+
+Ingestion complete:
+  CDG: 7 nodes, 3 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/kazemi_wrapper/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/kazemi_wrapper/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/kazemi_wrapper/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/e2e_ppg/kazemi_wrapper/trace.jsonl

@@ -1,0 +1,332 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_ppg_signal",
+      "statement": "(ppg: 1-D numeric array) -> 1-D numeric array",
+      "informal_desc": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+          "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+          "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_ppg_signal",
+            "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+            "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "upsample_ppg_signal",
+      "statement": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+      "informal_desc": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+          "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+          "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "upsample_ppg_signal",
+            "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+            "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_systolic_peaks",
+      "statement": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+      "informal_desc": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+          "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+          "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_systolic_peaks",
+            "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+            "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_beat_window_half_width",
+      "statement": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+      "informal_desc": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_beat_window_half_width",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+          "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_beat_window_half_width",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+          "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_beat_window_half_width",
+            "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+            "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "extract_heart_cycle_segments",
+      "statement": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+      "informal_desc": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "extract_heart_cycle_segments",
+          "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+          "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "extract_heart_cycle_segments",
+          "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+          "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "extract_heart_cycle_segments",
+            "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+            "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

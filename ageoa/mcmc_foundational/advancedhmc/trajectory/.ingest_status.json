@@ -1,0 +1,30 @@
+{
+  "run_id": "d7e7eab1703f4c5a8d7b36da0a17fe14",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/AdvancedHMC.jl/src/trajectory.jl",
+  "class_name": "transition",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772039918.3942778,
+  "last_heartbeat_at": 1772040383.037764,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772040383.037764,
+  "summary": {
+    "cdg_nodes": 12,
+    "cdg_edges": 26,
+    "matches": 9,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

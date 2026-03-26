@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "buildrmhmctransitionkernel",
+      "statement": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+      "informal_desc": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildrmhmctransitionkernel",
+          "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+          "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+          "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildrmhmctransitionkernel",
+          "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+          "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+          "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildrmhmctransitionkernel",
+            "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+            "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+            "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

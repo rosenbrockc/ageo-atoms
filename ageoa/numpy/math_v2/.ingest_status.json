@@ -1,0 +1,17 @@
+{
+  "run_id": "9a62f3bb744f4bf5a5ea2186ea4bb0c7",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "../ageo-matcher/numpy_wrappers.py",
+  "class_name": "NumpyMathAtoms",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1773144264.278186,
+  "last_heartbeat_at": 1773144605.839293,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773144605.839293
+}

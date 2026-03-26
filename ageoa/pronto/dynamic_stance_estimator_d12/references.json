@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.pronto.dynamic_stance_estimator_d12.stanceestimation@ageoa/pronto/dynamic_stance_estimator_d12/atoms.py:46": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.dynamic_stance_estimator_d12.stancestateinit@ageoa/pronto/dynamic_stance_estimator_d12/atoms.py:24": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

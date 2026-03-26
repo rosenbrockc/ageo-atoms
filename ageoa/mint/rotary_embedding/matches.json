@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "rotaryembedding",
+      "statement": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+      "informal_desc": "Opaque DL boundary: RotaryEmbedding",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rotaryembedding",
+            "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+            "docstring": "Opaque DL boundary: RotaryEmbedding",
+            "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

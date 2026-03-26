@@ -1,0 +1,30 @@
+{
+  "run_id": "fa04c6e3dfc74defa7125fc3a0fa86fc",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "third_party/jFOF/ingest_wrapper.py",
+  "class_name": "jFOFIngest",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "claude-sonnet-4-5-20250929",
+  "max_depth": 12,
+  "started_at": 1773348137.3583722,
+  "last_heartbeat_at": 1773348363.244694,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1773348363.244694,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

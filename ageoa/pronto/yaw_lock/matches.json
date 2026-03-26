@@ -1,0 +1,464 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initializeyawlockstate",
+      "statement": "() -> YawLockState",
+      "informal_desc": "Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializeyawlockstate",
+          "type_signature": "() -> YawLockState",
+          "docstring": "Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).",
+          "conceptual_summary": "Deterministic Immutable State Seed Constructor. This operation performs a zero-argument construction that maps an empty input set to a fully specified persistent state container. It allocates a schema-complete record containing initialized numeric parameters, boolean mode indicators, identifier slots, and paired structural references. The output is immutable, providing a reproducible initial condition for subsequent state-transition operations.. Applications: Initializing a distributed-systems replica metadata state before consensus-driven updates., Creating the baseline latent-state object for a computational biology sequence-tracking pipeline prior to iterative inference., Seeding a digital-twin simulation entity with immutable starting parameters and paired boundary constraints., Bootstrapping a closed-loop control module in industrial automation with a reproducible initial state vector.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializeyawlockstate",
+          "type_signature": "() -> YawLockState",
+          "docstring": "Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).",
+          "conceptual_summary": "Deterministic Immutable State Seed Constructor. This operation performs a zero-argument construction that maps an empty input set to a fully specified persistent state container. It allocates a schema-complete record containing initialized numeric parameters, boolean mode indicators, identifier slots, and paired structural references. The output is immutable, providing a reproducible initial condition for subsequent state-transition operations.. Applications: Initializing a distributed-systems replica metadata state before consensus-driven updates., Creating the baseline latent-state object for a computational biology sequence-tracking pipeline prior to iterative inference., Seeding a digital-twin simulation entity with immutable starting parameters and paired boundary constraints., Bootstrapping a closed-loop control module in industrial automation with a reproducible initial state vector.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializeyawlockstate",
+            "type_signature": "() -> YawLockState",
+            "docstring": "Create the initial immutable YawLockState container for all persistent fields (parameters, standing flag, joint state, standing links).",
+            "conceptual_summary": "Deterministic Immutable State Seed Constructor. This operation performs a zero-argument construction that maps an empty input set to a fully specified persistent state container. It allocates a schema-complete record containing initialized numeric parameters, boolean mode indicators, identifier slots, and paired structural references. The output is immutable, providing a reproducible initial condition for subsequent state-transition operations.. Applications: Initializing a distributed-systems replica metadata state before consensus-driven updates., Creating the baseline latent-state object for a computational biology sequence-tracking pipeline prior to iterative inference., Seeding a digital-twin simulation entity with immutable starting parameters and paired boundary constraints., Bootstrapping a closed-loop control module in industrial automation with a reproducible initial state vector.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "configurecorrectionandyawslippolicy",
+      "statement": "(state_in: YawLockState, correction_period_in: numeric/time-like, yaw_slip_detect_in: bool, yaw_slip_threshold_degrees_in: numeric/degrees, yaw_slip_disable_period_in: numeric/time-like) -> YawLockState",
+      "informal_desc": "Set correction cadence and yaw-slip detection policy by returning a new state with updated parameter fields.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "configurecorrectionandyawslippolicy",
+          "type_signature": "(state_in: YawLockState, correction_period_in: numeric/time-like, yaw_slip_detect_in: bool, yaw_slip_threshold_degrees_in: numeric/degrees, yaw_slip_disable_period_in: numeric/time-like) -> YawLockState",
+          "docstring": "Set correction cadence and yaw-slip detection policy by returning a new state with updated parameter fields.",
+          "conceptual_summary": "ImmutableStatePolicyParameterUpdate. Constructs a new state object by functionally copying an immutable configuration container and replacing a targeted subset of policy parameters. The transform performs deterministic field substitution for a cadence scalar, an event-detection enable flag, a non-negative detection threshold, and a non-negative suppression interval. No historical accumulation or iterative optimization occurs; output is a single-step reparameterized state.. Applications: Robotics: reconfigure control-loop cadence and deviation-trigger thresholds for actuator safety monitoring without mutating runtime state., Network security: update anomaly detector enablement, sensitivity threshold, and alert cooldown in an immutable policy snapshot., Clinical monitoring software: adjust sampling interval, alarm activation flag, alarm threshold, and alarm silencing period for patient signal surveillance., Industrial process automation: publish a revised machine supervision policy with new correction frequency and fault-detection suppression timing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "configurecorrectionandyawslippolicy",
+          "type_signature": "(state_in: YawLockState, correction_period_in: numeric/time-like, yaw_slip_detect_in: bool, yaw_slip_threshold_degrees_in: numeric/degrees, yaw_slip_disable_period_in: numeric/time-like) -> YawLockState",
+          "docstring": "Set correction cadence and yaw-slip detection policy by returning a new state with updated parameter fields.",
+          "conceptual_summary": "ImmutableStatePolicyParameterUpdate. Constructs a new state object by functionally copying an immutable configuration container and replacing a targeted subset of policy parameters. The transform performs deterministic field substitution for a cadence scalar, an event-detection enable flag, a non-negative detection threshold, and a non-negative suppression interval. No historical accumulation or iterative optimization occurs; output is a single-step reparameterized state.. Applications: Robotics: reconfigure control-loop cadence and deviation-trigger thresholds for actuator safety monitoring without mutating runtime state., Network security: update anomaly detector enablement, sensitivity threshold, and alert cooldown in an immutable policy snapshot., Clinical monitoring software: adjust sampling interval, alarm activation flag, alarm threshold, and alarm silencing period for patient signal surveillance., Industrial process automation: publish a revised machine supervision policy with new correction frequency and fault-detection suppression timing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "configurecorrectionandyawslippolicy",
+            "type_signature": "(state_in: YawLockState, correction_period_in: numeric/time-like, yaw_slip_detect_in: bool, yaw_slip_threshold_degrees_in: numeric/degrees, yaw_slip_disable_period_in: numeric/time-like) -> YawLockState",
+            "docstring": "Set correction cadence and yaw-slip detection policy by returning a new state with updated parameter fields.",
+            "conceptual_summary": "ImmutableStatePolicyParameterUpdate. Constructs a new state object by functionally copying an immutable configuration container and replacing a targeted subset of policy parameters. The transform performs deterministic field substitution for a cadence scalar, an event-detection enable flag, a non-negative detection threshold, and a non-negative suppression interval. No historical accumulation or iterative optimization occurs; output is a single-step reparameterized state.. Applications: Robotics: reconfigure control-loop cadence and deviation-trigger thresholds for actuator safety monitoring without mutating runtime state., Network security: update anomaly detector enablement, sensitivity threshold, and alert cooldown in an immutable policy snapshot., Clinical monitoring software: adjust sampling interval, alarm activation flag, alarm threshold, and alarm silencing period for patient signal surveillance., Industrial process automation: publish a revised machine supervision policy with new correction frequency and fault-detection suppression timing.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "setrobotstandingstatus",
+      "statement": "(state_in: YawLockState, is_robot_standing_in: bool) -> YawLockState",
+      "informal_desc": "Write robot standing status by producing a new immutable state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "setrobotstandingstatus",
+          "type_signature": "(state_in: YawLockState, is_robot_standing_in: bool) -> YawLockState",
+          "docstring": "Write robot standing status by producing a new immutable state.",
+          "conceptual_summary": "Immutable Boolean Field Override. Creates a new structured state instance by replacing exactly one designated binary attribute with a provided boolean value while preserving all other attributes unchanged. The operation is a functional record-update transform: input state is not mutated, and output is a value-level copy (or structurally shared equivalent) with a single-field substitution. This is equivalent to applying a deterministic projection-update on one coordinate of a composite data object.. Applications: Bioinformatics: update an immutable sample-processing state by overriding a single quality-pass flag., Distributed systems: produce a new node snapshot with one liveness indicator bit replaced., Clinical informatics: generate a new patient-monitoring state object with an alert-enabled boolean toggled.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "setrobotstandingstatus",
+          "type_signature": "(state_in: YawLockState, is_robot_standing_in: bool) -> YawLockState",
+          "docstring": "Write robot standing status by producing a new immutable state.",
+          "conceptual_summary": "Immutable Boolean Field Override. Creates a new structured state instance by replacing exactly one designated binary attribute with a provided boolean value while preserving all other attributes unchanged. The operation is a functional record-update transform: input state is not mutated, and output is a value-level copy (or structurally shared equivalent) with a single-field substitution. This is equivalent to applying a deterministic projection-update on one coordinate of a composite data object.. Applications: Bioinformatics: update an immutable sample-processing state by overriding a single quality-pass flag., Distributed systems: produce a new node snapshot with one liveness indicator bit replaced., Clinical informatics: generate a new patient-monitoring state object with an alert-enabled boolean toggled.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "setrobotstandingstatus",
+            "type_signature": "(state_in: YawLockState, is_robot_standing_in: bool) -> YawLockState",
+            "docstring": "Write robot standing status by producing a new immutable state.",
+            "conceptual_summary": "Immutable Boolean Field Override. Creates a new structured state instance by replacing exactly one designated binary attribute with a provided boolean value while preserving all other attributes unchanged. The operation is a functional record-update transform: input state is not mutated, and output is a value-level copy (or structurally shared equivalent) with a single-field substitution. This is equivalent to applying a deterministic projection-update on one coordinate of a composite data object.. Applications: Bioinformatics: update an immutable sample-processing state by overriding a single quality-pass flag., Distributed systems: produce a new node snapshot with one liveness indicator bit replaced., Clinical informatics: generate a new patient-monitoring state object with an alert-enabled boolean toggled.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "readrobotstandingstatus",
+      "statement": "(state_in: YawLockState) -> bool",
+      "informal_desc": "Read current robot standing status from immutable state without mutation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "readrobotstandingstatus",
+          "type_signature": "(state_in: YawLockState) -> bool",
+          "docstring": "Read current robot standing status from immutable state without mutation.",
+          "conceptual_summary": "Immutable Binary State Flag Projection. Selects a single Boolean attribute from an immutable structured state and emits it as a scalar observation. The operation performs a read-only projection from a composite state space to a one-dimensional binary codomain. No state transition, mutation, or recomputation occurs during extraction.. Applications: Distributed systems: read a node-liveness flag from an immutable cluster snapshot, Computational biology pipelines: read a quality-control pass/fail bit from a sample metadata object, Industrial automation: read a machine-ready indicator from a digital twin state vector, Networking: read a session-established flag from an immutable protocol state record",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "readrobotstandingstatus",
+          "type_signature": "(state_in: YawLockState) -> bool",
+          "docstring": "Read current robot standing status from immutable state without mutation.",
+          "conceptual_summary": "Immutable Binary State Flag Projection. Selects a single Boolean attribute from an immutable structured state and emits it as a scalar observation. The operation performs a read-only projection from a composite state space to a one-dimensional binary codomain. No state transition, mutation, or recomputation occurs during extraction.. Applications: Distributed systems: read a node-liveness flag from an immutable cluster snapshot, Computational biology pipelines: read a quality-control pass/fail bit from a sample metadata object, Industrial automation: read a machine-ready indicator from a digital twin state vector, Networking: read a session-established flag from an immutable protocol state record",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "readrobotstandingstatus",
+            "type_signature": "(state_in: YawLockState) -> bool",
+            "docstring": "Read current robot standing status from immutable state without mutation.",
+            "conceptual_summary": "Immutable Binary State Flag Projection. Selects a single Boolean attribute from an immutable structured state and emits it as a scalar observation. The operation performs a read-only projection from a composite state space to a one-dimensional binary codomain. No state transition, mutation, or recomputation occurs during extraction.. Applications: Distributed systems: read a node-liveness flag from an immutable cluster snapshot, Computational biology pipelines: read a quality-control pass/fail bit from a sample metadata object, Industrial automation: read a machine-ready indicator from a digital twin state vector, Networking: read a session-established flag from an immutable protocol state record",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "setjointposeandinitialangles",
+      "statement": "(state_in: YawLockState, joint_name_in: joint identifier collection, joint_position_in: numeric collection, joint_angles_init_in: numeric collection) -> YawLockState",
+      "informal_desc": "Store joint identity/position inputs and corresponding initial-angle snapshot as a new immutable state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "setjointposeandinitialangles",
+          "type_signature": "(state_in: YawLockState, joint_name_in: joint identifier collection, joint_position_in: numeric collection, joint_angles_init_in: numeric collection) -> YawLockState",
+          "docstring": "Store joint identity/position inputs and corresponding initial-angle snapshot as a new immutable state.",
+          "conceptual_summary": "Immutable Indexed-Array State Replacement. Creates a new immutable state object by replacing three aligned fields: an identifier sequence, a numeric coordinate/value sequence, and an initialization snapshot sequence. The transform performs a structural copy with targeted field substitution, preserving all non-target fields from the input state. It enforces index-wise correspondence constraints between identifier and numeric sequences to maintain referential integrity.. Applications: Computational neuroscience: update an immutable model state with channel identifiers, current signal amplitudes, and baseline calibration vector., Distributed systems monitoring: store aligned metric keys, latest measurements, and startup reference readings as a new snapshot state., Geospatial analytics: replace region index labels, current scalar field samples, and initial reference field in an immutable simulation step record., Additive manufacturing control: persist actuator index map, present control values, and initial tuning profile as a versioned machine state.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "setjointposeandinitialangles",
+          "type_signature": "(state_in: YawLockState, joint_name_in: joint identifier collection, joint_position_in: numeric collection, joint_angles_init_in: numeric collection) -> YawLockState",
+          "docstring": "Store joint identity/position inputs and corresponding initial-angle snapshot as a new immutable state.",
+          "conceptual_summary": "Immutable Indexed-Array State Replacement. Creates a new immutable state object by replacing three aligned fields: an identifier sequence, a numeric coordinate/value sequence, and an initialization snapshot sequence. The transform performs a structural copy with targeted field substitution, preserving all non-target fields from the input state. It enforces index-wise correspondence constraints between identifier and numeric sequences to maintain referential integrity.. Applications: Computational neuroscience: update an immutable model state with channel identifiers, current signal amplitudes, and baseline calibration vector., Distributed systems monitoring: store aligned metric keys, latest measurements, and startup reference readings as a new snapshot state., Geospatial analytics: replace region index labels, current scalar field samples, and initial reference field in an immutable simulation step record., Additive manufacturing control: persist actuator index map, present control values, and initial tuning profile as a versioned machine state.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "setjointposeandinitialangles",
+            "type_signature": "(state_in: YawLockState, joint_name_in: joint identifier collection, joint_position_in: numeric collection, joint_angles_init_in: numeric collection) -> YawLockState",
+            "docstring": "Store joint identity/position inputs and corresponding initial-angle snapshot as a new immutable state.",
+            "conceptual_summary": "Immutable Indexed-Array State Replacement. Creates a new immutable state object by replacing three aligned fields: an identifier sequence, a numeric coordinate/value sequence, and an initialization snapshot sequence. The transform performs a structural copy with targeted field substitution, preserving all non-target fields from the input state. It enforces index-wise correspondence constraints between identifier and numeric sequences to maintain referential integrity.. Applications: Computational neuroscience: update an immutable model state with channel identifiers, current signal amplitudes, and baseline calibration vector., Distributed systems monitoring: store aligned metric keys, latest measurements, and startup reference readings as a new snapshot state., Geospatial analytics: replace region index labels, current scalar field samples, and initial reference field in an immutable simulation step record., Additive manufacturing control: persist actuator index map, present control values, and initial tuning profile as a versioned machine state.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "readinitialjointangles",
+      "statement": "(state_in: YawLockState) -> numeric collection",
+      "informal_desc": "Read stored initial joint angles from immutable state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "readinitialjointangles",
+          "type_signature": "(state_in: YawLockState) -> numeric collection",
+          "docstring": "Read stored initial joint angles from immutable state.",
+          "conceptual_summary": "Immutable Baseline Vector Retrieval. Consumes an immutable structured state object and performs a schema-bound field projection to extract a predefined numeric collection. The operation applies no numerical transformation and does not mutate input state; it returns the stored baseline sequence exactly as represented (by value copy or read-only reference). The mapping is deterministic and repeatable for identical input state.. Applications: Computational neuroscience: retrieve initial parameter vectors from immutable simulation snapshots before iterative integration, Materials modeling: extract baseline coefficient arrays from frozen experiment configurations for reproducible solver initialization, Distributed optimization systems: read starting weight vectors from immutable checkpoints to ensure restart determinism",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "readinitialjointangles",
+          "type_signature": "(state_in: YawLockState) -> numeric collection",
+          "docstring": "Read stored initial joint angles from immutable state.",
+          "conceptual_summary": "Immutable Baseline Vector Retrieval. Consumes an immutable structured state object and performs a schema-bound field projection to extract a predefined numeric collection. The operation applies no numerical transformation and does not mutate input state; it returns the stored baseline sequence exactly as represented (by value copy or read-only reference). The mapping is deterministic and repeatable for identical input state.. Applications: Computational neuroscience: retrieve initial parameter vectors from immutable simulation snapshots before iterative integration, Materials modeling: extract baseline coefficient arrays from frozen experiment configurations for reproducible solver initialization, Distributed optimization systems: read starting weight vectors from immutable checkpoints to ensure restart determinism",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "readinitialjointangles",
+            "type_signature": "(state_in: YawLockState) -> numeric collection",
+            "docstring": "Read stored initial joint angles from immutable state.",
+            "conceptual_summary": "Immutable Baseline Vector Retrieval. Consumes an immutable structured state object and performs a schema-bound field projection to extract a predefined numeric collection. The operation applies no numerical transformation and does not mutate input state; it returns the stored baseline sequence exactly as represented (by value copy or read-only reference). The mapping is deterministic and repeatable for identical input state.. Applications: Computational neuroscience: retrieve initial parameter vectors from immutable simulation snapshots before iterative integration, Materials modeling: extract baseline coefficient arrays from frozen experiment configurations for reproducible solver initialization, Distributed optimization systems: read starting weight vectors from immutable checkpoints to ensure restart determinism",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "setstandinglinktargets",
+      "statement": "(state_in: YawLockState, left_standing_link_in: link identifier, right_standing_link_in: link identifier) -> YawLockState",
+      "informal_desc": "Set left/right standing link identifiers in a newly returned immutable state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "setstandinglinktargets",
+          "type_signature": "(state_in: YawLockState, left_standing_link_in: link identifier, right_standing_link_in: link identifier) -> YawLockState",
+          "docstring": "Set left/right standing link identifiers in a newly returned immutable state.",
+          "conceptual_summary": "Immutable Dual-Reference Field Substitution. Takes an immutable structured state and performs a selective substitution of exactly two designated reference-valued fields using externally provided identifiers. It returns a new state instance with those two fields overwritten while preserving all other fields bit-for-bit from the input structure. The operation is a non-iterative, deterministic structural copy-with-update transform.. Applications: Versioned graph analytics: replace predecessor/successor node identifiers in a snapshot without mutating prior graph states, Distributed systems configuration: update primary/secondary endpoint IDs in an immutable failover configuration object, Computational geometry or CAD: swap two boundary-connection handles in an immutable mesh/topology state, Molecular simulation pipelines: revise two bonded-partner indices in an immutable interaction-state record",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "setstandinglinktargets",
+          "type_signature": "(state_in: YawLockState, left_standing_link_in: link identifier, right_standing_link_in: link identifier) -> YawLockState",
+          "docstring": "Set left/right standing link identifiers in a newly returned immutable state.",
+          "conceptual_summary": "Immutable Dual-Reference Field Substitution. Takes an immutable structured state and performs a selective substitution of exactly two designated reference-valued fields using externally provided identifiers. It returns a new state instance with those two fields overwritten while preserving all other fields bit-for-bit from the input structure. The operation is a non-iterative, deterministic structural copy-with-update transform.. Applications: Versioned graph analytics: replace predecessor/successor node identifiers in a snapshot without mutating prior graph states, Distributed systems configuration: update primary/secondary endpoint IDs in an immutable failover configuration object, Computational geometry or CAD: swap two boundary-connection handles in an immutable mesh/topology state, Molecular simulation pipelines: revise two bonded-partner indices in an immutable interaction-state record",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "setstandinglinktargets",
+            "type_signature": "(state_in: YawLockState, left_standing_link_in: link identifier, right_standing_link_in: link identifier) -> YawLockState",
+            "docstring": "Set left/right standing link identifiers in a newly returned immutable state.",
+            "conceptual_summary": "Immutable Dual-Reference Field Substitution. Takes an immutable structured state and performs a selective substitution of exactly two designated reference-valued fields using externally provided identifiers. It returns a new state instance with those two fields overwritten while preserving all other fields bit-for-bit from the input structure. The operation is a non-iterative, deterministic structural copy-with-update transform.. Applications: Versioned graph analytics: replace predecessor/successor node identifiers in a snapshot without mutating prior graph states, Distributed systems configuration: update primary/secondary endpoint IDs in an immutable failover configuration object, Computational geometry or CAD: swap two boundary-connection handles in an immutable mesh/topology state, Molecular simulation pipelines: revise two bonded-partner indices in an immutable interaction-state record",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

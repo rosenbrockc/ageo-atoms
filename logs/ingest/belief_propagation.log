@@ -1,0 +1,11 @@
+Ingesting class 'loopy_belief_propagation' from /Users/conrad/personal/ageo-atoms/third_party/Belief-Propagation/belief_propagation.py
+
+Ingestion complete:
+  CDG: 8 nodes, 5 edges
+  Matches: 6
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/belief_propagation/loopy_bp/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/belief_propagation/loopy_bp/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/belief_propagation/loopy_bp/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/belief_propagation/loopy_bp/trace.jsonl

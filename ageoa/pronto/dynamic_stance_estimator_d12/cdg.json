@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "node_id": "DynamicStanceEstimator_root",
+      "parent_id": null,
+      "name": "DynamicStanceEstimator",
+      "description": "Ingested pipeline from DynamicStanceEstimator",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "stancestateinit",
+        "stanceestimation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stancestateinit",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "StanceStateInit",
+      "description": "Bootstraps the internal state containers for the dynamic stance estimator \u2014 allocates covariance matrices (P, Q, R), latent mean/variance buffers, and any persistent bookkeeping needed before the first estimation step.",
+      "concept_type": "state_init",
+      "inputs": [
+        {
+          "name": "config",
+          "type_desc": "EstimatorConfig | dict",
+          "constraints": "Must contain at minimum noise hyperparameters and dimensionality spec",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stance_state",
+          "type_desc": "StanceState",
+          "constraints": "Freshly initialised, immutable state bag; P/Q/R set to priors",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(config: EstimatorConfig | dict) -> StanceState",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "StochasticFilterStateBootstrapper. Allocates and initializes the full set of persistent numeric containers required by a recursive probabilistic estimator \u2014 specifically the prior covariance matrix (P), process noise covariance (Q), and observation noise covariance (R) \u2014 along with latent mean and variance buffers, seeded from hyperparameter priors supplied at construction time. The operation maps a static configuration descriptor into a typed, immutable state bag that encodes the estimator's initial uncertainty beliefs before any observations are processed. This is a pure setup transform: it performs no inference, applies no data, and produces a deterministic zero-step posterior ready to receive the first update tick.. Applications: Robotics / SLAM: Initializing the covariance and noise matrices of an Extended Kalman Filter before the first LiDAR or IMU observation is fused into a robot's pose estimate \u2014 identical P/Q/R allocation pattern with a 6-DOF latent state vector, Computational Neuroscience: Bootstrapping a Bayesian brain-state decoder prior to streaming electrophysiological time-series data, where the latent mean buffer represents a neural population vector and R encodes electrode noise characteristics, Quantitative Ecology: Setting up a state-space population dynamics model before ingesting seasonal survey counts, where Q captures environmental stochasticity and P encodes prior uncertainty over hidden carrying-capacity parameters, Structural Health Monitoring: Pre-allocating the filter state for a vibration-based damage detection system on a civil structure, where D encodes the number of tracked modal frequencies and R is calibrated from baseline accelerometer noise floors",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stanceestimation",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "StanceEstimation",
+      "description": "Core dynamic-stance estimation pass: consumes the current stance state and a new observation vector, runs the estimation kernel (predict + update), and returns an updated immutable stance state together with the estimated stance output.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "stance_state",
+          "type_desc": "StanceState",
+          "constraints": "Output of StanceStateInit or a prior StanceEstimation call; treated as immutable",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "observation",
+          "type_desc": "array[float]",
+          "constraints": "Raw sensor / feature vector aligned to the state dimensionality",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stance_state_out",
+          "type_desc": "StanceState",
+          "constraints": "New object; never mutates stance_state_in",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "stance_estimate",
+          "type_desc": "array[float]",
+          "constraints": "Posterior mean of the stance vector at the current time step",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(stance_state: StanceState, observation: array[float]) -> tuple[StanceState, array[float]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ImmutablePosteriorStateUpdater. Consumes an immutable latent-state object and a new observed measurement vector, then executes a two-phase Bayesian estimation kernel \u2014 a forward projection of the prior distribution (predict) followed by a likelihood-weighted correction (update) \u2014 to produce a new immutable state object and the posterior mean vector. The operation maps the tuple (prior belief, new evidence) \u2192 (updated belief, point estimate), implementing a single step of a recursive Bayesian filter without side effects on the input state.. Applications: Robotics & autonomous navigation: sequentially fusing IMU accelerometer/gyroscope readings with wheel-odometry to maintain a posterior estimate of a mobile agent's 6-DOF pose (position + orientation tensor) across discrete control loop ticks, enabling real-time localization without replaying full sensor history., Climate & geophysical modeling: assimilating a sparse vector of satellite radiance observations into a high-dimensional atmospheric state tensor at each forecast cycle to produce an updated posterior estimate of temperature, pressure, and humidity fields \u2014 the core step in ensemble Kalman data-assimilation pipelines., Computational neuroscience / brain-computer interfaces: updating a probabilistic model of a subject's intended motor-command vector from a new multi-electrode neural firing-rate snapshot at each millisecond bin, producing a posterior estimate of the latent motor intention for real-time neuroprosthetic decoding., Quantitative signal processing in IoT sensor networks: recursively refining the posterior estimate of a slowly drifting physical process scalar (e.g., structural strain, ambient chemical concentration) from noisy, asynchronous sensor readings, enabling low-latency anomaly detection without batch reprocessing.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "stancestateinit",
+      "target_id": "stanceestimation",
+      "output_name": "stance_state",
+      "input_name": "stance_state",
+      "source_type": "StanceState",
+      "target_type": "StanceState",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "DynamicStanceEstimator"
+  }
+}

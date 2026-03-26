@@ -1,0 +1,11 @@
+Ingesting procedural 'HRP' from /Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/risk_portfolio/16_hierarchical_risk_parity.py
+
+Ingestion complete:
+  CDG: 1 nodes, 0 edges
+  Matches: 0
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hierarchical_risk_parity/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hierarchical_risk_parity/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hierarchical_risk_parity/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/hierarchical_risk_parity/trace.jsonl

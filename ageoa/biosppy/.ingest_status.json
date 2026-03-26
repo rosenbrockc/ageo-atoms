@@ -1,0 +1,17 @@
+{
+  "run_id": "e5b486ed6a4a4f9a9cd288bf919c4bc0",
+  "state": "failed",
+  "phase": "repair_types",
+  "current_step": "llm_fix_type",
+  "source_path": "ageoa/biosppy/pcg.py",
+  "class_name": "PCGProcessor",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "claude-sonnet-4-5-20250929",
+  "max_depth": 12,
+  "started_at": 1771970090.037073,
+  "last_heartbeat_at": 1771970090.336538,
+  "llm_call_inflight": null,
+  "error": "Error code: 405 - {'detail': 'Method Not Allowed'}",
+  "ended_at": 1771970090.336538
+}

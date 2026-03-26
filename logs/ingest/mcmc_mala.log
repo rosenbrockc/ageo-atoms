@@ -1,0 +1,11 @@
+Ingesting class 'mala_prop_adjustment' from /Users/conrad/personal/ageo-atoms/third_party/mcmc/include/mcmc/mala.ipp
+
+Ingestion complete:
+  CDG: 4 nodes, 3 edges
+  Matches: 2
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/kthohr_mcmc/mala/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/kthohr_mcmc/mala/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/kthohr_mcmc/mala/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/mcmc_foundational/kthohr_mcmc/mala/trace.jsonl

@@ -1,0 +1,11 @@
+Ingesting class 'ModelD' from /Users/conrad/personal/ageo-atoms/third_party/rust_robotics/src/models/humanoid/n_joint_arm2_d.rs
+
+Ingestion complete:
+  CDG: 14 nodes, 9 edges
+  Matches: 11
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/n_joint_arm_2d/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/n_joint_arm_2d/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/n_joint_arm_2d/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/n_joint_arm_2d/trace.jsonl

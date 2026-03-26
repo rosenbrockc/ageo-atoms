@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.rust_robotics.n_joint_arm_2d.controlinputsynthesis@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:103": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.n_joint_arm_2d.kinematicgoalfeasibility@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:46": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.n_joint_arm_2d.modelspecloadingandsizing@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:22": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

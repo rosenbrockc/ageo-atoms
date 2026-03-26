@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['arithmetic']
+Ingesting class 'calculate_ofi' from /Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/execution_hft/28_order_flow_imbalance.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/order_flow_imbalance/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/order_flow_imbalance/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/order_flow_imbalance/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/institutional_quant_engine/order_flow_imbalance/trace.jsonl

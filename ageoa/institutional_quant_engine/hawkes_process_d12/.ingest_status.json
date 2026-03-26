@@ -1,0 +1,30 @@
+{
+  "run_id": "5f96960615224d0e97bd6f8d4c2baa29",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-atoms/third_party/Institutional-Quant-Engine/research_math/hawkes_wrapped.py",
+  "class_name": "HawkesProcess",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772994154.979392,
+  "last_heartbeat_at": 1772994281.1571891,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772994281.1571891,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

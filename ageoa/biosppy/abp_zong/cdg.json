@@ -1,0 +1,713 @@
+{
+  "nodes": [
+    {
+      "node_id": "find_onsets_zong2003_root",
+      "parent_id": null,
+      "name": "find_onsets_zong2003",
+      "description": "Ingested pipeline from find_onsets_zong2003",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "audio_onset_detection"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "audio_onset_detection",
+      "parent_id": "find_onsets_zong2003_root",
+      "name": "Audio Onset Detection",
+      "description": "Detects note/event onset locations from an input audio signal using the Zong (2003) procedure and threshold/window parameters.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "Audio waveform samples."
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "Must be positive."
+        },
+        {
+          "name": "sm_size",
+          "type_desc": "int",
+          "constraints": "Smoothing size; typically > 0."
+        },
+        {
+          "name": "size",
+          "type_desc": "int",
+          "constraints": "Analysis window/feature size; typically > 0."
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "Algorithm weighting/sensitivity parameter."
+        },
+        {
+          "name": "wrange",
+          "type_desc": "object",
+          "constraints": "Search/window range for onset decision."
+        },
+        {
+          "name": "d1_th",
+          "type_desc": "float",
+          "constraints": "First-derivative threshold."
+        },
+        {
+          "name": "d2_th",
+          "type_desc": "float",
+          "constraints": "Second-derivative threshold."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "Detected onset positions (e.g., sample indices or times)."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validate_required_signal",
+        "resolve_sample_domain_parameters",
+        "build_positive_slope_sum_signal",
+        "initialize_scan_state",
+        "extract_window_derivative_peaks",
+        "accept_onsets_from_peak_intervals",
+        "advance_or_terminate_scan",
+        "finalize_onset_array"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: 1D numeric array, sampling_rate: number, sm_size: integer, size: integer, alpha: number, wrange: integer or tuple/range, d1_th: number, d2_th: number) -> array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Derivative-Threshold Change-Point Locator for 1D Sampled Signals. Transforms a uniformly sampled 1D numeric sequence into a sparse set of event indices by combining local smoothing, windowed feature evaluation, and derivative-based salience scoring. Candidate transition points are identified where first- and second-order temporal differences satisfy configurable threshold constraints within a search range. The result is a discrete boundary map that marks abrupt regime transitions in the original sequence.. Applications: Biomedical monitoring: detect abrupt physiological state transitions in univariate biosensor streams (e.g., respiration or electrophysiology)., Industrial reliability: identify fault onset times in machine vibration or current signals for predictive maintenance., Network engineering: mark anomaly start points in packet-rate or latency time series for incident triage., Geoscience: detect event boundaries in seismic or geophysical sensor traces for automated segmentation.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validate_required_signal",
+      "parent_id": "audio_onset_detection",
+      "name": "validate_required_signal",
+      "description": "Ensure an input signal is provided before any computation; fail fast if missing.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "Optional[np.ndarray]",
+          "constraints": "must be non-null"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "same values as input signal"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1D numeric array or null) -> 1D numeric array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolve_sample_domain_parameters",
+      "parent_id": "audio_onset_detection",
+      "name": "resolve_sample_domain_parameters",
+      "description": "Apply defaults and convert time-based parameters from seconds to integer sample counts.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "> 0"
+        },
+        {
+          "name": "sm_size",
+          "type_desc": "Optional[float]",
+          "constraints": "default 0.25 s"
+        },
+        {
+          "name": "size",
+          "type_desc": "Optional[float]",
+          "constraints": "default 5 s"
+        },
+        {
+          "name": "wrange",
+          "type_desc": "Optional[float]",
+          "constraints": "default 0.1 s"
+        },
+        {
+          "name": "d2_th",
+          "type_desc": "Optional[float]",
+          "constraints": "default 0.15 s"
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "normalization factor"
+        },
+        {
+          "name": "d1_th",
+          "type_desc": "float",
+          "constraints": "amplitude-difference threshold"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sm_size_samples",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        },
+        {
+          "name": "window_size_samples",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        },
+        {
+          "name": "wrange_samples",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        },
+        {
+          "name": "d2_th_samples",
+          "type_desc": "int",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "alpha_out",
+          "type_desc": "float",
+          "constraints": "passed through"
+        },
+        {
+          "name": "d1_th_out",
+          "type_desc": "float",
+          "constraints": "passed through"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate: number, sm_size: number or null, size: number or null, wrange: number or null, d2_th: number or null, alpha: number, d1_th: number) -> tuple[integer, integer, integer, integer, number, number]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_positive_slope_sum_signal",
+      "parent_id": "audio_onset_detection",
+      "name": "build_positive_slope_sum_signal",
+      "description": "Compute positive first derivative and smooth it with a boxcar kernel to obtain the slope-sum function.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "length >= 2"
+        },
+        {
+          "name": "sm_size_samples",
+          "type_desc": "int",
+          "constraints": "smoother window size"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ssf",
+          "type_desc": "np.ndarray",
+          "constraints": "smoothed slope-sum sequence"
+        },
+        {
+          "name": "signal_length",
+          "type_desc": "int",
+          "constraints": "len(validated_signal)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_signal: 1D numeric array, sm_size_samples: integer) -> tuple[1D numeric array, integer]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialize_scan_state",
+      "parent_id": "audio_onset_detection",
+      "name": "initialize_scan_state",
+      "description": "Create initial sliding-window scan state and empty onset accumulator.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal_length",
+          "type_desc": "int",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "window_size_samples",
+          "type_desc": "int",
+          "constraints": ">= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "scan_state",
+          "type_desc": "object",
+          "constraints": "{start=0, stop=min(window_size_samples, signal_length), idx_list=[]}"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal_length: integer, window_size_samples: integer) -> object",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extract_window_derivative_peaks",
+      "parent_id": "audio_onset_detection",
+      "name": "extract_window_derivative_peaks",
+      "description": "For the current window, normalize signal segment, compute enhanced derivative-of-SSF feature, and locate positive local maxima candidates.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "full signal"
+        },
+        {
+          "name": "ssf",
+          "type_desc": "np.ndarray",
+          "constraints": "precomputed slope-sum function"
+        },
+        {
+          "name": "scan_state",
+          "type_desc": "object",
+          "constraints": "contains start and stop"
+        },
+        {
+          "name": "wrange_samples",
+          "type_desc": "int",
+          "constraints": "peak-search offset"
+        },
+        {
+          "name": "alpha_out",
+          "type_desc": "float",
+          "constraints": "normalization factor"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "window_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "demeaned signal[start:stop]"
+        },
+        {
+          "name": "peak_breakpoints",
+          "type_desc": "np.ndarray",
+          "constraints": "positive-maxima indices shifted by wrange_samples"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_signal: 1D numeric array, ssf: 1D numeric array, scan_state: object, wrange_samples: integer, alpha_out: number) -> tuple[1D numeric array, 1D integer array]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "accept_onsets_from_peak_intervals",
+      "parent_id": "audio_onset_detection",
+      "name": "accept_onsets_from_peak_intervals",
+      "description": "Evaluate each interval between derivative-peak breakpoints, find dominant max/min pair, and keep intervals satisfying amplitude and temporal thresholds.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "window_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "current window segment"
+        },
+        {
+          "name": "peak_breakpoints",
+          "type_desc": "np.ndarray",
+          "constraints": "candidate interval boundaries"
+        },
+        {
+          "name": "scan_state",
+          "type_desc": "object",
+          "constraints": "contains start index"
+        },
+        {
+          "name": "d1_th_out",
+          "type_desc": "float",
+          "constraints": "minimum amplitude gap"
+        },
+        {
+          "name": "d2_th_samples",
+          "type_desc": "int",
+          "constraints": "minimum min-after-max distance"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "new_onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "absolute indices detected in this window"
+        },
+        {
+          "name": "detected_flag",
+          "type_desc": "bool",
+          "constraints": "true if at least one onset accepted"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(window_signal: 1D numeric array, peak_breakpoints: 1D integer array, scan_state: object, d1_th_out: number, d2_th_samples: integer) -> tuple[1D integer array, boolean]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "advance_or_terminate_scan",
+      "parent_id": "audio_onset_detection",
+      "name": "advance_or_terminate_scan",
+      "description": "Merge newly detected onsets, update start/stop for next iteration, and emit termination condition.",
+      "concept_type": "greedy",
+      "inputs": [
+        {
+          "name": "scan_state",
+          "type_desc": "object",
+          "constraints": "current state"
+        },
+        {
+          "name": "new_onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "possibly empty"
+        },
+        {
+          "name": "detected_flag",
+          "type_desc": "bool",
+          "constraints": "window detection result"
+        },
+        {
+          "name": "wrange_samples",
+          "type_desc": "int",
+          "constraints": "used when detection occurred"
+        },
+        {
+          "name": "window_size_samples",
+          "type_desc": "int",
+          "constraints": "window increment"
+        },
+        {
+          "name": "signal_length",
+          "type_desc": "int",
+          "constraints": "global bound"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "next_scan_state",
+          "type_desc": "object",
+          "constraints": "updated start, stop, and accumulated idx_list"
+        },
+        {
+          "name": "done",
+          "type_desc": "bool",
+          "constraints": "true when start > signal_length"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(scan_state: object, new_onsets: 1D integer array, detected_flag: boolean, wrange_samples: integer, window_size_samples: integer, signal_length: integer) -> tuple[object, boolean]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "finalize_onset_array",
+      "parent_id": "audio_onset_detection",
+      "name": "finalize_onset_array",
+      "description": "Convert accumulated onset indices to integer array and return as onsets output.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "next_scan_state",
+          "type_desc": "object",
+          "constraints": "contains final idx_list"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "dtype int"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(next_scan_state: object) -> 1D integer array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validate_required_signal",
+      "target_id": "build_positive_slope_sum_signal",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "build_positive_slope_sum_signal",
+      "output_name": "sm_size_samples",
+      "input_name": "sm_size_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_positive_slope_sum_signal",
+      "target_id": "initialize_scan_state",
+      "output_name": "signal_length",
+      "input_name": "signal_length",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "initialize_scan_state",
+      "output_name": "window_size_samples",
+      "input_name": "window_size_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_scan_state",
+      "target_id": "extract_window_derivative_peaks",
+      "output_name": "scan_state",
+      "input_name": "scan_state",
+      "source_type": "object",
+      "target_type": "object",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_signal",
+      "target_id": "extract_window_derivative_peaks",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_positive_slope_sum_signal",
+      "target_id": "extract_window_derivative_peaks",
+      "output_name": "ssf",
+      "input_name": "ssf",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "extract_window_derivative_peaks",
+      "output_name": "wrange_samples",
+      "input_name": "wrange_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "extract_window_derivative_peaks",
+      "output_name": "alpha_out",
+      "input_name": "alpha_out",
+      "source_type": "number",
+      "target_type": "number",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_window_derivative_peaks",
+      "target_id": "accept_onsets_from_peak_intervals",
+      "output_name": "window_signal",
+      "input_name": "window_signal",
+      "source_type": "1D numeric array",
+      "target_type": "1D numeric array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_window_derivative_peaks",
+      "target_id": "accept_onsets_from_peak_intervals",
+      "output_name": "peak_breakpoints",
+      "input_name": "peak_breakpoints",
+      "source_type": "1D integer array",
+      "target_type": "1D integer array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_scan_state",
+      "target_id": "accept_onsets_from_peak_intervals",
+      "output_name": "scan_state",
+      "input_name": "scan_state",
+      "source_type": "object",
+      "target_type": "object",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "accept_onsets_from_peak_intervals",
+      "output_name": "d1_th_out",
+      "input_name": "d1_th_out",
+      "source_type": "number",
+      "target_type": "number",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "accept_onsets_from_peak_intervals",
+      "output_name": "d2_th_samples",
+      "input_name": "d2_th_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "accept_onsets_from_peak_intervals",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "new_onsets",
+      "input_name": "new_onsets",
+      "source_type": "1D integer array",
+      "target_type": "1D integer array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "accept_onsets_from_peak_intervals",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "detected_flag",
+      "input_name": "detected_flag",
+      "source_type": "boolean",
+      "target_type": "boolean",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_scan_state",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "scan_state",
+      "input_name": "scan_state",
+      "source_type": "object",
+      "target_type": "object",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "wrange_samples",
+      "input_name": "wrange_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_sample_domain_parameters",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "window_size_samples",
+      "input_name": "window_size_samples",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_positive_slope_sum_signal",
+      "target_id": "advance_or_terminate_scan",
+      "output_name": "signal_length",
+      "input_name": "signal_length",
+      "source_type": "integer",
+      "target_type": "integer",
+      "requires_glue": false
+    },
+    {
+      "source_id": "advance_or_terminate_scan",
+      "target_id": "finalize_onset_array",
+      "output_name": "next_scan_state",
+      "input_name": "next_scan_state",
+      "source_type": "object",
+      "target_type": "object",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "find_onsets_zong2003"
+  }
+}

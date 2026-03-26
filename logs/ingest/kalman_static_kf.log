@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['analysis', 'posterior_update', 'prior_init', 'sequential_filter']
+Ingesting class 'StaticKalmanFilter' from /Users/conrad/personal/ageo-atoms/third_party/kalman_filters/src/filter.rs
+
+Ingestion complete:
+  CDG: 6 nodes, 8 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/kalman_filters/static_kf/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/kalman_filters/static_kf/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/kalman_filters/static_kf/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/kalman_filters/static_kf/trace.jsonl

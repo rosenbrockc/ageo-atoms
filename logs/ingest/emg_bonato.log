@@ -1,0 +1,11 @@
+Ingesting class 'bonato_onset_detector' from /Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/emg.py
+
+Ingestion complete:
+  CDG: 6 nodes, 4 edges
+  Matches: 4
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/emg_bonato/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/emg_bonato/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/emg_bonato/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/emg_bonato/trace.jsonl

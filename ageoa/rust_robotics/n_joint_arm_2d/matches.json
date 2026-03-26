@@ -1,0 +1,728 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "modelspecloadingandsizing",
+      "statement": "(filename: str) -> tuple[ModelDSpec, float]",
+      "informal_desc": "Loads serialized model data and exposes structural sizing metadata for downstream computation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "modelspecloadingandsizing",
+          "type_signature": "(filename: str) -> tuple[ModelDSpec, float]",
+          "docstring": "Loads serialized model data and exposes structural sizing metadata for downstream computation.",
+          "conceptual_summary": "SerializedStructureIngestionAndComplexityRatioExtraction. Reads a serialized structured artifact from a valid filesystem path and deserializes it into a typed in-memory specification for computation. It then derives a normalized structural complexity metric by computing the ratio between discrete state cardinality and representational dimensionality. The operation maps persistent encoded data into both an executable structural object and a scalar size invariant.. Applications: Finite-element engineering: load a serialized solver/mesh specification and compute state-variable density per geometric dimension., Robotics autonomy: ingest a serialized transition-system model and compute state-cardinality per latent-coordinate dimension., Computational biology: parse a serialized hidden-state model and compute hidden-state count per observation-space dimension., Network science: load a serialized dynamical graph-process specification and compute process-state count per embedding dimension.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "modelspecloadingandsizing",
+          "type_signature": "(filename: str) -> tuple[ModelDSpec, float]",
+          "docstring": "Loads serialized model data and exposes structural sizing metadata for downstream computation.",
+          "conceptual_summary": "SerializedStructureIngestionAndComplexityRatioExtraction. Reads a serialized structured artifact from a valid filesystem path and deserializes it into a typed in-memory specification for computation. It then derives a normalized structural complexity metric by computing the ratio between discrete state cardinality and representational dimensionality. The operation maps persistent encoded data into both an executable structural object and a scalar size invariant.. Applications: Finite-element engineering: load a serialized solver/mesh specification and compute state-variable density per geometric dimension., Robotics autonomy: ingest a serialized transition-system model and compute state-cardinality per latent-coordinate dimension., Computational biology: parse a serialized hidden-state model and compute hidden-state count per observation-space dimension., Network science: load a serialized dynamical graph-process specification and compute process-state count per embedding dimension.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "modelspecloadingandsizing",
+            "type_signature": "(filename: str) -> tuple[ModelDSpec, float]",
+            "docstring": "Loads serialized model data and exposes structural sizing metadata for downstream computation.",
+            "conceptual_summary": "SerializedStructureIngestionAndComplexityRatioExtraction. Reads a serialized structured artifact from a valid filesystem path and deserializes it into a typed in-memory specification for computation. It then derives a normalized structural complexity metric by computing the ratio between discrete state cardinality and representational dimensionality. The operation maps persistent encoded data into both an executable structural object and a scalar size invariant.. Applications: Finite-element engineering: load a serialized solver/mesh specification and compute state-variable density per geometric dimension., Robotics autonomy: ingest a serialized transition-system model and compute state-cardinality per latent-coordinate dimension., Computational biology: parse a serialized hidden-state model and compute hidden-state count per observation-space dimension., Network science: load a serialized dynamical graph-process specification and compute process-state count per embedding dimension.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "computegoaldistancemetric",
+      "statement": "(position_current: array-like, position_goal: array-like) -> tuple[array-like, float]",
+      "informal_desc": "Validate current/goal positions as 2D vectors, compute Cartesian error, and return squared Euclidean goal distance.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computegoaldistancemetric",
+          "type_signature": "(position_current: array-like, position_goal: array-like) -> tuple[array-like, float]",
+          "docstring": "Validate current/goal positions as 2D vectors, compute Cartesian error, and return squared Euclidean goal distance.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computegoaldistancemetric",
+          "type_signature": "(position_current: array-like, position_goal: array-like) -> tuple[array-like, float]",
+          "docstring": "Validate current/goal positions as 2D vectors, compute Cartesian error, and return squared Euclidean goal distance.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computegoaldistancemetric",
+            "type_signature": "(position_current: array-like, position_goal: array-like) -> tuple[array-like, float]",
+            "docstring": "Validate current/goal positions as 2D vectors, compute Cartesian error, and return squared Euclidean goal distance.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildfeasiblestatefromdesiredangles",
+      "statement": "(angles_desired: array-like, link_lengths: array-like, state_dim_ratio: integer) -> array-like",
+      "informal_desc": "Roll forward the planar chain from desired joint angles to construct a feasible per-link state vector [x_i, y_i, cumulative_angle_i].",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildfeasiblestatefromdesiredangles",
+          "type_signature": "(angles_desired: array-like, link_lengths: array-like, state_dim_ratio: integer) -> array-like",
+          "docstring": "Roll forward the planar chain from desired joint angles to construct a feasible per-link state vector [x_i, y_i, cumulative_angle_i].",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildfeasiblestatefromdesiredangles",
+          "type_signature": "(angles_desired: array-like, link_lengths: array-like, state_dim_ratio: integer) -> array-like",
+          "docstring": "Roll forward the planar chain from desired joint angles to construct a feasible per-link state vector [x_i, y_i, cumulative_angle_i].",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildfeasiblestatefromdesiredangles",
+            "type_signature": "(angles_desired: array-like, link_lengths: array-like, state_dim_ratio: integer) -> array-like",
+            "docstring": "Roll forward the planar chain from desired joint angles to construct a feasible per-link state vector [x_i, y_i, cumulative_angle_i].",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "extractcurrentendeffectorposition",
+      "statement": "(x: array-like, dof: integer, state_dim_ratio: integer) -> array-like",
+      "informal_desc": "Read terminal end-effector (x, y) from the packed state vector using degree-of-freedom and state ratio layout.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "extractcurrentendeffectorposition",
+          "type_signature": "(x: array-like, dof: integer, state_dim_ratio: integer) -> array-like",
+          "docstring": "Read terminal end-effector (x, y) from the packed state vector using degree-of-freedom and state ratio layout.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "extractcurrentendeffectorposition",
+          "type_signature": "(x: array-like, dof: integer, state_dim_ratio: integer) -> array-like",
+          "docstring": "Read terminal end-effector (x, y) from the packed state vector using degree-of-freedom and state ratio layout.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "extractcurrentendeffectorposition",
+            "type_signature": "(x: array-like, dof: integer, state_dim_ratio: integer) -> array-like",
+            "docstring": "Read terminal end-effector (x, y) from the packed state vector using degree-of-freedom and state ratio layout.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "computeiktargeterror",
+      "statement": "(ee_position_current: array-like, position_desired: array-like) -> tuple[array-like, float]",
+      "informal_desc": "Compute Cartesian error between desired target position and current end-effector position for IK correction.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computeiktargeterror",
+          "type_signature": "(ee_position_current: array-like, position_desired: array-like) -> tuple[array-like, float]",
+          "docstring": "Compute Cartesian error between desired target position and current end-effector position for IK correction.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computeiktargeterror",
+          "type_signature": "(ee_position_current: array-like, position_desired: array-like) -> tuple[array-like, float]",
+          "docstring": "Compute Cartesian error between desired target position and current end-effector position for IK correction.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computeiktargeterror",
+            "type_signature": "(ee_position_current: array-like, position_desired: array-like) -> tuple[array-like, float]",
+            "docstring": "Compute Cartesian error between desired target position and current end-effector position for IK correction.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "assemblepositionjacobian",
+      "statement": "(x: array-like, link_lengths: array-like, dof: integer, state_dim_ratio: integer) -> tuple[matrix-like, array-like]",
+      "informal_desc": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "assemblepositionjacobian",
+          "type_signature": "(x: array-like, link_lengths: array-like, dof: integer, state_dim_ratio: integer) -> tuple[matrix-like, array-like]",
+          "docstring": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "assemblepositionjacobian",
+          "type_signature": "(x: array-like, link_lengths: array-like, dof: integer, state_dim_ratio: integer) -> tuple[matrix-like, array-like]",
+          "docstring": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "assemblepositionjacobian",
+            "type_signature": "(x: array-like, link_lengths: array-like, dof: integer, state_dim_ratio: integer) -> tuple[matrix-like, array-like]",
+            "docstring": "Construct the 2xDOF position Jacobian from current chain state and link lengths by accumulating each joint\u2019s positional influence.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "solveleastsquaresjointupdate",
+      "statement": "(position_jacobian: matrix-like, ik_error_vector: array-like) -> array-like",
+      "informal_desc": "Compute pseudo-inverse of the position Jacobian and map Cartesian error into joint-angle update space.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "solveleastsquaresjointupdate",
+          "type_signature": "(position_jacobian: matrix-like, ik_error_vector: array-like) -> array-like",
+          "docstring": "Compute pseudo-inverse of the position Jacobian and map Cartesian error into joint-angle update space.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "solveleastsquaresjointupdate",
+          "type_signature": "(position_jacobian: matrix-like, ik_error_vector: array-like) -> array-like",
+          "docstring": "Compute pseudo-inverse of the position Jacobian and map Cartesian error into joint-angle update space.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "solveleastsquaresjointupdate",
+            "type_signature": "(position_jacobian: matrix-like, ik_error_vector: array-like) -> array-like",
+            "docstring": "Compute pseudo-inverse of the position Jacobian and map Cartesian error into joint-angle update space.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "derive_and_validate_system_dimensions",
+      "statement": "(self: ModelD<f64> metadata + link_lengths, x: DVector<f64>, u: DVector<f64>) -> tuple[usize, usize, usize]",
+      "informal_desc": "Derive structural dimensions (state-to-dimension ratio, total states, degrees of freedom) and enforce compatibility between state size, link count, and input count.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "derive_and_validate_system_dimensions",
+          "type_signature": "(self: ModelD<f64> metadata + link_lengths, x: DVector<f64>, u: DVector<f64>) -> tuple[usize, usize, usize]",
+          "docstring": "Derive structural dimensions (state-to-dimension ratio, total states, degrees of freedom) and enforce compatibility between state size, link count, and input count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "derive_and_validate_system_dimensions",
+          "type_signature": "(self: ModelD<f64> metadata + link_lengths, x: DVector<f64>, u: DVector<f64>) -> tuple[usize, usize, usize]",
+          "docstring": "Derive structural dimensions (state-to-dimension ratio, total states, degrees of freedom) and enforce compatibility between state size, link count, and input count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "derive_and_validate_system_dimensions",
+            "type_signature": "(self: ModelD<f64> metadata + link_lengths, x: DVector<f64>, u: DVector<f64>) -> tuple[usize, usize, usize]",
+            "docstring": "Derive structural dimensions (state-to-dimension ratio, total states, degrees of freedom) and enforce compatibility between state size, link count, and input count.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "evaluate_chain_state_derivative",
+      "statement": "(x: DVector<f64>, u: DVector<f64>, link_lengths: Vec<f64>, ratio: usize, num_states: usize, dof: usize) -> DVector<f64>",
+      "informal_desc": "Compute continuous-time state derivatives by accumulating upstream link kinematic contributions to planar velocity components, then assigning joint angle-rate and angular-acceleration components per DOF.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "evaluate_chain_state_derivative",
+          "type_signature": "(x: DVector<f64>, u: DVector<f64>, link_lengths: Vec<f64>, ratio: usize, num_states: usize, dof: usize) -> DVector<f64>",
+          "docstring": "Compute continuous-time state derivatives by accumulating upstream link kinematic contributions to planar velocity components, then assigning joint angle-rate and angular-acceleration components per DOF.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "evaluate_chain_state_derivative",
+          "type_signature": "(x: DVector<f64>, u: DVector<f64>, link_lengths: Vec<f64>, ratio: usize, num_states: usize, dof: usize) -> DVector<f64>",
+          "docstring": "Compute continuous-time state derivatives by accumulating upstream link kinematic contributions to planar velocity components, then assigning joint angle-rate and angular-acceleration components per DOF.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "evaluate_chain_state_derivative",
+            "type_signature": "(x: DVector<f64>, u: DVector<f64>, link_lengths: Vec<f64>, ratio: usize, num_states: usize, dof: usize) -> DVector<f64>",
+            "docstring": "Compute continuous-time state derivatives by accumulating upstream link kinematic contributions to planar velocity components, then assigning joint angle-rate and angular-acceleration components per DOF.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_local_jacobian_linearization",
+      "statement": "(self: ModelD<f64>, x: DVector<f64>, u: DVector<f64>, _t: f64) -> (DMatrix<f64>, DMatrix<f64>)",
+      "informal_desc": "Evaluate local Jacobian linearization matrices for dynamics at (x, u, t). In current code this step is declared but not implemented (todo!).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_local_jacobian_linearization",
+          "type_signature": "(self: ModelD<f64>, x: DVector<f64>, u: DVector<f64>, _t: f64) -> (DMatrix<f64>, DMatrix<f64>)",
+          "docstring": "Evaluate local Jacobian linearization matrices for dynamics at (x, u, t). In current code this step is declared but not implemented (todo!).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_local_jacobian_linearization",
+          "type_signature": "(self: ModelD<f64>, x: DVector<f64>, u: DVector<f64>, _t: f64) -> (DMatrix<f64>, DMatrix<f64>)",
+          "docstring": "Evaluate local Jacobian linearization matrices for dynamics at (x, u, t). In current code this step is declared but not implemented (todo!).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_local_jacobian_linearization",
+            "type_signature": "(self: ModelD<f64>, x: DVector<f64>, u: DVector<f64>, _t: f64) -> (DMatrix<f64>, DMatrix<f64>)",
+            "docstring": "Evaluate local Jacobian linearization matrices for dynamics at (x, u, t). In current code this step is declared but not implemented (todo!).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "controlinputsynthesis",
+      "statement": "(_x: array-like, _x_dot: array-like, _t: float) -> array-like",
+      "informal_desc": "Synthesizes control action from current state and derivative information.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "controlinputsynthesis",
+          "type_signature": "(_x: array-like, _x_dot: array-like, _t: float) -> array-like",
+          "docstring": "Synthesizes control action from current state and derivative information.",
+          "conceptual_summary": "State-Tangent-to-Input Projection. Computes a vector-valued input by applying a synthesis map to an instantaneous state vector, its first-order time derivative estimate, and a scalar temporal coordinate. The transform converts local phase-space information (position in state space plus tangent direction) into an admissible excitation vector for the governed dynamics. This is a causal per-step feedback projection that may be linear or nonlinear and may vary with time.. Applications: Trajectory stabilization in autonomous aerial navigation using state and rate estimates, Infusion-rate computation in physiological regulation models from concentration states and slopes, Coil-current command synthesis in electromagnetic plasma-shaping systems, Thermal actuator drive generation in semiconductor process chambers from temperature fields and gradients",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "controlinputsynthesis",
+          "type_signature": "(_x: array-like, _x_dot: array-like, _t: float) -> array-like",
+          "docstring": "Synthesizes control action from current state and derivative information.",
+          "conceptual_summary": "State-Tangent-to-Input Projection. Computes a vector-valued input by applying a synthesis map to an instantaneous state vector, its first-order time derivative estimate, and a scalar temporal coordinate. The transform converts local phase-space information (position in state space plus tangent direction) into an admissible excitation vector for the governed dynamics. This is a causal per-step feedback projection that may be linear or nonlinear and may vary with time.. Applications: Trajectory stabilization in autonomous aerial navigation using state and rate estimates, Infusion-rate computation in physiological regulation models from concentration states and slopes, Coil-current command synthesis in electromagnetic plasma-shaping systems, Thermal actuator drive generation in semiconductor process chambers from temperature fields and gradients",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "controlinputsynthesis",
+            "type_signature": "(_x: array-like, _x_dot: array-like, _t: float) -> array-like",
+            "docstring": "Synthesizes control action from current state and derivative information.",
+            "conceptual_summary": "State-Tangent-to-Input Projection. Computes a vector-valued input by applying a synthesis map to an instantaneous state vector, its first-order time derivative estimate, and a scalar temporal coordinate. The transform converts local phase-space information (position in state space plus tangent direction) into an admissible excitation vector for the governed dynamics. This is a causal per-step feedback projection that may be linear or nonlinear and may vary with time.. Applications: Trajectory stabilization in autonomous aerial navigation using state and rate estimates, Infusion-rate computation in physiological regulation models from concentration states and slopes, Coil-current command synthesis in electromagnetic plasma-shaping systems, Thermal actuator drive generation in semiconductor process chambers from temperature fields and gradients",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+Conceptual abstraction JSON parse failed for evaluate_dynamics_derivatives: No valid JSON found in LLM response: line 1 column 1 (char 0)
+Ingesting class 'Model' from /Users/conrad/personal/ageo-atoms/third_party/rust_robotics/src/models/ground_vehicles/longitudinal_dynamics.rs
+
+Ingestion complete:
+  CDG: 9 nodes, 0 edges
+  Matches: 8
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/longitudinal_dynamics/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/longitudinal_dynamics/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/longitudinal_dynamics/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/rust_robotics/longitudinal_dynamics/trace.jsonl

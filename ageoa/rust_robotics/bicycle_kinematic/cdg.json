@@ -1,0 +1,905 @@
+{
+  "nodes": [
+    {
+      "node_id": "Model_root",
+      "parent_id": null,
+      "name": "Model",
+      "description": "Ingested pipeline from Model",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "constructgeometrymodel",
+        "loadmodelfromfile",
+        "querygeometryparameters",
+        "computesideslipangle",
+        "computelinearizedstatematrices",
+        "evaluateandinvertdynamics"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "constructgeometrymodel",
+      "parent_id": "Model_root",
+      "name": "ConstructGeometryModel",
+      "description": "Create an immutable vehicle geometry/state model from explicit axle-length parameters.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "length_front",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "length_rear",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "immutable geometry parameters"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(length_front: float, length_rear: float) -> ModelSpec",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Immutable Asymmetric Offset Configuration. Constructs a canonical configuration object from two non-negative scalar offsets defined on opposite sides of a reference origin. The transform is a direct parameter-to-structure mapping with boundary validation, without optimization, recursion, or stochastic sampling. The resulting artifact is immutable, preserving the input values as fixed geometric/state invariants.. Applications: Robotics: instantiate a rigid-link kinematic segment model from proximal and distal link extents around a joint origin., Materials engineering: define an immutable cross-section descriptor from layer thicknesses on opposite sides of a neutral axis., Computational imaging: encode asymmetric sensor active-region margins (left/right or near/far) into a fixed calibration schema., Neuroscience modeling: represent asymmetric receptive-field spatial extents around a central reference point in a simulation state object.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "loadmodelfromfile",
+      "parent_id": "Model_root",
+      "name": "LoadModelFromFile",
+      "description": "Deserialize model geometry parameters from storage into an immutable model spec.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filename",
+          "type_desc": "str",
+          "constraints": "readable model file path"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "immutable geometry parameters"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filename: string) -> ModelSpec",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ImmutableStructuredSpecHydration. Accepts a locator to persisted serialized data, reads the byte stream, and decodes it using a predefined schema into a typed in-memory parameter structure. The reconstructed structure is then frozen so downstream computations can rely on referential stability and mutation-free semantics.. Applications: Hydrating finite-element mesh and boundary-condition specifications for mechanical simulation from a persisted artifact., Loading calibrated kinematic-chain parameters for robotic motion planning from a configuration file., Reconstructing neuroimaging preprocessing pipeline parameter sets from stored manifests for reproducible analysis., Restoring compiler optimization-pass configuration graphs from serialized build metadata.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "querygeometryparameters",
+      "parent_id": "Model_root",
+      "name": "QueryGeometryParameters",
+      "description": "Project front length, rear length, and derived wheelbase from the immutable model spec.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "must contain front/rear lengths"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "length_front",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "length_rear",
+          "type_desc": "float",
+          "constraints": ">= 0"
+        },
+        {
+          "name": "wheelbase",
+          "type_desc": "float",
+          "constraints": "length_front + length_rear"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(model_spec: ModelSpec) -> tuple[float, float, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Bipartite Scalar Projection with Additive Extent Derivation. The operation reads two non-negative scalar components from an immutable structured input and returns them directly as explicit outputs. It then computes a third scalar by linear addition of those components, producing a total 1D extent. No state is changed, and the mapping is fully deterministic.. Applications: Genomics: expose upstream/downstream sequence segment lengths and derive total amplicon span., Network engineering: expose forward/reverse path propagation delays and derive round-trip baseline delay., Manufacturing process planning: expose pre-process/post-process motion distances and derive total traverse distance., Signal processing: expose pre-event/post-event window durations and derive full analysis window length.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computesideslipangle",
+      "parent_id": "Model_root",
+      "name": "ComputeSideslipAngle",
+      "description": "Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "immutable geometry parameters"
+        },
+        {
+          "name": "road_wheel_angle",
+          "type_desc": "float",
+          "constraints": "steering angle in radians"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sideslip_angle",
+          "type_desc": "float",
+          "constraints": "kinematic slip angle in radians"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(model_spec: ModelSpec, road_wheel_angle: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Kinematic Deflection-to-Drift Angle Projection. Maps a single control deflection angle and fixed rigid-body geometry parameters to an instantaneous orientation offset angle using a closed-form trigonometric relation. The transform is purely kinematic (no forces, no integration over time): it projects local actuator deflection into global trajectory-direction deviation relative to a body-aligned reference axis. Zero input deflection yields zero output offset, and output sign follows input sign under symmetric parameterization.. Applications: Planar mobile robotics: convert steering-joint deflection and platform geometry into trajectory-heading offset for path tracking., Aerospace guidance: map control-surface deflection and airframe geometry to instantaneous flight-path angular deviation in simplified kinematic models., Catheter/continuum-tool navigation: translate proximal angular actuation and segment geometry into tip-direction offset estimates., Computer graphics/animation kinematics: derive motion-direction offset from joint rotation and rig geometry for procedural locomotion.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computelinearizedstatematrices",
+      "parent_id": "Model_root",
+      "name": "ComputeLinearizedStateMatrices",
+      "description": "Compute linearized system matrices for local dynamics around state/control operating point.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "immutable geometry parameters"
+        },
+        {
+          "name": "x",
+          "type_desc": "StateVector",
+          "constraints": "valid model state"
+        },
+        {
+          "name": "u",
+          "type_desc": "ControlVector",
+          "constraints": "valid control input"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A",
+          "type_desc": "Matrix",
+          "constraints": "state Jacobian / linearization matrix"
+        },
+        {
+          "name": "B",
+          "type_desc": "Matrix",
+          "constraints": "input Jacobian / linearization matrix"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "deriveoperatingpointgeometry",
+        "linearizestatedynamicswrtstate",
+        "linearizedynamicswrtvelocityinput",
+        "linearizedynamicswrtsteeringinput",
+        "assemblecontroljacobian"
+      ],
+      "depth": 1,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector, u: ControlVector) -> tuple[Matrix, Matrix]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Local First-Order Sensitivity Linearization. Given a nonlinear vector-valued transition map and a selected operating point, this atom computes the first-order partial derivatives with respect to the internal configuration vector and the external excitation vector. The result is a tangent-space approximation that maps small perturbations to first-order output changes. This converts a locally nonlinear update rule into a pair of linear operators suitable for analysis, prediction, and optimization.. Applications: Linearizing nonlinear biochemical reaction kinetics around a concentration operating point for stability and control of synthetic pathways, Approximating local behavior of electric power-network dynamics around a load-generation equilibrium for small-signal stability studies, Deriving local sensitivity operators in climate submodels (e.g., coupled temperature-moisture fields) for data assimilation and forecast correction, Building local tangent models of epidemiological compartment transitions under intervention inputs for short-horizon policy optimization",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deriveoperatingpointgeometry",
+      "parent_id": "computelinearizedstatematrices",
+      "name": "DeriveOperatingPointGeometry",
+      "description": "Compute shared geometric/kinematic terms at the operating point (sideslip, wheelbase, and combined heading) used by both Jacobians.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Provides wheelbase and rear-length parameters; deterministic sideslip mapping."
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "x[2] is yaw."
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "u[0] is longitudinal velocity, u[1] is steering angle."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sideslip",
+          "type_desc": "float",
+          "constraints": "Finite."
+        },
+        {
+          "name": "wheelbase_total",
+          "type_desc": "float",
+          "constraints": "Non-zero; typically positive."
+        },
+        {
+          "name": "yaw_plus_sideslip",
+          "type_desc": "float",
+          "constraints": "Finite."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector<3>, u: ControlVector<2>) -> tuple[f64, f64, f64]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linearizestatedynamicswrtstate",
+      "parent_id": "computelinearizedstatematrices",
+      "name": "LinearizeStateDynamicsWrtState",
+      "description": "Evaluate the state Jacobian A = df/dx for the kinematic model, using the known sparse structure with only yaw-coupled nonzero terms.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "Finite controls."
+        },
+        {
+          "name": "yaw_plus_sideslip",
+          "type_desc": "float",
+          "constraints": "Finite."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A",
+          "type_desc": "np.ndarray",
+          "constraints": "Rows/cols follow state ordering [x, y, yaw]."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u: ControlVector<2>, yaw_plus_sideslip: f64) -> Matrix<3x3>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linearizedynamicswrtvelocityinput",
+      "parent_id": "computelinearizedstatematrices",
+      "name": "LinearizeDynamicsWrtVelocityInput",
+      "description": "Compute the velocity-input sensitivity column (df/du0), including translational terms and yaw-rate term normalization.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Provides rear-length parameter."
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "Finite; steering not at singular tan/cos points."
+        },
+        {
+          "name": "yaw_plus_sideslip",
+          "type_desc": "float",
+          "constraints": "Finite."
+        },
+        {
+          "name": "wheelbase_total",
+          "type_desc": "float",
+          "constraints": "Non-zero."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "velocity_column",
+          "type_desc": "np.ndarray",
+          "constraints": "Ordered as [df0/du0, df1/du0, df2/du0]."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linearizedynamicswrtsteeringinput",
+      "parent_id": "computelinearizedstatematrices",
+      "name": "LinearizeDynamicsWrtSteeringInput",
+      "description": "Compute the steering-input sensitivity column (df/du1), including sideslip derivative propagation and yaw-rate derivative rational term.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Provides rear-length and wheelbase-related constants."
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "Requires cos(u[1]) != 0 and finite tan(u[1])."
+        },
+        {
+          "name": "yaw_plus_sideslip",
+          "type_desc": "float",
+          "constraints": "Finite."
+        },
+        {
+          "name": "wheelbase_total",
+          "type_desc": "float",
+          "constraints": "Non-zero."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "steering_column",
+          "type_desc": "np.ndarray",
+          "constraints": "Ordered as [df0/du1, df1/du1, df2/du1]."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemblecontroljacobian",
+      "parent_id": "computelinearizedstatematrices",
+      "name": "AssembleControlJacobian",
+      "description": "Assemble control Jacobian B by concatenating velocity and steering sensitivity columns in control order.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "velocity_column",
+          "type_desc": "np.ndarray",
+          "constraints": "First control column."
+        },
+        {
+          "name": "steering_column",
+          "type_desc": "np.ndarray",
+          "constraints": "Second control column."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "B",
+          "type_desc": "np.ndarray",
+          "constraints": "Columns correspond to [u0, u1]."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(velocity_column: Vector<3>, steering_column: Vector<3>) -> Matrix<3x2>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluateandinvertdynamics",
+      "parent_id": "Model_root",
+      "name": "EvaluateAndInvertDynamics",
+      "description": "Evaluate nonlinear derivatives, compute Jacobian at time t, and solve inverse-input mapping as pure transforms.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "immutable geometry parameters"
+        },
+        {
+          "name": "x",
+          "type_desc": "StateVector",
+          "constraints": "valid model state"
+        },
+        {
+          "name": "u",
+          "type_desc": "ControlVector",
+          "constraints": "required for forward dynamics/jacobian"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "evaluation time"
+        },
+        {
+          "name": "_x_dot",
+          "type_desc": "StateDerivativeVector",
+          "constraints": "required for inverse input solve"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_dot",
+          "type_desc": "StateDerivativeVector",
+          "constraints": "forward model derivative"
+        },
+        {
+          "name": "jacobian",
+          "type_desc": "Matrix",
+          "constraints": "dynamics Jacobian at (x,u,t)"
+        },
+        {
+          "name": "u_inferred",
+          "type_desc": "ControlVector",
+          "constraints": "inverse-mapped control from (x,x_dot,t)"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "deriveslipadjustedkinematics",
+        "evaluatenonlinearstatederivative",
+        "linearizedynamicsatoperatingpoint",
+        "infercontrolfromstaterate"
+      ],
+      "depth": 1,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector, u: ControlVector, _t: float, _x_dot: StateDerivativeVector) -> tuple[StateDerivativeVector, Matrix, ControlVector]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Bidirectional Nonlinear State-Transition Operator. Applies a parameterized nonlinear map to a state-control tuple at a given scalar index to produce an instantaneous state-rate vector. Simultaneously computes the local first-order sensitivity matrix of that map with respect to the state, yielding a local linearization around the evaluation point. It also solves the inverse actuation problem: given state, state-rate, and index, it infers a control vector consistent with the same dynamics under local invertibility assumptions.. Applications: Robotic manipulation: map joint configuration and actuator commands to joint-rate dynamics, estimate sensitivity, and recover required actuator signals for a target motion derivative, Systems biology: map concentration-state and intervention vector to reaction-rate derivatives, compute local sensitivity matrix, and infer intervention levels to realize desired rate profiles, Electric power systems: map grid state and control injections to state-derivative evolution, derive local Jacobian for stability analysis, and infer control injections for target transient behavior, Aerospace guidance: map vehicle state and command inputs to kinematic derivatives, compute local Jacobian for trajectory sensitivity, and infer commands that produce required derivative constraints",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deriveslipadjustedkinematics",
+      "parent_id": "evaluateandinvertdynamics",
+      "name": "DeriveSlipAdjustedKinematics",
+      "description": "Compute sideslip from steering and derive shared geometric terms for the bicycle-model dynamics.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Must expose calculate_sideslip(steering) and get_wheelbase()."
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "x[2] is yaw angle in radians."
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "u[1] is steering/road wheel angle in radians."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sideslip",
+          "type_desc": "float",
+          "constraints": "Slip angle in radians."
+        },
+        {
+          "name": "effective_heading",
+          "type_desc": "float",
+          "constraints": "Computed as yaw + sideslip."
+        },
+        {
+          "name": "wheelbase",
+          "type_desc": "float",
+          "constraints": "Positive vehicle wheelbase."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>)) -> tuple[f64, f64, f64]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluatenonlinearstatederivative",
+      "parent_id": "evaluateandinvertdynamics",
+      "name": "EvaluateNonlinearStateDerivative",
+      "description": "Evaluate planar position and yaw derivatives using speed, steering, sideslip, and wheelbase.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "u[0] is longitudinal speed."
+        },
+        {
+          "name": "sideslip",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "effective_heading",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "wheelbase",
+          "type_desc": "float",
+          "constraints": "Non-zero."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "Ordered as [pos_x_dot, pos_y_dot, yaw_dot]."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(u: ControlVector (na::SVector<f64, 2>), sideslip: f64, effective_heading: f64, wheelbase: f64) -> StateDerivativeVector (na::SVector<f64, 3>)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linearizedynamicsatoperatingpoint",
+      "parent_id": "evaluateandinvertdynamics",
+      "name": "LinearizeDynamicsAtOperatingPoint",
+      "description": "Compute local Jacobian matrices with respect to state and control at (x, u).",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Must expose calculate_a(x,u) and calculate_b(x,u)."
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "Interface parameter; unused in current implementation."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "jacobian",
+          "type_desc": "tuple[np.ndarray, np.ndarray]",
+          "constraints": "Tuple of (A, B) Jacobian blocks."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>), _t: f64) -> (na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "infercontrolfromstaterate",
+      "parent_id": "evaluateandinvertdynamics",
+      "name": "InferControlFromStateRate",
+      "description": "Map current state and desired state derivative to inferred control via inverse dynamics interface.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "model_spec",
+          "type_desc": "ModelSpec",
+          "constraints": "Must expose calculate_input(x, x_dot, t)."
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "_x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "Desired/observed derivative used for inversion."
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "Interface parameter; currently unused by placeholder."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u_inferred",
+          "type_desc": "np.ndarray",
+          "constraints": "Currently unimplemented in source (todo!)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), _x_dot: StateDerivativeVector (na::SVector<f64, 3>), _t: f64) -> ControlVector (na::SVector<f64, 2>)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "deriveoperatingpointgeometry",
+      "target_id": "linearizestatedynamicswrtstate",
+      "output_name": "yaw_plus_sideslip",
+      "input_name": "yaw_plus_sideslip",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveoperatingpointgeometry",
+      "target_id": "linearizedynamicswrtvelocityinput",
+      "output_name": "yaw_plus_sideslip",
+      "input_name": "yaw_plus_sideslip",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveoperatingpointgeometry",
+      "target_id": "linearizedynamicswrtvelocityinput",
+      "output_name": "wheelbase_total",
+      "input_name": "wheelbase_total",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveoperatingpointgeometry",
+      "target_id": "linearizedynamicswrtsteeringinput",
+      "output_name": "yaw_plus_sideslip",
+      "input_name": "yaw_plus_sideslip",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveoperatingpointgeometry",
+      "target_id": "linearizedynamicswrtsteeringinput",
+      "output_name": "wheelbase_total",
+      "input_name": "wheelbase_total",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "linearizedynamicswrtvelocityinput",
+      "target_id": "assemblecontroljacobian",
+      "output_name": "velocity_column",
+      "input_name": "velocity_column",
+      "source_type": "Vector<3>",
+      "target_type": "Vector<3>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "linearizedynamicswrtsteeringinput",
+      "target_id": "assemblecontroljacobian",
+      "output_name": "steering_column",
+      "input_name": "steering_column",
+      "source_type": "Vector<3>",
+      "target_type": "Vector<3>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveslipadjustedkinematics",
+      "target_id": "evaluatenonlinearstatederivative",
+      "output_name": "sideslip",
+      "input_name": "sideslip",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveslipadjustedkinematics",
+      "target_id": "evaluatenonlinearstatederivative",
+      "output_name": "effective_heading",
+      "input_name": "effective_heading",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "deriveslipadjustedkinematics",
+      "target_id": "evaluatenonlinearstatederivative",
+      "output_name": "wheelbase",
+      "input_name": "wheelbase",
+      "source_type": "f64",
+      "target_type": "f64",
+      "requires_glue": false
+    },
+    {
+      "source_id": "constructgeometrymodel",
+      "target_id": "querygeometryparameters",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "constructgeometrymodel",
+      "target_id": "computesideslipangle",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "constructgeometrymodel",
+      "target_id": "computelinearizedstatematrices",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "constructgeometrymodel",
+      "target_id": "evaluateandinvertdynamics",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "loadmodelfromfile",
+      "target_id": "querygeometryparameters",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "loadmodelfromfile",
+      "target_id": "computesideslipangle",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "loadmodelfromfile",
+      "target_id": "computelinearizedstatematrices",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "loadmodelfromfile",
+      "target_id": "evaluateandinvertdynamics",
+      "output_name": "model_spec",
+      "input_name": "model_spec",
+      "source_type": "ModelSpec",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "querygeometryparameters",
+      "target_id": "computesideslipangle",
+      "output_name": "wheelbase",
+      "input_name": "model_spec",
+      "source_type": "float",
+      "target_type": "ModelSpec",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "Model"
+  }
+}

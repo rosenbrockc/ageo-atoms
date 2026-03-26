@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "allowlisted_nouns": [
+    "config",
+    "configuration",
+    "diagnostics",
+    "labels",
+    "metadata",
+    "output",
+    "outputs",
+    "probabilities",
+    "result",
+    "results",
+    "scores",
+    "state",
+    "status"
+  ]
+}

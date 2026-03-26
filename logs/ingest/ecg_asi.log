@@ -1,0 +1,12 @@
+Ghost simulation coverage is low (0%): unsimulated categories: ['arithmetic', 'custom', 'signal_filter', 'signal_transform']
+Ingesting class 'ASI_segmenter' from /Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg.py
+
+Ingestion complete:
+  CDG: 7 nodes, 7 edges
+  Matches: 5
+  mypy passed: False
+  Ghost sim passed: True
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_asi/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_asi/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_asi/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_asi/trace.jsonl

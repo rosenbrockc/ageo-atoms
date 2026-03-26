@@ -1,0 +1,75 @@
+{
+  "nodes": [
+    {
+      "node_id": "optimal_trajectory_root",
+      "parent_id": null,
+      "name": "optimal_trajectory",
+      "description": "Ingested pipeline from optimal_trajectory",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "computeoptimaltrajectory"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "computeoptimaltrajectory",
+      "parent_id": "optimal_trajectory_root",
+      "name": "ComputeOptimalTrajectory",
+      "description": "Computes the optimal share-execution trajectory over the planning horizon given risk preference.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "total_shares",
+          "type_desc": "float",
+          "constraints": "Typically non-negative."
+        },
+        {
+          "name": "days",
+          "type_desc": "int",
+          "constraints": "Typically positive."
+        },
+        {
+          "name": "risk_aversion",
+          "type_desc": "float",
+          "constraints": "Risk preference parameter."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "trajectory",
+          "type_desc": "object",
+          "constraints": "Represents the optimized schedule for the provided horizon."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(total_shares: numeric, days: integer, risk_aversion: numeric) -> execution trajectory object (e.g., vector/list of allocations)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Risk-Regularized Finite-Horizon Allocation Schedule. Transforms a single aggregate quantity into a discrete-time allocation vector over a fixed horizon by solving a constrained optimization problem. The objective balances an efficiency term (e.g., immediate execution/actuation cost) against a variability-exposure penalty weighted by a preference coefficient. The result is an optimal depletion trajectory that satisfies conservation constraints and encodes the trade-off between aggressiveness and stability.. Applications: Scheduling gradual reagent infusion over clinical time windows to minimize total side-effect risk under a fixed dose budget, Planning staged battery discharge/load shedding across time slots to balance efficiency losses against uncertainty in demand, Allocating telescope or sensor dwell time across observation intervals to trade off measurement quality versus temporal noise exposure, Distributing material feed rates in additive manufacturing layers to minimize process instability while meeting total deposition targets",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "optimal_trajectory"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "node_id": "WashTradeDetector_root",
+      "parent_id": null,
+      "name": "WashTradeDetector",
+      "description": "Ingested pipeline from WashTradeDetector",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "trade_graph",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 0,
+      "type_signature": "(trade_graph: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "WashTradeDetector"
+  }
+}

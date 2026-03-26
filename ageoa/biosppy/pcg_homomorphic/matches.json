@@ -1,0 +1,332 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "ensure_valid_inputs_and_cast_rate",
+      "statement": "(signal: array-like numeric or None, sampling_rate: int or float) -> tuple[array-like numeric, float]",
+      "informal_desc": "Validate that an input signal is provided and normalize the sampling rate to float for downstream filter design.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "ensure_valid_inputs_and_cast_rate",
+          "type_signature": "(signal: array-like numeric or None, sampling_rate: int or float) -> tuple[array-like numeric, float]",
+          "docstring": "Validate that an input signal is provided and normalize the sampling rate to float for downstream filter design.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "ensure_valid_inputs_and_cast_rate",
+          "type_signature": "(signal: array-like numeric or None, sampling_rate: int or float) -> tuple[array-like numeric, float]",
+          "docstring": "Validate that an input signal is provided and normalize the sampling rate to float for downstream filter design.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "ensure_valid_inputs_and_cast_rate",
+            "type_signature": "(signal: array-like numeric or None, sampling_rate: int or float) -> tuple[array-like numeric, float]",
+            "docstring": "Validate that an input signal is provided and normalize the sampling rate to float for downstream filter design.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "design_homomorphic_lowpass_sos",
+      "statement": "(sampling_rate_hz: float) -> 2D numeric array (SOS coefficients)",
+      "informal_desc": "Create a first-order low-pass Butterworth SOS filter at 8 Hz to isolate the slow-varying envelope component.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "design_homomorphic_lowpass_sos",
+          "type_signature": "(sampling_rate_hz: float) -> 2D numeric array (SOS coefficients)",
+          "docstring": "Create a first-order low-pass Butterworth SOS filter at 8 Hz to isolate the slow-varying envelope component.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "design_homomorphic_lowpass_sos",
+          "type_signature": "(sampling_rate_hz: float) -> 2D numeric array (SOS coefficients)",
+          "docstring": "Create a first-order low-pass Butterworth SOS filter at 8 Hz to isolate the slow-varying envelope component.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "design_homomorphic_lowpass_sos",
+            "type_signature": "(sampling_rate_hz: float) -> 2D numeric array (SOS coefficients)",
+            "docstring": "Create a first-order low-pass Butterworth SOS filter at 8 Hz to isolate the slow-varying envelope component.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "transform_signal_to_log_magnitude",
+      "statement": "(clean_signal: array-like numeric) -> array-like numeric",
+      "informal_desc": "Map the signal into the homomorphic domain by taking absolute value then logarithm.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "transform_signal_to_log_magnitude",
+          "type_signature": "(clean_signal: array-like numeric) -> array-like numeric",
+          "docstring": "Map the signal into the homomorphic domain by taking absolute value then logarithm.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "transform_signal_to_log_magnitude",
+          "type_signature": "(clean_signal: array-like numeric) -> array-like numeric",
+          "docstring": "Map the signal into the homomorphic domain by taking absolute value then logarithm.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "transform_signal_to_log_magnitude",
+            "type_signature": "(clean_signal: array-like numeric) -> array-like numeric",
+            "docstring": "Map the signal into the homomorphic domain by taking absolute value then logarithm.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "extract_envelope_and_inverse_transform",
+      "statement": "(lowpass_sos: 2D numeric array (SOS coefficients), log_magnitude_signal: array-like numeric) -> array-like numeric",
+      "informal_desc": "Apply zero-phase SOS low-pass filtering in the log domain, then exponentiate to recover the homomorphic envelope.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "extract_envelope_and_inverse_transform",
+          "type_signature": "(lowpass_sos: 2D numeric array (SOS coefficients), log_magnitude_signal: array-like numeric) -> array-like numeric",
+          "docstring": "Apply zero-phase SOS low-pass filtering in the log domain, then exponentiate to recover the homomorphic envelope.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "extract_envelope_and_inverse_transform",
+          "type_signature": "(lowpass_sos: 2D numeric array (SOS coefficients), log_magnitude_signal: array-like numeric) -> array-like numeric",
+          "docstring": "Apply zero-phase SOS low-pass filtering in the log domain, then exponentiate to recover the homomorphic envelope.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "extract_envelope_and_inverse_transform",
+            "type_signature": "(lowpass_sos: 2D numeric array (SOS coefficients), log_magnitude_signal: array-like numeric) -> array-like numeric",
+            "docstring": "Apply zero-phase SOS low-pass filtering in the log domain, then exponentiate to recover the homomorphic envelope.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "package_named_output",
+      "statement": "(envelope: array-like numeric) -> utils.ReturnTuple",
+      "informal_desc": "Wrap the computed envelope in the named ReturnTuple output structure.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "package_named_output",
+          "type_signature": "(envelope: array-like numeric) -> utils.ReturnTuple",
+          "docstring": "Wrap the computed envelope in the named ReturnTuple output structure.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "package_named_output",
+          "type_signature": "(envelope: array-like numeric) -> utils.ReturnTuple",
+          "docstring": "Wrap the computed envelope in the named ReturnTuple output structure.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "package_named_output",
+            "type_signature": "(envelope: array-like numeric) -> utils.ReturnTuple",
+            "docstring": "Wrap the computed envelope in the named ReturnTuple output structure.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

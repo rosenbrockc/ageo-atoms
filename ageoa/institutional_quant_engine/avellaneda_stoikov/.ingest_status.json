@@ -1,0 +1,30 @@
+{
+  "run_id": "3c3d07048d3048c9b0ebbfd8caa07955",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/execution_hft/23_market_making_avellaneda.py",
+  "class_name": "MarketMaker",
+  "procedural": false,
+  "llm_provider": "codex_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771983690.081511,
+  "last_heartbeat_at": 1771983839.120082,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771983839.120082,
+  "summary": {
+    "cdg_nodes": 3,
+    "cdg_edges": 1,
+    "matches": 2,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

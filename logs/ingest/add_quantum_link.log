@@ -1,0 +1,11 @@
+Ingesting class 'add_quantum_link' from /Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/graph/mapping.py
+
+Ingestion complete:
+  CDG: 2 nodes, 0 edges
+  Matches: 1
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/add_quantum_link/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/add_quantum_link/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/add_quantum_link/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/molecular_docking/add_quantum_link/trace.jsonl

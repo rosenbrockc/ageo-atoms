@@ -1,0 +1,134 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "velocitystatereadout",
+      "statement": "(state_in: LegOdometerState{xd_b_, vel_cov_}) -> tuple[Vector-like velocity estimate, Covariance matrix]",
+      "informal_desc": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "velocitystatereadout",
+          "type_signature": "(state_in: LegOdometerState{xd_b_, vel_cov_}) -> tuple[Vector-like velocity estimate, Covariance matrix]",
+          "docstring": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
+          "conceptual_summary": "Immutable Latent Moment Readout. Takes an immutable state container holding the first-order moment (mean vector) and second-order uncertainty structure (covariance matrix) of a latent variable, then performs a direct readout of those components. No inference, filtering, or parameter update is applied; the output is an exact structural projection of stored moments.. Applications: Neuroscience signal processing: read current latent neural activity estimate and posterior covariance from a state-space decoder, Climate data assimilation: extract present atmospheric/ocean latent state mean and uncertainty from an analysis snapshot, Industrial process control: retrieve estimated hidden process variables and confidence structure from a digital twin state, Network operations engineering: read inferred traffic-flow state vector and covariance from a probabilistic monitoring model",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "velocitystatereadout",
+          "type_signature": "(state_in: LegOdometerState{xd_b_, vel_cov_}) -> tuple[Vector-like velocity estimate, Covariance matrix]",
+          "docstring": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
+          "conceptual_summary": "Immutable Latent Moment Readout. Takes an immutable state container holding the first-order moment (mean vector) and second-order uncertainty structure (covariance matrix) of a latent variable, then performs a direct readout of those components. No inference, filtering, or parameter update is applied; the output is an exact structural projection of stored moments.. Applications: Neuroscience signal processing: read current latent neural activity estimate and posterior covariance from a state-space decoder, Climate data assimilation: extract present atmospheric/ocean latent state mean and uncertainty from an analysis snapshot, Industrial process control: retrieve estimated hidden process variables and confidence structure from a digital twin state, Network operations engineering: read inferred traffic-flow state vector and covariance from a probabilistic monitoring model",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "velocitystatereadout",
+            "type_signature": "(state_in: LegOdometerState{xd_b_, vel_cov_}) -> tuple[Vector-like velocity estimate, Covariance matrix]",
+            "docstring": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
+            "conceptual_summary": "Immutable Latent Moment Readout. Takes an immutable state container holding the first-order moment (mean vector) and second-order uncertainty structure (covariance matrix) of a latent variable, then performs a direct readout of those components. No inference, filtering, or parameter update is applied; the output is an exact structural projection of stored moments.. Applications: Neuroscience signal processing: read current latent neural activity estimate and posterior covariance from a state-space decoder, Climate data assimilation: extract present atmospheric/ocean latent state mean and uncertainty from an analysis snapshot, Industrial process control: retrieve estimated hidden process variables and confidence structure from a digital twin state, Network operations engineering: read inferred traffic-flow state vector and covariance from a probabilistic monitoring model",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "posequeryaccessors",
+      "statement": "() -> Pose/position/orientation values or placeholders",
+      "informal_desc": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "posequeryaccessors",
+          "type_signature": "() -> Pose/position/orientation values or placeholders",
+          "docstring": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
+          "conceptual_summary": "Stateless Spatial-State Query Interface. Implements nullary accessor functions that expose a standardized geometric-state descriptor (e.g., translation coordinates and orientation encoding) or typed placeholder values when no concrete estimate is available. The mapping is read-only and side-effect free: invocation does not alter persistent memory, internal state, or external systems. The operation primarily serves as an interface contract that stabilizes downstream consumption of spatial-state outputs independent of how estimates are produced.. Applications: Astronomical instrument control: exposing mount alignment vectors and rotation states to scheduling software without modifying control state., Medical imaging pipelines: querying scanner/table coordinate frames and orientation metadata for reconstruction modules through a stable no-mutation API., Autonomous marine sensing: serving vehicle frame translation/attitude estimates (or placeholders during dropout) to navigation fusion components., Protein-structure simulation tooling: providing conformer frame coordinates and rotational descriptors to analysis stages via pure query accessors.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "posequeryaccessors",
+          "type_signature": "() -> Pose/position/orientation values or placeholders",
+          "docstring": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
+          "conceptual_summary": "Stateless Spatial-State Query Interface. Implements nullary accessor functions that expose a standardized geometric-state descriptor (e.g., translation coordinates and orientation encoding) or typed placeholder values when no concrete estimate is available. The mapping is read-only and side-effect free: invocation does not alter persistent memory, internal state, or external systems. The operation primarily serves as an interface contract that stabilizes downstream consumption of spatial-state outputs independent of how estimates are produced.. Applications: Astronomical instrument control: exposing mount alignment vectors and rotation states to scheduling software without modifying control state., Medical imaging pipelines: querying scanner/table coordinate frames and orientation metadata for reconstruction modules through a stable no-mutation API., Autonomous marine sensing: serving vehicle frame translation/attitude estimates (or placeholders during dropout) to navigation fusion components., Protein-structure simulation tooling: providing conformer frame coordinates and rotational descriptors to analysis stages via pure query accessors.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "posequeryaccessors",
+            "type_signature": "() -> Pose/position/orientation values or placeholders",
+            "docstring": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
+            "conceptual_summary": "Stateless Spatial-State Query Interface. Implements nullary accessor functions that expose a standardized geometric-state descriptor (e.g., translation coordinates and orientation encoding) or typed placeholder values when no concrete estimate is available. The mapping is read-only and side-effect free: invocation does not alter persistent memory, internal state, or external systems. The operation primarily serves as an interface contract that stabilizes downstream consumption of spatial-state outputs independent of how estimates are produced.. Applications: Astronomical instrument control: exposing mount alignment vectors and rotation states to scheduling software without modifying control state., Medical imaging pipelines: querying scanner/table coordinate frames and orientation metadata for reconstruction modules through a stable no-mutation API., Autonomous marine sensing: serving vehicle frame translation/attitude estimates (or placeholders during dropout) to navigation fusion components., Protein-structure simulation tooling: providing conformer frame coordinates and rotational descriptors to analysis stages via pure query accessors.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

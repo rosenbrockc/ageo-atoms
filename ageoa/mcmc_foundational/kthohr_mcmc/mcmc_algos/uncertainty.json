@@ -1,0 +1,14 @@
+{
+  "atom": "dispatch_mcmc_algorithm",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 1.000194,
+      "confidence": 0.9,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'log_target_density': '(256,)', 'initial_state': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['log_target_density', 'initial_state']"
+    }
+  ]
+}

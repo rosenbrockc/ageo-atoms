@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:20": {
+      "references": [
+        {
+          "ref_id": "gordon1993particle",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact particle filtering attribution."
+          }
+        },
+        {
+          "ref_id": "repo_particlefilters_jl",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored ParticleFilters.jl repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:72": {
+      "references": [
+        {
+          "ref_id": "gordon1993particle",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact particle filtering attribution."
+          }
+        },
+        {
+          "ref_id": "repo_particlefilters_jl",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored ParticleFilters.jl repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:44": {
+      "references": [
+        {
+          "ref_id": "gordon1993particle",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact particle filtering attribution."
+          }
+        },
+        {
+          "ref_id": "repo_particlefilters_jl",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored ParticleFilters.jl repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.particle_filters.basic.resample_and_belief_projection@ageoa/particle_filters/basic/atoms.py:106": {
+      "references": [
+        {
+          "ref_id": "gordon1993particle",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact particle filtering attribution."
+          }
+        },
+        {
+          "ref_id": "repo_particlefilters_jl",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored ParticleFilters.jl repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

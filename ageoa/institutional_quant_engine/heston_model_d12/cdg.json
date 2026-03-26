@@ -1,0 +1,136 @@
+{
+  "nodes": [
+    {
+      "node_id": "HestonSimulator_root",
+      "parent_id": null,
+      "name": "HestonSimulator",
+      "description": "Ingested pipeline from HestonSimulator",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "hestonpathsampler"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "hestonpathsampler",
+      "parent_id": "HestonSimulator_root",
+      "name": "HestonPathSampler",
+      "description": "Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)\u00b7S\u00b7dW_S and dv = kappa\u00b7(theta - v)\u00b7dt + sigma_v\u00b7sqrt(v)\u00b7dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "S0",
+          "type_desc": "float",
+          "constraints": "S0 > 0; initial stock price",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v0",
+          "type_desc": "float",
+          "constraints": "v0 > 0; initial instantaneous variance",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rho",
+          "type_desc": "float",
+          "constraints": "-1 <= rho <= 1; Brownian correlation between price and variance processes",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "kappa",
+          "type_desc": "float",
+          "constraints": "kappa > 0; mean-reversion speed of variance",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "theta",
+          "type_desc": "float",
+          "constraints": "theta > 0; long-run mean variance (Feller: 2*kappa*theta > sigma_v^2)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sigma_v",
+          "type_desc": "float",
+          "constraints": "sigma_v > 0; volatility of variance (vol-of-vol)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "T",
+          "type_desc": "float",
+          "constraints": "T > 0; total simulation horizon in years",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dt",
+          "type_desc": "float",
+          "constraints": "0 < dt < T; discretisation step size",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "num_sims",
+          "type_desc": "int",
+          "constraints": "num_sims >= 1; number of independent Monte Carlo paths",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "S_paths",
+          "type_desc": "float array [num_sims, n_steps+1]",
+          "constraints": "all entries > 0; stock price trajectories from S0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v_paths",
+          "type_desc": "float array [num_sims, n_steps+1]",
+          "constraints": "all entries >= 0; variance trajectories from v0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[float array [num_sims, n_steps+1], float array [num_sims, n_steps+1]]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "CorrelatedBivariateMeanRevertingDiffusionEnsembleSampler. Jointly discretises two coupled It\u00f4 stochastic differential equations over a uniform time grid using an Euler\u2013Maruyama scheme, producing an ensemble of independent sample paths for two co-evolving scalar state variables: one following a scale-multiplicative geometric diffusion (log-normally distributed increments, strictly positive) and one following a square-root mean-reverting diffusion (CIR/Feller process, non-negative with an absorbing or reflecting boundary at zero). The two Wiener increment streams are linearly correlated via a scalar correlation coefficient, implemented through a 2\u00d72 Cholesky decomposition of the instantaneous covariance matrix applied at each time step. The result is a batch of [num_sims \u00d7 (n_steps+1)] trajectory matrices for each state variable, capturing the joint distributional evolution of the coupled system.. Applications: Neuroscience \u2013 joint simulation of membrane potential (geometric-like excursions) and synaptic conductance (mean-reverting toward a resting level) in a single-compartment neuron model, where the two processes are negatively correlated (increased conductance dampens voltage excursions), generating ensembles of correlated spike-drive trajectories for population coding analysis, Climate & Earth Systems Modelling \u2013 coupled simulation of a positive-definite atmospheric tracer concentration (multiplicative dispersion) and a mean-reverting turbulent diffusivity field (square-root CIR dynamics), with positive correlation encoding the feedback between concentration gradients and eddy mixing rates, producing trajectory ensembles for uncertainty quantification in climate projections, Epidemiology \u2013 simultaneous path sampling of a susceptible-population scalar (geometric depletion) and a mean-reverting time-varying transmission rate (CIR dynamics representing seasonal forcing with noise), with correlation encoding behavioural feedback loops between disease prevalence and contact-rate adaptation, enabling stochastic R\u2080 trajectory ensembles for outbreak forecasting, Materials Science / Rheology \u2013 correlated simulation of a polymer chain end-to-end distance scalar (multiplicative geometric diffusion under applied strain) and a mean-reverting internal relaxation modulus (square-root Feller process), with negative correlation capturing the Weissenberg effect, producing ensembles of viscoelastic response trajectories for Monte Carlo stress-relaxation analysis",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "HestonSimulator"
+  }
+}

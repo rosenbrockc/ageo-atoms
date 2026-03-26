@@ -1,0 +1,447 @@
+{
+  "nodes": [
+    {
+      "node_id": "charFuncOption_root",
+      "parent_id": null,
+      "name": "charFuncOption",
+      "description": "Ingested pipeline from charFuncOption",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "charfuncoption",
+        "f",
+        "cf"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "charfuncoption",
+      "parent_id": "charFuncOption_root",
+      "name": "Charfuncoption",
+      "description": "Atomic operation: Charfuncoption",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "cf",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "charFuncMart",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "d",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "damp",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "damp'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "disc",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "exp",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "f",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fg",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "func1",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "func2",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "i",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "intF",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "leftTerm",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "log",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "model",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "opt",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p1",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p2",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "pi",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "q",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "realPart",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rightTerm",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "strike",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tmat",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "yc",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(: Any, cf: Any, charFuncMart: Any, d: Any, damp: Any, damp': Any, disc: Any, exp: Any, f: Any, fg: Any, func1: Any, func2: Any, i: Any, intF: Any, k: Any, leftTerm: Any, log: Any, model: Any, opt: Any, p1: Any, p2: Any, pi: Any, q: Any, realPart: Any, rightTerm: Any, s: Any, strike: Any, tmat: Any, v: Any, v': Any, x: Any, yc: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "f",
+      "parent_id": "charFuncOption_root",
+      "name": "F",
+      "description": "Atomic operation: F",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "exp",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "i",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "leftTerm",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "realPart",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rightTerm",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(exp: Any, i: Any, k: Any, leftTerm: Any, realPart: Any, rightTerm: Any, v: Any, v': Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "cf",
+      "parent_id": "charFuncOption_root",
+      "name": "Cf",
+      "description": "Atomic operation: Cf",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "charFuncMart",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "fg",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "model",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tmat",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(charFuncMart: Any, fg: Any, model: Any, tmat: Any, x: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "charFuncOption"
+  }
+}

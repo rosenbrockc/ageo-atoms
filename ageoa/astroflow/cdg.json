@@ -1,0 +1,332 @@
+{
+  "nodes": [
+    {
+      "node_id": "AstroflowDedispIngest_root",
+      "parent_id": null,
+      "name": "AstroflowDedispIngest",
+      "description": "Ingested pipeline from AstroflowDedispIngest",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "dedispersionkernel"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "dedispersionkernel",
+      "parent_id": "AstroflowDedispIngest_root",
+      "name": "DedispersionKernel",
+      "description": "Applies a dedispersion kernel to input data using a pre-computed delay table, transforming the data across different dispersion measure (DM) steps.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "input_data",
+          "type_desc": "numpy.ndarray",
+          "constraints": "Raw observational data array.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delay_table",
+          "type_desc": "numpy.ndarray",
+          "constraints": "Table of delays to apply for each channel and DM step.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dm_steps",
+          "type_desc": "int",
+          "constraints": "Number of dispersion measures to process.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "time_downsample",
+          "type_desc": "int",
+          "constraints": "Factor by which to downsample the time series.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "down_ndata",
+          "type_desc": "int",
+          "constraints": "The size of the output data array after downsampling.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nchans",
+          "type_desc": "int",
+          "constraints": "Number of frequency channels in the input data.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "shared_mem_size",
+          "type_desc": "int",
+          "constraints": "Size of shared memory for the computational kernel (e.g., on a GPU).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "block_dim_x",
+          "type_desc": "int",
+          "constraints": "The block dimension in the x-axis for the computational kernel.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dedispersed_data",
+          "type_desc": "numpy.ndarray",
+          "constraints": "The transformed, dedispersed data.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "calculate_tile_channel_height",
+        "load_shifted_data_tile",
+        "sum_tile_over_channels"
+      ],
+      "depth": 1,
+      "type_signature": "(input_data: numpy.ndarray, delay_table: numpy.ndarray, dm_steps: int, time_downsample: int, down_ndata: int, nchans: int, shared_mem_size: int, block_dim_x: int) -> numpy.ndarray",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ParameterizedShearAndProject. Transforms a 2D tensor (representing parallel sequences) by applying a series of parameterized, non-uniform shearing operations along one axis, followed by a projection (summation) along the other. For each parameter in a discrete set, it generates a 1D vector by shifting each sequence according to a pre-computed lookup table and then summing the values across the sequences at each time step. The resulting 1D vectors are collected into a new 2D tensor, which may be subsequently downsampled along the sequence axis.. Applications: Seismology: Correcting for seismic wave dispersion in sensor array data, where different geological layers cause frequency-dependent delays, to align signals from multiple seismometers to detect a common event signature., Medical Imaging: Aligning frequency-dependent echoes in ultrasound imaging. As waves pass through different tissue types, this transform can 'refocus' returned signals from a transducer array to improve image clarity., Sonar/Hydroacoustics: Compensating for frequency-dependent propagation delays in underwater acoustic signals caused by temperature or salinity gradients, allowing a sensor array to align signals from a distant source to improve detection., Genomics: Aligning multiple sequence reads that have undergone systematic, position-dependent insertions or deletions, by testing a range of 'skew' parameters to find an optimal consensus sequence.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "calculate_tile_channel_height",
+      "parent_id": "dedispersionkernel",
+      "name": "calculate_tile_channel_height",
+      "description": "Calculates the number of frequency channels to process in a single tile, based on the simulated shared memory size and the width of the time block.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "shared_mem_size",
+          "type_desc": "int",
+          "constraints": "Total size of the simulated shared memory.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "block_dim_x",
+          "type_desc": "int",
+          "constraints": "Number of time samples in a block (tile width).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "total_channels",
+          "type_desc": "int",
+          "constraints": "Total number of frequency channels (Dch).",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tile_channel_height",
+          "type_desc": "int",
+          "constraints": "The number of channels per tile (Nch).",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(shared_mem_size: int, block_dim_x: int, total_channels: int) -> int",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "load_shifted_data_tile",
+      "parent_id": "dedispersionkernel",
+      "name": "load_shifted_data_tile",
+      "description": "For a specific dispersion measure, time block, and channel chunk, this atom loads a tile of data from the input, applying the appropriate time delays for each frequency channel.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "input_data",
+          "type_desc": "numpy.ndarray",
+          "constraints": "Full input data array (channels x time).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "delay_row",
+          "type_desc": "numpy.ndarray",
+          "constraints": "1D array of time delays for the current dispersion measure.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "time_downsample",
+          "type_desc": "int",
+          "constraints": "Factor by which time samples are downsampled.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "total_downsampled_time",
+          "type_desc": "int",
+          "constraints": "Total number of time samples after downsampling (down_ndata).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "total_channels",
+          "type_desc": "int",
+          "constraints": "Total number of frequency channels (Dch).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tile_start_channel",
+          "type_desc": "int",
+          "constraints": "The starting channel index for this tile (c).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tile_channel_height",
+          "type_desc": "int",
+          "constraints": "The number of channels to load into this tile (niter).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tile_start_time",
+          "type_desc": "int",
+          "constraints": "The starting time index for this block (Tini).",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tile_time_width",
+          "type_desc": "int",
+          "constraints": "The number of time samples in this block (block_dim_x).",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "shifted_data_tile",
+          "type_desc": "numpy.ndarray",
+          "constraints": "A 2D array (tile_channel_height x tile_time_width) with time-shifted data.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(input_data: numpy.ndarray, delay_row: numpy.ndarray, time_downsample: int, total_downsampled_time: int, total_channels: int, tile_start_channel: int, tile_channel_height: int, tile_start_time: int, tile_time_width: int) -> numpy.ndarray",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "sum_tile_over_channels",
+      "parent_id": "dedispersionkernel",
+      "name": "sum_tile_over_channels",
+      "description": "Reduces a tile of time-shifted data by summing across the frequency channel axis, producing a partial sum for each time step within the block.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "shifted_data_tile",
+          "type_desc": "numpy.ndarray",
+          "constraints": "The 2D array of time-shifted data from the loading step.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "time_block_partial_sums",
+          "type_desc": "numpy.ndarray",
+          "constraints": "A 1D array of size tile_time_width containing the sum for each time step in the block.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(shifted_data_tile: numpy.ndarray) -> numpy.ndarray",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "calculate_tile_channel_height",
+      "target_id": "load_shifted_data_tile",
+      "output_name": "tile_channel_height",
+      "input_name": "tile_channel_height",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "load_shifted_data_tile",
+      "target_id": "sum_tile_over_channels",
+      "output_name": "shifted_data_tile",
+      "input_name": "shifted_data_tile",
+      "source_type": "numpy.ndarray",
+      "target_type": "numpy.ndarray",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "AstroflowDedispIngest"
+  }
+}

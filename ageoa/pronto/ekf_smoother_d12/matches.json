@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "stateestimatorinit",
+      "statement": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+      "informal_desc": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "stateestimatorinit",
+            "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+            "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+            "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

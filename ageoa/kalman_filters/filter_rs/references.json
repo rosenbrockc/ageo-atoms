@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.kalman_filters.filter_rs.initializekalmanstatemodel@ageoa/kalman_filters/filter_rs/atoms.py:19": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.kalman_filters.filter_rs.predictlatentstateandcovariance@ageoa/kalman_filters/filter_rs/atoms.py:39": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.kalman_filters.filter_rs.predictlatentstatesteadystate@ageoa/kalman_filters/filter_rs/atoms.py:67": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.kalman_filters.filter_rs.updateposteriorstateandcovariance@ageoa/kalman_filters/filter_rs/atoms.py:116": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.kalman_filters.filter_rs.updateposteriorstatesteadystate@ageoa/kalman_filters/filter_rs/atoms.py:146": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical Kalman filter attribution."
+          }
+        },
+        {
+          "ref_id": "repo_filter_rs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored filter-rs repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

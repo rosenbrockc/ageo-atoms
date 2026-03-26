@@ -1,0 +1,11 @@
+Ingesting procedural 'offset_tt2tdbh' from /Users/conrad/personal/ageo-atoms/third_party/Tempo.jl/src/offset.jl
+
+Ingestion complete:
+  CDG: 1 nodes, 0 edges
+  Matches: 0
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/offset_tt2tdbh/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/offset_tt2tdbh/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/offset_tt2tdbh/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/tempo_jl/offset_tt2tdbh/trace.jsonl

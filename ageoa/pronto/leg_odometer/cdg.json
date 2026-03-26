@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "node_id": "LegOdometer_root",
+      "parent_id": null,
+      "name": "LegOdometer",
+      "description": "Ingested pipeline from LegOdometer",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "velocitystatereadout",
+        "posequeryaccessors"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "velocitystatereadout",
+      "parent_id": "LegOdometer_root",
+      "name": "VelocityStateReadout",
+      "description": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "state_in",
+          "type_desc": "object",
+          "constraints": "Immutable snapshot; includes latent velocity mean xd_b_ and covariance vel_cov_."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "velocity",
+          "type_desc": "np.ndarray",
+          "constraints": "Derived from xd_b_."
+        },
+        {
+          "name": "velocity_covariance",
+          "type_desc": "np.ndarray",
+          "constraints": "Directly from vel_cov_; no mutation."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(state_in: LegOdometerState{xd_b_, vel_cov_}) -> tuple[Vector-like velocity estimate, Covariance matrix]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Immutable Latent Moment Readout. Takes an immutable state container holding the first-order moment (mean vector) and second-order uncertainty structure (covariance matrix) of a latent variable, then performs a direct readout of those components. No inference, filtering, or parameter update is applied; the output is an exact structural projection of stored moments.. Applications: Neuroscience signal processing: read current latent neural activity estimate and posterior covariance from a state-space decoder, Climate data assimilation: extract present atmospheric/ocean latent state mean and uncertainty from an analysis snapshot, Industrial process control: retrieve estimated hidden process variables and confidence structure from a digital twin state, Network operations engineering: read inferred traffic-flow state vector and covariance from a probabilistic monitoring model",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "posequeryaccessors",
+      "parent_id": "LegOdometer_root",
+      "name": "PoseQueryAccessors",
+      "description": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "pose",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pose_related_outputs",
+          "type_desc": "np.ndarray",
+          "constraints": "No persistent state mutation in provided summaries."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "() -> Pose/position/orientation values or placeholders",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Stateless Spatial-State Query Interface. Implements nullary accessor functions that expose a standardized geometric-state descriptor (e.g., translation coordinates and orientation encoding) or typed placeholder values when no concrete estimate is available. The mapping is read-only and side-effect free: invocation does not alter persistent memory, internal state, or external systems. The operation primarily serves as an interface contract that stabilizes downstream consumption of spatial-state outputs independent of how estimates are produced.. Applications: Astronomical instrument control: exposing mount alignment vectors and rotation states to scheduling software without modifying control state., Medical imaging pipelines: querying scanner/table coordinate frames and orientation metadata for reconstruction modules through a stable no-mutation API., Autonomous marine sensing: serving vehicle frame translation/attitude estimates (or placeholders during dropout) to navigation fusion components., Protein-structure simulation tooling: providing conformer frame coordinates and rotational descriptors to analysis stages via pure query accessors.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "LegOdometer"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.pronto.foot_contact.foot_sensing_state_update@ageoa/pronto/foot_contact/atoms.py:22": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.foot_contact.mode_snapshot_readout@ageoa/pronto/foot_contact/atoms.py:40": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

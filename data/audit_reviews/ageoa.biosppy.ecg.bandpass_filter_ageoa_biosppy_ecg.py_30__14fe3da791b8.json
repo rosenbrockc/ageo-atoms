@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
+  "atom_name": "ageoa.biosppy.ecg.bandpass_filter",
+  "review_status": "draft",
+  "reviewer_type": "human",
+  "reviewed_at": null,
+  "upstream_symbols": {},
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "label": "Local wrapper",
+      "reference": "ageoa/biosppy/ecg.py",
+      "relevance": "Wrapper implementation under review."
+    },
+    {
+      "kind": "repository",
+      "label": "Local references",
+      "reference": "ageoa/biosppy/references.json",
+      "relevance": "Repository-local reference metadata."
+    }
+  ],
+  "source_basis": {
+    "upstream_version": null,
+    "source_revision": null,
+    "review_basis_at": null
+  },
+  "line_references": [
+    {
+      "scope": "wrapper",
+      "path": "ageoa/biosppy/ecg.py",
+      "line": 30,
+      "note": "Wrapper entry point for semantic review."
+    }
+  ],
+  "wrapper_truth": "unknown",
+  "api_truth": "unknown",
+  "state_truth": "unknown",
+  "output_truth": "unknown",
+  "decomposition_truth": "unknown",
+  "semantic_verdict": "unknown",
+  "developer_semantics_verdict": "unknown",
+  "limitations": [],
+  "required_actions": [
+    "repair the CDG structure and schema",
+    "implement or clearly downgrade the stubbed public atom"
+  ],
+  "notes": [
+    "Seeded from manifest blocking_findings."
+  ],
+  "supporting_artifacts": {
+    "signature_evidence": "/Users/conrad/personal/ageo-atoms/data/audit/evidence/ageoa.biosppy.ecg.bandpass_filter_ageoa_biosppy_ecg.py_30__14fe3da791b8.json",
+    "acceptability_result": "/Users/conrad/personal/ageo-atoms/data/audit/results/ageoa.biosppy.ecg.bandpass_filter_ageoa_biosppy_ecg.py_30__14fe3da791b8.json"
+  },
+  "seed_context": {
+    "risk_tier": "high",
+    "risk_score": 72,
+    "review_priority": "review_now",
+    "risk_reasons": [
+      "RISK_CDG_ISSUES",
+      "RISK_GENERATED_ABSTRACTION_LANGUAGE",
+      "RISK_MISSING_PARITY",
+      "RISK_MISSING_PROVENANCE",
+      "RISK_MISSING_REVIEW_BASIS",
+      "RISK_NO_RUNTIME_EVIDENCE",
+      "RISK_PROCEDURAL_WRAPPER",
+      "RISK_STATEFUL_API",
+      "RISK_STATE_MODEL_PRESENT",
+      "RISK_STRUCTURAL_FAIL",
+      "RISK_STUB_PUBLIC_API",
+      "RISK_UPSTREAM_UNMAPPED"
+    ],
+    "blocking_findings": [
+      "STRUCT_CDG_INVALID",
+      "STRUCT_PUBLIC_KWARGS",
+      "STRUCT_STUB_PUBLIC_API"
+    ],
+    "structural_findings": [
+      "STRUCT_CDG_INVALID",
+      "STRUCT_PUBLIC_KWARGS",
+      "STRUCT_STUB_PUBLIC_API"
+    ]
+  }
+}

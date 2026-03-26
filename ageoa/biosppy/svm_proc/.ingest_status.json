@@ -1,0 +1,30 @@
+{
+  "run_id": "0e4b1a3d814f4609a482165c66c668f6",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "../ageo-atoms/third_party/BioSPPy/biosppy/biometrics.py",
+  "class_name": "SVM",
+  "procedural": true,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772981702.667757,
+  "last_heartbeat_at": 1772981704.809023,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772981704.809023,
+  "summary": {
+    "cdg_nodes": 9,
+    "cdg_edges": 0,
+    "matches": 8,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

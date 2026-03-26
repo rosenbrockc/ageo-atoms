@@ -1,0 +1,30 @@
+{
+  "run_id": "87a22d6c61c6441da648bb6538886495",
+  "state": "completed",
+  "phase": "verify_ghost",
+  "current_step": "passed",
+  "source_path": "../ageo-atoms/third_party/mint/mint/rotary_embedding.py",
+  "class_name": "RotaryEmbedding",
+  "procedural": false,
+  "llm_provider": "claude_shim",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772997029.224842,
+  "last_heartbeat_at": 1772997163.933485,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772997163.933485,
+  "summary": {
+    "cdg_nodes": 2,
+    "cdg_edges": 0,
+    "matches": 1,
+    "mypy_passed": false,
+    "ghost_sim_passed": true,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

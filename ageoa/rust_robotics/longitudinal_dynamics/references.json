@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.rust_robotics.longitudinal_dynamics.compute_aerodynamic_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:53": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.compute_gravity_grade_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:91": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.compute_rolling_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:72": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.deserialize_model_spec@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:208": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.evaluate_dynamics_derivatives@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:111": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.initialize_model@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:27": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.linearize_dynamics@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:145": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.rust_robotics.longitudinal_dynamics.solve_control_for_target_derivative@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:175": {
+      "references": [
+        {
+          "ref_id": "repo_rust_robotics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for rust_robotics atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

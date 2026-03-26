@@ -1,0 +1,115 @@
+{
+  "nodes": [
+    {
+      "node_id": "TopoIngest_root",
+      "parent_id": null,
+      "name": "TopoIngest",
+      "description": "Ingested pipeline from TopoIngest",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "topological_loss_computation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "topological_loss_computation",
+      "parent_id": "TopoIngest_root",
+      "name": "topological_loss_computation",
+      "description": "Computes a topological loss using logits, positional data, and neighborhood indices. The process is stochastic and controlled by a random key.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "key",
+          "type_desc": "jax.random.PRNGKey",
+          "constraints": "A JAX random number generator key for stochastic operations.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "logits",
+          "type_desc": "Array",
+          "constraints": "Logits output from a model.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "pos32",
+          "type_desc": "Array",
+          "constraints": "32-bit positional data.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "nbr_idx",
+          "type_desc": "Array",
+          "constraints": "Neighbor indices.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "b",
+          "type_desc": "Array",
+          "constraints": "A parameter for the loss computation.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_iters",
+          "type_desc": "int",
+          "constraints": "Maximum number of iterations for the computation.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tau",
+          "type_desc": "float",
+          "constraints": "A temperature or scaling parameter.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "topo_loss",
+          "type_desc": "Scalar",
+          "constraints": "The computed topological loss value.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(key: jax.random.PRNGKey, logits: Array, pos32: Array, nbr_idx: Array, b: Array, max_iters: int, tau: float) -> Scalar",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "spatial_consistency_loss. Computes a scalar discrepancy score between a set of categorical assignments and their corresponding locations in a geometric space. The function iteratively compares the similarity of categorical data (represented by log-probability vectors) against the spatial proximity defined by a neighborhood graph, producing a loss value that is high when spatially close elements have dissimilar categories.. Applications: In computational biology, to enforce that amino acids in a predicted protein structure have physically plausible spatial arrangements based on their sequential neighbors., In computer vision, to regularize an image segmentation model by ensuring that pixels assigned to the same object class are spatially contiguous., In materials science, to simulate crystallization by penalizing atomic configurations where the local arrangement of atom types violates the expected lattice structure., In natural language processing, ensuring that documents with similar topic models are placed near each other in a low-dimensional visualization embedding.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "TopoIngest"
+  }
+}

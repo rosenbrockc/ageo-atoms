@@ -1,0 +1,292 @@
+{
+  "nodes": [
+    {
+      "node_id": "heart_cycle_detection_root",
+      "parent_id": null,
+      "name": "heart_cycle_detection",
+      "description": "Ingested pipeline from heart_cycle_detection",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "detect_heart_cycles"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_heart_cycles",
+      "parent_id": "heart_cycle_detection_root",
+      "name": "detect_heart_cycles",
+      "description": "Detects heart cycles from a PPG signal.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "Raw PPG signal."
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "The sampling frequency of the PPG signal."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "heart_cycles",
+          "type_desc": "np.ndarray",
+          "constraints": "Indices of detected heart cycles."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "normalize_ppg_signal",
+        "upsample_ppg_signal",
+        "detect_systolic_peaks",
+        "segment_beat_cycles"
+      ],
+      "depth": 1,
+      "type_signature": "(ppg: np.ndarray, sampling_rate: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "find_quasi_periodic_events. Scans a 1D numerical signal to identify the indices of regularly recurring, salient local maxima. The process involves signal conditioning to reduce noise and amplify periodic components, followed by a peak-finding algorithm that filters candidates based on temporal proximity constraints derived from the sampling rate.. Applications: Detecting periodic dimming events in a star's light curve data to locate transiting exoplanets., Identifying recurring aftershock patterns in seismic sensor data following a major earthquake., Analyzing vibration data from a rotating machine to find harmonic frequencies indicative of mechanical imbalance or wear., Locating seasonal spikes in a time-series of consumer purchasing data to model economic cycles.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "normalize_ppg_signal",
+      "parent_id": "detect_heart_cycles",
+      "name": "normalize_ppg_signal",
+      "description": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "1D array of PPG signal values."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "normalized_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "1D array of normalized PPG signal values."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "upsample_ppg_signal",
+      "parent_id": "detect_heart_cycles",
+      "name": "upsample_ppg_signal",
+      "description": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "normalized_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "1D array of normalized PPG signal."
+        },
+        {
+          "name": "original_sampling_rate",
+          "type_desc": "int",
+          "constraints": "The initial sampling rate of the signal."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "upsampled_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "Resampled PPG signal with twice the number of samples."
+        },
+        {
+          "name": "upsampled_rate",
+          "type_desc": "int",
+          "constraints": "The new, doubled sampling rate."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_systolic_peaks",
+      "parent_id": "detect_heart_cycles",
+      "name": "detect_systolic_peaks",
+      "description": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "ppg_upsampled",
+          "type_desc": "np.ndarray",
+          "constraints": "Upsampled PPG signal."
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int",
+          "constraints": "The sampling rate of the input signal."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "systolic_peaks",
+          "type_desc": "np.ndarray",
+          "constraints": "Array of indices corresponding to detected systolic peaks."
+        },
+        {
+          "name": "cleaned_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "A potentially filtered or cleaned version of the PPG signal returned by the peak finding algorithm."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "segment_beat_cycles",
+      "parent_id": "detect_heart_cycles",
+      "name": "segment_beat_cycles",
+      "description": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "cleaned_ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "The cleaned PPG signal from which to extract beats."
+        },
+        {
+          "name": "systolic_peaks",
+          "type_desc": "np.ndarray",
+          "constraints": "Array of indices for the detected systolic peaks."
+        },
+        {
+          "name": "upsampled_ppg_length",
+          "type_desc": "int",
+          "constraints": "Total length of the upsampled PPG signal array."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "heart_cycles",
+          "type_desc": "list[np.ndarray]",
+          "constraints": "A list where each element is a 1D numpy array representing a single heart cycle."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "normalize_ppg_signal",
+      "target_id": "upsample_ppg_signal",
+      "output_name": "normalized_ppg",
+      "input_name": "normalized_ppg",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "upsample_ppg_signal",
+      "target_id": "detect_systolic_peaks",
+      "output_name": "upsampled_ppg",
+      "input_name": "ppg_upsampled",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "upsample_ppg_signal",
+      "target_id": "detect_systolic_peaks",
+      "output_name": "upsampled_rate",
+      "input_name": "sampling_rate",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_systolic_peaks",
+      "target_id": "segment_beat_cycles",
+      "output_name": "systolic_peaks",
+      "input_name": "systolic_peaks",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "detect_systolic_peaks",
+      "target_id": "segment_beat_cycles",
+      "output_name": "cleaned_ppg",
+      "input_name": "cleaned_ppg",
+      "source_type": "np.ndarray",
+      "target_type": "np.ndarray",
+      "requires_glue": false
+    },
+    {
+      "source_id": "upsample_ppg_signal",
+      "target_id": "segment_beat_cycles",
+      "output_name": "upsampled_ppg",
+      "input_name": "upsampled_ppg_length",
+      "source_type": "np.ndarray",
+      "target_type": "int",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "heart_cycle_detection"
+  }
+}

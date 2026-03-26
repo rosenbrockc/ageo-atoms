@@ -1,0 +1,2849 @@
+# atom_manifest.yml
+# Comprehensive mapping of every stub atom function to its upstream implementation.
+# Generated 2026-03-15
+#
+# Legend:
+#   atom        – ageoa module path : function name
+#   repo        – third_party directory name
+#   module      – dotted source path within the upstream repo
+#   function    – upstream function / method / type name
+#   language    – python | julia | rust | cpp | haskell
+#   crate       – (rust only) crate name
+#   notes       – any clarifying context
+
+# =============================================================================
+#  AdvancedVI.jl  (Julia)
+# =============================================================================
+- atom: advancedvi/location_scale:evaluate_log_probability_density
+  upstream:
+    repo: AdvancedVI.jl
+    module: AdvancedVI.families.location_scale
+    function: Distributions.logpdf
+    language: julia
+
+- atom: advancedvi/optimize:optimizationlooporchestration
+  upstream:
+    repo: AdvancedVI.jl
+    module: AdvancedVI.optimize
+    function: optimize
+    language: julia
+
+- atom: advancedvi/repgradelbo:gradient_oracle_evaluation
+  upstream:
+    repo: AdvancedVI.jl
+    module: AdvancedVI.algorithms.repgradelbo
+    function: estimate_repgradelbo_ad_forward
+    language: julia
+
+# =============================================================================
+#  AlphaFold  (no third_party – reference implementation stubs)
+# =============================================================================
+- atom: alphafold:coordinate_reconstruction
+  upstream:
+    repo: ~
+    module: ~
+    function: ~
+    language: python
+    notes: No third_party repo; stub references AlphaFold2 torsion_angles_to_frames logic
+
+- atom: alphafold:equivariant_frame_update
+  upstream:
+    repo: ~
+    module: ~
+    function: ~
+    language: python
+    notes: No third_party repo; stub references AlphaFold2 InvariantPointAttention frame update
+
+- atom: alphafold:invariant_point_attention
+  upstream:
+    repo: ~
+    module: ~
+    function: ~
+    language: python
+    notes: No third_party repo; stub references AlphaFold2 InvariantPointAttention
+
+# =============================================================================
+#  astroflow
+# =============================================================================
+- atom: astroflow:dedispersionkernel
+  upstream:
+    repo: astroflow
+    module: astroflow.dedispered
+    function: dedisperse_spec
+    language: python
+
+# =============================================================================
+#  bayes (Rust)
+# =============================================================================
+- atom: bayes_rs/bernoulli:bernoulli_probabilistic_oracle
+  upstream:
+    repo: bayes
+    module: bayes.prob.bernoulli
+    function: Bernoulli.suf_log_prob
+    language: rust
+    crate: bayes
+
+# =============================================================================
+#  Belief-Propagation
+# =============================================================================
+- atom: belief_propagation/loopy_bp:initialize_message_passing_state
+  upstream:
+    repo: Belief-Propagation
+    module: bp_impl
+    function: LoopyBP.__init__
+    language: python
+
+- atom: belief_propagation/loopy_bp:run_loopy_message_passing_and_belief_query
+  upstream:
+    repo: Belief-Propagation
+    module: bp_impl
+    function: LoopyBP.belief
+    language: python
+
+# =============================================================================
+#  BioSPPy
+# =============================================================================
+- atom: biosppy/abp_zong:audio_onset_detection
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.abp
+    function: find_onsets_zong2003
+    language: python
+
+- atom: biosppy/ecg_asi:thresholdbasedsignalsegmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ASI_segmenter
+    language: python
+
+- atom: biosppy/ecg_asi_d12:asi_signal_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ASI_segmenter
+    language: python
+
+- atom: biosppy/ecg_christov:christovqrsdetect
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: christov_segmenter
+    language: python
+
+- atom: biosppy/ecg_christov_d12:christov_qrs_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: christov_segmenter
+    language: python
+
+- atom: biosppy/ecg_engzee:engzee_signal_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: engzee_segmenter
+    language: python
+
+- atom: biosppy/ecg_engzee_d12:engzee_qrs_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: engzee_segmenter
+    language: python
+
+- atom: biosppy/ecg_gamboa:gamboa_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: gamboa_segmenter
+    language: python
+
+- atom: biosppy/ecg_gamboa_d12:gamboa_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: gamboa_segmenter
+    language: python
+
+- atom: biosppy/ecg_hamilton:hamilton_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: hamilton_segmenter
+    language: python
+
+- atom: biosppy/ecg_hamilton_d12:hamilton_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: hamilton_segmenter
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatebeatagreementsqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: bSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatecompositesqi_zz2018
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ZZ2018
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatefrequencypowersqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: fSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018:calculatekurtosissqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: kSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018_d12:assemblezz2018sqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ZZ2018
+    language: python
+
+- atom: biosppy/ecg_zz2018_d12:computebeatagreementsqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: bSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018_d12:computefrequencysqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: fSQI
+    language: python
+
+- atom: biosppy/ecg_zz2018_d12:computekurtosissqi
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: kSQI
+    language: python
+
+- atom: biosppy/emg_abbink:detect_onsets_with_rest_aware_thresholds
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.emg
+    function: abbink_onset_detector
+    language: python
+
+- atom: biosppy/emg_bonato:bonato_onset_detection
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.emg
+    function: bonato_onset_detector
+    language: python
+
+- atom: biosppy/emg_solnik:threshold_based_onset_detection
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.emg
+    function: solnik_onset_detector
+    language: python
+
+- atom: biosppy/emg_solnik_d12:solnik_onset_detect
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.emg
+    function: solnik_onset_detector
+    language: python
+
+- atom: biosppy/pcg_homomorphic:homomorphic_signal_filtering
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.pcg
+    function: homomorphic_filter
+    language: python
+
+- atom: biosppy/pcg_homomorphic_d12:homomorphicfilter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.pcg
+    function: homomorphic_filter
+    language: python
+
+- atom: biosppy/ppg_elgendi:detect_signal_onsets_elgendi2013
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ppg
+    function: find_onsets_elgendi2013
+    language: python
+
+- atom: biosppy/ppg_kavsaoglu:detectonsetevents
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ppg
+    function: find_onsets_kavsaoglu2016
+    language: python
+
+- atom: biosppy/svm_proc:assess_classification
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.assess_classification
+    language: python
+    notes: biometrics module contains SVM-based biometric classification
+
+- atom: biosppy/svm_proc:assess_runs
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.assess_runs
+    language: python
+
+- atom: biosppy/svm_proc:combination
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.combination
+    language: python
+
+- atom: biosppy/svm_proc:cross_validation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.cross_validation
+    language: python
+
+- atom: biosppy/svm_proc:get_auth_rates
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.get_auth_rates
+    language: python
+
+- atom: biosppy/svm_proc:get_id_rates
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.get_id_rates
+    language: python
+
+- atom: biosppy/svm_proc:get_subject_results
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.get_subject_results
+    language: python
+
+- atom: biosppy/svm_proc:majority_rule
+  upstream:
+    repo: BioSPPy
+    module: biosppy.biometrics
+    function: Biometrics.majority_rule
+    language: python
+
+# =============================================================================
+#  ConjugatePriors.jl  (Julia)
+# =============================================================================
+- atom: conjugate_priors/beta_binom:posterior_randmodel
+  upstream:
+    repo: ConjugatePriors.jl
+    module: ConjugatePriors.beta_binom
+    function: posterior_randmodel
+    language: julia
+
+- atom: conjugate_priors/beta_binom:posterior_randmodel_weighted
+  upstream:
+    repo: ConjugatePriors.jl
+    module: ConjugatePriors.beta_binom
+    function: posterior_randmodel
+    language: julia
+    notes: Weighted overload of posterior_randmodel(pri, G, data, w)
+
+- atom: conjugate_priors/normal:normal_gamma_posterior_update
+  upstream:
+    repo: ConjugatePriors.jl
+    module: ConjugatePriors.normalinversegamma
+    function: NormalInverseGamma posterior_canon
+    language: julia
+    notes: Maps to the NormalInverseGamma posterior update logic
+
+# =============================================================================
+#  E2E-PPG
+# =============================================================================
+- atom: e2e_ppg:kazemi_peak_detection
+  upstream:
+    repo: E2E-PPG
+    module: kazemi_peak_detection
+    function: ppg_peaks
+    language: python
+
+- atom: e2e_ppg:ppg_reconstruction
+  upstream:
+    repo: E2E-PPG
+    module: ppg_reconstruction
+    function: reconstruction
+    language: python
+
+- atom: e2e_ppg:ppg_sqa
+  upstream:
+    repo: E2E-PPG
+    module: ppg_sqa
+    function: sqa
+    language: python
+
+- atom: e2e_ppg/gan_rec:generatereconstructedppg
+  upstream:
+    repo: E2E-PPG
+    module: ppg_reconstruction
+    function: gan_rec
+    language: python
+
+- atom: e2e_ppg/gan_rec_d12:gan_reconstruction
+  upstream:
+    repo: E2E-PPG
+    module: ppg_reconstruction
+    function: gan_rec
+    language: python
+
+- atom: e2e_ppg/heart_cycle:detect_heart_cycles
+  upstream:
+    repo: E2E-PPG
+    module: ppg_sqa
+    function: heart_cycle_detection
+    language: python
+
+- atom: e2e_ppg/heart_cycle_d12:heart_cycle_detection
+  upstream:
+    repo: E2E-PPG
+    module: ppg_sqa
+    function: heart_cycle_detection
+    language: python
+
+- atom: e2e_ppg/kazemi_wrapper:signalarraynormalization
+  upstream:
+    repo: E2E-PPG
+    module: kazemi_peak_detection
+    function: normalize
+    language: python
+
+- atom: e2e_ppg/kazemi_wrapper:wrapperpredictionsignalcomputation
+  upstream:
+    repo: E2E-PPG
+    module: kazemi_peak_detection
+    function: Wrapper_function
+    language: python
+
+- atom: e2e_ppg/kazemi_wrapper_d12:normalizesignal
+  upstream:
+    repo: E2E-PPG
+    module: kazemi_peak_detection
+    function: normalize
+    language: python
+
+- atom: e2e_ppg/kazemi_wrapper_d12:wrapperevaluate
+  upstream:
+    repo: E2E-PPG
+    module: kazemi_peak_detection
+    function: Wrapper_function
+    language: python
+
+- atom: e2e_ppg/reconstruction:gan_patch_reconstruction
+  upstream:
+    repo: E2E-PPG
+    module: ppg_reconstruction
+    function: gan_rec
+    language: python
+
+- atom: e2e_ppg/reconstruction:windowed_signal_reconstruction
+  upstream:
+    repo: E2E-PPG
+    module: ppg_reconstruction
+    function: reconstruction
+    language: python
+
+- atom: e2e_ppg/template_matching:templatefeaturecomputation
+  upstream:
+    repo: E2E-PPG
+    module: ppg_sqa
+    function: template_matching_features
+    language: python
+
+# =============================================================================
+#  hPDB  (Haskell)
+# =============================================================================
+- atom: hPDB:iterate_pdb_atoms
+  upstream:
+    repo: hPDB
+    module: Bio.PDB.Structure
+    function: atoms
+    language: haskell
+    notes: Haskell record field accessor on Model/Chain/Residue structures
+
+- atom: hPDB:iterate_pdb_residues
+  upstream:
+    repo: hPDB
+    module: Bio.PDB.Structure
+    function: residues
+    language: haskell
+    notes: Haskell record field accessor on Model/Chain structures
+
+# =============================================================================
+#  hftbacktest
+# =============================================================================
+- atom: hftbacktest:evaluate_spread_conditions
+  upstream:
+    repo: hftbacktest
+    module: hftbacktest_glft
+    function: HFTBacktestGLFT.check_half_spread_c1_ratio
+    language: python
+
+- atom: hftbacktest:initialize_glft_state
+  upstream:
+    repo: hftbacktest
+    module: hftbacktest_glft
+    function: HFTBacktestGLFT.__init__
+    language: python
+
+- atom: hftbacktest:update_glft_coefficients
+  upstream:
+    repo: hftbacktest
+    module: hftbacktest_glft
+    function: HFTBacktestGLFT.compute_coeff
+    language: python
+
+# =============================================================================
+#  Institutional-Quant-Engine
+# =============================================================================
+- atom: institutional_quant_engine:almgren_chriss_execution
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_optimal_execution_almgren
+    function: optimal_trajectory
+    language: python
+
+- atom: institutional_quant_engine:limit_order_queue_estimator
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.49_limit_order_queue_estimator
+    function: QueueTracker.process_trade
+    language: python
+
+- atom: institutional_quant_engine:market_making_avellaneda
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.23_market_making_avellaneda
+    function: MarketMaker.calculate_quotes
+    language: python
+
+- atom: institutional_quant_engine:pin_informed_trading
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.41_pin_informed_trading
+    function: pin_likelihood
+    language: python
+
+- atom: institutional_quant_engine/almgren_chriss:computeoptimaltrajectory
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_optimal_execution_almgren
+    function: optimal_trajectory
+    language: python
+
+- atom: institutional_quant_engine/almgren_chriss_v2:optimalexecutiontrajectory
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_almgren_chriss_class
+    function: AlmgrenChriss.optimal_trajectory
+    language: python
+
+- atom: institutional_quant_engine/almgren_chriss_v2:riskaversioninit
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_almgren_chriss_class
+    function: AlmgrenChriss.__init__
+    language: python
+
+- atom: institutional_quant_engine/avellaneda_stoikov:computeinventoryadjustedquotes
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.23_market_making_avellaneda
+    function: MarketMaker.calculate_quotes
+    language: python
+
+- atom: institutional_quant_engine/avellaneda_stoikov:initializemarketmakerstate
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.23_market_making_avellaneda
+    function: MarketMaker.__init__
+    language: python
+
+- atom: institutional_quant_engine/avellaneda_stoikov_d12:marketmakerstateinit
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.23_market_making_avellaneda
+    function: MarketMaker.__init__
+    language: python
+
+- atom: institutional_quant_engine/avellaneda_stoikov_d12:optimalquotecalculation
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.23_market_making_avellaneda
+    function: MarketMaker.calculate_quotes
+    language: python
+
+- atom: institutional_quant_engine/copula_dependence:simulate_copula_dependence
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: risk_portfolio.27_copula_dependence
+    function: ~
+    language: python
+    notes: Upstream is script-level (no function def); logic is inline t-copula simulation
+
+- atom: institutional_quant_engine/dynamic_hedge:kalman_hedge_ratio
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: strategies.29_dynamic_hedge_kalman
+    function: ~
+    language: python
+    notes: Upstream is script-level Kalman filter loop; no named function
+
+- atom: institutional_quant_engine/evt_model:fit_gpd_tail
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: risk_portfolio.24_tail_risk_evt
+    function: ~
+    language: python
+    notes: Upstream is script-level GPD fitting via scipy.stats.genpareto.fit
+
+- atom: institutional_quant_engine/fractional_diff:fractional_differentiator
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.34_fractional_diff_stationarity
+    function: frac_diff
+    language: python
+
+- atom: institutional_quant_engine/hawkes_process:sample_hawkes_event_trajectory
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.35_hawkes_process_arrival
+    function: simulate_hawkes
+    language: python
+
+- atom: institutional_quant_engine/hawkes_process_d12:hawkesprocesssimulator
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.hawkes_wrapped
+    function: HawkesWrapper.simulate
+    language: python
+
+- atom: institutional_quant_engine/heston_model:simulate_heston_paths
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: derivatives_pricing.heston_wrapped
+    function: HestonWrapper.simulate
+    language: python
+
+- atom: institutional_quant_engine/heston_model_d12:hestonpathsampler
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: derivatives_pricing.heston_wrapped
+    function: HestonWrapper.simulate
+    language: python
+
+- atom: institutional_quant_engine/hierarchical_risk_parity:compute_hrp_weights
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: risk_portfolio.hrp_wrapped
+    function: HRPWrapper.run
+    language: python
+
+- atom: institutional_quant_engine/hrp_d12:hrppipelinerun
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: risk_portfolio.hrp_wrapped
+    function: HRPWrapper.run
+    language: python
+
+- atom: institutional_quant_engine/order_flow_imbalance:orderflowimbalanceevaluation
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.28_order_flow_imbalance
+    function: calculate_ofi
+    language: python
+
+- atom: institutional_quant_engine/pin_model:pinlikelihoodevaluation
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.41_pin_informed_trading
+    function: pin_likelihood
+    language: python
+
+- atom: institutional_quant_engine/pin_model_d12:pinlikelihoodevaluator
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.41_pin_informed_trading
+    function: pin_likelihood
+    language: python
+
+- atom: institutional_quant_engine/supply_chain:propagate_supply_shock
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: strategies.47_supply_chain_propagation
+    function: ~
+    language: python
+    notes: Upstream is script-level topological sort propagation; no named function
+
+- atom: institutional_quant_engine/triangular_arbitrage:detect_triangular_arbitrage
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.19_triangular_arbitrage_graph
+    function: ~
+    language: python
+    notes: Upstream is script-level nx.find_negative_cycle; no named function
+
+- atom: institutional_quant_engine/wash_trade:detect_wash_trade_rings
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: ops_compliance.50_trade_surveillance_wash_graph
+    function: ~
+    language: python
+    notes: Upstream is script-level nx.simple_cycles; no named function
+
+# =============================================================================
+#  jax_advi
+# =============================================================================
+- atom: jax_advi/optimize_advi:meanfieldvariationalfit
+  upstream:
+    repo: jax_advi
+    module: jax_advi.advi
+    function: optimize_advi_mean_field
+    language: python
+
+- atom: jax_advi/optimize_advi:posteriordrawsampling
+  upstream:
+    repo: jax_advi
+    module: jax_advi.advi
+    function: get_posterior_draws
+    language: python
+
+# =============================================================================
+#  jFOF
+# =============================================================================
+- atom: jFOF:find_fof_clusters
+  upstream:
+    repo: jFOF
+    module: fof.fofkd
+    function: fof_clusters_jit
+    language: python
+
+- atom: jFOF/topo:topological_loss_computation
+  upstream:
+    repo: jFOF
+    module: topo_ingest
+    function: compute_topo_loss
+    language: python
+
+# =============================================================================
+#  kalman_filters / filter-rs  (Rust)
+# =============================================================================
+- atom: kalman_filters/filter_rs:evaluatemeasurementoracle
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter.residual_of
+    language: rust
+    crate: filter-rs
+
+- atom: kalman_filters/filter_rs:initializekalmanstatemodel
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter::default
+    language: rust
+    crate: filter-rs
+
+- atom: kalman_filters/filter_rs:predictlatentstateandcovariance
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter.predict
+    language: rust
+    crate: filter-rs
+
+- atom: kalman_filters/filter_rs:predictlatentstatesteadystate
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter.predict_steadystate
+    language: rust
+    crate: filter-rs
+
+- atom: kalman_filters/filter_rs:updateposteriorstateandcovariance
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter.update
+    language: rust
+    crate: filter-rs
+
+- atom: kalman_filters/filter_rs:updateposteriorstatesteadystate
+  upstream:
+    repo: filter-rs
+    module: kalman.kalman_filter
+    function: KalmanFilter.update_steadystate
+    language: rust
+    crate: filter-rs
+
+# =============================================================================
+#  kalman_filters / static_kf  (Rust – kalman_filters crate)
+# =============================================================================
+- atom: kalman_filters/static_kf:initializelineargaussianstatemodel
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter::new
+    language: rust
+    crate: kalman_filters
+
+- atom: kalman_filters/static_kf:predictlatentstate
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.predict
+    language: rust
+    crate: kalman_filters
+
+- atom: kalman_filters/static_kf:updatewithmeasurement
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.update
+    language: rust
+    crate: kalman_filters
+
+- atom: kalman_filters/static_kf:exposelatentmean
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.state
+    language: rust
+    crate: kalman_filters
+
+- atom: kalman_filters/static_kf:exposecovariance
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.covariance
+    language: rust
+    crate: kalman_filters
+
+- atom: kalman_filters/static_kf:_initializelineargaussianstatemodel_ffi
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter::new
+    language: rust
+    crate: kalman_filters
+    notes: FFI binding variant
+
+- atom: kalman_filters/static_kf:_predictlatentstate_ffi
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.predict
+    language: rust
+    crate: kalman_filters
+    notes: FFI binding variant
+
+- atom: kalman_filters/static_kf:_updatewithmeasurement_ffi
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.update
+    language: rust
+    crate: kalman_filters
+    notes: FFI binding variant
+
+- atom: kalman_filters/static_kf:_exposelatentmean_ffi
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.state
+    language: rust
+    crate: kalman_filters
+    notes: FFI binding variant
+
+- atom: kalman_filters/static_kf:_exposecovariance_ffi
+  upstream:
+    repo: kalman_filters
+    module: filter
+    function: KalmanFilter.covariance
+    language: rust
+    crate: kalman_filters
+    notes: FFI binding variant
+
+# =============================================================================
+#  MCMC foundational – AdvancedHMC.jl  (Julia)
+# =============================================================================
+- atom: mcmc_foundational/advancedhmc/integrator:hamiltonianphasepointtransition
+  upstream:
+    repo: AdvancedHMC.jl
+    module: AdvancedHMC.integrator
+    function: step
+    language: julia
+
+- atom: mcmc_foundational/advancedhmc/integrator:temperingfactorcomputation
+  upstream:
+    repo: AdvancedHMC.jl
+    module: AdvancedHMC.integrator
+    function: temper
+    language: julia
+
+- atom: mcmc_foundational/advancedhmc/trajectory:buildnutstree
+  upstream:
+    repo: AdvancedHMC.jl
+    module: AdvancedHMC.trajectory
+    function: build_tree
+    language: julia
+
+- atom: mcmc_foundational/advancedhmc/trajectory:nutstransitionkernel
+  upstream:
+    repo: AdvancedHMC.jl
+    module: AdvancedHMC.trajectory
+    function: transition
+    language: julia
+
+# =============================================================================
+#  MCMC foundational – mcmc (C++ kthohr)
+# =============================================================================
+- atom: mcmc_foundational/kthohr_mcmc/aees:metropolishastingstransitionkernel
+  upstream:
+    repo: mcmc
+    module: mcmc.aees
+    function: aees
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/aees:targetlogkerneloracle
+  upstream:
+    repo: mcmc
+    module: mcmc.aees
+    function: aees_impl
+    language: cpp
+    notes: Target log-kernel evaluation within aees_impl
+
+- atom: mcmc_foundational/kthohr_mcmc/de:build_de_transition_kernel
+  upstream:
+    repo: mcmc
+    module: mcmc.de
+    function: de
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/hmc:buildhmckernelfromlogdensityoracle
+  upstream:
+    repo: mcmc
+    module: mcmc.hmc
+    function: hmc
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/mala:mala_proposal_adjustment
+  upstream:
+    repo: mcmc
+    module: mcmc.mala
+    function: mala
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/mcmc_algos:dispatch_mcmc_algorithm
+  upstream:
+    repo: mcmc
+    module: mcmc.mcmc_algos
+    function: mcmc
+    language: cpp
+    notes: Top-level dispatch that selects rwmh/hmc/nuts/mala/de/aees/rmhmc
+
+- atom: mcmc_foundational/kthohr_mcmc/nuts:nuts_recursive_tree_build
+  upstream:
+    repo: mcmc
+    module: mcmc.nuts
+    function: nuts
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/rmhmc:buildrmhmctransitionkernel
+  upstream:
+    repo: mcmc
+    module: mcmc.rmhmc
+    function: rmhmc
+    language: cpp
+
+- atom: mcmc_foundational/kthohr_mcmc/rwmh:constructrandomwalkmetropoliskernel
+  upstream:
+    repo: mcmc
+    module: mcmc.rwmh
+    function: rwmh
+    language: cpp
+
+# =============================================================================
+#  MCMC foundational – mini-mcmc  (Rust)
+# =============================================================================
+- atom: mcmc_foundational/mini_mcmc/hmc:initializehmcstate
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: init
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc:leapfrogproposalkernel
+  upstream:
+    repo: mini-mcmc
+    module: nuts
+    function: leapfrog
+    language: rust
+    crate: mini-mcmc
+    notes: Leapfrog integrator shared between HMC and NUTS
+
+- atom: mcmc_foundational/mini_mcmc/hmc:metropolishmctransition
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: Chain.step
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc:runsamplingloop
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: run_chain
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc_llm:collectposteriorchain
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: run_chain_progress
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc_llm:hamiltoniantransitionkernel
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: Chain.step
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc_llm:initializehmckernelstate
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: init
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/hmc_llm:initializesamplerrng
+  upstream:
+    repo: mini-mcmc
+    module: core
+    function: init_with_seed
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/nuts:nuts_recursive_tree_build
+  upstream:
+    repo: mini-mcmc
+    module: nuts
+    function: build_tree
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/nuts_llm:initializenutsstate
+  upstream:
+    repo: mini-mcmc
+    module: nuts
+    function: NutsChain.new
+    language: rust
+    crate: mini-mcmc
+
+- atom: mcmc_foundational/mini_mcmc/nuts_llm:runnutstransitions
+  upstream:
+    repo: mini-mcmc
+    module: nuts
+    function: NutsChain.run
+    language: rust
+    crate: mini-mcmc
+
+# =============================================================================
+#  mint
+# =============================================================================
+- atom: mint:axial_attention
+  upstream:
+    repo: mint
+    module: mint.axial_attention
+    function: RowSelfAttention.forward
+    language: python
+
+- atom: mint:rotary_positional_embeddings
+  upstream:
+    repo: mint
+    module: mint.rotary_embedding
+    function: RotaryEmbedding.forward
+    language: python
+
+- atom: mint/apc_module:apccoreevaluation
+  upstream:
+    repo: mint
+    module: mint.modules
+    function: apc
+    language: python
+
+- atom: mint/axial_attention:rowselfattention
+  upstream:
+    repo: mint
+    module: mint.axial_attention
+    function: RowSelfAttention.forward
+    language: python
+
+- atom: mint/axial_attention_d12:row_self_attention
+  upstream:
+    repo: mint
+    module: mint.axial_attention
+    function: RowSelfAttention.forward
+    language: python
+
+- atom: mint/encoding_dist_mat:encodedistancematrix
+  upstream:
+    repo: mint
+    module: mint.modules
+    function: symmetrize
+    language: python
+    notes: Distance matrix encoding uses symmetrize + additional processing
+
+- atom: mint/fasta_dataset:dataset_item_retrieval
+  upstream:
+    repo: mint
+    module: mint.data
+    function: FastaBatchedDataset.__getitem__
+    language: python
+
+- atom: mint/fasta_dataset:dataset_length_query
+  upstream:
+    repo: mint
+    module: mint.data
+    function: FastaBatchedDataset.__len__
+    language: python
+
+- atom: mint/fasta_dataset:dataset_state_initialization
+  upstream:
+    repo: mint
+    module: mint.data
+    function: FastaBatchedDataset.__init__
+    language: python
+
+- atom: mint/fasta_dataset:token_budget_batch_planning
+  upstream:
+    repo: mint
+    module: mint.data
+    function: FastaBatchedDataset.get_batch_indices
+    language: python
+
+- atom: mint/incremental_attention:enable_incremental_state_configuration
+  upstream:
+    repo: mint
+    module: mint.multihead_attention
+    function: FairseqIncrementalState.init_incremental_state
+    language: python
+
+- atom: mint/rotary_embedding:rotaryembedding
+  upstream:
+    repo: mint
+    module: mint.rotary_embedding
+    function: RotaryEmbedding.forward
+    language: python
+
+- atom: mint/rotary_embedding_d12:rotaryembedding
+  upstream:
+    repo: mint
+    module: mint.rotary_embedding
+    function: RotaryEmbedding.forward
+    language: python
+
+# =============================================================================
+#  Molecular-Docking
+# =============================================================================
+- atom: molecular_docking:greedy_lattice_mapping
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyLattice.generate_greedy_ud_subgraph_with
+    language: python
+
+- atom: molecular_docking:quantum_mwis_solver
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: q_solver
+    language: python
+
+- atom: molecular_docking/add_quantum_link:addquantumlink
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.mapping
+    function: add_quantum_link
+    language: python
+
+- atom: molecular_docking/build_complementary:constructcomplementarygraph
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.mapping
+    function: build_complementary_graph
+    language: python
+
+- atom: molecular_docking/build_interaction_graph:networkx_weighted_graph_materialization
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.interaction_graph
+    function: build_nx_weighted_graph
+    language: python
+
+- atom: molecular_docking/build_interaction_graph:pair_distance_compatibility_check
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.interaction_graph
+    function: pairs_distances_match
+    language: python
+
+- atom: molecular_docking/build_interaction_graph:weighted_interaction_edge_derivation
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.interaction_graph
+    function: find_possible_edges
+    language: python
+
+- atom: molecular_docking/greedy_mapping:assemblestaticmappingcontext
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.__init__
+    language: python
+
+- atom: molecular_docking/greedy_mapping:initializefrontierfromstartnode
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.initialize_mapping
+    language: python
+
+- atom: molecular_docking/greedy_mapping:rungreedymappingpipeline
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.generate_greedy_ud_subgraph_with
+    language: python
+
+- atom: molecular_docking/greedy_mapping:scoreandextendgreedycandidates
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.extend_mapping_with_nodes
+    language: python
+
+- atom: molecular_docking/greedy_mapping:validatecurrentmapping
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.check_mapping_validity
+    language: python
+
+- atom: molecular_docking/greedy_mapping_d12:construct_mapping_state_via_greedy_expansion
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.extend_mapping_with_nodes
+    language: python
+
+- atom: molecular_docking/greedy_mapping_d12:init_problem_context
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.__init__
+    language: python
+
+- atom: molecular_docking/greedy_mapping_d12:orchestrate_generation_and_validate
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.generate_greedy_ud_subgraph_with
+    language: python
+
+- atom: molecular_docking/greedy_subgraph:greedy_maximum_subgraph
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_lattice_mapping
+    function: GreedyMapping.greedy_node_scoring
+    language: python
+
+- atom: molecular_docking/map_to_udg:graphtoudgmapping
+  upstream:
+    repo: Molecular-Docking
+    module: src.graph.mapping
+    function: map_to_UDG
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:aggregate_maximum_distance_as_bandwidth
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+    notes: Bandwidth computation logic from permutations module
+
+- atom: molecular_docking/minimize_bandwidth:build_sparse_graph_view
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:build_threshold_search_space
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:compute_absolute_weighted_index_distances
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:compute_symmetric_bandwidth_reducing_order
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: permute_matrix
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:enforce_threshold_sparsity
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:enumerate_threshold_based_permutations
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: permute_list
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:extract_final_permutation
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: invert_permutation
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:initialize_reduction_state
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:propose_greedy_permutation_step
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: permute_list
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:select_minimum_bandwidth_permutation
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:update_state_with_improvement_criterion
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:validate_square_matrix_shape
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/minimize_bandwidth:validate_symmetric_input
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.permutations
+    function: ~
+    language: python
+
+- atom: molecular_docking/mwis_sa:calculate_weight
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.mwis_SA
+    function: calculate_weight
+    language: python
+
+- atom: molecular_docking/mwis_sa:is_independent_set
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.mwis_SA
+    function: is_independent_set
+    language: python
+
+- atom: molecular_docking/mwis_sa:load_graphs_from_folder
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.mwis_SA
+    function: load_graphs_from_folder
+    language: python
+
+- atom: molecular_docking/mwis_sa:to_qubo
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.mwis_SA
+    function: to_qubo
+    language: python
+
+- atom: molecular_docking/quantum_solver:adiabaticquantumsampler
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: simple_adiabatic_sequence
+    language: python
+
+- atom: molecular_docking/quantum_solver:quantumproblemdefinition
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: compute_min_max_u
+    language: python
+
+- atom: molecular_docking/quantum_solver:solutionextraction
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: process_quantum_solution
+    language: python
+
+- atom: molecular_docking/quantum_solver_d12:adiabaticpulseassembler
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: simple_adiabatic_sequence
+    language: python
+
+- atom: molecular_docking/quantum_solver_d12:interactionboundscomputer
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: compute_min_max_u
+    language: python
+
+- atom: molecular_docking/quantum_solver_d12:quantumcircuitsampler
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: simple_quantum_loop
+    language: python
+
+- atom: molecular_docking/quantum_solver_d12:quantumsolutionextractor
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: process_quantum_solution
+    language: python
+
+- atom: molecular_docking/quantum_solver_d12:quantumsolverorchestrator
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: q_solver
+    language: python
+
+# =============================================================================
+#  NeuroKit2
+# =============================================================================
+- atom: neurokit2:averageqrstemplate
+  upstream:
+    repo: NeuroKit2
+    module: neurokit2.ecg.ecg_quality
+    function: _ecg_quality_averageQRS
+    language: python
+
+- atom: neurokit2:zhao2018hrvanalysis
+  upstream:
+    repo: NeuroKit2
+    module: neurokit2.ecg.ecg_quality
+    function: _ecg_quality_zhao2018
+    language: python
+
+# =============================================================================
+#  numpy  (standard library stubs – no third_party)
+# =============================================================================
+- atom: numpy/fft_v2:forwardmultidimensionalfft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: fftn
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft_v2:hermitianspectraltransform
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: hfft
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft_v2:inversemultidimensionalfft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: ifftn
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/random_v2:combinatoricssampler
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: Generator.choice
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/random_v2:continuousmultivariatesampler
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: Generator.multivariate_normal
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/random_v2:discreteeventsampler
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: Generator.multinomial
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/search_sort_v2:binarysearchinsertion
+  upstream:
+    repo: ~
+    module: numpy
+    function: searchsorted
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/search_sort_v2:lexicographicindirectsort
+  upstream:
+    repo: ~
+    module: numpy
+    function: lexsort
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/search_sort_v2:partialsortpartition
+  upstream:
+    repo: ~
+    module: numpy
+    function: partition
+    language: python
+    notes: Standard library; no third_party repo
+
+# =============================================================================
+#  ParticleFilters.jl  (Julia)
+# =============================================================================
+- atom: particle_filters/basic:filter_step_preparation_and_dispatch
+  upstream:
+    repo: ParticleFilters.jl
+    module: ParticleFilters.basic
+    function: update
+    language: julia
+
+- atom: particle_filters/basic:likelihood_reweight_kernel
+  upstream:
+    repo: ParticleFilters.jl
+    module: ParticleFilters.basic
+    function: BasicParticleFilter reweight
+    language: julia
+    notes: reweight callback in BasicParticleFilter
+
+- atom: particle_filters/basic:particle_propagation_kernel
+  upstream:
+    repo: ParticleFilters.jl
+    module: ParticleFilters.basic
+    function: BasicParticleFilter predict
+    language: julia
+    notes: predict callback in BasicParticleFilter
+
+- atom: particle_filters/basic:resample_and_belief_projection
+  upstream:
+    repo: ParticleFilters.jl
+    module: ParticleFilters.basic
+    function: BasicParticleFilter postprocess
+    language: julia
+    notes: postprocess callback in BasicParticleFilter
+
+# =============================================================================
+#  pronto  (C++)
+# =============================================================================
+- atom: pronto:rbis_state_estimation
+  upstream:
+    repo: pronto
+    module: pronto_core.state_est
+    function: StateEstimator
+    language: cpp
+
+- atom: pronto/backlash_filter:initializebacklashfilterstate
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::BacklashFilter
+    language: cpp
+
+- atom: pronto/backlash_filter:updatealphaparameter
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::updateAlpha
+    language: cpp
+
+- atom: pronto/backlash_filter:updatecrossingtimemaximum
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::updateCrossingTimeMax
+    language: cpp
+
+- atom: pronto/backlash_filter:_initializebacklashfilterstate_ffi
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::BacklashFilter
+    language: cpp
+    notes: FFI binding variant
+
+- atom: pronto/backlash_filter:_updatealphaparameter_ffi
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::updateAlpha
+    language: cpp
+    notes: FFI binding variant
+
+- atom: pronto/backlash_filter:_updatecrossingtimemaximum_ffi
+  upstream:
+    repo: pronto
+    module: pronto_utils.backlash_filter
+    function: BacklashFilter::updateCrossingTimeMax
+    language: cpp
+    notes: FFI binding variant
+
+- atom: pronto/blip_filter:bandpass_filter
+  upstream:
+    repo: pronto
+    module: pronto_utils.BlipFilter
+    function: BlipFilter::bandpass
+    language: cpp
+
+- atom: pronto/blip_filter:heart_rate_computation
+  upstream:
+    repo: pronto
+    module: pronto_utils.BlipFilter
+    function: BlipFilter::computeHeartRate
+    language: cpp
+
+- atom: pronto/blip_filter:peak_correction
+  upstream:
+    repo: pronto
+    module: pronto_utils.BlipFilter
+    function: BlipFilter::correctPeaks
+    language: cpp
+
+- atom: pronto/blip_filter:r_peak_detection
+  upstream:
+    repo: pronto
+    module: pronto_utils.BlipFilter
+    function: BlipFilter::detectPeaks
+    language: cpp
+
+- atom: pronto/blip_filter:template_extraction
+  upstream:
+    repo: pronto
+    module: pronto_utils.BlipFilter
+    function: BlipFilter::extractTemplate
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator:initializefilter
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::DynamicStanceEstimator
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator:predictstep
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::predict
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator:querystance
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::getStance
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator:updatestep
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::update
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator_d12:stanceestimation
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::update
+    language: cpp
+
+- atom: pronto/dynamic_stance_estimator_d12:stancestateinit
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.DynamicStanceEstimator
+    function: DynamicStanceEstimator::DynamicStanceEstimator
+    language: cpp
+
+- atom: pronto/ekf_smoother_d12:stateestimatorinit
+  upstream:
+    repo: pronto
+    module: pronto_core.state_est
+    function: StateEstimator::StateEstimator
+    language: cpp
+
+- atom: pronto/ekf_smoother_v3:stateestimatorinit
+  upstream:
+    repo: pronto
+    module: pronto_core.state_est
+    function: StateEstimator::StateEstimator
+    language: cpp
+
+- atom: pronto/flex_estimator:estimate_flex_deflection
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.FlexEstimator
+    function: FlexEstimator::estimateFlex
+    language: cpp
+
+- atom: pronto/foot_contact:foot_sensing_state_update
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.FootSensorStanceDetector
+    function: FootSensorStanceDetector::update
+    language: cpp
+
+- atom: pronto/foot_contact:mode_snapshot_readout
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.FootSensorStanceDetector
+    function: FootSensorStanceDetector::getMode
+    language: cpp
+
+- atom: pronto/inverse_schmitt:inverse_schmitt_trigger_transform
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.InverseSchmittTrigger
+    function: InverseSchmittTrigger::update
+    language: cpp
+
+- atom: pronto/leg_odometer:posequeryaccessors
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.LegOdometer
+    function: LegOdometer::getPose
+    language: cpp
+
+- atom: pronto/leg_odometer:velocitystatereadout
+  upstream:
+    repo: pronto
+    module: pronto_quadruped.LegOdometer
+    function: LegOdometer::getVelocity
+    language: cpp
+
+- atom: pronto/state_estimator:update_state_estimate
+  upstream:
+    repo: pronto
+    module: pronto_core.state_est
+    function: StateEstimator::addUpdate
+    language: cpp
+
+- atom: pronto/torque_adjustment:torqueadjustmentidentitystage
+  upstream:
+    repo: pronto
+    module: pronto_utils.torque_adjustment
+    function: TorqueAdjustment::TorqueAdjustment
+    language: cpp
+
+- atom: pronto/yaw_lock:configurecorrectionandyawslippolicy
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::setCorrectionMode
+    language: cpp
+
+- atom: pronto/yaw_lock:initializeyawlockstate
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::YawLockModule
+    language: cpp
+
+- atom: pronto/yaw_lock:readinitialjointangles
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::getInitJointAngles
+    language: cpp
+
+- atom: pronto/yaw_lock:readrobotstandingstatus
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::isStanding
+    language: cpp
+
+- atom: pronto/yaw_lock:setjointposeandinitialangles
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::setJointPose
+    language: cpp
+
+- atom: pronto/yaw_lock:setrobotstandingstatus
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::setStanding
+    language: cpp
+
+- atom: pronto/yaw_lock:setstandinglinktargets
+  upstream:
+    repo: pronto
+    module: pronto_biped_core.yawlock_module
+    function: YawLockModule::setStandingLinks
+    language: cpp
+
+# =============================================================================
+#  Pulsar_Folding
+# =============================================================================
+- atom: pulsar_folding:dm_can_brute_force
+  upstream:
+    repo: Pulsar_Folding
+    module: dm_can_extracted
+    function: DM_can
+    language: python
+
+- atom: pulsar_folding:spline_bandpass_correction
+  upstream:
+    repo: Pulsar_Folding
+    module: dm_can_extracted
+    function: DM_can
+    language: python
+    notes: Bandpass correction is embedded in the DM_can pipeline
+
+- atom: pulsar_folding/dm_can_d12:dm_candidate_filter
+  upstream:
+    repo: Pulsar_Folding
+    module: dm_can_extracted
+    function: DM_can
+    language: python
+
+# =============================================================================
+#  quantfin  (Haskell)
+# =============================================================================
+- atom: quantfin:functional_monte_carlo
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulation
+    language: haskell
+
+- atom: quantfin:volatility_surface_modeling
+  upstream:
+    repo: quantfin
+    module: Quant.VolSurf
+    function: vol
+    language: haskell
+
+- atom: quantfin/char_func_option_d12:cf
+  upstream:
+    repo: quantfin
+    module: Quant.Models.Heston
+    function: Heston charFunc
+    language: haskell
+    notes: Characteristic function for Heston model option pricing
+
+- atom: quantfin/char_func_option_d12:charfuncoption
+  upstream:
+    repo: quantfin
+    module: Quant.ContingentClaim
+    function: ContingentClaim
+    language: haskell
+
+- atom: quantfin/char_func_option_d12:f
+  upstream:
+    repo: quantfin
+    module: Quant.Math.Integration
+    function: ~
+    language: haskell
+    notes: Integration helper for characteristic function pricing
+
+- atom: quantfin/local_vol_d12:allfort
+  upstream:
+    repo: quantfin
+    module: Quant.Models.Dupire
+    function: Dupire
+    language: haskell
+    notes: Local volatility model (Dupire) time-forward computation
+
+- atom: quantfin/local_vol_d12:localvol
+  upstream:
+    repo: quantfin
+    module: Quant.Models.Dupire
+    function: Dupire
+    language: haskell
+
+- atom: quantfin/local_vol_d12:var
+  upstream:
+    repo: quantfin
+    module: Quant.VolSurf
+    function: vol
+    language: haskell
+
+- atom: quantfin/local_vol_d12:vol
+  upstream:
+    repo: quantfin
+    module: Quant.VolSurf
+    function: vol
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:avg
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulationAnti
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:evolve
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: evolve
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:insertcf
+  upstream:
+    repo: quantfin
+    module: Quant.ContingentClaim
+    function: monitor
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:insertcflist
+  upstream:
+    repo: quantfin
+    module: Quant.ContingentClaim
+    function: monitor
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:maxstep
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: maxStep
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:process
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: process
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:quicksim
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: quickSim
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:quicksimanti
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: quickSimAnti
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:runmc
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runMC
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:runsim
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulation
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:runsimulation
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulation
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:runsimulationanti
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulationAnti
+    language: haskell
+
+- atom: quantfin/monte_carlo_anti_d12:simulatestate
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: evolve
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:addmod64
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: addMod64
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:f
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: ~
+    language: haskell
+    notes: Internal helper within MWC64X RNG
+
+- atom: quantfin/rng_skip_d12:mulmod64
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: ~
+    language: haskell
+    notes: Modular multiplication for 64-bit RNG
+
+- atom: quantfin/rng_skip_d12:next
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomWord32
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:powmod64
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: ~
+    language: haskell
+    notes: Modular exponentiation for skip-ahead
+
+- atom: quantfin/rng_skip_d12:randomdouble
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomDouble
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:randomint
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomInt
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:randomint64
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomInt64
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:randomword32
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomWord32
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:randomword64
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: randomWord64
+    language: haskell
+
+- atom: quantfin/rng_skip_d12:skip
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: ~
+    language: haskell
+    notes: Skip-ahead for parallel RNG streams
+
+- atom: quantfin/rng_skip_d12:split
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: ~
+    language: haskell
+    notes: Stream splitting for parallel RNG
+
+- atom: quantfin/tdma_solver_d12:cotraversevec
+  upstream:
+    repo: quantfin
+    module: Quant.Math.Utilities
+    function: cotraverseVec
+    language: haskell
+
+- atom: quantfin/tdma_solver_d12:tdmasolver
+  upstream:
+    repo: quantfin
+    module: Quant.Math.Utilities
+    function: tdmaSolver
+    language: haskell
+
+# =============================================================================
+#  rust_robotics  (Rust)
+# =============================================================================
+- atom: rust_robotics:dijkstra_path_planning
+  upstream:
+    repo: rust_robotics
+    module: path_planning.dijkstras
+    function: plan
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics:n_joint_arm_solver
+  upstream:
+    repo: rust_robotics
+    module: models.humanoid.n_joint_arm2_d
+    function: NJointArm2D.inverse_kinematics
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:computelinearizedstatematrices
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic.calculate_jacobian
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:computesideslipangle
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic.calculate_sideslip
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:constructgeometrymodel
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic::new
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:evaluateandinvertdynamics
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic.get_derivatives
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:loadmodelfromfile
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic.read
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/bicycle_kinematic:querygeometryparameters
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.bicycle_kinematic
+    function: BicycleKinematic.get_wheelbase
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:compute_aerodynamic_force
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.calc_f_aero
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:compute_gravity_grade_force
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.calc_f_grade
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:compute_rolling_force
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.calc_f_roll
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:deserialize_model_spec
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.read
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:evaluate_dynamics_derivatives
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.get_derivatives
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:initialize_model
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics::new
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:linearize_dynamics
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.calculate_jacobian
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/longitudinal_dynamics:solve_control_for_target_derivative
+  upstream:
+    repo: rust_robotics
+    module: models.ground_vehicles.longitudinal_dynamics
+    function: LongitudinalDynamics.calculate_input
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/n_joint_arm_2d:controlinputsynthesis
+  upstream:
+    repo: rust_robotics
+    module: models.humanoid.n_joint_arm2_d
+    function: NJointArm2D.calculate_input
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/n_joint_arm_2d:dynamicsandlinearizationkernel
+  upstream:
+    repo: rust_robotics
+    module: models.humanoid.n_joint_arm2_d
+    function: NJointArm2D.get_derivatives
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/n_joint_arm_2d:kinematicgoalfeasibility
+  upstream:
+    repo: rust_robotics
+    module: models.humanoid.n_joint_arm2_d
+    function: NJointArm2D.calculate_feasible_state_initial
+    language: rust
+    crate: rust_robotics
+
+- atom: rust_robotics/n_joint_arm_2d:modelspecloadingandsizing
+  upstream:
+    repo: rust_robotics
+    module: models.humanoid.n_joint_arm2_d
+    function: NJointArm2D.read
+    language: rust
+    crate: rust_robotics
+
+# =============================================================================
+#  scipy  (standard library stubs – no third_party)
+# =============================================================================
+- atom: scipy/interpolate_v2:cubicsplinefit
+  upstream:
+    repo: ~
+    module: scipy.interpolate
+    function: CubicSpline
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/interpolate_v2:rbfinterpolatorfit
+  upstream:
+    repo: ~
+    module: scipy.interpolate
+    function: RBFInterpolator
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/optimize_v2:differentialevolutionoptimization
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: differential_evolution
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/optimize_v2:shgoglobaloptimization
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: shgo
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/sparse_graph_v2:allpairsshortestpath
+  upstream:
+    repo: ~
+    module: scipy.sparse.csgraph
+    function: shortest_path
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/sparse_graph_v2:minimumspanningtree
+  upstream:
+    repo: ~
+    module: scipy.sparse.csgraph
+    function: minimum_spanning_tree
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/sparse_graph_v2:singlesourceshortestpath
+  upstream:
+    repo: ~
+    module: scipy.sparse.csgraph
+    function: dijkstra
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/spatial_v2:delaunaytriangulation
+  upstream:
+    repo: ~
+    module: scipy.spatial
+    function: Delaunay
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/spatial_v2:voronoitessellation
+  upstream:
+    repo: ~
+    module: scipy.spatial
+    function: Voronoi
+    language: python
+    notes: Standard library; no third_party repo
+
+# =============================================================================
+#  skyfield
+# =============================================================================
+- atom: skyfield:calculate_vector_angle
+  upstream:
+    repo: skyfield
+    module: skyfield.functions
+    function: angle_between
+    language: python
+
+- atom: skyfield:compute_spherical_coordinate_rates
+  upstream:
+    repo: skyfield
+    module: skyfield.functions
+    function: _to_spherical_and_rates
+    language: python
+
+# =============================================================================
+#  Tempo.jl  (Julia)
+# =============================================================================
+- atom: tempo_jl:graph_time_scale_management
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.scales
+    function: apply_offsets
+    language: julia
+
+- atom: tempo_jl:high_precision_duration
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.epoch
+    function: Epoch.-
+    language: julia
+    notes: Duration via Epoch subtraction operator
+
+- atom: tempo_jl/apply_offsets:_zero_offset
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.scales
+    function: _zero_offset
+    language: julia
+
+- atom: tempo_jl/apply_offsets:apply_offsets
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.scales
+    function: apply_offsets
+    language: julia
+
+- atom: tempo_jl/apply_offsets:show
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.scales
+    function: Base.show
+    language: julia
+
+- atom: tempo_jl/find_month:date
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Date
+    language: julia
+
+- atom: tempo_jl/find_month:datetime
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: DateTime
+    language: julia
+
+- atom: tempo_jl/find_month:show
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Base.show
+    language: julia
+
+- atom: tempo_jl/find_month:time
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Time
+    language: julia
+
+- atom: tempo_jl/find_year:cal2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: cal2jd
+    language: julia
+
+- atom: tempo_jl/find_year:calhms2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: calhms2jd
+    language: julia
+
+- atom: tempo_jl/find_year:fd2hms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hms
+    language: julia
+
+- atom: tempo_jl/find_year:fd2hmsf
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hmsf
+    language: julia
+
+- atom: tempo_jl/find_year:find_day
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_day
+    language: julia
+
+- atom: tempo_jl/find_year:find_dayinyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_dayinyear
+    language: julia
+
+- atom: tempo_jl/find_year:find_month
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_month
+    language: julia
+
+- atom: tempo_jl/find_year:find_year
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_year
+    language: julia
+
+- atom: tempo_jl/find_year:hms2fd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: hms2fd
+    language: julia
+
+- atom: tempo_jl/find_year:isleapyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: isleapyear
+    language: julia
+
+- atom: tempo_jl/find_year:jd2cal
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2cal
+    language: julia
+
+- atom: tempo_jl/find_year:jd2calhms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2calhms
+    language: julia
+
+- atom: tempo_jl/find_year:lastj2000dayofyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: lastj2000dayofyear
+    language: julia
+
+- atom: tempo_jl/find_year:tai2utc
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: tai2utc
+    language: julia
+
+- atom: tempo_jl/find_year:utc2tai
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: utc2tai
+    language: julia
+
+- atom: tempo_jl/jd2cal:date
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Date
+    language: julia
+
+- atom: tempo_jl/jd2cal:datetime
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: DateTime
+    language: julia
+
+- atom: tempo_jl/jd2cal:show
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Base.show
+    language: julia
+
+- atom: tempo_jl/jd2cal:time
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.datetime
+    function: Time
+    language: julia
+
+- atom: tempo_jl/offset_tt2tdb:offset_tt2tdb
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.offset
+    function: offset_tt2tdb
+    language: julia
+
+- atom: tempo_jl/offset_tt2tdb_d12:tt2tdb_offset
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.offset
+    function: offset_tt2tdb
+    language: julia
+
+- atom: tempo_jl/offset_tt2tdbh:offset_tt2tdbh
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.offset
+    function: offset_tt2tdbh
+    language: julia
+
+# tempo_jl/tai2utc contains the same function set as find_year (full calendar library)
+- atom: tempo_jl/tai2utc:cal2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: cal2jd
+    language: julia
+
+- atom: tempo_jl/tai2utc:calhms2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: calhms2jd
+    language: julia
+
+- atom: tempo_jl/tai2utc:fd2hms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hms
+    language: julia
+
+- atom: tempo_jl/tai2utc:fd2hmsf
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hmsf
+    language: julia
+
+- atom: tempo_jl/tai2utc:find_day
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_day
+    language: julia
+
+- atom: tempo_jl/tai2utc:find_dayinyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_dayinyear
+    language: julia
+
+- atom: tempo_jl/tai2utc:find_month
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_month
+    language: julia
+
+- atom: tempo_jl/tai2utc:find_year
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_year
+    language: julia
+
+- atom: tempo_jl/tai2utc:hms2fd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: hms2fd
+    language: julia
+
+- atom: tempo_jl/tai2utc:isleapyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: isleapyear
+    language: julia
+
+- atom: tempo_jl/tai2utc:jd2cal
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2cal
+    language: julia
+
+- atom: tempo_jl/tai2utc:jd2calhms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2calhms
+    language: julia
+
+- atom: tempo_jl/tai2utc:lastj2000dayofyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: lastj2000dayofyear
+    language: julia
+
+- atom: tempo_jl/tai2utc:tai2utc
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: tai2utc
+    language: julia
+
+- atom: tempo_jl/tai2utc:utc2tai
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: utc2tai
+    language: julia
+
+- atom: tempo_jl/tai2utc_d12:tai_to_utc_inversion
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: tai2utc
+    language: julia
+
+- atom: tempo_jl/tai2utc_d12:utc_to_tai_leap_second_kernel
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: utc2tai
+    language: julia
+
+# tempo_jl/utc2tai contains the same function set as find_year
+- atom: tempo_jl/utc2tai:cal2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: cal2jd
+    language: julia
+
+- atom: tempo_jl/utc2tai:calhms2jd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: calhms2jd
+    language: julia
+
+- atom: tempo_jl/utc2tai:fd2hms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hms
+    language: julia
+
+- atom: tempo_jl/utc2tai:fd2hmsf
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: fd2hmsf
+    language: julia
+
+- atom: tempo_jl/utc2tai:find_day
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_day
+    language: julia
+
+- atom: tempo_jl/utc2tai:find_dayinyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_dayinyear
+    language: julia
+
+- atom: tempo_jl/utc2tai:find_month
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_month
+    language: julia
+
+- atom: tempo_jl/utc2tai:find_year
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: find_year
+    language: julia
+
+- atom: tempo_jl/utc2tai:hms2fd
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: hms2fd
+    language: julia
+
+- atom: tempo_jl/utc2tai:isleapyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: isleapyear
+    language: julia
+
+- atom: tempo_jl/utc2tai:jd2cal
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2cal
+    language: julia
+
+- atom: tempo_jl/utc2tai:jd2calhms
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: jd2calhms
+    language: julia
+
+- atom: tempo_jl/utc2tai:lastj2000dayofyear
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: lastj2000dayofyear
+    language: julia
+
+- atom: tempo_jl/utc2tai:tai2utc
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: tai2utc
+    language: julia
+
+- atom: tempo_jl/utc2tai:utc2tai
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.convert
+    function: utc2tai
+    language: julia

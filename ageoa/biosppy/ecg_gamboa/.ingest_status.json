@@ -1,0 +1,30 @@
+{
+  "run_id": "2423ddf310f649a79b3232b83fea2ca2",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg.py",
+  "class_name": "gamboa_segmenter",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771982472.574209,
+  "last_heartbeat_at": 1771982780.47559,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771982780.47559,
+  "summary": {
+    "cdg_nodes": 8,
+    "cdg_edges": 6,
+    "matches": 6,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

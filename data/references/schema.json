@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ageo.dev/schemas/reference/v1.0",
+  "title": "Scholarly Reference",
+  "description": "A scholarly or source reference associated with an atom or CDG sub-graph.",
+  "type": "object",
+  "required": ["ref_id", "type"],
+  "anyOf": [
+    { "required": ["doi"] },
+    { "required": ["url"] }
+  ],
+  "properties": {
+    "ref_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*[0-9]{4}[a-z]?$",
+      "description": "Short author-year slug used as a stable key across manifests (e.g. hamilton1986)."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["paper", "repository", "web", "book", "thesis", "standard"],
+      "description": "Kind of reference source."
+    },
+    "doi": {
+      "type": "string",
+      "pattern": "^10\\.",
+      "description": "Digital Object Identifier (without https://doi.org/ prefix)."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL when no DOI is available, or supplementary link."
+    },
+    "bibtex_key": {
+      "type": "string",
+      "description": "Key used in the generated .bib file. Defaults to ref_id if omitted."
+    },
+    "title": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Author names in 'First Last' or 'Last, First' format."
+    },
+    "year": {
+      "type": "integer"
+    },
+    "venue": {
+      "type": "string",
+      "description": "Journal, conference, or publisher name."
+    },
+    "bibtex_raw": {
+      "type": "string",
+      "description": "Complete BibTeX entry for lossless round-tripping."
+    },
+    "match_metadata": {
+      "type": "object",
+      "description": "How this reference was matched to the atom. Null/absent for manually curated entries.",
+      "properties": {
+        "similarity_score": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "0-1 score from the similarity engine. Null for manual attributions."
+        },
+        "match_type": {
+          "type": "string",
+          "enum": ["manual", "ast_subgraph", "name_heuristic"]
+        },
+        "matched_nodes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "CDG node_ids that triggered the match."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

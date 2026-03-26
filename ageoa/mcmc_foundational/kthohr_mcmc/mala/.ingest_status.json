@@ -1,0 +1,30 @@
+{
+  "run_id": "d9687eda52d947e1bf3b6cc62c0b05bd",
+  "state": "completed",
+  "phase": "verify_types",
+  "current_step": "failed",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/mcmc/include/mcmc/mala.ipp",
+  "class_name": "mala_prop_adjustment",
+  "procedural": false,
+  "llm_provider": "gemini_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1772041568.178399,
+  "last_heartbeat_at": 1772041845.3118389,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1772041845.3118389,
+  "summary": {
+    "cdg_nodes": 4,
+    "cdg_edges": 3,
+    "matches": 2,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "matches.json",
+      "witnesses.py"
+    ]
+  }
+}

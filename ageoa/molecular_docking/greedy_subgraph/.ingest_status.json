@@ -1,0 +1,29 @@
+{
+  "run_id": "89648287051942b5a0e7a8a5645700b4",
+  "state": "completed",
+  "phase": "procedural_emit",
+  "current_step": "ok",
+  "source_path": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/greedy_subgraph_vv.py",
+  "class_name": "greedy_subgraph",
+  "procedural": true,
+  "llm_provider": "claude_cli",
+  "llm_model": "sonnet",
+  "max_depth": 12,
+  "started_at": 1771985189.818559,
+  "last_heartbeat_at": 1771985190.897544,
+  "llm_call_inflight": null,
+  "error": "",
+  "ended_at": 1771985190.897544,
+  "summary": {
+    "cdg_nodes": 1,
+    "cdg_edges": 0,
+    "matches": 0,
+    "mypy_passed": false,
+    "ghost_sim_passed": false,
+    "published_files": [
+      "atoms.py",
+      "cdg.json",
+      "witnesses.py"
+    ]
+  }
+}

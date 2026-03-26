@@ -1,0 +1,134 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "voronoitessellation",
+      "statement": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+      "informal_desc": "Computes the Voronoi diagram for a set of input points using Qhull, partitioning space into regions closest to each point. Supports incremental construction and custom Qhull options.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "voronoitessellation",
+          "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+          "docstring": "Computes the Voronoi diagram for a set of input points using Qhull, partitioning space into regions closest to each point. Supports incremental construction and custom Qhull options.",
+          "conceptual_summary": "ProximityPartitionedDualDecomposition. Given a finite set of N anchor points embedded in a D-dimensional metric space, this operation partitions the entire ambient space into N convex polyhedral cells such that every location within a cell is strictly closer (under Euclidean distance) to that cell's anchor than to any other anchor \u2014 a nearest-neighbor dual tiling. The output encodes the full combinatorial topology of this partition: the shared boundary facets (ridges) between adjacent cells, the coordinates of boundary intersection vertices, and the mapping from each anchor to its enclosing region, with unbounded cells flagged via a sentinel index.. Applications: Computational neuroscience \u2014 receptive field modeling: partition sensory stimulus space into response territories for a population of neurons, where each anchor is a neuron's preferred stimulus vector; ridge boundaries define decision thresholds between competing neural representations, Wireless network engineering \u2014 coverage zone allocation: given N base-station coordinates in 2D/3D space, partition the service area into association zones where each mobile device is assigned to its geometrically nearest transmitter, with ridge facets defining optimal handoff boundaries, Crystallography and materials science \u2014 grain boundary analysis: model polycrystalline microstructure by treating nucleation seed coordinates as anchors; the resulting polyhedral cells represent idealized crystal grains and their shared ridges encode grain-boundary interfaces for mechanical stress simulation, Unsupervised machine learning \u2014 cluster boundary geometry: given cluster centroid vectors in a high-dimensional feature space, construct the exact geometric decision boundaries of a nearest-centroid classifier, enabling visualization of cluster overlap, boundary complexity, and outlier exposure without requiring label data",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "voronoitessellation",
+          "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+          "docstring": "Computes the Voronoi diagram for a set of input points using Qhull, partitioning space into regions closest to each point. Supports incremental construction and custom Qhull options.",
+          "conceptual_summary": "ProximityPartitionedDualDecomposition. Given a finite set of N anchor points embedded in a D-dimensional metric space, this operation partitions the entire ambient space into N convex polyhedral cells such that every location within a cell is strictly closer (under Euclidean distance) to that cell's anchor than to any other anchor \u2014 a nearest-neighbor dual tiling. The output encodes the full combinatorial topology of this partition: the shared boundary facets (ridges) between adjacent cells, the coordinates of boundary intersection vertices, and the mapping from each anchor to its enclosing region, with unbounded cells flagged via a sentinel index.. Applications: Computational neuroscience \u2014 receptive field modeling: partition sensory stimulus space into response territories for a population of neurons, where each anchor is a neuron's preferred stimulus vector; ridge boundaries define decision thresholds between competing neural representations, Wireless network engineering \u2014 coverage zone allocation: given N base-station coordinates in 2D/3D space, partition the service area into association zones where each mobile device is assigned to its geometrically nearest transmitter, with ridge facets defining optimal handoff boundaries, Crystallography and materials science \u2014 grain boundary analysis: model polycrystalline microstructure by treating nucleation seed coordinates as anchors; the resulting polyhedral cells represent idealized crystal grains and their shared ridges encode grain-boundary interfaces for mechanical stress simulation, Unsupervised machine learning \u2014 cluster boundary geometry: given cluster centroid vectors in a high-dimensional feature space, construct the exact geometric decision boundaries of a nearest-centroid classifier, enabling visualization of cluster overlap, boundary complexity, and outlier exposure without requiring label data",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "voronoitessellation",
+            "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+            "docstring": "Computes the Voronoi diagram for a set of input points using Qhull, partitioning space into regions closest to each point. Supports incremental construction and custom Qhull options.",
+            "conceptual_summary": "ProximityPartitionedDualDecomposition. Given a finite set of N anchor points embedded in a D-dimensional metric space, this operation partitions the entire ambient space into N convex polyhedral cells such that every location within a cell is strictly closer (under Euclidean distance) to that cell's anchor than to any other anchor \u2014 a nearest-neighbor dual tiling. The output encodes the full combinatorial topology of this partition: the shared boundary facets (ridges) between adjacent cells, the coordinates of boundary intersection vertices, and the mapping from each anchor to its enclosing region, with unbounded cells flagged via a sentinel index.. Applications: Computational neuroscience \u2014 receptive field modeling: partition sensory stimulus space into response territories for a population of neurons, where each anchor is a neuron's preferred stimulus vector; ridge boundaries define decision thresholds between competing neural representations, Wireless network engineering \u2014 coverage zone allocation: given N base-station coordinates in 2D/3D space, partition the service area into association zones where each mobile device is assigned to its geometrically nearest transmitter, with ridge facets defining optimal handoff boundaries, Crystallography and materials science \u2014 grain boundary analysis: model polycrystalline microstructure by treating nucleation seed coordinates as anchors; the resulting polyhedral cells represent idealized crystal grains and their shared ridges encode grain-boundary interfaces for mechanical stress simulation, Unsupervised machine learning \u2014 cluster boundary geometry: given cluster centroid vectors in a high-dimensional feature space, construct the exact geometric decision boundaries of a nearest-centroid classifier, enabling visualization of cluster overlap, boundary complexity, and outlier exposure without requiring label data",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "delaunaytriangulation",
+      "statement": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+      "informal_desc": "Computes the Delaunay triangulation for a set of input points using Qhull, producing a simplex mesh where no point lies inside the circumsphere of any simplex. Supports incremental construction and custom Qhull options.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "delaunaytriangulation",
+          "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+          "docstring": "Computes the Delaunay triangulation for a set of input points using Qhull, producing a simplex mesh where no point lies inside the circumsphere of any simplex. Supports incremental construction and custom Qhull options.",
+          "conceptual_summary": "MaximalEmptyCircumsphere Simplex Mesh Constructor. Given an unordered set of N points embedded in D-dimensional Euclidean space, partitions the convex hull of the point set into a maximal collection of non-overlapping D-simplices (triangles in 2D, tetrahedra in 3D, etc.) such that the open circumsphere of every simplex contains no other input point. This circumsphere-emptiness constraint uniquely defines the tessellation (up to degeneracy) and simultaneously encodes the dual Voronoi diagram \u2014 the perpendicular bisector partition of space into nearest-neighbor regions. The construction supports incremental point insertion, allowing the mesh topology to be updated as new points are streamed in without full recomputation.. Applications: Computational Neuroscience \u2014 Reconstructing 3D dendritic arbor topology from sparse electrode-recorded neuron soma coordinates: the simplex mesh defines anatomically plausible connectivity skeletons and nearest-neighbor synaptic coupling regions without any domain assumptions about branching patterns., Geophysical Seismology \u2014 Interpolating subsurface wave-velocity scalars across irregularly distributed seismograph stations: each 3-simplex (tetrahedron) defines a locally linear interpolation cell, and the dual Voronoi cells define each station's zone of influence for tomographic inversion., Robotics & Motion Planning \u2014 Constructing a collision-free configuration-space roadmap from a stochastically sampled set of N-dimensional joint-angle vectors: Delaunay edges connect configuration-space neighbors with maximally 'fat' cells, reducing narrow-passage artifacts common in grid-based planners., Materials Science / Molecular Dynamics \u2014 Identifying structural defects (vacancies, interstitials) in crystalline lattices by triangulating atomic position snapshots: deviations from the ideal simplex geometry (circumradius anomalies) directly flag lattice distortions, dislocations, and amorphous regions without reference to a pre-defined unit cell.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "delaunaytriangulation",
+          "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+          "docstring": "Computes the Delaunay triangulation for a set of input points using Qhull, producing a simplex mesh where no point lies inside the circumsphere of any simplex. Supports incremental construction and custom Qhull options.",
+          "conceptual_summary": "MaximalEmptyCircumsphere Simplex Mesh Constructor. Given an unordered set of N points embedded in D-dimensional Euclidean space, partitions the convex hull of the point set into a maximal collection of non-overlapping D-simplices (triangles in 2D, tetrahedra in 3D, etc.) such that the open circumsphere of every simplex contains no other input point. This circumsphere-emptiness constraint uniquely defines the tessellation (up to degeneracy) and simultaneously encodes the dual Voronoi diagram \u2014 the perpendicular bisector partition of space into nearest-neighbor regions. The construction supports incremental point insertion, allowing the mesh topology to be updated as new points are streamed in without full recomputation.. Applications: Computational Neuroscience \u2014 Reconstructing 3D dendritic arbor topology from sparse electrode-recorded neuron soma coordinates: the simplex mesh defines anatomically plausible connectivity skeletons and nearest-neighbor synaptic coupling regions without any domain assumptions about branching patterns., Geophysical Seismology \u2014 Interpolating subsurface wave-velocity scalars across irregularly distributed seismograph stations: each 3-simplex (tetrahedron) defines a locally linear interpolation cell, and the dual Voronoi cells define each station's zone of influence for tomographic inversion., Robotics & Motion Planning \u2014 Constructing a collision-free configuration-space roadmap from a stochastically sampled set of N-dimensional joint-angle vectors: Delaunay edges connect configuration-space neighbors with maximally 'fat' cells, reducing narrow-passage artifacts common in grid-based planners., Materials Science / Molecular Dynamics \u2014 Identifying structural defects (vacancies, interstitials) in crystalline lattices by triangulating atomic position snapshots: deviations from the ideal simplex geometry (circumradius anomalies) directly flag lattice distortions, dislocations, and amorphous regions without reference to a pre-defined unit cell.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "delaunaytriangulation",
+            "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+            "docstring": "Computes the Delaunay triangulation for a set of input points using Qhull, producing a simplex mesh where no point lies inside the circumsphere of any simplex. Supports incremental construction and custom Qhull options.",
+            "conceptual_summary": "MaximalEmptyCircumsphere Simplex Mesh Constructor. Given an unordered set of N points embedded in D-dimensional Euclidean space, partitions the convex hull of the point set into a maximal collection of non-overlapping D-simplices (triangles in 2D, tetrahedra in 3D, etc.) such that the open circumsphere of every simplex contains no other input point. This circumsphere-emptiness constraint uniquely defines the tessellation (up to degeneracy) and simultaneously encodes the dual Voronoi diagram \u2014 the perpendicular bisector partition of space into nearest-neighbor regions. The construction supports incremental point insertion, allowing the mesh topology to be updated as new points are streamed in without full recomputation.. Applications: Computational Neuroscience \u2014 Reconstructing 3D dendritic arbor topology from sparse electrode-recorded neuron soma coordinates: the simplex mesh defines anatomically plausible connectivity skeletons and nearest-neighbor synaptic coupling regions without any domain assumptions about branching patterns., Geophysical Seismology \u2014 Interpolating subsurface wave-velocity scalars across irregularly distributed seismograph stations: each 3-simplex (tetrahedron) defines a locally linear interpolation cell, and the dual Voronoi cells define each station's zone of influence for tomographic inversion., Robotics & Motion Planning \u2014 Constructing a collision-free configuration-space roadmap from a stochastically sampled set of N-dimensional joint-angle vectors: Delaunay edges connect configuration-space neighbors with maximally 'fat' cells, reducing narrow-passage artifacts common in grid-based planners., Materials Science / Molecular Dynamics \u2014 Identifying structural defects (vacancies, interstitials) in crystalline lattices by triangulating atomic position snapshots: deviations from the ideal simplex geometry (circumradius anomalies) directly flag lattice distortions, dislocations, and amorphous regions without reference to a pre-defined unit cell.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

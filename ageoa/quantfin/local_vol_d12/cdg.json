@@ -1,0 +1,415 @@
+{
+  "nodes": [
+    {
+      "node_id": "localVol_root",
+      "parent_id": null,
+      "name": "localVol",
+      "description": "Ingested pipeline from localVol",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "var",
+        "localvol",
+        "vol",
+        "vol",
+        "allfort"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "var",
+      "parent_id": "localVol_root",
+      "name": "Var",
+      "description": "Atomic operation: Var",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "s",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "t'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "vs",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(s: Any, t: Any, t': Any, v: Any, vs: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "localvol",
+      "parent_id": "localVol_root",
+      "name": "Localvol",
+      "description": "Atomic operation: Localvol",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "dwdt",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "otherwise",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "rcurve",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "s0",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "solution",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sqrt",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "v",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "w",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(dwdt: Any, k: Any, otherwise: Any, rcurve: Any, s0: Any, solution: Any, sqrt: Any, t: Any, v: Any, w: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "vol",
+      "parent_id": "localVol_root",
+      "name": "Vol",
+      "description": "Atomic operation: Vol",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "vol",
+      "parent_id": "localVol_root",
+      "name": "Vol",
+      "description": "Atomic operation: Vol",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "interpolatedVs",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mats",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mats'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "quotes",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "strike",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sts",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "t",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tInterp",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "timeFromZero",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "vInterp",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(interpolatedVs: Any, mats: Any, mats': Any, quotes: Any, strike: Any, sts: Any, t: Any, tInterp: Any, timeFromZero: Any, vInterp: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "allfort",
+      "parent_id": "localVol_root",
+      "name": "Allfort",
+      "description": "Atomic operation: Allfort",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "map",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "quotes",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "sts",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "t'",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "Any",
+          "constraints": "valid Any",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(map: Any, quotes: Any, sts: Any, t': Any, x: Any) -> Any",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "localVol"
+  }
+}

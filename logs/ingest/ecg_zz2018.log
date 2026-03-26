@@ -1,0 +1,11 @@
+Ingesting class 'ZZ2018' from /Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg.py
+
+Ingestion complete:
+  CDG: 17 nodes, 16 edges
+  Matches: 13
+  mypy passed: False
+  Ghost sim passed: False
+  Output: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_zz2018/
+  Status: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_zz2018/.ingest_status.json
+  Marker: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_zz2018/COMPLETED.json
+  Trace: /Users/conrad/personal/ageo-atoms/ageoa/biosppy/ecg_zz2018/trace.jsonl
