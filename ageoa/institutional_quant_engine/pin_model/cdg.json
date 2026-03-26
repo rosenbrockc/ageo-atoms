@@ -1,0 +1,75 @@
+{
+  "nodes": [
+    {
+      "node_id": "pin_likelihood_root",
+      "parent_id": null,
+      "name": "pin_likelihood",
+      "description": "Ingested pipeline from pin_likelihood",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "pinlikelihoodevaluation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "pinlikelihoodevaluation",
+      "parent_id": "pin_likelihood_root",
+      "name": "PinLikelihoodEvaluation",
+      "description": "Computes the likelihood of observed inputs under the provided parameterization.",
+      "concept_type": "likelihood_evaluation",
+      "inputs": [
+        {
+          "name": "params",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "B",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "S",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "likelihood",
+          "type_desc": "float",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "pin_likelihood"
+  }
+}

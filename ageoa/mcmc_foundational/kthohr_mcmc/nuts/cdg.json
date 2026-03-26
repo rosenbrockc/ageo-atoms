@@ -1,0 +1,508 @@
+{
+  "nodes": [
+    {
+      "node_id": "nuts_build_tree_root",
+      "parent_id": null,
+      "name": "nuts_build_tree",
+      "description": "Ingested pipeline from nuts_build_tree",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "nuts_recursive_tree_build"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "nuts_recursive_tree_build",
+      "parent_id": "nuts_build_tree_root",
+      "name": "nuts_recursive_tree_build",
+      "description": "Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step. It takes an initial state and integration parameters, explores a trajectory using a provided leapfrog integrator, and selects a new state from the trajectory based on a slice variable and a U-turn condition. This represents the core computational kernel of a single NUTS transition.",
+      "concept_type": "mcmc_kernel",
+      "inputs": [
+        {
+          "name": "direction_val",
+          "type_desc": "int",
+          "constraints": "Determines the direction of integration, typically +1 for forward or -1 for backward."
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "The step size (epsilon) for the leapfrog integrator."
+        },
+        {
+          "name": "log_slice_variable",
+          "type_desc": "float",
+          "constraints": "The logarithm of the uniform slice variable 'u', used for the generalized HMC acceptance criterion."
+        },
+        {
+          "name": "initial_hmc_state",
+          "type_desc": "HMCState",
+          "constraints": "The initial state for this subtree, containing position, momentum, potential energy (prev_U), and kinetic energy (prev_K)."
+        },
+        {
+          "name": "log_prob_oracle",
+          "type_desc": "Callable[[Position], float]",
+          "constraints": "An oracle function (box_log_kernel_fn) that computes the log probability (potential energy) of the target distribution for a given position."
+        },
+        {
+          "name": "integrator_fn",
+          "type_desc": "Callable[[State, float, int], State]",
+          "constraints": "The leapfrog integrator function (leap_frog_fn) used to propose new states along the trajectory."
+        },
+        {
+          "name": "tree_depth",
+          "type_desc": "int",
+          "constraints": "The current recursion depth of the tree-building process."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "trajectory_state",
+          "type_desc": "NUTS_Trajectory",
+          "constraints": "Returns a composite object representing the built trajectory, including the leftmost/rightmost states, the proposed sample, a flag indicating a U-turn, a divergence flag, and summed acceptance probabilities."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "integrate_leaf_trajectory",
+        "build_initial_subtree",
+        "build_doubled_subtree",
+        "combine_and_sample_proposals",
+        "check_global_u_turn"
+      ],
+      "depth": 1,
+      "type_signature": "(direction_val: integer, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: (Position) -> float, integrator_fn: (State, float, int) -> State, tree_depth: integer) -> NUTS_Trajectory",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "recursive_trajectory_sampler. Recursively explores a trajectory within a high-dimensional state space defined by a scalar potential field (oracle). Using a volume-preserving state transition function, it doubles the search path at each step until a termination condition (e.g., path reversal) is met. A single state is then stochastically sampled from the generated trajectory, biased towards states with low potential.. Applications: Robotic motion planning: Efficiently finding valid, non-colliding configurations for a multi-joint arm by exploring the configuration space, where the potential field is defined by proximity to obstacles., Molecular conformation search: Discovering new stable or metastable structures of a protein by simulating its dynamics, where the state is atomic coordinates and the oracle is the molecular force field., Procedural content generation: Generating plausible and complex structures (e.g., terrains, networks) by exploring a design space, where the potential function encodes aesthetic or functional constraints., Inverse problem solving in geophysics: Inferring subsurface geological structures from surface measurements by sampling the high-dimensional space of possible models, where the oracle computes the misfit between simulated and observed data.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "integrate_leaf_trajectory",
+      "parent_id": "nuts_recursive_tree_build",
+      "name": "integrate_leaf_trajectory",
+      "description": "In the recursion base case (tree_depth=0), performs a single leapfrog integration step. It then computes the potential (U) and kinetic (K) energies of the new state, checks if the state is within the valid energy slice (n_val), and determines if the simulation has become unstable (s_val). It also calculates the Metropolis-Hastings acceptance contribution.",
+      "concept_type": "mcmc_kernel",
+      "inputs": [
+        {
+          "name": "direction_val",
+          "type_desc": "int",
+          "constraints": "Specifies the integration direction (-1 or 1)."
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "The size of each integration step."
+        },
+        {
+          "name": "log_rand_val",
+          "type_desc": "float",
+          "constraints": "The logarithm of the uniform slice variable `u`."
+        },
+        {
+          "name": "initial_state",
+          "type_desc": "HMCState",
+          "constraints": "Contains the initial position (draw_vec), momentum (mntm_vec), potential energy (prev_U), and kinetic energy (prev_K)."
+        },
+        {
+          "name": "inv_precond_matrix",
+          "type_desc": "Mat_t",
+          "constraints": "Inverse of the preconditioning matrix (mass matrix)."
+        },
+        {
+          "name": "box_log_kernel_fn",
+          "type_desc": "Callable",
+          "constraints": "Function to compute the log probability and its gradient."
+        },
+        {
+          "name": "leap_frog_fn",
+          "type_desc": "Callable",
+          "constraints": "The leapfrog integrator function."
+        },
+        {
+          "name": "target_data",
+          "type_desc": "object",
+          "constraints": "Auxiliary data for kernel and integrator functions."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "leaf_trajectory_result",
+          "type_desc": "NUTS_Trajectory_Leaf",
+          "constraints": "Contains the new state (draw/momentum), trajectory endpoints, slice sample count (n_val), stop flag (s_val), and acceptance info (alpha_val, n_alpha_val)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, target_data: void*) -> NUTS_Trajectory_Leaf",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_initial_subtree",
+      "parent_id": "nuts_recursive_tree_build",
+      "name": "build_initial_subtree",
+      "description": "Performs the first recursive call to `nuts_build_tree` with a decremented tree depth to build the initial half of the trajectory.",
+      "concept_type": "divide_and_conquer",
+      "inputs": [
+        {
+          "name": "direction_val",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "log_rand_val",
+          "type_desc": "float",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "initial_state",
+          "type_desc": "HMCState",
+          "constraints": "The state at the beginning of the current tree level."
+        },
+        {
+          "name": "inv_precond_matrix",
+          "type_desc": "Mat_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "box_log_kernel_fn",
+          "type_desc": "Callable",
+          "constraints": "callable(x)"
+        },
+        {
+          "name": "leap_frog_fn",
+          "type_desc": "Callable",
+          "constraints": "callable(x)"
+        },
+        {
+          "name": "tree_depth",
+          "type_desc": "int",
+          "constraints": "Current recursion depth, will be decremented for the call."
+        },
+        {
+          "name": "rand_engine",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "target_data",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subtree1_result",
+          "type_desc": "NUTS_Trajectory_Recursive",
+          "constraints": "The result of the first sub-tree build, containing its proposed state and statistics."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "build_doubled_subtree",
+      "parent_id": "nuts_recursive_tree_build",
+      "name": "build_doubled_subtree",
+      "description": "If the initial subtree is valid, performs a second recursive call to `nuts_build_tree` to double the trajectory. The starting point for this build is the endpoint of the first subtree, in the specified direction.",
+      "concept_type": "divide_and_conquer",
+      "inputs": [
+        {
+          "name": "direction_val",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "log_rand_val",
+          "type_desc": "float",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "initial_state",
+          "type_desc": "HMCState",
+          "constraints": "The state at the beginning of the current tree level."
+        },
+        {
+          "name": "subtree1_endpoints",
+          "type_desc": "TrajectoryEndpoints",
+          "constraints": "The position/momentum at the positive and negative ends of the first subtree."
+        },
+        {
+          "name": "inv_precond_matrix",
+          "type_desc": "Mat_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "box_log_kernel_fn",
+          "type_desc": "Callable",
+          "constraints": "callable(x)"
+        },
+        {
+          "name": "leap_frog_fn",
+          "type_desc": "Callable",
+          "constraints": "callable(x)"
+        },
+        {
+          "name": "tree_depth",
+          "type_desc": "int",
+          "constraints": "Current recursion depth, will be decremented for the call."
+        },
+        {
+          "name": "rand_engine",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "target_data",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subtree2_result",
+          "type_desc": "NUTS_Trajectory_Recursive",
+          "constraints": "The result of the second sub-tree build."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, subtree1_endpoints: TrajectoryEndpoints, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combine_and_sample_proposals",
+      "parent_id": "nuts_recursive_tree_build",
+      "name": "combine_and_sample_proposals",
+      "description": "Probabilistically selects a new proposed state from the two subtrees, weighted by the number of valid samples in each. It also aggregates the statistics (sample count, alpha) from both subtrees.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "proposal1",
+          "type_desc": "ColVec_t",
+          "constraints": "The proposed state from the first subtree."
+        },
+        {
+          "name": "stats1",
+          "type_desc": "TrajectoryStats",
+          "constraints": "Statistics (n_val, alpha_val, n_alpha_val) from the first subtree."
+        },
+        {
+          "name": "proposal2",
+          "type_desc": "ColVec_t",
+          "constraints": "The proposed state from the second subtree."
+        },
+        {
+          "name": "stats2",
+          "type_desc": "TrajectoryStats",
+          "constraints": "Statistics from the second subtree."
+        },
+        {
+          "name": "rand_engine",
+          "type_desc": "object",
+          "constraints": "Used for the probabilistic selection."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selected_proposal",
+          "type_desc": "ColVec_t",
+          "constraints": "The newly chosen state for this level of the tree."
+        },
+        {
+          "name": "aggregated_stats",
+          "type_desc": "TrajectoryStats",
+          "constraints": "The combined statistics from both subtrees."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(proposal1: ColVec_t, stats1: TrajectoryStats, proposal2: ColVec_t, stats2: TrajectoryStats, rand_engine: rand_engine_t) -> tuple[ColVec_t, TrajectoryStats]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "check_global_u_turn",
+      "parent_id": "nuts_recursive_tree_build",
+      "name": "check_global_u_turn",
+      "description": "Checks the No-U-Turn condition across the entire combined trajectory using the outermost endpoints. This determines if the tree should stop growing in the next iteration.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "combined_trajectory_endpoints",
+          "type_desc": "TrajectoryEndpoints",
+          "constraints": "The position/momentum at the far positive and negative ends of the full trajectory."
+        },
+        {
+          "name": "subtree2_stop_flag",
+          "type_desc": "int",
+          "constraints": "The stop flag from the second, most recently built subtree."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "global_stop_flag",
+          "type_desc": "int",
+          "constraints": "A flag (0 or 1) indicating if a U-turn was detected and the trajectory should stop."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(combined_trajectory_endpoints: TrajectoryEndpoints, subtree2_stop_flag: size_t) -> size_t",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "nuts_recursive_tree_build",
+      "target_id": "integrate_leaf_trajectory",
+      "output_name": "initial_state",
+      "input_name": "initial_state",
+      "source_type": "HMCState",
+      "target_type": "HMCState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "nuts_recursive_tree_build",
+      "target_id": "build_initial_subtree",
+      "output_name": "initial_state",
+      "input_name": "initial_state",
+      "source_type": "HMCState",
+      "target_type": "HMCState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_initial_subtree",
+      "target_id": "build_doubled_subtree",
+      "output_name": "subtree1_result",
+      "input_name": "subtree1_endpoints",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "TrajectoryEndpoints",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_initial_subtree",
+      "target_id": "combine_and_sample_proposals",
+      "output_name": "subtree1_result",
+      "input_name": "proposal1",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "ColVec_t",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_initial_subtree",
+      "target_id": "combine_and_sample_proposals",
+      "output_name": "subtree1_result",
+      "input_name": "stats1",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "TrajectoryStats",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_doubled_subtree",
+      "target_id": "combine_and_sample_proposals",
+      "output_name": "subtree2_result",
+      "input_name": "proposal2",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "ColVec_t",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_doubled_subtree",
+      "target_id": "combine_and_sample_proposals",
+      "output_name": "subtree2_result",
+      "input_name": "stats2",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "TrajectoryStats",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_doubled_subtree",
+      "target_id": "check_global_u_turn",
+      "output_name": "subtree2_result",
+      "input_name": "combined_trajectory_endpoints",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "TrajectoryEndpoints",
+      "requires_glue": false
+    },
+    {
+      "source_id": "build_doubled_subtree",
+      "target_id": "check_global_u_turn",
+      "output_name": "subtree2_result",
+      "input_name": "subtree2_stop_flag",
+      "source_type": "NUTS_Trajectory_Recursive",
+      "target_type": "size_t",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "nuts_build_tree"
+  }
+}

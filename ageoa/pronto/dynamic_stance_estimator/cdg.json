@@ -1,0 +1,263 @@
+{
+  "nodes": [
+    {
+      "node_id": "DynamicStanceEstimator_root",
+      "parent_id": null,
+      "name": "DynamicStanceEstimator",
+      "description": "Ingested pipeline from DynamicStanceEstimator",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initializefilter",
+        "predictstep",
+        "updatestep",
+        "querystance"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializefilter",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "InitializeFilter",
+      "description": "Initializes the state-space model with prior state, covariance, and static model parameters.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "initial_x",
+          "type_desc": "np.ndarray",
+          "constraints": "Shape [2, 1]"
+        },
+        {
+          "name": "initial_P",
+          "type_desc": "np.ndarray",
+          "constraints": "Shape [2, 2]"
+        },
+        {
+          "name": "A",
+          "type_desc": "np.ndarray",
+          "constraints": "State transition matrix, shape [2, 2]"
+        },
+        {
+          "name": "H",
+          "type_desc": "np.ndarray",
+          "constraints": "Measurement matrix, shape [1, 2]"
+        },
+        {
+          "name": "Q",
+          "type_desc": "np.ndarray",
+          "constraints": "Process noise covariance, shape [2, 2]"
+        },
+        {
+          "name": "R",
+          "type_desc": "np.ndarray",
+          "constraints": "Measurement noise covariance, shape [1, 1]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "initial_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Contains initial x and P"
+        },
+        {
+          "name": "model_params",
+          "type_desc": "ModelParamsSpec",
+          "constraints": "Contains A, H, Q, R"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(initial_x: ndarray, initial_P: ndarray, A: ndarray, H: ndarray, Q: ndarray, R: ndarray) -> tuple[StateModelSpec, ModelParamsSpec]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "InitializeLinearDynamicalSystem. Instantiates the parameters for a discrete-time linear dynamical system. This operation partitions the system's definition into two components: the initial conditions (a state vector and its associated uncertainty matrix) and the static operators that govern the system's evolution. The static operators define the deterministic state transition, the projection from state to measurement, and the covariance structures of both process and measurement noise.. Applications: Robotics: Initializing a filter to track a moving object's position and velocity from noisy sensor (e.g., radar) readings., Econometrics: Defining a model to estimate the latent 'true' value of a financial asset based on its fluctuating, noisy market price., Neuroscience: Setting up a model of a single neuron's membrane potential dynamics, relating the unobserved internal voltage to observable spike train data., Chemical Engineering: Establishing the initial parameters for a state-observer that estimates reactant concentrations within a continuously stirred-tank reactor from periodic, noisy sensor measurements.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "predictstep",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "PredictStep",
+      "description": "Predicts the next state and covariance based on the state transition model (prediction step of Kalman filter).",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "current_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Current state (x, P)"
+        },
+        {
+          "name": "model_params",
+          "type_desc": "ModelParamsSpec",
+          "constraints": "Contains A, Q"
+        },
+        {
+          "name": "dt",
+          "type_desc": "float",
+          "constraints": "Time step"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predicted_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Predicted state (x_prior, P_prior)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_state: StateModelSpec, model_params: ModelParamsSpec, dt: float) -> StateModelSpec",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "LinearStateProjectionWithNoise. Projects a system's current state vector and its associated uncertainty (covariance) forward by one discrete step. The projection uses a linear transformation for the state vector and a congruent transformation for the covariance matrix, with an added noise term to model intrinsic system unpredictability.. Applications: Economic Forecasting: Projecting a vector of key economic indicators (e.g., inflation, unemployment) and their inter-dependencies into the next fiscal quarter using a linearized macroeconomic model., Neural Population Dynamics: Estimating the future activity state and firing rate covariance of a group of neurons based on a linear model of synaptic connections and intrinsic neural noise., Climate Modeling: Predicting a vector of atmospheric variables (temperature, pressure) for a specific grid cell at a future time point, propagating the current estimate and its uncertainty forward with a linearized atmospheric model., Supply Chain Management: Forecasting inventory levels for multiple products and their variance based on a linear model of consumption rates, lead times, and demand volatility.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updatestep",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "UpdateStep",
+      "description": "Updates the state and covariance based on a new measurement (update step of Kalman filter).",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "predicted_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Predicted state (x_prior, P_prior)"
+        },
+        {
+          "name": "model_params",
+          "type_desc": "ModelParamsSpec",
+          "constraints": "Contains H, R"
+        },
+        {
+          "name": "z",
+          "type_desc": "np.ndarray",
+          "constraints": "Measurement"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "updated_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Updated state (x_posterior, P_posterior)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(predicted_state: StateModelSpec, model_params: ModelParamsSpec, z: ndarray) -> StateModelSpec",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "BeliefCorrectionFromObservation. Combines a probabilistic state estimate (a mean vector and a covariance matrix) with a new observation to produce a refined, maximum-likelihood state estimate. It computes the discrepancy between the observation and the state's predicted projection into the observation space. This discrepancy, weighted by the relative uncertainties of the state estimate and the observation model, is used to adjust the initial state, yielding a posterior estimate with optimally reduced uncertainty.. Applications: Economics: Estimating the 'true' daily volatility of a financial asset by treating the noisy daily squared returns as measurements of an underlying stochastic volatility process., Neuroscience: Tracking the firing rate of a neuron in real-time, where the prior belief about the rate is updated based on discrete spike train observations, which act as noisy measurements., Climate Science: Assimilating satellite temperature readings (measurements) into a numerical weather prediction model, where the model's grid-point forecasts (predicted state) are corrected to better match the real-world data.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "querystance",
+      "parent_id": "DynamicStanceEstimator_root",
+      "name": "QueryStance",
+      "description": "Extracts the stance (position) from the state vector.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "current_state",
+          "type_desc": "StateModelSpec",
+          "constraints": "Current state (x, P)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stance",
+          "type_desc": "float",
+          "constraints": "The estimated position"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(current_state: StateModelSpec) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ExtractPrimaryComponent. Selects and returns a single scalar component from a multi-dimensional state vector. This operation projects the state onto a single axis, isolating a specific quantity of interest from the broader system representation, which may include associated uncertainty or covariance data.. Applications: Extracting the estimated inflation rate from a state-space model of a national economy., Retrieving the activation value of a specific neuron from a layer's state tensor in an artificial neural network., Isolating the measured temperature from a multi-parameter vector describing a physical system's state (e.g., pressure, volume, temperature)., Determining a satellite's current altitude from its full 6D pose vector (position and orientation).",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "initializefilter",
+      "target_id": "predictstep",
+      "output_name": "initial_state",
+      "input_name": "current_state",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializefilter",
+      "target_id": "predictstep",
+      "output_name": "model_params",
+      "input_name": "model_params",
+      "source_type": "ModelParamsSpec",
+      "target_type": "ModelParamsSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializefilter",
+      "target_id": "updatestep",
+      "output_name": "model_params",
+      "input_name": "model_params",
+      "source_type": "ModelParamsSpec",
+      "target_type": "ModelParamsSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updatestep",
+      "target_id": "predictstep",
+      "output_name": "updated_state",
+      "input_name": "current_state",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updatestep",
+      "target_id": "querystance",
+      "output_name": "updated_state",
+      "input_name": "current_state",
+      "source_type": "StateModelSpec",
+      "target_type": "StateModelSpec",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "DynamicStanceEstimator"
+  }
+}

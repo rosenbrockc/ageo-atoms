@@ -1,0 +1,860 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "constructgeometrymodel",
+      "statement": "(length_front: float, length_rear: float) -> ModelSpec",
+      "informal_desc": "Create an immutable vehicle geometry/state model from explicit axle-length parameters.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "constructgeometrymodel",
+          "type_signature": "(length_front: float, length_rear: float) -> ModelSpec",
+          "docstring": "Create an immutable vehicle geometry/state model from explicit axle-length parameters.",
+          "conceptual_summary": "Immutable Asymmetric Offset Configuration. Constructs a canonical configuration object from two non-negative scalar offsets defined on opposite sides of a reference origin. The transform is a direct parameter-to-structure mapping with boundary validation, without optimization, recursion, or stochastic sampling. The resulting artifact is immutable, preserving the input values as fixed geometric/state invariants.. Applications: Robotics: instantiate a rigid-link kinematic segment model from proximal and distal link extents around a joint origin., Materials engineering: define an immutable cross-section descriptor from layer thicknesses on opposite sides of a neutral axis., Computational imaging: encode asymmetric sensor active-region margins (left/right or near/far) into a fixed calibration schema., Neuroscience modeling: represent asymmetric receptive-field spatial extents around a central reference point in a simulation state object.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "constructgeometrymodel",
+          "type_signature": "(length_front: float, length_rear: float) -> ModelSpec",
+          "docstring": "Create an immutable vehicle geometry/state model from explicit axle-length parameters.",
+          "conceptual_summary": "Immutable Asymmetric Offset Configuration. Constructs a canonical configuration object from two non-negative scalar offsets defined on opposite sides of a reference origin. The transform is a direct parameter-to-structure mapping with boundary validation, without optimization, recursion, or stochastic sampling. The resulting artifact is immutable, preserving the input values as fixed geometric/state invariants.. Applications: Robotics: instantiate a rigid-link kinematic segment model from proximal and distal link extents around a joint origin., Materials engineering: define an immutable cross-section descriptor from layer thicknesses on opposite sides of a neutral axis., Computational imaging: encode asymmetric sensor active-region margins (left/right or near/far) into a fixed calibration schema., Neuroscience modeling: represent asymmetric receptive-field spatial extents around a central reference point in a simulation state object.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "constructgeometrymodel",
+            "type_signature": "(length_front: float, length_rear: float) -> ModelSpec",
+            "docstring": "Create an immutable vehicle geometry/state model from explicit axle-length parameters.",
+            "conceptual_summary": "Immutable Asymmetric Offset Configuration. Constructs a canonical configuration object from two non-negative scalar offsets defined on opposite sides of a reference origin. The transform is a direct parameter-to-structure mapping with boundary validation, without optimization, recursion, or stochastic sampling. The resulting artifact is immutable, preserving the input values as fixed geometric/state invariants.. Applications: Robotics: instantiate a rigid-link kinematic segment model from proximal and distal link extents around a joint origin., Materials engineering: define an immutable cross-section descriptor from layer thicknesses on opposite sides of a neutral axis., Computational imaging: encode asymmetric sensor active-region margins (left/right or near/far) into a fixed calibration schema., Neuroscience modeling: represent asymmetric receptive-field spatial extents around a central reference point in a simulation state object.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "loadmodelfromfile",
+      "statement": "(filename: string) -> ModelSpec",
+      "informal_desc": "Deserialize model geometry parameters from storage into an immutable model spec.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "loadmodelfromfile",
+          "type_signature": "(filename: string) -> ModelSpec",
+          "docstring": "Deserialize model geometry parameters from storage into an immutable model spec.",
+          "conceptual_summary": "ImmutableStructuredSpecHydration. Accepts a locator to persisted serialized data, reads the byte stream, and decodes it using a predefined schema into a typed in-memory parameter structure. The reconstructed structure is then frozen so downstream computations can rely on referential stability and mutation-free semantics.. Applications: Hydrating finite-element mesh and boundary-condition specifications for mechanical simulation from a persisted artifact., Loading calibrated kinematic-chain parameters for robotic motion planning from a configuration file., Reconstructing neuroimaging preprocessing pipeline parameter sets from stored manifests for reproducible analysis., Restoring compiler optimization-pass configuration graphs from serialized build metadata.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "loadmodelfromfile",
+          "type_signature": "(filename: string) -> ModelSpec",
+          "docstring": "Deserialize model geometry parameters from storage into an immutable model spec.",
+          "conceptual_summary": "ImmutableStructuredSpecHydration. Accepts a locator to persisted serialized data, reads the byte stream, and decodes it using a predefined schema into a typed in-memory parameter structure. The reconstructed structure is then frozen so downstream computations can rely on referential stability and mutation-free semantics.. Applications: Hydrating finite-element mesh and boundary-condition specifications for mechanical simulation from a persisted artifact., Loading calibrated kinematic-chain parameters for robotic motion planning from a configuration file., Reconstructing neuroimaging preprocessing pipeline parameter sets from stored manifests for reproducible analysis., Restoring compiler optimization-pass configuration graphs from serialized build metadata.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "loadmodelfromfile",
+            "type_signature": "(filename: string) -> ModelSpec",
+            "docstring": "Deserialize model geometry parameters from storage into an immutable model spec.",
+            "conceptual_summary": "ImmutableStructuredSpecHydration. Accepts a locator to persisted serialized data, reads the byte stream, and decodes it using a predefined schema into a typed in-memory parameter structure. The reconstructed structure is then frozen so downstream computations can rely on referential stability and mutation-free semantics.. Applications: Hydrating finite-element mesh and boundary-condition specifications for mechanical simulation from a persisted artifact., Loading calibrated kinematic-chain parameters for robotic motion planning from a configuration file., Reconstructing neuroimaging preprocessing pipeline parameter sets from stored manifests for reproducible analysis., Restoring compiler optimization-pass configuration graphs from serialized build metadata.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "querygeometryparameters",
+      "statement": "(model_spec: ModelSpec) -> tuple[float, float, float]",
+      "informal_desc": "Project front length, rear length, and derived wheelbase from the immutable model spec.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "querygeometryparameters",
+          "type_signature": "(model_spec: ModelSpec) -> tuple[float, float, float]",
+          "docstring": "Project front length, rear length, and derived wheelbase from the immutable model spec.",
+          "conceptual_summary": "Bipartite Scalar Projection with Additive Extent Derivation. The operation reads two non-negative scalar components from an immutable structured input and returns them directly as explicit outputs. It then computes a third scalar by linear addition of those components, producing a total 1D extent. No state is changed, and the mapping is fully deterministic.. Applications: Genomics: expose upstream/downstream sequence segment lengths and derive total amplicon span., Network engineering: expose forward/reverse path propagation delays and derive round-trip baseline delay., Manufacturing process planning: expose pre-process/post-process motion distances and derive total traverse distance., Signal processing: expose pre-event/post-event window durations and derive full analysis window length.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "querygeometryparameters",
+          "type_signature": "(model_spec: ModelSpec) -> tuple[float, float, float]",
+          "docstring": "Project front length, rear length, and derived wheelbase from the immutable model spec.",
+          "conceptual_summary": "Bipartite Scalar Projection with Additive Extent Derivation. The operation reads two non-negative scalar components from an immutable structured input and returns them directly as explicit outputs. It then computes a third scalar by linear addition of those components, producing a total 1D extent. No state is changed, and the mapping is fully deterministic.. Applications: Genomics: expose upstream/downstream sequence segment lengths and derive total amplicon span., Network engineering: expose forward/reverse path propagation delays and derive round-trip baseline delay., Manufacturing process planning: expose pre-process/post-process motion distances and derive total traverse distance., Signal processing: expose pre-event/post-event window durations and derive full analysis window length.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "querygeometryparameters",
+            "type_signature": "(model_spec: ModelSpec) -> tuple[float, float, float]",
+            "docstring": "Project front length, rear length, and derived wheelbase from the immutable model spec.",
+            "conceptual_summary": "Bipartite Scalar Projection with Additive Extent Derivation. The operation reads two non-negative scalar components from an immutable structured input and returns them directly as explicit outputs. It then computes a third scalar by linear addition of those components, producing a total 1D extent. No state is changed, and the mapping is fully deterministic.. Applications: Genomics: expose upstream/downstream sequence segment lengths and derive total amplicon span., Network engineering: expose forward/reverse path propagation delays and derive round-trip baseline delay., Manufacturing process planning: expose pre-process/post-process motion distances and derive total traverse distance., Signal processing: expose pre-event/post-event window durations and derive full analysis window length.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "computesideslipangle",
+      "statement": "(model_spec: ModelSpec, road_wheel_angle: float) -> float",
+      "informal_desc": "Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computesideslipangle",
+          "type_signature": "(model_spec: ModelSpec, road_wheel_angle: float) -> float",
+          "docstring": "Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.",
+          "conceptual_summary": "Kinematic Deflection-to-Drift Angle Projection. Maps a single control deflection angle and fixed rigid-body geometry parameters to an instantaneous orientation offset angle using a closed-form trigonometric relation. The transform is purely kinematic (no forces, no integration over time): it projects local actuator deflection into global trajectory-direction deviation relative to a body-aligned reference axis. Zero input deflection yields zero output offset, and output sign follows input sign under symmetric parameterization.. Applications: Planar mobile robotics: convert steering-joint deflection and platform geometry into trajectory-heading offset for path tracking., Aerospace guidance: map control-surface deflection and airframe geometry to instantaneous flight-path angular deviation in simplified kinematic models., Catheter/continuum-tool navigation: translate proximal angular actuation and segment geometry into tip-direction offset estimates., Computer graphics/animation kinematics: derive motion-direction offset from joint rotation and rig geometry for procedural locomotion.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computesideslipangle",
+          "type_signature": "(model_spec: ModelSpec, road_wheel_angle: float) -> float",
+          "docstring": "Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.",
+          "conceptual_summary": "Kinematic Deflection-to-Drift Angle Projection. Maps a single control deflection angle and fixed rigid-body geometry parameters to an instantaneous orientation offset angle using a closed-form trigonometric relation. The transform is purely kinematic (no forces, no integration over time): it projects local actuator deflection into global trajectory-direction deviation relative to a body-aligned reference axis. Zero input deflection yields zero output offset, and output sign follows input sign under symmetric parameterization.. Applications: Planar mobile robotics: convert steering-joint deflection and platform geometry into trajectory-heading offset for path tracking., Aerospace guidance: map control-surface deflection and airframe geometry to instantaneous flight-path angular deviation in simplified kinematic models., Catheter/continuum-tool navigation: translate proximal angular actuation and segment geometry into tip-direction offset estimates., Computer graphics/animation kinematics: derive motion-direction offset from joint rotation and rig geometry for procedural locomotion.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computesideslipangle",
+            "type_signature": "(model_spec: ModelSpec, road_wheel_angle: float) -> float",
+            "docstring": "Compute sideslip from steering input and vehicle geometry as a pure kinematic transform.",
+            "conceptual_summary": "Kinematic Deflection-to-Drift Angle Projection. Maps a single control deflection angle and fixed rigid-body geometry parameters to an instantaneous orientation offset angle using a closed-form trigonometric relation. The transform is purely kinematic (no forces, no integration over time): it projects local actuator deflection into global trajectory-direction deviation relative to a body-aligned reference axis. Zero input deflection yields zero output offset, and output sign follows input sign under symmetric parameterization.. Applications: Planar mobile robotics: convert steering-joint deflection and platform geometry into trajectory-heading offset for path tracking., Aerospace guidance: map control-surface deflection and airframe geometry to instantaneous flight-path angular deviation in simplified kinematic models., Catheter/continuum-tool navigation: translate proximal angular actuation and segment geometry into tip-direction offset estimates., Computer graphics/animation kinematics: derive motion-direction offset from joint rotation and rig geometry for procedural locomotion.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deriveoperatingpointgeometry",
+      "statement": "(model_spec: ModelSpec, x: StateVector<3>, u: ControlVector<2>) -> tuple[f64, f64, f64]",
+      "informal_desc": "Compute shared geometric/kinematic terms at the operating point (sideslip, wheelbase, and combined heading) used by both Jacobians.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deriveoperatingpointgeometry",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector<3>, u: ControlVector<2>) -> tuple[f64, f64, f64]",
+          "docstring": "Compute shared geometric/kinematic terms at the operating point (sideslip, wheelbase, and combined heading) used by both Jacobians.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deriveoperatingpointgeometry",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector<3>, u: ControlVector<2>) -> tuple[f64, f64, f64]",
+          "docstring": "Compute shared geometric/kinematic terms at the operating point (sideslip, wheelbase, and combined heading) used by both Jacobians.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deriveoperatingpointgeometry",
+            "type_signature": "(model_spec: ModelSpec, x: StateVector<3>, u: ControlVector<2>) -> tuple[f64, f64, f64]",
+            "docstring": "Compute shared geometric/kinematic terms at the operating point (sideslip, wheelbase, and combined heading) used by both Jacobians.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "linearizestatedynamicswrtstate",
+      "statement": "(u: ControlVector<2>, yaw_plus_sideslip: f64) -> Matrix<3x3>",
+      "informal_desc": "Evaluate the state Jacobian A = df/dx for the kinematic model, using the known sparse structure with only yaw-coupled nonzero terms.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "linearizestatedynamicswrtstate",
+          "type_signature": "(u: ControlVector<2>, yaw_plus_sideslip: f64) -> Matrix<3x3>",
+          "docstring": "Evaluate the state Jacobian A = df/dx for the kinematic model, using the known sparse structure with only yaw-coupled nonzero terms.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "linearizestatedynamicswrtstate",
+          "type_signature": "(u: ControlVector<2>, yaw_plus_sideslip: f64) -> Matrix<3x3>",
+          "docstring": "Evaluate the state Jacobian A = df/dx for the kinematic model, using the known sparse structure with only yaw-coupled nonzero terms.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "linearizestatedynamicswrtstate",
+            "type_signature": "(u: ControlVector<2>, yaw_plus_sideslip: f64) -> Matrix<3x3>",
+            "docstring": "Evaluate the state Jacobian A = df/dx for the kinematic model, using the known sparse structure with only yaw-coupled nonzero terms.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "linearizedynamicswrtvelocityinput",
+      "statement": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+      "informal_desc": "Compute the velocity-input sensitivity column (df/du0), including translational terms and yaw-rate term normalization.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "linearizedynamicswrtvelocityinput",
+          "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+          "docstring": "Compute the velocity-input sensitivity column (df/du0), including translational terms and yaw-rate term normalization.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "linearizedynamicswrtvelocityinput",
+          "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+          "docstring": "Compute the velocity-input sensitivity column (df/du0), including translational terms and yaw-rate term normalization.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "linearizedynamicswrtvelocityinput",
+            "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+            "docstring": "Compute the velocity-input sensitivity column (df/du0), including translational terms and yaw-rate term normalization.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "linearizedynamicswrtsteeringinput",
+      "statement": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+      "informal_desc": "Compute the steering-input sensitivity column (df/du1), including sideslip derivative propagation and yaw-rate derivative rational term.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "linearizedynamicswrtsteeringinput",
+          "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+          "docstring": "Compute the steering-input sensitivity column (df/du1), including sideslip derivative propagation and yaw-rate derivative rational term.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "linearizedynamicswrtsteeringinput",
+          "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+          "docstring": "Compute the steering-input sensitivity column (df/du1), including sideslip derivative propagation and yaw-rate derivative rational term.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "linearizedynamicswrtsteeringinput",
+            "type_signature": "(model_spec: ModelSpec, u: ControlVector<2>, yaw_plus_sideslip: f64, wheelbase_total: f64) -> Vector<3>",
+            "docstring": "Compute the steering-input sensitivity column (df/du1), including sideslip derivative propagation and yaw-rate derivative rational term.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "assemblecontroljacobian",
+      "statement": "(velocity_column: Vector<3>, steering_column: Vector<3>) -> Matrix<3x2>",
+      "informal_desc": "Assemble control Jacobian B by concatenating velocity and steering sensitivity columns in control order.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "assemblecontroljacobian",
+          "type_signature": "(velocity_column: Vector<3>, steering_column: Vector<3>) -> Matrix<3x2>",
+          "docstring": "Assemble control Jacobian B by concatenating velocity and steering sensitivity columns in control order.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "assemblecontroljacobian",
+          "type_signature": "(velocity_column: Vector<3>, steering_column: Vector<3>) -> Matrix<3x2>",
+          "docstring": "Assemble control Jacobian B by concatenating velocity and steering sensitivity columns in control order.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "assemblecontroljacobian",
+            "type_signature": "(velocity_column: Vector<3>, steering_column: Vector<3>) -> Matrix<3x2>",
+            "docstring": "Assemble control Jacobian B by concatenating velocity and steering sensitivity columns in control order.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deriveslipadjustedkinematics",
+      "statement": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>)) -> tuple[f64, f64, f64]",
+      "informal_desc": "Compute sideslip from steering and derive shared geometric terms for the bicycle-model dynamics.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deriveslipadjustedkinematics",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>)) -> tuple[f64, f64, f64]",
+          "docstring": "Compute sideslip from steering and derive shared geometric terms for the bicycle-model dynamics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deriveslipadjustedkinematics",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>)) -> tuple[f64, f64, f64]",
+          "docstring": "Compute sideslip from steering and derive shared geometric terms for the bicycle-model dynamics.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deriveslipadjustedkinematics",
+            "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>)) -> tuple[f64, f64, f64]",
+            "docstring": "Compute sideslip from steering and derive shared geometric terms for the bicycle-model dynamics.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "evaluatenonlinearstatederivative",
+      "statement": "(u: ControlVector (na::SVector<f64, 2>), sideslip: f64, effective_heading: f64, wheelbase: f64) -> StateDerivativeVector (na::SVector<f64, 3>)",
+      "informal_desc": "Evaluate planar position and yaw derivatives using speed, steering, sideslip, and wheelbase.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "evaluatenonlinearstatederivative",
+          "type_signature": "(u: ControlVector (na::SVector<f64, 2>), sideslip: f64, effective_heading: f64, wheelbase: f64) -> StateDerivativeVector (na::SVector<f64, 3>)",
+          "docstring": "Evaluate planar position and yaw derivatives using speed, steering, sideslip, and wheelbase.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "evaluatenonlinearstatederivative",
+          "type_signature": "(u: ControlVector (na::SVector<f64, 2>), sideslip: f64, effective_heading: f64, wheelbase: f64) -> StateDerivativeVector (na::SVector<f64, 3>)",
+          "docstring": "Evaluate planar position and yaw derivatives using speed, steering, sideslip, and wheelbase.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "evaluatenonlinearstatederivative",
+            "type_signature": "(u: ControlVector (na::SVector<f64, 2>), sideslip: f64, effective_heading: f64, wheelbase: f64) -> StateDerivativeVector (na::SVector<f64, 3>)",
+            "docstring": "Evaluate planar position and yaw derivatives using speed, steering, sideslip, and wheelbase.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "linearizedynamicsatoperatingpoint",
+      "statement": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>), _t: f64) -> (na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+      "informal_desc": "Compute local Jacobian matrices with respect to state and control at (x, u).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "linearizedynamicsatoperatingpoint",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>), _t: f64) -> (na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+          "docstring": "Compute local Jacobian matrices with respect to state and control at (x, u).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "linearizedynamicsatoperatingpoint",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>), _t: f64) -> (na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+          "docstring": "Compute local Jacobian matrices with respect to state and control at (x, u).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "linearizedynamicsatoperatingpoint",
+            "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), u: ControlVector (na::SVector<f64, 2>), _t: f64) -> (na::SMatrix<f64, 3, 3>, na::SMatrix<f64, 3, 2>)",
+            "docstring": "Compute local Jacobian matrices with respect to state and control at (x, u).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "infercontrolfromstaterate",
+      "statement": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), _x_dot: StateDerivativeVector (na::SVector<f64, 3>), _t: f64) -> ControlVector (na::SVector<f64, 2>)",
+      "informal_desc": "Map current state and desired state derivative to inferred control via inverse dynamics interface.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "infercontrolfromstaterate",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), _x_dot: StateDerivativeVector (na::SVector<f64, 3>), _t: f64) -> ControlVector (na::SVector<f64, 2>)",
+          "docstring": "Map current state and desired state derivative to inferred control via inverse dynamics interface.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "infercontrolfromstaterate",
+          "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), _x_dot: StateDerivativeVector (na::SVector<f64, 3>), _t: f64) -> ControlVector (na::SVector<f64, 2>)",
+          "docstring": "Map current state and desired state derivative to inferred control via inverse dynamics interface.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "infercontrolfromstaterate",
+            "type_signature": "(model_spec: ModelSpec, x: StateVector (na::SVector<f64, 3>), _x_dot: StateDerivativeVector (na::SVector<f64, 3>), _t: f64) -> ControlVector (na::SVector<f64, 2>)",
+            "docstring": "Map current state and desired state derivative to inferred control via inverse dynamics interface.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

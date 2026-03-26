@@ -1,0 +1,662 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "summarize_latent_layout",
+      "statement": "(theta_shape_dict: dict[str, tuple[int, ...]]) -> tuple[jnp.ndarray, flatten/reconstruct metadata]",
+      "informal_desc": "Builds placeholder latent tensors from shape specs and derives flatten/reconstruction metadata for a single unconstrained latent vector.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "summarize_latent_layout",
+          "type_signature": "(theta_shape_dict: dict[str, tuple[int, ...]]) -> tuple[jnp.ndarray, flatten/reconstruct metadata]",
+          "docstring": "Builds placeholder latent tensors from shape specs and derives flatten/reconstruction metadata for a single unconstrained latent vector.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "summarize_latent_layout",
+          "type_signature": "(theta_shape_dict: dict[str, tuple[int, ...]]) -> tuple[jnp.ndarray, flatten/reconstruct metadata]",
+          "docstring": "Builds placeholder latent tensors from shape specs and derives flatten/reconstruction metadata for a single unconstrained latent vector.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "summarize_latent_layout",
+            "type_signature": "(theta_shape_dict: dict[str, tuple[int, ...]]) -> tuple[jnp.ndarray, flatten/reconstruct metadata]",
+            "docstring": "Builds placeholder latent tensors from shape specs and derives flatten/reconstruction metadata for a single unconstrained latent vector.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "prepare_stochastic_elbo_oracle",
+      "statement": "(flat_theta_template: jnp.ndarray, shape_summary: flatten/reconstruct metadata, constrain_fun_dict: dict[str, callable], log_lik_fun: callable, log_prior_fun: callable, seed: int | PRNGKey-like RNG state, M: int) -> tuple[callable, int | PRNGKey-like RNG state]",
+      "informal_desc": "Uses the seed to generate fixed standard-normal Monte Carlo noise and curries a stochastic ELBO objective callable over model-specific components.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "prepare_stochastic_elbo_oracle",
+          "type_signature": "(flat_theta_template: jnp.ndarray, shape_summary: flatten/reconstruct metadata, constrain_fun_dict: dict[str, callable], log_lik_fun: callable, log_prior_fun: callable, seed: int | PRNGKey-like RNG state, M: int) -> tuple[callable, int | PRNGKey-like RNG state]",
+          "docstring": "Uses the seed to generate fixed standard-normal Monte Carlo noise and curries a stochastic ELBO objective callable over model-specific components.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "prepare_stochastic_elbo_oracle",
+          "type_signature": "(flat_theta_template: jnp.ndarray, shape_summary: flatten/reconstruct metadata, constrain_fun_dict: dict[str, callable], log_lik_fun: callable, log_prior_fun: callable, seed: int | PRNGKey-like RNG state, M: int) -> tuple[callable, int | PRNGKey-like RNG state]",
+          "docstring": "Uses the seed to generate fixed standard-normal Monte Carlo noise and curries a stochastic ELBO objective callable over model-specific components.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "prepare_stochastic_elbo_oracle",
+            "type_signature": "(flat_theta_template: jnp.ndarray, shape_summary: flatten/reconstruct metadata, constrain_fun_dict: dict[str, callable], log_lik_fun: callable, log_prior_fun: callable, seed: int | PRNGKey-like RNG state, M: int) -> tuple[callable, int | PRNGKey-like RNG state]",
+            "docstring": "Uses the seed to generate fixed standard-normal Monte Carlo noise and curries a stochastic ELBO objective callable over model-specific components.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_variational_state",
+      "statement": "(flat_theta_template: jnp.ndarray, var_param_inits: dict[str, tuple[float, float]], rng_state_after_objective_init: int | PRNGKey-like RNG state) -> tuple[np.ndarray, int | PRNGKey-like RNG state]",
+      "informal_desc": "Samples initial mean-field variational parameters (means and log standard deviations) and flattens them for optimization.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_variational_state",
+          "type_signature": "(flat_theta_template: jnp.ndarray, var_param_inits: dict[str, tuple[float, float]], rng_state_after_objective_init: int | PRNGKey-like RNG state) -> tuple[np.ndarray, int | PRNGKey-like RNG state]",
+          "docstring": "Samples initial mean-field variational parameters (means and log standard deviations) and flattens them for optimization.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_variational_state",
+          "type_signature": "(flat_theta_template: jnp.ndarray, var_param_inits: dict[str, tuple[float, float]], rng_state_after_objective_init: int | PRNGKey-like RNG state) -> tuple[np.ndarray, int | PRNGKey-like RNG state]",
+          "docstring": "Samples initial mean-field variational parameters (means and log standard deviations) and flattens them for optimization.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_variational_state",
+            "type_signature": "(flat_theta_template: jnp.ndarray, var_param_inits: dict[str, tuple[float, float]], rng_state_after_objective_init: int | PRNGKey-like RNG state) -> tuple[np.ndarray, int | PRNGKey-like RNG state]",
+            "docstring": "Samples initial mean-field variational parameters (means and log standard deviations) and flattens them for optimization.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "optimize_variational_objective",
+      "statement": "(objective_fun: callable, init_var_params_flat: np.ndarray, opt_method: str, verbose: bool) -> optimizer result object",
+      "informal_desc": "Chooses optimizer backend by method name and minimizes the stochastic objective over flattened variational parameters.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "optimize_variational_objective",
+          "type_signature": "(objective_fun: callable, init_var_params_flat: np.ndarray, opt_method: str, verbose: bool) -> optimizer result object",
+          "docstring": "Chooses optimizer backend by method name and minimizes the stochastic objective over flattened variational parameters.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "optimize_variational_objective",
+          "type_signature": "(objective_fun: callable, init_var_params_flat: np.ndarray, opt_method: str, verbose: bool) -> optimizer result object",
+          "docstring": "Chooses optimizer backend by method name and minimizes the stochastic objective over flattened variational parameters.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "optimize_variational_objective",
+            "type_signature": "(objective_fun: callable, init_var_params_flat: np.ndarray, opt_method: str, verbose: bool) -> optimizer result object",
+            "docstring": "Chooses optimizer backend by method name and minimizes the stochastic objective over flattened variational parameters.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "decode_optimized_free_parameters",
+      "statement": "(opt_result: optimizer result object, shape_summary: flatten/reconstruct metadata) -> tuple[dict[str, jnp.ndarray], dict[str, jnp.ndarray], np.ndarray]",
+      "informal_desc": "Splits optimized vector into mean and log-scale blocks, exponentiates scales, and reconstructs structured free parameters.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "decode_optimized_free_parameters",
+          "type_signature": "(opt_result: optimizer result object, shape_summary: flatten/reconstruct metadata) -> tuple[dict[str, jnp.ndarray], dict[str, jnp.ndarray], np.ndarray]",
+          "docstring": "Splits optimized vector into mean and log-scale blocks, exponentiates scales, and reconstructs structured free parameters.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "decode_optimized_free_parameters",
+          "type_signature": "(opt_result: optimizer result object, shape_summary: flatten/reconstruct metadata) -> tuple[dict[str, jnp.ndarray], dict[str, jnp.ndarray], np.ndarray]",
+          "docstring": "Splits optimized vector into mean and log-scale blocks, exponentiates scales, and reconstructs structured free parameters.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "decode_optimized_free_parameters",
+            "type_signature": "(opt_result: optimizer result object, shape_summary: flatten/reconstruct metadata) -> tuple[dict[str, jnp.ndarray], dict[str, jnp.ndarray], np.ndarray]",
+            "docstring": "Splits optimized vector into mean and log-scale blocks, exponentiates scales, and reconstructs structured free parameters.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "assemble_fit_artifacts",
+      "statement": "(free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], opt_result: optimizer result object, objective_fun: callable, shape_summary: flatten/reconstruct metadata, final_var_params_flat: np.ndarray) -> dict[str, Any]",
+      "informal_desc": "Packages optimized variational state and objective metadata into the base return payload.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "assemble_fit_artifacts",
+          "type_signature": "(free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], opt_result: optimizer result object, objective_fun: callable, shape_summary: flatten/reconstruct metadata, final_var_params_flat: np.ndarray) -> dict[str, Any]",
+          "docstring": "Packages optimized variational state and objective metadata into the base return payload.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "assemble_fit_artifacts",
+          "type_signature": "(free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], opt_result: optimizer result object, objective_fun: callable, shape_summary: flatten/reconstruct metadata, final_var_params_flat: np.ndarray) -> dict[str, Any]",
+          "docstring": "Packages optimized variational state and objective metadata into the base return payload.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "assemble_fit_artifacts",
+            "type_signature": "(free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], opt_result: optimizer result object, objective_fun: callable, shape_summary: flatten/reconstruct metadata, final_var_params_flat: np.ndarray) -> dict[str, Any]",
+            "docstring": "Packages optimized variational state and objective metadata into the base return payload.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "attach_posterior_draws_if_requested",
+      "statement": "(fit_result_base: dict[str, Any], free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], constrain_fun_dict: dict[str, callable], n_draws: int | None) -> dict[str, Any]",
+      "informal_desc": "Conditionally augments the result payload with constrained posterior draws sampled from the fitted mean-field distribution.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "attach_posterior_draws_if_requested",
+          "type_signature": "(fit_result_base: dict[str, Any], free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], constrain_fun_dict: dict[str, callable], n_draws: int | None) -> dict[str, Any]",
+          "docstring": "Conditionally augments the result payload with constrained posterior draws sampled from the fitted mean-field distribution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "attach_posterior_draws_if_requested",
+          "type_signature": "(fit_result_base: dict[str, Any], free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], constrain_fun_dict: dict[str, callable], n_draws: int | None) -> dict[str, Any]",
+          "docstring": "Conditionally augments the result payload with constrained posterior draws sampled from the fitted mean-field distribution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "attach_posterior_draws_if_requested",
+            "type_signature": "(fit_result_base: dict[str, Any], free_means: dict[str, jnp.ndarray], free_sds: dict[str, jnp.ndarray], constrain_fun_dict: dict[str, callable], n_draws: int | None) -> dict[str, Any]",
+            "docstring": "Conditionally augments the result payload with constrained posterior draws sampled from the fitted mean-field distribution.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "samplefreespaceposteriordraws",
+      "statement": "(free_means: dict[str, np.ndarray], free_sds: dict[str, np.ndarray], n_draws: int) -> dict[str, np.ndarray]",
+      "informal_desc": "Generate independent Gaussian draws for each latent parameter in unconstrained space, using parameter-wise mean/scale and preserving each parameter's original shape under a leading draw axis.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "samplefreespaceposteriordraws",
+          "type_signature": "(free_means: dict[str, np.ndarray], free_sds: dict[str, np.ndarray], n_draws: int) -> dict[str, np.ndarray]",
+          "docstring": "Generate independent Gaussian draws for each latent parameter in unconstrained space, using parameter-wise mean/scale and preserving each parameter's original shape under a leading draw axis.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "samplefreespaceposteriordraws",
+          "type_signature": "(free_means: dict[str, np.ndarray], free_sds: dict[str, np.ndarray], n_draws: int) -> dict[str, np.ndarray]",
+          "docstring": "Generate independent Gaussian draws for each latent parameter in unconstrained space, using parameter-wise mean/scale and preserving each parameter's original shape under a leading draw axis.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "samplefreespaceposteriordraws",
+            "type_signature": "(free_means: dict[str, np.ndarray], free_sds: dict[str, np.ndarray], n_draws: int) -> dict[str, np.ndarray]",
+            "docstring": "Generate independent Gaussian draws for each latent parameter in unconstrained space, using parameter-wise mean/scale and preserving each parameter's original shape under a leading draw axis.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "createperdrawconstraintandpostprocesstransform",
+      "statement": "(constrain_fun_dict: dict[str, callable], fun_to_apply: callable) -> callable",
+      "informal_desc": "Construct a per-draw transform that first maps one unconstrained draw dict into constrained parameter space via apply_constraints, then computes the requested derived quantity via fun_to_apply.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "createperdrawconstraintandpostprocesstransform",
+          "type_signature": "(constrain_fun_dict: dict[str, callable], fun_to_apply: callable) -> callable",
+          "docstring": "Construct a per-draw transform that first maps one unconstrained draw dict into constrained parameter space via apply_constraints, then computes the requested derived quantity via fun_to_apply.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "createperdrawconstraintandpostprocesstransform",
+          "type_signature": "(constrain_fun_dict: dict[str, callable], fun_to_apply: callable) -> callable",
+          "docstring": "Construct a per-draw transform that first maps one unconstrained draw dict into constrained parameter space via apply_constraints, then computes the requested derived quantity via fun_to_apply.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "createperdrawconstraintandpostprocesstransform",
+            "type_signature": "(constrain_fun_dict: dict[str, callable], fun_to_apply: callable) -> callable",
+            "docstring": "Construct a per-draw transform that first maps one unconstrained draw dict into constrained parameter space via apply_constraints, then computes the requested derived quantity via fun_to_apply.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "vectorizetransformoveralldraws",
+      "statement": "(draws: dict[str, np.ndarray], per_draw_transform_fn: callable) -> np.ndarray | dict[str, np.ndarray]",
+      "informal_desc": "Apply the per-draw transform across the draw axis with vmap to produce final posterior draws in constrained/derived space.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "vectorizetransformoveralldraws",
+          "type_signature": "(draws: dict[str, np.ndarray], per_draw_transform_fn: callable) -> np.ndarray | dict[str, np.ndarray]",
+          "docstring": "Apply the per-draw transform across the draw axis with vmap to produce final posterior draws in constrained/derived space.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "vectorizetransformoveralldraws",
+          "type_signature": "(draws: dict[str, np.ndarray], per_draw_transform_fn: callable) -> np.ndarray | dict[str, np.ndarray]",
+          "docstring": "Apply the per-draw transform across the draw axis with vmap to produce final posterior draws in constrained/derived space.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "vectorizetransformoveralldraws",
+            "type_signature": "(draws: dict[str, np.ndarray], per_draw_transform_fn: callable) -> np.ndarray | dict[str, np.ndarray]",
+            "docstring": "Apply the per-draw transform across the draw axis with vmap to produce final posterior draws in constrained/derived space.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

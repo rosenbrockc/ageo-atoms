@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "node_id": "mcmc_algos_root",
+      "parent_id": null,
+      "name": "mcmc_algos",
+      "description": "Ingested pipeline from mcmc_algos",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "log_target_density",
+          "type_desc": "Callable",
+          "constraints": "callable(x)"
+        },
+        {
+          "name": "initial_state",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "n_draws",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 0,
+      "type_signature": "(log_target_density: Callable, initial_state: np.ndarray, n_draws: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "mcmc_algos"
+  }
+}

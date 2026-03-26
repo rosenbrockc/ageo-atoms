@@ -1,0 +1,338 @@
+{
+  "nodes": [
+    {
+      "node_id": "Model_root",
+      "parent_id": null,
+      "name": "Model",
+      "description": "Ingested pipeline from Model",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initialize_model",
+        "compute_aerodynamic_force",
+        "compute_rolling_force",
+        "compute_gravity_grade_force",
+        "evaluate_dynamics_derivatives",
+        "linearize_dynamics",
+        "solve_control_for_target_derivative",
+        "deserialize_model_spec"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialize_model",
+      "parent_id": "Model_root",
+      "name": "initialize_model",
+      "description": "Create a model instance from physical parameters.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "mass",
+          "type_desc": "float",
+          "constraints": "mass > 0"
+        },
+        {
+          "name": "area_frontal",
+          "type_desc": "float",
+          "constraints": "area_frontal > 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type_desc": "Model",
+          "constraints": "immutable value object for downstream pure calls"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mass: float, area_frontal: float) -> Model",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Constrained Parameter-to-Object Instantiation. Maps a finite tuple of constrained scalar inputs into a typed, immutable parameter object. The operation enforces positivity constraints and packages the validated values into a canonical structure used by downstream pure transformations. No iterative optimization or state mutation occurs; this is a direct constructor mapping from numeric parameters to a stable model representation.. Applications: Initializing a pharmacokinetic simulation entity from absorption and clearance coefficients, Creating a robotics dynamics profile from inertia and drag-like coefficients, Instantiating a network-flow node model from capacity and resistance parameters, Seeding a climate micro-model component from heat-capacity and exchange-surface factors",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_aerodynamic_force",
+      "parent_id": "Model_root",
+      "name": "compute_aerodynamic_force",
+      "description": "Compute aerodynamic drag force from velocity.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "velocity",
+          "type_desc": "float",
+          "constraints": "real-valued; sign convention consistent with model"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "f_aero",
+          "type_desc": "float",
+          "constraints": "force in model units"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(velocity: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "signed_nonlinear_resistive_mapping. Transforms a signed scalar rate into a signed scalar opposing term whose magnitude increases with the rate magnitude (typically second-order in absolute value). The mapping is memoryless and applies an odd-symmetric dissipation law: zero input yields zero output, and reversing input sign reverses output sign while preserving magnitude profile.. Applications: Rotational system modeling: map angular velocity to opposing damping torque in actuator or flywheel simulations, Electromechanical modeling: map current or speed to counteracting loss term for energy dissipation estimation, Biomechanical dynamics: map joint segment velocity to passive resistive force in simplified limb models, Fluid transport networks: map signed flow rate to opposing pressure-drop term in reduced-order pipeline/channel models",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_rolling_force",
+      "parent_id": "Model_root",
+      "name": "compute_rolling_force",
+      "description": "Compute rolling resistance force from grade angle.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "grade_angle",
+          "type_desc": "float",
+          "constraints": "angle in radians (or consistent internal unit)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "f_roll",
+          "type_desc": "float",
+          "constraints": "force in model units"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(grade_angle: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "orientation_modulated_resistive_scalar. Transforms a single orientation angle into a resistive scalar by applying a trigonometric projection from an inclined frame to its normal component, then scaling to model force units. The mapping is a closed-form arithmetic step that reduces effective resistance as the surface/frame normal component decreases with increasing inclination magnitude.. Applications: Mobile robotics: estimating contact-loss-adjusted drag terms for motion planning on tilted substrates., Conveyor/process engineering: computing orientation-dependent resistance terms for material transport on inclined paths., Biomechanics/prosthetics: modeling posture-angle-dependent dissipative load components during gait or assistive actuation., Aerospace/attitude systems: projecting orientation-dependent parasitic load terms in simplified vehicle dynamics.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_gravity_grade_force",
+      "parent_id": "Model_root",
+      "name": "compute_gravity_grade_force",
+      "description": "Compute gravity-induced force component along the road grade.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "grade_angle",
+          "type_desc": "float",
+          "constraints": "angle in radians (or consistent internal unit)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "f_grade",
+          "type_desc": "float",
+          "constraints": "force in model units"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(grade_angle: float) -> float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "signed_trigonometric_projection_of_constant_vector_field. Transforms an orientation scalar into the directed component of an otherwise constant-magnitude vector field along a chosen axis. The operation applies a trigonometric projection (typically proportional to sin(theta)) with a fixed scale factor from model constants, yielding a signed scalar that indicates direction and intensity along that axis. This is a coordinate-resolution step from angular representation to 1D effective loading.. Applications: Resolving a uniform field load onto a tilted microfluidic channel axis to estimate net transport-driving component., Computing the component of a constant inertial/body-force vector along a robotic link\u2019s motion axis from joint orientation., Projecting environmental acceleration onto an instrument-sensitive axis in inertial sensing and calibration pipelines., Estimating downslope tangential stress component from terrain inclination in geomechanical stability screening.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluate_dynamics_derivatives",
+      "parent_id": "Model_root",
+      "name": "evaluate_dynamics_derivatives",
+      "description": "Compute state derivatives for the system dynamics.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match model state dimension"
+        },
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match input dimension"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "time scalar; may be unused"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "x_dot",
+          "type_desc": "np.ndarray",
+          "constraints": "same state dimension as x"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: state vector, u: input/control vector, _t: float) -> state derivative vector",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "evaluate_dynamics_derivatives",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linearize_dynamics",
+      "parent_id": "Model_root",
+      "name": "linearize_dynamics",
+      "description": "Compute Jacobian of system dynamics with respect to state.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match model state dimension"
+        },
+        {
+          "name": "_u",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match input dimension; may be unused"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "time scalar; may be unused"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "jacobian",
+          "type_desc": "np.ndarray",
+          "constraints": "state_dim x state_dim"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: state vector, _u: input/control vector, _t: float) -> matrix",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Local Tangent Operator Computation. Evaluates a vector-valued transition function at a specific point and computes its partial derivatives with respect to the primary state coordinates. The result is a first-order linear operator that approximates how infinitesimal perturbations in the input state propagate to perturbations in the next state. This is a local sensitivity map on the tangent space of the original nonlinear transform.. Applications: Stability and sensitivity analysis of biochemical reaction-network models near an operating point, Linearized error propagation in aerospace guidance and navigation estimators, Small-signal analysis of electric power network dynamics around nominal conditions, Local behavior analysis of ecological interaction models near equilibrium states",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "solve_control_for_target_derivative",
+      "parent_id": "Model_root",
+      "name": "solve_control_for_target_derivative",
+      "description": "Compute control input required to match desired state derivative.",
+      "concept_type": "algebra",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match model state dimension"
+        },
+        {
+          "name": "x_dot_desired",
+          "type_desc": "np.ndarray",
+          "constraints": "same dimension as x"
+        },
+        {
+          "name": "_t",
+          "type_desc": "float",
+          "constraints": "time scalar; may be unused"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "u",
+          "type_desc": "np.ndarray",
+          "constraints": "shape must match input dimension"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: state vector, x_dot_desired: state derivative vector, _t: float) -> input/control vector",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "instantaneous inverse state-rate actuation solver. This atom maps a current state vector and a target first-order state-rate vector to an actuation vector by inverting the model's differential relation at a single instant. Formally, it solves an algebraic inverse problem of the form find u such that f(x, u, t) matches the requested state derivative. The result is an immediate command-level solution, not a multi-step optimization over a horizon.. Applications: Aerospace guidance: compute thruster or control-surface commands to realize a desired attitude-rate vector at the current state., Bioreactor automation: derive pump/heater actuation to enforce a target rate of change in concentration-temperature state variables., Smart-grid power electronics: solve inverter command vectors to produce desired derivatives of voltage-frequency state coordinates., Musculoskeletal assistive systems: map desired joint-state velocity/acceleration profiles to actuator command vectors in wearable devices.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "deserialize_model_spec",
+      "parent_id": "Model_root",
+      "name": "deserialize_model_spec",
+      "description": "Load model parameters from file and construct model-ready data.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "filename",
+          "type_desc": "str",
+          "constraints": "must reference readable model config file"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type_desc": "Model",
+          "constraints": "fully initialized model instance"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(filename: string/path) -> Model",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Serialized Specification Materialization. Reads a serialized specification from persistent storage and parses it into a typed in-memory parameter structure. The operation validates and normalizes fields against expected schema constraints, then instantiates a fully configured executable object with internal state derived from those parameters. The result is a runtime-ready computational artifact equivalent to the persisted specification.. Applications: Hydrology: load watershed simulation constants and boundary conditions into a solver instance, Robotics: reconstruct control-policy parameters and actuator constraints for a deployment runtime, Computational chemistry: instantiate molecular simulation settings and force-field coefficients from serialized config, Telecommunications: initialize signal-processing pipeline stages from a persisted processing graph specification",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "Model"
+  }
+}

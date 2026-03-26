@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "node_id": "DynamicHedge_root",
+      "parent_id": null,
+      "name": "DynamicHedge",
+      "description": "Ingested pipeline from DynamicHedge",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "asset_a",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "asset_b",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "delta",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 0,
+      "type_signature": "(asset_a: np.ndarray, asset_b: np.ndarray, delta: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "DynamicHedge"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "nodes": [
+    {
+      "node_id": "BacklashFilter_root",
+      "parent_id": null,
+      "name": "BacklashFilter",
+      "description": "Ingested pipeline from BacklashFilter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initializebacklashfilterstate",
+        "updatealphaparameter",
+        "updatecrossingtimemaximum"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializebacklashfilterstate",
+      "parent_id": "BacklashFilter_root",
+      "name": "InitializeBacklashFilterState",
+      "description": "Create the initial immutable state object for the filter parameters.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "config",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_out",
+          "type_desc": "object",
+          "constraints": "Initialized with constructor/default values."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "() -> BacklashFilterState {alpha_: float, t_crossing_max_: float}",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Deterministic Two-Scalar State Bootstrap. Constructs a new typed state container with a fixed schema and assigns each numeric field a predefined constructor/default constant. The operation has zero external inputs, so it always returns the same canonical baseline element of the state space. The produced state is immutable, enabling subsequent computation to evolve via explicit state replacement rather than in-place mutation.. Applications: Control engineering: initialize a baseline pair of controller coefficients before iterative closed-loop tuning., Computational biology: create default two-parameter kinetic model state prior to parameter estimation., Materials simulation: seed constitutive-model scalar coefficients before time-stepped updates., Distributed systems: initialize smoothing/timeout scalar parameters for a feedback-based resource allocator.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updatealphaparameter",
+      "parent_id": "BacklashFilter_root",
+      "name": "UpdateAlphaParameter",
+      "description": "Produce a new filter state with an updated alpha parameter.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "state_in",
+          "type_desc": "BacklashFilterState",
+          "constraints": "Immutable input state."
+        },
+        {
+          "name": "alpha_in",
+          "type_desc": "float",
+          "constraints": "Finite scalar."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_out",
+          "type_desc": "BacklashFilterState",
+          "constraints": "Same as state_in, except alpha_ = alpha_in."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(state_in: BacklashFilterState, alpha_in: float) -> BacklashFilterState",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Immutable Scalar Parameter Replacement. Constructs a new composite state object by copying all components from an input state and substituting exactly one designated scalar coefficient with a provided finite value. The transform is a single-step deterministic state transition that preserves structural identity and all non-target fields. No numerical propagation, re-estimation, or iterative optimization is performed.. Applications: Control systems: update a gain coefficient in a controller configuration snapshot while preserving all other tuning parameters, Machine learning infrastructure: replace one regularization or smoothing hyperparameter in a model configuration object without retraining, Computational physics: modify a single simulation constant in an experiment state descriptor for parameter sweep runs, Signal processing pipelines: swap one attenuation/weight coefficient in a processing-state struct while keeping all buffers and metadata fixed",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updatecrossingtimemaximum",
+      "parent_id": "BacklashFilter_root",
+      "name": "UpdateCrossingTimeMaximum",
+      "description": "Produce a new filter state with an updated maximum crossing time.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "state_in",
+          "type_desc": "BacklashFilterState",
+          "constraints": "Immutable input state."
+        },
+        {
+          "name": "t_crossing_max_in",
+          "type_desc": "float",
+          "constraints": "Finite scalar, typically non-negative."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_out",
+          "type_desc": "BacklashFilterState",
+          "constraints": "Same as state_in, except t_crossing_max_ = t_crossing_max_in."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(state_in: BacklashFilterState, t_crossing_max_in: float) -> BacklashFilterState",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ImmutableStateScalarBoundUpdate. Applies a single-field substitution on an immutable state object: one designated scalar threshold field is overwritten with a provided finite scalar, while all other fields are preserved exactly. This is a deterministic state-transition operator that returns a new state instance rather than mutating the input. The transform changes only the selected parameter and leaves the structural schema invariant.. Applications: Control systems: updating a saturation or timeout bound in a controller parameter state without altering other controller coefficients., Distributed systems: replacing a node-level heartbeat deadline threshold in an immutable runtime configuration snapshot., Computational biology: updating a maximum iteration or convergence cutoff parameter in a simulation state object., Robotics/perception: revising an outlier-rejection threshold inside a filter state while preserving accumulated latent variables.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "initializebacklashfilterstate",
+      "target_id": "updatealphaparameter",
+      "output_name": "state_out",
+      "input_name": "state_in",
+      "source_type": "BacklashFilterState",
+      "target_type": "BacklashFilterState",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updatealphaparameter",
+      "target_id": "updatecrossingtimemaximum",
+      "output_name": "state_out",
+      "input_name": "state_in",
+      "source_type": "BacklashFilterState",
+      "target_type": "BacklashFilterState",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "BacklashFilter"
+  }
+}

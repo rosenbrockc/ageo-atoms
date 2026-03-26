@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "node_id": "TriangularArbitrage_root",
+      "parent_id": null,
+      "name": "TriangularArbitrage",
+      "description": "Ingested pipeline from TriangularArbitrage",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "rates",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 0,
+      "type_signature": "(rates: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "TriangularArbitrage"
+  }
+}

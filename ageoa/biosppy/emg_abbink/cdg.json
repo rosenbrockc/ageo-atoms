@@ -1,0 +1,632 @@
+{
+  "nodes": [
+    {
+      "node_id": "abbink_onset_detector_root",
+      "parent_id": null,
+      "name": "abbink_onset_detector",
+      "description": "Ingested pipeline from abbink_onset_detector",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "detect_onsets_with_rest_aware_thresholds"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detect_onsets_with_rest_aware_thresholds",
+      "parent_id": "abbink_onset_detector_root",
+      "name": "detect_onsets_with_rest_aware_thresholds",
+      "description": "Detects onset events from an input signal using rest/reference information, window sizes, sampling rate, and transition/alarm thresholds.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "non-empty; length should support window operations"
+        },
+        {
+          "name": "rest",
+          "type_desc": "np.ndarray",
+          "constraints": "compatible with signal domain"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "> 0"
+        },
+        {
+          "name": "size",
+          "type_desc": "int",
+          "constraints": "> 0"
+        },
+        {
+          "name": "alarm_size",
+          "type_desc": "int",
+          "constraints": "> 0"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "application-defined detection threshold"
+        },
+        {
+          "name": "transition_threshold",
+          "type_desc": "float",
+          "constraints": "application-defined transition threshold"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_events",
+          "type_desc": "np.ndarray",
+          "constraints": "aligned with input signal timeline"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validate_required_configuration",
+        "resolve_rest_reference_statistics",
+        "compute_rest_normalized_test_function",
+        "smooth_test_function_for_decisioning",
+        "infer_onset_and_offset_candidates",
+        "merge_and_latency_correct_events",
+        "assemble_detector_outputs"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: array-like numeric time series, rest: array-like or scalar reference/baseline, sampling_rate: float, size: int, alarm_size: int, threshold: float, transition_threshold: float) -> array-like detection result (e.g., indices, mask, or scores)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "baseline_referenced_temporal_transition_detector. Computes local evidence of state change in a one-dimensional numeric sequence by comparing short-horizon behavior against a reference baseline and applying dual decision levels. A transition criterion marks candidate boundary segments, and an alarm criterion over a separate window confirms persistent activation to suppress transient fluctuations. The result is a timeline-aligned representation of detected transition onsets.. Applications: Structural health monitoring: detect initiation of damage-related regime shifts in vibration sequences relative to a quiescent baseline., Network engineering: detect start times of sustained traffic bursts in packet-rate streams using idle-state references., Neuroscience instrumentation: detect burst initiation in electrophysiological traces using rest-period calibrated thresholds., Industrial automation: detect onset of process faults in multistep production sensor channels by baseline-referenced transition gating.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validate_required_configuration",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "validate_required_configuration",
+      "description": "Validate that all required detector inputs are present and propagate a normalized configuration for downstream computation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "must be non-null"
+        },
+        {
+          "name": "rest",
+          "type_desc": "object",
+          "constraints": "must be non-null"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "defaults to 1000.0 if caller keeps default"
+        },
+        {
+          "name": "size",
+          "type_desc": "int",
+          "constraints": "must be non-null and positive"
+        },
+        {
+          "name": "alarm_size",
+          "type_desc": "int",
+          "constraints": "must be non-null and positive"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "must be non-null"
+        },
+        {
+          "name": "transition_threshold",
+          "type_desc": "float",
+          "constraints": "must be non-null"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "same values as input signal"
+        },
+        {
+          "name": "validated_rest",
+          "type_desc": "object",
+          "constraints": "same values as input rest"
+        },
+        {
+          "name": "validated_sampling_rate",
+          "type_desc": "float",
+          "constraints": "usable for filtering"
+        },
+        {
+          "name": "validated_size",
+          "type_desc": "int",
+          "constraints": "usable as moving-average window"
+        },
+        {
+          "name": "validated_alarm_size",
+          "type_desc": "int",
+          "constraints": "usable as transition window length"
+        },
+        {
+          "name": "validated_threshold",
+          "type_desc": "float",
+          "constraints": "usable as alarm threshold"
+        },
+        {
+          "name": "validated_transition_threshold",
+          "type_desc": "float",
+          "constraints": "usable as transition discriminator"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like numeric sequence, rest: array-like | dict, sampling_rate: float, size: int, alarm_size: int, threshold: float, transition_threshold: float) -> tuple[array-like numeric sequence, array-like | dict, float, int, int, float, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "resolve_rest_reference_statistics",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "resolve_rest_reference_statistics",
+      "description": "Resolve rest specification (raw segment, index span, or precomputed dict) into baseline mean and standard deviation used for normalization.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required when rest is index span"
+        },
+        {
+          "name": "validated_rest",
+          "type_desc": "object",
+          "constraints": "array/list length >= 2 or dict with mean/std_dev keys"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mean_rest",
+          "type_desc": "float",
+          "constraints": "rest baseline mean"
+        },
+        {
+          "name": "std_dev_rest",
+          "type_desc": "float",
+          "constraints": "rest baseline std dev, should be non-zero"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_signal: array-like numeric sequence, validated_rest: array-like | dict) -> tuple[float, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_rest_normalized_test_function",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "compute_rest_normalized_test_function",
+      "description": "Transform the signal into a rest-normalized detection score via zero-centering, full-wave rectification, moving average, and z-like scaling.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "validated_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D EMG-like signal"
+        },
+        {
+          "name": "validated_size",
+          "type_desc": "int",
+          "constraints": "moving-average window length"
+        },
+        {
+          "name": "mean_rest",
+          "type_desc": "float",
+          "constraints": "from rest statistics"
+        },
+        {
+          "name": "std_dev_rest",
+          "type_desc": "float",
+          "constraints": "from rest statistics"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tf",
+          "type_desc": "np.ndarray",
+          "constraints": "length reduced by convolution mode='valid'"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_signal: array-like numeric sequence, validated_size: int, mean_rest: float, std_dev_rest: float) -> array-like float sequence",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "smooth_test_function_for_decisioning",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "smooth_test_function_for_decisioning",
+      "description": "Apply low-pass Butterworth filtering to the test function and convert to list form for indexed window operations.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "tf",
+          "type_desc": "np.ndarray",
+          "constraints": "test function values"
+        },
+        {
+          "name": "validated_sampling_rate",
+          "type_desc": "float",
+          "constraints": "used by low-pass filter design/application"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_tf",
+          "type_desc": "list[float]",
+          "constraints": "same semantic timeline as tf"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(tf: array-like float sequence, validated_sampling_rate: float) -> list of float",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "infer_onset_and_offset_candidates",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "infer_onset_and_offset_candidates",
+      "description": "Run the alarm/onset finite-state scan; when alarm windows mature, compute transition indices and extract onset maxima and offset minima candidate positions.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "tf",
+          "type_desc": "np.ndarray",
+          "constraints": "used for loop bounds"
+        },
+        {
+          "name": "filtered_tf",
+          "type_desc": "list[float]",
+          "constraints": "used for threshold and transition computations"
+        },
+        {
+          "name": "validated_alarm_size",
+          "type_desc": "int",
+          "constraints": "window radius/count for transition index"
+        },
+        {
+          "name": "validated_threshold",
+          "type_desc": "float",
+          "constraints": "primary alarm threshold"
+        },
+        {
+          "name": "validated_transition_threshold",
+          "type_desc": "float",
+          "constraints": "secondary transition threshold"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_time_list",
+          "type_desc": "list[int]",
+          "constraints": "candidate onset indices in tf timeline"
+        },
+        {
+          "name": "offset_time_list",
+          "type_desc": "list[int]",
+          "constraints": "candidate offset indices in tf timeline"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(tf: array-like float sequence, filtered_tf: list of float, validated_alarm_size: int, validated_threshold: float, validated_transition_threshold: float) -> tuple[list of int, list of int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "merge_and_latency_correct_events",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "merge_and_latency_correct_events",
+      "description": "Union onset and offset candidate indices and apply half-window correction to align detections with original signal timing.",
+      "concept_type": "set_theory",
+      "inputs": [
+        {
+          "name": "onset_time_list",
+          "type_desc": "list[int]",
+          "constraints": "candidate onset positions"
+        },
+        {
+          "name": "offset_time_list",
+          "type_desc": "list[int]",
+          "constraints": "candidate offset positions"
+        },
+        {
+          "name": "validated_size",
+          "type_desc": "int",
+          "constraints": "used for size/2 timing correction"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "final event indices adjusted to signal timeline"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(onset_time_list: list of int, offset_time_list: list of int, validated_size: int) -> array-like int",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "assemble_detector_outputs",
+      "parent_id": "detect_onsets_with_rest_aware_thresholds",
+      "name": "assemble_detector_outputs",
+      "description": "Package final onset indices and processed score signal into the method's two-field return structure.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "onsets",
+          "type_desc": "np.ndarray",
+          "constraints": "final corrected detections"
+        },
+        {
+          "name": "filtered_tf",
+          "type_desc": "list[float]",
+          "constraints": "processed detection signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_events",
+          "type_desc": "np.ndarray",
+          "constraints": "alias of final onsets"
+        },
+        {
+          "name": "processed_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "alias of filtered_tf"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(onsets: array-like int, filtered_tf: list of float) -> tuple[array-like int, array-like float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "resolve_rest_reference_statistics",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "array-like numeric sequence",
+      "target_type": "array-like numeric sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "resolve_rest_reference_statistics",
+      "output_name": "validated_rest",
+      "input_name": "validated_rest",
+      "source_type": "array-like | dict",
+      "target_type": "array-like | dict",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "compute_rest_normalized_test_function",
+      "output_name": "validated_signal",
+      "input_name": "validated_signal",
+      "source_type": "array-like numeric sequence",
+      "target_type": "array-like numeric sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "compute_rest_normalized_test_function",
+      "output_name": "validated_size",
+      "input_name": "validated_size",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_rest_reference_statistics",
+      "target_id": "compute_rest_normalized_test_function",
+      "output_name": "mean_rest",
+      "input_name": "mean_rest",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "resolve_rest_reference_statistics",
+      "target_id": "compute_rest_normalized_test_function",
+      "output_name": "std_dev_rest",
+      "input_name": "std_dev_rest",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_rest_normalized_test_function",
+      "target_id": "smooth_test_function_for_decisioning",
+      "output_name": "tf",
+      "input_name": "tf",
+      "source_type": "array-like float sequence",
+      "target_type": "array-like float sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "smooth_test_function_for_decisioning",
+      "output_name": "validated_sampling_rate",
+      "input_name": "validated_sampling_rate",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_rest_normalized_test_function",
+      "target_id": "infer_onset_and_offset_candidates",
+      "output_name": "tf",
+      "input_name": "tf",
+      "source_type": "array-like float sequence",
+      "target_type": "array-like float sequence",
+      "requires_glue": false
+    },
+    {
+      "source_id": "smooth_test_function_for_decisioning",
+      "target_id": "infer_onset_and_offset_candidates",
+      "output_name": "filtered_tf",
+      "input_name": "filtered_tf",
+      "source_type": "list of float",
+      "target_type": "list of float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "infer_onset_and_offset_candidates",
+      "output_name": "validated_alarm_size",
+      "input_name": "validated_alarm_size",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "infer_onset_and_offset_candidates",
+      "output_name": "validated_threshold",
+      "input_name": "validated_threshold",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "infer_onset_and_offset_candidates",
+      "output_name": "validated_transition_threshold",
+      "input_name": "validated_transition_threshold",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infer_onset_and_offset_candidates",
+      "target_id": "merge_and_latency_correct_events",
+      "output_name": "onset_time_list",
+      "input_name": "onset_time_list",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "infer_onset_and_offset_candidates",
+      "target_id": "merge_and_latency_correct_events",
+      "output_name": "offset_time_list",
+      "input_name": "offset_time_list",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validate_required_configuration",
+      "target_id": "merge_and_latency_correct_events",
+      "output_name": "validated_size",
+      "input_name": "validated_size",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "merge_and_latency_correct_events",
+      "target_id": "assemble_detector_outputs",
+      "output_name": "onsets",
+      "input_name": "onsets",
+      "source_type": "array-like int",
+      "target_type": "array-like int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "smooth_test_function_for_decisioning",
+      "target_id": "assemble_detector_outputs",
+      "output_name": "filtered_tf",
+      "input_name": "filtered_tf",
+      "source_type": "list of float",
+      "target_type": "array-like float",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "abbink_onset_detector"
+  }
+}

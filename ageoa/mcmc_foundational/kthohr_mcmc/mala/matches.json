@@ -1,0 +1,134 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "compute_proposal_means_and_jacobians",
+      "statement": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+      "informal_desc": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_proposal_means_and_jacobians",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+          "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_proposal_means_and_jacobians",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+          "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_proposal_means_and_jacobians",
+            "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+            "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "calculate_proposal_log_density_ratio",
+      "statement": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+      "informal_desc": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "calculate_proposal_log_density_ratio",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+          "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "calculate_proposal_log_density_ratio",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+          "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "calculate_proposal_log_density_ratio",
+            "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+            "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

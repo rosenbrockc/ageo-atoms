@@ -1,0 +1,302 @@
+{
+  "nodes": [
+    {
+      "node_id": "homomorphic_filter_root",
+      "parent_id": null,
+      "name": "homomorphic_filter",
+      "description": "Ingested pipeline from homomorphic_filter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "homomorphic_signal_filtering"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "homomorphic_signal_filtering",
+      "parent_id": "homomorphic_filter_root",
+      "name": "homomorphic_signal_filtering",
+      "description": "Applies homomorphic filtering to an input signal using the provided sampling rate to produce a filtered output signal.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D or compatible signal tensor expected by implementation"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "positive sampling frequency"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filtered_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "same temporal support as input signal"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "ensure_valid_inputs_and_cast_rate",
+        "design_homomorphic_lowpass_sos",
+        "transform_signal_to_log_magnitude",
+        "extract_envelope_and_inverse_transform",
+        "package_named_output"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: array-like numeric signal, sampling_rate: float) -> array-like numeric signal",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "log-domain_multiplicative_component_filter. Maps a positive-valued 1-D sequence (or compatible tensor) into a logarithmic domain so multiplicative factors become additive components. Applies a frequency-selective linear filter parameterized by sampling frequency in that transformed domain, then maps back with an exponential inverse transform. The result suppresses slowly varying multiplicative envelopes while retaining faster structural variations on the same temporal support.. Applications: Preconditioning seismic or geophysical traces to separate multiplicative propagation effects from reflectivity-like fine structure., Normalizing biomedical waveform channels (e.g., electrophysiology or photometric streams) where multiplicative baseline drift obscures transient events., Enhancing rotating-machinery condition signals by removing slow multiplicative envelope variation before fault-pattern analysis., Flattening multiplicative gain trends in remote-sensing or spectroscopy time-series prior to anomaly detection.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "ensure_valid_inputs_and_cast_rate",
+      "parent_id": "homomorphic_signal_filtering",
+      "name": "ensure_valid_inputs_and_cast_rate",
+      "description": "Validate that an input signal is provided and normalize the sampling rate to float for downstream filter design.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "Optional[np.ndarray]",
+          "constraints": "must not be None"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "should be positive"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "same values as input signal; non-None"
+        },
+        {
+          "name": "sampling_rate_hz",
+          "type_desc": "float",
+          "constraints": "positive sampling frequency in Hz"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like numeric or None, sampling_rate: int or float) -> tuple[array-like numeric, float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "design_homomorphic_lowpass_sos",
+      "parent_id": "homomorphic_signal_filtering",
+      "name": "design_homomorphic_lowpass_sos",
+      "description": "Create a first-order low-pass Butterworth SOS filter at 8 Hz to isolate the slow-varying envelope component.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "sampling_rate_hz",
+          "type_desc": "float",
+          "constraints": "positive"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "lowpass_sos",
+          "type_desc": "np.ndarray",
+          "constraints": "configured for digital low-pass filtering"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate_hz: float) -> 2D numeric array (SOS coefficients)",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "transform_signal_to_log_magnitude",
+      "parent_id": "homomorphic_signal_filtering",
+      "name": "transform_signal_to_log_magnitude",
+      "description": "Map the signal into the homomorphic domain by taking absolute value then logarithm.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "clean_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "values with zero magnitude may produce -inf after log"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "log_magnitude_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "same shape as clean_signal"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(clean_signal: array-like numeric) -> array-like numeric",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extract_envelope_and_inverse_transform",
+      "parent_id": "homomorphic_signal_filtering",
+      "name": "extract_envelope_and_inverse_transform",
+      "description": "Apply zero-phase SOS low-pass filtering in the log domain, then exponentiate to recover the homomorphic envelope.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "lowpass_sos",
+          "type_desc": "np.ndarray",
+          "constraints": "valid SOS for sosfiltfilt"
+        },
+        {
+          "name": "log_magnitude_signal",
+          "type_desc": "np.ndarray",
+          "constraints": "compatible length for filtfilt padding requirements"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "envelope",
+          "type_desc": "np.ndarray",
+          "constraints": "non-normalized homomorphic envelope"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(lowpass_sos: 2D numeric array (SOS coefficients), log_magnitude_signal: array-like numeric) -> array-like numeric",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "package_named_output",
+      "parent_id": "homomorphic_signal_filtering",
+      "name": "package_named_output",
+      "description": "Wrap the computed envelope in the named ReturnTuple output structure.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "envelope",
+          "type_desc": "np.ndarray",
+          "constraints": "computed envelope signal"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "homomorphic_envelope_return",
+          "type_desc": "object",
+          "constraints": "contains one field named 'homomorphic_envelope'"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(envelope: array-like numeric) -> utils.ReturnTuple",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "ensure_valid_inputs_and_cast_rate",
+      "target_id": "transform_signal_to_log_magnitude",
+      "output_name": "clean_signal",
+      "input_name": "clean_signal",
+      "source_type": "array-like numeric",
+      "target_type": "array-like numeric",
+      "requires_glue": false
+    },
+    {
+      "source_id": "ensure_valid_inputs_and_cast_rate",
+      "target_id": "design_homomorphic_lowpass_sos",
+      "output_name": "sampling_rate_hz",
+      "input_name": "sampling_rate_hz",
+      "source_type": "float",
+      "target_type": "float",
+      "requires_glue": false
+    },
+    {
+      "source_id": "design_homomorphic_lowpass_sos",
+      "target_id": "extract_envelope_and_inverse_transform",
+      "output_name": "lowpass_sos",
+      "input_name": "lowpass_sos",
+      "source_type": "2D numeric array (SOS coefficients)",
+      "target_type": "2D numeric array (SOS coefficients)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "transform_signal_to_log_magnitude",
+      "target_id": "extract_envelope_and_inverse_transform",
+      "output_name": "log_magnitude_signal",
+      "input_name": "log_magnitude_signal",
+      "source_type": "array-like numeric",
+      "target_type": "array-like numeric",
+      "requires_glue": false
+    },
+    {
+      "source_id": "extract_envelope_and_inverse_transform",
+      "target_id": "package_named_output",
+      "output_name": "envelope",
+      "input_name": "envelope",
+      "source_type": "array-like numeric",
+      "target_type": "array-like numeric",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "homomorphic_filter"
+  }
+}

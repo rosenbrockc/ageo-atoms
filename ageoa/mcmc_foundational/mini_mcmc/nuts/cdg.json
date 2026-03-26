@@ -1,0 +1,414 @@
+{
+  "nodes": [
+    {
+      "node_id": "NUTS_root",
+      "parent_id": null,
+      "name": "NUTS",
+      "description": "Ingested pipeline from NUTS",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "initialize_sampler",
+        "run_mcmc_sampler"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialize_sampler",
+      "parent_id": "NUTS_root",
+      "name": "initialize_sampler",
+      "description": "Sets up the initial state for the NUTS sampler, including the PRNG seed, target log-probability function, initial positions, and tuning parameters.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "target",
+          "type_desc": "Callable[[Array], float]",
+          "constraints": "The log-probability density function of the target distribution. Must be a pure function (oracle)."
+        },
+        {
+          "name": "initial_positions",
+          "type_desc": "Array",
+          "constraints": "Starting points for the MCMC chains."
+        },
+        {
+          "name": "target_accept_p",
+          "type_desc": "float",
+          "constraints": "The target acceptance probability for step size adaptation."
+        },
+        {
+          "name": "seed",
+          "type_desc": "int",
+          "constraints": "Seed for the pseudo-random number generator."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "initial_sampler_state",
+          "type_desc": "NUTSState",
+          "constraints": "An immutable data structure containing the complete initial state of the sampler, including the PRNGKey, step size, and initial positions."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(target: (Array) -> float, initial_positions: Array, target_accept_p: float, seed: int) -> NUTSState",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "initialize_stochastic_traversal. Configures and encapsulates the initial conditions for a stateful, iterative search or sampling process. It bundles a scalar potential function (oracle), initial search coordinates, a randomness source (PRNG), and adaptive algorithm parameters into a single, immutable state object, preparing for a subsequent traversal of a high-dimensional space.. Applications: Robotics: Initializing a motion planning search where the oracle scores paths based on collision avoidance and energy cost, and initial coordinates represent different starting joint configurations., Materials Science: Configuring a molecular dynamics simulation to find stable protein folds, where the oracle is an energy potential function and initial coordinates are starting atomic positions., Operations Research: Setting up a metaheuristic solver for a logistics problem, where the oracle scores the efficiency of a given solution and initial coordinates are randomly generated starting solutions., Generative Design: Seeding a search for optimal structural designs (e.g., for an airplane wing), where the oracle is a finite element analysis simulation that scores designs based on stress tolerance and weight, and initial coordinates are starting parameters for the geometry.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "run_mcmc_sampler",
+      "parent_id": "NUTS_root",
+      "name": "run_mcmc_sampler",
+      "description": "Executes the NUTS MCMC algorithm for a given number of warm-up and collection steps, producing posterior samples.",
+      "concept_type": "mcmc_kernel",
+      "inputs": [
+        {
+          "name": "sampler_state_in",
+          "type_desc": "NUTSState",
+          "constraints": "The current state of the NUTS sampler."
+        },
+        {
+          "name": "n_collect",
+          "type_desc": "int",
+          "constraints": "Number of posterior samples to generate and collect."
+        },
+        {
+          "name": "n_discard",
+          "type_desc": "int",
+          "constraints": "Number of warm-up (burn-in) samples to discard before collection."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_samples",
+          "type_desc": "Array",
+          "constraints": "Collected samples from the posterior distribution."
+        },
+        {
+          "name": "final_sampler_state",
+          "type_desc": "NUTSState",
+          "constraints": "The final state of the sampler after the run, including the updated PRNGKey."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "create_progress_channels",
+        "spawn_progress_monitor_thread",
+        "execute_chains_in_parallel",
+        "stack_chain_samples",
+        "calculate_run_diagnostics",
+        "join_monitor_thread"
+      ],
+      "depth": 1,
+      "type_signature": "(sampler_state_in: NUTSState, n_collect: int, n_discard: int) -> tuple[Array, NUTSState]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "iterative_distribution_sampler. Initializes a stochastic walker at a specified point in a multi-dimensional state space. After a number of transient 'equilibration' steps which are discarded, the walker's subsequent positions are recorded for a specified number of iterations. This collected sequence of state vectors serves as a numerical approximation of an underlying target probability distribution.. Applications: Computational Physics: Simulating the conformational states of a complex molecule by sampling from its Boltzmann energy distribution., Robotics: Generating feasible trajectories for an autonomous agent in an environment with obstacles and uncertainty, where the state space represents the agent's configuration., Operations Research: Finding near-optimal solutions to combinatorial problems (e.g., vehicle routing, facility layout) via simulated annealing, where the sampler explores the solution space., Generative Modeling: Training deep generative models by sampling from a latent space to produce novel data instances (e.g., images, text).",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "create_progress_channels",
+      "parent_id": "run_mcmc_sampler",
+      "name": "create_progress_channels",
+      "description": "Initializes sender/receiver pairs for each MCMC chain to communicate progress statistics.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "num_chains",
+          "type_desc": "int",
+          "constraints": "Number of parallel chains to be run."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "progress_senders",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "progress_receivers",
+          "type_desc": "object",
+          "constraints": "x is not None"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(num_chains: int) -> tuple[Vec<Sender<ChainStats>>, Vec<Receiver<ChainStats>>]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "spawn_progress_monitor_thread",
+      "parent_id": "run_mcmc_sampler",
+      "name": "spawn_progress_monitor_thread",
+      "description": "Launches a background thread that aggregates ChainStats, displays multi-bar progress, and computes real-time diagnostics like average acceptance probability and R-hat.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "progress_receivers",
+          "type_desc": "object",
+          "constraints": "Receivers for progress updates from each chain."
+        },
+        {
+          "name": "total_steps_per_chain",
+          "type_desc": "int",
+          "constraints": "Total number of steps (n_collect + n_discard) for each chain."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "monitor_thread_handle",
+          "type_desc": "JoinHandle",
+          "constraints": "Handle to the spawned monitoring thread."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(progress_receivers: Vec<Receiver<ChainStats>>, total_steps_per_chain: int) -> JoinHandle",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "execute_chains_in_parallel",
+      "parent_id": "run_mcmc_sampler",
+      "name": "execute_chains_in_parallel",
+      "description": "Spawns a scoped thread for each MCMC chain, running the sampler and piping progress statistics to the monitor thread.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "chains",
+          "type_desc": "object",
+          "constraints": "Mutable references to chain state objects."
+        },
+        {
+          "name": "progress_senders",
+          "type_desc": "object",
+          "constraints": "Senders for progress updates for each chain."
+        },
+        {
+          "name": "n_collect",
+          "type_desc": "int",
+          "constraints": "Number of samples to collect."
+        },
+        {
+          "name": "n_discard",
+          "type_desc": "int",
+          "constraints": "Number of warm-up samples to discard."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "collected_samples",
+          "type_desc": "list[Tensor]",
+          "constraints": "A vector containing the 2D sample tensor from each chain."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(chains: &mut [Chain], progress_senders: Vec<Sender<ChainStats>>, n_collect: int, n_discard: int) -> Vec<Tensor<B, 2>>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "stack_chain_samples",
+      "parent_id": "run_mcmc_sampler",
+      "name": "stack_chain_samples",
+      "description": "Combines the list of 2D sample tensors from each chain into a single 3D tensor, with the first dimension representing the chain index.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "collected_samples",
+          "type_desc": "list[Tensor]",
+          "constraints": "A vector of 2D tensors, one for each chain."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posterior_samples",
+          "type_desc": "Tensor",
+          "constraints": "A single 3D tensor containing all samples from all chains."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(collected_samples: Vec<Tensor<B, 2>>) -> Tensor<B, 3>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "calculate_run_diagnostics",
+      "parent_id": "run_mcmc_sampler",
+      "name": "calculate_run_diagnostics",
+      "description": "Computes post-run diagnostic statistics, including the Gelman-Rubin convergence diagnostic (R-hat), from the final stacked posterior samples.",
+      "concept_type": "posterior_update",
+      "inputs": [
+        {
+          "name": "posterior_samples",
+          "type_desc": "Tensor",
+          "constraints": "Aggregated samples from all chains."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "run_stats",
+          "type_desc": "RunStats",
+          "constraints": "Struct containing summary statistics like R-hat."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(posterior_samples: Tensor<B, 3>) -> RunStats",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "join_monitor_thread",
+      "parent_id": "run_mcmc_sampler",
+      "name": "join_monitor_thread",
+      "description": "Blocks execution until the progress monitor thread finishes, ensuring all progress reporting is complete before returning.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "monitor_thread_handle",
+          "type_desc": "JoinHandle",
+          "constraints": "The handle of the thread to wait for."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "bool",
+          "constraints": "isinstance(x, bool)"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(monitor_thread_handle: JoinHandle) -> None",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "create_progress_channels",
+      "target_id": "spawn_progress_monitor_thread",
+      "output_name": "progress_receivers",
+      "input_name": "progress_receivers",
+      "source_type": "Vec<Receiver<ChainStats>>",
+      "target_type": "Vec<Receiver<ChainStats>>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "create_progress_channels",
+      "target_id": "execute_chains_in_parallel",
+      "output_name": "progress_senders",
+      "input_name": "progress_senders",
+      "source_type": "Vec<Sender<ChainStats>>",
+      "target_type": "Vec<Sender<ChainStats>>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "execute_chains_in_parallel",
+      "target_id": "stack_chain_samples",
+      "output_name": "collected_samples",
+      "input_name": "collected_samples",
+      "source_type": "Vec<Tensor<B, 2>>",
+      "target_type": "Vec<Tensor<B, 2>>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "stack_chain_samples",
+      "target_id": "calculate_run_diagnostics",
+      "output_name": "posterior_samples",
+      "input_name": "posterior_samples",
+      "source_type": "Tensor<B, 3>",
+      "target_type": "Tensor<B, 3>",
+      "requires_glue": false
+    },
+    {
+      "source_id": "spawn_progress_monitor_thread",
+      "target_id": "join_monitor_thread",
+      "output_name": "monitor_thread_handle",
+      "input_name": "monitor_thread_handle",
+      "source_type": "JoinHandle",
+      "target_type": "JoinHandle",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialize_sampler",
+      "target_id": "run_mcmc_sampler",
+      "output_name": "initial_sampler_state",
+      "input_name": "sampler_state_in",
+      "source_type": "NUTSState",
+      "target_type": "NUTSState",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "NUTS"
+  }
+}

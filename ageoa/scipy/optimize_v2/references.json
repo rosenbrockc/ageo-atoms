@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.scipy.optimize_v2.differentialevolutionoptimization@ageoa/scipy/optimize_v2/atoms.py:54": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.scipy.optimize_v2.shgoglobaloptimization@ageoa/scipy/optimize_v2/atoms.py:27": {
+      "references": [
+        {
+          "ref_id": "scipy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical SciPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

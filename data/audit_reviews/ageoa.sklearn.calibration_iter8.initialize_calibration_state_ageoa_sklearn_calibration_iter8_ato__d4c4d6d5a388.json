@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "atom_id": "ageoa.sklearn.calibration_iter8.initialize_calibration_state@ageoa/sklearn/calibration_iter8/atoms.py:30",
+  "atom_name": "ageoa.sklearn.calibration_iter8.initialize_calibration_state",
+  "review_status": "draft",
+  "reviewer_type": "human",
+  "reviewed_at": null,
+  "upstream_symbols": {},
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "label": "Local wrapper",
+      "reference": "ageoa/sklearn/calibration_iter8/atoms.py",
+      "relevance": "Wrapper implementation under review."
+    }
+  ],
+  "source_basis": {
+    "upstream_version": null,
+    "source_revision": null,
+    "review_basis_at": null
+  },
+  "line_references": [
+    {
+      "scope": "wrapper",
+      "path": "ageoa/sklearn/calibration_iter8/atoms.py",
+      "line": 30,
+      "note": "Wrapper entry point for semantic review."
+    }
+  ],
+  "wrapper_truth": "unknown",
+  "api_truth": "unknown",
+  "state_truth": "unknown",
+  "output_truth": "unknown",
+  "decomposition_truth": "unknown",
+  "semantic_verdict": "unknown",
+  "developer_semantics_verdict": "unknown",
+  "limitations": [],
+  "required_actions": [],
+  "notes": [
+    "Seeded from manifest blocking_findings."
+  ],
+  "supporting_artifacts": {
+    "signature_evidence": "/Users/conrad/personal/ageo-atoms/data/audit/evidence/ageoa.sklearn.calibration_iter8.initialize_calibration_state_ageoa_sklearn_calibration_iter8_ato__d4c4d6d5a388.json",
+    "acceptability_result": "/Users/conrad/personal/ageo-atoms/data/audit/results/ageoa.sklearn.calibration_iter8.initialize_calibration_state_ageoa_sklearn_calibration_iter8_ato__d4c4d6d5a388.json"
+  },
+  "seed_context": {
+    "risk_tier": "high",
+    "risk_score": 81,
+    "review_priority": "review_now",
+    "risk_reasons": [
+      "RISK_CDG_ISSUES",
+      "RISK_MISSING_PARITY",
+      "RISK_MISSING_PROVENANCE",
+      "RISK_MISSING_REVIEW_BASIS",
+      "RISK_NO_RUNTIME_EVIDENCE",
+      "RISK_PLACEHOLDER_DOCSTRING",
+      "RISK_PROCEDURAL_WRAPPER",
+      "RISK_REFINED_INGEST",
+      "RISK_SKLEARN_GENERATED_FAMILY",
+      "RISK_STATEFUL_API",
+      "RISK_STATE_MODEL_PRESENT",
+      "RISK_STRUCTURAL_PARTIAL",
+      "RISK_UPSTREAM_UNMAPPED",
+      "RISK_WEAK_TYPES"
+    ],
+    "blocking_findings": [
+      "STRUCT_CDG_TYPE_HEALTH_LOW",
+      "STRUCT_CDG_TYPE_NON_NORMALIZED",
+      "STRUCT_PUBLIC_KWARGS",
+      "STRUCT_WEAK_TYPES"
+    ],
+    "structural_findings": [
+      "STRUCT_CDG_TYPE_HEALTH_LOW",
+      "STRUCT_CDG_TYPE_NON_NORMALIZED",
+      "STRUCT_PUBLIC_KWARGS",
+      "STRUCT_WEAK_TYPES"
+    ]
+  }
+}

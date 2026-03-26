@@ -1,0 +1,14 @@
+{
+  "atom": "kalman_hedge_ratio",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 1.166451,
+      "confidence": 0.9,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'asset_a': '(256,)', 'asset_b': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['asset_a', 'asset_b']"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "atom": "estimate_flex_deflection",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 0.000998,
+      "confidence": 0.3,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'hip_positions': '(256,)', 'hip_efforts': '(256,)', 'stance_mask': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['hip_positions', 'hip_efforts', 'stance_mask'] [confidence reduced: near-zero factor]"
+    }
+  ]
+}

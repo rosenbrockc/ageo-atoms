@@ -1,0 +1,47 @@
+{
+  "nodes": [
+    {
+      "node_id": "greedy_subgraph_root",
+      "parent_id": null,
+      "name": "greedy_subgraph",
+      "description": "Ingested pipeline from greedy_subgraph",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "adjacency",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "scores",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 0,
+      "type_signature": "(adjacency: np.ndarray, scores: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "greedy_subgraph"
+  }
+}

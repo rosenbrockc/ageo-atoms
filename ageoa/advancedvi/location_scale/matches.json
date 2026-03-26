@@ -1,0 +1,68 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "evaluate_log_probability_density",
+      "statement": "(q: Unknown, z: Unknown) -> float",
+      "informal_desc": "Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "evaluate_log_probability_density",
+          "type_signature": "(q: Unknown, z: Unknown) -> float",
+          "docstring": "Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.",
+          "conceptual_summary": "evaluate_logarithmic_potential. Maps a point in an N-dimensional state space to a scalar value. This value represents the logarithmic potential (or likelihood) of that state, according to a predefined but implicit mathematical function. This transformation is often used to convert multiplicative scoring systems into additive ones, improving numerical stability.. Applications: In computational physics, calculating the potential energy of a particle configuration in a force field (e.g., Lennard-Jones potential), where systems evolve towards states of minimum energy., In information theory, computing the 'surprisal' or information content of a specific event or message given a probabilistic model. A higher log-probability corresponds to a less surprising event., In geospatial analysis, modeling the suitability of a geographic location for a purpose (e.g., crop growth) based on various input factors (elevation, soil type), where the output represents a composite suitability score.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "evaluate_log_probability_density",
+          "type_signature": "(q: Unknown, z: Unknown) -> float",
+          "docstring": "Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.",
+          "conceptual_summary": "evaluate_logarithmic_potential. Maps a point in an N-dimensional state space to a scalar value. This value represents the logarithmic potential (or likelihood) of that state, according to a predefined but implicit mathematical function. This transformation is often used to convert multiplicative scoring systems into additive ones, improving numerical stability.. Applications: In computational physics, calculating the potential energy of a particle configuration in a force field (e.g., Lennard-Jones potential), where systems evolve towards states of minimum energy., In information theory, computing the 'surprisal' or information content of a specific event or message given a probabilistic model. A higher log-probability corresponds to a less surprising event., In geospatial analysis, modeling the suitability of a geographic location for a purpose (e.g., crop growth) based on various input factors (elevation, soil type), where the output represents a composite suitability score.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "evaluate_log_probability_density",
+            "type_signature": "(q: Unknown, z: Unknown) -> float",
+            "docstring": "Computes the log-probability density function (logpdf) for given inputs 'q' and 'z'. This is a stateless operation, likely corresponding to a specific probability distribution.",
+            "conceptual_summary": "evaluate_logarithmic_potential. Maps a point in an N-dimensional state space to a scalar value. This value represents the logarithmic potential (or likelihood) of that state, according to a predefined but implicit mathematical function. This transformation is often used to convert multiplicative scoring systems into additive ones, improving numerical stability.. Applications: In computational physics, calculating the potential energy of a particle configuration in a force field (e.g., Lennard-Jones potential), where systems evolve towards states of minimum energy., In information theory, computing the 'surprisal' or information content of a specific event or message given a probabilistic model. A higher log-probability corresponds to a less surprising event., In geospatial analysis, modeling the suitability of a geographic location for a purpose (e.g., crop growth) based on various input factors (elevation, soil type), where the output represents a composite suitability score.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

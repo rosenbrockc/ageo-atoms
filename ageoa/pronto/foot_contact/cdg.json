@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "node_id": "FootContactClassifier_root",
+      "parent_id": null,
+      "name": "FootContactClassifier",
+      "description": "Ingested pipeline from FootContactClassifier",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "foot_sensing_state_update",
+        "mode_snapshot_readout"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "foot_sensing_state_update",
+      "parent_id": "FootContactClassifier_root",
+      "name": "Foot Sensing State Update",
+      "description": "Applies a pure state transition for left/right foot sensing flags, returning a new sensing state object.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "foot_sensing_state_in",
+          "type_desc": "object",
+          "constraints": "Immutable input state snapshot."
+        },
+        {
+          "name": "foot_sensing_command",
+          "type_desc": "object",
+          "constraints": "Desired sensing values for this transition."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "foot_sensing_state_out",
+          "type_desc": "object",
+          "constraints": "New state object; no in-place mutation."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(foot_sensing_state_in: object { lfoot_sensing_: bool, rfoot_sensing_: bool }, foot_sensing_command: object { lfoot_sensing: bool, rfoot_sensing: bool }) -> object { lfoot_sensing_: bool, rfoot_sensing_: bool }",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Binary Channel State Overwrite Transition. Transforms an immutable binary state snapshot by applying a command vector that specifies target values for each boolean channel. The operation constructs a new state object with updated channel bits rather than mutating the input snapshot. This is a discrete finite-state transition with direct per-field assignment and no intermediate optimization or inference.. Applications: Control engineering: updating a two-actuator enable/disable latch in a sampled-time controller., Computational biology instrumentation: setting a two-channel acquisition mask for a measurement cycle., Distributed systems: applying a two-flag runtime feature-state update in immutable configuration snapshots., Digital communications: overwriting a two-bit mode register in protocol state progression.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "mode_snapshot_readout",
+      "parent_id": "FootContactClassifier_root",
+      "name": "Mode Snapshot Readout",
+      "description": "Reads current and previous mode from immutable classifier state and exposes them as explicit outputs.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "mode_state_in",
+          "type_desc": "object",
+          "constraints": "Read-only snapshot."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mode",
+          "type_desc": "Mode",
+          "constraints": "Current classifier mode."
+        },
+        {
+          "name": "previous_mode",
+          "type_desc": "Mode",
+          "constraints": "Previous classifier mode."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mode_state_in: object { mode_: Mode, previous_mode_: Mode }) -> tuple[Mode, Mode]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Lag-1 Discrete State Projection. Extracts two temporally adjacent categorical state tokens from an immutable composite snapshot and emits them as separate outputs. The mapping is a direct structural projection from a packed record to an explicit ordered pair representing present and immediately preceding state. No mutation, inference, or recomputation is performed; symbol identity is preserved exactly.. Applications: Finite-state controller diagnostics in robotics, exposing current and previous control regimes for transition validation, Communication protocol analyzers, surfacing current and prior parser states for handshake/sequence debugging, Compiler or interpreter pipeline tracing, reporting current and previous processing phases for execution observability, Industrial process automation monitoring, emitting current and prior machine operation states for rule-based safety checks",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "FootContactClassifier"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "atom": "update_state_estimate",
+  "estimates": [
+    {
+      "mode": "empirical",
+      "scalar_factor": 2.352755,
+      "confidence": 0.9,
+      "n_trials": 500,
+      "epsilon": 1e-08,
+      "input_regime": "multi-arg perturbation, shapes={'prior_state': '(256,)', 'prior_cov': '(256,)', 'measurement': '(256,)'}",
+      "notes": "perturbation harness, 500/500 trials, perturbed params: ['prior_state', 'prior_cov', 'measurement']"
+    }
+  ]
+}

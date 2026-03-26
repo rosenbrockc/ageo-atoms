@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "node_id": "estimate_gradient!_root",
+      "parent_id": null,
+      "name": "estimate_gradient!",
+      "description": "Ingested pipeline from estimate_gradient!",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "gradient_oracle_evaluation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "gradient_oracle_evaluation",
+      "parent_id": "estimate_gradient!_root",
+      "name": "Gradient Oracle Evaluation",
+      "description": "Computes objective value and gradient for the current parameters using the provided AD mode, while threading RNG and algorithm state as explicit immutable inputs/outputs.",
+      "concept_type": "oracle_gradient",
+      "inputs": [
+        {
+          "name": "rng_in",
+          "type_desc": "np.ndarray",
+          "constraints": "Explicit stochastic state input; do not treat as global mutable state."
+        },
+        {
+          "name": "obj",
+          "type_desc": "object",
+          "constraints": "Provides value/gradient target."
+        },
+        {
+          "name": "adtype",
+          "type_desc": "object",
+          "constraints": "Selects differentiation backend/strategy."
+        },
+        {
+          "name": "out_in",
+          "type_desc": "object",
+          "constraints": "Destination buffer for gradient result."
+        },
+        {
+          "name": "state_in",
+          "type_desc": "object",
+          "constraints": "Thread as immutable state_in -> state_out."
+        },
+        {
+          "name": "params",
+          "type_desc": "object",
+          "constraints": "Valid parameterization for objective evaluation."
+        },
+        {
+          "name": "restructure",
+          "type_desc": "Callable",
+          "constraints": "Pure mapping between flat and structured parameter forms."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "out_out",
+          "type_desc": "object",
+          "constraints": "Updated gradient corresponding to params."
+        },
+        {
+          "name": "value_out",
+          "type_desc": "float",
+          "constraints": "Scalar/objective evaluation paired with gradient."
+        },
+        {
+          "name": "state_out",
+          "type_desc": "object",
+          "constraints": "Returned explicitly as new state object."
+        },
+        {
+          "name": "rng_out",
+          "type_desc": "np.ndarray",
+          "constraints": "Returned explicitly (possibly unchanged) to preserve purity."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rng_in: RNG state / PRNGKey, obj: Objective/model handle, adtype: Automatic differentiation mode/config, out_in: Gradient output container, state_in: Algorithm state, params: Parameter vector/structure, restructure: Parameter restructuring function) -> tuple[Gradient output container, Objective value, Algorithm state, RNG state / PRNGKey]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "State-Threaded First-Order Differential Oracle. Evaluates a scalar-valued functional at a candidate point in parameter space and computes its first-order derivative with respect to that point using a selected differentiation strategy. The operation maps between flat and structured parameter representations, writes derivatives into a provided output container, and returns all side-channel context (stochastic key and algorithm state) as explicit immutable outputs. This yields a purity-preserving oracle step suitable for composable iterative methods.. Applications: Calibrating constitutive parameters in computational mechanics by evaluating loss and sensitivity of simulation outputs to model coefficients., Estimating control-policy parameters in robotics using gradient-based updates with explicit simulator and randomness state threading., Fitting inverse-problem parameters in medical imaging reconstruction where objective value and gradient are required per iteration., Optimizing hyperparameters of physics-informed neural operators by computing scalar objective and parameter sensitivities in a reproducible pipeline.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "estimate_gradient!"
+  }
+}

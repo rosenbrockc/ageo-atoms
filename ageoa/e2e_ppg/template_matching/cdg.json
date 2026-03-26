@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "node_id": "template_matching_features_root",
+      "parent_id": null,
+      "name": "template_matching_features",
+      "description": "Ingested pipeline from template_matching_features",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "templatefeaturecomputation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "templatefeaturecomputation",
+      "parent_id": "template_matching_features_root",
+      "name": "TemplateFeatureComputation",
+      "description": "Computes template-matching features from the provided input without persistent state mutation.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "hc",
+          "type_desc": "object",
+          "constraints": "Required input context for feature computation."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "template_features",
+          "type_desc": "np.ndarray",
+          "constraints": "Derived deterministically from hc."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(hc: object) -> feature_vector",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ReferencePatternSimilarityEncoding. Maps a structured input context into a numeric feature vector by comparing observed data structures against a predefined set of reference patterns. Each output component summarizes match strength, alignment quality, or related similarity statistics, producing a compact representation of how the input conforms to multiple prototypes. The mapping is computed without side effects, so identical inputs yield identical outputs.. Applications: Medical imaging: encode similarity of localized anatomical structures to canonical morphology templates for downstream classification., Cybersecurity telemetry: transform event-sequence windows into similarity features against known behavioral motifs for anomaly scoring., Materials science microscopy: compute descriptor vectors by matching observed microstructure patches to reference texture patterns., Speech processing: represent short acoustic segments via similarity to prototypical spectral-temporal shapes for phonetic inference.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "template_matching_features"
+  }
+}

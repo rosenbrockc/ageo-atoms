@@ -1,0 +1,200 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "forwardmultidimensionalfft",
+      "statement": "(a: ndarray (real or complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+      "informal_desc": "Computes the forward N-dimensional Discrete Fourier Transform over specified axes. fft2 targets exactly two axes; fftn generalises to an arbitrary number of axes. Both return a complex-valued frequency-domain array representing the full spectrum of the input signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "forwardmultidimensionalfft",
+          "type_signature": "(a: ndarray (real or complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+          "docstring": "Computes the forward N-dimensional Discrete Fourier Transform over specified axes. fft2 targets exactly two axes; fftn generalises to an arbitrary number of axes. Both return a complex-valued frequency-domain array representing the full spectrum of the input signal.",
+          "conceptual_summary": "MultiAxisOrthogonalBasisDecomposition. Decomposes an N-dimensional real- or complex-valued tensor into a superposition of orthogonal complex exponential basis functions, projecting the input from a spatial/temporal index domain into a frequency/wavenumber dual domain. Each output coefficient encodes the amplitude and phase of a distinct periodic component along the transformed axes, providing a lossless, invertible change of basis. The operation generalises from two axes to an arbitrary number of axes by applying separable 1-D transforms sequentially, exploiting the tensor-product structure of the multidimensional Fourier basis.. Applications: Crystallography & Materials Science: decompose a 3-D electron-density voxel grid into reciprocal-lattice structure factors to identify periodic atomic arrangements and compute X-ray diffraction patterns without domain-specific vocabulary, Fluid Dynamics / Turbulence Simulation: transform a 2-D or 3-D discretised velocity scalar field on a structured mesh into wavenumber space to isolate energy-carrying spatial scales, implement pseudo-spectral PDE solvers, or apply spectral filtering to remove aliased modes, Neuroimaging / Spatiotemporal Field Analysis: apply a 3-D decomposition to a volumetric scalar activation field (e.g., fMRI BOLD voxel grid) to extract dominant oscillatory spatial modes, enable frequency-domain denoising, or compute cross-spectral coherence between anatomical regions, Computational Optics / Wavefront Propagation: propagate a 2-D complex-amplitude field through free space by multiplying its 2-D spectral representation by the analytic transfer function of the Helmholtz equation (angular spectrum method), enabling lens simulation, holographic reconstruction, and diffraction modelling",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "forwardmultidimensionalfft",
+          "type_signature": "(a: ndarray (real or complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+          "docstring": "Computes the forward N-dimensional Discrete Fourier Transform over specified axes. fft2 targets exactly two axes; fftn generalises to an arbitrary number of axes. Both return a complex-valued frequency-domain array representing the full spectrum of the input signal.",
+          "conceptual_summary": "MultiAxisOrthogonalBasisDecomposition. Decomposes an N-dimensional real- or complex-valued tensor into a superposition of orthogonal complex exponential basis functions, projecting the input from a spatial/temporal index domain into a frequency/wavenumber dual domain. Each output coefficient encodes the amplitude and phase of a distinct periodic component along the transformed axes, providing a lossless, invertible change of basis. The operation generalises from two axes to an arbitrary number of axes by applying separable 1-D transforms sequentially, exploiting the tensor-product structure of the multidimensional Fourier basis.. Applications: Crystallography & Materials Science: decompose a 3-D electron-density voxel grid into reciprocal-lattice structure factors to identify periodic atomic arrangements and compute X-ray diffraction patterns without domain-specific vocabulary, Fluid Dynamics / Turbulence Simulation: transform a 2-D or 3-D discretised velocity scalar field on a structured mesh into wavenumber space to isolate energy-carrying spatial scales, implement pseudo-spectral PDE solvers, or apply spectral filtering to remove aliased modes, Neuroimaging / Spatiotemporal Field Analysis: apply a 3-D decomposition to a volumetric scalar activation field (e.g., fMRI BOLD voxel grid) to extract dominant oscillatory spatial modes, enable frequency-domain denoising, or compute cross-spectral coherence between anatomical regions, Computational Optics / Wavefront Propagation: propagate a 2-D complex-amplitude field through free space by multiplying its 2-D spectral representation by the analytic transfer function of the Helmholtz equation (angular spectrum method), enabling lens simulation, holographic reconstruction, and diffraction modelling",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "forwardmultidimensionalfft",
+            "type_signature": "(a: ndarray (real or complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+            "docstring": "Computes the forward N-dimensional Discrete Fourier Transform over specified axes. fft2 targets exactly two axes; fftn generalises to an arbitrary number of axes. Both return a complex-valued frequency-domain array representing the full spectrum of the input signal.",
+            "conceptual_summary": "MultiAxisOrthogonalBasisDecomposition. Decomposes an N-dimensional real- or complex-valued tensor into a superposition of orthogonal complex exponential basis functions, projecting the input from a spatial/temporal index domain into a frequency/wavenumber dual domain. Each output coefficient encodes the amplitude and phase of a distinct periodic component along the transformed axes, providing a lossless, invertible change of basis. The operation generalises from two axes to an arbitrary number of axes by applying separable 1-D transforms sequentially, exploiting the tensor-product structure of the multidimensional Fourier basis.. Applications: Crystallography & Materials Science: decompose a 3-D electron-density voxel grid into reciprocal-lattice structure factors to identify periodic atomic arrangements and compute X-ray diffraction patterns without domain-specific vocabulary, Fluid Dynamics / Turbulence Simulation: transform a 2-D or 3-D discretised velocity scalar field on a structured mesh into wavenumber space to isolate energy-carrying spatial scales, implement pseudo-spectral PDE solvers, or apply spectral filtering to remove aliased modes, Neuroimaging / Spatiotemporal Field Analysis: apply a 3-D decomposition to a volumetric scalar activation field (e.g., fMRI BOLD voxel grid) to extract dominant oscillatory spatial modes, enable frequency-domain denoising, or compute cross-spectral coherence between anatomical regions, Computational Optics / Wavefront Propagation: propagate a 2-D complex-amplitude field through free space by multiplying its 2-D spectral representation by the analytic transfer function of the Helmholtz equation (angular spectrum method), enabling lens simulation, holographic reconstruction, and diffraction modelling",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "inversemultidimensionalfft",
+      "statement": "(a: ndarray (complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+      "informal_desc": "Computes the inverse N-dimensional Discrete Fourier Transform over specified axes. ifft2 inverts a two-axis transform; ifftn inverts an arbitrary-dimensional transform. Both reconstruct the spatial or time-domain complex signal from a given spectrum.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "inversemultidimensionalfft",
+          "type_signature": "(a: ndarray (complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+          "docstring": "Computes the inverse N-dimensional Discrete Fourier Transform over specified axes. ifft2 inverts a two-axis transform; ifftn inverts an arbitrary-dimensional transform. Both reconstruct the spatial or time-domain complex signal from a given spectrum.",
+          "conceptual_summary": "InverseNDimensionalSpectralBasisReconstruction. Maps a complex-valued N-dimensional array from an orthogonal frequency-basis representation back into its corresponding spatial or temporal-basis representation by computing the inverse of a decomposition into sinusoidal eigenmodes. The transform sums weighted complex exponentials across one or more tensor axes, reversing the projection from a primal domain into a dual spectral domain. The output tensor occupies the same dimensional structure as the original pre-decomposed array, with residual imaginary components collapsing toward zero when the originating signal was strictly real-valued.. Applications: Crystallography & structural biology: Reconstructing electron-density volumetric maps from experimentally measured X-ray diffraction intensity and phase tensors, reversing the reciprocal-lattice representation back into a 3D spatial arrangement of atomic mass distributions., Seismic geophysics: Inverting wavenumber-frequency spectral panels obtained from surface sensor arrays back into time-space wavefields, recovering subsurface reflectivity profiles from their decomposed plane-wave constituents., Quantum chemistry & solid-state physics: Transforming momentum-space (k-space) Bloch wavefunctions defined on a reciprocal lattice back into real-space orbital probability amplitudes for computing charge densities or molecular orbital shapes., Medical imaging (MRI reconstruction): Converting multi-dimensional k-space acquisition matrices \u2014 raw frequency-encoded and phase-encoded complex measurements \u2014 back into anatomical voxel-intensity volumes for diagnostic visualization.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "inversemultidimensionalfft",
+          "type_signature": "(a: ndarray (complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+          "docstring": "Computes the inverse N-dimensional Discrete Fourier Transform over specified axes. ifft2 inverts a two-axis transform; ifftn inverts an arbitrary-dimensional transform. Both reconstruct the spatial or time-domain complex signal from a given spectrum.",
+          "conceptual_summary": "InverseNDimensionalSpectralBasisReconstruction. Maps a complex-valued N-dimensional array from an orthogonal frequency-basis representation back into its corresponding spatial or temporal-basis representation by computing the inverse of a decomposition into sinusoidal eigenmodes. The transform sums weighted complex exponentials across one or more tensor axes, reversing the projection from a primal domain into a dual spectral domain. The output tensor occupies the same dimensional structure as the original pre-decomposed array, with residual imaginary components collapsing toward zero when the originating signal was strictly real-valued.. Applications: Crystallography & structural biology: Reconstructing electron-density volumetric maps from experimentally measured X-ray diffraction intensity and phase tensors, reversing the reciprocal-lattice representation back into a 3D spatial arrangement of atomic mass distributions., Seismic geophysics: Inverting wavenumber-frequency spectral panels obtained from surface sensor arrays back into time-space wavefields, recovering subsurface reflectivity profiles from their decomposed plane-wave constituents., Quantum chemistry & solid-state physics: Transforming momentum-space (k-space) Bloch wavefunctions defined on a reciprocal lattice back into real-space orbital probability amplitudes for computing charge densities or molecular orbital shapes., Medical imaging (MRI reconstruction): Converting multi-dimensional k-space acquisition matrices \u2014 raw frequency-encoded and phase-encoded complex measurements \u2014 back into anatomical voxel-intensity volumes for diagnostic visualization.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "inversemultidimensionalfft",
+            "type_signature": "(a: ndarray (complex), s: sequence of int | None, axes: sequence of int | None, norm: str | None) -> ndarray (complex128)",
+            "docstring": "Computes the inverse N-dimensional Discrete Fourier Transform over specified axes. ifft2 inverts a two-axis transform; ifftn inverts an arbitrary-dimensional transform. Both reconstruct the spatial or time-domain complex signal from a given spectrum.",
+            "conceptual_summary": "InverseNDimensionalSpectralBasisReconstruction. Maps a complex-valued N-dimensional array from an orthogonal frequency-basis representation back into its corresponding spatial or temporal-basis representation by computing the inverse of a decomposition into sinusoidal eigenmodes. The transform sums weighted complex exponentials across one or more tensor axes, reversing the projection from a primal domain into a dual spectral domain. The output tensor occupies the same dimensional structure as the original pre-decomposed array, with residual imaginary components collapsing toward zero when the originating signal was strictly real-valued.. Applications: Crystallography & structural biology: Reconstructing electron-density volumetric maps from experimentally measured X-ray diffraction intensity and phase tensors, reversing the reciprocal-lattice representation back into a 3D spatial arrangement of atomic mass distributions., Seismic geophysics: Inverting wavenumber-frequency spectral panels obtained from surface sensor arrays back into time-space wavefields, recovering subsurface reflectivity profiles from their decomposed plane-wave constituents., Quantum chemistry & solid-state physics: Transforming momentum-space (k-space) Bloch wavefunctions defined on a reciprocal lattice back into real-space orbital probability amplitudes for computing charge densities or molecular orbital shapes., Medical imaging (MRI reconstruction): Converting multi-dimensional k-space acquisition matrices \u2014 raw frequency-encoded and phase-encoded complex measurements \u2014 back into anatomical voxel-intensity volumes for diagnostic visualization.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "hermitianspectraltransform",
+      "statement": "(a: ndarray \u2014 complex (hfft) | real (ihfft), n: int | None, axis: int, norm: str | None) -> ndarray \u2014 real (hfft) | complex (ihfft)",
+      "informal_desc": "Handles FFTs that exploit or enforce Hermitian symmetry on a single axis. hfft assumes a Hermitian-symmetric complex input (conjugate-even spectrum) and produces a real-valued output array of configurable length. ihfft is its inverse: it takes a real-valued array and returns the complex Hermitian-symmetric result (equivalent to the conjugate of rfft output), suitable for round-trip pipelines involving real signals.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "hermitianspectraltransform",
+          "type_signature": "(a: ndarray \u2014 complex (hfft) | real (ihfft), n: int | None, axis: int, norm: str | None) -> ndarray \u2014 real (hfft) | complex (ihfft)",
+          "docstring": "Handles FFTs that exploit or enforce Hermitian symmetry on a single axis. hfft assumes a Hermitian-symmetric complex input (conjugate-even spectrum) and produces a real-valued output array of configurable length. ihfft is its inverse: it takes a real-valued array and returns the complex Hermitian-symmetric result (equivalent to the conjugate of rfft output), suitable for round-trip pipelines involving real signals.",
+          "conceptual_summary": "ConjugateSymmetricAxisProjection. Exploits or enforces conjugate-even structural symmetry along a single axis of a complex-valued N-dimensional array to perform a lossless dimensionality collapse: the forward pass maps a conjugate-symmetric complex array onto a fully real-valued output by recognizing that half the spectral coefficients are redundant mirror images of the other half, effectively halving the representational space without information loss. The inverse pass reconstructs the conjugate-symmetric complex array from a real-valued input, restoring the full Hermitian structure required for round-trip fidelity. Normalization modes allow the transform to be scaled as a unitary (energy-preserving) operator or calibrated for forward/backward asymmetry.. Applications: Computational electromagnetics \u2014 antenna array beam pattern synthesis: a physically realizable aperture field must produce a real-valued far-field radiation pattern; enforcing conjugate-even symmetry on the complex excitation coefficients along the spatial-frequency axis guarantees a real power envelope, halving storage and compute cost during iterative beam-shaping optimization, Structural mechanics / vibration analysis \u2014 modal frequency response reconstruction: measured accelerometer time-series on a symmetric mechanical structure obey conjugate-even spectral constraints; applying the inverse pass to the real-valued frequency response function recovers the minimal complex modal coefficient set needed for finite-element model updating without redundant conjugate pairs, Quantum chemistry \u2014 molecular orbital wavefunction compression: real-space electron density functions derived from real Hamiltonians possess Hermitian Fourier representations; the forward projection collapses the redundant half of reciprocal-space plane-wave coefficients to a compact real array, reducing memory footprint in plane-wave DFT codes while preserving exact invertibility, Audio / acoustic signal processing \u2014 room impulse response encoding: a causal real-valued room impulse response has a conjugate-symmetric transfer function; storing only the positive-frequency half as a Hermitian-symmetric complex array (inverse pass output) and reconstructing the full real impulse via the forward pass enables compact transmission, lossless reconstruction, and exact convolution reverb synthesis",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "hermitianspectraltransform",
+          "type_signature": "(a: ndarray \u2014 complex (hfft) | real (ihfft), n: int | None, axis: int, norm: str | None) -> ndarray \u2014 real (hfft) | complex (ihfft)",
+          "docstring": "Handles FFTs that exploit or enforce Hermitian symmetry on a single axis. hfft assumes a Hermitian-symmetric complex input (conjugate-even spectrum) and produces a real-valued output array of configurable length. ihfft is its inverse: it takes a real-valued array and returns the complex Hermitian-symmetric result (equivalent to the conjugate of rfft output), suitable for round-trip pipelines involving real signals.",
+          "conceptual_summary": "ConjugateSymmetricAxisProjection. Exploits or enforces conjugate-even structural symmetry along a single axis of a complex-valued N-dimensional array to perform a lossless dimensionality collapse: the forward pass maps a conjugate-symmetric complex array onto a fully real-valued output by recognizing that half the spectral coefficients are redundant mirror images of the other half, effectively halving the representational space without information loss. The inverse pass reconstructs the conjugate-symmetric complex array from a real-valued input, restoring the full Hermitian structure required for round-trip fidelity. Normalization modes allow the transform to be scaled as a unitary (energy-preserving) operator or calibrated for forward/backward asymmetry.. Applications: Computational electromagnetics \u2014 antenna array beam pattern synthesis: a physically realizable aperture field must produce a real-valued far-field radiation pattern; enforcing conjugate-even symmetry on the complex excitation coefficients along the spatial-frequency axis guarantees a real power envelope, halving storage and compute cost during iterative beam-shaping optimization, Structural mechanics / vibration analysis \u2014 modal frequency response reconstruction: measured accelerometer time-series on a symmetric mechanical structure obey conjugate-even spectral constraints; applying the inverse pass to the real-valued frequency response function recovers the minimal complex modal coefficient set needed for finite-element model updating without redundant conjugate pairs, Quantum chemistry \u2014 molecular orbital wavefunction compression: real-space electron density functions derived from real Hamiltonians possess Hermitian Fourier representations; the forward projection collapses the redundant half of reciprocal-space plane-wave coefficients to a compact real array, reducing memory footprint in plane-wave DFT codes while preserving exact invertibility, Audio / acoustic signal processing \u2014 room impulse response encoding: a causal real-valued room impulse response has a conjugate-symmetric transfer function; storing only the positive-frequency half as a Hermitian-symmetric complex array (inverse pass output) and reconstructing the full real impulse via the forward pass enables compact transmission, lossless reconstruction, and exact convolution reverb synthesis",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "hermitianspectraltransform",
+            "type_signature": "(a: ndarray \u2014 complex (hfft) | real (ihfft), n: int | None, axis: int, norm: str | None) -> ndarray \u2014 real (hfft) | complex (ihfft)",
+            "docstring": "Handles FFTs that exploit or enforce Hermitian symmetry on a single axis. hfft assumes a Hermitian-symmetric complex input (conjugate-even spectrum) and produces a real-valued output array of configurable length. ihfft is its inverse: it takes a real-valued array and returns the complex Hermitian-symmetric result (equivalent to the conjugate of rfft output), suitable for round-trip pipelines involving real signals.",
+            "conceptual_summary": "ConjugateSymmetricAxisProjection. Exploits or enforces conjugate-even structural symmetry along a single axis of a complex-valued N-dimensional array to perform a lossless dimensionality collapse: the forward pass maps a conjugate-symmetric complex array onto a fully real-valued output by recognizing that half the spectral coefficients are redundant mirror images of the other half, effectively halving the representational space without information loss. The inverse pass reconstructs the conjugate-symmetric complex array from a real-valued input, restoring the full Hermitian structure required for round-trip fidelity. Normalization modes allow the transform to be scaled as a unitary (energy-preserving) operator or calibrated for forward/backward asymmetry.. Applications: Computational electromagnetics \u2014 antenna array beam pattern synthesis: a physically realizable aperture field must produce a real-valued far-field radiation pattern; enforcing conjugate-even symmetry on the complex excitation coefficients along the spatial-frequency axis guarantees a real power envelope, halving storage and compute cost during iterative beam-shaping optimization, Structural mechanics / vibration analysis \u2014 modal frequency response reconstruction: measured accelerometer time-series on a symmetric mechanical structure obey conjugate-even spectral constraints; applying the inverse pass to the real-valued frequency response function recovers the minimal complex modal coefficient set needed for finite-element model updating without redundant conjugate pairs, Quantum chemistry \u2014 molecular orbital wavefunction compression: real-space electron density functions derived from real Hamiltonians possess Hermitian Fourier representations; the forward projection collapses the redundant half of reciprocal-space plane-wave coefficients to a compact real array, reducing memory footprint in plane-wave DFT codes while preserving exact invertibility, Audio / acoustic signal processing \u2014 room impulse response encoding: a causal real-valued room impulse response has a conjugate-symmetric transfer function; storing only the positive-frequency half as a Hermitian-symmetric complex array (inverse pass output) and reconstructing the full real impulse via the forward pass enables compact transmission, lossless reconstruction, and exact convolution reverb synthesis",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

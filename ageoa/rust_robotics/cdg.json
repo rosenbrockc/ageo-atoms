@@ -1,0 +1,113 @@
+{
+  "nodes": [
+    {
+      "node_id": "RustRobotics_root",
+      "parent_id": null,
+      "name": "RustRobotics",
+      "description": "Ingested pipeline from RustRobotics",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "n_joint_arm_solver",
+        "dijkstra_path_planning"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "n_joint_arm_solver",
+      "parent_id": "RustRobotics_root",
+      "name": "n_joint_arm_solver",
+      "description": "Solves custom kinematics and dynamics for an N-joint system.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "data",
+          "type_desc": "object",
+          "constraints": "valid input",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "object",
+          "constraints": "valid output",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(...) -> object",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "dijkstra_path_planning",
+      "parent_id": "RustRobotics_root",
+      "name": "dijkstra_path_planning",
+      "description": "Computes the shortest path on a weighted graph from a single source node.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "data",
+          "type_desc": "object",
+          "constraints": "valid input",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "object",
+          "constraints": "valid output",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(...) -> object",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "RustRobotics"
+  }
+}

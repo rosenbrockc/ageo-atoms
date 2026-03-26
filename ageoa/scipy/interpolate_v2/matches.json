@@ -1,0 +1,134 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "cubicsplinefit",
+      "statement": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+      "informal_desc": "Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "cubicsplinefit",
+          "type_signature": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+          "docstring": "Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.",
+          "conceptual_summary": "PiecewiseC2PolynomialInterpolant. Given a finite, ordered set of (coordinate, value) pairs sampled from an unknown function, constructs a globally smooth surrogate function composed of degree-3 polynomial segments stitched at interior knot coordinates, where C2 continuity (matching values, first derivatives, and second derivatives across segment boundaries) is enforced as a hard constraint. The resulting functional object compactly encodes the continuous manifold between sample nodes, enabling evaluation, differentiation, and antidifferentiation at arbitrary query coordinates without re-solving the system. Boundary behavior at the domain endpoints and beyond the support interval is governed by user-specified algebraic constraints, making the operator configurable between periodic-closure, curvature-free, slope-pinned, and natural modes.. Applications: Computational fluid dynamics \u2014 reconstructing a continuous velocity or pressure field from sparse sensor-probe measurements distributed along a spatial coordinate, enabling gradient and divergence estimation at non-instrumented positions without re-running simulation, Pharmacokinetic modeling \u2014 fitting a smooth concentration-time curve through discretely sampled plasma-assay scalar readings to derive continuous absorption and elimination rates (first derivatives) and cumulative drug exposure (antiderivative / AUC) from sparse clinical time points, Robotics and motion planning \u2014 constructing a smooth end-effector trajectory through a sequence of waypoint configurations in joint-space, guaranteeing bounded jerk (third derivative) and continuous acceleration profiles required for torque-limited actuator execution, Geophysical signal reconstruction \u2014 interpolating seismic amplitude or gravitational potential measurements recorded at irregularly-spaced borehole or station coordinates into a continuous depth/surface profile suitable for spectral analysis, stratigraphic correlation, or inversion workflows, Radiometric calibration in imaging systems \u2014 mapping discrete (input-intensity, output-response) calibration pairs for a sensor into a continuous tone-response curve, enabling sub-integer intensity remapping with smooth gradients that prevent banding artifacts in downstream image processing",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "cubicsplinefit",
+          "type_signature": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+          "docstring": "Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.",
+          "conceptual_summary": "PiecewiseC2PolynomialInterpolant. Given a finite, ordered set of (coordinate, value) pairs sampled from an unknown function, constructs a globally smooth surrogate function composed of degree-3 polynomial segments stitched at interior knot coordinates, where C2 continuity (matching values, first derivatives, and second derivatives across segment boundaries) is enforced as a hard constraint. The resulting functional object compactly encodes the continuous manifold between sample nodes, enabling evaluation, differentiation, and antidifferentiation at arbitrary query coordinates without re-solving the system. Boundary behavior at the domain endpoints and beyond the support interval is governed by user-specified algebraic constraints, making the operator configurable between periodic-closure, curvature-free, slope-pinned, and natural modes.. Applications: Computational fluid dynamics \u2014 reconstructing a continuous velocity or pressure field from sparse sensor-probe measurements distributed along a spatial coordinate, enabling gradient and divergence estimation at non-instrumented positions without re-running simulation, Pharmacokinetic modeling \u2014 fitting a smooth concentration-time curve through discretely sampled plasma-assay scalar readings to derive continuous absorption and elimination rates (first derivatives) and cumulative drug exposure (antiderivative / AUC) from sparse clinical time points, Robotics and motion planning \u2014 constructing a smooth end-effector trajectory through a sequence of waypoint configurations in joint-space, guaranteeing bounded jerk (third derivative) and continuous acceleration profiles required for torque-limited actuator execution, Geophysical signal reconstruction \u2014 interpolating seismic amplitude or gravitational potential measurements recorded at irregularly-spaced borehole or station coordinates into a continuous depth/surface profile suitable for spectral analysis, stratigraphic correlation, or inversion workflows, Radiometric calibration in imaging systems \u2014 mapping discrete (input-intensity, output-response) calibration pairs for a sensor into a continuous tone-response curve, enabling sub-integer intensity remapping with smooth gradients that prevent banding artifacts in downstream image processing",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "cubicsplinefit",
+            "type_signature": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+            "docstring": "Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.",
+            "conceptual_summary": "PiecewiseC2PolynomialInterpolant. Given a finite, ordered set of (coordinate, value) pairs sampled from an unknown function, constructs a globally smooth surrogate function composed of degree-3 polynomial segments stitched at interior knot coordinates, where C2 continuity (matching values, first derivatives, and second derivatives across segment boundaries) is enforced as a hard constraint. The resulting functional object compactly encodes the continuous manifold between sample nodes, enabling evaluation, differentiation, and antidifferentiation at arbitrary query coordinates without re-solving the system. Boundary behavior at the domain endpoints and beyond the support interval is governed by user-specified algebraic constraints, making the operator configurable between periodic-closure, curvature-free, slope-pinned, and natural modes.. Applications: Computational fluid dynamics \u2014 reconstructing a continuous velocity or pressure field from sparse sensor-probe measurements distributed along a spatial coordinate, enabling gradient and divergence estimation at non-instrumented positions without re-running simulation, Pharmacokinetic modeling \u2014 fitting a smooth concentration-time curve through discretely sampled plasma-assay scalar readings to derive continuous absorption and elimination rates (first derivatives) and cumulative drug exposure (antiderivative / AUC) from sparse clinical time points, Robotics and motion planning \u2014 constructing a smooth end-effector trajectory through a sequence of waypoint configurations in joint-space, guaranteeing bounded jerk (third derivative) and continuous acceleration profiles required for torque-limited actuator execution, Geophysical signal reconstruction \u2014 interpolating seismic amplitude or gravitational potential measurements recorded at irregularly-spaced borehole or station coordinates into a continuous depth/surface profile suitable for spectral analysis, stratigraphic correlation, or inversion workflows, Radiometric calibration in imaging systems \u2014 mapping discrete (input-intensity, output-response) calibration pairs for a sensor into a continuous tone-response curve, enabling sub-integer intensity remapping with smooth gradients that prevent banding artifacts in downstream image processing",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "rbfinterpolatorfit",
+      "statement": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+      "informal_desc": "Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rbfinterpolatorfit",
+          "type_signature": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+          "docstring": "Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.",
+          "conceptual_summary": "ScatteredPointFieldContinuousReconstructor. Given a finite set of irregularly-distributed coordinate-value pairs in an N-dimensional Euclidean space, constructs a globally (or locally, via nearest-neighbor partitioning) smooth, continuous scalar or vector field by expressing the interpolant as a weighted superposition of radially-symmetric basis functions centered at each support point, optionally augmented by a low-degree polynomial to guarantee polynomial reproduction. The fitting stage solves a regularised linear system (controlled by per-point smoothing weights) whose solution coefficients define the callable surrogate surface; at query time the surrogate evaluates the weighted kernel sum over the relevant support set to produce interpolated values at arbitrary off-sample coordinates.. Applications: Geophysical field reconstruction: estimating a continuous subsurface property map (e.g., hydraulic conductivity, temperature gradient) from a sparse, irregularly-spaced set of borehole sensor readings distributed across a 2-D or 3-D spatial domain, Computational fluid dynamics / aerodynamic shape optimisation: constructing a smooth surrogate response surface over a high-dimensional parameter space (e.g., Mach number \u00d7 angle-of-attack \u00d7 geometry perturbation) from a small ensemble of expensive CFD simulation outputs, enabling rapid gradient-free optimisation, Medical neuroimaging: interpolating a continuous activation or connectivity field over the cortical surface from a discrete set of electrode or fMRI voxel measurements distributed at irregular anatomical coordinates, supporting statistical mapping at arbitrary cortical locations, Robotics and autonomous navigation: building a dense, queryable occupancy or traversability cost field over a 2-D or 3-D workspace from a sparse set of LiDAR or tactile probe measurements, enabling smooth path-planning cost evaluation at arbitrary continuous coordinates without a fixed grid",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rbfinterpolatorfit",
+          "type_signature": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+          "docstring": "Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.",
+          "conceptual_summary": "ScatteredPointFieldContinuousReconstructor. Given a finite set of irregularly-distributed coordinate-value pairs in an N-dimensional Euclidean space, constructs a globally (or locally, via nearest-neighbor partitioning) smooth, continuous scalar or vector field by expressing the interpolant as a weighted superposition of radially-symmetric basis functions centered at each support point, optionally augmented by a low-degree polynomial to guarantee polynomial reproduction. The fitting stage solves a regularised linear system (controlled by per-point smoothing weights) whose solution coefficients define the callable surrogate surface; at query time the surrogate evaluates the weighted kernel sum over the relevant support set to produce interpolated values at arbitrary off-sample coordinates.. Applications: Geophysical field reconstruction: estimating a continuous subsurface property map (e.g., hydraulic conductivity, temperature gradient) from a sparse, irregularly-spaced set of borehole sensor readings distributed across a 2-D or 3-D spatial domain, Computational fluid dynamics / aerodynamic shape optimisation: constructing a smooth surrogate response surface over a high-dimensional parameter space (e.g., Mach number \u00d7 angle-of-attack \u00d7 geometry perturbation) from a small ensemble of expensive CFD simulation outputs, enabling rapid gradient-free optimisation, Medical neuroimaging: interpolating a continuous activation or connectivity field over the cortical surface from a discrete set of electrode or fMRI voxel measurements distributed at irregular anatomical coordinates, supporting statistical mapping at arbitrary cortical locations, Robotics and autonomous navigation: building a dense, queryable occupancy or traversability cost field over a 2-D or 3-D workspace from a sparse set of LiDAR or tactile probe measurements, enabling smooth path-planning cost evaluation at arbitrary continuous coordinates without a fixed grid",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rbfinterpolatorfit",
+            "type_signature": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+            "docstring": "Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.",
+            "conceptual_summary": "ScatteredPointFieldContinuousReconstructor. Given a finite set of irregularly-distributed coordinate-value pairs in an N-dimensional Euclidean space, constructs a globally (or locally, via nearest-neighbor partitioning) smooth, continuous scalar or vector field by expressing the interpolant as a weighted superposition of radially-symmetric basis functions centered at each support point, optionally augmented by a low-degree polynomial to guarantee polynomial reproduction. The fitting stage solves a regularised linear system (controlled by per-point smoothing weights) whose solution coefficients define the callable surrogate surface; at query time the surrogate evaluates the weighted kernel sum over the relevant support set to produce interpolated values at arbitrary off-sample coordinates.. Applications: Geophysical field reconstruction: estimating a continuous subsurface property map (e.g., hydraulic conductivity, temperature gradient) from a sparse, irregularly-spaced set of borehole sensor readings distributed across a 2-D or 3-D spatial domain, Computational fluid dynamics / aerodynamic shape optimisation: constructing a smooth surrogate response surface over a high-dimensional parameter space (e.g., Mach number \u00d7 angle-of-attack \u00d7 geometry perturbation) from a small ensemble of expensive CFD simulation outputs, enabling rapid gradient-free optimisation, Medical neuroimaging: interpolating a continuous activation or connectivity field over the cortical surface from a discrete set of electrode or fMRI voxel measurements distributed at irregular anatomical coordinates, supporting statistical mapping at arbitrary cortical locations, Robotics and autonomous navigation: building a dense, queryable occupancy or traversability cost field over a 2-D or 3-D workspace from a sparse set of LiDAR or tactile probe measurements, enabling smooth path-planning cost evaluation at arbitrary continuous coordinates without a fixed grid",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

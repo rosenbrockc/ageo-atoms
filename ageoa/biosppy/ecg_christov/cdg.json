@@ -1,0 +1,844 @@
+{
+  "nodes": [
+    {
+      "node_id": "christov_segmenter_root",
+      "parent_id": null,
+      "name": "christov_segmenter",
+      "description": "Ingested pipeline from christov_segmenter",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "christovqrsdetect"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "christovqrsdetect",
+      "parent_id": "christov_segmenter_root",
+      "name": "ChristovQRSDetect",
+      "description": "Detects QRS complexes in an ECG signal using the Christov real-time algorithm, which applies a series of signal transformations and adaptive thresholding to locate R-peak positions and return segmentation indices.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "finite real values, length >= 1"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "sampling_rate > 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "values in [0, len(signal)-1], monotonically increasing"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "compute_timing_constants",
+        "suppress_powerline_and_emg_noise",
+        "bandpass_filter_signal",
+        "compute_nonlinear_energy_operator",
+        "smooth_energy_envelope",
+        "initialise_adaptive_state",
+        "run_adaptive_threshold_detection",
+        "refine_rpeaks_on_raw_signal"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: 1-D numeric array (ECG amplitude samples), sampling_rate: positive integer or float (Hz)) -> 1-D integer array of sample indices",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "AdaptiveThresholdExtremaLocator. Applies a cascade of nonlinear signal transformations (e.g., differentiation, squaring, moving-window integration) to a uniformly-sampled 1-D scalar time-series to amplify periodic impulsive features while suppressing baseline drift and noise. An adaptive, time-varying threshold is then continuously updated based on recent signal statistics, and threshold-crossing events are resolved into a monotonically increasing sequence of discrete integer indices that mark the temporal positions of dominant local extrema. The algorithm operates causally and in near-real-time, requiring only a fixed-size historical buffer rather than the full signal.. Applications: Seismology: locating P-wave and S-wave arrival onset indices within a continuous geophone or accelerometer time-series for earthquake event cataloging, Industrial condition monitoring: detecting impulsive mechanical shock events (e.g., bearing fault spikes) in a vibration sensor stream for predictive maintenance triggering, Neuroscience / electrophysiology: identifying action potential firing times (spike sorting step 0) in extracellular multi-unit neural recordings sampled at high frequency, Acoustic / audio analysis: segmenting percussive onset events in an audio amplitude envelope (e.g., drum hit detection, sonar pulse returns) for beat-tracking or range-finding pipelines",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_timing_constants",
+      "parent_id": "christovqrsdetect",
+      "name": "compute_timing_constants",
+      "description": "Convert all clinically-meaningful time windows (50 ms, 100 ms, 200 ms, 300 ms, 350 ms, 1200 ms) from seconds into integer sample counts given the sampling rate, and fix the scalar threshold M_th.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "sampling_rate > 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "v50ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v100ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v200ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v300ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v350ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v1200ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "M_th",
+          "type_desc": "float",
+          "constraints": "M_th = 0.4"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(sampling_rate: positive float (Hz)) -> tuple[positive int (samples), positive int (samples), positive int (samples), positive int (samples), positive int (samples), positive int (samples), float scalar]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "suppress_powerline_and_emg_noise",
+      "parent_id": "christovqrsdetect",
+      "name": "suppress_powerline_and_emg_noise",
+      "description": "Apply two successive moving-average FIR filters (zero-phase via filtfilt): a 20 ms boxcar to suppress 50 Hz power-line interference and a ~28 ms boxcar to suppress EMG noise above ~35 Hz.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "length >= 1"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "X_ma",
+          "type_desc": "np.ndarray",
+          "constraints": "power-line and EMG noise attenuated"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: 1-D float array (ECG samples), sampling_rate: positive float (Hz)) -> 1-D float array, same length as signal",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bandpass_filter_signal",
+      "parent_id": "christovqrsdetect",
+      "name": "bandpass_filter_signal",
+      "description": "Apply a 7th-order Butterworth low-pass filter at 40 Hz followed by a 7th-order Butterworth high-pass filter at 9 Hz, yielding a band-limited signal retaining the QRS frequency band.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "X_ma",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "X_bp",
+          "type_desc": "np.ndarray",
+          "constraints": "passband 9\u201340 Hz"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(X_ma: 1-D float array, sampling_rate: positive float (Hz)) -> 1-D float array, same length as X_ma",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_nonlinear_energy_operator",
+      "parent_id": "christovqrsdetect",
+      "name": "compute_nonlinear_energy_operator",
+      "description": "Apply the Teager-Kaiser nonlinear energy operator Y[n] = X[n]^2 - X[n-1]*X[n+1] across the band-passed signal, then clip negative values to zero to produce a non-negative instantaneous energy envelope.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "X_bp",
+          "type_desc": "np.ndarray",
+          "constraints": "length >= 3"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Y_nleo",
+          "type_desc": "np.ndarray",
+          "constraints": "all values >= 0"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(X_bp: 1-D float array (band-passed ECG)) -> 1-D float array, length = len(X_bp)-2",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "smooth_energy_envelope",
+      "parent_id": "christovqrsdetect",
+      "name": "smooth_energy_envelope",
+      "description": "Apply a causal 40 ms moving-average FIR filter (first zero ~25 Hz) to the nonlinear energy signal to suppress differentiation-magnified noise.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "Y_nleo",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Y",
+          "type_desc": "np.ndarray",
+          "constraints": "smoothed energy, values >= 0"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(Y_nleo: 1-D float array (non-negative energy), sampling_rate: positive float (Hz)) -> 1-D float array, same length as Y_nleo",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initialise_adaptive_state",
+      "parent_id": "christovqrsdetect",
+      "name": "initialise_adaptive_state",
+      "description": "Bootstrap all adaptive-threshold state variables from the first 5 s of the smoothed energy: initialise the 5-slot MM buffer and its index, compute initial M (mean of MM), build the 1-s linear decay slope vector, zero-initialise R/RR/Rm/Rdec, set the baseline F from the first 350 ms of Y, and clear the QRS/Rpeak accumulators.",
+      "concept_type": "prior_init",
+      "inputs": [
+        {
+          "name": "Y",
+          "type_desc": "np.ndarray",
+          "constraints": "length >= 5*sampling_rate"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "M_th",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "v350ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MM",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "MMidx",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "M",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "Mtemp",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "slope",
+          "type_desc": "np.ndarray",
+          "constraints": "linearly decays 1.0\u21920.6"
+        },
+        {
+          "name": "R",
+          "type_desc": "float",
+          "constraints": "= 0"
+        },
+        {
+          "name": "Rdec",
+          "type_desc": "float",
+          "constraints": "= 0"
+        },
+        {
+          "name": "RR",
+          "type_desc": "np.ndarray",
+          "constraints": "all zeros"
+        },
+        {
+          "name": "RRidx",
+          "type_desc": "int",
+          "constraints": "= 0"
+        },
+        {
+          "name": "Rm",
+          "type_desc": "float",
+          "constraints": "= 0"
+        },
+        {
+          "name": "F",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "QRS",
+          "type_desc": "list[int]",
+          "constraints": "empty"
+        },
+        {
+          "name": "Rpeak",
+          "type_desc": "list[int]",
+          "constraints": "empty"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(Y: 1-D float array (smoothed energy), sampling_rate: positive float (Hz), M_th: float scalar, v350ms: positive int (samples)) -> tuple[1-D float array, length 5 (circular buffer), int in [0,4], float scalar (current threshold M), float scalar, 1-D float array, length=int(sampling_rate), float scalar, float scalar, 1-D float array, length 5 (circular buffer), int in [0,4], float scalar (mean RR), float scalar (baseline frequency threshold), list of int (detected QRS sample indices), list of int (R-peak sample indices)]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "run_adaptive_threshold_detection",
+      "parent_id": "christovqrsdetect",
+      "name": "run_adaptive_threshold_detection",
+      "description": "Iterate sample-by-sample through Y, maintaining the combined adaptive threshold MFR = M + F + R. After each QRS event: refresh MM and M within 200 ms, decay M from 200\u20131200 ms via the slope vector, hold/decay R around the expected RR interval. Detect a new QRS when Y[n] >= MFR (outside the 200 ms blanking period), record the local Y-maximum within 300 ms as the R-peak candidate, update the RR circular buffer, and update F each sample using the sliding 350 ms window rule.",
+      "concept_type": "sequential_filter",
+      "inputs": [
+        {
+          "name": "Y",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "MM",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "MMidx",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "M",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "Mtemp",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "slope",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "R",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "Rdec",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "RR",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "RRidx",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "Rm",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "F",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "QRS",
+          "type_desc": "list[int]",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "Rpeak",
+          "type_desc": "list[int]",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "M_th",
+          "type_desc": "float",
+          "constraints": "isinstance(x, (int, float))"
+        },
+        {
+          "name": "v50ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v200ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v300ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v350ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "v1200ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "QRS_indices",
+          "type_desc": "list[int]",
+          "constraints": "sorted ascending"
+        },
+        {
+          "name": "Rpeak_indices",
+          "type_desc": "list[int]",
+          "constraints": "same length as QRS_indices"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(Y: 1-D float array (smoothed energy), MM: 1-D float array, length 5, MMidx: int, M: float scalar, Mtemp: float scalar, slope: 1-D float array, R: float scalar, Rdec: float scalar, RR: 1-D float array, length 5, RRidx: int, Rm: float scalar, F: float scalar, QRS: list of int, Rpeak: list of int, M_th: float scalar, v50ms: positive int (samples), v200ms: positive int (samples), v300ms: positive int (samples), v350ms: positive int (samples), v1200ms: positive int (samples)) -> tuple[list of int (threshold-crossing sample indices), list of int (Y-max within 300 ms of each QRS)]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "refine_rpeaks_on_raw_signal",
+      "parent_id": "christovqrsdetect",
+      "name": "refine_rpeaks_on_raw_signal",
+      "description": "For each candidate R-peak index from the energy domain, search a \u00b1100 ms window on the original ECG signal to find the true amplitude maximum, deduplicate and sort the result, and return a clean integer array of R-peak sample indices.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "Rpeak_indices",
+          "type_desc": "list[int]",
+          "constraints": "isinstance(x, int)"
+        },
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "ndim >= 1"
+        },
+        {
+          "name": "v100ms",
+          "type_desc": "int",
+          "constraints": "isinstance(x, int)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "rpeaks",
+          "type_desc": "np.ndarray",
+          "constraints": "sorted, unique, within [0, len(signal))"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(Rpeak_indices: list of int, signal: 1-D float array (original ECG), v100ms: positive int (samples)) -> 1-D int array of R-peak sample indices",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "suppress_powerline_and_emg_noise",
+      "output_name": "sampling_rate",
+      "input_name": "sampling_rate",
+      "source_type": "positive float (Hz)",
+      "target_type": "positive float (Hz)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "suppress_powerline_and_emg_noise",
+      "target_id": "bandpass_filter_signal",
+      "output_name": "X_ma",
+      "input_name": "X_ma",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "bandpass_filter_signal",
+      "target_id": "compute_nonlinear_energy_operator",
+      "output_name": "X_bp",
+      "input_name": "X_bp",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_nonlinear_energy_operator",
+      "target_id": "smooth_energy_envelope",
+      "output_name": "Y_nleo",
+      "input_name": "Y_nleo",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "smooth_energy_envelope",
+      "output_name": "sampling_rate",
+      "input_name": "sampling_rate",
+      "source_type": "positive float (Hz)",
+      "target_type": "positive float (Hz)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "smooth_energy_envelope",
+      "target_id": "initialise_adaptive_state",
+      "output_name": "Y",
+      "input_name": "Y",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "initialise_adaptive_state",
+      "output_name": "M_th",
+      "input_name": "M_th",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "initialise_adaptive_state",
+      "output_name": "v350ms",
+      "input_name": "v350ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "MM",
+      "input_name": "MM",
+      "source_type": "1-D float array, length 5",
+      "target_type": "1-D float array, length 5",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "MMidx",
+      "input_name": "MMidx",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "M",
+      "input_name": "M",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "Mtemp",
+      "input_name": "Mtemp",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "slope",
+      "input_name": "slope",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "R",
+      "input_name": "R",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "Rdec",
+      "input_name": "Rdec",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "RR",
+      "input_name": "RR",
+      "source_type": "1-D float array, length 5",
+      "target_type": "1-D float array, length 5",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "RRidx",
+      "input_name": "RRidx",
+      "source_type": "int",
+      "target_type": "int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "Rm",
+      "input_name": "Rm",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "F",
+      "input_name": "F",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "QRS",
+      "input_name": "QRS",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initialise_adaptive_state",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "Rpeak",
+      "input_name": "Rpeak",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "smooth_energy_envelope",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "Y",
+      "input_name": "Y",
+      "source_type": "1-D float array",
+      "target_type": "1-D float array",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "M_th",
+      "input_name": "M_th",
+      "source_type": "float scalar",
+      "target_type": "float scalar",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "v50ms",
+      "input_name": "v50ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "v200ms",
+      "input_name": "v200ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "v300ms",
+      "input_name": "v300ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "v350ms",
+      "input_name": "v350ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "run_adaptive_threshold_detection",
+      "output_name": "v1200ms",
+      "input_name": "v1200ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    },
+    {
+      "source_id": "run_adaptive_threshold_detection",
+      "target_id": "refine_rpeaks_on_raw_signal",
+      "output_name": "Rpeak_indices",
+      "input_name": "Rpeak_indices",
+      "source_type": "list of int",
+      "target_type": "list of int",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_timing_constants",
+      "target_id": "refine_rpeaks_on_raw_signal",
+      "output_name": "v100ms",
+      "input_name": "v100ms",
+      "source_type": "positive int (samples)",
+      "target_type": "positive int (samples)",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "christov_segmenter"
+  }
+}

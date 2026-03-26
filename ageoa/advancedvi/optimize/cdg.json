@@ -1,0 +1,95 @@
+{
+  "nodes": [
+    {
+      "node_id": "optimize_root",
+      "parent_id": null,
+      "name": "optimize",
+      "description": "Ingested pipeline from optimize",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "optimizationlooporchestration"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "optimizationlooporchestration",
+      "parent_id": "optimize_root",
+      "name": "OptimizationLoopOrchestration",
+      "description": "Runs the selected optimization algorithm for a bounded number of iterations on the provided objective/problem using an initial state.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "algorithm",
+          "type_desc": "object",
+          "constraints": "Must define one optimization step/update rule."
+        },
+        {
+          "name": "max_iter",
+          "type_desc": "int",
+          "constraints": "Positive iteration budget."
+        },
+        {
+          "name": "prob",
+          "type_desc": "object",
+          "constraints": "Must expose evaluable objective/constraints required by algorithm."
+        },
+        {
+          "name": "q_init",
+          "type_desc": "object",
+          "constraints": "Shape/type must match algorithm and problem."
+        },
+        {
+          "name": "rng_state_in",
+          "type_desc": "object",
+          "constraints": "Optional; if absent, initialize from default entropy source."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "q_opt",
+          "type_desc": "object",
+          "constraints": "Same structural type family as q_init."
+        },
+        {
+          "name": "opt_trace",
+          "type_desc": "object",
+          "constraints": "May include objective values and convergence metadata."
+        },
+        {
+          "name": "rng_state_out",
+          "type_desc": "object",
+          "constraints": "Advanced/split state after any stochastic operations."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(algorithm: callable | algorithm identifier, max_iter: int, prob: objective/problem specification, q_init: initial parameter/state object, rng_state_in: numpy.random.Generator state (explicit immutable input)) -> tuple[optimized parameter/state object, iteration diagnostics/history, numpy.random.Generator state]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Bounded Iterative State-Update Orchestrator. Applies a user-supplied state transition rule repeatedly to an initial state under a finite iteration budget, with each step evaluated against a formal objective specification. The process composes local updates into a trajectory through a parameter/state space and returns the terminal state together with the full diagnostic path. If stochastic updates are used, pseudo-random generator state is treated as an explicit input/output state variable to preserve reproducibility.. Applications: Calibrating constitutive parameters in computational materials simulations via repeated residual-minimizing updates, Refining control policy parameters in robotic trajectory optimization under kinematic and dynamic constraints, Tuning hyperparameters or latent variables in medical image reconstruction pipelines to minimize reconstruction error metrics, Estimating reaction-network rate constants in systems biology by iteratively reducing mismatch between simulated and observed temporal signals",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "optimize"
+  }
+}

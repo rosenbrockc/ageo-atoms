@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.numpy.random_v2.combinatoricssampler@ageoa/numpy/random_v2/atoms.py:54": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.random_v2.continuousmultivariatesampler@ageoa/numpy/random_v2/atoms.py:16": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.numpy.random_v2.discreteeventsampler@ageoa/numpy/random_v2/atoms.py:38": {
+      "references": [
+        {
+          "ref_id": "numpy2020",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical NumPy software citation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

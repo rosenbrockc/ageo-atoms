@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "ageoa.mint.encoding_dist_mat.encodedistancematrix@ageoa/mint/encoding_dist_mat/atoms.py:17": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

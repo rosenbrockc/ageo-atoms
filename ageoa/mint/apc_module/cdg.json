@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "node_id": "apc_root",
+      "parent_id": null,
+      "name": "apc",
+      "description": "Ingested pipeline from apc",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "apccoreevaluation"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "apccoreevaluation",
+      "parent_id": "apc_root",
+      "name": "ApcCoreEvaluation",
+      "description": "Executes the standalone APC computation as a pure stateless function of the input.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "Any",
+          "constraints": "Direct method argument; no stated structural constraints."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "apc_result",
+          "type_desc": "Any",
+          "constraints": "Return value produced solely from x with no persistent state."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: Any) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Pure Single-Input Functional Mapping. Applies a fixed computational rule to one input object and returns the resulting object without reading or mutating external state. The transform is referentially transparent: identical inputs produce identical outputs, and execution has no side effects beyond value production.. Applications: Physics simulation kernels where one state vector is transformed into a computed diagnostic quantity, Bioinformatics sequence scoring where an encoded sequence is mapped to a scalar or structured compatibility score, Computer vision feature extraction where an image tensor is transformed into a latent representation, Control systems signal processing where an input waveform is mapped to a filtered or transformed output signal",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "apc"
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "nodes": [
+    {
+      "node_id": "mala_prop_adjustment_root",
+      "parent_id": null,
+      "name": "mala_prop_adjustment",
+      "description": "Ingested pipeline from mala_prop_adjustment",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "mala_proposal_adjustment"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "mala_proposal_adjustment",
+      "parent_id": "mala_prop_adjustment_root",
+      "name": "mala_proposal_adjustment",
+      "description": "Calculates the adjustment term for a Metropolis-Adjusted Langevin Algorithm (MALA) proposal. This typically involves the gradient of the log-posterior (via mala_mean_fn), which guides the proposal distribution.",
+      "concept_type": "mcmc_proposal",
+      "inputs": [
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "Controls the magnitude of the Langevin dynamics step."
+        },
+        {
+          "name": "vals_bound",
+          "type_desc": "Any",
+          "constraints": "Boundary conditions or constraints on the proposal values."
+        },
+        {
+          "name": "mala_mean_fn",
+          "type_desc": "Callable",
+          "constraints": "A function (oracle) that computes the mean of the proposal distribution, typically based on the gradient of the target log-probability."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "proposal_adjustment",
+          "type_desc": "Any",
+          "constraints": "The calculated adjustment to be used in the MALA proposal."
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "compute_proposal_means_and_jacobians",
+        "calculate_proposal_log_density_ratio"
+      ],
+      "depth": 1,
+      "type_signature": "(step_size: float, vals_bound: Any, mala_mean_fn: Callable) -> Any",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "gradient_guided_stochastic_drift_correction. Computes a directional correction vector for a stochastic process based on the local gradient of a scalar potential field. This operation takes an oracle function representing the field's gradient and a scaling factor to determine the magnitude of the correction. The resulting vector is intended to bias the movement of a point within a state space towards regions of higher potential.. Applications: Robotic pathfinding, where the 'potential field' is a navigation cost map, and the drift correction guides a rover towards an optimal path while exploring minor variations., Simulating molecular dynamics, where the potential field represents the potential energy of a molecular conformation, and the process explores low-energy states by nudging the system along the negative gradient of the energy landscape., Optimizing financial portfolios, where the state space is the set of asset weights and the potential field is a utility function (e.g., Sharpe ratio). The algorithm explores the space of possible portfolios, drifting towards allocations with higher utility.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "compute_proposal_means_and_jacobians",
+      "parent_id": "mala_proposal_adjustment",
+      "name": "compute_proposal_means_and_jacobians",
+      "description": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+      "concept_type": "mcmc_proposal",
+      "inputs": [
+        {
+          "name": "prop_vals",
+          "type_desc": "ColVec_t",
+          "constraints": "The proposed parameter values."
+        },
+        {
+          "name": "prev_vals",
+          "type_desc": "ColVec_t",
+          "constraints": "The previous parameter values."
+        },
+        {
+          "name": "vals_bound",
+          "type_desc": "bool",
+          "constraints": "Flag indicating if parameters are bounded."
+        },
+        {
+          "name": "mala_mean_fn",
+          "type_desc": "Callable",
+          "constraints": "Function to compute the proposal mean and optionally the Jacobian."
+        },
+        {
+          "name": "target_data",
+          "type_desc": "Any",
+          "constraints": "Auxiliary data for the mala_mean_fn."
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "The MCMC step size."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prop_mean",
+          "type_desc": "ColVec_t",
+          "constraints": "The calculated mean for the reverse proposal (centered on proposed values)."
+        },
+        {
+          "name": "prev_mean",
+          "type_desc": "ColVec_t",
+          "constraints": "The calculated mean for the forward proposal (centered on previous values)."
+        },
+        {
+          "name": "prop_inv_jacob",
+          "type_desc": "Mat_t",
+          "constraints": "The inverse Jacobian at the proposed values (if bounded)."
+        },
+        {
+          "name": "prev_inv_jacob",
+          "type_desc": "Mat_t",
+          "constraints": "The inverse Jacobian at the previous values (if bounded)."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "calculate_proposal_log_density_ratio",
+      "parent_id": "mala_proposal_adjustment",
+      "name": "calculate_proposal_log_density_ratio",
+      "description": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+      "concept_type": "log_prob",
+      "inputs": [
+        {
+          "name": "prop_vals",
+          "type_desc": "ColVec_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "prev_vals",
+          "type_desc": "ColVec_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "prop_mean",
+          "type_desc": "ColVec_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "prev_mean",
+          "type_desc": "ColVec_t",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "prop_inv_jacob",
+          "type_desc": "Mat_t",
+          "constraints": "Note: Based on the provided code, this jacobian is used for both forward and reverse densities."
+        },
+        {
+          "name": "vals_bound",
+          "type_desc": "bool",
+          "constraints": "isinstance(x, bool)"
+        },
+        {
+          "name": "step_size",
+          "type_desc": "float",
+          "constraints": "x is not None"
+        },
+        {
+          "name": "precond_mat",
+          "type_desc": "Mat_t",
+          "constraints": "x is not None"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "proposal_adjustment",
+          "type_desc": "float",
+          "constraints": "The final log-ratio adjustment term."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "compute_proposal_means_and_jacobians",
+      "target_id": "calculate_proposal_log_density_ratio",
+      "output_name": "prop_mean",
+      "input_name": "prop_mean",
+      "source_type": "ColVec_t",
+      "target_type": "ColVec_t",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_proposal_means_and_jacobians",
+      "target_id": "calculate_proposal_log_density_ratio",
+      "output_name": "prev_mean",
+      "input_name": "prev_mean",
+      "source_type": "ColVec_t",
+      "target_type": "ColVec_t",
+      "requires_glue": false
+    },
+    {
+      "source_id": "compute_proposal_means_and_jacobians",
+      "target_id": "calculate_proposal_log_density_ratio",
+      "output_name": "prop_inv_jacob",
+      "input_name": "prop_inv_jacob",
+      "source_type": "Mat_t",
+      "target_type": "Mat_t",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "mala_prop_adjustment"
+  }
+}

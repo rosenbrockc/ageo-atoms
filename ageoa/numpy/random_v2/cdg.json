@@ -1,0 +1,251 @@
+{
+  "nodes": [
+    {
+      "node_id": "NumpyRandomAtoms_root",
+      "parent_id": null,
+      "name": "NumpyRandomAtoms",
+      "description": "Ingested pipeline from NumpyRandomAtoms",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "continuousmultivariatesampler",
+        "discreteeventsampler",
+        "combinatoricssampler"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "continuousmultivariatesampler",
+      "parent_id": "NumpyRandomAtoms_root",
+      "name": "ContinuousMultivariateSampler",
+      "description": "Draws samples from continuous multivariate distributions (Multivariate Normal and Dirichlet). These are the canonical prior/posterior distributions in Bayesian models \u2014 MVN for latent Gaussian states and Dirichlet for simplex-valued concentration parameters. Both are stateless, producing IID draws given distribution parameters.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "mean",
+          "type_desc": "1-D array of floats, length N",
+          "constraints": "length must match leading dim of cov",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "cov",
+          "type_desc": "2-D array of floats, shape (N, N)",
+          "constraints": "must be symmetric positive-semidefinite",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "alpha",
+          "type_desc": "1-D array of positive floats (concentration)",
+          "constraints": "all elements > 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "size",
+          "type_desc": "int or tuple of ints, or None",
+          "constraints": "determines output batch shape",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "check_valid",
+          "type_desc": "str: 'warn' | 'raise' | 'ignore'",
+          "constraints": "controls covariance validation",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tol",
+          "type_desc": "float",
+          "constraints": "tolerance for covariance symmetry check",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mvn_samples",
+          "type_desc": "ndarray of shape (*size, N) float64",
+          "constraints": "drawn IID from N(mean, cov)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dirichlet_samples",
+          "type_desc": "ndarray of shape (*size, K) float64",
+          "constraints": "rows sum to 1; drawn from Dir(alpha)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mean: 1-D array of floats, length N, cov: 2-D array of floats, shape (N, N), alpha: 1-D array of positive floats (concentration), size: int or tuple of ints, or None, check_valid: str: 'warn' | 'raise' | 'ignore', tol: float) -> tuple[ndarray of shape (*size, N) float64, ndarray of shape (*size, K) float64]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "BatchedContinuousLatentSpaceSampler. Generates batches of independent, identically distributed random vectors from two complementary continuous probability geometries: (1) an unconstrained N-dimensional Euclidean space parameterized by a centroid vector and a covariance ellipsoid, producing correlated real-valued coordinates; and (2) a (K-1)-dimensional probability simplex parameterized by a concentration vector, producing non-negative coordinates that sum to unity. Both transforms map distributional parameters (moments or concentration statistics) to concrete realizations in their respective geometric supports, executing stateless Monte Carlo draws with no memory between calls.. Applications: Bayesian inference engine initialization (any domain): drawing prior samples over latent continuous state vectors (MVN) and latent categorical mixture weights (Dirichlet) to initialize Markov Chain Monte Carlo or Variational Inference algorithms for any hierarchical probabilistic model, Stochastic simulation of correlated sensor arrays (robotics/geophysics): generating batches of correlated multi-channel measurement noise vectors from a known empirical covariance structure, enabling Monte Carlo forward-model simulation of noisy sensor ensembles (e.g., seismic arrays, IMU clusters), Compositional resource allocation modeling (operations research/ecology): sampling random allocation vectors over K mutually exclusive resource categories (e.g., energy budgets, habitat partitions, portfolio weights) from a Dirichlet prior to propagate uncertainty through downstream optimization or ecological niche models, Generative model latent variable sampling (machine learning): ancestral sampling from the latent space of a Variational Autoencoder or Gaussian Mixture Model, where MVN draws instantiate continuous latent codes and Dirichlet draws instantiate soft cluster-membership vectors for downstream decoding or reconstruction",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "discreteeventsampler",
+      "parent_id": "NumpyRandomAtoms_root",
+      "name": "DiscreteEventSampler",
+      "description": "Draws integer count vectors from the Multinomial distribution. Represents a single stateless stochastic step that maps a probability simplex (pvals) and a trial count (n) to an observed frequency vector. Commonly used to simulate categorical observations in generative models and particle filters.",
+      "concept_type": "sampler",
+      "inputs": [
+        {
+          "name": "n",
+          "type_desc": "int",
+          "constraints": "total number of trials, n >= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "pvals",
+          "type_desc": "1-D array of floats, length K",
+          "constraints": "non-negative; must sum to <= 1 (last bucket absorbs remainder)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "size",
+          "type_desc": "int or tuple of ints, or None",
+          "constraints": "determines output batch shape",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "counts",
+          "type_desc": "ndarray of shape (*size, K) int64",
+          "constraints": "each row sums to n; counts[i] >= 0",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(n: int, pvals: 1-D array of floats, length K, size: int or tuple of ints, or None) -> ndarray of shape (*size, K) int64",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "ProbabilisticSimplexDiscreteAllocationSampler. Maps a K-dimensional probability simplex (a normalized non-negative weight vector) and a non-negative integer trial budget onto an integer frequency vector by performing a single-step stochastic partition of the trial budget across K mutually exclusive categories. The transform is a surjection from the continuous simplex \u00d7 \u2124\u207a onto the integer lattice constrained to the hyperplane where all components are non-negative and sum exactly to n. Each draw constitutes an independent, identically distributed realization of a Multinomial(n, p) random variable, encoding maximum-entropy categorical uncertainty conditioned on fixed marginal counts.. Applications: Epidemiological compartment modeling: at each discrete time step, distribute a fixed cohort of N agents across K disease states (e.g., susceptible, exposed, infectious, recovered) according to transition probabilities derived from a rate matrix, generating stochastic trajectory realizations for ensemble forecasting., Particle filter / Sequential Monte Carlo resampling: given a normalized importance-weight vector over K particles and a fixed resampling budget n, draw integer offspring counts per particle to produce a resampled population that is unbiased in expectation while preserving total particle count., Computational linguistics / topic modeling simulation: sample word-frequency count vectors from a K-vocabulary topic distribution for a document of length n tokens, enabling synthetic corpus generation for stress-testing or prior predictive checks in Latent Dirichlet Allocation and related models., Quantum measurement simulation: model a projective measurement on a K-outcome observable by drawing integer detector-click counts from a Born-rule probability vector over n repeated experimental shots, replicating finite-sample quantum tomography data for algorithm benchmarking., Ecological species abundance sampling: given a habitat with K species and a known relative-abundance simplex, simulate the integer counts of each species in a transect of n sampled individuals, supporting biodiversity estimation and rarefaction-curve construction under neutral theory assumptions.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "combinatoricssampler",
+      "parent_id": "NumpyRandomAtoms_root",
+      "name": "CombinatoricsSampler",
+      "description": "Performs combinatorial random operations on sequences or index spaces: random permutation of elements (permutation) and random selection with or without replacement (choice). Both operate purely on input arrays with no persistent state, making them reusable as shuffling or resampling kernels inside SMC or data-augmentation pipelines.",
+      "concept_type": "combinatorics",
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "int (interpreted as arange(x)) or 1-D array",
+          "constraints": "for permutation; int must be >= 0",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "axis",
+          "type_desc": "int",
+          "constraints": "axis along which to permute / select; 0-based",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "a",
+          "type_desc": "int (interpreted as arange(a)) or N-D array",
+          "constraints": "for choice; int must be >= 1",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "size",
+          "type_desc": "int or tuple of ints, or None",
+          "constraints": "output shape for choice",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "replace",
+          "type_desc": "bool",
+          "constraints": "sampling with (True) or without (False) replacement",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "p",
+          "type_desc": "1-D array of floats, or None",
+          "constraints": "selection probabilities; must sum to 1 if provided",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "permuted",
+          "type_desc": "ndarray same shape and dtype as input x",
+          "constraints": "all elements of x present exactly once",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "selected",
+          "type_desc": "ndarray of shape (*size, *a.shape[1:]) or scalar",
+          "constraints": "drawn from a along axis; respects replace flag",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: int (interpreted as arange(x)) or 1-D array, axis: int, a: int (interpreted as arange(a)) or N-D array, size: int or tuple of ints, or None, replace: bool, p: 1-D array of floats, or None) -> tuple[ndarray same shape and dtype as input x, ndarray of shape (*size, *a.shape[1:]) or scalar]",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "StochasticIndexSpaceResampler. Applies two complementary stochastic bijective or surjective mappings over a discrete index space or ordered sequence: (1) a uniform random permutation that produces a bijection of the input sequence \u2014 rearranging all elements exactly once with equal probability over all N! orderings \u2014 and (2) a weighted or uniform random projection from an N-element population to a M-element multiset, with or without replacement, governed by an optional probability mass function over the population. Together, these operations constitute the foundational kernels of Monte Carlo resampling: full-space shuffling and partial-space sampling with controllable distribution and cardinality.. Applications: Sequential Monte Carlo / Particle Filtering (Physics, Robotics, Finance): The choice kernel with replacement directly implements the resampling step of a particle filter, where a population of weighted hypothesis vectors (particles) is resampled proportionally to their importance weights (PMF), collapsing low-weight particles and duplicating high-weight ones to maintain a fixed-cardinality approximation of the posterior distribution over latent state space., Bootstrap Statistical Inference (Biostatistics, Epidemiology, Econometrics): Repeated application of the choice kernel with replacement over a fixed-size observed scalar or tensor population generates bootstrap replicates \u2014 independent identically distributed synthetic samples used to empirically estimate the sampling distribution of any statistic (mean, variance, regression coefficient) without parametric assumptions., Data Augmentation for Supervised Learning (Computer Vision, NLP, Genomics): The permutation kernel applied along the batch or sequence axis of a multi-dimensional tensor (e.g., token embeddings, spectral feature matrices, categorical one-hot encodings) generates invariance-inducing training variants, effectively regularizing a learned model against input ordering by expanding the effective training distribution without collecting new observations., Combinatorial Optimization via Stochastic Search (Operations Research, Logistics, Compiler Optimization): Random permutation of an index vector encoding a discrete solution (e.g., a node visitation order in a graph traversal, a task scheduling sequence, or a register allocation mapping) serves as the perturbation operator in simulated annealing, genetic algorithms, or random-restart hill-climbing \u2014 stochastically exploring the combinatorial solution manifold by generating neighbor solutions at Hamming distance proportional to the number of transpositions.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "NumpyRandomAtoms"
+  }
+}

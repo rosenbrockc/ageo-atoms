@@ -1,0 +1,120 @@
+{
+  "nodes": [
+    {
+      "node_id": "Bernoulli_root",
+      "parent_id": null,
+      "name": "Bernoulli",
+      "description": "Ingested pipeline from Bernoulli",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "bernoulli_probabilistic_oracle",
+        "conjugate_parameter_fold"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bernoulli_probabilistic_oracle",
+      "parent_id": "Bernoulli_root",
+      "name": "Bernoulli_Probabilistic_Oracle",
+      "description": "Defines and evaluates a binary observation model as a pure probabilistic oracle with no persistent mutable state.",
+      "concept_type": "probabilistic_oracle",
+      "inputs": [
+        {
+          "name": "p",
+          "type_desc": "float",
+          "constraints": "Probability parameter, 0 <= p <= 1"
+        },
+        {
+          "name": "x",
+          "type_desc": "np.ndarray",
+          "constraints": "Observed outcome(s), each value in {0,1} when likelihood/log_prob is evaluated"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "log_prob",
+          "type_desc": "np.ndarray",
+          "constraints": "Elementwise log-likelihood values for the binary observation model"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(p: float, x: int | array<int>) -> float | array<float>",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Binary_State_LogMass_Oracle. Maps a binary observation and a unit-interval parameter to the log of a two-outcome discrete mass function. The computation is closed-form and elementwise: log_mass = x * log(p) + (1 - x) * log(1 - p), with broadcasting over arrays when provided. It performs no parameter updates or internal caching, so identical inputs always produce identical outputs. Applications: Digital communications: scoring observed bit sequences under a binary noise/channel model. Reliability engineering: evaluating pass/fail component test outcomes against hypothesized failure propensity. Computational biology: modeling binary assay readouts (activation/inactivation) under a latent success-rate parameter.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "conjugate_parameter_fold",
+      "parent_id": "Bernoulli_root",
+      "name": "conjugate_parameter_fold",
+      "description": "Analytical closed-form parameter folding via sufficient statistics. Reads observed binary data, computes sum of successes (ys) and count (n), updates hyperparameters: \u03b1_post = \u03b1_prior + ys, \u03b2_post = \u03b2_prior + n - ys. Returns updated parameter tuple.",
+      "concept_type": "conjugate_update",
+      "inputs": [
+        {
+          "name": "prior",
+          "type_desc": "tuple",
+          "constraints": "Two-element hyperparameter vector (\u03b1, \u03b2) with positive real components."
+        },
+        {
+          "name": "data",
+          "type_desc": "np.ndarray",
+          "constraints": "Binary observations, each value in {0, 1}."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "updated_params",
+          "type_desc": "tuple",
+          "constraints": "New immutable hyperparameter vector within the same parametric family; inputs are not mutated."
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(prior: hyperparameter tuple, data: array<int>) -> hyperparameter tuple",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Closed_Form_Parameter_Fold. Reads binary observations, computes sum of successes and sample count as sufficient statistics, then folds them into the prior hyperparameter tuple using exact algebraic addition. The operation is pure: it returns a new hyperparameter tuple without mutating inputs. No sampling or numerical optimisation is required. is_conjugate: true.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "bernoulli_probabilistic_oracle",
+      "target_id": "conjugate_parameter_fold",
+      "output_name": "log_prob",
+      "input_name": "data",
+      "source_type": "float | array<float>",
+      "target_type": "array<int>",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "Bernoulli",
+    "is_conjugate": true
+  }
+}

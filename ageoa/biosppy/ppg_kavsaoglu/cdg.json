@@ -1,0 +1,458 @@
+{
+  "nodes": [
+    {
+      "node_id": "find_onsets_kavsaoglu2016_root",
+      "parent_id": null,
+      "name": "find_onsets_kavsaoglu2016",
+      "description": "Ingested pipeline from find_onsets_kavsaoglu2016",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "detectonsetevents"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "detectonsetevents",
+      "parent_id": "find_onsets_kavsaoglu2016_root",
+      "name": "DetectOnsetEvents",
+      "description": "Detects rhythmic onset events from an input signal using provided tempo and delay constraints as algorithm parameters.",
+      "concept_type": "signal_transform",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "1-D sampled signal"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "> 0"
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "algorithm coefficient"
+        },
+        {
+          "name": "k",
+          "type_desc": "int",
+          "constraints": "window/order parameter, typically > 0"
+        },
+        {
+          "name": "init_bpm",
+          "type_desc": "float",
+          "constraints": "initial tempo estimate, > 0"
+        },
+        {
+          "name": "min_delay",
+          "type_desc": "float",
+          "constraints": "minimum inter-onset delay, >= 0"
+        },
+        {
+          "name": "max_BPM",
+          "type_desc": "float",
+          "constraints": "upper tempo bound, > 0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_events",
+          "type_desc": "np.ndarray",
+          "constraints": "detected onset locations/times; may be empty"
+        }
+      ],
+      "status": "decomposed",
+      "children": [
+        "validateonsetdetectioninputs",
+        "initializeadaptivewindowstate",
+        "extractsegmentminimumintobuffers",
+        "evaluateonsetfrombufferedminima",
+        "updateonsetstempoandtraversalstate",
+        "buildreturnartifacts"
+      ],
+      "depth": 1,
+      "type_signature": "(signal: array-like[float], sampling_rate: float, alpha: float, k: int, init_bpm: float, min_delay: float, max_BPM: float) -> array-like",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Constrained Quasi-Periodic Event Onset Extractor. Transforms a 1-D sampled real-valued sequence into a sparse set of event boundaries by computing a local change/emphasis measure with a tunable coefficient and order/window parameter. It then performs constrained peak selection under an expected event-rate prior, enforcing both a minimum inter-event interval and an upper frequency bound to reject implausibly dense detections. The result is a temporally ordered event set representing salient onset points in the original sequence.. Applications: Detecting micro-event arrival times in geophysical sensor traces under plausible recurrence-rate constraints, Identifying activation onsets in biomedical time-series (e.g., transient spikes in fluorescence or electrophysiology signals), Marking burst-start boundaries in network telemetry streams with enforced minimum spacing between incidents, Extracting impulse initiation events from industrial vibration signals for rotating machinery fault monitoring",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "validateonsetdetectioninputs",
+      "parent_id": "detectonsetevents",
+      "name": "ValidateOnsetDetectionInputs",
+      "description": "Checks signal presence and parameter bounds, producing a validated immutable configuration for downstream steps.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "must not be None"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "must be > 0"
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "0 < alpha <= 1"
+        },
+        {
+          "name": "k",
+          "type_desc": "int",
+          "constraints": "k > 0"
+        },
+        {
+          "name": "init_bpm",
+          "type_desc": "float",
+          "constraints": "init_bpm > 0"
+        },
+        {
+          "name": "min_delay",
+          "type_desc": "float",
+          "constraints": "0 <= min_delay <= 1"
+        },
+        {
+          "name": "max_BPM",
+          "type_desc": "float",
+          "constraints": "max_BPM < 248"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "contains all validated inputs"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(signal: array-like[float], sampling_rate: float, alpha: float, k: int, init_bpm: float, min_delay: float, max_BPM: float) -> dict[str, any]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "initializeadaptivewindowstate",
+      "parent_id": "detectonsetevents",
+      "name": "InitializeAdaptiveWindowState",
+      "description": "Builds initial detection state, including BPM, segment width, rolling buffers, output accumulators, and traversal pointer.",
+      "concept_type": "arithmetic",
+      "inputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include signal, sampling_rate, k, init_bpm"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "detection_state",
+          "type_desc": "dict[str, any]",
+          "constraints": "contains bpm, window, i, onsets, window_marks, idx_buffer, min_buffer"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_config: dict[str, any]) -> dict[str, any]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "extractsegmentminimumintobuffers",
+      "parent_id": "detectonsetevents",
+      "name": "ExtractSegmentMinimumIntoBuffers",
+      "description": "For the current segment, shifts rolling buffers and inserts the index/value of the segment minimum as the newest candidate.",
+      "concept_type": "searching",
+      "inputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include signal"
+        },
+        {
+          "name": "detection_state",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include i, window, idx_buffer, min_buffer"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "state_with_buffers",
+          "type_desc": "dict[str, any]",
+          "constraints": "same state shape with updated idx_buffer/min_buffer"
+        },
+        {
+          "name": "candidate_center_idx",
+          "type_desc": "int",
+          "constraints": "center element of idx_buffer"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_config: dict[str, any], detection_state: dict[str, any]) -> tuple[dict[str, any], int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "evaluateonsetfrombufferedminima",
+      "parent_id": "detectonsetevents",
+      "name": "EvaluateOnsetFromBufferedMinima",
+      "description": "Determines whether the center buffered minimum is a valid onset using local-minimum shape and timing constraints against prior onsets.",
+      "concept_type": "analysis",
+      "inputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include sampling_rate, min_delay, max_BPM"
+        },
+        {
+          "name": "state_with_buffers",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include idx_buffer, min_buffer, onsets, bpm"
+        },
+        {
+          "name": "candidate_center_idx",
+          "type_desc": "int",
+          "constraints": "index candidate from center buffer slot"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "is_valid_onset",
+          "type_desc": "bool",
+          "constraints": "true only if all shape and temporal conditions pass"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_config: dict[str, any], state_with_buffers: dict[str, any], candidate_center_idx: int) -> bool",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "updateonsetstempoandtraversalstate",
+      "parent_id": "detectonsetevents",
+      "name": "UpdateOnsetsTempoAndTraversalState",
+      "description": "Applies the onset decision: append onset when valid, adapt BPM/window using low-pass update after consecutive onsets, advance pointer, and record window boundary.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include sampling_rate, alpha, k"
+        },
+        {
+          "name": "state_with_buffers",
+          "type_desc": "dict[str, any]",
+          "constraints": "must include onsets, bpm, window, i, window_marks"
+        },
+        {
+          "name": "candidate_center_idx",
+          "type_desc": "int",
+          "constraints": "used if onset accepted"
+        },
+        {
+          "name": "is_valid_onset",
+          "type_desc": "bool",
+          "constraints": "controls append and tempo adaptation"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "next_detection_state",
+          "type_desc": "dict[str, any]",
+          "constraints": "updated immutable state for next iteration"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_config: dict[str, any], state_with_buffers: dict[str, any], candidate_center_idx: int, is_valid_onset: bool) -> dict[str, any]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "buildreturnartifacts",
+      "parent_id": "detectonsetevents",
+      "name": "BuildReturnArtifacts",
+      "description": "Converts accumulated lists to integer arrays, builds parameter metadata, and packages final outputs.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "validated_config",
+          "type_desc": "dict[str, any]",
+          "constraints": "used to populate params metadata"
+        },
+        {
+          "name": "next_detection_state",
+          "type_desc": "dict[str, any]",
+          "constraints": "terminal state after loop completion"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "onset_events",
+          "type_desc": "np.ndarray",
+          "constraints": "numpy int array of onset indices"
+        },
+        {
+          "name": "window_marks",
+          "type_desc": "np.ndarray",
+          "constraints": "numpy int array of segment boundaries"
+        },
+        {
+          "name": "params",
+          "type_desc": "dict[str, any]",
+          "constraints": "echoes validated inputs"
+        },
+        {
+          "name": "return_tuple",
+          "type_desc": "ReturnTuple",
+          "constraints": "named outputs: onsets, window_marks, params"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 2,
+      "type_signature": "(validated_config: dict[str, any], next_detection_state: dict[str, any]) -> tuple[array-like[int], array-like[int], dict[str, any], ReturnTuple]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "validateonsetdetectioninputs",
+      "target_id": "initializeadaptivewindowstate",
+      "output_name": "validated_config",
+      "input_name": "validated_config",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validateonsetdetectioninputs",
+      "target_id": "extractsegmentminimumintobuffers",
+      "output_name": "validated_config",
+      "input_name": "validated_config",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "initializeadaptivewindowstate",
+      "target_id": "extractsegmentminimumintobuffers",
+      "output_name": "detection_state",
+      "input_name": "detection_state",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "evaluateonsetfrombufferedminima",
+      "target_id": "updateonsetstempoandtraversalstate",
+      "output_name": "is_valid_onset",
+      "input_name": "is_valid_onset",
+      "source_type": "bool",
+      "target_type": "bool",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validateonsetdetectioninputs",
+      "target_id": "updateonsetstempoandtraversalstate",
+      "output_name": "validated_config",
+      "input_name": "validated_config",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updateonsetstempoandtraversalstate",
+      "target_id": "extractsegmentminimumintobuffers",
+      "output_name": "next_detection_state",
+      "input_name": "detection_state",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "validateonsetdetectioninputs",
+      "target_id": "buildreturnartifacts",
+      "output_name": "validated_config",
+      "input_name": "validated_config",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    },
+    {
+      "source_id": "updateonsetstempoandtraversalstate",
+      "target_id": "buildreturnartifacts",
+      "output_name": "next_detection_state",
+      "input_name": "next_detection_state",
+      "source_type": "dict[str, any]",
+      "target_type": "dict[str, any]",
+      "requires_glue": false
+    }
+  ],
+  "metadata": {
+    "source": "ingester",
+    "class_name": "find_onsets_kavsaoglu2016"
+  }
+}
