@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T02:29:37+00:00",
+  "summary": {
+    "review_count": 10,
+    "by_status": {
+      "draft": 10
+    },
+    "by_reviewer_type": {
+      "human": 10
+    },
+    "by_semantic_verdict": {
+      "unknown": 10
+    }
+  },
+  "reviews": [
+    {
+      "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 2
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit@ageoa/institutional_quant_engine/kalman_filter/atoms.py:28",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate@ageoa/institutional_quant_engine/kalman_filter/atoms.py:65",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts@ageoa/sklearn/calibration_iter7/atoms.py:66",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter7.initialize_calibration_configuration@ageoa/sklearn/calibration_iter7/atoms.py:30",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata@ageoa/sklearn/calibration_iter8/atoms.py:66",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter8.initialize_calibration_state@ageoa/sklearn/calibration_iter8/atoms.py:30",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    },
+    {
+      "atom_id": "ageoa.sklearn.calibration_iter8.run_calibrated_inference@ageoa/sklearn/calibration_iter8/atoms.py:107",
+      "review_status": "draft",
+      "reviewer_type": "human",
+      "semantic_verdict": "unknown",
+      "developer_semantics_verdict": "unknown",
+      "reviewed_at": null,
+      "required_actions_count": 0
+    }
+  ]
+}

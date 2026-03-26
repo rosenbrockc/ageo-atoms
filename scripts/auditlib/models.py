@@ -91,3 +91,35 @@ class AtomRecord:
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a JSON-compatible dict."""
         return asdict(self)
+
+
+@dataclass
+class ReviewRecord:
+    """Canonical semantic review record for one atom."""
+
+    schema_version: str
+    atom_id: str
+    atom_name: str
+    review_status: str
+    reviewer_type: str
+    reviewed_at: str | None
+    upstream_symbols: dict[str, Any]
+    authoritative_sources: list[dict[str, Any]] = field(default_factory=list)
+    source_basis: dict[str, Any] = field(default_factory=dict)
+    line_references: list[dict[str, Any]] = field(default_factory=list)
+    wrapper_truth: str = "unknown"
+    api_truth: str = "unknown"
+    state_truth: str = "unknown"
+    output_truth: str = "unknown"
+    decomposition_truth: str = "unknown"
+    semantic_verdict: str = "unknown"
+    developer_semantics_verdict: str = "unknown"
+    limitations: list[str] = field(default_factory=list)
+    required_actions: list[str] = field(default_factory=list)
+    notes: list[str] = field(default_factory=list)
+    supporting_artifacts: dict[str, Any] = field(default_factory=dict)
+    seed_context: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize to a JSON-compatible dict."""
+        return asdict(self)
