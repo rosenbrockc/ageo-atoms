@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext@ageoa/molecular_docking/greedy_mapping/atoms.py:29",
+  "atom_name": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext",
+  "atom_key": "molecular_docking/greedy_mapping:assemblestaticmappingcontext",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.solver.greedy_lattice_mapping",
+    "function": "GreedyMapping.__init__",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "graph",
+      "lattice_instance",
+      "previously_generated_subgraphs",
+      "seed"
+    ],
+    "required_parameter_names": [
+      "graph",
+      "lattice_instance",
+      "previously_generated_subgraphs",
+      "seed"
+    ],
+    "return_annotation": "MappingContext"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "graph",
+      "lattice_instance",
+      "previously_generated_subgraphs",
+      "seed"
+    ],
+    "required_parameter_names": [
+      "graph",
+      "lattice_instance",
+      "previously_generated_subgraphs"
+    ],
+    "parameters": [
+      {
+        "name": "graph",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "nx.Graph"
+      },
+      {
+        "name": "lattice_instance",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "Lattice"
+      },
+      {
+        "name": "previously_generated_subgraphs",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "List[Dict[int, int]]"
+      },
+      {
+        "name": "seed",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": "int"
+      }
+    ],
+    "return_annotation": "None"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/greedy_lattice_mapping.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 29
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext@ageoa/molecular_docking/greedy_mapping/atoms.py:29",
+    "atom_name": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext@ageoa/molecular_docking/greedy_mapping/atoms.py:29",
+    "status": "partial",
+    "findings": [
+      "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED"
+    ],
+    "notes": [
+      "Return dict introduces keys that are not reflected in the docstring summary."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 29
+      }
+    ],
+    "returned_names": [
+      "graph",
+      "lattice",
+      "lattice_instance",
+      "list",
+      "previously_generated_subgraphs",
+      "seed"
+    ],
+    "call_assignment_targets": [
+      "lattice"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext@ageoa/molecular_docking/greedy_mapping/atoms.py:29",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 29
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext@ageoa/molecular_docking/greedy_mapping/atoms.py:29",
+    "status": "partial",
+    "findings": [
+      "NOUN_LOW_UPSTREAM_ALIGNMENT",
+      "NOUN_UNDOCUMENTED_OUTPUT"
+    ],
+    "notes": [
+      "Less than half of the generated noun tokens align with upstream/docstring terms."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 29
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "generated",
+      "graph",
+      "instance",
+      "lattice",
+      "previously",
+      "seed",
+      "subgraphs"
+    ],
+    "undocumented_nouns": [
+      "generated",
+      "graph",
+      "instance",
+      "previously",
+      "seed",
+      "subgraphs"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation@ageoa/biosppy/ecg_hamilton/atoms.py:17",
+  "atom_name": "ageoa.biosppy.ecg_hamilton.hamilton_segmentation",
+  "acceptability_score": 82,
+  "acceptability_band": "acceptable_with_limits_candidate",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 31,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "required_actions": []
+}

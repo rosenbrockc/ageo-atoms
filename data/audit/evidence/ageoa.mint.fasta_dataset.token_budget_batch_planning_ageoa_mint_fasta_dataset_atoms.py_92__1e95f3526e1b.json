@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:92",
+  "atom_name": "ageoa.mint.fasta_dataset.token_budget_batch_planning",
+  "atom_key": "mint/fasta_dataset:token_budget_batch_planning",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "mint",
+    "module": "mint.data",
+    "function": "FastaBatchedDataset.get_batch_indices",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "dataset_state",
+      "toks_per_batch",
+      "extra_toks_per_seq"
+    ],
+    "required_parameter_names": [
+      "dataset_state",
+      "toks_per_batch",
+      "extra_toks_per_seq"
+    ],
+    "return_annotation": "list[list[int]]"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "toks_per_batch",
+      "extra_toks_per_seq"
+    ],
+    "required_parameter_names": [
+      "toks_per_batch"
+    ],
+    "parameters": [
+      {
+        "name": "toks_per_batch",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "extra_toks_per_seq",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/mint/mint/data.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [
+    "invented_parameters=dataset_state"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [],
+  "invented_parameters": [
+    "dataset_state"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 92
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:92",
+    "atom_name": "ageoa.mint.fasta_dataset.token_budget_batch_planning",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:92",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 92
+      }
+    ],
+    "returned_names": [
+      "batches"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:92",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 92
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": [],
+    "state_reads": [
+      "sequence_strs"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:92",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 92
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

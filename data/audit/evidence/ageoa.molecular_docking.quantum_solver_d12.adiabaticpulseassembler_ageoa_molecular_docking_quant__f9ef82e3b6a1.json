@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
+  "atom_name": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler",
+  "atom_key": "molecular_docking/quantum_solver_d12:adiabaticpulseassembler",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.solver.quantum_solver_molecular",
+    "function": "simple_adiabatic_sequence",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "register",
+      "parameters"
+    ],
+    "required_parameter_names": [
+      "register",
+      "parameters"
+    ],
+    "return_annotation": "PulseSequence"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "register",
+      "parameters"
+    ],
+    "required_parameter_names": [
+      "register",
+      "parameters"
+    ],
+    "parameters": [
+      {
+        "name": "register",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "parameters",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": "Sequence"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/quantum_solver_molecular.py",
+  "findings": [],
+  "notes": [],
+  "fidelity_status": "pass",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
+        "line": 176
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
+    "atom_name": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
+    "status": "partial",
+    "findings": [
+      "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED"
+    ],
+    "notes": [
+      "Return dict introduces keys that are not reflected in the docstring summary."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
+        "line": 176
+      }
+    ],
+    "returned_names": [
+      "duration",
+      "parameters",
+      "register"
+    ],
+    "call_assignment_targets": [
+      "duration"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
+        "line": 176
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
+    "status": "partial",
+    "findings": [
+      "NOUN_LOW_UPSTREAM_ALIGNMENT",
+      "NOUN_UNDOCUMENTED_OUTPUT"
+    ],
+    "notes": [
+      "Less than half of the generated noun tokens align with upstream/docstring terms."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
+        "line": 176
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "duration",
+      "parameters",
+      "register",
+      "type"
+    ],
+    "undocumented_nouns": [
+      "duration",
+      "parameters",
+      "register",
+      "type"
+    ]
+  }
+}

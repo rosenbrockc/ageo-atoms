@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.quantfin.volatility_surface_modeling@ageoa/quantfin/atoms.py:61",
+  "atom_name": "ageoa.quantfin.volatility_surface_modeling",
+  "atom_key": "quantfin:volatility_surface_modeling",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "quantfin",
+    "module": "Quant.VolSurf",
+    "function": "vol",
+    "language": "haskell",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "data"
+    ],
+    "required_parameter_names": [
+      "data"
+    ],
+    "return_annotation": "np.ndarray"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/atoms.py",
+        "line": 61
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.quantfin.volatility_surface_modeling@ageoa/quantfin/atoms.py:61",
+    "atom_name": "ageoa.quantfin.volatility_surface_modeling",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.quantfin.volatility_surface_modeling@ageoa/quantfin/atoms.py:61",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/atoms.py",
+        "line": 61
+      }
+    ],
+    "returned_names": [
+      "result"
+    ],
+    "call_assignment_targets": [
+      "coords",
+      "fine_strikes",
+      "flat",
+      "maturities",
+      "rbf",
+      "result",
+      "strikes",
+      "values",
+      "x"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.quantfin.volatility_surface_modeling@ageoa/quantfin/atoms.py:61",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/atoms.py",
+        "line": 61
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.quantfin.volatility_surface_modeling@ageoa/quantfin/atoms.py:61",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/atoms.py",
+        "line": 61
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

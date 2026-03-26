@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline@ageoa/molecular_docking/greedy_mapping/atoms.py:218",
+  "atom_name": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline",
+  "atom_key": "molecular_docking/greedy_mapping:rungreedymappingpipeline",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.solver.greedy_lattice_mapping",
+    "function": "GreedyMapping.generate_greedy_ud_subgraph_with",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "mapping_context",
+      "starting_node",
+      "remove_invalid_placement_nodes",
+      "rank_nodes",
+      "initialized_mapping_state",
+      "extended_mapping_state",
+      "mapping_is_valid"
+    ],
+    "required_parameter_names": [
+      "mapping_context",
+      "starting_node",
+      "remove_invalid_placement_nodes",
+      "rank_nodes",
+      "initialized_mapping_state",
+      "extended_mapping_state",
+      "mapping_is_valid"
+    ],
+    "return_annotation": "tuple[Subgraph, MappingState]"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "starting_node",
+      "remove_invalid_placement_nodes",
+      "rank_nodes"
+    ],
+    "required_parameter_names": [
+      "starting_node"
+    ],
+    "parameters": [
+      {
+        "name": "starting_node",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "int"
+      },
+      {
+        "name": "remove_invalid_placement_nodes",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": "bool"
+      },
+      {
+        "name": "rank_nodes",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": "bool"
+      }
+    ],
+    "return_annotation": "Dict[int, int]"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/greedy_lattice_mapping.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
+  ],
+  "notes": [
+    "invented_parameters=mapping_context,initialized_mapping_state,extended_mapping_state,mapping_is_valid"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [],
+  "invented_parameters": [
+    "mapping_context",
+    "initialized_mapping_state",
+    "extended_mapping_state",
+    "mapping_is_valid"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 218
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline@ageoa/molecular_docking/greedy_mapping/atoms.py:218",
+    "atom_name": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline@ageoa/molecular_docking/greedy_mapping/atoms.py:218",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 218
+      }
+    ],
+    "returned_names": [
+      "final_state",
+      "generated_subgraph"
+    ],
+    "call_assignment_targets": [
+      "generated_subgraph",
+      "graph"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline@ageoa/molecular_docking/greedy_mapping/atoms.py:218",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 218
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": [],
+    "state_reads": [
+      "get"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline@ageoa/molecular_docking/greedy_mapping/atoms.py:218",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/greedy_mapping/atoms.py",
+        "line": 218
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

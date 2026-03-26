@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.mint.rotary_embedding_d12.rotaryembedding@ageoa/mint/rotary_embedding_d12/atoms.py:17",
+  "atom_name": "ageoa.mint.rotary_embedding_d12.rotaryembedding",
+  "acceptability_score": 49,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 19,
+    "developer_semantics": 12,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "fail",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [
+    "RETURN_IGNORES_UPSTREAM_VALUE"
+  ],
+  "major_penalties": [
+    "RETURN_IGNORES_UPSTREAM_VALUE",
+    "RUNTIME_PROBE_SKIPPED",
+    "SEMANTICS_LOW_NAME_OVERLAP"
+  ],
+  "required_actions": [
+    "thread the upstream return value into the wrapper output or document the derivation"
+  ]
+}

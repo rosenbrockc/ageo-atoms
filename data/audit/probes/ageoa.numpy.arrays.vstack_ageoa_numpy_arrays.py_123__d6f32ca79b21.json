@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/numpy/arrays.py",
+      "line": 123
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:123",
+  "atom_name": "ageoa.numpy.arrays.vstack",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "numpy.vstack over two rows",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        2,
+        2
+      ],
+      "dtype": "int64"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "numpy.vstack rejects an empty tuple",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/numpy/arrays.py, line 121 in <module>:\nSequence of arrays must not be empty: len(tup) > 0:\ncasting was 'same_kind'\ndtype was None\nlen(tup) was 0\ntup was []"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

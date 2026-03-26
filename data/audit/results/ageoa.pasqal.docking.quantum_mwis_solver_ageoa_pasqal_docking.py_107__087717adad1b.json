@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
+  "atom_name": "ageoa.pasqal.docking.quantum_mwis_solver",
+  "acceptability_score": 38,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 18,
+    "runtime": 6,
+    "upstream_fidelity": 4,
+    "developer_semantics": 6,
+    "trust_support": 4
+  },
+  "dimension_evidence": {
+    "structural_status": "partial",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "fail",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "partial"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "NOUN_LOW_UPSTREAM_ALIGNMENT",
+    "NOUN_UNDOCUMENTED_STATE",
+    "RUNTIME_PROBE_SKIPPED",
+    "STRUCT_IMPORT_HEAVY",
+    "TRUST_PROVENANCE_MISSING"
+  ],
+  "required_actions": [
+    "map this atom in scripts/atom_manifest.yml",
+    "add vendored or importable upstream signature evidence",
+    "review the wrapper terminology against the upstream/source terms",
+    "document generated state nouns or align them with declared state fields",
+    "pin source revision or upstream version in the manifest"
+  ]
+}

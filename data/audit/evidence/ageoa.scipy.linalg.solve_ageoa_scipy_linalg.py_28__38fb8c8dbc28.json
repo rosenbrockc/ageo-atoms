@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
+  "atom_name": "ageoa.scipy.linalg.solve",
+  "atom_key": "scipy/linalg:solve",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "a",
+      "b",
+      "lower",
+      "overwrite_a",
+      "overwrite_b",
+      "check_finite",
+      "assume_a"
+    ],
+    "required_parameter_names": [
+      "a",
+      "b"
+    ],
+    "return_annotation": "np.ndarray"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "pass",
+    "findings": [
+      "RUNTIME_PROBE_PASS",
+      "RUNTIME_CONTRACT_NEGATIVE_PASS"
+    ],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/linalg.py",
+        "line": 28
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
+    "atom_name": "ageoa.scipy.linalg.solve",
+    "probe_status": "executed",
+    "positive_probe": {
+      "status": "pass",
+      "description": "scipy.linalg.solve over a tiny system",
+      "result_summary": {
+        "type": "ndarray",
+        "shape": [
+          2
+        ],
+        "dtype": "float64"
+      }
+    },
+    "negative_probe": {
+      "status": "pass",
+      "description": "scipy.linalg.solve rejects non-square matrices",
+      "exception_type": "ViolationError",
+      "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/scipy/linalg.py, line 25 in <module>:\na must be square: _is_square_2d(a):\n_is_square_2d(a) was False\na was array([[1., 2., 3.]])\nassume_a was 'gen'\nb was array([1.])\ncheck_finite was True\nlower w"
+    },
+    "parity_used": false,
+    "skip_reason": null,
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/linalg.py",
+        "line": 28
+      }
+    ],
+    "returned_names": [
+      "a",
+      "assume_a",
+      "b",
+      "check_finite",
+      "lower",
+      "overwrite_a",
+      "overwrite_b",
+      "scipy"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/linalg.py",
+        "line": 28
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.scipy.linalg.solve@ageoa/scipy/linalg.py:28",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/linalg.py",
+        "line": 28
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

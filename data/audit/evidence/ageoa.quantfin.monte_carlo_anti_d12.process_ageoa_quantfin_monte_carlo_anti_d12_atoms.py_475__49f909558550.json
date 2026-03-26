@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:475",
+  "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
+  "atom_key": "quantfin/monte_carlo_anti_d12:process",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "quantfin",
+    "module": "Quant.MonteCarlo",
+    "function": "process",
+    "language": "haskell",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "anti",
+      "ccs",
+      "cfList",
+      "discCFs",
+      "evolve",
+      "flip",
+      "foldl_prime",
+      "fst",
+      "gets",
+      "insert",
+      "insertCF",
+      "insertCFList",
+      "map",
+      "mf",
+      "modl",
+      "newCFs",
+      "obs",
+      "obsMap",
+      "obsMap_prime",
+      "process",
+      "t",
+      "xs"
+    ],
+    "required_parameter_names": [
+      "anti",
+      "ccs",
+      "cfList",
+      "discCFs",
+      "evolve",
+      "flip",
+      "foldl_prime",
+      "fst",
+      "gets",
+      "insert",
+      "insertCF",
+      "insertCFList",
+      "map",
+      "mf",
+      "modl",
+      "newCFs",
+      "obs",
+      "obsMap",
+      "obsMap_prime",
+      "process",
+      "t",
+      "xs"
+    ],
+    "return_annotation": "float"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
+        "line": 475
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:475",
+    "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:475",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
+        "line": 475
+      }
+    ],
+    "returned_names": [
+      "anti",
+      "ccs",
+      "discCFs",
+      "float",
+      "merged",
+      "modl",
+      "obsMap_new",
+      "process"
+    ],
+    "call_assignment_targets": [
+      "merged",
+      "new_cfs_list",
+      "obsMap_new",
+      "obs_val"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:475",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
+        "line": 475
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:475",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
+        "line": 475
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

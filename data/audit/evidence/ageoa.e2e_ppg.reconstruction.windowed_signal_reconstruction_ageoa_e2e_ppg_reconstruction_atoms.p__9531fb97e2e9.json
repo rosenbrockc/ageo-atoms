@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+  "atom_name": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
+  "atom_key": "e2e_ppg/reconstruction:windowed_signal_reconstruction",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "E2E-PPG",
+    "module": "ppg_reconstruction",
+    "function": "reconstruction",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate",
+      "filter_signal"
+    ],
+    "required_parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate",
+      "filter_signal"
+    ],
+    "return_annotation": "np.ndarray"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate",
+      "filter_signal"
+    ],
+    "required_parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate"
+    ],
+    "parameters": [
+      {
+        "name": "sig",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "np.ndarray"
+      },
+      {
+        "name": "clean_indices",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "list"
+      },
+      {
+        "name": "noisy_indices",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "list"
+      },
+      {
+        "name": "sampling_rate",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "int"
+      },
+      {
+        "name": "filter_signal",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": "bool"
+      }
+    ],
+    "return_annotation": "Tuple[np.ndarray, list, list]"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/E2E-PPG/ppg_reconstruction.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
+        "line": 40
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+    "atom_name": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
+        "line": 40
+      }
+    ],
+    "returned_names": [
+      "clean_indices",
+      "filter_signal",
+      "noisy_indices",
+      "reconstruction",
+      "sampling_rate",
+      "sig"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
+        "line": 40
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
+        "line": 40
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

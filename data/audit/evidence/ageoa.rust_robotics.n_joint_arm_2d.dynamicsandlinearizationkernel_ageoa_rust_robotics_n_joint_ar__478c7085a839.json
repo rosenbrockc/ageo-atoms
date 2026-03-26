@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78",
+  "atom_name": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel",
+  "atom_key": "rust_robotics/n_joint_arm_2d:dynamicsandlinearizationkernel",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "rust_robotics",
+    "module": "models.humanoid.n_joint_arm2_d",
+    "function": "NJointArm2D.get_derivatives",
+    "language": "rust",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "x",
+      "u",
+      "_t"
+    ],
+    "required_parameter_names": [
+      "x",
+      "u",
+      "_t"
+    ],
+    "return_annotation": "tuple[np.ndarray, np.ndarray]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/rust_robotics/n_joint_arm_2d/atoms.py",
+        "line": 78
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78",
+    "atom_name": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/rust_robotics/n_joint_arm_2d/atoms.py",
+        "line": 78
+      }
+    ],
+    "returned_names": [
+      "jacobian",
+      "x_dot"
+    ],
+    "call_assignment_targets": [
+      "jacobian",
+      "n",
+      "u_arr",
+      "x_arr"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/rust_robotics/n_joint_arm_2d/atoms.py",
+        "line": 78
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.rust_robotics.n_joint_arm_2d.dynamicsandlinearizationkernel@ageoa/rust_robotics/n_joint_arm_2d/atoms.py:78",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/rust_robotics/n_joint_arm_2d/atoms.py",
+        "line": 78
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

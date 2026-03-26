@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/numpy/arrays.py",
+      "line": 151
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.numpy.arrays.reshape@ageoa/numpy/arrays.py:151",
+  "atom_name": "ageoa.numpy.arrays.reshape",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "numpy.reshape over a 1D vector",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        2,
+        3
+      ],
+      "dtype": "int64"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "numpy.reshape rejects a missing array",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/numpy/arrays.py, line 149 in <module>:\nArray must not be None: a is not None:\na was None\nnewshape was (2, 1)\norder was 'C'"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

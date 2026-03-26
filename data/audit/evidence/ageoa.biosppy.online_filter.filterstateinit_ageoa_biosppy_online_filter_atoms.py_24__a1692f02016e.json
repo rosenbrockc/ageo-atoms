@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+  "atom_name": "ageoa.biosppy.online_filter.filterstateinit",
+  "atom_key": "biosppy/online_filter:filterstateinit",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "b",
+      "a",
+      "state"
+    ],
+    "required_parameter_names": [
+      "b",
+      "a",
+      "state"
+    ],
+    "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterParamState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/online_filter/atoms.py",
+        "line": 24
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+    "atom_name": "ageoa.biosppy.online_filter.filterstateinit",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/online_filter/atoms.py",
+        "line": 24
+      }
+    ],
+    "returned_names": [
+      "new_state",
+      "result"
+    ],
+    "call_assignment_targets": [
+      "new_state",
+      "obj"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/online_filter/atoms.py",
+        "line": 24
+      }
+    ],
+    "state_fields": [
+      "a",
+      "b",
+      "zi"
+    ],
+    "updated_fields": [
+      "a",
+      "b"
+    ],
+    "state_reads": [
+      "a",
+      "b",
+      "model_copy"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/online_filter/atoms.py",
+        "line": 24
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

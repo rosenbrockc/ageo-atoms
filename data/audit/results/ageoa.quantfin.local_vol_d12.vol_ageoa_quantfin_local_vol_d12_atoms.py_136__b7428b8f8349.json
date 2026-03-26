@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.quantfin.local_vol_d12.vol@ageoa/quantfin/local_vol_d12/atoms.py:136",
+  "atom_name": "ageoa.quantfin.local_vol_d12.vol",
+  "acceptability_score": 65,
+  "acceptability_band": "limited_acceptability",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 14,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "required_actions": [
+    "add vendored or importable upstream signature evidence"
+  ]
+}

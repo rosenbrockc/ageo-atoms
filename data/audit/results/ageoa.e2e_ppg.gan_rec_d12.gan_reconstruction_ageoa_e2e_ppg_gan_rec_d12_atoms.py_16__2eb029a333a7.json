@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.e2e_ppg.gan_rec_d12.gan_reconstruction@ageoa/e2e_ppg/gan_rec_d12/atoms.py:16",
+  "atom_name": "ageoa.e2e_ppg.gan_rec_d12.gan_reconstruction",
+  "acceptability_score": 84,
+  "acceptability_band": "acceptable_with_limits_candidate",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 18,
+    "runtime": 6,
+    "upstream_fidelity": 35,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "partial",
+    "runtime_status": "partial",
+    "semantic_status": "pass",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "RUNTIME_PROBE_SKIPPED",
+    "STRUCT_CDG_TYPE_NON_NORMALIZED"
+  ],
+  "required_actions": []
+}

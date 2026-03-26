@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:44",
+  "atom_name": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation",
+  "atom_key": "molecular_docking/build_interaction_graph:weighted_interaction_edge_derivation",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.graph.interaction_graph",
+    "function": "find_possible_edges",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "L_features",
+      "R_features",
+      "L_distance_matrix",
+      "R_distance_matrix",
+      "interaction_distance",
+      "distance_match"
+    ],
+    "required_parameter_names": [
+      "L_features",
+      "R_features",
+      "L_distance_matrix",
+      "R_distance_matrix",
+      "interaction_distance",
+      "distance_match"
+    ],
+    "return_annotation": "tuple[list[tuple[object, object, float]], list[object] | set[object]]"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "L_feature_pair",
+      "R_feature_pair"
+    ],
+    "required_parameter_names": [
+      "L_feature_pair",
+      "R_feature_pair"
+    ],
+    "parameters": [
+      {
+        "name": "L_feature_pair",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "tuple[Feature, Feature]"
+      },
+      {
+        "name": "R_feature_pair",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "tuple[Feature, Feature]"
+      }
+    ],
+    "return_annotation": "list[tuple[tuple[Feature, Feature], tuple[Feature, Feature]]]"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/graph/interaction_graph.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [
+    "missing_required=L_feature_pair,R_feature_pair",
+    "invented_parameters=L_features,R_features,L_distance_matrix,R_distance_matrix,interaction_distance,distance_match"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [
+    "L_feature_pair",
+    "R_feature_pair"
+  ],
+  "invented_parameters": [
+    "L_features",
+    "R_features",
+    "L_distance_matrix",
+    "R_distance_matrix",
+    "interaction_distance",
+    "distance_match"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 44
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:44",
+    "atom_name": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:44",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 44
+      }
+    ],
+    "returned_names": [
+      "edges",
+      "list",
+      "node_set"
+    ],
+    "call_assignment_targets": [
+      "L_dm",
+      "R_dm",
+      "node_set",
+      "weight"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:44",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 44
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:44",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 44
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

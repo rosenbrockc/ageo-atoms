@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+  "atom_name": "ageoa.algorithms.search.binary_search",
+  "atom_key": "algorithms/search:binary_search",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "arr",
+      "key"
+    ],
+    "required_parameter_names": [
+      "arr",
+      "key"
+    ],
+    "return_annotation": "int"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "pass",
+    "findings": [
+      "RUNTIME_PROBE_PASS",
+      "RUNTIME_CONTRACT_NEGATIVE_PASS"
+    ],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/algorithms/search.py",
+        "line": 35
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+    "atom_name": "ageoa.algorithms.search.binary_search",
+    "probe_status": "executed",
+    "positive_probe": {
+      "status": "pass",
+      "description": "binary search over a sorted vector",
+      "result_summary": {
+        "type": "int",
+        "repr": "2"
+      }
+    },
+    "negative_probe": {
+      "status": "pass",
+      "description": "binary search rejects unsorted input",
+      "exception_type": "ViolationError",
+      "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/algorithms/search.py, line 27 in <module>:\nArray must be sorted for binary search: all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1)):\nall(arr[i] <= arr[i + 1] for i in range(len(arr) - 1)) w"
+    },
+    "parity_used": false,
+    "skip_reason": null,
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+    "status": "fail",
+    "findings": [
+      "RETURN_IGNORES_UPSTREAM_VALUE"
+    ],
+    "notes": [
+      "Return expression does not mention any variable assigned from a call result."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/algorithms/search.py",
+        "line": 35
+      }
+    ],
+    "returned_names": [
+      "idx",
+      "int"
+    ],
+    "call_assignment_targets": [
+      "idx"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/algorithms/search.py",
+        "line": 35
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/algorithms/search.py",
+        "line": 35
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

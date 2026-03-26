@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_execution@ageoa/institutional_quant_engine/atoms.py:53",
+  "atom_name": "ageoa.institutional_quant_engine.almgren_chriss_execution",
+  "atom_key": "institutional_quant_engine:almgren_chriss_execution",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Institutional-Quant-Engine",
+    "module": "execution_hft.17_optimal_execution_almgren",
+    "function": "optimal_trajectory",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "data"
+    ],
+    "required_parameter_names": [
+      "data"
+    ],
+    "return_annotation": "np.ndarray"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "total_shares",
+      "days",
+      "risk_aversion"
+    ],
+    "required_parameter_names": [
+      "total_shares",
+      "days",
+      "risk_aversion"
+    ],
+    "parameters": [
+      {
+        "name": "total_shares",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "days",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "risk_aversion",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/execution_hft/17_optimal_execution_almgren.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+  ],
+  "notes": [
+    "missing_required=total_shares,days,risk_aversion",
+    "invented_parameters=data"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [
+    "total_shares",
+    "days",
+    "risk_aversion"
+  ],
+  "invented_parameters": [
+    "data"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/atoms.py",
+        "line": 53
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_execution@ageoa/institutional_quant_engine/atoms.py:53",
+    "atom_name": "ageoa.institutional_quant_engine.almgren_chriss_execution",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_execution@ageoa/institutional_quant_engine/atoms.py:53",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/atoms.py",
+        "line": 53
+      }
+    ],
+    "returned_names": [
+      "trajectory"
+    ],
+    "call_assignment_targets": [
+      "n",
+      "trajectory"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_execution@ageoa/institutional_quant_engine/atoms.py:53",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/atoms.py",
+        "line": 53
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_execution@ageoa/institutional_quant_engine/atoms.py:53",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/atoms.py",
+        "line": 53
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

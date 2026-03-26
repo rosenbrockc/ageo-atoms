@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+  "atom_name": "ageoa.neurokit2.zhao2018hrvanalysis",
+  "atom_key": "neurokit2:zhao2018hrvanalysis",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "NeuroKit2",
+    "module": "neurokit2.ecg.ecg_quality",
+    "function": "_ecg_quality_zhao2018",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "ecg_cleaned",
+      "rpeaks",
+      "sampling_rate",
+      "window",
+      "mode"
+    ],
+    "required_parameter_names": [
+      "ecg_cleaned",
+      "rpeaks",
+      "sampling_rate",
+      "window",
+      "mode"
+    ],
+    "return_annotation": "dict"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "ecg_cleaned",
+      "rpeaks",
+      "sampling_rate",
+      "window",
+      "mode"
+    ],
+    "required_parameter_names": [
+      "ecg_cleaned"
+    ],
+    "parameters": [
+      {
+        "name": "ecg_cleaned",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "rpeaks",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "sampling_rate",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "window",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "mode",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "kwargs",
+        "required": false,
+        "kind": "kwargs",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/NeuroKit2/neurokit2/ecg/ecg_quality.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/neurokit2/atoms.py",
+        "line": 21
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+    "atom_name": "ageoa.neurokit2.zhao2018hrvanalysis",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/neurokit2/atoms.py",
+        "line": 21
+      }
+    ],
+    "returned_names": [
+      "_ecg_quality_zhao2018",
+      "ecg_cleaned",
+      "mode",
+      "rpeaks",
+      "sampling_rate",
+      "window"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/neurokit2/atoms.py",
+        "line": 21
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/neurokit2/atoms.py",
+        "line": 21
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

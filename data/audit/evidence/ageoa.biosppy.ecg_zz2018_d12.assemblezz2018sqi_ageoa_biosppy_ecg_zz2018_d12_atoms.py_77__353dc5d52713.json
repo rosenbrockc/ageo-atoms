@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+  "atom_name": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
+  "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "BioSPPy",
+    "module": "biosppy.signals.ecg",
+    "function": "ZZ2018",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "signal",
+      "detector_1",
+      "detector_2",
+      "fs",
+      "search_window",
+      "nseg",
+      "mode",
+      "b_sqi",
+      "f_sqi",
+      "k_sqi"
+    ],
+    "required_parameter_names": [
+      "signal",
+      "detector_1",
+      "detector_2",
+      "fs",
+      "search_window",
+      "nseg",
+      "mode",
+      "b_sqi",
+      "f_sqi",
+      "k_sqi"
+    ],
+    "return_annotation": "object"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "signal",
+      "detector_1",
+      "detector_2",
+      "fs",
+      "search_window",
+      "nseg",
+      "mode"
+    ],
+    "required_parameter_names": [
+      "signal",
+      "detector_1",
+      "detector_2"
+    ],
+    "parameters": [
+      {
+        "name": "signal",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "detector_1",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "detector_2",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "fs",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "search_window",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "nseg",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "mode",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/BioSPPy/biosppy/signals/ecg.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [
+    "invented_parameters=b_sqi,f_sqi,k_sqi"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [],
+  "invented_parameters": [
+    "b_sqi",
+    "f_sqi",
+    "k_sqi"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
+        "line": 77
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+    "atom_name": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+    "status": "partial",
+    "findings": [
+      "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED"
+    ],
+    "notes": [
+      "Return dict introduces keys that are not reflected in the docstring summary."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
+        "line": 77
+      }
+    ],
+    "returned_names": [
+      "b_sqi",
+      "f_sqi",
+      "k_sqi"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
+        "line": 77
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+    "status": "partial",
+    "findings": [
+      "NOUN_UNDOCUMENTED_OUTPUT"
+    ],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
+        "line": 77
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "sqi"
+    ],
+    "undocumented_nouns": [
+      "sqi"
+    ]
+  }
+}

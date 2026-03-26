@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
+  "atom_name": "ageoa.biosppy.ecg.template_extraction",
+  "atom_key": "biosppy/ecg:template_extraction",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "filtered",
+      "rpeaks",
+      "state"
+    ],
+    "required_parameter_names": [
+      "filtered",
+      "rpeaks",
+      "state"
+    ],
+    "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], ECGPipelineState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "fail",
+    "findings": [
+      "RUNTIME_NOT_IMPLEMENTED"
+    ],
+    "notes": [
+      "Wrapper is a skeleton or raises NotImplementedError."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg.py",
+        "line": 84
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
+    "atom_name": "ageoa.biosppy.ecg.template_extraction",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "skeleton_wrapper",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg.py",
+        "line": 84
+      }
+    ],
+    "returned_names": [],
+    "call_assignment_targets": [
+      "obj"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg.py",
+        "line": 84
+      }
+    ],
+    "state_fields": [
+      "filtered",
+      "rpeaks"
+    ],
+    "updated_fields": [],
+    "state_reads": [
+      "filtered",
+      "rpeaks"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/ecg.py",
+        "line": 84
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

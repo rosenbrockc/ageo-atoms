@@ -1,17 +1,16 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-03-26T02:13:34+00:00",
+  "generated_at": "2026-03-26T13:35:20+00:00",
   "summary": {
     "atom_count": 506,
-    "high_risk_count": 118,
-    "medium_risk_count": 353,
-    "low_risk_count": 35,
-    "review_now_count": 129,
-    "review_soon_count": 101,
-    "review_later_count": 276,
+    "high_risk_count": 109,
+    "medium_risk_count": 342,
+    "low_risk_count": 55,
+    "review_now_count": 120,
+    "review_soon_count": 106,
+    "review_later_count": 280,
     "top_reason_codes": {
       "RISK_MISSING_REVIEW_BASIS": 506,
-      "RISK_NO_RUNTIME_EVIDENCE": 506,
       "RISK_MISSING_PARITY": 491,
       "RISK_GENERATED_INGEST": 289,
       "RISK_FFI_BACKED": 246,
@@ -19,7 +18,8 @@
       "RISK_LOW_NAME_ALIGNMENT": 205,
       "RISK_UPSTREAM_UNMAPPED": 144,
       "RISK_MISSING_PROVENANCE": 138,
-      "RISK_STRUCTURAL_PARTIAL": 136
+      "RISK_STRUCTURAL_PARTIAL": 136,
+      "RISK_REFINED_INGEST": 109
     },
     "top_risky_families": {
       "tempo_jl": 75,
@@ -43,14 +43,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts@ageoa/sklearn/calibration_iter7/atoms.py:66",
       "atom_name": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -77,12 +76,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -117,14 +115,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
       "atom_name": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -151,12 +148,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -191,14 +187,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter7.initialize_calibration_configuration@ageoa/sklearn/calibration_iter7/atoms.py:30",
       "atom_name": "ageoa.sklearn.calibration_iter7.initialize_calibration_configuration",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -225,12 +220,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -265,14 +259,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata@ageoa/sklearn/calibration_iter8/atoms.py:66",
       "atom_name": "ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -299,12 +292,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -339,14 +331,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter8.initialize_calibration_state@ageoa/sklearn/calibration_iter8/atoms.py:30",
       "atom_name": "ageoa.sklearn.calibration_iter8.initialize_calibration_state",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -373,12 +364,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -413,14 +403,13 @@
       "atom_id": "ageoa.sklearn.calibration_iter8.run_calibrated_inference@ageoa/sklearn/calibration_iter8/atoms.py:107",
       "atom_name": "ageoa.sklearn.calibration_iter8.run_calibrated_inference",
       "domain_family": "sklearn",
-      "risk_score": 81,
+      "risk_score": 78,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -447,12 +436,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -487,7 +475,7 @@
       "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
       "atom_name": "ageoa.biosppy.online_filter.filterstateinit",
       "domain_family": "biosppy",
-      "risk_score": 77,
+      "risk_score": 74,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -496,7 +484,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
@@ -519,12 +506,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -559,7 +545,7 @@
       "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit@ageoa/institutional_quant_engine/kalman_filter/atoms.py:28",
       "atom_name": "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit",
       "domain_family": "institutional_quant_engine",
-      "risk_score": 77,
+      "risk_score": 74,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -568,7 +554,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
@@ -591,12 +576,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -631,7 +615,7 @@
       "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate@ageoa/institutional_quant_engine/kalman_filter/atoms.py:65",
       "atom_name": "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate",
       "domain_family": "institutional_quant_engine",
-      "risk_score": 77,
+      "risk_score": 74,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -640,7 +624,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
@@ -663,12 +646,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -700,79 +682,10 @@
       "review_priority": "review_now"
     },
     {
-      "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
-      "atom_name": "ageoa.biosppy.ecg.bandpass_filter",
-      "domain_family": "biosppy",
-      "risk_score": 72,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_GENERATED_ABSTRACTION_LANGUAGE",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_STUB_PUBLIC_API",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_FAIL",
-            "RISK_STUB_PUBLIC_API"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_GENERATED_ABSTRACTION_LANGUAGE"
-          ]
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
       "atom_id": "ageoa.biosppy.online_filter.filterstep@ageoa/biosppy/online_filter/atoms.py:54",
       "atom_name": "ageoa.biosppy.online_filter.filterstep",
       "domain_family": "biosppy",
-      "risk_score": 72,
+      "risk_score": 69,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -780,7 +693,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
@@ -802,12 +714,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -839,14 +750,13 @@
       "atom_id": "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69",
       "atom_name": "ageoa.numpy.linalg.det",
       "domain_family": "numpy",
-      "risk_score": 71,
+      "risk_score": 68,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -866,12 +776,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -899,14 +808,13 @@
       "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
       "atom_name": "ageoa.scipy.integrate.solve_ivp",
       "domain_family": "scipy",
-      "risk_score": 71,
+      "risk_score": 68,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -926,12 +834,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -956,17 +863,16 @@
       "review_priority": "review_now"
     },
     {
-      "atom_id": "ageoa.biosppy.ecg.heart_rate_computation@ageoa/biosppy/ecg.py:103",
-      "atom_name": "ageoa.biosppy.ecg.heart_rate_computation",
+      "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
+      "atom_name": "ageoa.biosppy.ecg.bandpass_filter",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
@@ -990,12 +896,75 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.biosppy.ecg.heart_rate_computation@ageoa/biosppy/ecg.py:103",
+      "atom_name": "ageoa.biosppy.ecg.heart_rate_computation",
+      "domain_family": "biosppy",
+      "risk_score": 67,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_CDG_ISSUES",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_STUB_PUBLIC_API",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_CDG_ISSUES",
+            "RISK_STRUCTURAL_FAIL",
+            "RISK_STUB_PUBLIC_API"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1025,14 +994,13 @@
       "atom_id": "ageoa.biosppy.ecg.peak_correction@ageoa/biosppy/ecg.py:64",
       "atom_name": "ageoa.biosppy.ecg.peak_correction",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
@@ -1056,12 +1024,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1091,14 +1058,13 @@
       "atom_id": "ageoa.biosppy.ecg.r_peak_detection@ageoa/biosppy/ecg.py:46",
       "atom_name": "ageoa.biosppy.ecg.r_peak_detection",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
@@ -1122,12 +1088,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1157,14 +1122,13 @@
       "atom_id": "ageoa.biosppy.ecg.template_extraction@ageoa/biosppy/ecg.py:84",
       "atom_name": "ageoa.biosppy.ecg.template_extraction",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
@@ -1188,12 +1152,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1223,14 +1186,13 @@
       "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:24",
       "atom_name": "ageoa.biosppy.online_filter_codex.filterstateinit",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -1254,12 +1216,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1293,14 +1254,13 @@
       "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:24",
       "atom_name": "ageoa.biosppy.online_filter_v2.filterstateinit",
       "domain_family": "biosppy",
-      "risk_score": 70,
+      "risk_score": 67,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PLACEHOLDER_DOCSTRING",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
@@ -1324,12 +1284,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -1355,563 +1314,6 @@
           "reasons": [
             "RISK_PLACEHOLDER_DOCSTRING"
           ]
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
-      "atom_name": "ageoa.biosppy.online_filter_codex.filterstep",
-      "domain_family": "biosppy",
-      "risk_score": 67,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_REFINED_INGEST",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_REFINED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
-      "atom_name": "ageoa.biosppy.online_filter_v2.filterstep",
-      "domain_family": "biosppy",
-      "risk_score": 67,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_REFINED_INGEST",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_REFINED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:58",
-      "atom_name": "ageoa.pasqal.docking.graph_transformer",
-      "domain_family": "pasqal",
-      "risk_score": 67,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_GENERATED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
-      "atom_name": "ageoa.pasqal.docking.quantum_mwis_solver",
-      "domain_family": "pasqal",
-      "risk_score": 67,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_GENERATED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:27",
-      "atom_name": "ageoa.pasqal.docking.sub_graph_embedder",
-      "domain_family": "pasqal",
-      "risk_score": 67,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
-            "RISK_STATEFUL_API",
-            "RISK_STATE_MODEL_PRESENT"
-          ]
-        },
-        "generation_risk": {
-          "score": 10,
-          "reasons": [
-            "RISK_GENERATED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
-      "atom_name": "ageoa.algorithms.search.binary_search",
-      "domain_family": "algorithms",
-      "risk_score": 66,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
-      "atom_name": "ageoa.algorithms.search.hash_lookup",
-      "domain_family": "algorithms",
-      "risk_score": 66,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
-      "atom_name": "ageoa.algorithms.search.linear_search",
-      "domain_family": "algorithms",
-      "risk_score": 66,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
-      "atom_name": "ageoa.numpy.arrays.dot",
-      "domain_family": "numpy",
-      "risk_score": 66,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
         }
       },
       "review_priority": "review_now"
@@ -1976,63 +1378,6 @@
     {
       "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
       "atom_name": "ageoa.numpy.emath.log",
-      "domain_family": "numpy",
-      "risk_score": 66,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
-      "atom_name": "ageoa.numpy.emath.logn",
       "domain_family": "numpy",
       "risk_score": 66,
       "risk_tier": "high",
@@ -2202,16 +1547,392 @@
       "review_priority": "review_now"
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
-      "atom_name": "ageoa.numpy.polynomial.polyval",
-      "domain_family": "numpy",
-      "risk_score": 66,
+      "atom_id": "ageoa.scipy.linalg.det@ageoa/scipy/linalg.py:93",
+      "atom_name": "ageoa.scipy.linalg.det",
+      "domain_family": "scipy",
+      "risk_score": 65,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_FFI_BACKED",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_NO_RUNTIME_EVIDENCE",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 20,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS",
+            "RISK_NO_RUNTIME_EVIDENCE"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 5,
+          "reasons": [
+            "RISK_FFI_BACKED"
+          ]
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
+      "atom_name": "ageoa.biosppy.online_filter_codex.filterstep",
+      "domain_family": "biosppy",
+      "risk_score": 64,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_CDG_ISSUES",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_REFINED_INGEST",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_PARTIAL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_CDG_ISSUES",
+            "RISK_STRUCTURAL_PARTIAL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 5,
+          "reasons": [
+            "RISK_REFINED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
+      "atom_name": "ageoa.biosppy.online_filter_v2.filterstep",
+      "domain_family": "biosppy",
+      "risk_score": 64,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_CDG_ISSUES",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_REFINED_INGEST",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_PARTIAL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_CDG_ISSUES",
+            "RISK_STRUCTURAL_PARTIAL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 5,
+          "reasons": [
+            "RISK_REFINED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:58",
+      "atom_name": "ageoa.pasqal.docking.graph_transformer",
+      "domain_family": "pasqal",
+      "risk_score": 64,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_GENERATED_INGEST",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_PARTIAL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 12,
+          "reasons": [
+            "RISK_STRUCTURAL_PARTIAL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_GENERATED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
+      "atom_name": "ageoa.pasqal.docking.quantum_mwis_solver",
+      "domain_family": "pasqal",
+      "risk_score": 64,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_GENERATED_INGEST",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_PARTIAL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 12,
+          "reasons": [
+            "RISK_STRUCTURAL_PARTIAL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_GENERATED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:27",
+      "atom_name": "ageoa.pasqal.docking.sub_graph_embedder",
+      "domain_family": "pasqal",
+      "risk_score": 64,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_GENERATED_INGEST",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
+        "RISK_STATEFUL_API",
+        "RISK_STATE_MODEL_PRESENT",
+        "RISK_STRUCTURAL_PARTIAL",
+        "RISK_UPSTREAM_UNMAPPED"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 12,
+          "reasons": [
+            "RISK_STRUCTURAL_PARTIAL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 15,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API",
+            "RISK_STATE_MODEL_PRESENT"
+          ]
+        },
+        "generation_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_GENERATED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+      "atom_name": "ageoa.algorithms.search.binary_search",
+      "domain_family": "algorithms",
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2231,12 +1952,286 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
+      "atom_name": "ageoa.algorithms.search.hash_lookup",
+      "domain_family": "algorithms",
+      "risk_score": 63,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED",
+        "RISK_WEAK_TYPES"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 21,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED",
+            "RISK_WEAK_TYPES"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
+      "atom_name": "ageoa.algorithms.search.linear_search",
+      "domain_family": "algorithms",
+      "risk_score": 63,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED",
+        "RISK_WEAK_TYPES"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 21,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED",
+            "RISK_WEAK_TYPES"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
+      "atom_name": "ageoa.numpy.arrays.dot",
+      "domain_family": "numpy",
+      "risk_score": 63,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED",
+        "RISK_WEAK_TYPES"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 21,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED",
+            "RISK_WEAK_TYPES"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
+      "atom_name": "ageoa.numpy.emath.logn",
+      "domain_family": "numpy",
+      "risk_score": 63,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED",
+        "RISK_WEAK_TYPES"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 21,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED",
+            "RISK_WEAK_TYPES"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_now"
+    },
+    {
+      "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
+      "atom_name": "ageoa.numpy.polynomial.polyval",
+      "domain_family": "numpy",
+      "risk_score": 63,
+      "risk_tier": "high",
+      "risk_reasons": [
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_PROVENANCE",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_STRUCTURAL_FAIL",
+        "RISK_UPSTREAM_UNMAPPED",
+        "RISK_WEAK_TYPES"
+      ],
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 25,
+          "reasons": [
+            "RISK_STRUCTURAL_FAIL"
+          ]
+        },
+        "fidelity_risk": {
+          "score": 21,
+          "reasons": [
+            "RISK_UPSTREAM_UNMAPPED",
+            "RISK_WEAK_TYPES"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 17,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_PROVENANCE",
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2262,7 +2257,7 @@
       "atom_id": "ageoa.pulsar.pipeline.SNR@ageoa/pulsar/pipeline.py:113",
       "atom_name": "ageoa.pulsar.pipeline.SNR",
       "domain_family": "pulsar",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -2270,7 +2265,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
@@ -2290,12 +2284,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2325,7 +2318,7 @@
       "atom_id": "ageoa.pulsar.pipeline.de_disperse@ageoa/pulsar/pipeline.py:44",
       "atom_name": "ageoa.pulsar.pipeline.de_disperse",
       "domain_family": "pulsar",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -2333,7 +2326,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
@@ -2353,12 +2345,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2388,7 +2379,7 @@
       "atom_id": "ageoa.pulsar.pipeline.delay_from_DM@ageoa/pulsar/pipeline.py:24",
       "atom_name": "ageoa.pulsar.pipeline.delay_from_DM",
       "domain_family": "pulsar",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -2396,7 +2387,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
@@ -2416,12 +2406,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2451,7 +2440,7 @@
       "atom_id": "ageoa.pulsar.pipeline.fold_signal@ageoa/pulsar/pipeline.py:84",
       "atom_name": "ageoa.pulsar.pipeline.fold_signal",
       "domain_family": "pulsar",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_CDG_ISSUES",
@@ -2459,7 +2448,6 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
@@ -2479,12 +2467,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2514,13 +2501,12 @@
       "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
       "atom_name": "ageoa.scipy.optimize.curve_fit",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2540,12 +2526,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2571,13 +2556,12 @@
       "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
       "atom_name": "ageoa.scipy.stats.describe",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2597,12 +2581,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2628,13 +2611,12 @@
       "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
       "atom_name": "ageoa.scipy.stats.norm",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2654,12 +2636,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2685,13 +2666,12 @@
       "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
       "atom_name": "ageoa.scipy.stats.pearsonr",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2711,12 +2691,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2742,13 +2721,12 @@
       "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
       "atom_name": "ageoa.scipy.stats.spearmanr",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2768,12 +2746,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2799,13 +2776,12 @@
       "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
       "atom_name": "ageoa.scipy.stats.ttest_ind",
       "domain_family": "scipy",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED",
         "RISK_WEAK_TYPES"
@@ -2825,12 +2801,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2856,13 +2831,12 @@
       "atom_id": "ageoa.tempo.offset_tai2tdb@ageoa/tempo.py:60",
       "atom_name": "ageoa.tempo.offset_tai2tdb",
       "domain_family": "tempo",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_STUB_PUBLIC_API",
         "RISK_UPSTREAM_UNMAPPED",
@@ -2884,12 +2858,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2915,13 +2888,12 @@
       "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
       "atom_name": "ageoa.tempo.offset_tt2tdb",
       "domain_family": "tempo",
-      "risk_score": 66,
+      "risk_score": 63,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_STUB_PUBLIC_API",
         "RISK_UPSTREAM_UNMAPPED",
@@ -2943,12 +2915,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -2974,14 +2945,13 @@
       "atom_id": "ageoa.algorithms.sorting.counting_sort@ageoa/algorithms/sorting.py:109",
       "atom_name": "ageoa.algorithms.sorting.counting_sort",
       "domain_family": "algorithms",
-      "risk_score": 65,
+      "risk_score": 62,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
@@ -2999,12 +2969,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -3032,14 +3001,13 @@
       "atom_id": "ageoa.algorithms.sorting.heapsort@ageoa/algorithms/sorting.py:73",
       "atom_name": "ageoa.algorithms.sorting.heapsort",
       "domain_family": "algorithms",
-      "risk_score": 65,
+      "risk_score": 62,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
@@ -3057,12 +3025,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -3090,14 +3057,13 @@
       "atom_id": "ageoa.algorithms.sorting.merge_sort@ageoa/algorithms/sorting.py:29",
       "atom_name": "ageoa.algorithms.sorting.merge_sort",
       "domain_family": "algorithms",
-      "risk_score": 65,
+      "risk_score": 62,
       "risk_tier": "high",
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_STRUCTURAL_FAIL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
@@ -3115,70 +3081,11 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 17,
           "reasons": [
             "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_now"
-    },
-    {
-      "atom_id": "ageoa.algorithms.sorting.quicksort@ageoa/algorithms/sorting.py:51",
-      "atom_name": "ageoa.algorithms.sorting.quicksort",
-      "domain_family": "algorithms",
-      "risk_score": 65,
-      "risk_tier": "high",
-      "risk_reasons": [
-        "RISK_FFI_BACKED",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
-      ],
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 20,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -3204,13 +3111,12 @@
     }
   ],
   "by_tier": {
-    "high": 118,
-    "low": 35,
-    "medium": 353
+    "high": 109,
+    "low": 55,
+    "medium": 342
   },
   "by_reason": {
     "RISK_MISSING_REVIEW_BASIS": 506,
-    "RISK_NO_RUNTIME_EVIDENCE": 506,
     "RISK_MISSING_PARITY": 491,
     "RISK_GENERATED_INGEST": 289,
     "RISK_FFI_BACKED": 246,
@@ -3230,8 +3136,9 @@
     "RISK_STOCHASTIC": 30,
     "RISK_PLACEHOLDER_DOCSTRING": 13,
     "RISK_STUB_PUBLIC_API": 7,
-    "RISK_GENERATED_ABSTRACTION_LANGUAGE": 6,
-    "RISK_SKLEARN_GENERATED_FAMILY": 6
+    "RISK_NO_RUNTIME_EVIDENCE": 6,
+    "RISK_SKLEARN_GENERATED_FAMILY": 6,
+    "RISK_GENERATED_ABSTRACTION_LANGUAGE": 5
   },
   "by_family": {
     "tempo_jl": 75,

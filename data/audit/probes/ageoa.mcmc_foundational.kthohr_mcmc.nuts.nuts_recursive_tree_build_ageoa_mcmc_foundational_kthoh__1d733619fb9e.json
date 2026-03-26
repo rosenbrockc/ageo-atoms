@@ -1,0 +1,30 @@
+{
+  "status": "not_applicable",
+  "findings": [
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "notes": [
+    "Atom is outside the conservative safe probe allowlist."
+  ],
+  "source_refs": [
+    {
+      "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py",
+      "line": 27
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+  "atom_name": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build",
+  "probe_status": "skipped",
+  "positive_probe": {
+    "status": "not_applicable"
+  },
+  "negative_probe": {
+    "status": "not_applicable"
+  },
+  "parity_used": false,
+  "skip_reason": "unsupported_scope",
+  "exception_type": null,
+  "exception_message": null
+}

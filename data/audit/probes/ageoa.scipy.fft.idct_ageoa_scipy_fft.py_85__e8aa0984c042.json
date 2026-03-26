@@ -1,0 +1,40 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/scipy/fft.py",
+      "line": 85
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.scipy.fft.idct@ageoa/scipy/fft.py:85",
+  "atom_name": "ageoa.scipy.fft.idct",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "scipy.fft.idct over a short real vector",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        3
+      ],
+      "dtype": "float64"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "scipy.fft.idct rejects empty input",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/scipy/fft.py, line 70 in <module>:\nInput array must not be empty: np.asarray(x).size > 0:\naxis was -1\nn was None\nnorm was None\nnp.asarray(x) was array([], dtype=float64)\nnp.asarray(x).size was 0\n"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

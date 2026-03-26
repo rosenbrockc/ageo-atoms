@@ -87,6 +87,8 @@ class AtomRecord:
     status_basis: dict[str, Any] = field(default_factory=dict)
     structural_findings: list[str] = field(default_factory=list)
     structural_finding_details: list[dict[str, Any]] = field(default_factory=list)
+    semantic_findings: list[str] = field(default_factory=list)
+    semantic_finding_details: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a JSON-compatible dict."""

@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.hPDB.iterate_pdb_atoms@ageoa/hPDB/atoms.py:24",
+  "atom_name": "ageoa.hPDB.iterate_pdb_atoms",
+  "atom_key": "hPDB:iterate_pdb_atoms",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "hPDB",
+    "module": "Bio.PDB.Structure",
+    "function": "atoms",
+    "language": "haskell",
+    "notes": "Haskell record field accessor on Model/Chain/Residue structures"
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "element"
+    ],
+    "required_parameter_names": [
+      "element"
+    ],
+    "return_annotation": "Iterator[Atom]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hPDB/atoms.py",
+        "line": 24
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.hPDB.iterate_pdb_atoms@ageoa/hPDB/atoms.py:24",
+    "atom_name": "ageoa.hPDB.iterate_pdb_atoms",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.hPDB.iterate_pdb_atoms@ageoa/hPDB/atoms.py:24",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/hPDB/atoms.py",
+        "line": 24
+      }
+    ],
+    "returned_names": [
+      "iter"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.hPDB.iterate_pdb_atoms@ageoa/hPDB/atoms.py:24",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hPDB/atoms.py",
+        "line": 24
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.hPDB.iterate_pdb_atoms@ageoa/hPDB/atoms.py:24",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hPDB/atoms.py",
+        "line": 24
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

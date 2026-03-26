@@ -1,0 +1,149 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.mwis_sa.calculate_weight@ageoa/molecular_docking/mwis_sa/atoms.py:66",
+  "atom_name": "ageoa.molecular_docking.mwis_sa.calculate_weight",
+  "atom_key": "molecular_docking/mwis_sa:calculate_weight",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.solver.mwis_SA",
+    "function": "calculate_weight",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "graph",
+      "node_list"
+    ],
+    "required_parameter_names": [
+      "graph",
+      "node_list"
+    ],
+    "return_annotation": "float"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "graph",
+      "node_list"
+    ],
+    "required_parameter_names": [
+      "graph",
+      "node_list"
+    ],
+    "parameters": [
+      {
+        "name": "graph",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "node_list",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": "float"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/solver/mwis_SA.py",
+  "findings": [],
+  "notes": [],
+  "fidelity_status": "pass",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/mwis_sa/atoms.py",
+        "line": 66
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.mwis_sa.calculate_weight@ageoa/molecular_docking/mwis_sa/atoms.py:66",
+    "atom_name": "ageoa.molecular_docking.mwis_sa.calculate_weight",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.mwis_sa.calculate_weight@ageoa/molecular_docking/mwis_sa/atoms.py:66",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/mwis_sa/atoms.py",
+        "line": 66
+      }
+    ],
+    "returned_names": [
+      "float",
+      "graph",
+      "n",
+      "node_list",
+      "sum"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.mwis_sa.calculate_weight@ageoa/molecular_docking/mwis_sa/atoms.py:66",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/mwis_sa/atoms.py",
+        "line": 66
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.mwis_sa.calculate_weight@ageoa/molecular_docking/mwis_sa/atoms.py:66",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/mwis_sa/atoms.py",
+        "line": 66
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

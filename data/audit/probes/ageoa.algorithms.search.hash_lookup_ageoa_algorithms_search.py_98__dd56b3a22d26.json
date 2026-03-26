@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/algorithms/search.py",
+      "line": 98
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
+  "atom_name": "ageoa.algorithms.search.hash_lookup",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "hash lookup over a small vector",
+    "result_summary": {
+      "type": "int",
+      "repr": "0"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "hash lookup rejects empty input",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/algorithms/search.py, line 93 in <module>:\nArray must be non-empty: len(arr) > 0:\narr was array([], dtype=float64)\nkey was 1\nlen(arr) was 0"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

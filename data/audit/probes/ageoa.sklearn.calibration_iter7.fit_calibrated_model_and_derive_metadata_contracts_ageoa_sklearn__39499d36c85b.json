@@ -1,0 +1,30 @@
+{
+  "status": "not_applicable",
+  "findings": [
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "notes": [
+    "Atom is outside the conservative safe probe allowlist."
+  ],
+  "source_refs": [
+    {
+      "path": "ageoa/sklearn/calibration_iter7/atoms.py",
+      "line": 66
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts@ageoa/sklearn/calibration_iter7/atoms.py:66",
+  "atom_name": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts",
+  "probe_status": "skipped",
+  "positive_probe": {
+    "status": "not_applicable"
+  },
+  "negative_probe": {
+    "status": "not_applicable"
+  },
+  "parity_used": false,
+  "skip_reason": "unsupported_scope",
+  "exception_type": null,
+  "exception_message": null
+}

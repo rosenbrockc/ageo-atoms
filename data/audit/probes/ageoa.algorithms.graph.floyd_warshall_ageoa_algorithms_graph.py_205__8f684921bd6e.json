@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/algorithms/graph.py",
+      "line": 205
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.algorithms.graph.floyd_warshall@ageoa/algorithms/graph.py:205",
+  "atom_name": "ageoa.algorithms.graph.floyd_warshall",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "floyd-warshall all-pairs shortest paths",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        3,
+        3
+      ],
+      "dtype": "float64"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "floyd-warshall rejects non-square adjacency",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/algorithms/graph.py, line 193 in <module>:\nAdjacency matrix must be square: adj.ndim == 2 and adj.shape[0] == adj.shape[1]:\nadj was array([[0., 1., 0.]])\nadj.ndim was 2\nadj.shape was (1, 3)\nadj.s"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

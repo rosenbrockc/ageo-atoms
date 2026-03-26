@@ -1,0 +1,518 @@
+"""Conservative deterministic runtime probes for a safe atom subset."""
+
+from __future__ import annotations
+
+import importlib
+import sys
+import types
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable
+
+import numpy as np
+
+from .io import safe_atom_stem, write_json
+from .paths import AUDIT_PROBES_DIR, ROOT
+from .semantics import utc_now, write_evidence_section
+
+
+@dataclass(frozen=True)
+class ProbeCase:
+    """A deterministic positive or negative runtime probe."""
+
+    description: str
+    invoke: Callable[[Callable[..., Any]], Any]
+    validate: Callable[[Any], None] | None = None
+    expect_exception: bool = False
+
+
+@dataclass(frozen=True)
+class ProbePlan:
+    """Probe plan for one allowlisted atom."""
+
+    positive: ProbeCase
+    negative: ProbeCase | None = None
+    parity_used: bool = False
+
+
+def install_ageoa_stub(root: Path = ROOT) -> None:
+    """Install a lightweight `ageoa` package stub so probes avoid ageoa.__init__."""
+    ageoa_dir = root / "ageoa"
+    existing = sys.modules.get("ageoa")
+    if existing is not None and getattr(existing, "__path__", None):
+        return
+    stub = types.ModuleType("ageoa")
+    stub.__path__ = [str(ageoa_dir)]
+    stub.__package__ = "ageoa"
+    sys.modules["ageoa"] = stub
+
+
+def safe_import_module(module_import_path: str) -> Any:
+    """Import an ageoa submodule without executing ageoa.__init__."""
+    install_ageoa_stub()
+    return importlib.import_module(module_import_path)
+
+
+def _summarize_value(value: Any) -> dict[str, Any]:
+    if isinstance(value, np.ndarray):
+        return {
+            "type": "ndarray",
+            "shape": list(value.shape),
+            "dtype": str(value.dtype),
+        }
+    if isinstance(value, tuple):
+        return {"type": "tuple", "length": len(value)}
+    if isinstance(value, list):
+        return {"type": "list", "length": len(value)}
+    return {"type": type(value).__name__, "repr": repr(value)[:120]}
+
+
+def _run_case(func: Callable[..., Any], case: ProbeCase | None) -> dict[str, Any]:
+    if case is None:
+        return {"status": "not_applicable", "description": None}
+    try:
+        result = case.invoke(func)
+        if case.expect_exception:
+            return {
+                "status": "fail",
+                "description": case.description,
+                "message": "probe unexpectedly succeeded",
+                "result_summary": _summarize_value(result),
+            }
+        if case.validate is not None:
+            case.validate(result)
+        return {
+            "status": "pass",
+            "description": case.description,
+            "result_summary": _summarize_value(result),
+        }
+    except Exception as exc:  # noqa: BLE001 - evidence wants exception detail
+        if case.expect_exception:
+            return {
+                "status": "pass",
+                "description": case.description,
+                "exception_type": type(exc).__name__,
+                "exception_message": str(exc)[:240],
+            }
+        return {
+            "status": "fail",
+            "description": case.description,
+            "exception_type": type(exc).__name__,
+            "exception_message": str(exc)[:240],
+        }
+
+
+def _assert_scalar(expected: float | int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        if isinstance(expected, float):
+            assert np.isclose(float(result), expected)
+        else:
+            assert int(result) == expected
+
+    return _validator
+
+
+def _assert_array(expected: np.ndarray, *, atol: float = 1e-8) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        np.testing.assert_allclose(np.asarray(result), expected, atol=atol)
+
+    return _validator
+
+
+def _search_plans() -> dict[str, ProbePlan]:
+    adjacency = np.array(
+        [
+            [0.0, 1.0, 4.0],
+            [0.0, 0.0, 2.0],
+            [0.0, 0.0, 0.0],
+        ]
+    )
+    traversal = np.array([0, 1, 2])
+    return {
+        "ageoa.algorithms.search.binary_search": ProbePlan(
+            positive=ProbeCase(
+                "binary search over a sorted vector",
+                lambda func: func(np.array([1, 3, 5, 7]), 5),
+                _assert_scalar(2),
+            ),
+            negative=ProbeCase(
+                "binary search rejects unsorted input",
+                lambda func: func(np.array([3, 1, 2]), 2),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.search.linear_search": ProbePlan(
+            positive=ProbeCase(
+                "linear search over a small vector",
+                lambda func: func(np.array([4, 1, 4]), 1),
+                _assert_scalar(1),
+            ),
+            negative=ProbeCase(
+                "linear search rejects empty input",
+                lambda func: func(np.array([]), 1),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.search.hash_lookup": ProbePlan(
+            positive=ProbeCase(
+                "hash lookup over a small vector",
+                lambda func: func(np.array([4, 1, 4]), 4),
+                _assert_scalar(0),
+            ),
+            negative=ProbeCase(
+                "hash lookup rejects empty input",
+                lambda func: func(np.array([]), 1),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.graph.bfs": ProbePlan(
+            positive=ProbeCase(
+                "breadth-first search on a 3-node graph",
+                lambda func: func(adjacency, source=0),
+                _assert_array(traversal),
+            ),
+            negative=ProbeCase(
+                "breadth-first search rejects non-square adjacency",
+                lambda func: func(np.array([[0.0, 1.0, 0.0]]), source=0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.graph.dfs": ProbePlan(
+            positive=ProbeCase(
+                "depth-first search on a 3-node graph",
+                lambda func: func(adjacency, source=0),
+                _assert_array(traversal),
+            ),
+            negative=ProbeCase(
+                "depth-first search rejects non-square adjacency",
+                lambda func: func(np.array([[0.0, 1.0, 0.0]]), source=0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.graph.dijkstra": ProbePlan(
+            positive=ProbeCase(
+                "dijkstra shortest paths on a small DAG",
+                lambda func: func(adjacency, source=0),
+                _assert_array(np.array([0.0, 1.0, 3.0])),
+            ),
+            negative=ProbeCase(
+                "dijkstra rejects negative weights",
+                lambda func: func(np.array([[0.0, -1.0], [0.0, 0.0]]), source=0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.graph.bellman_ford": ProbePlan(
+            positive=ProbeCase(
+                "bellman-ford shortest paths on a small DAG",
+                lambda func: func(adjacency, source=0),
+                _assert_array(np.array([0.0, 1.0, 3.0])),
+            ),
+            negative=ProbeCase(
+                "bellman-ford rejects non-square adjacency",
+                lambda func: func(np.array([[0.0, 1.0, 0.0]]), source=0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.graph.floyd_warshall": ProbePlan(
+            positive=ProbeCase(
+                "floyd-warshall all-pairs shortest paths",
+                lambda func: func(adjacency),
+                _assert_array(np.array([[0.0, 1.0, 3.0], [np.inf, 0.0, 2.0], [np.inf, np.inf, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "floyd-warshall rejects non-square adjacency",
+                lambda func: func(np.array([[0.0, 1.0, 0.0]])),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _numpy_plans() -> dict[str, ProbePlan]:
+    return {
+        "ageoa.numpy.arrays.array": ProbePlan(
+            positive=ProbeCase(
+                "numpy.array over a short Python list",
+                lambda func: func([1, 2, 3]),
+                _assert_array(np.array([1, 2, 3])),
+            ),
+        ),
+        "ageoa.numpy.arrays.zeros": ProbePlan(
+            positive=ProbeCase(
+                "numpy.zeros over a tiny shape",
+                lambda func: func((2, 2)),
+                _assert_array(np.zeros((2, 2))),
+            ),
+            negative=ProbeCase(
+                "numpy.zeros rejects an invalid shape type",
+                lambda func: func("bad-shape"),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.arrays.dot": ProbePlan(
+            positive=ProbeCase(
+                "numpy.dot over short vectors",
+                lambda func: func(np.array([1, 2]), np.array([3, 4])),
+                _assert_scalar(11),
+            ),
+            negative=ProbeCase(
+                "numpy.dot rejects incompatible dimensions",
+                lambda func: func(np.array([1, 2]), np.array([1, 2, 3])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.arrays.vstack": ProbePlan(
+            positive=ProbeCase(
+                "numpy.vstack over two rows",
+                lambda func: func([np.array([1, 2]), np.array([3, 4])]),
+                _assert_array(np.array([[1, 2], [3, 4]])),
+            ),
+            negative=ProbeCase(
+                "numpy.vstack rejects an empty tuple",
+                lambda func: func([]),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.arrays.reshape": ProbePlan(
+            positive=ProbeCase(
+                "numpy.reshape over a 1D vector",
+                lambda func: func(np.arange(6), (2, 3)),
+                _assert_array(np.arange(6).reshape(2, 3)),
+            ),
+            negative=ProbeCase(
+                "numpy.reshape rejects a missing array",
+                lambda func: func(None, (2, 1)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.emath.sqrt": ProbePlan(
+            positive=ProbeCase(
+                "numpy.emath.sqrt over positive inputs",
+                lambda func: func(np.array([1.0, 4.0, 9.0])),
+                _assert_array(np.array([1.0, 2.0, 3.0])),
+            ),
+        ),
+        "ageoa.numpy.emath.log": ProbePlan(
+            positive=ProbeCase(
+                "numpy.emath.log over positive inputs",
+                lambda func: func(np.array([1.0, np.e, np.e**2])),
+                _assert_array(np.array([0.0, 1.0, 2.0])),
+            ),
+        ),
+        "ageoa.numpy.emath.log10": ProbePlan(
+            positive=ProbeCase(
+                "numpy.emath.log10 over powers of ten",
+                lambda func: func(np.array([1.0, 10.0, 100.0])),
+                _assert_array(np.array([0.0, 1.0, 2.0])),
+            ),
+        ),
+        "ageoa.numpy.emath.power": ProbePlan(
+            positive=ProbeCase(
+                "numpy.emath.power over a small vector",
+                lambda func: func(np.array([2.0, 3.0]), np.array([3.0, 2.0])),
+                _assert_array(np.array([8.0, 9.0])),
+            ),
+        ),
+    }
+
+
+def _scipy_plans() -> dict[str, ProbePlan]:
+    matrix = np.array([[4.0, 2.0], [1.0, 3.0]])
+    vector = np.array([1.0, 2.0])
+    lu = np.array([[4.0, 2.0], [0.25, 2.5]])
+    piv = np.array([0, 1], dtype=np.int32)
+    return {
+        "ageoa.scipy.fft.dct": ProbePlan(
+            positive=ProbeCase(
+                "scipy.fft.dct over a short real vector",
+                lambda func: func(np.array([1.0, 2.0, 3.0]), norm="ortho"),
+                _assert_array(np.array([3.46410162, -1.41421356, 0.0])),
+            ),
+            negative=ProbeCase(
+                "scipy.fft.dct rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.fft.idct": ProbePlan(
+            positive=ProbeCase(
+                "scipy.fft.idct over a short real vector",
+                lambda func: func(np.array([3.46410162, -1.41421356, 0.0]), norm="ortho"),
+                _assert_array(np.array([1.0, 2.0, 3.0])),
+            ),
+            negative=ProbeCase(
+                "scipy.fft.idct rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.linalg.solve": ProbePlan(
+            positive=ProbeCase(
+                "scipy.linalg.solve over a tiny system",
+                lambda func: func(matrix, vector),
+                _assert_array(np.array([-0.1, 0.7])),
+            ),
+            negative=ProbeCase(
+                "scipy.linalg.solve rejects non-square matrices",
+                lambda func: func(np.array([[1.0, 2.0, 3.0]]), np.array([1.0])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.linalg.inv": ProbePlan(
+            positive=ProbeCase(
+                "scipy.linalg.inv over a tiny matrix",
+                lambda func: func(matrix),
+                _assert_array(np.array([[0.3, -0.2], [-0.1, 0.4]])),
+            ),
+            negative=ProbeCase(
+                "scipy.linalg.inv rejects non-square matrices",
+                lambda func: func(np.array([[1.0, 2.0, 3.0]])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.linalg.det": ProbePlan(
+            positive=ProbeCase(
+                "scipy.linalg.det over a tiny matrix",
+                lambda func: func(matrix),
+                _assert_scalar(10.0),
+            ),
+        ),
+        "ageoa.scipy.linalg.lu_factor": ProbePlan(
+            positive=ProbeCase(
+                "scipy.linalg.lu_factor over a tiny matrix",
+                lambda func: func(matrix),
+                lambda result: (
+                    np.testing.assert_allclose(np.asarray(result[0]), lu),
+                    np.testing.assert_array_equal(np.asarray(result[1]), piv),
+                ),
+            ),
+            negative=ProbeCase(
+                "scipy.linalg.lu_factor rejects non-square matrices",
+                lambda func: func(np.array([[1.0, 2.0, 3.0]])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.linalg.lu_solve": ProbePlan(
+            positive=ProbeCase(
+                "scipy.linalg.lu_solve over a tiny factored system",
+                lambda func: func((lu, piv), vector),
+                _assert_array(np.array([-0.1, 0.7])),
+            ),
+            negative=ProbeCase(
+                "scipy.linalg.lu_solve rejects incompatible RHS",
+                lambda func: func((lu, piv), np.array([1.0, 2.0, 3.0])),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+PROBE_PLANS = {}
+PROBE_PLANS.update(_search_plans())
+PROBE_PLANS.update(_numpy_plans())
+PROBE_PLANS.update(_scipy_plans())
+
+
+def build_runtime_probe(record: dict[str, Any]) -> dict[str, Any]:
+    """Run the safe deterministic probe plan for one atom, or skip it."""
+    base = {
+        "schema_version": "1.0",
+        "generated_at": utc_now(),
+        "atom_id": record["atom_id"],
+        "atom_name": record["atom_name"],
+        "probe_status": "skipped",
+        "positive_probe": {"status": "not_applicable"},
+        "negative_probe": {"status": "not_applicable"},
+        "parity_used": False,
+        "skip_reason": None,
+        "exception_type": None,
+        "exception_message": None,
+    }
+    if record.get("skeleton"):
+        base["probe_status"] = "skipped"
+        base["skip_reason"] = "skeleton_wrapper"
+        section = {
+            "status": "fail",
+            "findings": ["RUNTIME_NOT_IMPLEMENTED"],
+            "notes": ["Wrapper is a skeleton or raises NotImplementedError."],
+            "source_refs": [{"path": record["module_path"], "line": record.get("wrapper_line")}],
+            **base,
+        }
+        return section
+
+    plan = PROBE_PLANS.get(record["atom_name"])
+    if plan is None:
+        section = {
+            "status": "not_applicable",
+            "findings": ["RUNTIME_PROBE_SKIPPED"],
+            "notes": ["Atom is outside the conservative safe probe allowlist."],
+            "source_refs": [{"path": record["module_path"], "line": record.get("wrapper_line")}],
+            **base,
+            "skip_reason": "unsupported_scope",
+        }
+        return section
+
+    try:
+        module = safe_import_module(record["module_import_path"])
+        func = getattr(module, record["wrapper_symbol"])
+    except Exception as exc:  # noqa: BLE001 - want to record import failure details
+        return {
+            "status": "partial",
+            "findings": ["RUNTIME_IMPORT_FAIL"],
+            "notes": ["Import failed before the runtime probe could execute."],
+            "source_refs": [{"path": record["module_path"], "line": record.get("wrapper_line")}],
+            **base,
+            "probe_status": "failed",
+            "exception_type": type(exc).__name__,
+            "exception_message": str(exc)[:240],
+        }
+
+    positive = _run_case(func, plan.positive)
+    negative = _run_case(func, plan.negative)
+    findings: list[str] = []
+    notes: list[str] = []
+
+    if positive["status"] == "pass":
+        findings.append("RUNTIME_PROBE_PASS")
+    else:
+        findings.append("RUNTIME_PROBE_FAIL")
+        if positive.get("exception_type"):
+            notes.append(f"Positive probe raised {positive['exception_type']}: {positive.get('exception_message', '')}")
+
+    if negative["status"] == "pass":
+        findings.append("RUNTIME_CONTRACT_NEGATIVE_PASS")
+    elif negative["status"] == "fail":
+        findings.append("RUNTIME_CONTRACT_NEGATIVE_FAIL")
+        if negative.get("exception_type"):
+            notes.append(f"Negative probe raised {negative['exception_type']}: {negative.get('exception_message', '')}")
+
+    if positive["status"] == "fail":
+        status = "fail"
+    elif negative["status"] == "fail":
+        status = "fail"
+    elif negative["status"] == "not_applicable":
+        status = "partial"
+    else:
+        status = "pass"
+
+    return {
+        "status": status,
+        "findings": findings,
+        "notes": notes,
+        "source_refs": [{"path": record["module_path"], "line": record.get("wrapper_line")}],
+        **base,
+        "probe_status": "executed",
+        "positive_probe": positive,
+        "negative_probe": negative,
+        "parity_used": plan.parity_used,
+        "exception_type": positive.get("exception_type"),
+        "exception_message": positive.get("exception_message"),
+    }
+
+
+def write_runtime_probe(record: dict[str, Any]) -> dict[str, Any]:
+    """Run, persist, and merge runtime probe evidence for one atom."""
+    section = build_runtime_probe(record)
+    write_json(AUDIT_PROBES_DIR / f"{safe_atom_stem(record['atom_id'])}.json", section)
+    write_evidence_section(record["atom_id"], "runtime_probe", section)
+    return section

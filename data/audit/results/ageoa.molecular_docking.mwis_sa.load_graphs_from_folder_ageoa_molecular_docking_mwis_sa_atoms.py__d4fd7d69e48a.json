@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.molecular_docking.mwis_sa.load_graphs_from_folder@ageoa/molecular_docking/mwis_sa/atoms.py:18",
+  "atom_name": "ageoa.molecular_docking.mwis_sa.load_graphs_from_folder",
+  "acceptability_score": 49,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 19,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "fail",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [
+    "RETURN_IGNORES_UPSTREAM_VALUE"
+  ],
+  "major_penalties": [
+    "RETURN_IGNORES_UPSTREAM_VALUE",
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "required_actions": [
+    "thread the upstream return value into the wrapper output or document the derivation"
+  ]
+}

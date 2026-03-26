@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:41",
+  "atom_name": "ageoa.e2e_ppg.ppg_reconstruction",
+  "atom_key": "e2e_ppg:ppg_reconstruction",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "E2E-PPG",
+    "module": "ppg_reconstruction",
+    "function": "reconstruction",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "data"
+    ],
+    "required_parameter_names": [
+      "data"
+    ],
+    "return_annotation": "np.ndarray"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate",
+      "filter_signal"
+    ],
+    "required_parameter_names": [
+      "sig",
+      "clean_indices",
+      "noisy_indices",
+      "sampling_rate"
+    ],
+    "parameters": [
+      {
+        "name": "sig",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "np.ndarray"
+      },
+      {
+        "name": "clean_indices",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "list"
+      },
+      {
+        "name": "noisy_indices",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "list"
+      },
+      {
+        "name": "sampling_rate",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "int"
+      },
+      {
+        "name": "filter_signal",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": "bool"
+      }
+    ],
+    "return_annotation": "Tuple[np.ndarray, list, list]"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/E2E-PPG/ppg_reconstruction.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+  ],
+  "notes": [
+    "missing_required=sig,clean_indices,noisy_indices,sampling_rate",
+    "invented_parameters=data"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [
+    "sig",
+    "clean_indices",
+    "noisy_indices",
+    "sampling_rate"
+  ],
+  "invented_parameters": [
+    "data"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/atoms.py",
+        "line": 41
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:41",
+    "atom_name": "ageoa.e2e_ppg.ppg_reconstruction",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:41",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/atoms.py",
+        "line": 41
+      }
+    ],
+    "returned_names": [
+      "reconstructed"
+    ],
+    "call_assignment_targets": [
+      "reconstructed"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:41",
+    "status": "unknown",
+    "findings": [
+      "STATE_UNKNOWN"
+    ],
+    "notes": [
+      "No recognizable state update or state-read pattern was found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/atoms.py",
+        "line": 41
+      }
+    ],
+    "state_fields": [
+      "buffer",
+      "clean_indices",
+      "is_reliable",
+      "noisy_indices",
+      "sampling_rate"
+    ],
+    "updated_fields": [],
+    "state_reads": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:41",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/atoms.py",
+        "line": 41
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

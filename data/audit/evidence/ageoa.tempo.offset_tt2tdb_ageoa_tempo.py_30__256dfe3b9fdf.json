@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
+  "atom_name": "ageoa.tempo.offset_tt2tdb",
+  "atom_key": "tempo:offset_tt2tdb",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "seconds"
+    ],
+    "required_parameter_names": [
+      "seconds"
+    ],
+    "return_annotation": "Any"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "fail",
+    "findings": [
+      "RUNTIME_NOT_IMPLEMENTED"
+    ],
+    "notes": [
+      "Wrapper is a skeleton or raises NotImplementedError."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/tempo.py",
+        "line": 30
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
+    "atom_name": "ageoa.tempo.offset_tt2tdb",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "skeleton_wrapper",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/tempo.py",
+        "line": 30
+      }
+    ],
+    "returned_names": [],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/tempo.py",
+        "line": 30
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.tempo.offset_tt2tdb@ageoa/tempo.py:30",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/tempo.py",
+        "line": 30
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
+  "atom_name": "ageoa.quantfin.rng_skip_d12.f",
+  "atom_key": "quantfin/rng_skip_d12:f",
+  "mapping_found": false,
+  "upstream_mapping": {
+    "repo": "quantfin",
+    "module": "Quant.RNG.MWC64X",
+    "function": null,
+    "language": "haskell",
+    "notes": "Internal helper within MWC64X RNG"
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "acc",
+      "acc_prime",
+      "e_prime",
+      "e1",
+      "f",
+      "otherwise",
+      "sqr",
+      "sqr_prime"
+    ],
+    "required_parameter_names": [
+      "acc",
+      "acc_prime",
+      "e_prime",
+      "e1",
+      "f",
+      "otherwise",
+      "sqr",
+      "sqr_prime"
+    ],
+    "return_annotation": "int"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
+        "line": 439
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
+    "atom_name": "ageoa.quantfin.rng_skip_d12.f",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
+        "line": 439
+      }
+    ],
+    "returned_names": [
+      "acc",
+      "acc_prime",
+      "e_prime",
+      "f",
+      "otherwise",
+      "sqr_prime"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
+        "line": 439
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
+        "line": 439
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.quant_engine.execute_passive@ageoa/quant_engine/atoms.py:115",
+  "atom_name": "ageoa.quant_engine.execute_passive",
+  "atom_key": "quant_engine:execute_passive",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "trade_qty",
+      "state"
+    ],
+    "required_parameter_names": [
+      "trade_qty",
+      "state"
+    ],
+    "return_annotation": "Tuple[None, LimitQueueState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quant_engine/atoms.py",
+        "line": 115
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.quant_engine.execute_passive@ageoa/quant_engine/atoms.py:115",
+    "atom_name": "ageoa.quant_engine.execute_passive",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.quant_engine.execute_passive@ageoa/quant_engine/atoms.py:115",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/quant_engine/atoms.py",
+        "line": 115
+      }
+    ],
+    "returned_names": [
+      "new_state"
+    ],
+    "call_assignment_targets": [
+      "my_qty",
+      "new_state",
+      "orders_ahead",
+      "queue_overflow"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.quant_engine.execute_passive@ageoa/quant_engine/atoms.py:115",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/quant_engine/atoms.py",
+        "line": 115
+      }
+    ],
+    "state_fields": [
+      "is_filled",
+      "my_qty",
+      "ofi_stream",
+      "orders_ahead",
+      "risk_limit",
+      "strategy"
+    ],
+    "updated_fields": [
+      "my_qty",
+      "orders_ahead"
+    ],
+    "state_reads": [
+      "model_copy",
+      "my_qty",
+      "orders_ahead"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.quant_engine.execute_passive@ageoa/quant_engine/atoms.py:115",
+    "status": "partial",
+    "findings": [
+      "NOUN_LOW_UPSTREAM_ALIGNMENT",
+      "NOUN_UNDOCUMENTED_STATE"
+    ],
+    "notes": [
+      "Less than half of the generated noun tokens align with upstream/docstring terms."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/quant_engine/atoms.py",
+        "line": 115
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "ahead",
+      "orders",
+      "qty"
+    ],
+    "undocumented_nouns": [
+      "ahead",
+      "orders",
+      "qty"
+    ]
+  }
+}

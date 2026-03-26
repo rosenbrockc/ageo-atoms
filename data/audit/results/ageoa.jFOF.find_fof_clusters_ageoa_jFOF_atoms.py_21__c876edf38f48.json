@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.jFOF.find_fof_clusters@ageoa/jFOF/atoms.py:21",
+  "atom_name": "ageoa.jFOF.find_fof_clusters",
+  "acceptability_score": 47,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 16,
+    "runtime": 6,
+    "upstream_fidelity": 0,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "partial",
+    "runtime_status": "partial",
+    "semantic_status": "fail",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+    "RETURN_IGNORES_UPSTREAM_VALUE"
+  ],
+  "major_penalties": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+    "RETURN_IGNORES_UPSTREAM_VALUE",
+    "RUNTIME_PROBE_SKIPPED",
+    "STRUCT_CDG_TYPE_HEALTH_LOW",
+    "STRUCT_CDG_TYPE_NON_NORMALIZED"
+  ],
+  "required_actions": [
+    "remove or document invented wrapper parameters",
+    "align wrapper parameters with the upstream required parameters",
+    "thread the upstream return value into the wrapper output or document the derivation"
+  ]
+}

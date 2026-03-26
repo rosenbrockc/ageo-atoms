@@ -31,53 +31,67 @@ def _tokenize(text: str | None) -> set[str]:
 
 def _score_structural(record: dict[str, Any]) -> tuple[int, list[str], str]:
     score = 20
-    findings: list[str] = []
-    if record.get("skeleton"):
-        return 0, ["STRUCT_STUB_PUBLIC_API"], "fail"
-    if record.get("require_count", 0) == 0:
-        score -= 5
-        findings.append("STRUCT_REQUIRE_MISSING")
-    if record.get("ensure_count", 0) == 0:
-        score -= 5
-        findings.append("STRUCT_ENSURE_MISSING")
-    if record.get("placeholder_witness"):
-        score -= 4
-        findings.append("STRUCT_WITNESS_PLACEHOLDER")
-    if not record.get("has_witnesses"):
-        score -= 3
-        findings.append("STRUCT_WITNESS_FILE_MISSING")
-    if not record.get("has_cdg"):
-        score -= 3
-        findings.append("STRUCT_CDG_MISSING")
-    if not record.get("has_docstring"):
-        score -= 4
-        findings.append("STRUCT_DOCSTRING_MISSING")
+    findings = list(record.get("structural_findings", []))
+    status = record.get("structural_status", "unknown")
+    if not findings and status == "pass":
+        return score, [], "pass"
+    penalties = {
+        "STRUCT_STUB_PUBLIC_API": 20,
+        "STRUCT_REGISTER_MISSING": 10,
+        "STRUCT_REQUIRE_MISSING": 5,
+        "STRUCT_ENSURE_MISSING": 5,
+        "STRUCT_WITNESS_PLACEHOLDER": 4,
+        "STRUCT_WITNESS_FILE_MISSING": 3,
+        "STRUCT_CDG_MISSING": 3,
+        "STRUCT_DOCSTRING_MISSING": 4,
+        "STRUCT_DOCSTRING_PLACEHOLDER": 4,
+        "STRUCT_WEAK_TYPES": 3,
+    }
+    for code in findings:
+        score -= penalties.get(code, 2)
     score = max(0, score)
-    if score >= 16:
-        status = "pass"
-    elif score >= 8:
-        status = "partial"
-    else:
-        status = "fail"
+    if status not in {"pass", "partial", "fail"}:
+        if score >= 16:
+            status = "pass"
+        elif score >= 8:
+            status = "partial"
+        else:
+            status = "fail"
     return score, findings, status
 
 
-def _score_runtime(record: dict[str, Any]) -> tuple[int, list[str], str]:
+def _score_runtime(record: dict[str, Any], evidence: dict[str, Any] | None) -> tuple[int, list[str], str]:
+    runtime = evidence.get("runtime_probe") if evidence else None
+    if isinstance(runtime, dict):
+        findings = list(runtime.get("findings", []))
+        status = runtime.get("status", "unknown")
+        if status == "pass":
+            return 14, findings, "pass"
+        if status == "partial":
+            return 9, findings or ["RUNTIME_PROBE_SKIPPED"], "partial"
+        if status == "fail":
+            return 0, findings or ["RUNTIME_PROBE_FAIL"], "fail"
+        if status == "not_applicable":
+            return 6, findings or ["RUNTIME_PROBE_SKIPPED"], "partial"
+        return 6, findings or ["RUNTIME_NO_PROBE_EVIDENCE"], "unknown"
     if record.get("skeleton"):
         return 0, ["RUNTIME_NOT_IMPLEMENTED"], "fail"
     if record.get("has_parity_tests"):
-        return 14, [], "pass"
+        return 8, ["RUNTIME_NO_PROBE_EVIDENCE"], "unknown"
     return 6, ["RUNTIME_NO_PROBE_EVIDENCE"], "unknown"
 
 
 def _score_fidelity(record: dict[str, Any], evidence: dict[str, Any] | None) -> tuple[int, list[str], str]:
     score = 35
     findings: list[str] = []
+    evidence = evidence or {}
     if not evidence or not evidence.get("mapping_found"):
-        return 15, ["FIDELITY_UPSTREAM_UNMAPPED"], "unknown"
+        score = 15
+        findings.append("FIDELITY_UPSTREAM_UNMAPPED")
     if evidence.get("upstream_signature") is None:
-        return 14, ["FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"], "unknown"
-    for finding in evidence.get("findings", []):
+        score = min(score, 14)
+        findings.append("FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE")
+    for finding in evidence.get("findings", []) if evidence else []:
         if finding == "FIDELITY_SIGNATURE_MISSING_REQUIRED":
             score -= 14
             findings.append(finding)
@@ -99,8 +113,30 @@ def _score_fidelity(record: dict[str, Any], evidence: dict[str, Any] | None) -> 
         elif finding == "FIDELITY_WEAK_TYPES":
             score -= 5
             findings.append(finding)
+    for category in ("return_fidelity", "state_fidelity", "generated_nouns"):
+        section = evidence.get(category) if evidence else None
+        if not isinstance(section, dict):
+            continue
+        for finding in section.get("findings", []):
+            if finding in {"RETURN_FABRICATED_ATTRIBUTE", "RETURN_IGNORES_UPSTREAM_VALUE", "STATE_FABRICATED_FIELD", "STATE_QUERY_MUTATION_CONFUSION"}:
+                score -= 16
+            elif finding in {"RETURN_DERIVED_ARTIFACT_UNDOCUMENTED", "STATE_REHYDRATION_MISSING"}:
+                score -= 7
+            elif finding in {"NOUN_UNDOCUMENTED_OUTPUT", "NOUN_UNDOCUMENTED_STATE", "NOUN_LOW_UPSTREAM_ALIGNMENT"}:
+                score -= 5
+            findings.append(finding)
     score = max(0, score)
-    if any(item in findings for item in ("FIDELITY_SIGNATURE_MISSING_REQUIRED", "FIDELITY_SIGNATURE_INVENTED_PARAMETER")):
+    if any(
+        item in findings
+        for item in (
+            "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+            "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+            "RETURN_FABRICATED_ATTRIBUTE",
+            "RETURN_IGNORES_UPSTREAM_VALUE",
+            "STATE_FABRICATED_FIELD",
+            "STATE_QUERY_MUTATION_CONFUSION",
+        )
+    ):
         status = "fail"
     elif findings:
         status = "partial"
@@ -131,8 +167,19 @@ def _score_developer_semantics(record: dict[str, Any], evidence: dict[str, Any] 
     if record.get("source_kind") == "generated_ingest" and summary.startswith("stateless wrapper"):
         score -= 2
         findings.append("SEMANTICS_GENERATED_ABSTRACTION")
+    nouns = evidence.get("generated_nouns") if evidence else None
+    if isinstance(nouns, dict):
+        for finding in nouns.get("findings", []):
+            if finding in {"NOUN_UNDOCUMENTED_OUTPUT", "NOUN_UNDOCUMENTED_STATE"}:
+                score -= 4
+                findings.append(finding)
+            elif finding == "NOUN_LOW_UPSTREAM_ALIGNMENT":
+                score -= 5
+                findings.append(finding)
     score = max(0, score)
-    if score >= 12:
+    if any(code in findings for code in {"NOUN_UNDOCUMENTED_OUTPUT", "NOUN_UNDOCUMENTED_STATE", "NOUN_LOW_UPSTREAM_ALIGNMENT"}):
+        status = "partial" if score >= 7 else "fail"
+    elif score >= 12:
         status = "pass"
     elif score >= 7:
         status = "partial"
@@ -176,7 +223,7 @@ def _band_for_score(score: int) -> str:
 def score_acceptability(record: dict[str, Any], signature_evidence: dict[str, Any] | None) -> dict[str, Any]:
     """Score a single atom deterministically."""
     structural_score, structural_findings, structural_status = _score_structural(record)
-    runtime_score, runtime_findings, runtime_status = _score_runtime(record)
+    runtime_score, runtime_findings, runtime_status = _score_runtime(record, signature_evidence)
     fidelity_score, fidelity_findings, semantic_status = _score_fidelity(record, signature_evidence)
     semantics_score, semantics_findings, developer_status = _score_developer_semantics(record, signature_evidence)
     trust_score, trust_findings, trust_status = _score_trust_support(record)
@@ -187,12 +234,38 @@ def score_acceptability(record: dict[str, Any], signature_evidence: dict[str, An
 
     if structural_status == "fail" or runtime_status == "fail":
         caps.append(19)
-        blockers.extend(code for code in structural_findings + runtime_findings if code in {"STRUCT_STUB_PUBLIC_API", "RUNTIME_NOT_IMPLEMENTED"})
+        blockers.extend(
+            code
+            for code in structural_findings + runtime_findings
+            if code in {"STRUCT_STUB_PUBLIC_API", "RUNTIME_NOT_IMPLEMENTED", "RUNTIME_PROBE_FAIL", "RUNTIME_CONTRACT_NEGATIVE_FAIL"}
+        )
     if "FIDELITY_UPSTREAM_UNMAPPED" in fidelity_findings:
         caps.append(59)
-    if any(code in fidelity_findings for code in ("FIDELITY_SIGNATURE_MISSING_REQUIRED", "FIDELITY_SIGNATURE_INVENTED_PARAMETER")):
+    if any(
+        code in fidelity_findings
+        for code in (
+            "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+            "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+            "RETURN_FABRICATED_ATTRIBUTE",
+            "RETURN_IGNORES_UPSTREAM_VALUE",
+            "STATE_FABRICATED_FIELD",
+            "STATE_QUERY_MUTATION_CONFUSION",
+        )
+    ):
         caps.append(49)
-        blockers.extend(code for code in fidelity_findings if code in {"FIDELITY_SIGNATURE_MISSING_REQUIRED", "FIDELITY_SIGNATURE_INVENTED_PARAMETER"})
+        blockers.extend(
+            code
+            for code in fidelity_findings
+            if code
+            in {
+                "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+                "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+                "RETURN_FABRICATED_ATTRIBUTE",
+                "RETURN_IGNORES_UPSTREAM_VALUE",
+                "STATE_FABRICATED_FIELD",
+                "STATE_QUERY_MUTATION_CONFUSION",
+            }
+        )
     if "TRUST_PROVENANCE_MISSING" in trust_findings:
         caps.append(69)
     if "RUNTIME_NO_PROBE_EVIDENCE" in runtime_findings:
@@ -215,10 +288,22 @@ def score_acceptability(record: dict[str, Any], signature_evidence: dict[str, An
         "STRUCT_WITNESS_FILE_MISSING": "add or reconcile the companion witnesses module",
         "STRUCT_CDG_MISSING": "add a CDG artifact for this atom family",
         "RUNTIME_NO_PROBE_EVIDENCE": "add parity fixtures or a safe runtime probe",
+        "RUNTIME_IMPORT_FAIL": "repair the wrapper import path or document why runtime probing is not applicable",
+        "RUNTIME_PROBE_FAIL": "repair the wrapper so a safe positive runtime probe succeeds",
+        "RUNTIME_CONTRACT_NEGATIVE_FAIL": "repair input validation so invalid inputs are rejected",
         "FIDELITY_UPSTREAM_UNMAPPED": "map this atom in scripts/atom_manifest.yml",
         "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE": "add vendored or importable upstream signature evidence",
         "FIDELITY_SIGNATURE_MISSING_REQUIRED": "align wrapper parameters with the upstream required parameters",
         "FIDELITY_SIGNATURE_INVENTED_PARAMETER": "remove or document invented wrapper parameters",
+        "RETURN_FABRICATED_ATTRIBUTE": "return values directly anchored to upstream outputs or documented wrapper state",
+        "RETURN_IGNORES_UPSTREAM_VALUE": "thread the upstream return value into the wrapper output or document the derivation",
+        "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED": "document or simplify derived return artifacts",
+        "STATE_FABRICATED_FIELD": "align state updates with the declared state model fields",
+        "STATE_REHYDRATION_MISSING": "rehydrate the required state fields or downgrade the wrapper semantics",
+        "STATE_QUERY_MUTATION_CONFUSION": "separate query and mutation semantics or rename the wrapper",
+        "NOUN_UNDOCUMENTED_OUTPUT": "document generated output nouns or align them with upstream terminology",
+        "NOUN_UNDOCUMENTED_STATE": "document generated state nouns or align them with declared state fields",
+        "NOUN_LOW_UPSTREAM_ALIGNMENT": "review the wrapper terminology against the upstream/source terms",
         "TRUST_PROVENANCE_MISSING": "pin source revision or upstream version in the manifest",
     }
     for code in structural_findings + runtime_findings + fidelity_findings + semantics_findings + trust_findings:

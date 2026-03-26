@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching/atoms.py:17",
+  "atom_name": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation",
+  "atom_key": "e2e_ppg/template_matching:templatefeaturecomputation",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "E2E-PPG",
+    "module": "ppg_sqa",
+    "function": "template_matching_features",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "hc"
+    ],
+    "required_parameter_names": [
+      "hc"
+    ],
+    "return_annotation": "object"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "hc"
+    ],
+    "required_parameter_names": [
+      "hc"
+    ],
+    "parameters": [
+      {
+        "name": "hc",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "list"
+      }
+    ],
+    "return_annotation": "Tuple[float, float]"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/E2E-PPG/ppg_sqa.py",
+  "findings": [
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/template_matching/atoms.py",
+        "line": 17
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching/atoms.py:17",
+    "atom_name": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching/atoms.py:17",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/template_matching/atoms.py",
+        "line": 17
+      }
+    ],
+    "returned_names": [
+      "hc",
+      "template_matching_features"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching/atoms.py:17",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/template_matching/atoms.py",
+        "line": 17
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching/atoms.py:17",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/e2e_ppg/template_matching/atoms.py",
+        "line": 17
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

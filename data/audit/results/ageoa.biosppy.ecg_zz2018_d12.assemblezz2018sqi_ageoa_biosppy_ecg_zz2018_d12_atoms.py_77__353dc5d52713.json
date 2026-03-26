@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:77",
+  "atom_name": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
+  "acceptability_score": 39,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 13,
+    "runtime": 6,
+    "upstream_fidelity": 2,
+    "developer_semantics": 8,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "partial",
+    "runtime_status": "partial",
+    "semantic_status": "fail",
+    "developer_semantics_status": "partial",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
+  ],
+  "major_penalties": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_WEAK_TYPES",
+    "NOUN_UNDOCUMENTED_OUTPUT",
+    "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED",
+    "RUNTIME_PROBE_SKIPPED",
+    "SEMANTICS_LOW_NAME_OVERLAP",
+    "STRUCT_CDG_TYPE_HEALTH_LOW",
+    "STRUCT_CDG_TYPE_NON_NORMALIZED",
+    "STRUCT_WEAK_TYPES"
+  ],
+  "required_actions": [
+    "remove or document invented wrapper parameters",
+    "document or simplify derived return artifacts",
+    "document generated output nouns or align them with upstream terminology"
+  ]
+}

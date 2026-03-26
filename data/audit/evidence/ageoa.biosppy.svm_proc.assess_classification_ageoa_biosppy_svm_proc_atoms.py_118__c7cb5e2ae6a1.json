@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+  "atom_name": "ageoa.biosppy.svm_proc.assess_classification",
+  "atom_key": "biosppy/svm_proc:assess_classification",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "BioSPPy",
+    "module": "biosppy.biometrics",
+    "function": "Biometrics.assess_classification",
+    "language": "python",
+    "notes": "biometrics module contains SVM-based biometric classification"
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "results",
+      "thresholds"
+    ],
+    "required_parameter_names": [
+      "results",
+      "thresholds"
+    ],
+    "return_annotation": "dict"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "signature_unavailable",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/svm_proc/atoms.py",
+        "line": 118
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+    "atom_name": "ageoa.biosppy.svm_proc.assess_classification",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+    "status": "partial",
+    "findings": [
+      "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED"
+    ],
+    "notes": [
+      "Return dict introduces keys that are not reflected in the docstring summary."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/svm_proc/atoms.py",
+        "line": 118
+      }
+    ],
+    "returned_names": [
+      "results",
+      "thresholds"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/svm_proc/atoms.py",
+        "line": 118
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+    "status": "partial",
+    "findings": [
+      "NOUN_ALLOWLISTED_DERIVATION",
+      "NOUN_UNDOCUMENTED_OUTPUT"
+    ],
+    "notes": [
+      "Allowlisted derived nouns: ['results']"
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/biosppy/svm_proc/atoms.py",
+        "line": 118
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "results",
+      "thresholds"
+    ],
+    "undocumented_nouns": [
+      "thresholds"
+    ]
+  }
+}

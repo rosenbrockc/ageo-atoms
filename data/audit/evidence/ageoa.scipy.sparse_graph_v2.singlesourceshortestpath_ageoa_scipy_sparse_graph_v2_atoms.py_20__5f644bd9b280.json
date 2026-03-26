@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+  "atom_name": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath",
+  "atom_key": "scipy/sparse_graph_v2:singlesourceshortestpath",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": null,
+    "module": "scipy.sparse.csgraph",
+    "function": "dijkstra",
+    "language": "python",
+    "notes": "Standard library; no third_party repo"
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "csgraph",
+      "directed",
+      "indices",
+      "return_predecessors",
+      "unweighted",
+      "limit",
+      "min_only"
+    ],
+    "required_parameter_names": [
+      "csgraph",
+      "directed",
+      "indices",
+      "return_predecessors",
+      "unweighted",
+      "limit",
+      "min_only"
+    ],
+    "return_annotation": "tuple[np.ndarray, ...] | np.ndarray"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "csgraph",
+      "directed",
+      "indices",
+      "return_predecessors",
+      "unweighted",
+      "limit",
+      "min_only"
+    ],
+    "required_parameter_names": [
+      "csgraph"
+    ],
+    "parameters": [
+      {
+        "name": "csgraph",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "directed",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "indices",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "return_predecessors",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "unweighted",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "limit",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "min_only",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "inspect",
+  "upstream_signature_ref": "scipy.sparse.csgraph",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
+        "line": 20
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+    "atom_name": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
+        "line": 20
+      }
+    ],
+    "returned_names": [
+      "csgraph",
+      "dijkstra",
+      "directed",
+      "indices",
+      "limit",
+      "min_only",
+      "return_predecessors",
+      "unweighted"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
+        "line": 20
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
+        "line": 20
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

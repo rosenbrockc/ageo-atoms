@@ -1,0 +1,30 @@
+{
+  "status": "not_applicable",
+  "findings": [
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "notes": [
+    "Atom is outside the conservative safe probe allowlist."
+  ],
+  "source_refs": [
+    {
+      "path": "ageoa/scipy/sparse_graph.py",
+      "line": 63
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.scipy.sparse_graph.graph_laplacian@ageoa/scipy/sparse_graph.py:63",
+  "atom_name": "ageoa.scipy.sparse_graph.graph_laplacian",
+  "probe_status": "skipped",
+  "positive_probe": {
+    "status": "not_applicable"
+  },
+  "negative_probe": {
+    "status": "not_applicable"
+  },
+  "parity_used": false,
+  "skip_reason": "unsupported_scope",
+  "exception_type": null,
+  "exception_message": null
+}

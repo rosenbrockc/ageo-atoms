@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.molecular_docking.greedy_mapping.initializefrontierfromstartnode@ageoa/molecular_docking/greedy_mapping/atoms.py:57",
+  "atom_name": "ageoa.molecular_docking.greedy_mapping.initializefrontierfromstartnode",
+  "acceptability_score": 49,
+  "acceptability_band": "misleading_candidate",
+  "max_reviewable_verdict": "misleading",
+  "overall_verdict": "misleading",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 7,
+    "developer_semantics": 8,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "fail",
+    "developer_semantics_status": "partial",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
+  ],
+  "major_penalties": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "NOUN_UNDOCUMENTED_OUTPUT",
+    "RETURN_DERIVED_ARTIFACT_UNDOCUMENTED",
+    "RUNTIME_PROBE_SKIPPED",
+    "SEMANTICS_LOW_NAME_OVERLAP",
+    "STATE_UNKNOWN"
+  ],
+  "required_actions": [
+    "remove or document invented wrapper parameters",
+    "document or simplify derived return artifacts",
+    "document generated output nouns or align them with upstream terminology"
+  ]
+}

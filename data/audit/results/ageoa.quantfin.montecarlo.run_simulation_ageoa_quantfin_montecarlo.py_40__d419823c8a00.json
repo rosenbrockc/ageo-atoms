@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.quantfin.montecarlo.run_simulation@ageoa/quantfin/montecarlo.py:40",
+  "atom_name": "ageoa.quantfin.montecarlo.run_simulation",
+  "acceptability_score": 19,
+  "acceptability_band": "broken_candidate",
+  "max_reviewable_verdict": "broken",
+  "overall_verdict": "broken",
+  "dimension_scores": {
+    "structural": 0,
+    "runtime": 6,
+    "upstream_fidelity": 14,
+    "developer_semantics": 15,
+    "trust_support": 4
+  },
+  "dimension_evidence": {
+    "structural_status": "fail",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "partial"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "RUNTIME_PROBE_SKIPPED",
+    "STRUCT_DOCSTRING_PLACEHOLDER",
+    "STRUCT_ENSURE_MISSING",
+    "STRUCT_REGISTER_MISSING",
+    "STRUCT_REQUIRE_MISSING",
+    "TRUST_PROVENANCE_MISSING"
+  ],
+  "required_actions": [
+    "map this atom in scripts/atom_manifest.yml",
+    "add vendored or importable upstream signature evidence",
+    "pin source revision or upstream version in the manifest"
+  ]
+}

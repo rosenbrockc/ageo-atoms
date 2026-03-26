@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.e2e_ppg.reconstruction.gan_patch_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:19",
+  "atom_name": "ageoa.e2e_ppg.reconstruction.gan_patch_reconstruction",
+  "acceptability_score": 86,
+  "acceptability_band": "review_ready",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 35,
+    "developer_semantics": 15,
+    "trust_support": 10
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "pass",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "pass"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "required_actions": []
+}

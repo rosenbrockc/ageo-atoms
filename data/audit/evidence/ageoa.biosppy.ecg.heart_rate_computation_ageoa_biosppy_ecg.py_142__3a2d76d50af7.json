@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-25T21:31:07+00:00",
+  "atom_id": "ageoa.biosppy.ecg.heart_rate_computation@ageoa/biosppy/ecg.py:142",
+  "atom_name": "ageoa.biosppy.ecg.heart_rate_computation",
+  "atom_key": "biosppy/ecg:heart_rate_computation",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "rpeaks",
+      "state"
+    ],
+    "required_parameter_names": [
+      "rpeaks",
+      "state"
+    ],
+    "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], ECGPipelineState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": []
+}

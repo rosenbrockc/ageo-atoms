@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:60",
+  "atom_name": "ageoa.mint.fasta_dataset.dataset_length_query",
+  "atom_key": "mint/fasta_dataset:dataset_length_query",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "mint",
+    "module": "mint.data",
+    "function": "FastaBatchedDataset.__len__",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "dataset_state"
+    ],
+    "required_parameter_names": [
+      "dataset_state"
+    ],
+    "return_annotation": "int"
+  },
+  "upstream_signature": {
+    "parameter_names": [],
+    "required_parameter_names": [],
+    "parameters": [],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/mint/mint/data.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [
+    "invented_parameters=dataset_state"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [],
+  "invented_parameters": [
+    "dataset_state"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 60
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:60",
+    "atom_name": "ageoa.mint.fasta_dataset.dataset_length_query",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:60",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 60
+      }
+    ],
+    "returned_names": [
+      "dataset_state",
+      "len"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:60",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 60
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": [],
+    "state_reads": [
+      "sequence_labels"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:60",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mint/fasta_dataset/atoms.py",
+        "line": 60
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

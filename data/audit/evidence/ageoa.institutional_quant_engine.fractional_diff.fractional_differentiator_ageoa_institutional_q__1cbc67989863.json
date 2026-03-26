@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff/atoms.py:18",
+  "atom_name": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator",
+  "atom_key": "institutional_quant_engine/fractional_diff:fractional_differentiator",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Institutional-Quant-Engine",
+    "module": "research_math.34_fractional_diff_stationarity",
+    "function": "frac_diff",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "series",
+      "d",
+      "threshold"
+    ],
+    "required_parameter_names": [
+      "series",
+      "d",
+      "threshold"
+    ],
+    "return_annotation": "pd.Series"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "series",
+      "d",
+      "threshold"
+    ],
+    "required_parameter_names": [
+      "series",
+      "d"
+    ],
+    "parameters": [
+      {
+        "name": "series",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "d",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "threshold",
+        "required": false,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Institutional-Quant-Engine/research_math/34_fractional_diff_stationarity.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH"
+  ],
+  "notes": [],
+  "fidelity_status": "partial",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
+        "line": 18
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff/atoms.py:18",
+    "atom_name": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff/atoms.py:18",
+    "status": "fail",
+    "findings": [
+      "RETURN_FABRICATED_ATTRIBUTE"
+    ],
+    "notes": [
+      "Return reads attribute `df_fd.dropna` without a local write anchor."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
+        "line": 18
+      }
+    ],
+    "returned_names": [
+      "df_fd"
+    ],
+    "call_assignment_targets": [
+      "df_fd",
+      "weights",
+      "width"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff/atoms.py:18",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
+        "line": 18
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff/atoms.py:18",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/institutional_quant_engine/fractional_diff/atoms.py",
+        "line": 18
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+  "atom_name": "ageoa.alphafold.coordinate_reconstruction",
+  "atom_key": "alphafold:coordinate_reconstruction",
+  "mapping_found": false,
+  "upstream_mapping": {
+    "repo": null,
+    "module": null,
+    "function": null,
+    "language": "python",
+    "notes": "No third_party repo; stub references AlphaFold2 torsion_angles_to_frames logic"
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "frames",
+      "torsions",
+      "state"
+    ],
+    "required_parameter_names": [
+      "frames",
+      "torsions",
+      "state"
+    ],
+    "return_annotation": "Tuple[np.ndarray, AlphaFoldStructuralState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/alphafold/atoms.py",
+        "line": 109
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+    "atom_name": "ageoa.alphafold.coordinate_reconstruction",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/alphafold/atoms.py",
+        "line": 109
+      }
+    ],
+    "returned_names": [
+      "coords",
+      "new_state"
+    ],
+    "call_assignment_targets": [
+      "c_offset",
+      "ca_offset",
+      "coords",
+      "n_atoms",
+      "new_state",
+      "offset",
+      "origin",
+      "rot"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/alphafold/atoms.py",
+        "line": 109
+      }
+    ],
+    "state_fields": [
+      "frames",
+      "nodes",
+      "pairs"
+    ],
+    "updated_fields": [],
+    "state_reads": [
+      "nodes",
+      "pairs"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/alphafold/atoms.py",
+        "line": 109
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

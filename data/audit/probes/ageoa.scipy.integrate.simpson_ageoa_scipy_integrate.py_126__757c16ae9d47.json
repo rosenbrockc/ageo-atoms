@@ -1,0 +1,30 @@
+{
+  "status": "not_applicable",
+  "findings": [
+    "RUNTIME_PROBE_SKIPPED"
+  ],
+  "notes": [
+    "Atom is outside the conservative safe probe allowlist."
+  ],
+  "source_refs": [
+    {
+      "path": "ageoa/scipy/integrate.py",
+      "line": 126
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126",
+  "atom_name": "ageoa.scipy.integrate.simpson",
+  "probe_status": "skipped",
+  "positive_probe": {
+    "status": "not_applicable"
+  },
+  "negative_probe": {
+    "status": "not_applicable"
+  },
+  "parity_used": false,
+  "skip_reason": "unsupported_scope",
+  "exception_type": null,
+  "exception_message": null
+}

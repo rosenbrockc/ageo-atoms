@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90",
+  "atom_name": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle",
+  "atom_key": "kalman_filters/filter_rs:evaluatemeasurementoracle",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "filter-rs",
+    "module": "kalman.kalman_filter",
+    "function": "KalmanFilter.residual_of",
+    "language": "rust",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "x",
+      "z",
+      "H"
+    ],
+    "required_parameter_names": [
+      "x",
+      "z",
+      "H"
+    ],
+    "return_annotation": "tuple[object, object]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/kalman_filters/filter_rs/atoms.py",
+        "line": 90
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90",
+    "atom_name": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90",
+    "status": "fail",
+    "findings": [
+      "RETURN_IGNORES_UPSTREAM_VALUE"
+    ],
+    "notes": [
+      "Return expression does not mention any variable assigned from a call result."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/kalman_filters/filter_rs/atoms.py",
+        "line": 90
+      }
+    ],
+    "returned_names": [
+      "innovation",
+      "z_pred"
+    ],
+    "call_assignment_targets": [
+      "H_mat",
+      "x_arr",
+      "z_arr"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/kalman_filters/filter_rs/atoms.py",
+        "line": 90
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle@ageoa/kalman_filters/filter_rs/atoms.py:90",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/kalman_filters/filter_rs/atoms.py",
+        "line": 90
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.scipy.interpolate_v2.cubicsplinefit@ageoa/scipy/interpolate_v2/atoms.py:21",
+  "atom_name": "ageoa.scipy.interpolate_v2.cubicsplinefit",
+  "acceptability_score": 65,
+  "acceptability_band": "limited_acceptability",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 13,
+    "runtime": 6,
+    "upstream_fidelity": 30,
+    "developer_semantics": 12,
+    "trust_support": 4
+  },
+  "dimension_evidence": {
+    "structural_status": "partial",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "partial"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_WEAK_TYPES",
+    "RUNTIME_PROBE_SKIPPED",
+    "SEMANTICS_LOW_NAME_OVERLAP",
+    "STRUCT_CDG_TYPE_HEALTH_LOW",
+    "STRUCT_CDG_TYPE_NON_NORMALIZED",
+    "STRUCT_WEAK_TYPES",
+    "TRUST_PROVENANCE_MISSING"
+  ],
+  "required_actions": [
+    "pin source revision or upstream version in the manifest"
+  ]
+}

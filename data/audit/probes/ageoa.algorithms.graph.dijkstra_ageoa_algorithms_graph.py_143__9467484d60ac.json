@@ -1,0 +1,40 @@
+{
+  "status": "pass",
+  "findings": [
+    "RUNTIME_PROBE_PASS",
+    "RUNTIME_CONTRACT_NEGATIVE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/algorithms/graph.py",
+      "line": 143
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.algorithms.graph.dijkstra@ageoa/algorithms/graph.py:143",
+  "atom_name": "ageoa.algorithms.graph.dijkstra",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "dijkstra shortest paths on a small DAG",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        3
+      ],
+      "dtype": "float64"
+    }
+  },
+  "negative_probe": {
+    "status": "pass",
+    "description": "dijkstra rejects negative weights",
+    "exception_type": "ViolationError",
+    "exception_message": "File /Users/conrad/personal/ageo-atoms/ageoa/algorithms/graph.py, line 135 in <module>:\nDijkstra requires non-negative weights: np.all(adj >= 0):\nadj was array([[ 0., -1.],\n       [ 0.,  0.]])\nnp.all was <function all at 0x1059a6f30>\nnp.all"
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

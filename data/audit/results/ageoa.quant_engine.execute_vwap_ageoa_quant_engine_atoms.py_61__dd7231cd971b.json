@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T13:35:17+00:00",
+  "atom_id": "ageoa.quant_engine.execute_vwap@ageoa/quant_engine/atoms.py:61",
+  "atom_name": "ageoa.quant_engine.execute_vwap",
+  "acceptability_score": 50,
+  "acceptability_band": "limited_acceptability",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 9,
+    "developer_semantics": 11,
+    "trust_support": 4
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "partial",
+    "semantic_status": "partial",
+    "developer_semantics_status": "partial",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "partial"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE",
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "NOUN_UNDOCUMENTED_STATE",
+    "RUNTIME_PROBE_SKIPPED",
+    "TRUST_PROVENANCE_MISSING"
+  ],
+  "required_actions": [
+    "map this atom in scripts/atom_manifest.yml",
+    "add vendored or importable upstream signature evidence",
+    "document generated state nouns or align them with declared state fields",
+    "pin source revision or upstream version in the manifest"
+  ]
+}

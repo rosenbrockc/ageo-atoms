@@ -1,0 +1,37 @@
+{
+  "status": "partial",
+  "findings": [
+    "RUNTIME_PROBE_PASS"
+  ],
+  "notes": [],
+  "source_refs": [
+    {
+      "path": "ageoa/numpy/emath.py",
+      "line": 104
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
+  "atom_name": "ageoa.numpy.emath.power",
+  "probe_status": "executed",
+  "positive_probe": {
+    "status": "pass",
+    "description": "numpy.emath.power over a small vector",
+    "result_summary": {
+      "type": "ndarray",
+      "shape": [
+        2
+      ],
+      "dtype": "float64"
+    }
+  },
+  "negative_probe": {
+    "status": "not_applicable",
+    "description": null
+  },
+  "parity_used": false,
+  "skip_reason": null,
+  "exception_type": null,
+  "exception_message": null
+}

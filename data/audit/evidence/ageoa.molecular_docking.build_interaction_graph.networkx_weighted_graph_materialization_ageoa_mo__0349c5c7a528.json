@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:88",
+  "atom_name": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization",
+  "atom_key": "molecular_docking/build_interaction_graph:networkx_weighted_graph_materialization",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "Molecular-Docking",
+    "module": "src.graph.interaction_graph",
+    "function": "build_nx_weighted_graph",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "edges",
+      "nodes"
+    ],
+    "required_parameter_names": [
+      "edges",
+      "nodes"
+    ],
+    "return_annotation": "nx.Graph | nx.DiGraph"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "edges",
+      "nodes"
+    ],
+    "required_parameter_names": [
+      "edges",
+      "nodes"
+    ],
+    "parameters": [
+      {
+        "name": "edges",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "set[tuple[InteractionNode, InteractionNode]]"
+      },
+      {
+        "name": "nodes",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": "set[InteractionNode]"
+      }
+    ],
+    "return_annotation": "nx.Graph"
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/Molecular-Docking/src/graph/interaction_graph.py",
+  "findings": [],
+  "notes": [],
+  "fidelity_status": "pass",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 88
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:88",
+    "atom_name": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:88",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 88
+      }
+    ],
+    "returned_names": [
+      "G"
+    ],
+    "call_assignment_targets": [
+      "G"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:88",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 88
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:88",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
+        "line": 88
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

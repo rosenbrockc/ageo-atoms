@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+  "atom_name": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build",
+  "atom_key": "mcmc_foundational/kthohr_mcmc/nuts:nuts_recursive_tree_build",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "mcmc",
+    "module": "mcmc.nuts",
+    "function": "nuts",
+    "language": "cpp",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "direction_val",
+      "step_size",
+      "log_slice_variable",
+      "initial_hmc_state",
+      "log_prob_oracle",
+      "integrator_fn",
+      "tree_depth"
+    ],
+    "required_parameter_names": [
+      "direction_val",
+      "step_size",
+      "log_slice_variable",
+      "initial_hmc_state",
+      "log_prob_oracle",
+      "integrator_fn",
+      "tree_depth"
+    ],
+    "return_annotation": "NUTS_Trajectory"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": "non_python_upstream",
+  "findings": [
+    "FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py",
+        "line": 27
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+    "atom_name": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py",
+        "line": 27
+      }
+    ],
+    "returned_names": [
+      "np",
+      "pos",
+      "right"
+    ],
+    "call_assignment_targets": [
+      "left",
+      "new_state",
+      "pos",
+      "right"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+    "status": "unknown",
+    "findings": [
+      "STATE_UNKNOWN"
+    ],
+    "notes": [
+      "No recognizable state update or state-read pattern was found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py",
+        "line": 27
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": [],
+    "state_reads": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py:27",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts/atoms.py",
+        "line": 27
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

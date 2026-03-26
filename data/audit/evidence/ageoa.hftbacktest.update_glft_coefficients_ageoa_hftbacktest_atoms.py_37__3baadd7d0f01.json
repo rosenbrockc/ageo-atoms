@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.hftbacktest.update_glft_coefficients@ageoa/hftbacktest/atoms.py:37",
+  "atom_name": "ageoa.hftbacktest.update_glft_coefficients",
+  "atom_key": "hftbacktest:update_glft_coefficients",
+  "mapping_found": true,
+  "upstream_mapping": {
+    "repo": "hftbacktest",
+    "module": "hftbacktest_glft",
+    "function": "HFTBacktestGLFT.compute_coeff",
+    "language": "python",
+    "notes": null
+  },
+  "wrapper_signature": {
+    "parameter_names": [
+      "last_c1",
+      "last_c2",
+      "xi",
+      "gamma",
+      "delta",
+      "A",
+      "k"
+    ],
+    "required_parameter_names": [
+      "last_c1",
+      "last_c2",
+      "xi",
+      "gamma",
+      "delta",
+      "A",
+      "k"
+    ],
+    "return_annotation": "tuple[float, float]"
+  },
+  "upstream_signature": {
+    "parameter_names": [
+      "xi",
+      "gamma",
+      "delta",
+      "A",
+      "k"
+    ],
+    "required_parameter_names": [
+      "xi",
+      "gamma",
+      "delta",
+      "A",
+      "k"
+    ],
+    "parameters": [
+      {
+        "name": "xi",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "gamma",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "delta",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "A",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      },
+      {
+        "name": "k",
+        "required": true,
+        "kind": "positional_or_keyword",
+        "annotation": null
+      }
+    ],
+    "return_annotation": null
+  },
+  "upstream_signature_source": "vendored_ast",
+  "upstream_signature_ref": "/Users/conrad/personal/ageo-atoms/third_party/hftbacktest/hftbacktest_glft.py",
+  "findings": [
+    "FIDELITY_REQUIREDNESS_MISMATCH",
+    "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
+  ],
+  "notes": [
+    "invented_parameters=last_c1,last_c2"
+  ],
+  "fidelity_status": "fail",
+  "missing_required_parameters": [],
+  "invented_parameters": [
+    "last_c1",
+    "last_c2"
+  ],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hftbacktest/atoms.py",
+        "line": 37
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.hftbacktest.update_glft_coefficients@ageoa/hftbacktest/atoms.py:37",
+    "atom_name": "ageoa.hftbacktest.update_glft_coefficients",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.hftbacktest.update_glft_coefficients@ageoa/hftbacktest/atoms.py:37",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/hftbacktest/atoms.py",
+        "line": 37
+      }
+    ],
+    "returned_names": [
+      "c1",
+      "c2"
+    ],
+    "call_assignment_targets": []
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:10+00:00",
+    "atom_id": "ageoa.hftbacktest.update_glft_coefficients@ageoa/hftbacktest/atoms.py:37",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "Atom is not marked stateful in the manifest."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hftbacktest/atoms.py",
+        "line": 37
+      }
+    ],
+    "state_fields": [],
+    "updated_fields": []
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.hftbacktest.update_glft_coefficients@ageoa/hftbacktest/atoms.py:37",
+    "status": "not_applicable",
+    "findings": [],
+    "notes": [
+      "No output dict keys or model_copy(update=...) keys were found."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/hftbacktest/atoms.py",
+        "line": 37
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [],
+    "undocumented_nouns": []
+  }
+}

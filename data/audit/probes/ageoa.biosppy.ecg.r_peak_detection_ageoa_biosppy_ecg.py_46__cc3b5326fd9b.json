@@ -1,0 +1,30 @@
+{
+  "status": "fail",
+  "findings": [
+    "RUNTIME_NOT_IMPLEMENTED"
+  ],
+  "notes": [
+    "Wrapper is a skeleton or raises NotImplementedError."
+  ],
+  "source_refs": [
+    {
+      "path": "ageoa/biosppy/ecg.py",
+      "line": 46
+    }
+  ],
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:52+00:00",
+  "atom_id": "ageoa.biosppy.ecg.r_peak_detection@ageoa/biosppy/ecg.py:46",
+  "atom_name": "ageoa.biosppy.ecg.r_peak_detection",
+  "probe_status": "skipped",
+  "positive_probe": {
+    "status": "not_applicable"
+  },
+  "negative_probe": {
+    "status": "not_applicable"
+  },
+  "parity_used": false,
+  "skip_reason": "skeleton_wrapper",
+  "exception_type": null,
+  "exception_message": null
+}

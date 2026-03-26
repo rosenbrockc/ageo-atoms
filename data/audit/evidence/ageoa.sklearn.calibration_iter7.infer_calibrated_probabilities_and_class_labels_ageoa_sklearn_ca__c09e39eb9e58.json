@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T03:24:47+00:00",
+  "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+  "atom_name": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels",
+  "atom_key": "sklearn/calibration_iter7:infer_calibrated_probabilities_and_class_labels",
+  "mapping_found": false,
+  "upstream_mapping": {},
+  "wrapper_signature": {
+    "parameter_names": [
+      "calibration_model_state",
+      "X",
+      "state"
+    ],
+    "required_parameter_names": [
+      "calibration_model_state",
+      "X",
+      "state"
+    ],
+    "return_annotation": "tuple[tuple[object, object], CalibrationConfigState]"
+  },
+  "upstream_signature": null,
+  "upstream_signature_source": null,
+  "upstream_signature_ref": null,
+  "findings": [
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "FIDELITY_WEAK_TYPES"
+  ],
+  "notes": [],
+  "fidelity_status": "unknown",
+  "missing_required_parameters": [],
+  "invented_parameters": [],
+  "runtime_probe": {
+    "status": "not_applicable",
+    "findings": [
+      "RUNTIME_PROBE_SKIPPED"
+    ],
+    "notes": [
+      "Atom is outside the conservative safe probe allowlist."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/sklearn/calibration_iter7/atoms.py",
+        "line": 107
+      }
+    ],
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:24:52+00:00",
+    "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+    "atom_name": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels",
+    "probe_status": "skipped",
+    "positive_probe": {
+      "status": "not_applicable"
+    },
+    "negative_probe": {
+      "status": "not_applicable"
+    },
+    "parity_used": false,
+    "skip_reason": "unsupported_scope",
+    "exception_type": null,
+    "exception_message": null
+  },
+  "return_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:01+00:00",
+    "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/sklearn/calibration_iter7/atoms.py",
+        "line": 107
+      }
+    ],
+    "returned_names": [
+      "new_state",
+      "result"
+    ],
+    "call_assignment_targets": [
+      "new_state",
+      "obj"
+    ]
+  },
+  "state_fidelity": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:11+00:00",
+    "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+    "status": "pass",
+    "findings": [],
+    "notes": [],
+    "source_refs": [
+      {
+        "path": "ageoa/sklearn/calibration_iter7/atoms.py",
+        "line": 107
+      }
+    ],
+    "state_fields": [
+      "calibrated_classifiers_",
+      "classes_",
+      "cv",
+      "ensemble",
+      "estimator",
+      "feature_names_in_",
+      "method",
+      "n_features_in_",
+      "n_jobs"
+    ],
+    "updated_fields": [
+      "cv",
+      "ensemble",
+      "estimator",
+      "method",
+      "n_jobs"
+    ],
+    "state_reads": [
+      "cv",
+      "ensemble",
+      "estimator",
+      "method",
+      "model_copy",
+      "n_jobs"
+    ]
+  },
+  "generated_nouns": {
+    "schema_version": "1.0",
+    "generated_at": "2026-03-26T03:25:14+00:00",
+    "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+    "status": "partial",
+    "findings": [
+      "NOUN_LOW_UPSTREAM_ALIGNMENT",
+      "NOUN_UNDOCUMENTED_STATE"
+    ],
+    "notes": [
+      "Less than half of the generated noun tokens align with upstream/docstring terms."
+    ],
+    "source_refs": [
+      {
+        "path": "ageoa/sklearn/calibration_iter7/atoms.py",
+        "line": 107
+      },
+      {
+        "path": "/Users/conrad/personal/ageo-atoms/data/audit/allowlists/generated_nouns.json"
+      }
+    ],
+    "candidate_nouns": [
+      "ensemble",
+      "estimator",
+      "jobs",
+      "method"
+    ],
+    "undocumented_nouns": [
+      "ensemble",
+      "estimator",
+      "jobs",
+      "method"
+    ]
+  }
+}

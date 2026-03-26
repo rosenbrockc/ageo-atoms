@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-25T21:31:08+00:00",
+  "atom_id": "ageoa.biosppy.ecg.peak_correction@ageoa/biosppy/ecg.py:85",
+  "atom_name": "ageoa.biosppy.ecg.peak_correction",
+  "acceptability_score": 58,
+  "acceptability_band": "limited_acceptability",
+  "max_reviewable_verdict": "acceptable_with_limits",
+  "overall_verdict": "acceptable_with_limits",
+  "dimension_scores": {
+    "structural": 20,
+    "runtime": 6,
+    "upstream_fidelity": 15,
+    "developer_semantics": 13,
+    "trust_support": 4
+  },
+  "dimension_evidence": {
+    "structural_status": "pass",
+    "runtime_status": "unknown",
+    "semantic_status": "unknown",
+    "developer_semantics_status": "pass",
+    "references_status": "pass",
+    "parity_test_status": "unknown",
+    "trust_support_status": "partial"
+  },
+  "hard_blockers": [],
+  "major_penalties": [
+    "FIDELITY_UPSTREAM_UNMAPPED",
+    "RUNTIME_NO_PROBE_EVIDENCE",
+    "SEMANTICS_GENERATED_ABSTRACTION",
+    "TRUST_PROVENANCE_MISSING"
+  ],
+  "required_actions": [
+    "add parity fixtures or a safe runtime probe",
+    "map this atom in scripts/atom_manifest.yml",
+    "pin source revision or upstream version in the manifest"
+  ]
+}
