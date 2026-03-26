@@ -81,6 +81,9 @@ class AtomRecord:
     procedural: bool = False
     authoritative_sources: list[dict[str, Any]] = field(default_factory=list)
     risk_reasons: list[str] = field(default_factory=list)
+    risk_score: int | None = None
+    risk_dimensions: dict[str, Any] = field(default_factory=dict)
+    review_priority: str | None = None
     status_basis: dict[str, Any] = field(default_factory=dict)
     structural_findings: list[str] = field(default_factory=list)
     structural_finding_details: list[dict[str, Any]] = field(default_factory=list)
