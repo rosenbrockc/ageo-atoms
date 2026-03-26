@@ -14,6 +14,7 @@ from .io import ensure_dir, read_json, write_json
 from .paths import (
     AUDIT_EVIDENCE_DIR,
     AUDIT_MANIFEST_PATH,
+    AUDIT_PARITY_COVERAGE_PATH,
     AUDIT_RESULTS_DIR,
     AUDIT_REVIEW_QUEUE_CSV_PATH,
     AUDIT_RISK_REPORT_PATH,
@@ -131,9 +132,20 @@ def _score_fidelity(record: dict[str, Any], signature: dict[str, Any] | None) ->
 def _score_evidence_gap(record: dict[str, Any], acceptability: dict[str, str] | None) -> tuple[int, list[str]]:
     score = 0
     reasons: list[str] = []
-    if not record.get("has_parity_tests"):
+    parity_level = record.get("parity_coverage_level")
+    if parity_level is None:
+        if not record.get("has_parity_tests"):
+            score += 8
+            reasons.append("RISK_MISSING_PARITY")
+    elif parity_level in {"none", "fixture_only"}:
         score += 8
         reasons.append("RISK_MISSING_PARITY")
+    elif parity_level == "positive_path":
+        score += 4
+        reasons.append("RISK_PARITY_POSITIVE_ONLY")
+    elif parity_level == "positive_and_negative":
+        score += 2
+        reasons.append("RISK_MISSING_USAGE_EQUIVALENCE")
     if not (record.get("source_revision") or record.get("upstream_version")):
         score += 6
         reasons.append("RISK_MISSING_PROVENANCE")
@@ -388,6 +400,7 @@ def run_risk_triage(manifest: dict[str, Any]) -> tuple[dict[str, Any], dict[str,
             "structural_report",
             "signature_evidence",
             "acceptability_scores",
+            "parity_coverage",
         ]
         updated_atoms.append(record)
         queue_rows.append(result)
@@ -424,6 +437,10 @@ def run_risk_triage(manifest: dict[str, Any]) -> tuple[dict[str, Any], dict[str,
             "path": str(AUDIT_SCORES_PATH),
             "available": AUDIT_SCORES_PATH.exists(),
             "count": len(acceptability_map),
+        },
+        "parity_coverage": {
+            "path": str(AUDIT_PARITY_COVERAGE_PATH),
+            "available": AUDIT_PARITY_COVERAGE_PATH.exists(),
         },
     }
     risk_report = {

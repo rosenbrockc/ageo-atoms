@@ -89,6 +89,11 @@ class AtomRecord:
     structural_finding_details: list[dict[str, Any]] = field(default_factory=list)
     semantic_findings: list[str] = field(default_factory=list)
     semantic_finding_details: list[dict[str, Any]] = field(default_factory=list)
+    parity_coverage_level: str = "none"
+    parity_coverage_reasons: list[str] = field(default_factory=list)
+    parity_fixture_count: int = 0
+    parity_case_count: int = 0
+    usage_test_coverage: str = "none"
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a JSON-compatible dict."""
