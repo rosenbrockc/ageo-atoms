@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+from collections import Counter
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,10 +14,13 @@ from .paths import AGEOA_DIR, AUDIT_MANIFEST_PATH, FIXTURES_DIR
 from .upstream import get_repo_revision, get_upstream_mapping
 
 WEAK_TYPES = {"Any", "object", "typing.Any"}
+RISKY_FAMILY_MARKERS = {"hmc", "nuts", "mcmc", "random", "rng", "stochastic", "particle", "bernoulli", "bayes"}
 PLACEHOLDER_DOCSTRING_SNIPPETS = {
     "derived deterministically from inputs",
     "skeleton for future ingestion",
 }
+ALLOWED_SOURCE_KINDS = {"hand_written", "generated_ingest", "refined_ingest", "skeleton"}
+ALLOWED_STATEFUL_KINDS = {"none", "explicit_state_model", "argument_state", "return_state", "implicit_stateful"}
 
 
 def _utc_now() -> str:
@@ -136,6 +140,11 @@ def _build_fixture_index(fixtures_dir: Path = FIXTURES_DIR) -> set[str]:
     return atom_keys
 
 
+def _counter_dict(values: list[str]) -> dict[str, int]:
+    counts = Counter(values)
+    return dict(sorted(counts.items()))
+
+
 def _is_candidate_wrapper_file(path: Path) -> bool:
     if path.name == "__init__.py":
         return False
@@ -230,6 +239,38 @@ def _detect_stateful(argument_names: list[str], return_annotation: str | None, a
     return bool(return_annotation and "State" in return_annotation)
 
 
+def _detect_stateful_kind(argument_names: list[str], return_annotation: str | None, artifacts: dict[str, bool]) -> str:
+    if artifacts["has_state_models"]:
+        return "explicit_state_model"
+    if any(name.endswith("state") or name == "state" for name in argument_names):
+        return "argument_state"
+    if return_annotation and "State" in return_annotation:
+        return "return_state"
+    return "none"
+
+
+def _detect_stochastic(path: Path, argument_names: list[str], text: str) -> bool:
+    lower_name_parts = {part.lower() for part in path.parts}
+    if any(marker in lower_name_parts for marker in RISKY_FAMILY_MARKERS):
+        return True
+    if any(name.lower() in {"rng", "random_state", "seed", "trace"} for name in argument_names):
+        return True
+    if "AbstractDistribution" in text or "AbstractRNGState" in text or "AbstractMCMCTrace" in text:
+        return True
+    return False
+
+
+def _detect_procedural(path: Path, func_name: str, text: str, stateful: bool) -> bool:
+    name = func_name.lower()
+    if any(token in name for token in ("pipeline", "orchestration", "workflow", "dispatch", "step", "loop")):
+        return True
+    if stateful and any(token in text.lower() for token in ("__new__", "model_copy", "state_copy", "update={")):
+        return True
+    if path.stem in {"pipeline", "processor"}:
+        return True
+    return False
+
+
 def _placeholder_witness(binding: str | None) -> bool:
     if not binding:
         return False
@@ -246,6 +287,73 @@ def _weak_type_annotations(argument_details: list[dict[str, Any]], return_annota
     if return_annotation in WEAK_TYPES:
         weak.append(f"return:{return_annotation}")
     return weak
+
+
+def _authoritative_sources(
+    path: Path,
+    artifacts: dict[str, bool],
+    mapping_repo: str | None,
+    mapping_module: str | None,
+    source_revision: str | None,
+) -> list[dict[str, Any]]:
+    rel_path = str(path.relative_to(AGEOA_DIR.parent))
+    sources: list[dict[str, Any]] = [
+        {
+            "kind": "local_wrapper",
+            "path": rel_path,
+        }
+    ]
+    if mapping_repo and mapping_repo != "~":
+        entry: dict[str, Any] = {"kind": "vendored_repo", "repo": mapping_repo}
+        if mapping_module:
+            entry["module"] = mapping_module
+        if source_revision:
+            entry["source_revision"] = source_revision
+        sources.append(entry)
+    if artifacts["has_references"]:
+        sources.append(
+            {
+                "kind": "local_references",
+                "path": str((path.parent / "references.json").relative_to(AGEOA_DIR.parent)),
+            }
+        )
+    return sources
+
+
+def _risk_reasons(
+    path: Path,
+    source_kind: str,
+    stateful: bool,
+    ffi: bool,
+    weak_types: list[str],
+    has_parity_tests: bool,
+    mapping_found: bool,
+    placeholder_witness: bool,
+    stochastic: bool,
+    procedural: bool,
+) -> list[str]:
+    reasons: list[str] = []
+    if source_kind != "hand_written":
+        reasons.append(f"source_kind:{source_kind}")
+    if stateful:
+        reasons.append("stateful_api")
+    if ffi:
+        reasons.append("ffi_backed")
+    if stochastic:
+        reasons.append("stochastic")
+    if procedural:
+        reasons.append("procedural_wrapper")
+    if weak_types:
+        reasons.append("weak_types")
+    if "sklearn" in path.parts:
+        reasons.append("sklearn_generated_family")
+    if not mapping_found:
+        reasons.append("unmapped_upstream")
+    if not has_parity_tests:
+        reasons.append("missing_parity")
+    if placeholder_witness:
+        reasons.append("placeholder_witness")
+    return reasons
 
 
 def _derive_initial_structural_status(record: AtomRecord) -> str:
@@ -267,8 +375,19 @@ def _derive_risk_tier(
     has_parity_tests: bool,
     mapping_found: bool,
     placeholder_witness: bool,
+    stochastic: bool,
+    procedural: bool,
 ) -> str:
-    if source_kind != "hand_written" or stateful or ffi or weak_types or "sklearn" in path.parts or placeholder_witness:
+    if (
+        source_kind != "hand_written"
+        or stateful
+        or ffi
+        or weak_types
+        or "sklearn" in path.parts
+        or placeholder_witness
+        or stochastic
+        or procedural
+    ):
         return "high"
     if not mapping_found or not has_parity_tests or path.name == "atoms.py":
         return "medium"
@@ -314,13 +433,29 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
             skeleton = _function_has_notimplemented(node)
             source_kind = _detect_source_kind(path, skeleton, artifacts)
             stateful = _detect_stateful(argument_names, return_annotation, artifacts)
+            stateful_kind = _detect_stateful_kind(argument_names, return_annotation, artifacts)
             ffi = _detect_ffi(path, text)
+            stochastic = _detect_stochastic(path, argument_names, text)
+            procedural = _detect_procedural(path, node.name, text, stateful)
             has_docstring = ast.get_docstring(node) is not None
             docstring_summary = None
             if has_docstring:
                 docstring_summary = (ast.get_docstring(node) or "").strip().splitlines()[0].strip()
             placeholder_witness = _placeholder_witness(register_source)
             has_witnesses = artifacts["has_witnesses"] or (register_source is not None and not placeholder_witness)
+            source_revision = None if mapping is None else get_repo_revision(mapping.repo)
+            risk_reasons = _risk_reasons(
+                path=path,
+                source_kind=source_kind,
+                stateful=stateful,
+                ffi=ffi,
+                weak_types=weak_types,
+                has_parity_tests=atom_key in fixture_index,
+                mapping_found=mapping is not None,
+                placeholder_witness=placeholder_witness,
+                stochastic=stochastic,
+                procedural=procedural,
+            )
             record = AtomRecord(
                 atom_id=f"{atom_name}@{path.relative_to(AGEOA_DIR.parent)}:{node.lineno}",
                 atom_name=atom_name,
@@ -329,13 +464,13 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
                 module_path=str(path.relative_to(AGEOA_DIR.parent)),
                 wrapper_symbol=node.name,
                 wrapper_line=node.lineno,
-                domain_family=path.relative_to(AGEOA_DIR).parts[0],
+                domain_family=_relative_module_parts(path)[0],
                 module_family=_relative_module_parts(path)[0],
                 source_kind=source_kind,
                 risk_tier="unknown",
                 upstream_symbols={} if mapping is None else mapping.to_dict(),
                 upstream_version=None,
-                source_revision=None if mapping is None else get_repo_revision(mapping.repo),
+                source_revision=source_revision,
                 review_basis_at=None,
                 stateful=stateful,
                 ffi=ffi,
@@ -370,10 +505,30 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
                 weak_type_annotations=weak_types,
                 uses_varargs=uses_varargs,
                 uses_kwargs=uses_kwargs,
+                stateful_kind=stateful_kind,
+                stochastic=stochastic,
+                procedural=procedural,
+                authoritative_sources=_authoritative_sources(
+                    path=path,
+                    artifacts=artifacts,
+                    mapping_repo=None if mapping is None else mapping.repo,
+                    mapping_module=None if mapping is None else mapping.module,
+                    source_revision=source_revision,
+                ),
+                risk_reasons=risk_reasons,
+                status_basis={
+                    "inventory": [
+                        "ast_discovery",
+                        "fixture_index",
+                        "artifact_presence",
+                        "upstream_manifest_lookup",
+                    ]
+                },
             )
             if docstring_summary and docstring_summary.lower() in PLACEHOLDER_DOCSTRING_SNIPPETS:
                 record.inventory_notes.append("placeholder_docstring")
-            record.structural_status = _derive_initial_structural_status(record)
+                record.status_basis.setdefault("inventory", []).append("placeholder_docstring")
+            record.structural_status = "unknown"
             record.risk_tier = _derive_risk_tier(
                 path=path,
                 source_kind=source_kind,
@@ -383,18 +538,48 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
                 has_parity_tests=record.has_parity_tests,
                 mapping_found=mapping is not None,
                 placeholder_witness=placeholder_witness,
+                stochastic=stochastic,
+                procedural=procedural,
             )
             atoms.append(record)
     return atoms, errors
+
+
+def _build_summary(atoms: list[AtomRecord], errors: list[dict[str, Any]]) -> dict[str, Any]:
+    source_kinds = [record.source_kind for record in atoms]
+    risk_tiers = [record.risk_tier for record in atoms]
+    families = [record.domain_family for record in atoms]
+    return {
+        "atom_count": len(atoms),
+        "inventory_error_count": len(errors),
+        "family_counts": _counter_dict(families),
+        "source_kind_counts": _counter_dict(source_kinds),
+        "risk_tier_counts": _counter_dict(risk_tiers),
+        "stateful_count": sum(1 for record in atoms if record.stateful),
+        "stochastic_count": sum(1 for record in atoms if record.stochastic),
+        "procedural_count": sum(1 for record in atoms if record.procedural),
+        "ffi_count": sum(1 for record in atoms if record.ffi),
+        "skeleton_count": sum(1 for record in atoms if record.skeleton),
+        "parity_coverage_count": sum(1 for record in atoms if record.has_parity_tests),
+        "reference_coverage_count": sum(1 for record in atoms if record.has_references),
+        "unmapped_upstream_count": sum(1 for record in atoms if not record.upstream_symbols),
+    }
 
 
 def build_manifest() -> dict[str, Any]:
     """Build the repository-wide audit manifest."""
     atoms, errors = discover_atoms()
     payload = {
-        "schema_version": "1.0",
-        "generated_at": _utc_now(),
-        "repo": "ageo-atoms",
+        "schema_version": "1.1",
+        "metadata": {
+            "generated_at": _utc_now(),
+            "repo": "ageo-atoms",
+            "generator": "scripts/build_audit_manifest.py",
+            "phase": "phase_1_inventory",
+            "allowed_source_kinds": sorted(ALLOWED_SOURCE_KINDS),
+            "allowed_stateful_kinds": sorted(ALLOWED_STATEFUL_KINDS),
+        },
+        "summary": _build_summary(atoms, errors),
         "atoms": [asdict(record) for record in atoms],
         "inventory_errors": errors,
     }

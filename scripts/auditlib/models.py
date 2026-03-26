@@ -76,6 +76,14 @@ class AtomRecord:
     uses_varargs: bool = False
     uses_kwargs: bool = False
     inventory_notes: list[str] = field(default_factory=list)
+    stateful_kind: str = "none"
+    stochastic: bool = False
+    procedural: bool = False
+    authoritative_sources: list[dict[str, Any]] = field(default_factory=list)
+    risk_reasons: list[str] = field(default_factory=list)
+    status_basis: dict[str, Any] = field(default_factory=dict)
+    structural_findings: list[str] = field(default_factory=list)
+    structural_finding_details: list[dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a JSON-compatible dict."""

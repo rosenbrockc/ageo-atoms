@@ -14,10 +14,15 @@ def _record_for(manifest: dict, atom_key: str) -> dict:
 
 def test_build_manifest_discovers_known_registered_atoms() -> None:
     manifest = build_manifest()
+    assert "metadata" in manifest
+    assert "summary" in manifest
     record = _record_for(manifest, "algorithms/graph:bfs")
     assert record["atom_name"] == "ageoa.algorithms.graph.bfs"
     assert record["module_import_path"] == "ageoa.algorithms.graph"
     assert record["has_witnesses"] is True
+    assert record["stateful_kind"] == "none"
+    assert isinstance(record["authoritative_sources"], list)
+    assert isinstance(record["risk_reasons"], list)
 
 
 def test_signature_fidelity_uses_vendored_source_when_mapped() -> None:
