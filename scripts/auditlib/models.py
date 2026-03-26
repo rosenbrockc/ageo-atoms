@@ -94,6 +94,17 @@ class AtomRecord:
     parity_fixture_count: int = 0
     parity_case_count: int = 0
     usage_test_coverage: str = "none"
+    review_status: str = "missing"
+    review_record_path: str | None = None
+    reviewer_type: str | None = None
+    reviewed_at: str | None = None
+    review_semantic_verdict: str = "unknown"
+    review_developer_semantics_verdict: str = "unknown"
+    review_limitations: list[str] = field(default_factory=list)
+    review_required_actions: list[str] = field(default_factory=list)
+    trust_readiness: str = "not_reviewed"
+    trust_blockers: list[str] = field(default_factory=list)
+    recommended_overall_verdict: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a JSON-compatible dict."""

@@ -68,6 +68,19 @@ def review_path_for_atom(atom_id: str, reviews_dir: Path = AUDIT_REVIEWS_DIR) ->
     return reviews_dir / f"{safe_atom_stem(atom_id)}.json"
 
 
+def load_review_records(reviews_dir: Path = AUDIT_REVIEWS_DIR) -> list[dict[str, Any]]:
+    """Load all review JSON files, preserving source path metadata."""
+    ensure_dir(reviews_dir)
+    records: list[dict[str, Any]] = []
+    for path in sorted(reviews_dir.glob("*.json")):
+        record = read_json(path)
+        if isinstance(record, dict):
+            record = dict(record)
+            record["_path"] = str(path)
+            records.append(record)
+    return records
+
+
 def _supporting_artifacts(atom_id: str) -> dict[str, Any]:
     stem = safe_atom_stem(atom_id)
     payload: dict[str, Any] = {}
@@ -378,6 +391,7 @@ def validate_review_record(record: dict[str, Any], manifest_rows: dict[str, dict
 def _review_index_entry(record: dict[str, Any]) -> dict[str, Any]:
     return {
         "atom_id": record["atom_id"],
+        "path": record.get("_path"),
         "review_status": record["review_status"],
         "reviewer_type": record["reviewer_type"],
         "semantic_verdict": record["semantic_verdict"],
@@ -408,6 +422,8 @@ def validate_review_directory(
         except Exception as exc:
             errors.append({"path": str(path), "error": f"invalid json: {exc}"})
             continue
+        record = dict(record)
+        record["_path"] = str(path)
         review_entries.append({"path": str(path), "atom_id": record.get("atom_id")})
         record_errors, record_warnings = validate_review_record(record, manifest_rows)
         for error in record_errors:

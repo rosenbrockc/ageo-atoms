@@ -1,0 +1,992 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-03-26T15:11:00+00:00",
+  "summary": {
+    "atom_count": 506,
+    "completed_review_count": 0,
+    "draft_review_count": 10,
+    "missing_review_count": 496,
+    "high_risk_reviewed_count": 0,
+    "high_risk_unreviewed_count": 99,
+    "trust_ready_count": 0,
+    "trust_blocked_count": 0,
+    "review_conflict_count": 0,
+    "validation_error_count": 0,
+    "validation_warning_count": 20
+  },
+  "by_review_status": {
+    "draft": 10,
+    "missing": 496
+  },
+  "by_reviewer_type": {
+    "human": 10,
+    "none": 496
+  },
+  "by_risk_tier": {
+    "high": 109,
+    "low": 143,
+    "medium": 254
+  },
+  "by_trust_readiness": {
+    "not_reviewed": 496,
+    "review_in_progress": 10
+  },
+  "high_priority_backlog": [
+    {
+      "atom_id": "ageoa.biosppy.online_filter.filterstep@ageoa/biosppy/online_filter/atoms.py:54",
+      "atom_name": "ageoa.biosppy.online_filter.filterstep",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 69,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69",
+      "atom_name": "ageoa.numpy.linalg.det",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 68,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
+      "atom_name": "ageoa.scipy.integrate.solve_ivp",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 68,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:24",
+      "atom_name": "ageoa.biosppy.online_filter_codex.filterstateinit",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 67,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:24",
+      "atom_name": "ageoa.biosppy.online_filter_v2.filterstateinit",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 67,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:58",
+      "atom_name": "ageoa.pasqal.docking.graph_transformer",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 64,
+      "overall_verdict": "misleading",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
+      "atom_name": "ageoa.pasqal.docking.quantum_mwis_solver",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 64,
+      "overall_verdict": "misleading",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
+      "atom_name": "ageoa.biosppy.online_filter_codex.filterstep",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 64,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
+      "atom_name": "ageoa.biosppy.online_filter_v2.filterstep",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 64,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:27",
+      "atom_name": "ageoa.pasqal.docking.sub_graph_embedder",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 64,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
+      "atom_name": "ageoa.numpy.emath.logn",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
+      "atom_name": "ageoa.numpy.polynomial.polyval",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
+      "atom_name": "ageoa.scipy.optimize.curve_fit",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
+      "atom_name": "ageoa.scipy.stats.describe",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
+      "atom_name": "ageoa.scipy.stats.norm",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
+      "atom_name": "ageoa.scipy.stats.pearsonr",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
+      "atom_name": "ageoa.scipy.stats.spearmanr",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
+      "atom_name": "ageoa.scipy.stats.ttest_ind",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pulsar.pipeline.SNR@ageoa/pulsar/pipeline.py:113",
+      "atom_name": "ageoa.pulsar.pipeline.SNR",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "misleading",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pulsar.pipeline.fold_signal@ageoa/pulsar/pipeline.py:84",
+      "atom_name": "ageoa.pulsar.pipeline.fold_signal",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "misleading",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pulsar.pipeline.de_disperse@ageoa/pulsar/pipeline.py:44",
+      "atom_name": "ageoa.pulsar.pipeline.de_disperse",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.pulsar.pipeline.delay_from_DM@ageoa/pulsar/pipeline.py:24",
+      "atom_name": "ageoa.pulsar.pipeline.delay_from_DM",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 63,
+      "overall_verdict": "acceptable_with_limits",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.algorithms.sorting.counting_sort@ageoa/algorithms/sorting.py:109",
+      "atom_name": "ageoa.algorithms.sorting.counting_sort",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.algorithms.sorting.heapsort@ageoa/algorithms/sorting.py:73",
+      "atom_name": "ageoa.algorithms.sorting.heapsort",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.algorithms.sorting.merge_sort@ageoa/algorithms/sorting.py:29",
+      "atom_name": "ageoa.algorithms.sorting.merge_sort",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.algorithms.sorting.quicksort@ageoa/algorithms/sorting.py:51",
+      "atom_name": "ageoa.algorithms.sorting.quicksort",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.algorithms.sorting.radix_sort@ageoa/algorithms/sorting.py:146",
+      "atom_name": "ageoa.algorithms.sorting.radix_sort",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63",
+      "atom_name": "ageoa.numpy.emath.log10",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
+      "atom_name": "ageoa.numpy.emath.log",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
+      "atom_name": "ageoa.numpy.emath.power",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24",
+      "atom_name": "ageoa.numpy.emath.sqrt",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.linalg.inv@ageoa/numpy/linalg.py:50",
+      "atom_name": "ageoa.numpy.linalg.inv",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.linalg.norm@ageoa/numpy/linalg.py:84",
+      "atom_name": "ageoa.numpy.linalg.norm",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.linalg.solve@ageoa/numpy/linalg.py:30",
+      "atom_name": "ageoa.numpy.linalg.solve",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.integrate.quad@ageoa/scipy/integrate.py:19",
+      "atom_name": "ageoa.scipy.integrate.quad",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126",
+      "atom_name": "ageoa.scipy.integrate.simpson",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.butter@ageoa/scipy/signal.py:57",
+      "atom_name": "ageoa.scipy.signal.butter",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.cheby1@ageoa/scipy/signal.py:98",
+      "atom_name": "ageoa.scipy.signal.cheby1",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.cheby2@ageoa/scipy/signal.py:139",
+      "atom_name": "ageoa.scipy.signal.cheby2",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.firwin@ageoa/scipy/signal.py:177",
+      "atom_name": "ageoa.scipy.signal.firwin",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.freqz@ageoa/scipy/signal.py:298",
+      "atom_name": "ageoa.scipy.signal.freqz",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.lfilter@ageoa/scipy/signal.py:254",
+      "atom_name": "ageoa.scipy.signal.lfilter",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.signal.sosfilt@ageoa/scipy/signal.py:220",
+      "atom_name": "ageoa.scipy.signal.sosfilt",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.molecular_docking.minimize_bandwidth.propose_greedy_permutation_step@ageoa/molecular_docking/minimize_bandwidth/atoms.py:158",
+      "atom_name": "ageoa.molecular_docking.minimize_bandwidth.propose_greedy_permutation_step",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 62,
+      "overall_verdict": "misleading",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.random.default_rng@ageoa/numpy/random.py:112",
+      "atom_name": "ageoa.numpy.random.default_rng",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.random.rand@ageoa/numpy/random.py:39",
+      "atom_name": "ageoa.numpy.random.rand",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.numpy.random.uniform@ageoa/numpy/random.py:76",
+      "atom_name": "ageoa.numpy.random.uniform",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "fail",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.quantfin.montecarlo.run_simulation@ageoa/quantfin/montecarlo.py:40",
+      "atom_name": "ageoa.quantfin.montecarlo.run_simulation",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.quantfin.montecarlo.run_simulation_anti@ageoa/quantfin/montecarlo.py:60",
+      "atom_name": "ageoa.quantfin.montecarlo.run_simulation_anti",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "unknown",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    },
+    {
+      "atom_id": "ageoa.scipy.linalg.det@ageoa/scipy/linalg.py:93",
+      "atom_name": "ageoa.scipy.linalg.det",
+      "review_priority": "review_now",
+      "risk_tier": "high",
+      "risk_score": 61,
+      "overall_verdict": "broken",
+      "semantic_status": "partial",
+      "review_status": "missing",
+      "has_completed_review": false,
+      "trust_readiness": "not_reviewed",
+      "review_batch_reason": "REVIEW_HIGH_RISK_UNREVIEWED",
+      "recommended_review_action": "start a structured review immediately",
+      "trust_blockers": [
+        "TRUST_BLOCK_REVIEW_MISSING"
+      ]
+    }
+  ],
+  "promotion_candidates": [],
+  "blocked_candidates": [],
+  "review_conflicts": [],
+  "validation_errors": [],
+  "validation_warnings": [
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.biosppy.ecg.bandpass_filter_ageoa_biosppy_ecg.py_30__14fe3da791b8.json",
+      "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.biosppy.ecg.bandpass_filter_ageoa_biosppy_ecg.py_30__14fe3da791b8.json",
+      "atom_id": "ageoa.biosppy.ecg.bandpass_filter@ageoa/biosppy/ecg.py:30",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.biosppy.online_filter.filterstateinit_ageoa_biosppy_online_filter_atoms.py_24__a1692f02016e.json",
+      "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.biosppy.online_filter.filterstateinit_ageoa_biosppy_online_filter_atoms.py_24__a1692f02016e.json",
+      "atom_id": "ageoa.biosppy.online_filter.filterstateinit@ageoa/biosppy/online_filter/atoms.py:24",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit_ageoa_institutional_quant_engine__b481b400123d.json",
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit@ageoa/institutional_quant_engine/kalman_filter/atoms.py:28",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit_ageoa_institutional_quant_engine__b481b400123d.json",
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit@ageoa/institutional_quant_engine/kalman_filter/atoms.py:28",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate_ageoa_institutional_quant__8dfe220b0ac3.json",
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate@ageoa/institutional_quant_engine/kalman_filter/atoms.py:65",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate_ageoa_institutional_quant__8dfe220b0ac3.json",
+      "atom_id": "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate@ageoa/institutional_quant_engine/kalman_filter/atoms.py:65",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts_ageoa_sklearn__39499d36c85b.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts@ageoa/sklearn/calibration_iter7/atoms.py:66",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts_ageoa_sklearn__39499d36c85b.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.fit_calibrated_model_and_derive_metadata_contracts@ageoa/sklearn/calibration_iter7/atoms.py:66",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels_ageoa_sklearn_ca__c09e39eb9e58.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels_ageoa_sklearn_ca__c09e39eb9e58.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.infer_calibrated_probabilities_and_class_labels@ageoa/sklearn/calibration_iter7/atoms.py:107",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.initialize_calibration_configuration_ageoa_sklearn_calibration_i__6a171d5257df.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.initialize_calibration_configuration@ageoa/sklearn/calibration_iter7/atoms.py:30",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter7.initialize_calibration_configuration_ageoa_sklearn_calibration_i__6a171d5257df.json",
+      "atom_id": "ageoa.sklearn.calibration_iter7.initialize_calibration_configuration@ageoa/sklearn/calibration_iter7/atoms.py:30",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata_ageoa_sklearn_calibr__660edd1dec59.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata@ageoa/sklearn/calibration_iter8/atoms.py:66",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata_ageoa_sklearn_calibr__660edd1dec59.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.fit_calibrated_ensemble_and_expose_metadata@ageoa/sklearn/calibration_iter8/atoms.py:66",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.initialize_calibration_state_ageoa_sklearn_calibration_iter8_ato__d4c4d6d5a388.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.initialize_calibration_state@ageoa/sklearn/calibration_iter8/atoms.py:30",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.initialize_calibration_state_ageoa_sklearn_calibration_iter8_ato__d4c4d6d5a388.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.initialize_calibration_state@ageoa/sklearn/calibration_iter8/atoms.py:30",
+      "warning": "draft review is missing review_basis_at"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.run_calibrated_inference_ageoa_sklearn_calibration_iter8_atoms.p__817efdec58c9.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.run_calibrated_inference@ageoa/sklearn/calibration_iter8/atoms.py:107",
+      "warning": "draft review is missing reproducible provenance"
+    },
+    {
+      "path": "/Users/conrad/personal/ageo-atoms/data/audit_reviews/ageoa.sklearn.calibration_iter8.run_calibrated_inference_ageoa_sklearn_calibration_iter8_atoms.p__817efdec58c9.json",
+      "atom_id": "ageoa.sklearn.calibration_iter8.run_calibrated_inference@ageoa/sklearn/calibration_iter8/atoms.py:107",
+      "warning": "draft review is missing review_basis_at"
+    }
+  ]
+}
