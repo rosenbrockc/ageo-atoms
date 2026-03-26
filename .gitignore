@@ -1,6 +1,8 @@
 __pycache__/
 .checkpoint.*
 third_party/
+.playwright-mcp/
+logs/
 
 data/ingest_cache/
 data/audit/evidence/
@@ -23,3 +25,9 @@ data/audit/parity_backlog.json
 data/audit_scores.csv
 data/hyperparams/manifest.sqlite
 output/
+
+ageoa/**/.ingest_status.json
+ageoa/**/COMPLETED.json
+ageoa/**/FAILED.json
+ageoa/**/trace.jsonl
+ageoa/**/shared_context_metrics.json

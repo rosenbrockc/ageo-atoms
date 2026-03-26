@@ -1,6 +1,0 @@
-{
-  "run_id": "c4ecd8e2e658419d8cdb9c809c441206",
-  "failed_at": 1772920915.6005929,
-  "phase": "startup",
-  "error": "AGEOM_ANTHROPIC_API_KEY not set"
-}
