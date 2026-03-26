@@ -1,5 +1,11 @@
 # scikit-learn Ingestion Targets
 
+This file is the upstream target inventory for sklearn ingestion.
+
+Execution sequencing, restart-safe handoff notes, difficulty tiers, and the
+recommended first-wave targets now live in
+[SKLEARN_EXECUTION_PLAN.md](/Users/conrad/personal/ageo-atoms/SKLEARN_EXECUTION_PLAN.md).
+
 This inventory is based on the official stable API reference for scikit-learn 1.8.0.
 
 - API reference: https://scikit-learn.org/stable/api/index.html

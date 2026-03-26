@@ -4,7 +4,13 @@ import json
 from pathlib import Path
 
 from auditlib.io import safe_atom_stem
-from auditlib.reviews import make_draft_review, seed_review_records, validate_review_directory, validate_review_record
+from auditlib.reviews import (
+    cleanup_orphan_review_records,
+    make_draft_review,
+    seed_review_records,
+    validate_review_directory,
+    validate_review_record,
+)
 
 
 def _manifest(tmp_path: Path) -> tuple[Path, dict]:
@@ -138,3 +144,28 @@ def test_validate_review_directory_builds_index(tmp_path: Path) -> None:
     assert payload["ok"] is True
     assert validation_path.exists()
     assert index_path.exists()
+
+
+def test_cleanup_orphan_review_records_deletes_missing_manifest_rows(tmp_path: Path) -> None:
+    manifest_path, manifest = _manifest(tmp_path)
+    reviews_dir = tmp_path / "reviews"
+    reviews_dir.mkdir()
+
+    valid_record = make_draft_review(manifest["atoms"][0]).to_dict()
+    valid_path = reviews_dir / f"{safe_atom_stem(valid_record['atom_id'])}.json"
+    valid_path.write_text(json.dumps(valid_record))
+
+    orphan_record = dict(valid_record)
+    orphan_record["atom_id"] = "ageoa.sklearn.stale.atom@ageoa/sklearn/stale/atoms.py:10"
+    orphan_record["atom_name"] = "ageoa.sklearn.stale.atom"
+    orphan_path = reviews_dir / f"{safe_atom_stem(orphan_record['atom_id'])}.json"
+    orphan_path.write_text(json.dumps(orphan_record))
+
+    payload = cleanup_orphan_review_records(
+        reviews_dir=reviews_dir,
+        manifest_path=manifest_path,
+        atom_prefix="ageoa.sklearn.",
+    )
+    assert payload["deleted_count"] == 1
+    assert valid_path.exists()
+    assert not orphan_path.exists()

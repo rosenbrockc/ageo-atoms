@@ -460,6 +460,54 @@ def validate_review_directory(
     return validation_payload
 
 
+def cleanup_orphan_review_records(
+    *,
+    reviews_dir: Path = AUDIT_REVIEWS_DIR,
+    manifest_path: Path = AUDIT_MANIFEST_PATH,
+    atom_prefix: str | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Delete review drafts whose atom_id is no longer present in the manifest."""
+    manifest_rows = manifest_index(load_manifest(manifest_path))
+    ensure_dir(reviews_dir)
+
+    deleted: list[dict[str, Any]] = []
+    kept: list[dict[str, Any]] = []
+    invalid: list[dict[str, Any]] = []
+
+    for path in sorted(reviews_dir.glob("*.json")):
+        try:
+            record = read_json(path)
+        except Exception as exc:
+            invalid.append({"path": str(path), "error": f"invalid json: {exc}"})
+            continue
+        atom_id = record.get("atom_id")
+        if not isinstance(atom_id, str):
+            invalid.append({"path": str(path), "error": "missing atom_id"})
+            continue
+        if atom_prefix and not atom_id.startswith(atom_prefix):
+            kept.append({"path": str(path), "atom_id": atom_id, "reason": "prefix_mismatch"})
+            continue
+        if atom_id in manifest_rows:
+            kept.append({"path": str(path), "atom_id": atom_id, "reason": "present_in_manifest"})
+            continue
+
+        deleted.append({"path": str(path), "atom_id": atom_id})
+        if not dry_run:
+            path.unlink()
+
+    return {
+        "deleted_count": len(deleted),
+        "kept_count": len(kept),
+        "invalid_count": len(invalid),
+        "deleted": deleted,
+        "kept": kept,
+        "invalid": invalid,
+        "dry_run": dry_run,
+        "atom_prefix": atom_prefix,
+    }
+
+
 def _counter(values: Any) -> dict[str, int]:
     counts: dict[str, int] = {}
     for value in values:
