@@ -43,7 +43,7 @@ verifier and the source-local audit.
 | **Ghost Witness** | A lightweight function that accepts and returns abstract metadata types (never real data). The ghost simulator executes witnesses in topological order to validate graph wiring before any heavy computation runs. |
 | **Abstract type** | A Pydantic model from `ageoa.ghost.abstract` that carries only metadata (shape, dtype, domain, etc.) — never actual sample data. |
 | **CDG** | Computational Dependency Graph — a JSON structure of `AlgorithmicNode` objects linked by `DependencyEdge` objects. Describes how atoms compose into a pipeline. |
-| **Declaration** | The `ageom.types.Declaration` object the matcher produces when it indexes this atom. Contains `name`, `type_signature`, `docstring`, `raw_code`, `source_lib`, and `prover="python"`. |
+| **Declaration** | The `sciona.types.Declaration` object the matcher produces when it indexes this atom. Contains `name`, `type_signature`, `docstring`, `raw_code`, `source_lib`, and `prover="python"`. |
 | **Skeleton** | `raise NotImplementedError("Skeleton for future ingestion.")` — a placeholder atom that has contracts and a witness but no implementation yet. The Python equivalent of Lean's `sorry`. |
 
 ---
@@ -426,7 +426,7 @@ each atom needs a distinct witness for traceability.
 
 ### 7.6 Ghost simulator integration
 
-The ghost simulator in `ageom/synthesizer/ghost_sim.py` has a hard-coded
+The ghost simulator in `sciona/synthesizer/ghost_sim.py` has a hard-coded
 list of atom modules that it imports to trigger `@register_atom`
 decorators. When adding a new domain package:
 
@@ -994,7 +994,7 @@ What each gate does:
   it also attempts module imports.
 - `scripts/audit.py`: repository-specific audit of atom/witness/CDG structure
   against the ingestion contract.
-- `sync_catalog.sh`: runs `ageom sources sync`, executes both verifiers for
+- `sync_catalog.sh`: runs `sciona sources sync`, executes both verifiers for
   every configured source, and only then rebuilds the matcher's Python
   declaration index and skill index.
 

@@ -1,6 +1,6 @@
 # Hyperparameter Audit Plan
 
-This document describes how to audit the atoms in `ageo-atoms` for safe, meaningful hyperparameter exposure to downstream optimizers such as `ageom optimize`.
+This document describes how to audit the atoms in `ageo-atoms` for safe, meaningful hyperparameter exposure to downstream optimizers such as `sciona optimize`.
 
 ## Goal
 

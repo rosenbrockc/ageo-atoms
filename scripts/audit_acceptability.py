@@ -35,12 +35,12 @@ def main() -> None:
         record["acceptability_band"] = result["acceptability_band"]
         record["max_reviewable_verdict"] = result["max_reviewable_verdict"]
         record["overall_verdict"] = result["overall_verdict"]
-        record["blocking_findings"] = result["hard_blockers"]
-        record["required_actions"] = result["required_actions"]
-        record["structural_status"] = result["dimension_evidence"]["structural_status"]
-        record["runtime_status"] = result["dimension_evidence"]["runtime_status"]
-        record["semantic_status"] = result["dimension_evidence"]["semantic_status"]
-        record["developer_semantics_status"] = result["dimension_evidence"]["developer_semantics_status"]
+        record["blocking_findings"] = sorted(
+            dict.fromkeys(list(record.get("blocking_findings", [])) + list(result["hard_blockers"]))
+        )
+        record["required_actions"] = list(
+            dict.fromkeys(list(record.get("required_actions", [])) + list(result["required_actions"]))
+        )
         record["references_status"] = result["dimension_evidence"]["references_status"]
         record["parity_test_status"] = result["dimension_evidence"]["parity_test_status"]
         write_acceptability_result(result)

@@ -220,8 +220,8 @@ If all phases pass, the repo is ready for:
 | `../ageo-matcher/scripts/verify_atoms_repo.py` | Completeness verifier: undefined symbols, missing imports, syntax errors |
 | `ageoa/ghost/registry.py` | `@register_atom` decorator — binds impl to witness in global `REGISTRY` dict |
 | `ageoa/ghost/abstract.py` | Abstract metadata types (`AbstractSignal`, `AbstractArray`, etc.) used by witnesses |
-| `../ageo-matcher/ageom/architect/source_catalog.py` | How matcher discovers and indexes atoms from this repo |
-| `../ageo-matcher/ageom/graph_store.py` | Witness and contract metadata extraction for Memgraph upsert |
+| `../ageo-matcher/sciona/architect/source_catalog.py` | How matcher discovers and indexes atoms from this repo |
+| `../ageo-matcher/sciona/graph_store.py` | Witness and contract metadata extraction for Memgraph upsert |
 | `../ageo-matcher/sources.yml` | Declares `ageo-atoms` as a source (`path: ../ageo-atoms`, `package: ageoa`) |
 
 ## Common failure patterns

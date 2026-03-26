@@ -1,9 +1,9 @@
 # Ingestion Agent Prompt
 
-Primary task: run `ageom ingest` to ingest source code into the atom framework.
+Primary task: run `sciona ingest` to ingest source code into the atom framework.
 Secondary task: verify and validate the generated atoms, witnesses, CDG, and tests.
 
-The ingester supports **Python, Rust, C++, and Julia** source files. The same `ageom ingest` command is used for all languages — the ingester auto-detects the language from the file extension and selects the appropriate parser. All languages produce the same output: Python atom wrappers (with FFI bindings for non-Python sources), ghost witnesses, and a CDG.
+The ingester supports **Python, Rust, C++, and Julia** source files. The same `sciona ingest` command is used for all languages — the ingester auto-detects the language from the file extension and selects the appropriate parser. All languages produce the same output: Python atom wrappers (with FFI bindings for non-Python sources), ghost witnesses, and a CDG.
 
 ---
 
@@ -12,10 +12,10 @@ The ingester supports **Python, Rust, C++, and Julia** source files. The same `a
 ### Command
 
 ```bash
-ageom ingest <source_file> --class <ClassName> --output <output_dir> [options]
+sciona ingest <source_file> --class <ClassName> --output <output_dir> [options]
 ```
 
-**Always use `ageom ingest`** regardless of source language. The ingester detects the language from the file extension and applies the correct parser.
+**Always use `sciona ingest`** regardless of source language. The ingester detects the language from the file extension and applies the correct parser.
 
 ### Supported languages and file extensions
 
@@ -50,39 +50,39 @@ The language is determined automatically from the file extension. You do not nee
 ```bash
 # ── Python ──
 # Ingest a Python class (LLM-based chunking)
-ageom ingest ~/ageo-atoms/ageoa/biosppy/eda.py \
+sciona ingest ~/ageo-atoms/ageoa/biosppy/eda.py \
   --class EDAProcessor \
   --output ~/ageo-atoms/ageoa/biosppy
 
 # Python procedural mode (no LLM, deterministic SSA extraction)
-ageom ingest path/to/pipeline.py --class MyPipeline --procedural --output output/MyPipeline
+sciona ingest path/to/pipeline.py --class MyPipeline --procedural --output output/MyPipeline
 
 # ── Rust ──
 # Ingest a Rust struct (tree-sitter parsing, ctypes FFI bindings generated)
-ageom ingest ~/ageo-atoms/ageoa/rust_robotics/src/lib.rs \
+sciona ingest ~/ageo-atoms/ageoa/rust_robotics/src/lib.rs \
   --class RobotController \
   --output ~/ageo-atoms/ageoa/rust_robotics
 
 # Rust procedural mode
-ageom ingest path/to/lib.rs --class my_module --procedural --output output/my_module
+sciona ingest path/to/lib.rs --class my_module --procedural --output output/my_module
 
 # ── Julia ──
 # Ingest a Julia module (tree-sitter parsing, juliacall FFI bindings generated)
-ageom ingest ~/ageo-atoms/ageoa/tempo_jl/src/Tempo.jl \
+sciona ingest ~/ageo-atoms/ageoa/tempo_jl/src/Tempo.jl \
   --class TempoModule \
   --output ~/ageo-atoms/ageoa/tempo_jl
 
 # Julia procedural mode (extracts free/module-level functions)
-ageom ingest path/to/module.jl --class MyModule --procedural --output output/MyModule
+sciona ingest path/to/module.jl --class MyModule --procedural --output output/MyModule
 
 # ── C++ ──
 # Ingest a C++ class (tree-sitter parsing, ctypes FFI bindings generated)
-ageom ingest ~/ageo-atoms/ageoa/molecular_docking/src/docking.cpp \
+sciona ingest ~/ageo-atoms/ageoa/molecular_docking/src/docking.cpp \
   --class DockingEngine \
   --output ~/ageo-atoms/ageoa/molecular_docking
 
 # C++ procedural mode
-ageom ingest path/to/solver.cpp --class Solver --procedural --output output/Solver
+sciona ingest path/to/solver.cpp --class Solver --procedural --output output/Solver
 ```
 
 ### Recursive decomposition (max-depth)
@@ -108,7 +108,7 @@ To enable recursive decomposition, set `AGEOM_INGESTER_MAX_DEPTH` in `.env` or e
 export AGEOM_INGESTER_MAX_DEPTH=3
 
 # Then run ingestion as normal (any language)
-ageom ingest path/to/source.rs --class MyStruct --output output/MyStruct
+sciona ingest path/to/source.rs --class MyStruct --output output/MyStruct
 ```
 
 When `max_depth > 1`, the CDG will contain decomposed parent nodes with `status: "decomposed"` and `children` referencing their sub-atoms. Leaf nodes remain `status: "atomic"`. The `depth` field on each node tracks its level in the decomposition tree (0 = root).
@@ -303,7 +303,7 @@ python -c "import ageoa.<domain>"
 python -c "from ageoa.<domain>.atoms import <atom_name>"
 
 # Upsert CDG into Neo4j graph store (optional)
-ageom upsert-cdg <repo_path> --repo-name <domain>
+sciona upsert-cdg <repo_path> --repo-name <domain>
 ```
 
 ---
