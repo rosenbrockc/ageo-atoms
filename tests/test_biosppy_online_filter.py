@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 from biosppy.signals.tools import OnlineFilter
 
 from ageoa.biosppy.online_filter.atoms import filterstateinit, filterstep
+from ageoa.biosppy.online_filter_codex.atoms import filterstateinit as codex_filterstateinit
+from ageoa.biosppy.online_filter_codex.atoms import filterstep as codex_filterstep
+from ageoa.biosppy.online_filter_v2.atoms import filterstateinit as v2_filterstateinit
+from ageoa.biosppy.online_filter_v2.atoms import filterstep as v2_filterstep
 
 
 def test_online_filter_state_init_and_chunked_filter_match_direct_execution() -> None:
@@ -42,3 +47,30 @@ def test_online_filter_state_threads_across_chunks() -> None:
 
     assert np.allclose(filtered_1, expected_1)
     assert np.allclose(filtered_2, expected_2)
+
+
+@pytest.mark.parametrize(
+    ("init_atom", "step_atom"),
+    [
+        (codex_filterstateinit, codex_filterstep),
+        (v2_filterstateinit, v2_filterstep),
+    ],
+)
+def test_refined_online_filter_variants_match_chunked_execution(init_atom, step_atom) -> None:
+    b = np.array([0.5, 0.5], dtype=float)
+    a = np.array([1.0], dtype=float)
+    signal = np.linspace(0.0, 1.0, 8)
+
+    (_, _, zi0), state0 = init_atom(b, a)
+    assert zi0 is None
+
+    (filtered_1, zi1), state1 = step_atom(signal[:4], state0)
+    (filtered_2, zi2), _ = step_atom(signal[4:], state1)
+
+    assert zi1 is not None
+    assert zi2 is not None
+
+    chunked = np.concatenate([filtered_1, filtered_2])
+    expected = np.convolve(signal, b, mode="full")[: signal.shape[0]]
+
+    assert np.allclose(chunked, expected)

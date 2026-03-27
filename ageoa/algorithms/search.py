@@ -5,14 +5,15 @@ Covers binary search, linear search, and hash-based lookup.
 
 from __future__ import annotations
 
-from typing import Any
-
 import icontract
 import numpy as np
 
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 from ageoa.ghost.registry import register_atom
 from ageoa.ghost.witnesses import witness_search
+
+
+SearchKey = int | float | str | bool | complex | bytes | np.generic
 
 
 def _witness_binary_search(arr: AbstractArray, key: AbstractScalar) -> AbstractScalar:
@@ -32,7 +33,7 @@ def _witness_binary_search(arr: AbstractArray, key: AbstractScalar) -> AbstractS
     lambda result: result >= -1,
     "Result must be valid index or -1",
 )
-def binary_search(arr: np.ndarray, key: Any) -> int:
+def binary_search(arr: np.ndarray, key: SearchKey) -> int:
     """Binary search: O(log n) search in sorted array.
 
     Returns index of key if found, -1 otherwise.
@@ -61,7 +62,7 @@ def _witness_linear_search(arr: AbstractArray, key: AbstractScalar) -> AbstractS
     lambda result: result >= -1,
     "Result must be valid index or -1",
 )
-def linear_search(arr: np.ndarray, key: Any) -> int:
+def linear_search(arr: np.ndarray, key: SearchKey) -> int:
     """Linear search: O(n) search in unsorted array.
 
     Returns index of first occurrence of key, -1 if not found.
@@ -95,7 +96,7 @@ def _witness_hash_lookup(arr: AbstractArray, key: AbstractScalar) -> AbstractSca
     lambda result: result >= -1,
     "Result must be valid index or -1",
 )
-def hash_lookup(arr: np.ndarray, key: Any) -> int:
+def hash_lookup(arr: np.ndarray, key: SearchKey) -> int:
     """Hash-based lookup: O(1) amortized via dict index.
 
     Builds a hash table from array values to indices. Returns the

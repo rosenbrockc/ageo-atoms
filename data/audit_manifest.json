@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-27T18:03:01+00:00",
+    "generated_at": "2026-03-27T18:10:28+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,30 +64,30 @@
       "refined_ingest": 103
     },
     "risk_tier_counts": {
-      "high": 92,
+      "high": 85,
       "low": 47,
-      "medium": 367
+      "medium": 374
     },
     "stateful_count": 65,
     "stochastic_count": 31,
-    "procedural_count": 27,
+    "procedural_count": 25,
     "ffi_count": 246,
     "skeleton_count": 0,
     "parity_coverage_count": 15,
     "reference_coverage_count": 502,
     "unmapped_upstream_count": 111,
     "structural_status_counts": {
-      "fail": 76,
-      "partial": 128,
-      "pass": 302
+      "fail": 73,
+      "partial": 124,
+      "pass": 309
     },
     "review_priority_counts": {
-      "review_later": 293,
-      "review_now": 103,
-      "review_soon": 110
+      "review_later": 296,
+      "review_now": 96,
+      "review_soon": 114
     },
-    "high_risk_count": 92,
-    "medium_risk_count": 367,
+    "high_risk_count": 85,
+    "medium_risk_count": 374,
     "low_risk_count": 47
   },
   "atoms": [
@@ -1778,17 +1778,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
+      "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:36",
       "atom_name": "ageoa.algorithms.search.binary_search",
       "atom_key": "algorithms/search:binary_search",
       "module_import_path": "ageoa.algorithms.search",
       "module_path": "ageoa/algorithms/search.py",
       "wrapper_symbol": "binary_search",
-      "wrapper_line": 35,
+      "wrapper_line": 36,
       "domain_family": "algorithms",
       "module_family": "algorithms",
       "source_kind": "hand_written",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -1798,26 +1798,21 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
@@ -1842,7 +1837,7 @@
           "name": "key",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Any"
+          "annotation": "SearchKey"
         }
       ],
       "return_annotation": "int",
@@ -1853,10 +1848,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Binary search: O(log n) search in sorted array.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "key:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -1878,23 +1871,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 66,
+      "risk_score": 35,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 15,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_UPSTREAM_UNMAPPED"
           ]
         },
         "evidence_gap_risk": {
@@ -1923,7 +1911,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -1932,8 +1920,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -1943,57 +1930,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
-          "atom_key": "algorithms/search:binary_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "binary_search",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
-          "atom_key": "algorithms/search:binary_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "binary_search",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.binary_search@ageoa/algorithms/search.py:35",
-          "atom_key": "algorithms/search:binary_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "binary_search",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "binary_search: param 'key' annotated as Any",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -2014,17 +1952,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
+      "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:65",
       "atom_name": "ageoa.algorithms.search.linear_search",
       "atom_key": "algorithms/search:linear_search",
       "module_import_path": "ageoa.algorithms.search",
       "module_path": "ageoa/algorithms/search.py",
       "wrapper_symbol": "linear_search",
-      "wrapper_line": 64,
+      "wrapper_line": 65,
       "domain_family": "algorithms",
       "module_family": "algorithms",
       "source_kind": "hand_written",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -2034,26 +1972,21 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
@@ -2078,7 +2011,7 @@
           "name": "key",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Any"
+          "annotation": "SearchKey"
         }
       ],
       "return_annotation": "int",
@@ -2089,10 +2022,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Linear search: O(n) search in unsorted array.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "key:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -2114,23 +2045,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 66,
+      "risk_score": 35,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 15,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_UPSTREAM_UNMAPPED"
           ]
         },
         "evidence_gap_risk": {
@@ -2159,7 +2085,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -2168,8 +2094,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -2179,57 +2104,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
-          "atom_key": "algorithms/search:linear_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "linear_search",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
-          "atom_key": "algorithms/search:linear_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "linear_search",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.linear_search@ageoa/algorithms/search.py:64",
-          "atom_key": "algorithms/search:linear_search",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "linear_search",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "linear_search: param 'key' annotated as Any",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -2250,17 +2126,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
+      "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:99",
       "atom_name": "ageoa.algorithms.search.hash_lookup",
       "atom_key": "algorithms/search:hash_lookup",
       "module_import_path": "ageoa.algorithms.search",
       "module_path": "ageoa/algorithms/search.py",
       "wrapper_symbol": "hash_lookup",
-      "wrapper_line": 98,
+      "wrapper_line": 99,
       "domain_family": "algorithms",
       "module_family": "algorithms",
       "source_kind": "hand_written",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -2270,26 +2146,21 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
@@ -2314,7 +2185,7 @@
           "name": "key",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Any"
+          "annotation": "SearchKey"
         }
       ],
       "return_annotation": "int",
@@ -2325,10 +2196,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Hash-based lookup: O(1) amortized via dict index.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "key:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -2350,23 +2219,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 66,
+      "risk_score": 35,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 15,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_UPSTREAM_UNMAPPED"
           ]
         },
         "evidence_gap_risk": {
@@ -2395,7 +2259,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -2404,8 +2268,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -2415,57 +2278,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
-          "atom_key": "algorithms/search:hash_lookup",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "hash_lookup",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
-          "atom_key": "algorithms/search:hash_lookup",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "hash_lookup",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.algorithms.search.hash_lookup@ageoa/algorithms/search.py:98",
-          "atom_key": "algorithms/search:hash_lookup",
-          "domain_family": "algorithms",
-          "module_path": "ageoa/algorithms/search.py",
-          "wrapper_symbol": "hash_lookup",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "hash_lookup: param 'key' annotated as Any",
-          "path": "ageoa/algorithms/search.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -12180,17 +11994,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:24",
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:31",
       "atom_name": "ageoa.biosppy.online_filter_codex.filterstateinit",
       "atom_key": "biosppy/online_filter_codex:filterstateinit",
       "module_import_path": "ageoa.biosppy.online_filter_codex.atoms",
       "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
       "wrapper_symbol": "filterstateinit",
-      "wrapper_line": 24,
+      "wrapper_line": 31,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -12203,20 +12017,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 55,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
@@ -12225,13 +12036,11 @@
       ],
       "argument_names": [
         "b",
-        "a",
-        "state"
+        "a"
       ],
       "required_parameter_names": [
         "b",
-        "a",
-        "state"
+        "a"
       ],
       "argument_details": [
         {
@@ -12245,22 +12054,16 @@
           "required": true,
           "kind": "positional_or_keyword",
           "annotation": "np.ndarray"
-        },
-        {
-          "name": "state",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "FilterParamState"
         }
       ],
-      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterParamState]",
-      "decorator_count": 4,
-      "require_count": 2,
+      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_filterstateinit)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Stateless wrapper: Functional Core, Imperative Shell.",
+      "docstring_summary": "Initialize an OnlineFilter coefficient/state bundle for chunked use.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -12268,7 +12071,7 @@
       "inventory_notes": [],
       "stateful_kind": "explicit_state_model",
       "stochastic": false,
-      "procedural": true,
+      "procedural": false,
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
@@ -12280,27 +12083,20 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PLACEHOLDER_DOCSTRING",
-        "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 70,
+      "risk_score": 48,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 15,
@@ -12318,9 +12114,8 @@
           ]
         },
         "statefulness_risk": {
-          "score": 10,
+          "score": 8,
           "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
             "RISK_STATEFUL_API",
             "RISK_STATE_MODEL_PRESENT"
           ]
@@ -12336,13 +12131,11 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 3,
-          "reasons": [
-            "RISK_PLACEHOLDER_DOCSTRING"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12351,7 +12144,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -12361,42 +12154,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:24",
-          "atom_key": "biosppy/online_filter_codex:filterstateinit",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "wrapper_symbol": "filterstateinit",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.273",
-          "path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.online_filter_codex.filterstateinit@ageoa/biosppy/online_filter_codex/atoms.py:24",
-          "atom_key": "biosppy/online_filter_codex:filterstateinit",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "wrapper_symbol": "filterstateinit",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 8 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -12417,17 +12176,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:58",
       "atom_name": "ageoa.biosppy.online_filter_codex.filterstep",
       "atom_key": "biosppy/online_filter_codex:filterstep",
       "module_import_path": "ageoa.biosppy.online_filter_codex.atoms",
       "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
       "wrapper_symbol": "filterstep",
-      "wrapper_line": 54,
+      "wrapper_line": 58,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -12440,20 +12199,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 55,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
@@ -12462,16 +12218,10 @@
       ],
       "argument_names": [
         "signal",
-        "b",
-        "a",
-        "zi",
         "state"
       ],
       "required_parameter_names": [
         "signal",
-        "b",
-        "a",
-        "zi",
         "state"
       ],
       "argument_details": [
@@ -12482,38 +12232,20 @@
           "annotation": "np.ndarray"
         },
         {
-          "name": "b",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "a",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "zi",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
           "name": "state",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "FilterParamState"
+          "annotation": "FilterState"
         }
       ],
-      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterParamState]",
-      "decorator_count": 6,
-      "require_count": 4,
+      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterState]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_filterstep)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Applies the online Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.",
+      "docstring_summary": "Filter one signal chunk and return the next immutable filter state.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -12533,7 +12265,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
@@ -12542,17 +12273,13 @@
         "RISK_REFINED_INGEST",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 67,
+      "risk_score": 50,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 15,
@@ -12592,7 +12319,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12601,7 +12328,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -12611,42 +12338,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
-          "atom_key": "biosppy/online_filter_codex:filterstep",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "wrapper_symbol": "filterstep",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.273",
-          "path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:54",
-          "atom_key": "biosppy/online_filter_codex:filterstep",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "wrapper_symbol": "filterstep",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 8 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/online_filter_codex/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -12667,17 +12360,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:24",
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:31",
       "atom_name": "ageoa.biosppy.online_filter_v2.filterstateinit",
       "atom_key": "biosppy/online_filter_v2:filterstateinit",
       "module_import_path": "ageoa.biosppy.online_filter_v2.atoms",
       "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
       "wrapper_symbol": "filterstateinit",
-      "wrapper_line": 24,
+      "wrapper_line": 31,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -12690,20 +12383,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 55,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
@@ -12712,13 +12402,11 @@
       ],
       "argument_names": [
         "b",
-        "a",
-        "state"
+        "a"
       ],
       "required_parameter_names": [
         "b",
-        "a",
-        "state"
+        "a"
       ],
       "argument_details": [
         {
@@ -12732,22 +12420,16 @@
           "required": true,
           "kind": "positional_or_keyword",
           "annotation": "np.ndarray"
-        },
-        {
-          "name": "state",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "FilterParamState"
         }
       ],
-      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterParamState]",
-      "decorator_count": 4,
-      "require_count": 2,
+      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_filterstateinit)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Stateless wrapper: Functional Core, Imperative Shell.",
+      "docstring_summary": "Initialize an OnlineFilter coefficient/state bundle for chunked use.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -12755,7 +12437,7 @@
       "inventory_notes": [],
       "stateful_kind": "explicit_state_model",
       "stochastic": false,
-      "procedural": true,
+      "procedural": false,
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
@@ -12767,27 +12449,20 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_PLACEHOLDER_DOCSTRING",
-        "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 70,
+      "risk_score": 48,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 15,
@@ -12805,9 +12480,8 @@
           ]
         },
         "statefulness_risk": {
-          "score": 10,
+          "score": 8,
           "reasons": [
-            "RISK_PROCEDURAL_WRAPPER",
             "RISK_STATEFUL_API",
             "RISK_STATE_MODEL_PRESENT"
           ]
@@ -12823,13 +12497,11 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 3,
-          "reasons": [
-            "RISK_PLACEHOLDER_DOCSTRING"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12838,7 +12510,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -12848,42 +12520,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:24",
-          "atom_key": "biosppy/online_filter_v2:filterstateinit",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "wrapper_symbol": "filterstateinit",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.273",
-          "path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.online_filter_v2.filterstateinit@ageoa/biosppy/online_filter_v2/atoms.py:24",
-          "atom_key": "biosppy/online_filter_v2:filterstateinit",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "wrapper_symbol": "filterstateinit",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 8 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -12904,17 +12542,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:58",
       "atom_name": "ageoa.biosppy.online_filter_v2.filterstep",
       "atom_key": "biosppy/online_filter_v2:filterstep",
       "module_import_path": "ageoa.biosppy.online_filter_v2.atoms",
       "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
       "wrapper_symbol": "filterstep",
-      "wrapper_line": 54,
+      "wrapper_line": 58,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "high",
+      "risk_tier": "medium",
       "upstream_symbols": {},
       "upstream_version": null,
       "source_revision": null,
@@ -12927,20 +12565,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 55,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
@@ -12949,16 +12584,10 @@
       ],
       "argument_names": [
         "signal",
-        "b",
-        "a",
-        "zi",
         "state"
       ],
       "required_parameter_names": [
         "signal",
-        "b",
-        "a",
-        "zi",
         "state"
       ],
       "argument_details": [
@@ -12969,38 +12598,20 @@
           "annotation": "np.ndarray"
         },
         {
-          "name": "b",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "a",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "zi",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
           "name": "state",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "FilterParamState"
+          "annotation": "FilterState"
         }
       ],
-      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterParamState]",
-      "decorator_count": 6,
-      "require_count": 4,
+      "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterState]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_filterstep)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Applies the online Infinite Impulse Response (IIR)/Finite Impulse Response (FIR) filter to an incoming signal chunk using the current delay-line state. Consumes zi as immutable state-in and produces a new zi as state-out, enabling stateless composition across successive calls for true online (sample-by-sample or block) filtering.",
+      "docstring_summary": "Filter one signal chunk and return the next immutable filter state.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -13020,7 +12631,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
@@ -13029,17 +12639,13 @@
         "RISK_REFINED_INGEST",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 67,
+      "risk_score": 50,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 15,
@@ -13079,7 +12685,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13088,7 +12694,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -13098,42 +12704,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
-          "atom_key": "biosppy/online_filter_v2:filterstep",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "wrapper_symbol": "filterstep",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.273",
-          "path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:54",
-          "atom_key": "biosppy/online_filter_v2:filterstep",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "wrapper_symbol": "filterstep",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 8 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/online_filter_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",

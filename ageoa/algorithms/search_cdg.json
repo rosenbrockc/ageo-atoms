@@ -1,0 +1,144 @@
+{
+  "nodes": [
+    {
+      "node_id": "search_root",
+      "parent_id": null,
+      "name": "search_algorithms",
+      "description": "Discrete search routines over arrays and hash-indexed tables.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "binary_search",
+        "linear_search",
+        "hash_lookup"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "binary_search",
+      "parent_id": "search_root",
+      "name": "binary_search",
+      "description": "Locate a key in a sorted array using logarithmic partitioning.",
+      "concept_type": "search",
+      "inputs": [
+        {
+          "name": "arr",
+          "type_desc": "np.ndarray",
+          "constraints": "non-empty sorted 1-D input array"
+        },
+        {
+          "name": "key",
+          "type_desc": "object",
+          "constraints": "comparison-compatible search value"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "index",
+          "type_desc": "int",
+          "constraints": "index of key if found, otherwise -1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(arr: np.ndarray, key: object) -> int",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Search a sorted vector with logarithmic comparisons.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "linear_search",
+      "parent_id": "search_root",
+      "name": "linear_search",
+      "description": "Locate the first matching key in an unsorted array by scanning.",
+      "concept_type": "search",
+      "inputs": [
+        {
+          "name": "arr",
+          "type_desc": "np.ndarray",
+          "constraints": "non-empty 1-D input array"
+        },
+        {
+          "name": "key",
+          "type_desc": "object",
+          "constraints": "comparison-compatible search value"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "index",
+          "type_desc": "int",
+          "constraints": "index of first match if found, otherwise -1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(arr: np.ndarray, key: object) -> int",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Search an array sequentially for the first matching value.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "hash_lookup",
+      "parent_id": "search_root",
+      "name": "hash_lookup",
+      "description": "Locate a key in an array by materializing a value-to-index table.",
+      "concept_type": "search",
+      "inputs": [
+        {
+          "name": "arr",
+          "type_desc": "np.ndarray",
+          "constraints": "non-empty 1-D input array"
+        },
+        {
+          "name": "key",
+          "type_desc": "object",
+          "constraints": "hashable lookup value"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "index",
+          "type_desc": "int",
+          "constraints": "index of first match if found, otherwise -1"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(arr: np.ndarray, key: object) -> int",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Build a hash table from array values to their first index.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": []
+}
