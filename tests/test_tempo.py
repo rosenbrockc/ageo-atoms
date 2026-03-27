@@ -34,10 +34,10 @@ class TestTempoTdb:
         assert tai_tdb.dtype == np.float64
 
     def test_require_numeric_types(self):
-        with pytest.raises(NotImplementedError):
+        with pytest.raises(TypeError):
             ag_tempo.offset_tt2tdb("100")
             
-        with pytest.raises(NotImplementedError):
+        with pytest.raises(TypeError):
             ag_tempo.offset_tai2tdb("100")
 
     def test_precision_consistency(self):

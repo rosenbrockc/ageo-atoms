@@ -1,79 +1,73 @@
-from __future__ import annotations
-"""Auto-generated stateful atom wrappers following the ageoa pattern."""
+"""Deterministic queue-position state transitions."""
 
+from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+
+from .state_models import OrderState
 from .witnesses import witness_initializeorderstate, witness_updatequeueontrade
 
-# Import the original class for __new__ instantiation
-# from <source_module> import QueueTracker
 
-# State model should be imported from the generated state_models module
-from .state_models import OrderState
+def _is_numeric_scalar(value: object) -> bool:
+    return isinstance(value, (float, int, np.number))
 
-# Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_initializeorderstate)
-@icontract.require(lambda my_qty: isinstance(my_qty, (float, int, np.number)), "my_qty must be numeric")
-@icontract.require(lambda orders_ahead: isinstance(orders_ahead, (float, int, np.number)), "orders_ahead must be numeric")
-@icontract.ensure(lambda result: result is not None, "InitializeOrderState output must not be None")
-def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float, state: OrderState) -> tuple[OrderState, OrderState]:
-    """Stateless wrapper: Functional Core, Imperative Shell.
-
-    Initializes the state of a new order within the queue, capturing its initial quantity and the volume of orders ahead of it.
+@icontract.require(lambda my_order_id: isinstance(my_order_id, str) and bool(my_order_id), "my_order_id must be a non-empty string")
+@icontract.require(lambda my_qty: _is_numeric_scalar(my_qty) and float(my_qty) >= 0.0, "my_qty must be non-negative")
+@icontract.require(lambda orders_ahead: _is_numeric_scalar(orders_ahead) and float(orders_ahead) >= 0.0, "orders_ahead must be non-negative")
+@icontract.ensure(lambda result: result.my_qty >= 0.0 and result.orders_ahead >= 0.0, "state quantities must remain non-negative")
+def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float) -> OrderState:
+    """Create the initial queue state for a newly submitted order.
 
     Args:
-        my_order_id: Unique identifier for the order.
-        my_qty: Initial quantity of the order.
-        orders_ahead: Initial quantity of orders in the queue ahead of this one.
-        state: OrderState object containing cross-window persistent state.
+        my_order_id: Unique identifier for the tracked order.
+        my_qty: Remaining quantity resting at this order's price level.
+        orders_ahead: Aggregate quantity already resting ahead of the order.
 
     Returns:
-        tuple[A data structure representing the initial state, containing my_qty, orders_ahead, and is_filled status., OrderState]:
-            The first element is the functional result, the second is the updated state.
+        An immutable ``OrderState`` snapshot for downstream queue updates.
     """
-    obj = object()
-    obj.is_filled = state.is_filled
-    obj.my_qty = state.my_qty
-    obj.orders_ahead = state.orders_ahead
-    new_state = state.model_copy(update={
-        "is_filled": obj.is_filled,
-        "my_qty": obj.my_qty,
-        "orders_ahead": obj.orders_ahead,
-    })
-    result = obj.initial_order_state
-    return result, new_state
+
+    return OrderState(
+        my_order_id=my_order_id,
+        my_qty=float(my_qty),
+        orders_ahead=float(orders_ahead),
+        is_filled=float(my_qty) == 0.0,
+    )
+
 
 @register_atom(witness_updatequeueontrade)
-@icontract.require(lambda trade_qty: isinstance(trade_qty, (float, int, np.number)), "trade_qty must be numeric")
-@icontract.ensure(lambda result: result is not None, "UpdateQueueOnTrade output must not be None")
-def updatequeueontrade(current_order_state: OrderState, trade_qty: float, state: OrderState) -> tuple[OrderState, OrderState]:
-    """Stateless wrapper: Functional Core, Imperative Shell.
-
-    Processes an incoming market trade, reducing the queue ahead and potentially filling the order. This is a deterministic state transition.
+@icontract.require(lambda current_order_state: current_order_state is not None, "current_order_state cannot be None")
+@icontract.require(lambda trade_qty: _is_numeric_scalar(trade_qty) and float(trade_qty) >= 0.0, "trade_qty must be non-negative")
+@icontract.ensure(lambda result: result.my_qty >= 0.0 and result.orders_ahead >= 0.0, "updated state quantities must remain non-negative")
+def updatequeueontrade(current_order_state: OrderState, trade_qty: float) -> OrderState:
+    """Advance queue state after an executed trade consumes displayed quantity.
 
     Args:
-        current_order_state: The current state of the order before the trade.
-        trade_qty: The quantity of the executed market trade.
-        state: OrderState object containing cross-window persistent state.
+        current_order_state: Queue state before the trade is applied.
+        trade_qty: Executed trade quantity at the tracked order's price level.
 
     Returns:
-        tuple[A new data structure representing the updated state of the order after the trade., OrderState]:
-            The first element is the functional result, the second is the updated state.
+        The next immutable ``OrderState`` after consuming queue-ahead volume and,
+        if necessary, filling this order with any remaining traded quantity.
     """
-    obj = object()
-    obj.is_filled = state.is_filled
-    obj.my_qty = state.my_qty
-    obj.orders_ahead = state.orders_ahead
-    obj.process_trade(current_order_state, trade_qty)
-    obj.fill_my_order(current_order_state, trade_qty)
-    new_state = state.model_copy(update={
-        "is_filled": obj.is_filled,
-        "my_qty": obj.my_qty,
-        "orders_ahead": obj.orders_ahead,
-    })
-    result = obj.next_order_state
-    return result, new_state
+
+    traded = float(trade_qty)
+    ahead_before = float(current_order_state.orders_ahead)
+    qty_before = float(current_order_state.my_qty)
+
+    consumed_ahead = min(ahead_before, traded)
+    remaining_trade = traded - consumed_ahead
+    next_orders_ahead = ahead_before - consumed_ahead
+    next_my_qty = max(qty_before - remaining_trade, 0.0)
+
+    return OrderState(
+        my_order_id=current_order_state.my_order_id,
+        my_qty=next_my_qty,
+        orders_ahead=next_orders_ahead,
+        is_filled=current_order_state.is_filled or next_my_qty == 0.0,
+    )

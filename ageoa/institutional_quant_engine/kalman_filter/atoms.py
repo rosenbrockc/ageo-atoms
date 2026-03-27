@@ -1,95 +1,75 @@
-from __future__ import annotations
-from typing import Any
-KalmanFilter: Any = Any
-"""Auto-generated stateful atom wrappers following the ageoa pattern."""
+"""Deterministic scalar Kalman filter atoms."""
 
+from __future__ import annotations
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
+
+from .state_models import KalmanState
 from .witnesses import witness_kalmanfilterinit, witness_kalmanmeasurementupdate
 
 
-# Import the original class for __new__ instantiation
-# from <source_module> import KalmanFilter
+def _is_numeric_scalar(value: object) -> bool:
+    return isinstance(value, (float, int, np.number))
 
-# State model should be imported from the generated state_models module
-from .state_models import KalmanState
 
-# Witness functions should be imported from the generated witnesses module
-witness_kalmanfilterinit: Any
-witness_kalmanmeasurementupdate: Any
 @register_atom(witness_kalmanfilterinit)
-@icontract.require(lambda process_variance: isinstance(process_variance, (float, int, np.number)), "process_variance must be numeric")
-@icontract.require(lambda measurement_variance: isinstance(measurement_variance, (float, int, np.number)), "measurement_variance must be numeric")
-@icontract.require(lambda estimated_measurement_variance: isinstance(estimated_measurement_variance, (float, int, np.number)), "estimated_measurement_variance must be numeric")
-@icontract.ensure(lambda result: all(r is not None for r in result), "KalmanFilterInit all outputs must not be None")
-def kalmanfilterinit(process_variance: float, measurement_variance: float, estimated_measurement_variance: float, state: KalmanState) -> tuple[tuple[float, float, float, float], KalmanState]:
-    """Stateless wrapper: Functional Core, Imperative Shell.
-
-    Bootstraps the Kalman filter state by initialising the error covariance matrix P, process-noise covariance Q, measurement-noise covariance R, and the prior state estimate X. No computation is performed; all values are stored as immutable starting state for downstream kernels.
+@icontract.require(lambda process_variance: _is_numeric_scalar(process_variance) and float(process_variance) > 0.0, "process_variance must be positive")
+@icontract.require(lambda measurement_variance: _is_numeric_scalar(measurement_variance) and float(measurement_variance) > 0.0, "measurement_variance must be positive")
+@icontract.require(lambda estimated_measurement_variance: _is_numeric_scalar(estimated_measurement_variance) and float(estimated_measurement_variance) > 0.0, "estimated_measurement_variance must be positive")
+@icontract.ensure(lambda result: result.p > 0.0 and result.q > 0.0 and result.r > 0.0, "all covariance terms must remain positive")
+def kalmanfilterinit(
+    process_variance: float,
+    measurement_variance: float,
+    estimated_measurement_variance: float,
+) -> KalmanState:
+    """Initialize a scalar Kalman filter state.
 
     Args:
-        process_variance: > 0
-        measurement_variance: > 0
-        estimated_measurement_variance: > 0
-        state: KalmanState object containing cross-window persistent state.
+        process_variance: Process-noise variance ``Q``.
+        measurement_variance: Measurement-noise variance ``R``.
+        estimated_measurement_variance: Initial covariance estimate ``P``.
 
     Returns:
-        tuple[tuple[P, Q, R, X], KalmanState]:
-            The first element is the functional result, the second is the updated state.
+        An immutable ``KalmanState`` with initial state estimate ``x = 0.0``.
     """
-    obj = KalmanFilter.__new__(KalmanFilter)
-    obj.X = state.X
-    obj.P = state.P
-    obj.Q = state.Q
-    obj.R = state.R
-    new_state = state.model_copy(update={
-        "X": obj.X,
-        "P": obj.P,
-        "Q": obj.Q,
-        "R": obj.R,
-    })
-    result = (obj.P, obj.Q, obj.R, obj.X)
-    return result, new_state
+
+    return KalmanState(
+        x=0.0,
+        p=float(estimated_measurement_variance),
+        q=float(process_variance),
+        r=float(measurement_variance),
+    )
 
 
 @register_atom(witness_kalmanmeasurementupdate)
-@icontract.require(lambda P: isinstance(P, (float, int, np.number)), "P must be numeric")
-@icontract.require(lambda Q: isinstance(Q, (float, int, np.number)), "Q must be numeric")
-@icontract.require(lambda R: isinstance(R, (float, int, np.number)), "R must be numeric")
-@icontract.require(lambda X: isinstance(X, (float, int, np.number)), "X must be numeric")
-@icontract.require(lambda measurement: isinstance(measurement, (float, int, np.number)), "measurement must be numeric")
-@icontract.ensure(lambda result: all(r is not None for r in result), "KalmanMeasurementUpdate all outputs must not be None")
-def kalmanmeasurementupdate(P: float, Q: float, R: float, X: float, measurement: float, state: KalmanState) -> tuple[tuple[float, float], KalmanState]:
-    """Stateless wrapper: Functional Core, Imperative Shell.
-
-    Pure functional Kalman predict-and-update kernel. Consumes the current immutable state tuple (P, Q, R, X) together with a scalar measurement and produces a brand-new state tuple (P_new, X_new). Internally fuses the time-update (predict) step - advancing P by Q - with the measurement-update step that computes the Kalman gain, corrects the state estimate X, and contracts P by the complement of the gain. Returns new objects; the input state is never mutated.
+@icontract.require(lambda prior_state: prior_state is not None, "prior_state cannot be None")
+@icontract.require(lambda measurement: _is_numeric_scalar(measurement), "measurement must be numeric")
+@icontract.ensure(lambda result: result.p > 0.0, "posterior covariance must remain positive")
+def kalmanmeasurementupdate(prior_state: KalmanState, measurement: float) -> KalmanState:
+    """Run one scalar Kalman predict/update step.
 
     Args:
-        P: > 0
-        Q: > 0
-        R: > 0
-        X: scalar
-        measurement: scalar
-        state: KalmanState object containing cross-window persistent state.
+        prior_state: Prior scalar Kalman filter state.
+        measurement: Observed scalar measurement.
 
     Returns:
-        tuple[tuple[P_new, X_new], KalmanState]:
-            The first element is the functional result, the second is the updated state.
+        The posterior ``KalmanState`` after one predict/update step.
     """
-    obj = KalmanFilter.__new__(KalmanFilter)
-    obj.X = state.X
-    obj.P = state.P
-    obj.Q = state.Q
-    obj.R = state.R
-    obj.update(P, Q, R, X, measurement)
-    new_state = state.model_copy(update={
-        "X": obj.X,
-        "P": obj.P,
-        "Q": obj.Q,
-        "R": obj.R,
-    })
-    result = (obj.P_new, obj.X_new)
-    return result, new_state
+
+    predicted_p = prior_state.p + prior_state.q
+    gain = predicted_p / (predicted_p + prior_state.r)
+    innovation = float(measurement) - prior_state.x
+    posterior_x = prior_state.x + gain * innovation
+    posterior_p = (1.0 - gain) * predicted_p
+    if posterior_p <= 0.0:
+        posterior_p = np.finfo(float).eps
+
+    return KalmanState(
+        x=float(posterior_x),
+        p=float(posterior_p),
+        q=prior_state.q,
+        r=prior_state.r,
+    )

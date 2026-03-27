@@ -37,14 +37,14 @@ def offset_tt2tdb(seconds: SecondsLike) -> float | np.ndarray:
     """
     if isinstance(seconds, np.ndarray):
         if not _is_numeric_array(seconds):
-            raise NotImplementedError(f"Unsupported dtype: {seconds.dtype}")
+            raise TypeError(f"Unsupported dtype: {seconds.dtype}")
         sec_f64 = seconds.astype(np.float64, copy=False)
         T = sec_f64 / (86400.0 * 36525.0)
         M = 6.24006 + 0.017202 * T * 36525.0
         return 0.001657 * np.sin(M)
     if isinstance(seconds, (float, int, np.float64)):
         return _compute_tt2tdb(float(seconds))
-    raise NotImplementedError(f"Unsupported type: {type(seconds)}")
+    raise TypeError(f"Unsupported type: {type(seconds)}")
 
 
 @register_atom(witness_offset_tai2tdb)
@@ -55,7 +55,7 @@ def offset_tai2tdb(seconds: SecondsLike) -> float | np.ndarray:
     """
     if isinstance(seconds, np.ndarray):
         if not _is_numeric_array(seconds):
-            raise NotImplementedError(f"Unsupported dtype: {seconds.dtype}")
+            raise TypeError(f"Unsupported dtype: {seconds.dtype}")
         sec_f64 = seconds.astype(np.float64, copy=False)
         tai2tt = np.full_like(sec_f64, 32.184)
         tt_sec = sec_f64 + tai2tt
@@ -69,4 +69,4 @@ def offset_tai2tdb(seconds: SecondsLike) -> float | np.ndarray:
         tt_sec = sec_f64 + tai2tt
         tt2tdb = _compute_tt2tdb(tt_sec)
         return tai2tt + tt2tdb
-    raise NotImplementedError(f"Unsupported type: {type(seconds)}")
+    raise TypeError(f"Unsupported type: {type(seconds)}")
