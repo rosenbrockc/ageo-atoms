@@ -1,0 +1,161 @@
+{
+  "nodes": [
+    {
+      "node_id": "graph_root",
+      "parent_id": null,
+      "name": "algorithms.graph",
+      "description": "Classical graph traversal and shortest-path algorithms backed by SciPy sparse graph routines.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "bfs",
+        "dfs",
+        "dijkstra",
+        "bellman_ford",
+        "floyd_warshall"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Traversal and shortest-path utilities over dense adjacency matrices.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bfs",
+      "parent_id": "graph_root",
+      "name": "bfs",
+      "description": "Breadth-first traversal over a directed graph adjacency matrix.",
+      "concept_type": "graph_algorithm",
+      "inputs": [
+        {"name": "adj", "type_desc": "np.ndarray", "constraints": "square 2-D adjacency matrix"},
+        {"name": "source", "type_desc": "int", "constraints": "starting node index"}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "np.ndarray", "constraints": "1-D visitation order padded with -1 for unreachable nodes"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(adj: np.ndarray, source: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Level-order graph traversal from one source node.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "dfs",
+      "parent_id": "graph_root",
+      "name": "dfs",
+      "description": "Depth-first traversal over a directed graph adjacency matrix.",
+      "concept_type": "graph_algorithm",
+      "inputs": [
+        {"name": "adj", "type_desc": "np.ndarray", "constraints": "square 2-D adjacency matrix"},
+        {"name": "source", "type_desc": "int", "constraints": "starting node index"}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "np.ndarray", "constraints": "1-D visitation order padded with -1 for unreachable nodes"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(adj: np.ndarray, source: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Depth-first graph traversal from one source node.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "dijkstra",
+      "parent_id": "graph_root",
+      "name": "dijkstra",
+      "description": "Single-source shortest paths for non-negative weighted graphs.",
+      "concept_type": "graph_algorithm",
+      "inputs": [
+        {"name": "adj", "type_desc": "np.ndarray", "constraints": "square 2-D adjacency matrix with non-negative weights"},
+        {"name": "source", "type_desc": "int", "constraints": "starting node index"}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "np.ndarray", "constraints": "1-D shortest-path distances from source"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(adj: np.ndarray, source: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Shortest-path distances under non-negative edge weights.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "bellman_ford",
+      "parent_id": "graph_root",
+      "name": "bellman_ford",
+      "description": "Single-source shortest paths allowing negative-weight edges.",
+      "concept_type": "graph_algorithm",
+      "inputs": [
+        {"name": "adj", "type_desc": "np.ndarray", "constraints": "square 2-D adjacency matrix"},
+        {"name": "source", "type_desc": "int", "constraints": "starting node index"}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "np.ndarray", "constraints": "1-D shortest-path distances from source"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(adj: np.ndarray, source: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Shortest-path distances permitting negative edges.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "floyd_warshall",
+      "parent_id": "graph_root",
+      "name": "floyd_warshall",
+      "description": "All-pairs shortest paths over a dense adjacency matrix.",
+      "concept_type": "graph_algorithm",
+      "inputs": [
+        {"name": "adj", "type_desc": "np.ndarray", "constraints": "square 2-D adjacency matrix"}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "np.ndarray", "constraints": "2-D all-pairs shortest-path matrix"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(adj: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "All-pairs shortest-path distances for the full graph.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": []
+}

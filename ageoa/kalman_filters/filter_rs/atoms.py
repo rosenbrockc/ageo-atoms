@@ -16,7 +16,7 @@ from pathlib import Path
 @register_atom(witness_initializekalmanstatemodel)
 @icontract.require(lambda init_config: init_config is not None, "init_config cannot be None")
 @icontract.ensure(lambda result: result is not None, "InitializeKalmanStateModel output must not be None")
-def initializekalmanstatemodel(init_config: object) -> object:
+def initializekalmanstatemodel(init_config: dict[str, np.ndarray | list[float]]) -> dict[str, np.ndarray]:
     """Create the initial read-only state for a Kalman filter — a method that estimates hidden variables from noisy measurements.
 
     Args:
@@ -36,7 +36,7 @@ def initializekalmanstatemodel(init_config: object) -> object:
 @icontract.require(lambda F: F is not None, "F cannot be None")
 @icontract.require(lambda Q: Q is not None, "Q cannot be None")
 @icontract.ensure(lambda result: result is not None, "PredictLatentStateAndCovariance output must not be None")
-def predictlatentstateandcovariance(state_in: object, u: object, B: object, F: object, Q: object) -> object:
+def predictlatentstateandcovariance(state_in: dict[str, np.ndarray], u: np.ndarray, B: np.ndarray, F: np.ndarray, Q: np.ndarray) -> dict[str, np.ndarray]:
     """Kalman predict kernel for full-covariance filtering; propagates latent mean and covariance forward in time and returns a new state object.
 
     Args:
@@ -64,7 +64,7 @@ def predictlatentstateandcovariance(state_in: object, u: object, B: object, F: o
 @icontract.require(lambda u: u is not None, "u cannot be None")
 @icontract.require(lambda B: B is not None, "B cannot be None")
 @icontract.ensure(lambda result: result is not None, "PredictLatentStateSteadyState output must not be None")
-def predictlatentstatesteadystate(state_in: object, u: object, B: object) -> object:
+def predictlatentstatesteadystate(state_in: dict[str, np.ndarray], u: np.ndarray, B: np.ndarray) -> dict[str, np.ndarray]:
     """Steady-state predict kernel variant where covariance/gain are treated as fixed and only the latent mean transition is applied.
 
     Args:
@@ -87,7 +87,7 @@ def predictlatentstatesteadystate(state_in: object, u: object, B: object) -> obj
 @icontract.require(lambda z: z is not None, "z cannot be None")
 @icontract.require(lambda H: H is not None, "H cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "EvaluateMeasurementOracle all outputs must not be None")
-def evaluatemeasurementoracle(x: object, z: object, H: object) -> tuple[object, object]:
+def evaluatemeasurementoracle(x: np.ndarray, z: np.ndarray, H: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Pure observation oracle that maps latent state to predicted measurement and innovation residual; performs no persistent state writes.
 
     Args:
@@ -113,7 +113,7 @@ def evaluatemeasurementoracle(x: object, z: object, H: object) -> tuple[object, 
 @icontract.require(lambda H: H is not None, "H cannot be None")
 @icontract.require(lambda innovation: innovation is not None, "innovation cannot be None")
 @icontract.ensure(lambda result: result is not None, "UpdatePosteriorStateAndCovariance output must not be None")
-def updateposteriorstateandcovariance(predicted_state: object, z: object, R: object, H: object, innovation: object) -> object:
+def updateposteriorstateandcovariance(predicted_state: dict[str, np.ndarray], z: np.ndarray, R: np.ndarray, H: np.ndarray, innovation: np.ndarray) -> dict[str, np.ndarray]:
     """Kalman update kernel for full-covariance filtering; fuses measurement with predicted state and returns a new posterior state object.
 
     Args:
@@ -143,7 +143,7 @@ def updateposteriorstateandcovariance(predicted_state: object, z: object, R: obj
 @icontract.require(lambda z: z is not None, "z cannot be None")
 @icontract.require(lambda innovation: innovation is not None, "innovation cannot be None")
 @icontract.ensure(lambda result: result is not None, "UpdatePosteriorStateSteadyState output must not be None")
-def updateposteriorstatesteadystate(predicted_state_steady: object, z: object, innovation: object) -> object:
+def updateposteriorstatesteadystate(predicted_state_steady: dict[str, np.ndarray], z: np.ndarray, innovation: np.ndarray) -> dict[str, np.ndarray]:
     """Steady-state update kernel variant using fixed gain/covariance assumptions; returns a new posterior latent state.
 
     Args:

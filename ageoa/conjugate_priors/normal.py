@@ -15,7 +15,7 @@ from .normal_witnesses import witness_normal_gamma_posterior_update
 @icontract.require(lambda prior: prior is not None, "prior cannot be None")
 @icontract.require(lambda ss: ss is not None, "ss cannot be None")
 @icontract.ensure(lambda result: result is not None, "normal_gamma_posterior_update output must not be None")
-def normal_gamma_posterior_update(prior: object, ss: object) -> object:
+def normal_gamma_posterior_update(prior: dict[str, float] | tuple[float, float, float, float], ss: dict[str, float] | tuple[float, float, float]) -> dict[str, float]:
     """Computes a closed-form Normal-Gamma posterior from a Normal-Gamma prior and sufficient statistics as a pure, immutable conjugate update.
 
     Args:

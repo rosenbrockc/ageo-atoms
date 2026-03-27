@@ -1,7 +1,4 @@
 from __future__ import annotations
-from typing import Any
-Permutation: Any = Any
-
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
@@ -25,9 +22,6 @@ from .witnesses import (
     witness_validate_square_matrix_shape,
     witness_validate_symmetric_input
 )
-from ageoa.ghost.abstract import Permutation
-
-
 def _matrix_bandwidth(mat: np.ndarray) -> int:
     """Compute the bandwidth of a matrix: max |i-j| where mat[i,j] != 0."""
     rows, cols = np.nonzero(mat)
@@ -73,7 +67,7 @@ def validate_square_matrix_shape(mat: np.ndarray) -> np.ndarray:
 @icontract.require(lambda square_mat: square_mat is not None, "square_mat cannot be None")
 @icontract.require(lambda square_mat: isinstance(square_mat, np.ndarray), "square_mat must be np.ndarray")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def compute_absolute_weighted_index_distances(square_mat: np.ndarray) -> object:
+def compute_absolute_weighted_index_distances(square_mat: np.ndarray) -> np.ndarray:
     """Enumerate all entries and compute absolute weighted index distance for each element as abs(value * (row_index - col_index)).
 
     Args:
@@ -90,7 +84,7 @@ def compute_absolute_weighted_index_distances(square_mat: np.ndarray) -> object:
 @register_atom(witness_aggregate_maximum_distance_as_bandwidth)
 @icontract.require(lambda weighted_distances: weighted_distances is not None, "weighted_distances cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def aggregate_maximum_distance_as_bandwidth(weighted_distances: object) -> float:
+def aggregate_maximum_distance_as_bandwidth(weighted_distances: np.ndarray) -> float:
     """Take the maximum weighted distance and convert it to float as the final bandwidth metric.
 
     Args:
@@ -155,7 +149,7 @@ def initialize_reduction_state(symmetric_matrix: np.ndarray) -> np.ndarray:
 @register_atom(witness_propose_greedy_permutation_step)
 @icontract.require(lambda iteration_state: iteration_state is not None, "iteration_state cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def propose_greedy_permutation_step(iteration_state: object) -> tuple[object, list[int], np.ndarray, int]:
+def propose_greedy_permutation_step(iteration_state: np.ndarray | dict[str, np.ndarray | list[int] | int]) -> tuple[np.ndarray | dict[str, np.ndarray | list[int] | int], list[int], np.ndarray, int]:
     """From the current working matrix, compute one candidate permutation and its resulting matrix bandwidth.
 
     Args:
@@ -183,7 +177,7 @@ def propose_greedy_permutation_step(iteration_state: object) -> tuple[object, li
 @icontract.require(lambda candidate_bandwidth: candidate_bandwidth is not None, "candidate_bandwidth cannot be None")
 @icontract.require(lambda candidate_bandwidth: isinstance(candidate_bandwidth, (int,)), "candidate_bandwidth must be int")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def update_state_with_improvement_criterion(current_iteration_state: object, candidate_permutation: list[int], candidate_matrix: np.ndarray, candidate_bandwidth: int) -> tuple[object, bool]:
+def update_state_with_improvement_criterion(current_iteration_state: np.ndarray | dict[str, np.ndarray | list[int] | int], candidate_permutation: list[int], candidate_matrix: np.ndarray, candidate_bandwidth: int) -> tuple[np.ndarray, bool]:
     """Apply iteration budget checks, compare candidate vs current bandwidth, and either accept the candidate state or terminate without update.
 
     Args:
@@ -226,7 +220,7 @@ def update_state_with_improvement_criterion(current_iteration_state: object, can
 @register_atom(witness_extract_final_permutation)
 @icontract.require(lambda terminal_state: terminal_state is not None, "terminal_state cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def extract_final_permutation(terminal_state: object) -> list[int]:
+def extract_final_permutation(terminal_state: np.ndarray | dict[str, np.ndarray | list[int] | int]) -> list[int]:
     """Return the accumulated permutation from the terminal state as the function result.
 
     Args:
