@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Tuple, Union
+from typing import Callable, Tuple, Union
 import os
 
 import numpy as np
@@ -300,6 +300,7 @@ def freqz(
     a: ArrayLike = 1,
     worN: Union[int, ArrayLike, None] = 512,
     whole: bool = False,
+    plot: Callable[..., object] | None = None,
     fs: float = 2 * np.pi,
     include_nyquist: bool = False,
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -324,7 +325,7 @@ def freqz(
 
     """
     w, h = scipy.signal.freqz(
-        b, a=a, worN=worN, whole=whole, fs=fs,
+        b, a=a, worN=worN, whole=whole, plot=plot, fs=fs,
         include_nyquist=include_nyquist,
     )
     return w, h

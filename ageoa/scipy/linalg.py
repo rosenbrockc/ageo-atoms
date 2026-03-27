@@ -32,7 +32,8 @@ def solve(
     overwrite_a: bool = False,
     overwrite_b: bool = False,
     check_finite: bool = True,
-    assume_a: str = "gen",
+    assume_a: str | None = None,
+    transposed: bool = False,
 ) -> np.ndarray:
     """Solve the linear equation a @ x == b for x.
 
@@ -61,6 +62,7 @@ def solve(
         overwrite_b=overwrite_b,
         check_finite=check_finite,
         assume_a=assume_a,
+        transposed=transposed,
     )
 
 @register_atom(witness_scipy_linalg_inv, name="scipy.linalg.inv")

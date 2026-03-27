@@ -342,6 +342,102 @@
     language: python
     notes: Uses the installed SciPy package as the upstream signature source.
 
+- atom: scipy/linalg:solve
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: solve
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/linalg:inv
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: inv
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/linalg:det
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: det
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/linalg:lu_factor
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: lu_factor
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/linalg:lu_solve
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: lu_solve
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:butter
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: butter
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:cheby1
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: cheby1
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:cheby2
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: cheby2
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:firwin
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: firwin
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:sosfilt
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: sosfilt
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:lfilter
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: lfilter
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/signal:freqz
+  upstream:
+    repo: ~
+    module: scipy.signal
+    function: freqz
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
 # =============================================================================
 #  scikit-learn
 # =============================================================================
