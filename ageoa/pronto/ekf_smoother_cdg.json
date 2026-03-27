@@ -29,18 +29,24 @@
       "name": "stateestimatorinit",
       "description": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
       "concept_type": "custom",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "unit_token",
+          "type_desc": "unit",
+          "constraints": "implicit zero-argument invocation token"
+        }
+      ],
       "outputs": [
         {
           "name": "result",
-          "type_desc": "StateModelSpec",
+          "type_desc": "StateEstimatorState",
           "constraints": "function return value"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(void) -> StateModelSpec",
+      "type_signature": "(unit_token: unit) -> StateEstimatorState",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

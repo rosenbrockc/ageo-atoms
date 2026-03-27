@@ -1,15 +1,8 @@
 from __future__ import annotations
 
-from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
+from ageoa.ghost.abstract import AbstractArray
 
 
 def witness_stateestimatorinit() -> AbstractArray:
-    """Shape-and-type check for state estimator init. Returns output metadata without running the real computation."""
-    return AbstractArray(shape=(1,), dtype="float64")
-
-from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
-
-
-def witness_stateestimatorinit() -> AbstractArray:
-    """Shape-and-type check for state estimator init. Returns output metadata without running the real computation."""
-    return AbstractArray(shape=(1,), dtype="float64")
+    """Shape witness for the initialized state vector."""
+    return AbstractArray(shape=(6,), dtype="float64")

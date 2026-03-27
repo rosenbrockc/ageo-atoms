@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-27T20:18:59+00:00",
+    "generated_at": "2026-03-27T20:30:17+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -20,7 +20,7 @@
     ]
   },
   "summary": {
-    "atom_count": 506,
+    "atom_count": 505,
     "inventory_error_count": 0,
     "family_counts": {
       "advancedvi": 3,
@@ -46,7 +46,7 @@
       "numpy": 39,
       "particle_filters": 4,
       "pasqal": 3,
-      "pronto": 32,
+      "pronto": 31,
       "pulsar": 4,
       "pulsar_folding": 3,
       "quant_engine": 4,
@@ -59,26 +59,26 @@
       "tempo_jl": 75
     },
     "source_kind_counts": {
-      "generated_ingest": 320,
+      "generated_ingest": 319,
       "hand_written": 101,
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "high": 455,
+      "high": 454,
       "medium": 51
     },
     "stateful_count": 65,
     "stochastic_count": 27,
     "procedural_count": 25,
-    "ffi_count": 247,
+    "ffi_count": 246,
     "skeleton_count": 0,
     "parity_coverage_count": 15,
-    "reference_coverage_count": 502,
+    "reference_coverage_count": 501,
     "unmapped_upstream_count": 66,
     "structural_status_counts": {
-      "fail": 34,
+      "fail": 25,
       "partial": 112,
-      "pass": 360
+      "pass": 368
     }
   },
   "atoms": [
@@ -122,11 +122,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -266,11 +263,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -459,11 +454,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -667,12 +660,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "adj",
@@ -816,12 +809,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "adj",
@@ -965,12 +958,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "adj",
@@ -1114,12 +1107,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "adj",
@@ -1263,12 +1256,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "adj"
@@ -3053,11 +3046,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -3514,11 +3504,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -3958,11 +3945,11 @@
         "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "replace placeholder docstring text",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "replace placeholder docstring text"
       ],
       "argument_names": [
         "filtered",
@@ -4115,11 +4102,11 @@
         "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "replace placeholder docstring text",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "replace placeholder docstring text"
       ],
       "argument_names": [
         "filtered",
@@ -4659,16 +4646,14 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WITNESS_PLACEHOLDER"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
-        "replace placeholder witness bindings with typed witnesses",
-        "replace placeholder witness with a typed witness binding",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "replace placeholder witness bindings with typed witnesses",
+        "replace placeholder witness with a typed witness binding"
       ],
       "argument_names": [
         "signal",
@@ -4829,11 +4814,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -4978,11 +4960,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5119,11 +5098,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5260,11 +5236,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5409,11 +5382,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5558,11 +5528,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5707,11 +5674,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5856,11 +5820,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -5998,11 +5959,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -7954,11 +7912,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -8136,11 +8091,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -8318,11 +8270,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -8484,11 +8433,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -9682,11 +9628,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -9823,11 +9766,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -9964,11 +9904,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -10138,11 +10075,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -11877,11 +11811,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -12599,11 +12531,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -12765,11 +12694,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -12931,11 +12857,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -13073,11 +12996,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -14152,11 +14072,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -15041,11 +14959,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -16739,11 +16655,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -16889,11 +16802,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17039,11 +16949,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17181,11 +17088,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17331,11 +17235,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17489,11 +17390,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17647,11 +17545,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -17837,11 +17732,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -18035,11 +17927,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -18169,11 +18058,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -18573,11 +18459,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -18738,11 +18622,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -18912,11 +18794,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -19330,11 +19209,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -19472,11 +19348,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -19606,11 +19479,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -19950,11 +19820,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -23324,21 +23191,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -23405,29 +23269,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.de.build_de_transition_kernel@ageoa/mcmc_foundational/kthohr_mcmc/de.py:22",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/de:build_de_transition_kernel",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/de.py",
-          "wrapper_symbol": "build_de_transition_kernel",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "build_de_transition_kernel: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/de.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -23477,21 +23323,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -23558,29 +23401,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.hmc.buildhmckernelfromlogdensityoracle@ageoa/mcmc_foundational/kthohr_mcmc/hmc.py:21",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/hmc:buildhmckernelfromlogdensityoracle",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/hmc.py",
-          "wrapper_symbol": "buildhmckernelfromlogdensityoracle",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "buildhmckernelfromlogdensityoracle: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/hmc.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -23630,21 +23455,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -23727,29 +23549,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.mala.mala_proposal_adjustment@ageoa/mcmc_foundational/kthohr_mcmc/mala.py:23",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/mala:mala_proposal_adjustment",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/mala.py",
-          "wrapper_symbol": "mala_proposal_adjustment",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "mala_proposal_adjustment: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/mala.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -23809,11 +23613,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -23951,21 +23752,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -24081,29 +23879,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/kthohr_mcmc/nuts.py:28",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/nuts:nuts_recursive_tree_build",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts.py",
-          "wrapper_symbol": "nuts_recursive_tree_build",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "nuts_recursive_tree_build: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/nuts.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -24153,21 +23933,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -24242,29 +24019,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.rmhmc.buildrmhmctransitionkernel@ageoa/mcmc_foundational/kthohr_mcmc/rmhmc.py:24",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/rmhmc:buildrmhmctransitionkernel",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/rmhmc.py",
-          "wrapper_symbol": "buildrmhmctransitionkernel",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "buildrmhmctransitionkernel: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/rmhmc.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -24314,21 +24073,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -24395,29 +24151,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.kthohr_mcmc.rwmh.constructrandomwalkmetropoliskernel@ageoa/mcmc_foundational/kthohr_mcmc/rwmh.py:21",
-          "atom_key": "mcmc_foundational/kthohr_mcmc/rwmh:constructrandomwalkmetropoliskernel",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/kthohr_mcmc/rwmh.py",
-          "wrapper_symbol": "constructrandomwalkmetropoliskernel",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "constructrandomwalkmetropoliskernel: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/kthohr_mcmc/rwmh.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -25682,21 +25420,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -25812,29 +25547,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.mcmc_foundational.mini_mcmc.nuts.nuts_recursive_tree_build@ageoa/mcmc_foundational/mini_mcmc/nuts.py:28",
-          "atom_key": "mcmc_foundational/mini_mcmc/nuts:nuts_recursive_tree_build",
-          "domain_family": "mcmc_foundational",
-          "module_path": "ageoa/mcmc_foundational/mini_mcmc/nuts.py",
-          "wrapper_symbol": "nuts_recursive_tree_build",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "nuts_recursive_tree_build: type_signature uses Callable[...] format",
-          "path": "ageoa/mcmc_foundational/mini_mcmc/nuts.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -26205,11 +25922,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -26609,11 +26323,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -26760,11 +26471,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -26911,11 +26619,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -27728,10 +27433,10 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "cls"
@@ -27876,11 +27581,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -28018,11 +27720,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -28160,11 +27859,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -28582,11 +28278,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -30561,11 +30254,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -30703,11 +30393,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -36644,12 +36331,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "a",
@@ -36807,12 +36494,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "a",
@@ -36970,12 +36657,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "a",
@@ -37133,12 +36820,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "a",
@@ -37296,12 +36983,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "n",
@@ -37445,12 +37132,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "x",
@@ -39485,12 +39172,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "size",
@@ -39640,12 +39327,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "low",
@@ -39809,12 +39496,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "seed"
@@ -44295,13 +43982,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:22",
+      "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:31",
       "atom_name": "ageoa.pronto.ekf_smoother.stateestimatorinit",
       "atom_key": "pronto/ekf_smoother:stateestimatorinit",
       "module_import_path": "ageoa.pronto.ekf_smoother",
       "module_path": "ageoa/pronto/ekf_smoother.py",
       "wrapper_symbol": "stateestimatorinit",
-      "wrapper_line": 22,
+      "wrapper_line": 31,
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
@@ -44324,21 +44011,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -44346,14 +44030,14 @@
       "argument_names": [],
       "required_parameter_names": [],
       "argument_details": [],
-      "return_annotation": "StateModelSpec",
+      "return_annotation": "StateEstimatorState",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_stateestimatorinit)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+      "docstring_summary": "Bootstraps a default EKF smoother state estimate bundle.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -44395,192 +44079,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:22",
-          "atom_key": "pronto/ekf_smoother:stateestimatorinit",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/ekf_smoother.py",
-          "wrapper_symbol": "stateestimatorinit",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "stateestimatorinit: empty inputs",
-          "path": "ageoa/pronto/ekf_smoother.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        }
-      ],
-      "semantic_findings": [],
-      "semantic_finding_details": [],
-      "parity_coverage_level": "none",
-      "parity_coverage_reasons": [],
-      "parity_fixture_count": 0,
-      "parity_case_count": 0,
-      "usage_test_coverage": "none",
-      "review_status": "missing",
-      "review_record_path": null,
-      "reviewer_type": null,
-      "reviewed_at": null,
-      "review_semantic_verdict": "unknown",
-      "review_developer_semantics_verdict": "unknown",
-      "review_limitations": [],
-      "review_required_actions": [],
-      "trust_readiness": "not_reviewed",
-      "trust_blockers": [],
-      "recommended_overall_verdict": null
-    },
-    {
-      "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:81",
-      "atom_name": "ageoa.pronto.ekf_smoother.stateestimatorinit",
-      "atom_key": "pronto/ekf_smoother:stateestimatorinit",
-      "module_import_path": "ageoa.pronto.ekf_smoother",
-      "module_path": "ageoa/pronto/ekf_smoother.py",
-      "wrapper_symbol": "stateestimatorinit",
-      "wrapper_line": 81,
-      "domain_family": "pronto",
-      "module_family": "pronto",
-      "source_kind": "generated_ingest",
-      "risk_tier": "high",
-      "upstream_symbols": {
-        "repo": "pronto",
-        "module": "pronto_core.state_est",
-        "function": "StateEstimator::StateEstimator",
-        "language": "cpp",
-        "notes": null
-      },
-      "upstream_version": null,
-      "source_revision": "50290a9811c6279afc227bc8f4682cee902f6424",
-      "review_basis_at": null,
-      "stateful": false,
-      "ffi": true,
-      "skeleton": false,
-      "has_state_models": false,
-      "has_witnesses": true,
-      "has_cdg": true,
-      "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "fail",
-      "runtime_status": "unknown",
-      "semantic_status": "unknown",
-      "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
-      "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "required_actions": [
-        "repair the CDG structure and schema",
-        "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
-      ],
-      "argument_names": [],
-      "required_parameter_names": [],
-      "argument_details": [],
-      "return_annotation": "object",
-      "decorator_count": 3,
-      "require_count": 1,
-      "ensure_count": 1,
-      "witness_binding": "register_atom(witness_stateestimatorinit)",
-      "placeholder_witness": false,
-      "has_docstring": true,
-      "docstring_summary": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:object"
-      ],
-      "uses_varargs": false,
-      "uses_kwargs": false,
-      "inventory_notes": [],
-      "stateful_kind": "none",
-      "stochastic": false,
-      "procedural": false,
-      "authoritative_sources": [
-        {
-          "kind": "local_wrapper",
-          "path": "ageoa/pronto/ekf_smoother.py"
-        },
-        {
-          "kind": "vendored_repo",
-          "repo": "pronto",
-          "module": "pronto_core.state_est",
-          "source_revision": "50290a9811c6279afc227bc8f4682cee902f6424"
-        },
-        {
-          "kind": "local_references",
-          "path": "ageoa/pronto/references.json"
-        }
-      ],
-      "risk_reasons": [
-        "source_kind:generated_ingest",
-        "ffi_backed",
-        "weak_types",
-        "missing_parity"
-      ],
-      "risk_score": null,
-      "risk_dimensions": {},
-      "review_priority": null,
-      "status_basis": {
-        "inventory": [
-          "ast_discovery",
-          "fixture_index",
-          "artifact_presence",
-          "upstream_manifest_lookup"
-        ],
-        "structural": [
-          "audit.py",
-          "manifest_heuristics"
-        ]
-      },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:81",
-          "atom_key": "pronto/ekf_smoother:stateestimatorinit",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/ekf_smoother.py",
-          "wrapper_symbol": "stateestimatorinit",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "stateestimatorinit: empty inputs",
-          "path": "ageoa/pronto/ekf_smoother.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-LEAF"
-        },
-        {
-          "atom_id": "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:81",
-          "atom_key": "pronto/ekf_smoother:stateestimatorinit",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/ekf_smoother.py",
-          "wrapper_symbol": "stateestimatorinit",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/pronto/ekf_smoother.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -44640,11 +44143,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -45084,11 +44584,9 @@
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_INVALID",
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -45538,11 +45036,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -45701,10 +45196,10 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [],
       "required_parameter_names": [],
@@ -46900,11 +46395,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "DM",
@@ -47050,11 +46545,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "data",
@@ -47224,11 +46719,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "data",
@@ -47374,11 +46869,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "arr"
@@ -47782,11 +47277,8 @@
       "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
@@ -54130,14 +53622,14 @@
         "STRUCT_REQUIRE_MISSING"
       ],
       "required_actions": [
-        "replace placeholder docstring text",
-        "add a meaningful icontract.ensure decorator",
-        "add register_atom to the public wrapper",
-        "add a meaningful icontract.require decorator",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "replace placeholder docstring text",
+        "add a meaningful icontract.ensure decorator",
+        "add register_atom to the public wrapper",
+        "add a meaningful icontract.require decorator"
       ],
       "argument_names": [
         "model",
@@ -54411,14 +53903,14 @@
         "STRUCT_REQUIRE_MISSING"
       ],
       "required_actions": [
-        "replace placeholder docstring text",
-        "add a meaningful icontract.ensure decorator",
-        "add register_atom to the public wrapper",
-        "add a meaningful icontract.require decorator",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "replace placeholder docstring text",
+        "add a meaningful icontract.ensure decorator",
+        "add register_atom to the public wrapper",
+        "add a meaningful icontract.require decorator"
       ],
       "argument_names": [
         "model",
@@ -54684,14 +54176,14 @@
         "STRUCT_REQUIRE_MISSING"
       ],
       "required_actions": [
-        "replace placeholder docstring text",
-        "add a meaningful icontract.ensure decorator",
-        "add register_atom to the public wrapper",
-        "add a meaningful icontract.require decorator",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "replace placeholder docstring text",
+        "add a meaningful icontract.ensure decorator",
+        "add register_atom to the public wrapper",
+        "add a meaningful icontract.require decorator"
       ],
       "argument_names": [
         "model",
@@ -60799,12 +60291,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "x",
@@ -60976,12 +60468,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "x",
@@ -65353,12 +64845,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "W",
@@ -65509,12 +65001,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "L",
@@ -65666,12 +65158,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "x_hat",
@@ -65816,12 +65308,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "pin source revision or upstream version in the manifest",
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family"
       ],
       "argument_names": [
         "L",

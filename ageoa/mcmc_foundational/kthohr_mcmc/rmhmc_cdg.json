@@ -51,7 +51,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(target_log_kernel: Callable[[np.ndarray], float], tensor_fn: Callable[[np.ndarray], np.ndarray]) -> Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]",
+      "type_signature": "(target_log_kernel: log-density oracle, tensor_fn: metric tensor oracle) -> RMHMC transition kernel",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

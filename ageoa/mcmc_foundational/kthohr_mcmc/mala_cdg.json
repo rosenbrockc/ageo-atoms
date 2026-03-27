@@ -56,7 +56,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(step_size: float, vals_bound: np.ndarray, mala_mean_fn: Callable[[np.ndarray], np.ndarray]) -> np.ndarray",
+      "type_signature": "(step_size: float, vals_bound: np.ndarray, mala_mean_fn: drift oracle) -> np.ndarray",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

@@ -2147,13 +2147,6 @@
     function: StateEstimator::StateEstimator
     language: cpp
 
-- atom: pronto/ekf_smoother:stateestimatorinit
-  upstream:
-    repo: pronto
-    module: pronto_core.state_est
-    function: StateEstimator::StateEstimator
-    language: cpp
-
 - atom: pronto/flex_estimator:estimate_flex_deflection
   upstream:
     repo: pronto
