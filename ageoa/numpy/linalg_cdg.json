@@ -1,0 +1,135 @@
+{
+  "nodes": [
+    {
+      "node_id": "linalg_root",
+      "parent_id": null,
+      "name": "numpy.linalg",
+      "description": "Core linear algebra operations backed by NumPy.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "solve",
+        "inv",
+        "det",
+        "norm"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "solve",
+      "parent_id": "linalg_root",
+      "name": "solve",
+      "description": "Solve a square linear system exactly.",
+      "concept_type": "linear_algebra",
+      "inputs": [
+        {"name": "a", "type_desc": "np.ndarray", "constraints": "square 2-D coefficient matrix"},
+        {"name": "b", "type_desc": "np.ndarray", "constraints": "right-hand side with leading dimension matching a"}
+      ],
+      "outputs": [
+        {"name": "solution", "type_desc": "np.ndarray", "constraints": "shape matches b"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(a: np.ndarray, b: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Solve a full-rank linear system.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "inv",
+      "parent_id": "linalg_root",
+      "name": "inv",
+      "description": "Compute the multiplicative inverse of a square matrix.",
+      "concept_type": "linear_algebra",
+      "inputs": [
+        {"name": "a", "type_desc": "np.ndarray", "constraints": "square 2-D matrix"}
+      ],
+      "outputs": [
+        {"name": "inverse", "type_desc": "np.ndarray", "constraints": "same shape as a"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(a: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Invert a square matrix.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "det",
+      "parent_id": "linalg_root",
+      "name": "det",
+      "description": "Compute the determinant over one square matrix or a stack of matrices.",
+      "concept_type": "linear_algebra",
+      "inputs": [
+        {"name": "a", "type_desc": "np.ndarray", "constraints": "array whose last two dimensions form square matrices"}
+      ],
+      "outputs": [
+        {"name": "determinant", "type_desc": "np.ndarray | np.floating", "constraints": "scalar for one matrix, array for stacked matrices"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(a: np.ndarray) -> np.ndarray | np.floating",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Evaluate a determinant over one or many square matrices.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "norm",
+      "parent_id": "linalg_root",
+      "name": "norm",
+      "description": "Compute a vector or matrix norm under the requested order and axes.",
+      "concept_type": "linear_algebra",
+      "inputs": [
+        {"name": "x", "type_desc": "np.ndarray | list | tuple", "constraints": "array-like input"},
+        {"name": "ord", "type_desc": "int | float | str | None", "constraints": "optional norm order"},
+        {"name": "axis", "type_desc": "int | tuple[int, ...] | None", "constraints": "optional reduction axis or axes"},
+        {"name": "keepdims", "type_desc": "bool", "constraints": "whether reduced axes stay as singleton dimensions"}
+      ],
+      "outputs": [
+        {"name": "norm_value", "type_desc": "float | np.floating | np.ndarray", "constraints": "non-negative norm result"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(x: np.ndarray | list | tuple, ord: int | float | str | None, axis: int | tuple[int, ...] | None, keepdims: bool) -> float | np.floating | np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Compute a matrix or vector norm.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": []
+}

@@ -121,8 +121,8 @@ ingest "$TP/rust_robotics/src/models/ground_vehicles/longitudinal_dynamics.rs" M
 ingest_procedural "$TP/Tempo.jl/src/convert.jl" find_year tempo_jl/find_year &
 ingest_procedural "$TP/Tempo.jl/src/datetime.jl" find_month tempo_jl/find_month &
 ingest_procedural "$TP/Tempo.jl/src/datetime.jl" jd2cal tempo_jl/jd2cal &
-ingest_procedural "$TP/Tempo.jl/src/offset.jl" offset_tt2tdb tempo_jl/offset_tt2tdb &
-ingest_procedural "$TP/Tempo.jl/src/offset.jl" offset_tt2tdbh tempo_jl/offset_tt2tdbh &
+ingest_procedural "$TP/Tempo.jl/src/offset.jl" offset_tt2tdb tempo_jl/offsets &
+ingest_procedural "$TP/Tempo.jl/src/offset.jl" offset_tt2tdbh tempo_jl/offsets &
 ingest_procedural "$TP/Tempo.jl/src/scales.jl" apply_offsets tempo_jl/apply_offsets &
 ingest_procedural "$TP/Tempo.jl/src/convert.jl" tai2utc tempo_jl/tai2utc &
 ingest_procedural "$TP/Tempo.jl/src/convert.jl" utc2tai tempo_jl/utc2tai &

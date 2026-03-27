@@ -192,12 +192,25 @@ def _extract_with_inspect(mapping: UpstreamMapping) -> dict[str, Any] | None:
     for name, param in sig.parameters.items():
         if name == "self":
             continue
-        required = param.default is inspect._empty
+        kind_name = param.kind.name.lower()
+        if kind_name == "positional_or_keyword":
+            kind = "positional_or_keyword"
+        elif kind_name == "var_positional":
+            kind = "var_positional"
+        elif kind_name == "var_keyword":
+            kind = "var_keyword"
+        elif kind_name == "keyword_only":
+            kind = "keyword_only"
+        elif kind_name == "positional_only":
+            kind = "positional_only"
+        else:
+            kind = kind_name
+        required = param.default is inspect._empty and kind not in {"var_positional", "var_keyword"}
         params.append(
             {
                 "name": name,
                 "required": required,
-                "kind": str(param.kind).replace("POSITIONAL_OR_KEYWORD", "positional_or_keyword").lower(),
+                "kind": kind,
                 "annotation": None if param.annotation is inspect._empty else repr(param.annotation),
             }
         )

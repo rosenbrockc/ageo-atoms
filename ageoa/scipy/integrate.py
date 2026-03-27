@@ -1,8 +1,9 @@
 from __future__ import annotations
-from typing import Any, Callable, Optional, Sequence, Tuple, Union
+from typing import Callable, Sequence, Tuple, Union
 import numpy as np
 import scipy.integrate
 import icontract
+from scipy.integrate._ivp.ivp import OdeResult
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_quad,
@@ -12,15 +13,31 @@ from ageoa.scipy.witnesses import (
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
+QuadInfo = dict[str, object]
+QuadResult = tuple[float, float] | tuple[float, float, QuadInfo] | tuple[float, float, QuadInfo, str]
+SolveIVPEvent = Callable[..., np.ndarray | float]
+SolveIVPOptionsValue = (
+    float
+    | int
+    | bool
+    | str
+    | np.ndarray
+    | Sequence[float]
+    | tuple[float, float]
+    | tuple[int, int]
+    | tuple[object, ...]
+    | SolveIVPEvent
+    | None
+)
 
 @register_atom(witness_scipy_quad, name="scipy.integrate.quad")
 @icontract.require(lambda func: func is not None, "Function must not be None")
 @icontract.ensure(lambda result: len(result) >= 2, "Result must be a tuple containing at least (y, abserr)")
 def quad(
-    func: Callable,
+    func: Callable[..., float],
     a: float,
     b: float,
-    args: tuple = (),
+    args: tuple[object, ...] = (),
     full_output: int = 0,
     epsabs: float = 1.49e-8,
     epsrel: float = 1.49e-8,
@@ -31,7 +48,8 @@ def quad(
     wopts: tuple | None = None,
     maxp1: int = 50,
     limlst: int = 50,
-) -> Tuple[float, float, Any]:
+    complex_func: bool = False,
+) -> QuadResult:
     """Compute a definite integral.
 
     Args:
@@ -72,23 +90,24 @@ def quad(
         wopts=wopts,
         maxp1=maxp1,
         limlst=limlst,
+        complex_func=complex_func,
     )
 
 @register_atom(witness_scipy_solve_ivp, name="scipy.integrate.solve_ivp")
 @icontract.require(lambda fun, t_span, y0: fun is not None and t_span is not None and y0 is not None, "ODE function, time span, and initial condition must not be None")
 @icontract.ensure(lambda result: result is not None, "ODE solution result must not be None")
 def solve_ivp(
-    fun: Callable,
+    fun: SolveIVPEvent,
     t_span: Tuple[float, float],
     y0: ArrayLike,
     method: str = "RK45",
     t_eval: ArrayLike | None = None,
     dense_output: bool = False,
-    events: Callable | Sequence[Callable] | None = None,
+    events: SolveIVPEvent | Sequence[SolveIVPEvent] | None = None,
     vectorized: bool = False,
-    args: tuple | None = None,
-    **options: Any,
-) -> Any:
+    args: tuple[object, ...] | None = None,
+    **options: SolveIVPOptionsValue,
+) -> OdeResult:
     """Solve an Initial Value Problem (IVP) for a system of Ordinary Differential Equations (ODEs).
 
     Args:
@@ -123,6 +142,7 @@ def solve_ivp(
 @register_atom(witness_scipy_simpson, name="scipy.integrate.simpson")
 @icontract.require(lambda y: np.asarray(y).ndim >= 1, "Input y must be at least 1D")
 @icontract.require(lambda y: len(np.asarray(y)) > 0, "Input y must not be empty")
+@icontract.ensure(lambda result: result is not None, "Integration result must not be None")
 def simpson(
     y: ArrayLike,
     x: ArrayLike | None = None,

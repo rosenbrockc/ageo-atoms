@@ -73,6 +73,68 @@
     language: python
 
 # =============================================================================
+#  numpy
+# =============================================================================
+- atom: numpy/linalg:solve
+  upstream:
+    repo: ~
+    module: numpy.linalg
+    function: solve
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/linalg:inv
+  upstream:
+    repo: ~
+    module: numpy.linalg
+    function: inv
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/linalg:det
+  upstream:
+    repo: ~
+    module: numpy.linalg
+    function: det
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/linalg:norm
+  upstream:
+    repo: ~
+    module: numpy.linalg
+    function: norm
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+# =============================================================================
+#  scipy.integrate
+# =============================================================================
+- atom: scipy/integrate:quad
+  upstream:
+    repo: ~
+    module: scipy.integrate
+    function: quad
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/integrate:solve_ivp
+  upstream:
+    repo: ~
+    module: scipy.integrate
+    function: solve_ivp
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/integrate:simpson
+  upstream:
+    repo: ~
+    module: scipy.integrate
+    function: simpson
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+# =============================================================================
 #  scikit-learn
 # =============================================================================
 - atom: sklearn/images:extract_patches_2d
@@ -2636,7 +2698,7 @@
     function: Time
     language: julia
 
-- atom: tempo_jl/offset_tt2tdb:offset_tt2tdb
+- atom: tempo_jl/offsets:offset_tt2tdb
   upstream:
     repo: Tempo.jl
     module: Tempo.offset
@@ -2659,14 +2721,14 @@
     language: julia
     notes: Hand-written Python composition of TAI->TT and TT->TDB offsets.
 
-- atom: tempo_jl/offset_tt2tdb_d12:tt2tdb_offset
+- atom: tempo_jl/offsets:tt2tdb_offset
   upstream:
     repo: Tempo.jl
     module: Tempo.offset
     function: offset_tt2tdb
     language: julia
 
-- atom: tempo_jl/offset_tt2tdbh:offset_tt2tdbh
+- atom: tempo_jl/offsets:offset_tt2tdbh
   upstream:
     repo: Tempo.jl
     module: Tempo.offset

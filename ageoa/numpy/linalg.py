@@ -1,6 +1,6 @@
 import numpy as np
 import icontract
-from typing import Any, Union
+from typing import Union
 from ageoa.ghost.registry import register_atom
 from ageoa.numpy.witnesses import (
     witness_np_linalg_det,
@@ -66,7 +66,7 @@ def inv(a: np.ndarray) -> np.ndarray:
 @icontract.require(lambda a: np.asarray(a).ndim >= 2, "a must have at least 2 dimensions")
 @icontract.require(lambda a: _is_square_at_least_2d(a), "The last two dimensions of a must be square")
 @icontract.ensure(lambda result: result is not None, "Determinant must not be None")
-def det(a: np.ndarray) -> Any:
+def det(a: np.ndarray) -> np.floating | np.ndarray:
     """Compute the determinant of an array.
 
     Args:

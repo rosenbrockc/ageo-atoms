@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-27T18:10:28+00:00",
+    "generated_at": "2026-03-27T18:32:06+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -59,14 +59,14 @@
       "tempo_jl": 75
     },
     "source_kind_counts": {
-      "generated_ingest": 263,
-      "hand_written": 140,
-      "refined_ingest": 103
+      "generated_ingest": 266,
+      "hand_written": 138,
+      "refined_ingest": 102
     },
     "risk_tier_counts": {
-      "high": 85,
-      "low": 47,
-      "medium": 374
+      "high": 78,
+      "low": 51,
+      "medium": 377
     },
     "stateful_count": 65,
     "stochastic_count": 31,
@@ -75,20 +75,20 @@
     "skeleton_count": 0,
     "parity_coverage_count": 15,
     "reference_coverage_count": 502,
-    "unmapped_upstream_count": 111,
+    "unmapped_upstream_count": 104,
     "structural_status_counts": {
-      "fail": 73,
-      "partial": 124,
-      "pass": 309
+      "fail": 66,
+      "partial": 125,
+      "pass": 315
     },
     "review_priority_counts": {
-      "review_later": 296,
-      "review_now": 96,
+      "review_later": 303,
+      "review_now": 89,
       "review_soon": 114
     },
-    "high_risk_count": 85,
-    "medium_risk_count": 374,
-    "low_risk_count": 47
+    "high_risk_count": 78,
+    "medium_risk_count": 377,
+    "low_risk_count": 51
   },
   "atoms": [
     {
@@ -50913,8 +50913,14 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.linalg",
+        "function": "solve",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -50923,28 +50929,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51000,23 +51000,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 65,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -51046,7 +51040,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51055,7 +51049,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -51065,26 +51059,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.linalg.solve@ageoa/numpy/linalg.py:30",
-          "atom_key": "numpy/linalg:solve",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "solve",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -51115,8 +51091,14 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.linalg",
+        "function": "inv",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -51125,28 +51107,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51194,23 +51170,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 65,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -51240,7 +51210,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51249,7 +51219,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -51259,26 +51229,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.linalg.inv@ageoa/numpy/linalg.py:50",
-          "atom_key": "numpy/linalg:inv",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "inv",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -51309,8 +51261,14 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.linalg",
+        "function": "det",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -51319,29 +51277,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51358,7 +51309,7 @@
           "annotation": "np.ndarray"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "np.floating | np.ndarray",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -51366,10 +51317,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute the determinant of an array.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -51391,25 +51340,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 71,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -51439,7 +51380,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51448,8 +51389,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -51459,57 +51399,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69",
-          "atom_key": "numpy/linalg:det",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "det",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69",
-          "atom_key": "numpy/linalg:det",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "det",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.linalg.det@ageoa/numpy/linalg.py:69",
-          "atom_key": "numpy/linalg:det",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "det",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "det: return type is Any",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -51540,8 +51431,14 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.linalg",
+        "function": "norm",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -51550,28 +51447,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51640,23 +51531,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 65,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -51686,7 +51571,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51695,7 +51580,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -51705,26 +51590,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.linalg.norm@ageoa/numpy/linalg.py:84",
-          "atom_key": "numpy/linalg:norm",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/linalg.py",
-          "wrapper_symbol": "norm",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/linalg.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -81581,18 +81448,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.integrate.quad@ageoa/scipy/integrate.py:19",
+      "atom_id": "ageoa.scipy.integrate.quad@ageoa/scipy/integrate.py:36",
       "atom_name": "ageoa.scipy.integrate.quad",
       "atom_key": "scipy/integrate:quad",
       "module_import_path": "ageoa.scipy.integrate",
       "module_path": "ageoa/scipy/integrate.py",
       "wrapper_symbol": "quad",
-      "wrapper_line": 19,
+      "wrapper_line": 36,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.integrate",
+        "function": "quad",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -81601,28 +81474,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -81639,7 +81506,8 @@
         "wvar",
         "wopts",
         "maxp1",
-        "limlst"
+        "limlst",
+        "complex_func"
       ],
       "required_parameter_names": [
         "func",
@@ -81651,7 +81519,7 @@
           "name": "func",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "Callable[..., float]"
         },
         {
           "name": "a",
@@ -81669,7 +81537,7 @@
           "name": "args",
           "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "tuple"
+          "annotation": "tuple[object, ...]"
         },
         {
           "name": "full_output",
@@ -81730,9 +81598,15 @@
           "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int"
+        },
+        {
+          "name": "complex_func",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "bool"
         }
       ],
-      "return_annotation": "Tuple[float, float, Any]",
+      "return_annotation": "QuadResult",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -81763,23 +81637,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 65,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -81809,7 +81677,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -81818,7 +81686,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -81828,26 +81696,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.integrate.quad@ageoa/scipy/integrate.py:19",
-          "atom_key": "scipy/integrate:quad",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "quad",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -81868,18 +81718,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
+      "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:99",
       "atom_name": "ageoa.scipy.integrate.solve_ivp",
       "atom_key": "scipy/integrate:solve_ivp",
       "module_import_path": "ageoa.scipy.integrate",
       "module_path": "ageoa/scipy/integrate.py",
       "wrapper_symbol": "solve_ivp",
-      "wrapper_line": 80,
+      "wrapper_line": 99,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.integrate",
+        "function": "solve_ivp",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -81888,30 +81744,24 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "partial",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_PUBLIC_KWARGS",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_PUBLIC_KWARGS"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -81935,7 +81785,7 @@
           "name": "fun",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "SolveIVPEvent"
         },
         {
           "name": "t_span",
@@ -81971,7 +81821,7 @@
           "name": "events",
           "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "Callable | Sequence[Callable] | None"
+          "annotation": "SolveIVPEvent | Sequence[SolveIVPEvent] | None"
         },
         {
           "name": "vectorized",
@@ -81983,16 +81833,16 @@
           "name": "args",
           "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "tuple | None"
+          "annotation": "tuple[object, ...] | None"
         },
         {
           "name": "options",
           "required": false,
           "kind": "kwargs",
-          "annotation": "Any"
+          "annotation": "SolveIVPOptionsValue"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "OdeResult",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -82000,11 +81850,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Solve an Initial Value Problem (IVP) for a system of Ordinary Differential Equations (ODEs).",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "options:Any",
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": true,
       "inventory_notes": [],
@@ -82027,24 +81874,19 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 71,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
+          "score": 12,
           "reasons": [
-            "RISK_STRUCTURAL_FAIL"
+            "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -82074,7 +81916,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -82083,7 +81925,6 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
           "manifest_heuristics"
         ],
         "risk": [
@@ -82095,28 +81936,11 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_PUBLIC_KWARGS",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_PUBLIC_KWARGS"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
-          "atom_key": "scipy/integrate:solve_ivp",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "solve_ivp",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
+          "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:99",
           "atom_key": "scipy/integrate:solve_ivp",
           "domain_family": "scipy",
           "module_path": "ageoa/scipy/integrate.py",
@@ -82129,36 +81953,6 @@
           "line": null,
           "column": null,
           "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
-          "atom_key": "scipy/integrate:solve_ivp",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "solve_ivp",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.integrate.solve_ivp@ageoa/scipy/integrate.py:80",
-          "atom_key": "scipy/integrate:solve_ivp",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "solve_ivp",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "solve_ivp: return type is Any",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
         }
       ],
       "semantic_findings": [],
@@ -82181,18 +81975,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126",
+      "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:146",
       "atom_name": "ageoa.scipy.integrate.simpson",
       "atom_key": "scipy/integrate:simpson",
       "module_import_path": "ageoa.scipy.integrate",
       "module_path": "ageoa/scipy/integrate.py",
       "wrapper_symbol": "simpson",
-      "wrapper_line": 126,
+      "wrapper_line": 146,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.integrate",
+        "function": "simpson",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -82201,30 +82001,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_ENSURE_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a meaningful icontract.ensure decorator",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -82263,9 +82055,9 @@
         }
       ],
       "return_annotation": "Union[float, np.ndarray]",
-      "decorator_count": 3,
+      "decorator_count": 4,
       "require_count": 2,
-      "ensure_count": 0,
+      "ensure_count": 1,
       "witness_binding": "register_atom(witness_scipy_simpson, name=\"scipy.integrate.simpson\")",
       "placeholder_witness": false,
       "has_docstring": true,
@@ -82293,23 +82085,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 65,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -82339,7 +82125,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -82348,7 +82134,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -82358,42 +82144,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_ENSURE_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126",
-          "atom_key": "scipy/integrate:simpson",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "simpson",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.integrate.simpson@ageoa/scipy/integrate.py:126",
-          "atom_key": "scipy/integrate:simpson",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/integrate.py",
-          "wrapper_symbol": "simpson",
-          "code": "STRUCT_ENSURE_MISSING",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "simpson: missing @icontract.ensure",
-          "path": "ageoa/scipy/integrate.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-CONTRACT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -99709,17 +99461,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.tempo_jl.offset_tt2tdb.offset_tt2tdb@ageoa/tempo_jl/offset_tt2tdb/atoms.py:14",
-      "atom_name": "ageoa.tempo_jl.offset_tt2tdb.offset_tt2tdb",
-      "atom_key": "tempo_jl/offset_tt2tdb:offset_tt2tdb",
-      "module_import_path": "ageoa.tempo_jl.offset_tt2tdb.atoms",
-      "module_path": "ageoa/tempo_jl/offset_tt2tdb/atoms.py",
+      "atom_id": "ageoa.tempo_jl.offsets.offset_tt2tdb@ageoa/tempo_jl/offsets/atoms.py:17",
+      "atom_name": "ageoa.tempo_jl.offsets.offset_tt2tdb",
+      "atom_key": "tempo_jl/offsets:offset_tt2tdb",
+      "module_import_path": "ageoa.tempo_jl.offsets.atoms",
+      "module_path": "ageoa/tempo_jl/offsets/atoms.py",
       "wrapper_symbol": "offset_tt2tdb",
-      "wrapper_line": 14,
+      "wrapper_line": 17,
       "domain_family": "tempo_jl",
       "module_family": "tempo_jl",
-      "source_kind": "hand_written",
-      "risk_tier": "low",
+      "source_kind": "generated_ingest",
+      "risk_tier": "medium",
       "upstream_symbols": {
         "repo": "Tempo.jl",
         "module": "Tempo.offset",
@@ -99774,7 +99526,7 @@
       "witness_binding": "register_atom(witness_offset_tt2tdb)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Returns the small time correction (seconds) between two clock standards used in astronomy, caused by Earth's elliptical orbit.",
+      "docstring_summary": "Compute the Tempo.jl low-order TT->TDB offset approximation.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -99786,7 +99538,7 @@
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
-          "path": "ageoa/tempo_jl/offset_tt2tdb/atoms.py"
+          "path": "ageoa/tempo_jl/offsets/atoms.py"
         },
         {
           "kind": "vendored_repo",
@@ -99796,17 +99548,18 @@
         },
         {
           "kind": "local_references",
-          "path": "ageoa/tempo_jl/offset_tt2tdb/references.json"
+          "path": "ageoa/tempo_jl/offsets/references.json"
         }
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
+        "RISK_GENERATED_INGEST",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 27,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -99831,8 +99584,10 @@
           "reasons": []
         },
         "generation_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 10,
+          "reasons": [
+            "RISK_GENERATED_INGEST"
+          ]
         },
         "ffi_risk": {
           "score": 5,
@@ -99886,16 +99641,196 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.tempo_jl.offset_tt2tdb_d12.tt2tdb_offset@ageoa/tempo_jl/offset_tt2tdb_d12/atoms.py:17",
-      "atom_name": "ageoa.tempo_jl.offset_tt2tdb_d12.tt2tdb_offset",
-      "atom_key": "tempo_jl/offset_tt2tdb_d12:tt2tdb_offset",
-      "module_import_path": "ageoa.tempo_jl.offset_tt2tdb_d12.atoms",
-      "module_path": "ageoa/tempo_jl/offset_tt2tdb_d12/atoms.py",
-      "wrapper_symbol": "tt2tdb_offset",
-      "wrapper_line": 17,
+      "atom_id": "ageoa.tempo_jl.offsets.offset_tt2tdbh@ageoa/tempo_jl/offsets/atoms.py:38",
+      "atom_name": "ageoa.tempo_jl.offsets.offset_tt2tdbh",
+      "atom_key": "tempo_jl/offsets:offset_tt2tdbh",
+      "module_import_path": "ageoa.tempo_jl.offsets.atoms",
+      "module_path": "ageoa/tempo_jl/offsets/atoms.py",
+      "wrapper_symbol": "offset_tt2tdbh",
+      "wrapper_line": 38,
       "domain_family": "tempo_jl",
       "module_family": "tempo_jl",
-      "source_kind": "refined_ingest",
+      "source_kind": "generated_ingest",
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": "Tempo.jl",
+        "module": "Tempo.offset",
+        "function": "offset_tt2tdbh",
+        "language": "julia",
+        "notes": null
+      },
+      "upstream_version": null,
+      "source_revision": "97634f475470b58a7cf92e5962976b6e30ab7359",
+      "review_basis_at": null,
+      "stateful": false,
+      "ffi": true,
+      "skeleton": false,
+      "has_state_models": false,
+      "has_witnesses": true,
+      "has_cdg": true,
+      "has_references": true,
+      "has_parity_tests": false,
+      "structural_status": "pass",
+      "runtime_status": "unknown",
+      "semantic_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "parity_test_status": "unknown",
+      "references_status": "pass",
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 65,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [
+        "add parity fixtures or a safe runtime probe",
+        "add vendored or importable upstream signature evidence"
+      ],
+      "argument_names": [
+        "seconds"
+      ],
+      "required_parameter_names": [
+        "seconds"
+      ],
+      "argument_details": [
+        {
+          "name": "seconds",
+          "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "float"
+        }
+      ],
+      "return_annotation": "float",
+      "decorator_count": 3,
+      "require_count": 1,
+      "ensure_count": 1,
+      "witness_binding": "register_atom(witness_offset_tt2tdbh)",
+      "placeholder_witness": false,
+      "has_docstring": true,
+      "docstring_summary": "Compute the higher-accuracy Tempo.jl TT->TDB offset approximation.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "inventory_notes": [],
+      "stateful_kind": "none",
+      "stochastic": false,
+      "procedural": false,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "ageoa/tempo_jl/offsets/atoms.py"
+        },
+        {
+          "kind": "vendored_repo",
+          "repo": "Tempo.jl",
+          "module": "Tempo.offset",
+          "source_revision": "97634f475470b58a7cf92e5962976b6e30ab7359"
+        },
+        {
+          "kind": "local_references",
+          "path": "ageoa/tempo_jl/offsets/references.json"
+        }
+      ],
+      "risk_reasons": [
+        "RISK_FFI_BACKED",
+        "RISK_GENERATED_INGEST",
+        "RISK_MISSING_PARITY",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_NO_RUNTIME_EVIDENCE",
+        "RISK_WEAK_UPSTREAM_ANCHOR"
+      ],
+      "risk_score": 37,
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "fidelity_risk": {
+          "score": 8,
+          "reasons": [
+            "RISK_WEAK_UPSTREAM_ANCHOR"
+          ]
+        },
+        "evidence_gap_risk": {
+          "score": 14,
+          "reasons": [
+            "RISK_MISSING_PARITY",
+            "RISK_MISSING_REVIEW_BASIS",
+            "RISK_NO_RUNTIME_EVIDENCE"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 10,
+          "reasons": [
+            "RISK_GENERATED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 5,
+          "reasons": [
+            "RISK_FFI_BACKED"
+          ]
+        },
+        "semantics_proxy_risk": {
+          "score": 0,
+          "reasons": []
+        }
+      },
+      "review_priority": "review_later",
+      "status_basis": {
+        "inventory": [
+          "ast_discovery",
+          "fixture_index",
+          "artifact_presence",
+          "upstream_manifest_lookup"
+        ],
+        "structural": [
+          "no_structural_findings"
+        ],
+        "risk": [
+          "manifest",
+          "structural_report",
+          "signature_evidence",
+          "acceptability_scores",
+          "parity_coverage"
+        ]
+      },
+      "structural_findings": [],
+      "structural_finding_details": [],
+      "semantic_findings": [],
+      "semantic_finding_details": [],
+      "parity_coverage_level": "none",
+      "parity_coverage_reasons": [],
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "usage_test_coverage": "none",
+      "review_status": "missing",
+      "review_record_path": null,
+      "reviewer_type": null,
+      "reviewed_at": null,
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "review_limitations": [],
+      "review_required_actions": [],
+      "trust_readiness": "not_reviewed",
+      "trust_blockers": [],
+      "recommended_overall_verdict": null
+    },
+    {
+      "atom_id": "ageoa.tempo_jl.offsets.tt2tdb_offset@ageoa/tempo_jl/offsets/atoms.py:64",
+      "atom_name": "ageoa.tempo_jl.offsets.tt2tdb_offset",
+      "atom_key": "tempo_jl/offsets:tt2tdb_offset",
+      "module_import_path": "ageoa.tempo_jl.offsets.atoms",
+      "module_path": "ageoa/tempo_jl/offsets/atoms.py",
+      "wrapper_symbol": "tt2tdb_offset",
+      "wrapper_line": 64,
+      "domain_family": "tempo_jl",
+      "module_family": "tempo_jl",
+      "source_kind": "generated_ingest",
       "risk_tier": "medium",
       "upstream_symbols": {
         "repo": "Tempo.jl",
@@ -99951,7 +99886,7 @@
       "witness_binding": "register_atom(witness_tt2tdb_offset)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes the small time correction (seconds) between two astronomical clock standards.",
+      "docstring_summary": "Compute the vectorized TT->TDB offset used by the older d12 ingest.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -99963,7 +99898,7 @@
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
-          "path": "ageoa/tempo_jl/offset_tt2tdb_d12/atoms.py"
+          "path": "ageoa/tempo_jl/offsets/atoms.py"
         },
         {
           "kind": "vendored_repo",
@@ -99973,18 +99908,18 @@
         },
         {
           "kind": "local_references",
-          "path": "ageoa/tempo_jl/offset_tt2tdb_d12/references.json"
+          "path": "ageoa/tempo_jl/offsets/references.json"
         }
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
+        "RISK_GENERATED_INGEST",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_REFINED_INGEST",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 32,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -100009,187 +99944,10 @@
           "reasons": []
         },
         "generation_risk": {
-          "score": 5,
+          "score": 10,
           "reasons": [
-            "RISK_REFINED_INGEST"
+            "RISK_GENERATED_INGEST"
           ]
-        },
-        "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
-        },
-        "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
-        }
-      },
-      "review_priority": "review_later",
-      "status_basis": {
-        "inventory": [
-          "ast_discovery",
-          "fixture_index",
-          "artifact_presence",
-          "upstream_manifest_lookup"
-        ],
-        "structural": [
-          "no_structural_findings"
-        ],
-        "risk": [
-          "manifest",
-          "structural_report",
-          "signature_evidence",
-          "acceptability_scores",
-          "parity_coverage"
-        ]
-      },
-      "structural_findings": [],
-      "structural_finding_details": [],
-      "semantic_findings": [],
-      "semantic_finding_details": [],
-      "parity_coverage_level": "none",
-      "parity_coverage_reasons": [],
-      "parity_fixture_count": 0,
-      "parity_case_count": 0,
-      "usage_test_coverage": "none",
-      "review_status": "missing",
-      "review_record_path": null,
-      "reviewer_type": null,
-      "reviewed_at": null,
-      "review_semantic_verdict": "unknown",
-      "review_developer_semantics_verdict": "unknown",
-      "review_limitations": [],
-      "review_required_actions": [],
-      "trust_readiness": "not_reviewed",
-      "trust_blockers": [],
-      "recommended_overall_verdict": null
-    },
-    {
-      "atom_id": "ageoa.tempo_jl.offset_tt2tdbh.offset_tt2tdbh@ageoa/tempo_jl/offset_tt2tdbh/atoms.py:14",
-      "atom_name": "ageoa.tempo_jl.offset_tt2tdbh.offset_tt2tdbh",
-      "atom_key": "tempo_jl/offset_tt2tdbh:offset_tt2tdbh",
-      "module_import_path": "ageoa.tempo_jl.offset_tt2tdbh.atoms",
-      "module_path": "ageoa/tempo_jl/offset_tt2tdbh/atoms.py",
-      "wrapper_symbol": "offset_tt2tdbh",
-      "wrapper_line": 14,
-      "domain_family": "tempo_jl",
-      "module_family": "tempo_jl",
-      "source_kind": "hand_written",
-      "risk_tier": "low",
-      "upstream_symbols": {
-        "repo": "Tempo.jl",
-        "module": "Tempo.offset",
-        "function": "offset_tt2tdbh",
-        "language": "julia",
-        "notes": null
-      },
-      "upstream_version": null,
-      "source_revision": "97634f475470b58a7cf92e5962976b6e30ab7359",
-      "review_basis_at": null,
-      "stateful": false,
-      "ffi": true,
-      "skeleton": false,
-      "has_state_models": false,
-      "has_witnesses": true,
-      "has_cdg": true,
-      "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "pass",
-      "runtime_status": "unknown",
-      "semantic_status": "unknown",
-      "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
-      "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
-      "required_actions": [
-        "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence"
-      ],
-      "argument_names": [
-        "seconds"
-      ],
-      "required_parameter_names": [
-        "seconds"
-      ],
-      "argument_details": [
-        {
-          "name": "seconds",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "float"
-        }
-      ],
-      "return_annotation": "float",
-      "decorator_count": 3,
-      "require_count": 1,
-      "ensure_count": 1,
-      "witness_binding": "register_atom(witness_offset_tt2tdbh)",
-      "placeholder_witness": false,
-      "has_docstring": true,
-      "docstring_summary": "Computes a high-accuracy time correction between an Earth-based clock and one at the solar system center of mass.",
-      "has_weak_types": false,
-      "weak_type_annotations": [],
-      "uses_varargs": false,
-      "uses_kwargs": false,
-      "inventory_notes": [],
-      "stateful_kind": "none",
-      "stochastic": false,
-      "procedural": false,
-      "authoritative_sources": [
-        {
-          "kind": "local_wrapper",
-          "path": "ageoa/tempo_jl/offset_tt2tdbh/atoms.py"
-        },
-        {
-          "kind": "vendored_repo",
-          "repo": "Tempo.jl",
-          "module": "Tempo.offset",
-          "source_revision": "97634f475470b58a7cf92e5962976b6e30ab7359"
-        },
-        {
-          "kind": "local_references",
-          "path": "ageoa/tempo_jl/offset_tt2tdbh/references.json"
-        }
-      ],
-      "risk_reasons": [
-        "RISK_FFI_BACKED",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
-      ],
-      "risk_score": 27,
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 14,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 0,
-          "reasons": []
         },
         "ffi_risk": {
           "score": 5,

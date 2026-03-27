@@ -1,0 +1,120 @@
+{
+  "nodes": [
+    {
+      "node_id": "integrate_root",
+      "parent_id": null,
+      "name": "scipy.integrate",
+      "description": "Numerical integration and ODE solving primitives backed by SciPy.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "quad",
+        "solve_ivp",
+        "simpson"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "quad",
+      "parent_id": "integrate_root",
+      "name": "quad",
+      "description": "Adaptive quadrature over a scalar-valued function on a finite interval.",
+      "concept_type": "integration",
+      "inputs": [
+        {"name": "func", "type_desc": "callable", "constraints": "scalar integrand"},
+        {"name": "a", "type_desc": "float", "constraints": "lower integration limit"},
+        {"name": "b", "type_desc": "float", "constraints": "upper integration limit"},
+        {"name": "complex_func", "type_desc": "bool", "constraints": "whether the integrand returns complex values"}
+      ],
+      "outputs": [
+        {"name": "quad_result", "type_desc": "tuple[float, float] | tuple[float, float, dict[str, object]] | tuple[float, float, dict[str, object], str]", "constraints": "integral estimate with absolute error and optional diagnostics"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(func: callable, a: float, b: float, complex_func: bool) -> tuple[float, float] | tuple[float, float, dict[str, object]] | tuple[float, float, dict[str, object], str]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Compute a one-dimensional definite integral with adaptive quadrature.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "solve_ivp",
+      "parent_id": "integrate_root",
+      "name": "solve_ivp",
+      "description": "Solve an initial value problem for an ODE system over a time span.",
+      "concept_type": "ode_solver",
+      "inputs": [
+        {"name": "fun", "type_desc": "callable", "constraints": "right-hand side callback"},
+        {"name": "t_span", "type_desc": "tuple[float, float]", "constraints": "integration interval (t0, tf)"},
+        {"name": "y0", "type_desc": "np.ndarray | list | tuple", "constraints": "initial state"},
+        {"name": "method", "type_desc": "str", "constraints": "SciPy IVP method name"},
+        {"name": "t_eval", "type_desc": "np.ndarray | list | tuple | None", "constraints": "optional evaluation times"},
+        {"name": "dense_output", "type_desc": "bool", "constraints": "whether to build a dense solution"},
+        {"name": "events", "type_desc": "callable | sequence | None", "constraints": "optional event functions"},
+        {"name": "vectorized", "type_desc": "bool", "constraints": "whether fun is vectorized"},
+        {"name": "args", "type_desc": "tuple[object, ...] | None", "constraints": "optional extra positional arguments"},
+        {"name": "options", "type_desc": "dict[str, object]", "constraints": "optional solver-specific keyword arguments"}
+      ],
+      "outputs": [
+        {"name": "solution", "type_desc": "OdeResult", "constraints": "SciPy ODE solution bundle"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(fun: callable, t_span: tuple[float, float], y0: np.ndarray | list | tuple, method: str, t_eval: np.ndarray | list | tuple | None, dense_output: bool, events: callable | sequence | None, vectorized: bool, args: tuple[object, ...] | None, options: dict[str, object]) -> OdeResult",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Integrate an ODE initial value problem.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "simpson",
+      "parent_id": "integrate_root",
+      "name": "simpson",
+      "description": "Composite Simpson integration along one array axis.",
+      "concept_type": "integration",
+      "inputs": [
+        {"name": "y", "type_desc": "np.ndarray | list | tuple", "constraints": "sampled values to integrate"},
+        {"name": "x", "type_desc": "np.ndarray | list | tuple | None", "constraints": "optional sample positions"},
+        {"name": "dx", "type_desc": "float", "constraints": "spacing used when x is omitted"},
+        {"name": "axis", "type_desc": "int", "constraints": "axis along which to integrate"}
+      ],
+      "outputs": [
+        {"name": "integral", "type_desc": "float | np.ndarray", "constraints": "definite integral result"}
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(y: np.ndarray | list | tuple, x: np.ndarray | list | tuple | None, dx: float, axis: int) -> float | np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Integrate sampled data with composite Simpson's rule.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": []
+}
