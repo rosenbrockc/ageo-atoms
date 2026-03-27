@@ -107,6 +107,142 @@
     language: python
     notes: Uses the installed NumPy package as the upstream signature source.
 
+- atom: numpy/arrays:array
+  upstream:
+    repo: ~
+    module: numpy
+    function: array
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/arrays:zeros
+  upstream:
+    repo: ~
+    module: numpy
+    function: zeros
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/arrays:dot
+  upstream:
+    repo: ~
+    module: numpy
+    function: dot
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/arrays:vstack
+  upstream:
+    repo: ~
+    module: numpy
+    function: vstack
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/arrays:reshape
+  upstream:
+    repo: ~
+    module: numpy
+    function: reshape
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/emath:sqrt
+  upstream:
+    repo: ~
+    module: numpy.emath
+    function: sqrt
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/emath:log
+  upstream:
+    repo: ~
+    module: numpy.emath
+    function: log
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/emath:log10
+  upstream:
+    repo: ~
+    module: numpy.emath
+    function: log10
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/emath:logn
+  upstream:
+    repo: ~
+    module: numpy.emath
+    function: logn
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/emath:power
+  upstream:
+    repo: ~
+    module: numpy.emath
+    function: power
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyval
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyval
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyfit
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyfit
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyder
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyder
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyint
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyint
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyadd
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyadd
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polymul
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polymul
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/polynomial:polyroots
+  upstream:
+    repo: ~
+    module: numpy.polynomial.polynomial
+    function: polyroots
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
 # =============================================================================
 #  scipy.integrate
 # =============================================================================
@@ -131,6 +267,78 @@
     repo: ~
     module: scipy.integrate
     function: simpson
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/stats:describe
+  upstream:
+    repo: ~
+    module: scipy.stats
+    function: describe
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/stats:ttest_ind
+  upstream:
+    repo: ~
+    module: scipy.stats
+    function: ttest_ind
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/stats:pearsonr
+  upstream:
+    repo: ~
+    module: scipy.stats
+    function: pearsonr
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/stats:spearmanr
+  upstream:
+    repo: ~
+    module: scipy.stats
+    function: spearmanr
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/stats:norm
+  upstream:
+    repo: ~
+    module: scipy.stats
+    function: norm
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/optimize:minimize
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: minimize
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/optimize:root
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: root
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/optimize:linprog
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: linprog
+    language: python
+    notes: Uses the installed SciPy package as the upstream signature source.
+
+- atom: scipy/optimize:curve_fit
+  upstream:
+    repo: ~
+    module: scipy.optimize
+    function: curve_fit
     language: python
     notes: Uses the installed SciPy package as the upstream signature source.
 

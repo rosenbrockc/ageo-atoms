@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.polynomial.polynomial as poly
 import icontract
-from typing import Sequence, Union, Any, Tuple
+from typing import Union
 from ageoa.ghost.registry import register_atom
 from ageoa.numpy.witnesses import (
     witness_np_polyadd,
@@ -16,12 +16,13 @@ from ageoa.numpy.witnesses import (
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
 CoefficientLike = Union[np.ndarray, list, tuple]
+PolyValueLike = Union[np.ndarray, list, tuple, float, int, complex, np.number]
 
 @register_atom(witness_np_polyval, name="numpy.polynomial.polyval")
 @icontract.require(lambda c, x: c is not None and x is not None, "Coefficients and x must not be None")
 @icontract.require(lambda c: len(np.asarray(c)) > 0, "Coefficients must not be empty")
 @icontract.ensure(lambda result, x: np.asarray(result).shape == np.asarray(x).shape, "Result shape must match x shape")
-def polyval(x: Any, c: CoefficientLike) -> Any:
+def polyval(x: PolyValueLike, c: CoefficientLike) -> np.ndarray | np.number:
     """Evaluate a polynomial at points x.
 
     If c is of length n + 1, this function returns the value

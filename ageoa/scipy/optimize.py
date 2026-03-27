@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
+from typing import Callable, Dict, Sequence, Tuple, Union
 import numpy as np
 import scipy.optimize
 import icontract
@@ -13,6 +13,7 @@ from ageoa.scipy.witnesses import (
 
 # Types
 ArrayLike = Union[np.ndarray, list, tuple]
+CurveFitKwarg = float | int | bool | str | np.ndarray | Sequence[float] | tuple[float, float] | None
 
 @register_atom(witness_scipy_minimize, name="scipy.optimize.minimize")
 @icontract.require(lambda x0: np.asarray(x0).ndim >= 1, "Initial guess x0 must be at least 1D")
@@ -165,7 +166,7 @@ def linprog(
 @icontract.require(lambda f, xdata, ydata: len(xdata) == len(ydata), "xdata and ydata must have the same length")
 @icontract.ensure(lambda result: len(result) == 2, "Result must be a tuple of (popt, pcov)")
 def curve_fit(
-    f: Callable,
+    f: Callable[..., np.ndarray | float],
     xdata: ArrayLike,
     ydata: ArrayLike,
     p0: ArrayLike | None = None,
@@ -174,8 +175,8 @@ def curve_fit(
     check_finite: bool | None = None,
     bounds: Sequence | None = (-np.inf, np.inf),
     method: str | None = None,
-    jac: Callable | str | None = None,
-    **kwargs: Any,
+    jac: Callable[..., np.ndarray] | str | None = None,
+    **kwargs: CurveFitKwarg,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Use non-linear least squares to fit a function, f, to data.
 

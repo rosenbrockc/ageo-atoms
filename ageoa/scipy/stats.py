@@ -1,8 +1,10 @@
 from __future__ import annotations
-from typing import Any, Optional, Sequence, Tuple, Union
+from typing import Union
 import numpy as np
 import scipy.stats
 import icontract
+from scipy.stats._distn_infrastructure import rv_continuous_frozen
+from scipy.stats._stats_py import DescribeResult, PearsonRResult, SignificanceResult, TtestResult
 from ageoa.ghost.registry import register_atom
 from ageoa.scipy.witnesses import (
     witness_scipy_describe,
@@ -26,7 +28,7 @@ def describe(
     ddof: int = 1,
     bias: bool = True,
     nan_policy: str = "propagate",
-) -> Any:
+) -> DescribeResult:
     """Compute several descriptive statistics of the passed array.
 
     Args:
@@ -65,7 +67,7 @@ def ttest_ind(
     nan_policy: str = "propagate",
     alternative: str = "two-sided",
     trim: float = 0,
-) -> Any:
+) -> TtestResult:
     """Calculate the T-test for the means of two independent samples of
     scores.
 
@@ -97,7 +99,7 @@ def ttest_ind(
 @icontract.require(lambda x, y: len(np.asarray(x)) == len(np.asarray(y)), "x and y must have the same length")
 @icontract.require(lambda x: len(np.asarray(x)) >= 2, "Need at least two observations")
 @icontract.ensure(lambda result: -1 <= result[0] <= 1, "Correlation coefficient must be between -1 and 1")
-def pearsonr(x: ArrayLike, y: ArrayLike) -> Any:
+def pearsonr(x: ArrayLike, y: ArrayLike) -> PearsonRResult:
     """Pearson correlation coefficient and p-value for testing
     non-correlation.
 
@@ -120,7 +122,7 @@ def spearmanr(
     axis: int | None = 0,
     nan_policy: str = "propagate",
     alternative: str = "two-sided",
-) -> Any:
+) -> SignificanceResult:
     """Calculate a Spearman correlation coefficient with associated
     p-value.
 
@@ -146,7 +148,7 @@ def spearmanr(
 @register_atom(witness_scipy_norm, name="scipy.stats.norm")
 @icontract.require(lambda loc, scale: scale > 0, "Scale must be positive")
 @icontract.ensure(lambda result: result is not None, "Normal distribution object must not be None")
-def norm(loc: float = 0, scale: float = 1) -> Any:
+def norm(loc: float = 0, scale: float = 1) -> rv_continuous_frozen:
     """A normal continuous random variable.
 
     Args:

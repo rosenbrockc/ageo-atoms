@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import icontract
-from typing import Union, Any
+from typing import Union
 
 _SLOW_CHECKS = os.environ.get("AGEOA_SLOW_CHECKS", "0") == "1"
 from ageoa.ghost.registry import register_atom
@@ -17,11 +17,12 @@ from ageoa.numpy.witnesses import (
 # Types
 Numeric = Union[float, int, complex, np.number]
 ArrayLike = Union[np.ndarray, list, tuple, Numeric]
+EmathResult = np.ndarray | np.number | complex | float
 
 @register_atom(witness_np_emath_sqrt, name="numpy.emath.sqrt")
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.ensure(lambda result, x: np.allclose(np.square(result), x), "Result squared must be approximately x", enabled=_SLOW_CHECKS)
-def sqrt(x: ArrayLike) -> Any:
+def sqrt(x: ArrayLike) -> EmathResult:
     """Compute the square root of x.
 
     For negative input, the result will be complex.
@@ -40,7 +41,7 @@ def sqrt(x: ArrayLike) -> Any:
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
 @icontract.ensure(lambda result, x: np.allclose(np.exp(result), x), "Exp of result must be approximately x", enabled=_SLOW_CHECKS)
-def log(x: ArrayLike) -> Any:
+def log(x: ArrayLike) -> EmathResult:
     """Compute the natural logarithm of x.
 
     Return the "principal value" (the standard branch of the multi-valued
@@ -60,7 +61,7 @@ def log(x: ArrayLike) -> Any:
 @icontract.require(lambda x: x is not None, "Input must not be None")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
 @icontract.ensure(lambda result, x: np.allclose(np.power(10, result), x), "10 to the power of result must be approximately x", enabled=_SLOW_CHECKS)
-def log10(x: ArrayLike) -> Any:
+def log10(x: ArrayLike) -> EmathResult:
     """Compute the logarithm base 10 of x.
 
     Return the "principal value" (the standard branch of the multi-valued
@@ -81,7 +82,7 @@ def log10(x: ArrayLike) -> Any:
 @icontract.require(lambda n: np.all(np.asarray(n) > 0) and np.all(np.asarray(n) != 1), "Base n must be positive and not equal to 1")
 @icontract.require(lambda x: np.all(np.asarray(x) != 0), "Logarithm of zero is undefined")
 @icontract.ensure(lambda result: result is not None, "Result must not be None")
-def logn(n: Numeric, x: ArrayLike) -> Any:
+def logn(n: Numeric, x: ArrayLike) -> EmathResult:
     """Compute the logarithm base n of x.
 
     Return the "principal value" (the standard branch of the multi-valued
@@ -101,7 +102,7 @@ def logn(n: Numeric, x: ArrayLike) -> Any:
 @register_atom(witness_np_emath_power, name="numpy.emath.power")
 @icontract.require(lambda x, p: x is not None and p is not None, "Input x and power p must not be None")
 @icontract.ensure(lambda result: result is not None, "Result must not be None")
-def power(x: ArrayLike, p: Any) -> Any:
+def power(x: ArrayLike, p: ArrayLike) -> EmathResult:
     """Return x to the power p (x**p).
 
     If x contains negative values, the output is converted to the

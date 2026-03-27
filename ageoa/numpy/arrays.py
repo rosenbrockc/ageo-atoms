@@ -1,6 +1,6 @@
 import numpy as np
 import icontract
-from typing import Sequence, Union, Any
+from typing import Sequence, Union
 from ageoa.ghost.registry import register_atom
 from ageoa.numpy.witnesses import (
     witness_np_array,
@@ -13,7 +13,8 @@ from ageoa.numpy.witnesses import (
 # Types for numpy
 DTypeLike = Union[np.dtype, type, str, None]
 ShapeLike = Union[int, Sequence[int]]
-ArrayLike = Union[np.ndarray, Sequence[Any], float, int]
+ScalarLike = Union[float, int, complex, bool, np.number]
+ArrayLike = Union[np.ndarray, Sequence[ScalarLike], ScalarLike]
 
 def _check_dot_dims(a: ArrayLike, b: ArrayLike) -> bool:
     """Check if dimensions of a and b are compatible for dot product."""
@@ -97,7 +98,7 @@ def zeros(shape: ShapeLike, dtype: DTypeLike = float, order: str = "C") -> np.nd
 @register_atom(witness_np_dot, name="numpy.dot")
 @icontract.require(lambda a, b: _check_dot_dims(a, b), "Dimensions of a and b must be compatible for dot product")
 @icontract.ensure(lambda result: result is not None, "Result must not be None")
-def dot(a: ArrayLike, b: ArrayLike, out: np.ndarray | None = None) -> Any:
+def dot(a: ArrayLike, b: ArrayLike, out: np.ndarray | None = None) -> np.ndarray | np.number:
     """Dot product of two arrays.
 
     For 2-D arrays it is equivalent to matrix multiplication, and for

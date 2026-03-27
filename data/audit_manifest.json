@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-27T18:32:06+00:00",
+    "generated_at": "2026-03-27T18:56:18+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,9 +64,9 @@
       "refined_ingest": 102
     },
     "risk_tier_counts": {
-      "high": 78,
-      "low": 51,
-      "medium": 377
+      "high": 52,
+      "low": 68,
+      "medium": 386
     },
     "stateful_count": 65,
     "stochastic_count": 31,
@@ -75,20 +75,20 @@
     "skeleton_count": 0,
     "parity_coverage_count": 15,
     "reference_coverage_count": 502,
-    "unmapped_upstream_count": 104,
+    "unmapped_upstream_count": 78,
     "structural_status_counts": {
-      "fail": 66,
-      "partial": 125,
-      "pass": 315
+      "fail": 40,
+      "partial": 126,
+      "pass": 340
     },
     "review_priority_counts": {
-      "review_later": 303,
-      "review_now": 89,
-      "review_soon": 114
+      "review_later": 320,
+      "review_now": 63,
+      "review_soon": 123
     },
-    "high_risk_count": 78,
-    "medium_risk_count": 377,
-    "low_risk_count": 51
+    "high_risk_count": 52,
+    "medium_risk_count": 386,
+    "low_risk_count": 68
   },
   "atoms": [
     {
@@ -46802,18 +46802,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.arrays.array@ageoa/numpy/arrays.py:37",
+      "atom_id": "ageoa.numpy.arrays.array@ageoa/numpy/arrays.py:38",
       "atom_name": "ageoa.numpy.arrays.array",
       "atom_key": "numpy/arrays:array",
       "module_import_path": "ageoa.numpy.arrays",
       "module_path": "ageoa/numpy/arrays.py",
       "wrapper_symbol": "array",
-      "wrapper_line": 37,
+      "wrapper_line": 38,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy",
+        "function": "array",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -46822,27 +46828,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -46926,21 +46927,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 60,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -46969,7 +46967,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -46978,7 +46976,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -46988,26 +46986,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.arrays.array@ageoa/numpy/arrays.py:37",
-          "atom_key": "numpy/arrays:array",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "array",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -47028,18 +47008,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.arrays.zeros@ageoa/numpy/arrays.py:81",
+      "atom_id": "ageoa.numpy.arrays.zeros@ageoa/numpy/arrays.py:82",
       "atom_name": "ageoa.numpy.arrays.zeros",
       "atom_key": "numpy/arrays:zeros",
       "module_import_path": "ageoa.numpy.arrays",
       "module_path": "ageoa/numpy/arrays.py",
       "wrapper_symbol": "zeros",
-      "wrapper_line": 81,
+      "wrapper_line": 82,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy",
+        "function": "zeros",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -47048,27 +47034,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -47131,21 +47112,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 60,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -47174,7 +47152,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -47183,7 +47161,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -47193,26 +47171,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.arrays.zeros@ageoa/numpy/arrays.py:81",
-          "atom_key": "numpy/arrays:zeros",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "zeros",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -47233,18 +47193,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
+      "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:101",
       "atom_name": "ageoa.numpy.arrays.dot",
       "atom_key": "numpy/arrays:dot",
       "module_import_path": "ageoa.numpy.arrays",
       "module_path": "ageoa/numpy/arrays.py",
       "wrapper_symbol": "dot",
-      "wrapper_line": 100,
+      "wrapper_line": 101,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy",
+        "function": "dot",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -47253,28 +47219,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -47307,7 +47267,7 @@
           "annotation": "np.ndarray | None"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "np.ndarray | np.number",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -47315,10 +47275,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Dot product of two arrays.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -47340,23 +47298,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -47385,7 +47338,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -47394,8 +47347,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -47405,57 +47357,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
-          "atom_key": "numpy/arrays:dot",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "dot",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
-          "atom_key": "numpy/arrays:dot",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "dot",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.arrays.dot@ageoa/numpy/arrays.py:100",
-          "atom_key": "numpy/arrays:dot",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "dot",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "dot: return type is Any",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -47476,18 +47379,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:123",
+      "atom_id": "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:124",
       "atom_name": "ageoa.numpy.arrays.vstack",
       "atom_key": "numpy/arrays:vstack",
       "module_import_path": "ageoa.numpy.arrays",
       "module_path": "ageoa/numpy/arrays.py",
       "wrapper_symbol": "vstack",
-      "wrapper_line": 123,
+      "wrapper_line": 124,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy",
+        "function": "vstack",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -47496,28 +47405,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -47578,23 +47481,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -47622,7 +47519,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -47631,7 +47528,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -47641,26 +47538,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.arrays.vstack@ageoa/numpy/arrays.py:123",
-          "atom_key": "numpy/arrays:vstack",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "vstack",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -47681,18 +47560,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.arrays.reshape@ageoa/numpy/arrays.py:151",
+      "atom_id": "ageoa.numpy.arrays.reshape@ageoa/numpy/arrays.py:152",
       "atom_name": "ageoa.numpy.arrays.reshape",
       "atom_key": "numpy/arrays:reshape",
       "module_import_path": "ageoa.numpy.arrays",
       "module_path": "ageoa/numpy/arrays.py",
       "wrapper_symbol": "reshape",
-      "wrapper_line": 151,
+      "wrapper_line": 152,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy",
+        "function": "reshape",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -47701,28 +47586,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -47784,23 +47663,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -47828,7 +47701,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -47837,7 +47710,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -47847,26 +47720,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.arrays.reshape@ageoa/numpy/arrays.py:151",
-          "atom_key": "numpy/arrays:reshape",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/arrays.py",
-          "wrapper_symbol": "reshape",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/arrays.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -47887,18 +47742,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24",
+      "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:25",
       "atom_name": "ageoa.numpy.emath.sqrt",
       "atom_key": "numpy/emath:sqrt",
       "module_import_path": "ageoa.numpy.emath",
       "module_path": "ageoa/numpy/emath.py",
       "wrapper_symbol": "sqrt",
-      "wrapper_line": 24,
+      "wrapper_line": 25,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.emath",
+        "function": "sqrt",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -47907,28 +47768,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -47946,7 +47801,7 @@
           "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "EmathResult",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -47954,10 +47809,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute the square root of x.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -47979,23 +47832,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -48024,7 +47872,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -48033,8 +47881,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -48044,57 +47891,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24",
-          "atom_key": "numpy/emath:sqrt",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "sqrt",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24",
-          "atom_key": "numpy/emath:sqrt",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "sqrt",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.sqrt@ageoa/numpy/emath.py:24",
-          "atom_key": "numpy/emath:sqrt",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "sqrt",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "sqrt: return type is Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -48115,18 +47913,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
+      "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:44",
       "atom_name": "ageoa.numpy.emath.log",
       "atom_key": "numpy/emath:log",
       "module_import_path": "ageoa.numpy.emath",
       "module_path": "ageoa/numpy/emath.py",
       "wrapper_symbol": "log",
-      "wrapper_line": 43,
+      "wrapper_line": 44,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.emath",
+        "function": "log",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -48135,28 +47939,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -48174,7 +47972,7 @@
           "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "EmathResult",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -48182,10 +47980,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute the natural logarithm of x.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -48207,23 +48003,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -48252,7 +48043,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -48261,8 +48052,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -48272,57 +48062,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
-          "atom_key": "numpy/emath:log",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
-          "atom_key": "numpy/emath:log",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.log@ageoa/numpy/emath.py:43",
-          "atom_key": "numpy/emath:log",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "log: return type is Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -48343,18 +48084,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63",
+      "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:64",
       "atom_name": "ageoa.numpy.emath.log10",
       "atom_key": "numpy/emath:log10",
       "module_import_path": "ageoa.numpy.emath",
       "module_path": "ageoa/numpy/emath.py",
       "wrapper_symbol": "log10",
-      "wrapper_line": 63,
+      "wrapper_line": 64,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.emath",
+        "function": "log10",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -48363,28 +48110,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -48402,7 +48143,7 @@
           "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "EmathResult",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -48410,10 +48151,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute the logarithm base 10 of x.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -48435,23 +48174,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -48480,7 +48214,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -48489,8 +48223,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -48500,57 +48233,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63",
-          "atom_key": "numpy/emath:log10",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log10",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63",
-          "atom_key": "numpy/emath:log10",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log10",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.log10@ageoa/numpy/emath.py:63",
-          "atom_key": "numpy/emath:log10",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "log10",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "log10: return type is Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -48571,18 +48255,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
+      "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:85",
       "atom_name": "ageoa.numpy.emath.logn",
       "atom_key": "numpy/emath:logn",
       "module_import_path": "ageoa.numpy.emath",
       "module_path": "ageoa/numpy/emath.py",
       "wrapper_symbol": "logn",
-      "wrapper_line": 84,
+      "wrapper_line": 85,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.emath",
+        "function": "logn",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -48591,28 +48281,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -48638,7 +48322,7 @@
           "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "EmathResult",
       "decorator_count": 5,
       "require_count": 3,
       "ensure_count": 1,
@@ -48646,10 +48330,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute the logarithm base n of x.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -48671,23 +48353,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -48716,7 +48393,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -48725,8 +48402,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -48736,57 +48412,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
-          "atom_key": "numpy/emath:logn",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "logn",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
-          "atom_key": "numpy/emath:logn",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "logn",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.logn@ageoa/numpy/emath.py:84",
-          "atom_key": "numpy/emath:logn",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "logn",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "logn: return type is Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -48807,18 +48434,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
+      "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:105",
       "atom_name": "ageoa.numpy.emath.power",
       "atom_key": "numpy/emath:power",
       "module_import_path": "ageoa.numpy.emath",
       "module_path": "ageoa/numpy/emath.py",
       "wrapper_symbol": "power",
-      "wrapper_line": 104,
+      "wrapper_line": 105,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.emath",
+        "function": "power",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -48827,28 +48460,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 59,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -48871,10 +48498,10 @@
           "name": "p",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Any"
+          "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "EmathResult",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -48882,11 +48509,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Return x to the power p (x**p).",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "p:Any",
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -48908,23 +48532,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 66,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -48953,7 +48572,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -48962,8 +48581,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -48973,72 +48591,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
-          "atom_key": "numpy/emath:power",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "power",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
-          "atom_key": "numpy/emath:power",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "power",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
-          "atom_key": "numpy/emath:power",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "power",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "power: param 'p' annotated as Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        },
-        {
-          "atom_id": "ageoa.numpy.emath.power@ageoa/numpy/emath.py:104",
-          "atom_key": "numpy/emath:power",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/emath.py",
-          "wrapper_symbol": "power",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "power: return type is Any",
-          "path": "ageoa/numpy/emath.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -51612,18 +51166,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
+      "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:25",
       "atom_name": "ageoa.numpy.polynomial.polyval",
       "atom_key": "numpy/polynomial:polyval",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyval",
-      "wrapper_line": 24,
+      "wrapper_line": 25,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyval",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -51632,29 +51192,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51670,7 +51223,7 @@
           "name": "x",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Any"
+          "annotation": "PolyValueLike"
         },
         {
           "name": "c",
@@ -51679,7 +51232,7 @@
           "annotation": "CoefficientLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "np.ndarray | np.number",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -51687,11 +51240,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Evaluate a polynomial at points x.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "x:Any",
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -51713,23 +51263,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 66,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -51758,7 +51303,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51767,8 +51312,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -51778,72 +51322,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
-          "atom_key": "numpy/polynomial:polyval",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyval",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
-          "atom_key": "numpy/polynomial:polyval",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyval",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
-          "atom_key": "numpy/polynomial:polyval",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyval",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "polyval: param 'x' annotated as Any",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        },
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyval@ageoa/numpy/polynomial.py:24",
-          "atom_key": "numpy/polynomial:polyval",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyval",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "polyval: return type is Any",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -51864,18 +51344,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyfit@ageoa/numpy/polynomial.py:44",
+      "atom_id": "ageoa.numpy.polynomial.polyfit@ageoa/numpy/polynomial.py:45",
       "atom_name": "ageoa.numpy.polynomial.polyfit",
       "atom_key": "numpy/polynomial:polyfit",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyfit",
-      "wrapper_line": 44,
+      "wrapper_line": 45,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyfit",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -51884,28 +51370,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -51969,21 +51449,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 60,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -52012,7 +51489,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52021,7 +51498,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -52031,26 +51508,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyfit@ageoa/numpy/polynomial.py:44",
-          "atom_key": "numpy/polynomial:polyfit",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyfit",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -52071,18 +51530,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyder@ageoa/numpy/polynomial.py:64",
+      "atom_id": "ageoa.numpy.polynomial.polyder@ageoa/numpy/polynomial.py:65",
       "atom_name": "ageoa.numpy.polynomial.polyder",
       "atom_key": "numpy/polynomial:polyder",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyder",
-      "wrapper_line": 64,
+      "wrapper_line": 65,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyder",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -52091,28 +51556,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -52167,21 +51626,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 60,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -52210,7 +51666,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52219,7 +51675,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -52229,26 +51685,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyder@ageoa/numpy/polynomial.py:64",
-          "atom_key": "numpy/polynomial:polyder",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyder",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -52269,18 +51707,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyint@ageoa/numpy/polynomial.py:83",
+      "atom_id": "ageoa.numpy.polynomial.polyint@ageoa/numpy/polynomial.py:84",
       "atom_name": "ageoa.numpy.polynomial.polyint",
       "atom_key": "numpy/polynomial:polyint",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyint",
-      "wrapper_line": 83,
+      "wrapper_line": 84,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyint",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -52289,28 +51733,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -52372,21 +51810,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 60,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -52415,7 +51850,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52424,7 +51859,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -52434,26 +51869,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyint@ageoa/numpy/polynomial.py:83",
-          "atom_key": "numpy/polynomial:polyint",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyint",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -52474,18 +51891,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyadd@ageoa/numpy/polynomial.py:102",
+      "atom_id": "ageoa.numpy.polynomial.polyadd@ageoa/numpy/polynomial.py:103",
       "atom_name": "ageoa.numpy.polynomial.polyadd",
       "atom_key": "numpy/polynomial:polyadd",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyadd",
-      "wrapper_line": 102,
+      "wrapper_line": 103,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyadd",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -52494,28 +51917,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -52570,23 +51987,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -52614,7 +52025,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52623,7 +52034,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -52633,26 +52044,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyadd@ageoa/numpy/polynomial.py:102",
-          "atom_key": "numpy/polynomial:polyadd",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyadd",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -52673,18 +52066,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polymul@ageoa/numpy/polynomial.py:120",
+      "atom_id": "ageoa.numpy.polynomial.polymul@ageoa/numpy/polynomial.py:121",
       "atom_name": "ageoa.numpy.polynomial.polymul",
       "atom_key": "numpy/polynomial:polymul",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polymul",
-      "wrapper_line": 120,
+      "wrapper_line": 121,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polymul",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -52693,28 +52092,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -52769,23 +52162,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -52813,7 +52200,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52822,7 +52209,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -52832,26 +52219,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polymul@ageoa/numpy/polynomial.py:120",
-          "atom_key": "numpy/polynomial:polymul",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polymul",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -52872,18 +52241,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.polynomial.polyroots@ageoa/numpy/polynomial.py:138",
+      "atom_id": "ageoa.numpy.polynomial.polyroots@ageoa/numpy/polynomial.py:139",
       "atom_name": "ageoa.numpy.polynomial.polyroots",
       "atom_key": "numpy/polynomial:polyroots",
       "module_import_path": "ageoa.numpy.polynomial",
       "module_path": "ageoa/numpy/polynomial.py",
       "wrapper_symbol": "polyroots",
-      "wrapper_line": 138,
+      "wrapper_line": 139,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "numpy.polynomial.polynomial",
+        "function": "polyroots",
+        "language": "python",
+        "notes": "Uses the installed NumPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -52892,28 +52267,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -52960,23 +52329,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -53004,7 +52367,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -53013,7 +52376,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -53023,26 +52386,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.polynomial.polyroots@ageoa/numpy/polynomial.py:138",
-          "atom_key": "numpy/polynomial:polyroots",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/polynomial.py",
-          "wrapper_symbol": "polyroots",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/numpy/polynomial.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -83802,18 +83147,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.optimize.minimize@ageoa/scipy/optimize.py:21",
+      "atom_id": "ageoa.scipy.optimize.minimize@ageoa/scipy/optimize.py:22",
       "atom_name": "ageoa.scipy.optimize.minimize",
       "atom_key": "scipy/optimize:minimize",
       "module_import_path": "ageoa.scipy.optimize",
       "module_path": "ageoa/scipy/optimize.py",
       "wrapper_symbol": "minimize",
-      "wrapper_line": 21,
+      "wrapper_line": 22,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.optimize",
+        "function": "minimize",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -83822,28 +83173,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -83968,23 +83313,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -84012,7 +83351,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -84021,7 +83360,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -84031,26 +83370,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.optimize.minimize@ageoa/scipy/optimize.py:21",
-          "atom_key": "scipy/optimize:minimize",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/optimize.py",
-          "wrapper_symbol": "minimize",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/optimize.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -84071,18 +83392,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.optimize.root@ageoa/scipy/optimize.py:75",
+      "atom_id": "ageoa.scipy.optimize.root@ageoa/scipy/optimize.py:76",
       "atom_name": "ageoa.scipy.optimize.root",
       "atom_key": "scipy/optimize:root",
       "module_import_path": "ageoa.scipy.optimize",
       "module_path": "ageoa/scipy/optimize.py",
       "wrapper_symbol": "root",
-      "wrapper_line": 75,
+      "wrapper_line": 76,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.optimize",
+        "function": "root",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -84091,28 +83418,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -84209,23 +83530,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 60,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -84253,7 +83568,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -84262,7 +83577,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -84272,26 +83587,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.optimize.root@ageoa/scipy/optimize.py:75",
-          "atom_key": "scipy/optimize:root",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/optimize.py",
-          "wrapper_symbol": "root",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/optimize.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -84312,18 +83609,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.optimize.linprog@ageoa/scipy/optimize.py:118",
+      "atom_id": "ageoa.scipy.optimize.linprog@ageoa/scipy/optimize.py:119",
       "atom_name": "ageoa.scipy.optimize.linprog",
       "atom_key": "scipy/optimize:linprog",
       "module_import_path": "ageoa.scipy.optimize",
       "module_path": "ageoa/scipy/optimize.py",
       "wrapper_symbol": "linprog",
-      "wrapper_line": 118,
+      "wrapper_line": 119,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.optimize",
+        "function": "linprog",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -84332,28 +83635,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -84464,21 +83761,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 60,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -84507,7 +83801,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -84516,7 +83810,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -84526,26 +83820,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.optimize.linprog@ageoa/scipy/optimize.py:118",
-          "atom_key": "scipy/optimize:linprog",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/optimize.py",
-          "wrapper_symbol": "linprog",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/optimize.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -84566,18 +83842,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
+      "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:168",
       "atom_name": "ageoa.scipy.optimize.curve_fit",
       "atom_key": "scipy/optimize:curve_fit",
       "module_import_path": "ageoa.scipy.optimize",
       "module_path": "ageoa/scipy/optimize.py",
       "wrapper_symbol": "curve_fit",
-      "wrapper_line": 167,
+      "wrapper_line": 168,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.optimize",
+        "function": "curve_fit",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -84586,30 +83868,24 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "partial",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_PUBLIC_KWARGS",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_PUBLIC_KWARGS"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -84634,7 +83910,7 @@
           "name": "f",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "Callable[..., np.ndarray | float]"
         },
         {
           "name": "xdata",
@@ -84688,13 +83964,13 @@
           "name": "jac",
           "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "Callable | str | None"
+          "annotation": "Callable[..., np.ndarray] | str | None"
         },
         {
           "name": "kwargs",
           "required": false,
           "kind": "kwargs",
-          "annotation": "Any"
+          "annotation": "CurveFitKwarg"
         }
       ],
       "return_annotation": "Tuple[np.ndarray, np.ndarray]",
@@ -84705,10 +83981,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Use non-linear least squares to fit a function, f, to data.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "kwargs:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": true,
       "inventory_notes": [],
@@ -84730,23 +84004,21 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_SIGNATURE_MISMATCH",
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 66,
+      "risk_score": 44,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
+          "score": 12,
           "reasons": [
-            "RISK_STRUCTURAL_FAIL"
+            "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -84775,7 +84047,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -84784,7 +84056,6 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
           "manifest_heuristics"
         ],
         "risk": [
@@ -84796,28 +84067,11 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_PUBLIC_KWARGS",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_PUBLIC_KWARGS"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
-          "atom_key": "scipy/optimize:curve_fit",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/optimize.py",
-          "wrapper_symbol": "curve_fit",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/optimize.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
+          "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:168",
           "atom_key": "scipy/optimize:curve_fit",
           "domain_family": "scipy",
           "module_path": "ageoa/scipy/optimize.py",
@@ -84826,21 +84080,6 @@
           "severity": "warning",
           "source": "manifest_heuristics",
           "message": "Public signature uses **kwargs",
-          "path": "ageoa/scipy/optimize.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.optimize.curve_fit@ageoa/scipy/optimize.py:167",
-          "atom_key": "scipy/optimize:curve_fit",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/optimize.py",
-          "wrapper_symbol": "curve_fit",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
           "path": "ageoa/scipy/optimize.py",
           "line": null,
           "column": null,
@@ -89110,18 +88349,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
+      "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:25",
       "atom_name": "ageoa.scipy.stats.describe",
       "atom_key": "scipy/stats:describe",
       "module_import_path": "ageoa.scipy.stats",
       "module_path": "ageoa/scipy/stats.py",
       "wrapper_symbol": "describe",
-      "wrapper_line": 23,
+      "wrapper_line": 25,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.stats",
+        "function": "describe",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -89130,29 +88375,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -89197,7 +88435,7 @@
           "annotation": "str"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "DescribeResult",
       "decorator_count": 5,
       "require_count": 3,
       "ensure_count": 1,
@@ -89205,10 +88443,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute several descriptive statistics of the passed array.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -89229,25 +88465,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 66,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -89275,7 +88503,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -89284,8 +88512,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -89295,57 +88522,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
-          "atom_key": "scipy/stats:describe",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "describe",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
-          "atom_key": "scipy/stats:describe",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "describe",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.describe@ageoa/scipy/stats.py:23",
-          "atom_key": "scipy/stats:describe",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "describe",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "describe: return type is Any",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -89366,18 +88544,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
+      "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:62",
       "atom_name": "ageoa.scipy.stats.ttest_ind",
       "atom_key": "scipy/stats:ttest_ind",
       "module_import_path": "ageoa.scipy.stats",
       "module_path": "ageoa/scipy/stats.py",
       "wrapper_symbol": "ttest_ind",
-      "wrapper_line": 60,
+      "wrapper_line": 62,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.stats",
+        "function": "ttest_ind",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -89386,29 +88570,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -89468,7 +88645,7 @@
           "annotation": "float"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "TtestResult",
       "decorator_count": 5,
       "require_count": 3,
       "ensure_count": 1,
@@ -89476,10 +88653,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Calculate the T-test for the means of two independent samples of",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -89501,23 +88676,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 66,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -89546,7 +88716,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -89555,8 +88725,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -89566,57 +88735,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
-          "atom_key": "scipy/stats:ttest_ind",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "ttest_ind",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
-          "atom_key": "scipy/stats:ttest_ind",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "ttest_ind",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.ttest_ind@ageoa/scipy/stats.py:60",
-          "atom_key": "scipy/stats:ttest_ind",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "ttest_ind",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "ttest_ind: return type is Any",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -89637,18 +88757,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
+      "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:102",
       "atom_name": "ageoa.scipy.stats.pearsonr",
       "atom_key": "scipy/stats:pearsonr",
       "module_import_path": "ageoa.scipy.stats",
       "module_path": "ageoa/scipy/stats.py",
       "wrapper_symbol": "pearsonr",
-      "wrapper_line": 100,
+      "wrapper_line": 102,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.stats",
+        "function": "pearsonr",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -89657,29 +88783,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -89704,7 +88823,7 @@
           "annotation": "ArrayLike"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "PearsonRResult",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -89712,10 +88831,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Pearson correlation coefficient and p-value for testing",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -89737,23 +88854,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 66,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -89782,7 +88894,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -89791,8 +88903,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -89802,57 +88913,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
-          "atom_key": "scipy/stats:pearsonr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "pearsonr",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
-          "atom_key": "scipy/stats:pearsonr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "pearsonr",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.pearsonr@ageoa/scipy/stats.py:100",
-          "atom_key": "scipy/stats:pearsonr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "pearsonr",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "pearsonr: return type is Any",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -89873,18 +88935,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
+      "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:119",
       "atom_name": "ageoa.scipy.stats.spearmanr",
       "atom_key": "scipy/stats:spearmanr",
       "module_import_path": "ageoa.scipy.stats",
       "module_path": "ageoa/scipy/stats.py",
       "wrapper_symbol": "spearmanr",
-      "wrapper_line": 117,
+      "wrapper_line": 119,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.stats",
+        "function": "spearmanr",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -89893,29 +88961,22 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 69,
+      "acceptability_band": "limited_acceptability",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -89960,7 +89021,7 @@
           "annotation": "str"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "SignificanceResult",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -89968,10 +89029,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Calculate a Spearman correlation coefficient with associated",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -89992,25 +89051,17 @@
         "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_NO_RUNTIME_EVIDENCE"
       ],
-      "risk_score": 66,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 20,
@@ -90038,7 +89089,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -90047,8 +89098,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -90058,57 +89108,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
-          "atom_key": "scipy/stats:spearmanr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "spearmanr",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
-          "atom_key": "scipy/stats:spearmanr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "spearmanr",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.spearmanr@ageoa/scipy/stats.py:117",
-          "atom_key": "scipy/stats:spearmanr",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "spearmanr",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "spearmanr: return type is Any",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -90129,18 +89130,24 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
+      "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:151",
       "atom_name": "ageoa.scipy.stats.norm",
       "atom_key": "scipy/stats:norm",
       "module_import_path": "ageoa.scipy.stats",
       "module_path": "ageoa/scipy/stats.py",
       "wrapper_symbol": "norm",
-      "wrapper_line": 149,
+      "wrapper_line": 151,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "hand_written",
-      "risk_tier": "high",
-      "upstream_symbols": {},
+      "risk_tier": "medium",
+      "upstream_symbols": {
+        "repo": null,
+        "module": "scipy.stats",
+        "function": "norm",
+        "language": "python",
+        "notes": "Uses the installed SciPy package as the upstream signature source."
+      },
       "upstream_version": null,
       "source_revision": null,
       "review_basis_at": null,
@@ -90149,29 +89156,25 @@
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
-      "has_cdg": false,
+      "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "fail",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
+        "remove or document invented wrapper parameters",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -90193,7 +89196,7 @@
           "annotation": "float"
         }
       ],
-      "return_annotation": "Any",
+      "return_annotation": "rv_continuous_frozen",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -90201,10 +89204,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "A normal continuous random variable.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:Any"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -90226,23 +89227,18 @@
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_STRUCTURAL_FAIL",
-        "RISK_UPSTREAM_UNMAPPED",
-        "RISK_WEAK_TYPES"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 66,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 25,
-          "reasons": [
-            "RISK_STRUCTURAL_FAIL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 21,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -90271,7 +89267,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -90280,8 +89276,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py",
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "risk": [
           "manifest",
@@ -90291,57 +89286,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_MISSING",
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
-          "atom_key": "scipy/stats:norm",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "norm",
-          "code": "STRUCT_CDG_MISSING",
-          "severity": "error",
-          "source": "audit.py",
-          "message": "cdg.json not found",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-MISSING"
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
-          "atom_key": "scipy/stats:norm",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "norm",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.stats.norm@ageoa/scipy/stats.py:149",
-          "atom_key": "scipy/stats:norm",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/stats.py",
-          "wrapper_symbol": "norm",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "norm: return type is Any",
-          "path": "ageoa/scipy/stats.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-TYPE"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
