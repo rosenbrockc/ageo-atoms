@@ -64,9 +64,9 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Bandpass Filter",
+      "conceptual_summary": "Canonical unknown operation via filter_signal. Planned group: bandpass_filter.",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "canonical_ir"
     },
     {
       "node_id": "r_peak_detection",
@@ -103,9 +103,9 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "R-Peak Detection",
+      "conceptual_summary": "Canonical unknown operation via detect_rpeaks. Planned group: r_peak_detection.",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "canonical_ir"
     },
     {
       "node_id": "peak_correction",
@@ -149,9 +149,9 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Peak Correction",
+      "conceptual_summary": "Canonical unknown operation via correct_peaks. Planned group: peak_correction.",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "canonical_ir"
     },
     {
       "node_id": "template_extraction",
@@ -202,9 +202,9 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Template Extraction",
+      "conceptual_summary": "Canonical unknown operation via extract_templates. Planned group: template_extraction.",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "canonical_ir"
     },
     {
       "node_id": "heart_rate_computation",
@@ -248,9 +248,9 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Heart Rate Computation",
+      "conceptual_summary": "Canonical unknown operation via compute_heart_rate. Planned group: heart_rate_computation.",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "canonical_ir"
     }
   ],
   "edges": [
@@ -307,100 +307,12 @@
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
       "requires_glue": false
-    },
-    {
-      "source_id": "bandpass_filter",
-      "target_id": "r_peak_detection",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "bandpass_filter",
-      "target_id": "peak_correction",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "bandpass_filter",
-      "target_id": "template_extraction",
-      "output_name": "filtered",
-      "input_name": "filtered",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "heart_rate_computation",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "peak_correction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "r_peak_detection",
-      "target_id": "template_extraction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "peak_correction",
-      "target_id": "heart_rate_computation",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "peak_correction",
-      "target_id": "template_extraction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "template_extraction",
-      "target_id": "heart_rate_computation",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
-    },
-    {
-      "source_id": "template_extraction",
-      "target_id": "peak_correction",
-      "output_name": "rpeaks",
-      "input_name": "rpeaks",
-      "source_type": "ECGPipelineState",
-      "target_type": "ECGPipelineState",
-      "requires_glue": false
     }
   ],
   "metadata": {
     "source": "ingester",
-    "class_name": "ECGProcessor"
+    "class_name": "ECGProcessor",
+    "source_language": "python",
+    "canonical_semantics": true
   }
 }

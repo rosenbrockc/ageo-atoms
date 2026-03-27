@@ -15,6 +15,7 @@ from .witnesses import (
     witness_3d_image_graph_materialization,
     witness_image_patch_sampling_and_assembly,
     witness_patches_to_image_reconstruction,
+    witness_voxel_grid_graph_assembly,
 )
 
 _SCIONA_UNSET = object()
@@ -26,6 +27,7 @@ _RECONSTRUCT_FROM_PATCHES_2D: Any = getattr(
     "reconstruct_from_patches_2d",
 )
 _IMG_TO_GRAPH: Any = getattr(_SCIONA_SOURCE_MODULE, "img_to_graph")
+_GRID_TO_GRAPH: Any = getattr(_SCIONA_SOURCE_MODULE, "grid_to_graph")
 
 
 @register_atom(witness_image_patch_sampling_and_assembly)
@@ -113,3 +115,44 @@ def img_to_graph(
     if dtype is not _SCIONA_UNSET:
         call_kwargs["dtype"] = dtype
     return _IMG_TO_GRAPH(img, **call_kwargs)
+
+
+@register_atom(witness_voxel_grid_graph_assembly)
+@icontract.require(lambda n_x: n_x is not None, "n_x cannot be None")
+@icontract.require(lambda n_y: n_y is not None, "n_y cannot be None")
+@icontract.ensure(
+    lambda result: result is not None,
+    "Voxel Grid Graph Assembly output must not be None",
+)
+def grid_to_graph(
+    n_x: Any,
+    n_y: Any,
+    n_z: Any = _SCIONA_UNSET,
+    *,
+    mask: Any = _SCIONA_UNSET,
+    return_as: Any = _SCIONA_UNSET,
+    dtype: Any = _SCIONA_UNSET,
+) -> object:
+    """Constructs a 3D grid adjacency graph by generating lattice edges, optionally computing gradient-based edge weights, optionally masking invalid connections, and returning the graph in the requested representation.
+
+    Args:
+        n_x: positive grid size along x-axis
+        n_y: positive grid size along y-axis
+        n_z: positive grid size along z-axis
+        mask: optional voxel inclusion mask matching grid shape
+        return_as: target graph container/class
+        dtype: numeric dtype for graph weights
+
+    Returns:
+        object
+    """
+    call_kwargs: dict[str, Any] = {}
+    if n_z is not _SCIONA_UNSET:
+        call_kwargs["n_z"] = n_z
+    if mask is not _SCIONA_UNSET:
+        call_kwargs["mask"] = mask
+    if return_as is not _SCIONA_UNSET:
+        call_kwargs["return_as"] = return_as
+    if dtype is not _SCIONA_UNSET:
+        call_kwargs["dtype"] = dtype
+    return _GRID_TO_GRAPH(n_x, n_y, **call_kwargs)

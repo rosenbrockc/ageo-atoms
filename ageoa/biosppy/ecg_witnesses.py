@@ -1,57 +1,77 @@
-"""Auto-generated ghost witness functions for abstract simulation."""
+"""Ghost witnesses for ECG atoms."""
 
 from __future__ import annotations
 
-import torch
-import jax
-import jax.numpy as jnp
-import haiku as hk
-
-import networkx as nx  # type: ignore
-
 try:
-    from ageoa.ghost.abstract import AbstractSignal, AbstractArray, AbstractScalar
+    from ageoa.ghost.abstract import AbstractArray, AbstractSignal
 except ImportError:
     pass
 
-def witness_bandpass_filter(signal: AbstractSignal, state: AbstractSignal) -> tuple[AbstractSignal, AbstractSignal]:
+
+def witness_bandpass_filter(
+    signal: AbstractSignal,
+    sampling_rate: AbstractArray,
+) -> AbstractSignal:
     """Ghost witness for Bandpass Filter."""
-    result = AbstractSignal(
+    return AbstractSignal(
         shape=signal.shape,
-        dtype="float64",
-        sampling_rate=getattr(signal, 'sampling_rate', 44100.0),
-        domain="time",
+        dtype=signal.dtype,
+        sampling_rate=getattr(signal, "sampling_rate", 1000.0),
+        domain=getattr(signal, "domain", "time"),
     )
-    return result, state
 
-def witness_r_peak_detection(filtered: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
+
+def witness_r_peak_detection(
+    filtered: AbstractArray,
+    sampling_rate: AbstractArray,
+) -> AbstractArray:
     """Ghost witness for R-Peak Detection."""
-    result = AbstractArray(
-        shape=filtered.shape,
-        dtype="float64",
-    )
-    return result, state
+    return AbstractArray(shape=filtered.shape, dtype=filtered.dtype)
 
-def witness_peak_correction(filtered: AbstractArray, rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
+
+def witness_peak_correction(
+    filtered: AbstractArray,
+    rpeaks: AbstractArray,
+    sampling_rate: AbstractArray,
+) -> AbstractArray:
     """Ghost witness for Peak Correction."""
-    result = AbstractArray(
-        shape=filtered.shape,
-        dtype="float64",
-    )
-    return result, state
+    return AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype)
 
-def witness_template_extraction(filtered: AbstractArray, rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
+
+def witness_template_extraction(
+    filtered: AbstractArray,
+    rpeaks: AbstractArray,
+    sampling_rate: AbstractArray,
+) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for Template Extraction."""
-    result = AbstractArray(
-        shape=filtered.shape,
-        dtype="float64",
+    return (
+        AbstractArray(shape=filtered.shape, dtype=filtered.dtype),
+        AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype),
     )
-    return result, state
 
-def witness_heart_rate_computation(rpeaks: AbstractArray, state: AbstractArray) -> tuple[AbstractArray, AbstractArray]:
+
+def witness_heart_rate_computation(
+    rpeaks: AbstractArray,
+    sampling_rate: AbstractArray,
+) -> tuple[AbstractArray, AbstractArray]:
     """Ghost witness for Heart Rate Computation."""
-    result = AbstractArray(
-        shape=rpeaks.shape,
-        dtype="float64",
+    return (
+        AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype),
+        AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype),
     )
-    return result, state
+
+
+def witness_ssf_segmenter(
+    signal: AbstractSignal,
+    sampling_rate: AbstractArray,
+) -> AbstractArray:
+    """Ghost witness for SSF Segmenter."""
+    return AbstractArray(shape=signal.shape, dtype=signal.dtype)
+
+
+def witness_christov_segmenter(
+    signal: AbstractSignal,
+    sampling_rate: AbstractArray,
+) -> AbstractArray:
+    """Ghost witness for Christov Segmenter."""
+    return AbstractArray(shape=signal.shape, dtype=signal.dtype)

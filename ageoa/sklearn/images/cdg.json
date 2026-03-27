@@ -240,6 +240,105 @@
       "conceptual_summary": "Canonical query operation via img_to_graph. Planned group: 3d_image_graph_materialization.",
       "critic_notes": "",
       "decomposition_rationale": "canonical_ir"
+    },
+    {
+      "node_id": "grid_to_graph_root",
+      "parent_id": null,
+      "name": "grid_to_graph",
+      "description": "Ingested pipeline from grid_to_graph",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "voxel_grid_graph_assembly"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "voxel_grid_graph_assembly",
+      "parent_id": "grid_to_graph_root",
+      "name": "Voxel Grid Graph Assembly",
+      "description": "Constructs a 3D grid adjacency graph by generating lattice edges, optionally computing gradient-based edge weights, optionally masking invalid connections, and returning the graph in the requested representation. [query]",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "n_x",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_y",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_z",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mask",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "return_as",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dtype",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "graph",
+          "type_desc": "sparse graph / adjacency matrix",
+          "constraints": "shape corresponds to active voxels/nodes",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(n_x: Any, n_y: Any, n_z: Any, mask: Any, return_as: Any, dtype: Any) -> sparse graph / adjacency matrix",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Canonical query operation via grid_to_graph. Planned group: voxel_grid_graph_assembly.",
+      "critic_notes": "",
+      "decomposition_rationale": "canonical_ir"
     }
   ],
   "edges": []

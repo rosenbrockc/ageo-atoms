@@ -34,3 +34,15 @@ def witness_3d_image_graph_materialization(
 ) -> AbstractArray:
     """Ghost witness for 3D Image Graph Materialization (query, state-preserving)."""
     return AbstractArray(shape=img.shape, dtype=img.dtype)
+
+
+def witness_voxel_grid_graph_assembly(
+    n_x: AbstractArray,
+    n_y: AbstractArray,
+    n_z: AbstractArray,
+    mask: AbstractArray,
+    return_as: AbstractArray,
+    dtype: AbstractArray,
+) -> AbstractArray:
+    """Ghost witness for Voxel Grid Graph Assembly (query, state-preserving)."""
+    return AbstractArray(shape=n_x.shape, dtype=n_x.dtype)
