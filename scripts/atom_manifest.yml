@@ -14,21 +14,21 @@
 # =============================================================================
 #  AdvancedVI.jl  (Julia)
 # =============================================================================
-- atom: advancedvi/location_scale:evaluate_log_probability_density
+- atom: advancedvi/core:evaluate_log_probability_density
   upstream:
     repo: AdvancedVI.jl
     module: AdvancedVI.families.location_scale
     function: Distributions.logpdf
     language: julia
 
-- atom: advancedvi/optimize:optimizationlooporchestration
+- atom: advancedvi/core:optimizationlooporchestration
   upstream:
     repo: AdvancedVI.jl
     module: AdvancedVI.optimize
     function: optimize
     language: julia
 
-- atom: advancedvi/repgradelbo:gradient_oracle_evaluation
+- atom: advancedvi/core:gradient_oracle_evaluation
   upstream:
     repo: AdvancedVI.jl
     module: AdvancedVI.algorithms.repgradelbo
@@ -504,77 +504,77 @@
 # =============================================================================
 #  BioSPPy
 # =============================================================================
-- atom: biosppy/abp_zong:audio_onset_detection
+- atom: biosppy/abp:audio_onset_detection
   upstream:
     repo: BioSPPy
     module: biosppy.signals.abp
     function: find_onsets_zong2003
     language: python
 
-- atom: biosppy/ecg_asi:thresholdbasedsignalsegmentation
+- atom: biosppy/ecg_detectors:thresholdbasedsignalsegmentation
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: ASI_segmenter
     language: python
 
-- atom: biosppy/ecg_asi_d12:asi_signal_segmenter
+- atom: biosppy/ecg_detectors:asi_signal_segmenter
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: ASI_segmenter
     language: python
 
-- atom: biosppy/ecg_christov:christovqrsdetect
+- atom: biosppy/ecg_detectors:christovqrsdetect
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: christov_segmenter
     language: python
 
-- atom: biosppy/ecg_christov_d12:christov_qrs_segmenter
+- atom: biosppy/ecg_detectors:christov_qrs_segmenter
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: christov_segmenter
     language: python
 
-- atom: biosppy/ecg_engzee:engzee_signal_segmentation
+- atom: biosppy/ecg_detectors:engzee_signal_segmentation
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: engzee_segmenter
     language: python
 
-- atom: biosppy/ecg_engzee_d12:engzee_qrs_segmentation
+- atom: biosppy/ecg_detectors:engzee_qrs_segmentation
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: engzee_segmenter
     language: python
 
-- atom: biosppy/ecg_gamboa:gamboa_segmentation
+- atom: biosppy/ecg_detectors:gamboa_segmentation
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: gamboa_segmenter
     language: python
 
-- atom: biosppy/ecg_gamboa_d12:gamboa_segmenter
+- atom: biosppy/ecg_detectors:gamboa_segmenter
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: gamboa_segmenter
     language: python
 
-- atom: biosppy/ecg_hamilton:hamilton_segmentation
+- atom: biosppy/ecg_detectors:hamilton_segmentation
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
     function: hamilton_segmenter
     language: python
 
-- atom: biosppy/ecg_hamilton_d12:hamilton_segmenter
+- atom: biosppy/ecg_detectors:hamilton_segmenter
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ecg
@@ -637,56 +637,56 @@
     function: kSQI
     language: python
 
-- atom: biosppy/emg_abbink:detect_onsets_with_rest_aware_thresholds
+- atom: biosppy/emg_detectors:detect_onsets_with_rest_aware_thresholds
   upstream:
     repo: BioSPPy
     module: biosppy.signals.emg
     function: abbink_onset_detector
     language: python
 
-- atom: biosppy/emg_bonato:bonato_onset_detection
+- atom: biosppy/emg_detectors:bonato_onset_detection
   upstream:
     repo: BioSPPy
     module: biosppy.signals.emg
     function: bonato_onset_detector
     language: python
 
-- atom: biosppy/emg_solnik:threshold_based_onset_detection
+- atom: biosppy/emg_detectors:threshold_based_onset_detection
   upstream:
     repo: BioSPPy
     module: biosppy.signals.emg
     function: solnik_onset_detector
     language: python
 
-- atom: biosppy/emg_solnik_d12:solnik_onset_detect
+- atom: biosppy/emg_detectors:solnik_onset_detect
   upstream:
     repo: BioSPPy
     module: biosppy.signals.emg
     function: solnik_onset_detector
     language: python
 
-- atom: biosppy/pcg_homomorphic:homomorphic_signal_filtering
+- atom: biosppy/pcg_filters:homomorphic_signal_filtering
   upstream:
     repo: BioSPPy
     module: biosppy.signals.pcg
     function: homomorphic_filter
     language: python
 
-- atom: biosppy/pcg_homomorphic_d12:homomorphicfilter
+- atom: biosppy/pcg_filters:homomorphicfilter
   upstream:
     repo: BioSPPy
     module: biosppy.signals.pcg
     function: homomorphic_filter
     language: python
 
-- atom: biosppy/ppg_elgendi:detect_signal_onsets_elgendi2013
+- atom: biosppy/ppg_detectors:detect_signal_onsets_elgendi2013
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ppg
     function: find_onsets_elgendi2013
     language: python
 
-- atom: biosppy/ppg_kavsaoglu:detectonsetevents
+- atom: biosppy/ppg_detectors:detectonsetevents
   upstream:
     repo: BioSPPy
     module: biosppy.signals.ppg
@@ -800,14 +800,14 @@
     function: sqa
     language: python
 
-- atom: e2e_ppg/gan_rec:generatereconstructedppg
+- atom: e2e_ppg/gan_reconstruction:generatereconstructedppg
   upstream:
     repo: E2E-PPG
     module: ppg_reconstruction
     function: gan_rec
     language: python
 
-- atom: e2e_ppg/gan_rec_d12:gan_reconstruction
+- atom: e2e_ppg/gan_reconstruction:gan_reconstruction
   upstream:
     repo: E2E-PPG
     module: ppg_reconstruction
@@ -821,7 +821,7 @@
     function: heart_cycle_detection
     language: python
 
-- atom: e2e_ppg/heart_cycle_d12:heart_cycle_detection
+- atom: e2e_ppg/heart_cycle:heart_cycle_detection
   upstream:
     repo: E2E-PPG
     module: ppg_sqa
@@ -1038,7 +1038,7 @@
     function: simulate_hawkes
     language: python
 
-- atom: institutional_quant_engine/hawkes_process_d12:hawkesprocesssimulator
+- atom: institutional_quant_engine/hawkes_process:hawkesprocesssimulator
   upstream:
     repo: Institutional-Quant-Engine
     module: research_math.hawkes_wrapped
@@ -1052,7 +1052,7 @@
     function: HestonWrapper.simulate
     language: python
 
-- atom: institutional_quant_engine/heston_model_d12:hestonpathsampler
+- atom: institutional_quant_engine/heston_model:hestonpathsampler
   upstream:
     repo: Institutional-Quant-Engine
     module: derivatives_pricing.heston_wrapped
@@ -1066,7 +1066,7 @@
     function: HRPWrapper.run
     language: python
 
-- atom: institutional_quant_engine/hrp_d12:hrppipelinerun
+- atom: institutional_quant_engine/hierarchical_risk_parity:hrppipelinerun
   upstream:
     repo: Institutional-Quant-Engine
     module: risk_portfolio.hrp_wrapped
@@ -1087,7 +1087,7 @@
     function: pin_likelihood
     language: python
 
-- atom: institutional_quant_engine/pin_model_d12:pinlikelihoodevaluator
+- atom: institutional_quant_engine/pin_model:pinlikelihoodevaluator
   upstream:
     repo: Institutional-Quant-Engine
     module: execution_hft.41_pin_informed_trading
@@ -1513,7 +1513,7 @@
     function: RowSelfAttention.forward
     language: python
 
-- atom: mint/axial_attention_d12:row_self_attention
+- atom: mint/axial_attention:row_self_attention
   upstream:
     repo: mint
     module: mint.axial_attention
@@ -1570,7 +1570,7 @@
     function: RotaryEmbedding.forward
     language: python
 
-- atom: mint/rotary_embedding_d12:rotaryembedding
+- atom: mint/rotary_embedding:rotaryembedding
   upstream:
     repo: mint
     module: mint.rotary_embedding
@@ -2140,14 +2140,14 @@
     function: DynamicStanceEstimator::DynamicStanceEstimator
     language: cpp
 
-- atom: pronto/ekf_smoother_d12:stateestimatorinit
+- atom: pronto/ekf_smoother:stateestimatorinit
   upstream:
     repo: pronto
     module: pronto_core.state_est
     function: StateEstimator::StateEstimator
     language: cpp
 
-- atom: pronto/ekf_smoother_v3:stateestimatorinit
+- atom: pronto/ekf_smoother:stateestimatorinit
   upstream:
     repo: pronto
     module: pronto_core.state_est
@@ -2277,7 +2277,7 @@
     language: python
     notes: Bandpass correction is embedded in the DM_can pipeline
 
-- atom: pulsar_folding/dm_can_d12:dm_candidate_filter
+- atom: pulsar_folding/dm_can:dm_candidate_filter
   upstream:
     repo: Pulsar_Folding
     module: dm_can_extracted

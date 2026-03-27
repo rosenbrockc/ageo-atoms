@@ -1,0 +1,135 @@
+{
+  "nodes": [
+    {
+      "node_id": "gan_reconstruction_root",
+      "parent_id": null,
+      "name": "ageoa.e2e_ppg.gan_reconstruction",
+      "description": "Consolidated module for ageoa.e2e_ppg.gan_reconstruction.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "generatereconstructedppg",
+        "gan_reconstruction"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "generatereconstructedppg",
+      "parent_id": "gan_reconstruction_root",
+      "name": "generatereconstructedppg",
+      "description": "Applies a Generative Adversarial Network (GAN) generator to a clean photoplethysmogram (PPG) pulse-wave signal and latent noise to produce a reconstructed PPG output.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray | torch.Tensor",
+          "constraints": "required argument"
+        },
+        {
+          "name": "noise",
+          "type_desc": "np.ndarray | torch.Tensor",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int | float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "generator",
+          "type_desc": "torch.nn.Module",
+          "constraints": "required argument"
+        },
+        {
+          "name": "device",
+          "type_desc": "str | torch.device",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray | torch.Tensor",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(ppg_clean: np.ndarray | torch.Tensor, noise: np.ndarray | torch.Tensor, sampling_rate: int | float, generator: torch.nn.Module, device: str | torch.device) -> np.ndarray | torch.Tensor",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "gan_reconstruction",
+      "parent_id": "gan_reconstruction_root",
+      "name": "gan_reconstruction",
+      "description": "Reconstructs a clean electrocardiogram (ECG)-like signal from a noisy photoplethysmography (PPG) input using a pre-trained GAN generator. Accepts a clean PPG signal and additive noise, feeds them through the generator network on the specified device, and returns the reconstructed output signal.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "ppg_clean",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "noise",
+          "type_desc": "list[int]",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "generator",
+          "type_desc": "torch.nn.Module",
+          "constraints": "required argument"
+        },
+        {
+          "name": "device",
+          "type_desc": "str | torch.device",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "list[float]",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(ppg_clean: np.ndarray, noise: list[int], sampling_rate: int, generator: torch.nn.Module, device: str | torch.device) -> list[float]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

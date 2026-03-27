@@ -1,7 +1,7 @@
 [
   {
     "function": "gamboa_segmenter",
-    "atom": "biosppy/ecg_gamboa_d12:gamboa_segmenter",
+    "atom": "biosppy/ecg_detectors:gamboa_segmenter",
     "inputs": {
       "signal": {
         "__ndarray__": true,

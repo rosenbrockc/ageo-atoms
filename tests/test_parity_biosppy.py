@@ -34,7 +34,7 @@ class TestThresholdbasedsignalsegmentation:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_asi:thresholdbasedsignalsegmentation")
+        atom_fn = _import_atom("biosppy/ecg_detectors:thresholdbasedsignalsegmentation")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -54,7 +54,7 @@ class TestAsiSignalSegmenter:
     @pytest.mark.parametrize("idx", range(1))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_asi_d12:asi_signal_segmenter")
+        atom_fn = _import_atom("biosppy/ecg_detectors:asi_signal_segmenter")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -74,7 +74,7 @@ class TestChristovqrsdetect:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_christov:christovqrsdetect")
+        atom_fn = _import_atom("biosppy/ecg_detectors:christovqrsdetect")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -94,7 +94,7 @@ class TestChristovQrsSegmenter:
     @pytest.mark.parametrize("idx", range(1))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_christov_d12:christov_qrs_segmenter")
+        atom_fn = _import_atom("biosppy/ecg_detectors:christov_qrs_segmenter")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -114,7 +114,7 @@ class TestEngzeeSignalSegmentation:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_engzee:engzee_signal_segmentation")
+        atom_fn = _import_atom("biosppy/ecg_detectors:engzee_signal_segmentation")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -134,7 +134,7 @@ class TestEngzeeQrsSegmentation:
     @pytest.mark.parametrize("idx", range(1))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_engzee_d12:engzee_qrs_segmentation")
+        atom_fn = _import_atom("biosppy/ecg_detectors:engzee_qrs_segmentation")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -154,7 +154,7 @@ class TestGamboaSegmentation:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_gamboa:gamboa_segmentation")
+        atom_fn = _import_atom("biosppy/ecg_detectors:gamboa_segmentation")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -174,7 +174,7 @@ class TestGamboaSegmenter:
     @pytest.mark.parametrize("idx", range(1))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ecg_gamboa_d12:gamboa_segmenter")
+        atom_fn = _import_atom("biosppy/ecg_detectors:gamboa_segmenter")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -234,7 +234,7 @@ class TestHomomorphicSegmentation:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/pcg_homomorphic:homomorphic_segmentation")
+        atom_fn = _import_atom("biosppy/pcg_filters:homomorphic_segmentation")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -254,7 +254,7 @@ class TestHomomorphicSignalFiltering:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/pcg_homomorphic:homomorphic_signal_filtering")
+        atom_fn = _import_atom("biosppy/pcg_filters:homomorphic_signal_filtering")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -274,7 +274,7 @@ class TestHomomorphicfilter:
     @pytest.mark.parametrize("idx", range(1))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/pcg_homomorphic_d12:homomorphicfilter")
+        atom_fn = _import_atom("biosppy/pcg_filters:homomorphicfilter")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:
@@ -294,7 +294,7 @@ class TestDetectonsetevents:
     @pytest.mark.parametrize("idx", range(2))
     def test_parity(self, idx):
         case = self.cases[idx]
-        atom_fn = _import_atom("biosppy/ppg_kavsaoglu:detectonsetevents")
+        atom_fn = _import_atom("biosppy/ppg_detectors:detectonsetevents")
         inputs = _deserialize(case["inputs"])
         expected = _deserialize(case["output"])
         try:

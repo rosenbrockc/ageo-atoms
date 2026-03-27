@@ -1,0 +1,266 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "stateestimatorinit",
+      "statement": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+      "informal_desc": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "stateestimatorinit",
+            "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+            "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+            "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "stateestimatorinit",
+      "statement": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+      "informal_desc": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "stateestimatorinit",
+          "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+          "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+          "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "stateestimatorinit",
+            "type_signature": "() -> StateModelSpec \u2014 immutable snapshot of all initialized fields (covariance P, process noise Q, observation noise R, latent mean/variance, and RNG state)",
+            "docstring": "Bootstraps the StateEstimator instance: allocates internal containers, sets default hyperparameters, and establishes the initial state model ready for predict/update cycles.",
+            "conceptual_summary": "ProbabilisticLatentSpaceInitializer. Allocates and freezes a complete probabilistic state representation by instantiating all parametric containers \u2014 covariance matrices, noise spectral density tensors, latent mean vector, and a seeded stochastic generator \u2014 into a self-consistent, immutable snapshot. The operation establishes the zero-time prior distribution over a latent continuous state space, ensuring all uncertainty quantification structures satisfy positive-semi-definiteness constraints before any recursive inference cycle begins. No observations are consumed; this is a pure structural bootstrap that defines the algebraic scaffolding upon which subsequent predict/update operators will act.. Applications: Robotics & SLAM: Initializing the prior belief distribution (pose covariance, map uncertainty) for an Extended Kalman Filter or particle filter before a mobile agent begins sensor-fusion-based simultaneous localization and mapping., Computational Neuroscience: Bootstrapping a Bayesian brain model's prior latent neural-state distribution \u2014 mean firing rate vector and inter-neuron covariance \u2014 before online electrophysiological observation streams are ingested for neural decoding., Structural Health Monitoring: Constructing the initial uncertainty model over hidden material-stress latent variables (with process noise seeded from thermal expansion coefficients) before strain-gauge telemetry enters a recursive damage-detection filter., Quantitative Ecology: Seeding a state-space population dynamics model with prior distributions over hidden sub-population counts and demographic noise tensors before longitudinal survey observations drive iterative inference over species abundance trajectories.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "inverse_schmitt_trigger_transform",
+      "statement": "(input_signal: scalar | array_like) -> scalar | array_like",
+      "informal_desc": "Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "inverse_schmitt_trigger_transform",
+          "type_signature": "(input_signal: scalar | array_like) -> scalar | array_like",
+          "docstring": "Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.",
+          "conceptual_summary": "hysteretic_inverted_bistable_threshold_mapper. Transforms a numeric signal into a two-state output by applying dual-threshold switching with inverted polarity. State changes occur only when the signal crosses the outer bounds; values inside the intermediate band preserve the previously emitted state, creating hysteresis. Over ordered samples, this yields a piecewise-constant state trajectory that suppresses rapid oscillations caused by near-boundary noise.. Applications: Biomedical instrumentation: convert noisy continuous sensor waveforms into stable phase/event labels for downstream analysis., Robotics and embedded control: debounced mode switching from fluctuating proximity, force, or orientation measurements., Communication systems: robust symbol/state gating from analog channel metrics that fluctuate around decision boundaries., Infrastructure monitoring: persistent regime-change detection from vibration or strain amplitudes under high measurement noise.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "inverse_schmitt_trigger_transform",
+          "type_signature": "(input_signal: scalar | array_like) -> scalar | array_like",
+          "docstring": "Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.",
+          "conceptual_summary": "hysteretic_inverted_bistable_threshold_mapper. Transforms a numeric signal into a two-state output by applying dual-threshold switching with inverted polarity. State changes occur only when the signal crosses the outer bounds; values inside the intermediate band preserve the previously emitted state, creating hysteresis. Over ordered samples, this yields a piecewise-constant state trajectory that suppresses rapid oscillations caused by near-boundary noise.. Applications: Biomedical instrumentation: convert noisy continuous sensor waveforms into stable phase/event labels for downstream analysis., Robotics and embedded control: debounced mode switching from fluctuating proximity, force, or orientation measurements., Communication systems: robust symbol/state gating from analog channel metrics that fluctuate around decision boundaries., Infrastructure monitoring: persistent regime-change detection from vibration or strain amplitudes under high measurement noise.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "inverse_schmitt_trigger_transform",
+            "type_signature": "(input_signal: scalar | array_like) -> scalar | array_like",
+            "docstring": "Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.",
+            "conceptual_summary": "hysteretic_inverted_bistable_threshold_mapper. Transforms a numeric signal into a two-state output by applying dual-threshold switching with inverted polarity. State changes occur only when the signal crosses the outer bounds; values inside the intermediate band preserve the previously emitted state, creating hysteresis. Over ordered samples, this yields a piecewise-constant state trajectory that suppresses rapid oscillations caused by near-boundary noise.. Applications: Biomedical instrumentation: convert noisy continuous sensor waveforms into stable phase/event labels for downstream analysis., Robotics and embedded control: debounced mode switching from fluctuating proximity, force, or orientation measurements., Communication systems: robust symbol/state gating from analog channel metrics that fluctuate around decision boundaries., Infrastructure monitoring: persistent regime-change detection from vibration or strain amplitudes under high measurement noise.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "torqueadjustmentidentitystage",
+      "statement": "() -> None",
+      "informal_desc": "Represents the entry-point stage with no observable computation, state access, or side effects.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "torqueadjustmentidentitystage",
+          "type_signature": "() -> None",
+          "docstring": "Represents the entry-point stage with no observable computation, state access, or side effects.",
+          "conceptual_summary": "NullaryIdentityStage. Implements an identity morphism at a pipeline boundary: execution occurs, but no data is consumed, produced, or mutated. It preserves global system state and observable behavior exactly, serving only as a structural anchor for composition, scheduling, or replacement.. Applications: Compiler engineering: placeholder transformation pass used to preserve pass-order scaffolding before optimization logic is introduced., Workflow orchestration in laboratory automation: explicit start node that enforces graph structure without altering any measurement stream., Distributed systems testing: inert stage inserted to validate tracing, scheduling, and dependency wiring independently of functional computation., Control-system simulation: baseline stage representing zero control action to isolate plant dynamics from controller effects.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "torqueadjustmentidentitystage",
+          "type_signature": "() -> None",
+          "docstring": "Represents the entry-point stage with no observable computation, state access, or side effects.",
+          "conceptual_summary": "NullaryIdentityStage. Implements an identity morphism at a pipeline boundary: execution occurs, but no data is consumed, produced, or mutated. It preserves global system state and observable behavior exactly, serving only as a structural anchor for composition, scheduling, or replacement.. Applications: Compiler engineering: placeholder transformation pass used to preserve pass-order scaffolding before optimization logic is introduced., Workflow orchestration in laboratory automation: explicit start node that enforces graph structure without altering any measurement stream., Distributed systems testing: inert stage inserted to validate tracing, scheduling, and dependency wiring independently of functional computation., Control-system simulation: baseline stage representing zero control action to isolate plant dynamics from controller effects.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "torqueadjustmentidentitystage",
+            "type_signature": "() -> None",
+            "docstring": "Represents the entry-point stage with no observable computation, state access, or side effects.",
+            "conceptual_summary": "NullaryIdentityStage. Implements an identity morphism at a pipeline boundary: execution occurs, but no data is consumed, produced, or mutated. It preserves global system state and observable behavior exactly, serving only as a structural anchor for composition, scheduling, or replacement.. Applications: Compiler engineering: placeholder transformation pass used to preserve pass-order scaffolding before optimization logic is introduced., Workflow orchestration in laboratory automation: explicit start node that enforces graph structure without altering any measurement stream., Distributed systems testing: inert stage inserted to validate tracing, scheduling, and dependency wiring independently of functional computation., Control-system simulation: baseline stage representing zero control action to isolate plant dynamics from controller effects.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

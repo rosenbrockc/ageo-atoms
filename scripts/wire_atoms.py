@@ -54,7 +54,7 @@ WIRING_TABLE: list[dict] = [
         "call": "return gamboa_segmenter(signal=signal, sampling_rate=sampling_rate, tol=tol)",
     },
     {
-        "file": "biosppy/ecg_asi/atoms.py",
+        "file": "biosppy/ecg_detectors.py",
         "func": "thresholdbasedsignalsegmentation",
         "import": "from biosppy.signals.ecg import ASI_segmenter",
         "call": "return ASI_segmenter(signal=signal, sampling_rate=sampling_rate, Pth=Pth)",
@@ -164,7 +164,7 @@ WIRING_TABLE: list[dict] = [
         "call": "return normalize(arr)",
     },
     {
-        "file": "e2e_ppg/heart_cycle/atoms.py",
+        "file": "e2e_ppg/heart_cycle.py",
         "func": "detect_heart_cycles",
         "import": "from ppg_sqa import heart_cycle_detection",
         "call": "return heart_cycle_detection(ppg=ppg, sampling_rate=sampling_rate)",
@@ -188,19 +188,19 @@ WIRING_TABLE: list[dict] = [
         "call": "return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)",
     },
     {
-        "file": "e2e_ppg/gan_rec/atoms.py",
+        "file": "e2e_ppg/gan_reconstruction.py",
         "func": "generatereconstructedppg",
         "import": "from ppg_reconstruction import gan_rec",
         "call": "return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)",
     },
     {
-        "file": "e2e_ppg/gan_rec_d12/atoms.py",
+        "file": "e2e_ppg/gan_reconstruction.py",
         "func": "gan_reconstruction",
         "import": "from ppg_reconstruction import gan_rec",
         "call": "return gan_rec(ppg_clean=ppg_clean, noise=noise, sampling_rate=sampling_rate, generator=generator, device=device)",
     },
     {
-        "file": "e2e_ppg/heart_cycle_d12/atoms.py",
+        "file": "e2e_ppg/heart_cycle.py",
         "func": "heart_cycle_detection",
         "import": "from ppg_sqa import heart_cycle_detection as _heart_cycle_detection",
         "call": "return _heart_cycle_detection(ppg=ppg, sampling_rate=sampling_rate)",
@@ -245,7 +245,7 @@ D12_WIRING: list[dict] = [
         "call": "return _gamboa_segmenter(signal=signal, sampling_rate=sampling_rate, tol=tol)",
     },
     {
-        "file": "biosppy/ecg_asi_d12/atoms.py",
+        "file": "biosppy/ecg_detectors.py",
         "func": "asi_signal_segmenter",
         "import": "from biosppy.signals.ecg import ASI_segmenter",
         "call": "return ASI_segmenter(signal=signal, sampling_rate=sampling_rate, Pth=Pth)",

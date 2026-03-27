@@ -90,6 +90,401 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.almgren_chriss.computeoptimaltrajectory@ageoa/institutional_quant_engine/almgren_chriss.py:16": {
+      "references": [
+        {
+          "ref_id": "almgren2000",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Execution scheduling attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.copula_dependence.simulate_copula_dependence@ageoa/institutional_quant_engine/copula_dependence.py:17": {
+      "references": [
+        {
+          "ref_id": "nelsen2006copulas",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Copula modeling attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.dynamic_hedge.kalman_hedge_ratio@ageoa/institutional_quant_engine/dynamic_hedge.py:19": {
+      "references": [
+        {
+          "ref_id": "kalman1960",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Kalman-based state estimation attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.evt_model.fit_gpd_tail@ageoa/institutional_quant_engine/evt_model.py:16": {
+      "references": [
+        {
+          "ref_id": "coles2001evt",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "EVT/GPD tail-fitting attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator@ageoa/institutional_quant_engine/fractional_diff.py:16": {
+      "references": [
+        {
+          "ref_id": "lopezdeprado2018afml",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Fractional differentiation attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.hawkes_process.sample_hawkes_event_trajectory@ageoa/institutional_quant_engine/hawkes_process.py:17": {
+      "references": [
+        {
+          "ref_id": "hawkes1971",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Hawkes process attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.hawkes_process.hawkesprocesssimulator@ageoa/institutional_quant_engine/hawkes_process.py:57": {
+      "references": [
+        {
+          "ref_id": "hawkes1971",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Hawkes process attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.heston_model.simulate_heston_paths@ageoa/institutional_quant_engine/heston_model.py:20": {
+      "references": [
+        {
+          "ref_id": "heston1993",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Heston attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.heston_model.hestonpathsampler@ageoa/institutional_quant_engine/heston_model.py:66": {
+      "references": [
+        {
+          "ref_id": "heston1993",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Heston attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.hierarchical_risk_parity.compute_hrp_weights@ageoa/institutional_quant_engine/hierarchical_risk_parity.py:15": {
+      "references": [
+        {
+          "ref_id": "lopezdeprado2016hrp",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact HRP attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.hierarchical_risk_parity.hrppipelinerun@ageoa/institutional_quant_engine/hierarchical_risk_parity.py:75": {
+      "references": [
+        {
+          "ref_id": "lopezdeprado2016hrp",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact HRP attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.order_flow_imbalance.orderflowimbalanceevaluation@ageoa/institutional_quant_engine/order_flow_imbalance.py:15": {
+      "references": [
+        {
+          "ref_id": "cont2014ofi",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Order-flow imbalance attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.pin_model.pinlikelihoodevaluation@ageoa/institutional_quant_engine/pin_model.py:16": {
+      "references": [
+        {
+          "ref_id": "easley1996pin",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "PIN attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.pin_model.pinlikelihoodevaluator@ageoa/institutional_quant_engine/pin_model.py:49": {
+      "references": [
+        {
+          "ref_id": "easley1996pin",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "PIN attribution."
+          }
+        },
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.supply_chain.propagate_supply_shock@ageoa/institutional_quant_engine/supply_chain.py:18": {
+      "references": [
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.triangular_arbitrage.detect_triangular_arbitrage@ageoa/institutional_quant_engine/triangular_arbitrage.py:15": {
+      "references": [
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.institutional_quant_engine.wash_trade.detect_wash_trade_rings@ageoa/institutional_quant_engine/wash_trade.py:21": {
+      "references": [
+        {
+          "ref_id": "repo_institutional_quant_engine",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary repository attribution for Institutional-Quant-Engine atoms."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

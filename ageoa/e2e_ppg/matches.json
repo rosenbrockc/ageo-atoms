@@ -1,0 +1,1454 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "initializereconstructionbudget",
+      "statement": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+      "informal_desc": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initializereconstructionbudget",
+          "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+          "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initializereconstructionbudget",
+          "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+          "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initializereconstructionbudget",
+            "type_signature": "(noise: list, sampling_rate: int, shifting_step_seconds: int) -> tuple[int, list, int, int]",
+            "docstring": "Compute reconstruction chunk size and initialize iterative state for accumulating generated noise.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "checkreconstructioncompletion",
+      "statement": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+      "informal_desc": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "checkreconstructioncompletion",
+          "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+          "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "checkreconstructioncompletion",
+          "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+          "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "checkreconstructioncompletion",
+            "type_signature": "(reconstructed_noise: list, target_noise_len: int) -> bool",
+            "docstring": "Evaluate loop continuation condition based on accumulated reconstruction length versus target length.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "synthesizenoisefromcleancontext",
+      "statement": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+      "informal_desc": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "synthesizenoisefromcleancontext",
+          "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "synthesizenoisefromcleancontext",
+          "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "synthesizenoisefromcleancontext",
+            "type_signature": "(ppg_clean: np.ndarray, generator: callable model, device: string or torch.device, batch_size: int) -> tuple[np.ndarray, np.ndarray]",
+            "docstring": "Normalize clean context, build a repeated batch tensor, and run the GAN generator to produce a noise candidate waveform.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "deriveupsampledpeakanchors",
+      "statement": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+      "informal_desc": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "deriveupsampledpeakanchors",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "deriveupsampledpeakanchors",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "deriveupsampledpeakanchors",
+            "type_signature": "(noise_rec: np.ndarray, ppg_clean_scaled: np.ndarray, sampling_rate: int, upsampling_rate: float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+            "docstring": "Upsample generated and clean signals and extract peak anchors used for temporal alignment.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildalignedreconstructioncandidate",
+      "statement": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+      "informal_desc": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildalignedreconstructioncandidate",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildalignedreconstructioncandidate",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildalignedreconstructioncandidate",
+            "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean_scaled: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+            "docstring": "Splice clean prefix and generated suffix using detected anchors, then downsample to base resolution candidate length.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "commitchunkandadvancecontext",
+      "statement": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+      "informal_desc": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "commitchunkandadvancecontext",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "commitchunkandadvancecontext",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "commitchunkandadvancecontext",
+            "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean_scaled: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+            "docstring": "Append the next reconstructed chunk to the accumulator, update remaining budget, and slide clean context for the next iteration.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "initialize_reconstruction_state",
+      "statement": "(noise: list, sampling_rate: int | float) -> tuple[int, list, int]",
+      "informal_desc": "Set up reconstruction loop parameters: compute the per-iteration reconstruction length from the shifting step and sampling rate, and initialize the reconstructed noise accumulator and remaining noise counter.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "initialize_reconstruction_state",
+          "type_signature": "(noise: list, sampling_rate: int | float) -> tuple[int, list, int]",
+          "docstring": "Set up reconstruction loop parameters: compute the per-iteration reconstruction length from the shifting step and sampling rate, and initialize the reconstructed noise accumulator and remaining noise counter.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "initialize_reconstruction_state",
+          "type_signature": "(noise: list, sampling_rate: int | float) -> tuple[int, list, int]",
+          "docstring": "Set up reconstruction loop parameters: compute the per-iteration reconstruction length from the shifting step and sampling rate, and initialize the reconstructed noise accumulator and remaining noise counter.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "initialize_reconstruction_state",
+            "type_signature": "(noise: list, sampling_rate: int | float) -> tuple[int, list, int]",
+            "docstring": "Set up reconstruction loop parameters: compute the per-iteration reconstruction length from the shifting step and sampling rate, and initialize the reconstructed noise accumulator and remaining noise counter.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_and_batch_clean_segment",
+      "statement": "(ppg_clean: np.ndarray) -> torch.FloatTensor",
+      "informal_desc": "Scale the current clean PPG segment to zero-mean/unit-variance, then tile it into a 256-sample batch and convert to a FloatTensor ready for the generator.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_and_batch_clean_segment",
+          "type_signature": "(ppg_clean: np.ndarray) -> torch.FloatTensor",
+          "docstring": "Scale the current clean PPG segment to zero-mean/unit-variance, then tile it into a 256-sample batch and convert to a FloatTensor ready for the generator.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_and_batch_clean_segment",
+          "type_signature": "(ppg_clean: np.ndarray) -> torch.FloatTensor",
+          "docstring": "Scale the current clean PPG segment to zero-mean/unit-variance, then tile it into a 256-sample batch and convert to a FloatTensor ready for the generator.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_and_batch_clean_segment",
+            "type_signature": "(ppg_clean: np.ndarray) -> torch.FloatTensor",
+            "docstring": "Scale the current clean PPG segment to zero-mean/unit-variance, then tile it into a 256-sample batch and convert to a FloatTensor ready for the generator.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "generate_reconstructed_segment",
+      "statement": "(ppg_test: torch.FloatTensor, generator: nn.Module | callable, device: str | torch.device) -> np.ndarray",
+      "informal_desc": "Feed the batched clean segment through the pre-trained GAN generator on the target device and extract the first reconstructed noise waveform from the batch output.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "generate_reconstructed_segment",
+          "type_signature": "(ppg_test: torch.FloatTensor, generator: nn.Module | callable, device: str | torch.device) -> np.ndarray",
+          "docstring": "Feed the batched clean segment through the pre-trained GAN generator on the target device and extract the first reconstructed noise waveform from the batch output.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "generate_reconstructed_segment",
+          "type_signature": "(ppg_test: torch.FloatTensor, generator: nn.Module | callable, device: str | torch.device) -> np.ndarray",
+          "docstring": "Feed the batched clean segment through the pre-trained GAN generator on the target device and extract the first reconstructed noise waveform from the batch output.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "generate_reconstructed_segment",
+            "type_signature": "(ppg_test: torch.FloatTensor, generator: nn.Module | callable, device: str | torch.device) -> np.ndarray",
+            "docstring": "Feed the batched clean segment through the pre-trained GAN generator on the target device and extract the first reconstructed noise waveform from the batch output.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_peaks_in_reconstructed_and_clean",
+      "statement": "(noise_rec: np.ndarray, ppg_clean: np.ndarray, sampling_rate: int | float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+      "informal_desc": "Upsample both the reconstructed noise segment and the clean PPG segment, then detect systolic peaks in each using a minimum-distance criterion derived from the sampling rate.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_peaks_in_reconstructed_and_clean",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean: np.ndarray, sampling_rate: int | float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample both the reconstructed noise segment and the clean PPG segment, then detect systolic peaks in each using a minimum-distance criterion derived from the sampling rate.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_peaks_in_reconstructed_and_clean",
+          "type_signature": "(noise_rec: np.ndarray, ppg_clean: np.ndarray, sampling_rate: int | float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+          "docstring": "Upsample both the reconstructed noise segment and the clean PPG segment, then detect systolic peaks in each using a minimum-distance criterion derived from the sampling rate.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_peaks_in_reconstructed_and_clean",
+            "type_signature": "(noise_rec: np.ndarray, ppg_clean: np.ndarray, sampling_rate: int | float) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]",
+            "docstring": "Upsample both the reconstructed noise segment and the clean PPG segment, then detect systolic peaks in each using a minimum-distance criterion derived from the sampling rate.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "stitch_clean_and_reconstructed_waveforms",
+      "statement": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+      "informal_desc": "Concatenate the clean PPG up to its last detected peak with the reconstructed noise from its first detected peak onward, then downsample the stitched waveform back to the combined original-length sample count.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "stitch_clean_and_reconstructed_waveforms",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Concatenate the clean PPG up to its last detected peak with the reconstructed noise from its first detected peak onward, then downsample the stitched waveform back to the combined original-length sample count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "stitch_clean_and_reconstructed_waveforms",
+          "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+          "docstring": "Concatenate the clean PPG up to its last detected peak with the reconstructed noise from its first detected peak onward, then downsample the stitched waveform back to the combined original-length sample count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "stitch_clean_and_reconstructed_waveforms",
+            "type_signature": "(ppg_resampled: np.ndarray, peaks_ppg: np.ndarray, noise_rec_res: np.ndarray, peaks_rec: np.ndarray, ppg_clean: np.ndarray, noise_rec: np.ndarray) -> np.ndarray",
+            "docstring": "Concatenate the clean PPG up to its last detected peak with the reconstructed noise from its first detected peak onward, then downsample the stitched waveform back to the combined original-length sample count.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "accumulate_reconstructed_noise_and_advance_window",
+      "statement": "(ppg_and_rec_down: np.ndarray, ppg_clean: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+      "informal_desc": "Slice the downsampled stitched signal to extract the newly reconstructed noise portion (full step or remaining tail), append it to the accumulator, update the remaining noise counter, and advance the clean-segment window for the next iteration.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "accumulate_reconstructed_noise_and_advance_window",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Slice the downsampled stitched signal to extract the newly reconstructed noise portion (full step or remaining tail), append it to the accumulator, update the remaining noise counter, and advance the clean-segment window for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "accumulate_reconstructed_noise_and_advance_window",
+          "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+          "docstring": "Slice the downsampled stitched signal to extract the newly reconstructed noise portion (full step or remaining tail), append it to the accumulator, update the remaining noise counter, and advance the clean-segment window for the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "accumulate_reconstructed_noise_and_advance_window",
+            "type_signature": "(ppg_and_rec_down: np.ndarray, ppg_clean: np.ndarray, reconstructed_noise: list, remaining_noise: int, len_rec: int) -> tuple[list, int, np.ndarray]",
+            "docstring": "Slice the downsampled stitched signal to extract the newly reconstructed noise portion (full step or remaining tail), append it to the accumulator, update the remaining noise counter, and advance the clean-segment window for the next iteration.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_ppg_signal",
+      "statement": "(ppg: np.ndarray) -> np.ndarray",
+      "informal_desc": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+          "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+          "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_ppg_signal",
+            "type_signature": "(ppg: np.ndarray) -> np.ndarray",
+            "docstring": "Normalizes the amplitude of the raw PPG signal to a standard range (e.g., 0 to 1).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "upsample_ppg_signal",
+      "statement": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+      "informal_desc": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+          "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+          "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "upsample_ppg_signal",
+            "type_signature": "(normalized_ppg: np.ndarray, original_sampling_rate: int) -> tuple[np.ndarray, int]",
+            "docstring": "Doubles the sampling rate of the PPG signal using resampling to increase its temporal resolution.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_systolic_peaks",
+      "statement": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+      "informal_desc": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+          "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_systolic_peaks",
+            "type_signature": "(ppg_upsampled: np.ndarray, sampling_rate: int) -> tuple[np.ndarray, np.ndarray]",
+            "docstring": "Identifies the locations of systolic peaks in the upsampled PPG signal and returns a cleaned version of the signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "segment_beat_cycles",
+      "statement": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+      "informal_desc": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "segment_beat_cycles",
+          "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+          "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "segment_beat_cycles",
+          "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+          "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "segment_beat_cycles",
+            "type_signature": "(cleaned_ppg: np.ndarray, systolic_peaks: np.ndarray, upsampled_ppg_length: int) -> list[np.ndarray]",
+            "docstring": "Extracts individual heart cycle waveforms from the cleaned PPG signal based on the locations of the systolic peaks.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "normalize_ppg_signal",
+      "statement": "(ppg: 1-D numeric array) -> 1-D numeric array",
+      "informal_desc": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+          "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "normalize_ppg_signal",
+          "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+          "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "normalize_ppg_signal",
+            "type_signature": "(ppg: 1-D numeric array) -> 1-D numeric array",
+            "docstring": "Normalize the raw PPG waveform to a standard amplitude range so that downstream peak detection is amplitude-invariant.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "upsample_ppg_signal",
+      "statement": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+      "informal_desc": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+          "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "upsample_ppg_signal",
+          "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+          "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "upsample_ppg_signal",
+            "type_signature": "(ppg_normalized: 1-D numeric array, sampling_rate: positive integer (Hz)) -> tuple[1-D numeric array, positive integer (Hz)]",
+            "docstring": "Double the temporal resolution of the normalized PPG by resampling to 2\u00d7 the original length, and update the effective sampling rate accordingly, improving peak localization precision.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "detect_systolic_peaks",
+      "statement": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+      "informal_desc": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+          "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "detect_systolic_peaks",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+          "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "detect_systolic_peaks",
+            "type_signature": "(ppg_upsampled: 1-D numeric array, sampling_rate_up: positive integer (Hz)) -> tuple[1-D integer array, 1-D numeric array]",
+            "docstring": "Identify the sample indices of systolic peaks in the upsampled PPG signal and obtain the cleaned (filtered) version of the signal used during peak detection.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_beat_window_half_width",
+      "statement": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+      "informal_desc": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_beat_window_half_width",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+          "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_beat_window_half_width",
+          "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+          "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_beat_window_half_width",
+            "type_signature": "(ppg_upsampled: 1-D numeric array, peaks: 1-D integer array) -> positive integer (samples)",
+            "docstring": "Derive a fixed symmetric half-window size (in samples) for segmenting individual heart cycles, based on the average inter-peak distance in the upsampled signal.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "extract_heart_cycle_segments",
+      "statement": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+      "informal_desc": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "extract_heart_cycle_segments",
+          "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+          "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "extract_heart_cycle_segments",
+          "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+          "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "extract_heart_cycle_segments",
+            "type_signature": "(peaks: 1-D integer array, ppg_cleaned: 1-D numeric array, beat_bound: positive integer (samples)) -> list of 1-D numeric arrays",
+            "docstring": "Iterate over interior peaks (excluding the first and last to avoid boundary errors), slice a symmetric window of width 2\u00d7beat_bound centred on each peak from the cleaned signal, and collect only fully-valid, non-truncated beat segments into the output list.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "templatefeaturecomputation",
+      "statement": "(hc: object) -> feature_vector",
+      "informal_desc": "Computes template-matching features from the provided input without persistent state mutation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "templatefeaturecomputation",
+          "type_signature": "(hc: object) -> feature_vector",
+          "docstring": "Computes template-matching features from the provided input without persistent state mutation.",
+          "conceptual_summary": "ReferencePatternSimilarityEncoding. Maps a structured input context into a numeric feature vector by comparing observed data structures against a predefined set of reference patterns. Each output component summarizes match strength, alignment quality, or related similarity statistics, producing a compact representation of how the input conforms to multiple prototypes. The mapping is computed without side effects, so identical inputs yield identical outputs.. Applications: Medical imaging: encode similarity of localized anatomical structures to canonical morphology templates for downstream classification., Cybersecurity telemetry: transform event-sequence windows into similarity features against known behavioral motifs for anomaly scoring., Materials science microscopy: compute descriptor vectors by matching observed microstructure patches to reference texture patterns., Speech processing: represent short acoustic segments via similarity to prototypical spectral-temporal shapes for phonetic inference.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "templatefeaturecomputation",
+          "type_signature": "(hc: object) -> feature_vector",
+          "docstring": "Computes template-matching features from the provided input without persistent state mutation.",
+          "conceptual_summary": "ReferencePatternSimilarityEncoding. Maps a structured input context into a numeric feature vector by comparing observed data structures against a predefined set of reference patterns. Each output component summarizes match strength, alignment quality, or related similarity statistics, producing a compact representation of how the input conforms to multiple prototypes. The mapping is computed without side effects, so identical inputs yield identical outputs.. Applications: Medical imaging: encode similarity of localized anatomical structures to canonical morphology templates for downstream classification., Cybersecurity telemetry: transform event-sequence windows into similarity features against known behavioral motifs for anomaly scoring., Materials science microscopy: compute descriptor vectors by matching observed microstructure patches to reference texture patterns., Speech processing: represent short acoustic segments via similarity to prototypical spectral-temporal shapes for phonetic inference.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "templatefeaturecomputation",
+            "type_signature": "(hc: object) -> feature_vector",
+            "docstring": "Computes template-matching features from the provided input without persistent state mutation.",
+            "conceptual_summary": "ReferencePatternSimilarityEncoding. Maps a structured input context into a numeric feature vector by comparing observed data structures against a predefined set of reference patterns. Each output component summarizes match strength, alignment quality, or related similarity statistics, producing a compact representation of how the input conforms to multiple prototypes. The mapping is computed without side effects, so identical inputs yield identical outputs.. Applications: Medical imaging: encode similarity of localized anatomical structures to canonical morphology templates for downstream classification., Cybersecurity telemetry: transform event-sequence windows into similarity features against known behavioral motifs for anomaly scoring., Materials science microscopy: compute descriptor vectors by matching observed microstructure patches to reference texture patterns., Speech processing: represent short acoustic segments via similarity to prototypical spectral-temporal shapes for phonetic inference.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

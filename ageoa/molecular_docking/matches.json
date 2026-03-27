@@ -1,0 +1,464 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "addquantumlink",
+      "statement": "(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Graph",
+      "informal_desc": "Adds a specialized 'quantum link' between two nodes in a graph, potentially creating a chain of intermediate nodes based on chain_size.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "addquantumlink",
+          "type_signature": "(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Graph",
+          "docstring": "Adds a specialized 'quantum link' between two nodes in a graph, potentially creating a chain of intermediate nodes based on chain_size.",
+          "conceptual_summary": "InsertInterpolatingChain. Given two distinct nodes in a graph, this operation inserts a linear sequence of N-1 new nodes between them, where N is an integer parameter. The original first node is connected to the start of the sequence, and the original second node is connected to the end, forming a new path of length N between the two original nodes. This effectively subdivides a conceptual link between two nodes into a multi-step path, increasing the graph's resolution along that axis.. Applications: Robotics Motion Planning: Refining a high-level path by inserting a series of fine-grained waypoints between two major checkpoints in a robot's configuration space., Computational Chemistry: Modeling a multi-step chemical reaction by inserting intermediate transition state nodes between the reactant and product nodes in a potential energy surface graph., Supply Chain Logistics: Decomposing a long-haul shipping route by inserting intermediate distribution hubs or checkpoints between the origin and final destination., Dynamic Neural Network Design: Progressively deepening a network architecture by inserting a chain of new identity-link layers between two existing functional layers to explore deeper representations.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "addquantumlink",
+          "type_signature": "(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Graph",
+          "docstring": "Adds a specialized 'quantum link' between two nodes in a graph, potentially creating a chain of intermediate nodes based on chain_size.",
+          "conceptual_summary": "InsertInterpolatingChain. Given two distinct nodes in a graph, this operation inserts a linear sequence of N-1 new nodes between them, where N is an integer parameter. The original first node is connected to the start of the sequence, and the original second node is connected to the end, forming a new path of length N between the two original nodes. This effectively subdivides a conceptual link between two nodes into a multi-step path, increasing the graph's resolution along that axis.. Applications: Robotics Motion Planning: Refining a high-level path by inserting a series of fine-grained waypoints between two major checkpoints in a robot's configuration space., Computational Chemistry: Modeling a multi-step chemical reaction by inserting intermediate transition state nodes between the reactant and product nodes in a potential energy surface graph., Supply Chain Logistics: Decomposing a long-haul shipping route by inserting intermediate distribution hubs or checkpoints between the origin and final destination., Dynamic Neural Network Design: Progressively deepening a network architecture by inserting a chain of new identity-link layers between two existing functional layers to explore deeper representations.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "addquantumlink",
+            "type_signature": "(G: Graph, node_A: Node, node_B: Node, chain_size: int) -> Graph",
+            "docstring": "Adds a specialized 'quantum link' between two nodes in a graph, potentially creating a chain of intermediate nodes based on chain_size.",
+            "conceptual_summary": "InsertInterpolatingChain. Given two distinct nodes in a graph, this operation inserts a linear sequence of N-1 new nodes between them, where N is an integer parameter. The original first node is connected to the start of the sequence, and the original second node is connected to the end, forming a new path of length N between the two original nodes. This effectively subdivides a conceptual link between two nodes into a multi-step path, increasing the graph's resolution along that axis.. Applications: Robotics Motion Planning: Refining a high-level path by inserting a series of fine-grained waypoints between two major checkpoints in a robot's configuration space., Computational Chemistry: Modeling a multi-step chemical reaction by inserting intermediate transition state nodes between the reactant and product nodes in a potential energy surface graph., Supply Chain Logistics: Decomposing a long-haul shipping route by inserting intermediate distribution hubs or checkpoints between the origin and final destination., Dynamic Neural Network Design: Progressively deepening a network architecture by inserting a chain of new identity-link layers between two existing functional layers to explore deeper representations.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "constructcomplementarygraph",
+      "statement": "(graph: Graph) -> Graph",
+      "informal_desc": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "constructcomplementarygraph",
+          "type_signature": "(graph: Graph) -> Graph",
+          "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+          "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "constructcomplementarygraph",
+          "type_signature": "(graph: Graph) -> Graph",
+          "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+          "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "constructcomplementarygraph",
+            "type_signature": "(graph: Graph) -> Graph",
+            "docstring": "Builds the complementary graph by deriving the inverse edge set relative to the input graph's node set.",
+            "conceptual_summary": "Node-Pair Adjacency Complement Operator. Given a finite node set and an observed edge subset, this operation constructs the graph over the same nodes whose edges are exactly the admissible node pairs that were previously absent. Formally, it computes a set complement of the edge relation with respect to the full pair universe defined by the graph convention (directed vs. undirected, loop-allowed vs. loop-free). The transform preserves vertex topology while inverting connectivity occupancy in edge space.. Applications: Systems biology: generate candidate unobserved pairwise interaction hypotheses from an experimentally measured interaction network, Communications engineering: derive a conflict graph from a compatibility graph (or inverse) for channel/scheduling constraint analysis, Materials science: invert a lattice neighbor relation to study non-neighbor pair structure for long-range coupling models, Software verification: transform a state-transition relation into forbidden-transition pairs for constraint checking",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "prepareembeddinginputs",
+      "statement": "(G: networkx.Graph, seed: int, distance_scale: float) -> tuple[Dense matrix (N x N), Dense matrix (N x N), Tuple[int, int], 1D float array, Sequence[node], int]",
+      "informal_desc": "Extracts graph topology and creates deterministic optimization inputs for 2D coordinate embedding.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "prepareembeddinginputs",
+          "type_signature": "(G: networkx.Graph, seed: int, distance_scale: float) -> tuple[Dense matrix (N x N), Dense matrix (N x N), Tuple[int, int], 1D float array, Sequence[node], int]",
+          "docstring": "Extracts graph topology and creates deterministic optimization inputs for 2D coordinate embedding.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "prepareembeddinginputs",
+          "type_signature": "(G: networkx.Graph, seed: int, distance_scale: float) -> tuple[Dense matrix (N x N), Dense matrix (N x N), Tuple[int, int], 1D float array, Sequence[node], int]",
+          "docstring": "Extracts graph topology and creates deterministic optimization inputs for 2D coordinate embedding.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "prepareembeddinginputs",
+            "type_signature": "(G: networkx.Graph, seed: int, distance_scale: float) -> tuple[Dense matrix (N x N), Dense matrix (N x N), Tuple[int, int], 1D float array, Sequence[node], int]",
+            "docstring": "Extracts graph topology and creates deterministic optimization inputs for 2D coordinate embedding.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "optimizenodecoordinates",
+      "statement": "(initial_guess: 1D float array, scaled_adjacency: Dense matrix (N x N), layout_shape: Tuple[int, int], optimizer_method: string, optimizer_tol: float, optimizer_maxiter: int) -> 2D float array (N x 2)",
+      "informal_desc": "Runs continuous optimization to find 2D coordinates whose induced distances approximate UDG constraints.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "optimizenodecoordinates",
+          "type_signature": "(initial_guess: 1D float array, scaled_adjacency: Dense matrix (N x N), layout_shape: Tuple[int, int], optimizer_method: string, optimizer_tol: float, optimizer_maxiter: int) -> 2D float array (N x 2)",
+          "docstring": "Runs continuous optimization to find 2D coordinates whose induced distances approximate UDG constraints.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "optimizenodecoordinates",
+          "type_signature": "(initial_guess: 1D float array, scaled_adjacency: Dense matrix (N x N), layout_shape: Tuple[int, int], optimizer_method: string, optimizer_tol: float, optimizer_maxiter: int) -> 2D float array (N x 2)",
+          "docstring": "Runs continuous optimization to find 2D coordinates whose induced distances approximate UDG constraints.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "optimizenodecoordinates",
+            "type_signature": "(initial_guess: 1D float array, scaled_adjacency: Dense matrix (N x N), layout_shape: Tuple[int, int], optimizer_method: string, optimizer_tol: float, optimizer_maxiter: int) -> 2D float array (N x 2)",
+            "docstring": "Runs continuous optimization to find 2D coordinates whose induced distances approximate UDG constraints.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "infergeometricudgedges",
+      "statement": "(coords: 2D float array (N x 2), blockade_radius: float, epsilon: float) -> tuple[Set[Tuple[int, int]], 2D float array (M x 2)]",
+      "informal_desc": "Builds geometric edge candidates from coordinates using blockade-radius neighborhood queries.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "infergeometricudgedges",
+          "type_signature": "(coords: 2D float array (N x 2), blockade_radius: float, epsilon: float) -> tuple[Set[Tuple[int, int]], 2D float array (M x 2)]",
+          "docstring": "Builds geometric edge candidates from coordinates using blockade-radius neighborhood queries.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "infergeometricudgedges",
+          "type_signature": "(coords: 2D float array (N x 2), blockade_radius: float, epsilon: float) -> tuple[Set[Tuple[int, int]], 2D float array (M x 2)]",
+          "docstring": "Builds geometric edge candidates from coordinates using blockade-radius neighborhood queries.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "infergeometricudgedges",
+            "type_signature": "(coords: 2D float array (N x 2), blockade_radius: float, epsilon: float) -> tuple[Set[Tuple[int, int]], 2D float array (M x 2)]",
+            "docstring": "Builds geometric edge candidates from coordinates using blockade-radius neighborhood queries.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "evaluateedgecountconsistency",
+      "statement": "(geometric_bonds: 2D float array (M x 2), original_edge_count: int) -> tuple[bool, int]",
+      "informal_desc": "Checks whether inferred geometric connectivity cardinality matches the input graph edge count.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "evaluateedgecountconsistency",
+          "type_signature": "(geometric_bonds: 2D float array (M x 2), original_edge_count: int) -> tuple[bool, int]",
+          "docstring": "Checks whether inferred geometric connectivity cardinality matches the input graph edge count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "evaluateedgecountconsistency",
+          "type_signature": "(geometric_bonds: 2D float array (M x 2), original_edge_count: int) -> tuple[bool, int]",
+          "docstring": "Checks whether inferred geometric connectivity cardinality matches the input graph edge count.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "evaluateedgecountconsistency",
+            "type_signature": "(geometric_bonds: 2D float array (M x 2), original_edge_count: int) -> tuple[bool, int]",
+            "docstring": "Checks whether inferred geometric connectivity cardinality matches the input graph edge count.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "assemblenodepositionmapping",
+      "statement": "(node_order: Sequence[node], coords: 2D float array (N x 2)) -> Dict[node, Tuple[float, float]]",
+      "informal_desc": "Produces the final node-to-coordinate mapping in graph node order.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "assemblenodepositionmapping",
+          "type_signature": "(node_order: Sequence[node], coords: 2D float array (N x 2)) -> Dict[node, Tuple[float, float]]",
+          "docstring": "Produces the final node-to-coordinate mapping in graph node order.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "assemblenodepositionmapping",
+          "type_signature": "(node_order: Sequence[node], coords: 2D float array (N x 2)) -> Dict[node, Tuple[float, float]]",
+          "docstring": "Produces the final node-to-coordinate mapping in graph node order.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "assemblenodepositionmapping",
+            "type_signature": "(node_order: Sequence[node], coords: 2D float array (N x 2)) -> Dict[node, Tuple[float, float]]",
+            "docstring": "Produces the final node-to-coordinate mapping in graph node order.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

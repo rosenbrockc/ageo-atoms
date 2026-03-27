@@ -28,7 +28,7 @@ def discover_fixtures() -> list[Path]:
 
 
 def _import_atom(atom_key: str) -> Any:
-    """Import an atom function from its key like ``biosppy/ecg_hamilton:hamilton_segmentation``."""
+    """Import an atom function from its key like ``biosppy/ecg_detectors:hamilton_segmentation``."""
     module_path, func_name = atom_key.split(":")
     # Convert filesystem path to Python module path: biosppy/ecg_hamilton → ageoa.biosppy.ecg_hamilton.atoms
     parts = module_path.split("/")

@@ -4,9 +4,9 @@ from .backlash_filter.atoms import initializebacklashfilterstate, updatealphapar
 from .blip_filter.atoms import bandpass_filter, r_peak_detection, peak_correction, template_extraction, heart_rate_computation
 from .dynamic_stance_estimator.atoms import initializefilter, predictstep, updatestep, querystance
 from .foot_contact.atoms import foot_sensing_state_update, mode_snapshot_readout
-from .inverse_schmitt.atoms import inverse_schmitt_trigger_transform
+from .inverse_schmitt import inverse_schmitt_trigger_transform
 from .leg_odometer.atoms import velocitystatereadout, posequeryaccessors
-from .torque_adjustment.atoms import torqueadjustmentidentitystage
+from .torque_adjustment import torqueadjustmentidentitystage
 from .yaw_lock.atoms import (
     initializeyawlockstate,
     configurecorrectionandyawslippolicy,

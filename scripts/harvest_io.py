@@ -9,7 +9,7 @@ Usage::
 
     python scripts/harvest_io.py                  # all Python entries
     python scripts/harvest_io.py --repo BioSPPy   # single repo
-    python scripts/harvest_io.py --atom biosppy/ecg_hamilton:hamilton_segmentation
+    python scripts/harvest_io.py --atom biosppy/ecg_detectors:hamilton_segmentation
 """
 from __future__ import annotations
 
@@ -136,7 +136,7 @@ def load_manifest(
 
 
 def _fixture_path(atom_key: str) -> Path:
-    """Map ``biosppy/ecg_hamilton:hamilton_segmentation`` → fixture path."""
+    """Map ``biosppy/ecg_detectors:hamilton_segmentation`` → fixture path."""
     module_part, func_name = atom_key.split(":")
     return FIXTURES_DIR / module_part / f"{func_name}.json"
 

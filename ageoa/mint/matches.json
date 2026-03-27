@@ -1,0 +1,464 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "apccoreevaluation",
+      "statement": "(x: Any) -> Any",
+      "informal_desc": "Executes the standalone APC computation as a pure stateless function of the input.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "apccoreevaluation",
+          "type_signature": "(x: Any) -> Any",
+          "docstring": "Executes the standalone APC computation as a pure stateless function of the input.",
+          "conceptual_summary": "Pure Single-Input Functional Mapping. Applies a fixed computational rule to one input object and returns the resulting object without reading or mutating external state. The transform is referentially transparent: identical inputs produce identical outputs, and execution has no side effects beyond value production.. Applications: Physics simulation kernels where one state vector is transformed into a computed diagnostic quantity, Bioinformatics sequence scoring where an encoded sequence is mapped to a scalar or structured compatibility score, Computer vision feature extraction where an image tensor is transformed into a latent representation, Control systems signal processing where an input waveform is mapped to a filtered or transformed output signal",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "apccoreevaluation",
+          "type_signature": "(x: Any) -> Any",
+          "docstring": "Executes the standalone APC computation as a pure stateless function of the input.",
+          "conceptual_summary": "Pure Single-Input Functional Mapping. Applies a fixed computational rule to one input object and returns the resulting object without reading or mutating external state. The transform is referentially transparent: identical inputs produce identical outputs, and execution has no side effects beyond value production.. Applications: Physics simulation kernels where one state vector is transformed into a computed diagnostic quantity, Bioinformatics sequence scoring where an encoded sequence is mapped to a scalar or structured compatibility score, Computer vision feature extraction where an image tensor is transformed into a latent representation, Control systems signal processing where an input waveform is mapped to a filtered or transformed output signal",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "apccoreevaluation",
+            "type_signature": "(x: Any) -> Any",
+            "docstring": "Executes the standalone APC computation as a pure stateless function of the input.",
+            "conceptual_summary": "Pure Single-Input Functional Mapping. Applies a fixed computational rule to one input object and returns the resulting object without reading or mutating external state. The transform is referentially transparent: identical inputs produce identical outputs, and execution has no side effects beyond value production.. Applications: Physics simulation kernels where one state vector is transformed into a computed diagnostic quantity, Bioinformatics sequence scoring where an encoded sequence is mapped to a scalar or structured compatibility score, Computer vision feature extraction where an image tensor is transformed into a latent representation, Control systems signal processing where an input waveform is mapped to a filtered or transformed output signal",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "rowselfattention",
+      "statement": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+      "informal_desc": "Opaque DL boundary: RowSelfAttention",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rowselfattention",
+          "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+          "docstring": "Opaque DL boundary: RowSelfAttention",
+          "conceptual_summary": "Masked Intra-Axis Contextual Aggregation. Applies self-referential, content-based interaction along a designated row-like axis of a feature tensor. Pairwise compatibilities are computed between elements on that axis, constrained by a structural mask and a validity mask, then normalized to produce adaptive mixing weights. The output is a contextualized tensor where each element becomes a weighted combination of permitted peers while preserving overall tensor topology.. Applications: Multi-sensor robotics: fuse correlated channel readings across synchronized timesteps while masking failed or unavailable sensors., Genomics/proteomics representation learning: contextualize sequence-position embeddings using experiment-specific validity masks., Power-grid monitoring: model dependency-aware interactions among node-state vectors with topology-derived attention masks., Medical signal analysis: aggregate multilead physiological traces with per-lead dropout/padding masks for robust latent feature construction.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rowselfattention",
+          "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+          "docstring": "Opaque DL boundary: RowSelfAttention",
+          "conceptual_summary": "Masked Intra-Axis Contextual Aggregation. Applies self-referential, content-based interaction along a designated row-like axis of a feature tensor. Pairwise compatibilities are computed between elements on that axis, constrained by a structural mask and a validity mask, then normalized to produce adaptive mixing weights. The output is a contextualized tensor where each element becomes a weighted combination of permitted peers while preserving overall tensor topology.. Applications: Multi-sensor robotics: fuse correlated channel readings across synchronized timesteps while masking failed or unavailable sensors., Genomics/proteomics representation learning: contextualize sequence-position embeddings using experiment-specific validity masks., Power-grid monitoring: model dependency-aware interactions among node-state vectors with topology-derived attention masks., Medical signal analysis: aggregate multilead physiological traces with per-lead dropout/padding masks for robust latent feature construction.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rowselfattention",
+            "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+            "docstring": "Opaque DL boundary: RowSelfAttention",
+            "conceptual_summary": "Masked Intra-Axis Contextual Aggregation. Applies self-referential, content-based interaction along a designated row-like axis of a feature tensor. Pairwise compatibilities are computed between elements on that axis, constrained by a structural mask and a validity mask, then normalized to produce adaptive mixing weights. The output is a contextualized tensor where each element becomes a weighted combination of permitted peers while preserving overall tensor topology.. Applications: Multi-sensor robotics: fuse correlated channel readings across synchronized timesteps while masking failed or unavailable sensors., Genomics/proteomics representation learning: contextualize sequence-position embeddings using experiment-specific validity masks., Power-grid monitoring: model dependency-aware interactions among node-state vectors with topology-derived attention masks., Medical signal analysis: aggregate multilead physiological traces with per-lead dropout/padding masks for robust latent feature construction.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "rowselfattention",
+      "statement": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+      "informal_desc": "Opaque DL boundary: RowSelfAttention",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rowselfattention",
+          "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+          "docstring": "Opaque DL boundary: RowSelfAttention",
+          "conceptual_summary": "IntraSequenceContextualWeightedAggregation. Each positional element in a structured sequence computes a normalized affinity score against every other element in the same sequence, producing a set of attention weights that act as a soft, learned routing map. These weights are then used to compute a weighted sum of value representations, replacing each element's raw representation with a context-aware aggregate that encodes global intra-sequence relational structure. The transform is parameterized and differentiable, allowing the routing map itself to be optimized end-to-end with respect to a downstream objective.. Applications: Genomics & Proteomics: Re-encode each residue in an amino acid or nucleotide sequence by weighting contributions from all other residues, capturing long-range co-evolutionary dependencies or tertiary structural contacts without requiring an explicit contact map \u2014 directly applicable to protein structure prediction and RNA secondary structure modeling., Physical Simulation & Particle Systems: Treat each particle or mesh node as a sequence element; the transform computes pairwise interaction weights (analogous to influence potentials) and aggregates neighbor states into updated nodal representations, enabling learned N-body or finite-element surrogate models where the interaction topology is data-driven rather than hand-specified., Temporal Causal Inference & Time-Series Analysis: Apply the masked variant to a multivariate time-series where the positional mask enforces strict temporal ordering, producing a representation of each time-step that is informed only by its causal past \u2014 useful for anomaly detection, regime-change identification, or latent-variable state estimation in sensor fusion, econometrics, or climate modeling., Combinatorial Optimization & Graph Reasoning: Encode the nodes of a graph as a sequence and use the padding mask to restrict attention to actual edges; the output vectors become node embeddings that incorporate neighborhood context in a single differentiable pass, enabling learned heuristics for scheduling, routing, or constraint satisfaction problems where pairwise relational structure governs feasibility.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rowselfattention",
+          "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+          "docstring": "Opaque DL boundary: RowSelfAttention",
+          "conceptual_summary": "IntraSequenceContextualWeightedAggregation. Each positional element in a structured sequence computes a normalized affinity score against every other element in the same sequence, producing a set of attention weights that act as a soft, learned routing map. These weights are then used to compute a weighted sum of value representations, replacing each element's raw representation with a context-aware aggregate that encodes global intra-sequence relational structure. The transform is parameterized and differentiable, allowing the routing map itself to be optimized end-to-end with respect to a downstream objective.. Applications: Genomics & Proteomics: Re-encode each residue in an amino acid or nucleotide sequence by weighting contributions from all other residues, capturing long-range co-evolutionary dependencies or tertiary structural contacts without requiring an explicit contact map \u2014 directly applicable to protein structure prediction and RNA secondary structure modeling., Physical Simulation & Particle Systems: Treat each particle or mesh node as a sequence element; the transform computes pairwise interaction weights (analogous to influence potentials) and aggregates neighbor states into updated nodal representations, enabling learned N-body or finite-element surrogate models where the interaction topology is data-driven rather than hand-specified., Temporal Causal Inference & Time-Series Analysis: Apply the masked variant to a multivariate time-series where the positional mask enforces strict temporal ordering, producing a representation of each time-step that is informed only by its causal past \u2014 useful for anomaly detection, regime-change identification, or latent-variable state estimation in sensor fusion, econometrics, or climate modeling., Combinatorial Optimization & Graph Reasoning: Encode the nodes of a graph as a sequence and use the padding mask to restrict attention to actual edges; the output vectors become node embeddings that incorporate neighborhood context in a single differentiable pass, enabling learned heuristics for scheduling, routing, or constraint satisfaction problems where pairwise relational structure governs feasibility.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rowselfattention",
+            "type_signature": "(x: Any, self_attn_mask: Any, self_attn_padding_mask: Any) -> Any",
+            "docstring": "Opaque DL boundary: RowSelfAttention",
+            "conceptual_summary": "IntraSequenceContextualWeightedAggregation. Each positional element in a structured sequence computes a normalized affinity score against every other element in the same sequence, producing a set of attention weights that act as a soft, learned routing map. These weights are then used to compute a weighted sum of value representations, replacing each element's raw representation with a context-aware aggregate that encodes global intra-sequence relational structure. The transform is parameterized and differentiable, allowing the routing map itself to be optimized end-to-end with respect to a downstream objective.. Applications: Genomics & Proteomics: Re-encode each residue in an amino acid or nucleotide sequence by weighting contributions from all other residues, capturing long-range co-evolutionary dependencies or tertiary structural contacts without requiring an explicit contact map \u2014 directly applicable to protein structure prediction and RNA secondary structure modeling., Physical Simulation & Particle Systems: Treat each particle or mesh node as a sequence element; the transform computes pairwise interaction weights (analogous to influence potentials) and aggregates neighbor states into updated nodal representations, enabling learned N-body or finite-element surrogate models where the interaction topology is data-driven rather than hand-specified., Temporal Causal Inference & Time-Series Analysis: Apply the masked variant to a multivariate time-series where the positional mask enforces strict temporal ordering, producing a representation of each time-step that is informed only by its causal past \u2014 useful for anomaly detection, regime-change identification, or latent-variable state estimation in sensor fusion, econometrics, or climate modeling., Combinatorial Optimization & Graph Reasoning: Encode the nodes of a graph as a sequence and use the padding mask to restrict attention to actual edges; the output vectors become node embeddings that incorporate neighborhood context in a single differentiable pass, enabling learned heuristics for scheduling, routing, or constraint satisfaction problems where pairwise relational structure governs feasibility.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "encodedistancematrix",
+      "statement": "(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int) -> np.ndarray",
+      "informal_desc": "Takes a list of matrices and pads them to a specified maximum dimension, effectively creating a batched and padded distance matrix representation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "encodedistancematrix",
+          "type_signature": "(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int) -> np.ndarray",
+          "docstring": "Takes a list of matrices and pads them to a specified maximum dimension, effectively creating a batched and padded distance matrix representation.",
+          "conceptual_summary": "StandardizeTensorDimensions. Takes a collection of 2D tensors, each with potentially different dimensions. It pads each tensor with a default value (e.g., zero) up to specified maximum dimensions, creating a set of uniformly-sized tensors. These are then stacked along a new axis to form a single 3D tensor, enabling batched processing.. Applications: Image Processing: Standardizing a batch of images of various sizes into a single tensor for input into a convolutional neural network., Natural Language Processing: Padding batches of sentence embeddings (word vectors) to a uniform length before feeding them into a transformer or recurrent neural network., Spectrogram Analysis: Aligning audio spectrograms of different time durations into a uniform tensor for comparative analysis or model training., Financial Modeling: Batching time-series data of different lengths (e.g., stock price history over different periods) for input into a forecasting model.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "encodedistancematrix",
+          "type_signature": "(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int) -> np.ndarray",
+          "docstring": "Takes a list of matrices and pads them to a specified maximum dimension, effectively creating a batched and padded distance matrix representation.",
+          "conceptual_summary": "StandardizeTensorDimensions. Takes a collection of 2D tensors, each with potentially different dimensions. It pads each tensor with a default value (e.g., zero) up to specified maximum dimensions, creating a set of uniformly-sized tensors. These are then stacked along a new axis to form a single 3D tensor, enabling batched processing.. Applications: Image Processing: Standardizing a batch of images of various sizes into a single tensor for input into a convolutional neural network., Natural Language Processing: Padding batches of sentence embeddings (word vectors) to a uniform length before feeding them into a transformer or recurrent neural network., Spectrogram Analysis: Aligning audio spectrograms of different time durations into a uniform tensor for comparative analysis or model training., Financial Modeling: Batching time-series data of different lengths (e.g., stock price history over different periods) for input into a forecasting model.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "encodedistancematrix",
+            "type_signature": "(mat_list: List[np.ndarray], max_cdr3: int, max_epi: int) -> np.ndarray",
+            "docstring": "Takes a list of matrices and pads them to a specified maximum dimension, effectively creating a batched and padded distance matrix representation.",
+            "conceptual_summary": "StandardizeTensorDimensions. Takes a collection of 2D tensors, each with potentially different dimensions. It pads each tensor with a default value (e.g., zero) up to specified maximum dimensions, creating a set of uniformly-sized tensors. These are then stacked along a new axis to form a single 3D tensor, enabling batched processing.. Applications: Image Processing: Standardizing a batch of images of various sizes into a single tensor for input into a convolutional neural network., Natural Language Processing: Padding batches of sentence embeddings (word vectors) to a uniform length before feeding them into a transformer or recurrent neural network., Spectrogram Analysis: Aligning audio spectrograms of different time durations into a uniform tensor for comparative analysis or model training., Financial Modeling: Batching time-series data of different lengths (e.g., stock price history over different periods) for input into a forecasting model.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "enable_incremental_state_configuration",
+      "statement": "(cls: type) -> type",
+      "informal_desc": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "enable_incremental_state_configuration",
+          "type_signature": "(cls: type) -> type",
+          "docstring": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
+          "conceptual_summary": "deterministic_type_lifting_for_incremental_transition_semantics. Maps a base type descriptor to a derived type descriptor that supports explicit incremental state transitions. The mapping is applied at class-definition level, so behavior is extended structurally rather than by hidden runtime mutation. The original type remains unchanged, and the transform behaves as a referentially transparent type-to-type constructor.. Applications: Robotics: convert control-module definitions into stepwise update variants that consume sensor deltas and emit explicit next-state artifacts., Numerical simulation: lift solver classes into timestep-incremental forms for reproducible checkpoint-to-checkpoint field evolution., Signal processing: transform batch filter definitions into streaming operators with explicit carried state across data chunks., Distributed systems: adapt protocol handlers into event-incremental processors that externalize state progression for replay and auditing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "enable_incremental_state_configuration",
+          "type_signature": "(cls: type) -> type",
+          "docstring": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
+          "conceptual_summary": "deterministic_type_lifting_for_incremental_transition_semantics. Maps a base type descriptor to a derived type descriptor that supports explicit incremental state transitions. The mapping is applied at class-definition level, so behavior is extended structurally rather than by hidden runtime mutation. The original type remains unchanged, and the transform behaves as a referentially transparent type-to-type constructor.. Applications: Robotics: convert control-module definitions into stepwise update variants that consume sensor deltas and emit explicit next-state artifacts., Numerical simulation: lift solver classes into timestep-incremental forms for reproducible checkpoint-to-checkpoint field evolution., Signal processing: transform batch filter definitions into streaming operators with explicit carried state across data chunks., Distributed systems: adapt protocol handlers into event-incremental processors that externalize state progression for replay and auditing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "enable_incremental_state_configuration",
+            "type_signature": "(cls: type) -> type",
+            "docstring": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
+            "conceptual_summary": "deterministic_type_lifting_for_incremental_transition_semantics. Maps a base type descriptor to a derived type descriptor that supports explicit incremental state transitions. The mapping is applied at class-definition level, so behavior is extended structurally rather than by hidden runtime mutation. The original type remains unchanged, and the transform behaves as a referentially transparent type-to-type constructor.. Applications: Robotics: convert control-module definitions into stepwise update variants that consume sensor deltas and emit explicit next-state artifacts., Numerical simulation: lift solver classes into timestep-incremental forms for reproducible checkpoint-to-checkpoint field evolution., Signal processing: transform batch filter definitions into streaming operators with explicit carried state across data chunks., Distributed systems: adapt protocol handlers into event-incremental processors that externalize state progression for replay and auditing.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "rotaryembedding",
+      "statement": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+      "informal_desc": "Opaque DL boundary: RotaryEmbedding",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rotaryembedding",
+            "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+            "docstring": "Opaque DL boundary: RotaryEmbedding",
+            "conceptual_summary": "Position-Indexed Pairwise Phase Rotation. Applies a deterministic, index-dependent 2D rotation to adjacent feature pairs within each vector along an ordered axis. Rotation angles follow a multi-frequency schedule across feature pairs, injecting relative phase information while keeping each pairwise Euclidean norm unchanged. The same phase field is applied to two aligned tensor streams so their subsequent bilinear interactions become sensitive to relative index offsets.. Applications: Geospatial trajectory modeling: encode relative displacement along ordered path samples before cross-correlating two trajectory representations, Spectroscopy or waveform analysis: inject phase-index structure into paired latent streams for alignment of shifted frequency patterns, Robotics kinematic chain processing: represent joint-order relationships via pairwise phase rotations prior to interaction scoring between motion states, Genomic or polymer sequence modeling: encode relative index offsets in long categorical sequences to improve long-range dependency matching",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "rotaryembedding",
+      "statement": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+      "informal_desc": "Opaque DL boundary: RotaryEmbedding",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "PositionalPhaseInjector_RotaryEncoding. Applies a position-dependent rotation in a high-dimensional vector space by decomposing paired real-valued tensors into 2D sub-spaces and rotating each sub-space by an angle that is a function of its ordinal index along a sequence dimension. The rotation is implemented via a sinusoidal basis (cosine/sine frequency schedule), encoding relative positional distance as a geometric angle between vectors such that the inner product of any two rotated vectors depends only on their content and their relative positional offset, not their absolute positions. This transform injects sequence-order topology into the representational geometry without additive perturbation, preserving the magnitude of each vector while altering only its phase.. Applications: Temporal Signal Processing: Injecting ordinal time-step phase into paired feature vectors derived from multi-channel sensor streams (e.g., seismic, EEG, radar), so that cross-correlation between any two time-step representations encodes their lag distance geometrically \u2014 enabling lag-aware similarity search without explicit lag features., Genomic Sequence Analysis: Encoding nucleotide or codon positional context into latent representations of a categorical sequence by rotating embedding pairs according to their index within a chromosome segment, allowing downstream dot-product alignment scores to reflect both content similarity and relative positional distance along the genome., Graph Neural Networks / Topological Data Analysis: Assigning rotation-based ordinal phase to node feature vectors ordered along a traversal path (e.g., BFS depth, geodesic distance rank), so that pairwise inner products between node embeddings encode structural distance within the graph topology without storing explicit positional labels., Robotic Trajectory Encoding: Rotating paired state-vector components of a robot joint configuration sequence by an angle proportional to their time-step index, embedding temporal ordering into the latent manifold of motion primitives so that similarity retrieval of motion segments is sensitive to temporal alignment and phase offset between trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "rotaryembedding",
+          "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+          "docstring": "Opaque DL boundary: RotaryEmbedding",
+          "conceptual_summary": "PositionalPhaseInjector_RotaryEncoding. Applies a position-dependent rotation in a high-dimensional vector space by decomposing paired real-valued tensors into 2D sub-spaces and rotating each sub-space by an angle that is a function of its ordinal index along a sequence dimension. The rotation is implemented via a sinusoidal basis (cosine/sine frequency schedule), encoding relative positional distance as a geometric angle between vectors such that the inner product of any two rotated vectors depends only on their content and their relative positional offset, not their absolute positions. This transform injects sequence-order topology into the representational geometry without additive perturbation, preserving the magnitude of each vector while altering only its phase.. Applications: Temporal Signal Processing: Injecting ordinal time-step phase into paired feature vectors derived from multi-channel sensor streams (e.g., seismic, EEG, radar), so that cross-correlation between any two time-step representations encodes their lag distance geometrically \u2014 enabling lag-aware similarity search without explicit lag features., Genomic Sequence Analysis: Encoding nucleotide or codon positional context into latent representations of a categorical sequence by rotating embedding pairs according to their index within a chromosome segment, allowing downstream dot-product alignment scores to reflect both content similarity and relative positional distance along the genome., Graph Neural Networks / Topological Data Analysis: Assigning rotation-based ordinal phase to node feature vectors ordered along a traversal path (e.g., BFS depth, geodesic distance rank), so that pairwise inner products between node embeddings encode structural distance within the graph topology without storing explicit positional labels., Robotic Trajectory Encoding: Rotating paired state-vector components of a robot joint configuration sequence by an angle proportional to their time-step index, embedding temporal ordering into the latent manifold of motion primitives so that similarity retrieval of motion segments is sensitive to temporal alignment and phase offset between trajectories.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "rotaryembedding",
+            "type_signature": "(q: Any, k: Any) -> Tuple[torch.Tensor, torch.Tensor]",
+            "docstring": "Opaque DL boundary: RotaryEmbedding",
+            "conceptual_summary": "PositionalPhaseInjector_RotaryEncoding. Applies a position-dependent rotation in a high-dimensional vector space by decomposing paired real-valued tensors into 2D sub-spaces and rotating each sub-space by an angle that is a function of its ordinal index along a sequence dimension. The rotation is implemented via a sinusoidal basis (cosine/sine frequency schedule), encoding relative positional distance as a geometric angle between vectors such that the inner product of any two rotated vectors depends only on their content and their relative positional offset, not their absolute positions. This transform injects sequence-order topology into the representational geometry without additive perturbation, preserving the magnitude of each vector while altering only its phase.. Applications: Temporal Signal Processing: Injecting ordinal time-step phase into paired feature vectors derived from multi-channel sensor streams (e.g., seismic, EEG, radar), so that cross-correlation between any two time-step representations encodes their lag distance geometrically \u2014 enabling lag-aware similarity search without explicit lag features., Genomic Sequence Analysis: Encoding nucleotide or codon positional context into latent representations of a categorical sequence by rotating embedding pairs according to their index within a chromosome segment, allowing downstream dot-product alignment scores to reflect both content similarity and relative positional distance along the genome., Graph Neural Networks / Topological Data Analysis: Assigning rotation-based ordinal phase to node feature vectors ordered along a traversal path (e.g., BFS depth, geodesic distance rank), so that pairwise inner products between node embeddings encode structural distance within the graph topology without storing explicit positional labels., Robotic Trajectory Encoding: Rotating paired state-vector components of a robot joint configuration sequence by an angle proportional to their time-step index, embedding temporal ordering into the latent manifold of motion primitives so that similarity retrieval of motion segments is sensitive to temporal alignment and phase offset between trajectories.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

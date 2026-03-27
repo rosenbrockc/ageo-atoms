@@ -25,6 +25,21 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.jFOF.topo.topological_loss_computation@ageoa/jFOF/topo.py:19": {
+      "references": [
+        {
+          "ref_id": "repo_jfof",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored jFOF repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

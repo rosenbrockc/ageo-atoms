@@ -43,7 +43,7 @@ ingest_procedural() {
 }
 
 # --- BioSPPy (Python functions) ---
-ingest "$TP/BioSPPy/biosppy/signals/ecg.py" ASI_segmenter biosppy/ecg_asi codex_cli &
+ingest "$TP/BioSPPy/biosppy/signals/ecg.py" ASI_segmenter biosppy/ecg_detectors codex_cli &
 ingest "$TP/BioSPPy/biosppy/signals/ecg.py" ZZ2018 biosppy/ecg_zz2018 gemini_cli &
 ingest "$TP/BioSPPy/biosppy/signals/emg.py" solnik_onset_detector biosppy/emg_solnik codex_cli &
 ingest "$TP/BioSPPy/biosppy/signals/emg.py" bonato_onset_detector biosppy/emg_bonato gemini_cli &

@@ -1,7 +1,7 @@
 [
   {
     "function": "engzee_segmenter",
-    "atom": "biosppy/ecg_engzee_d12:engzee_qrs_segmentation",
+    "atom": "biosppy/ecg_detectors:engzee_qrs_segmentation",
     "inputs": {
       "signal": {
         "__ndarray__": true,

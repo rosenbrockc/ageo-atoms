@@ -105,6 +105,151 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.e2e_ppg.gan_reconstruction.generatereconstructedppg@ageoa/e2e_ppg/gan_reconstruction.py:19": {
+      "references": [
+        {
+          "ref_id": "wang2022ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact E2E-PPG reconstruction attribution."
+          }
+        },
+        {
+          "ref_id": "feli2023pipeline",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary E2E-PPG pipeline paper."
+          }
+        },
+        {
+          "ref_id": "repo_e2e_ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored E2E-PPG repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.e2e_ppg.gan_reconstruction.gan_reconstruction@ageoa/e2e_ppg/gan_reconstruction.py:45": {
+      "references": [
+        {
+          "ref_id": "wang2022ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact E2E-PPG reconstruction attribution."
+          }
+        },
+        {
+          "ref_id": "feli2023pipeline",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary E2E-PPG pipeline paper."
+          }
+        },
+        {
+          "ref_id": "repo_e2e_ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored E2E-PPG repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.e2e_ppg.heart_cycle.detect_heart_cycles@ageoa/e2e_ppg/heart_cycle.py:16": {
+      "references": [
+        {
+          "ref_id": "feli2023pipeline",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary E2E-PPG pipeline paper."
+          }
+        },
+        {
+          "ref_id": "repo_e2e_ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored E2E-PPG repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.e2e_ppg.heart_cycle.heart_cycle_detection@ageoa/e2e_ppg/heart_cycle.py:40": {
+      "references": [
+        {
+          "ref_id": "feli2023pipeline",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary E2E-PPG pipeline paper."
+          }
+        },
+        {
+          "ref_id": "repo_e2e_ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored E2E-PPG repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.e2e_ppg.template_matching.templatefeaturecomputation@ageoa/e2e_ppg/template_matching.py:15": {
+      "references": [
+        {
+          "ref_id": "feli2023pipeline",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary E2E-PPG pipeline paper."
+          }
+        },
+        {
+          "ref_id": "repo_e2e_ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored E2E-PPG repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

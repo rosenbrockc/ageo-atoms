@@ -135,6 +135,461 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.abp.audio_onset_detection@ageoa/biosppy/abp.py:21": {
+      "references": [
+        {
+          "ref_id": "zong2003abp",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact ABP onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.thresholdbasedsignalsegmentation@ageoa/biosppy/ecg_detectors.py:16": {
+      "references": [
+        {
+          "ref_id": "gutierrezrivas2015",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary adaptive-threshold ECG detector attribution."
+          }
+        },
+        {
+          "ref_id": "sadhukhan2012",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Secondary ASI detector attribution cited in upstream source."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.asi_signal_segmenter@ageoa/biosppy/ecg_detectors.py:42": {
+      "references": [
+        {
+          "ref_id": "gutierrezrivas2015",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary adaptive-threshold ECG detector attribution."
+          }
+        },
+        {
+          "ref_id": "sadhukhan2012",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Secondary ASI detector attribution cited in upstream source."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.christovqrsdetect@ageoa/biosppy/ecg_detectors.py:71": {
+      "references": [
+        {
+          "ref_id": "christov2004",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Christov detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.christov_qrs_segmenter@ageoa/biosppy/ecg_detectors.py:99": {
+      "references": [
+        {
+          "ref_id": "christov2004",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Christov detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.engzee_signal_segmentation@ageoa/biosppy/ecg_detectors.py:128": {
+      "references": [
+        {
+          "ref_id": "engzee1979",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Engelse-Zeelenberg detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.engzee_qrs_segmentation@ageoa/biosppy/ecg_detectors.py:156": {
+      "references": [
+        {
+          "ref_id": "engzee1979",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Engelse-Zeelenberg detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.gamboa_segmentation@ageoa/biosppy/ecg_detectors.py:183": {
+      "references": [
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.gamboa_segmenter@ageoa/biosppy/ecg_detectors.py:207": {
+      "references": [
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.hamilton_segmentation@ageoa/biosppy/ecg_detectors.py:231": {
+      "references": [
+        {
+          "ref_id": "hamilton1986",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Hamilton detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ecg_detectors.hamilton_segmenter@ageoa/biosppy/ecg_detectors.py:254": {
+      "references": [
+        {
+          "ref_id": "hamilton1986",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Hamilton detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.emg_detectors.detect_onsets_with_rest_aware_thresholds@ageoa/biosppy/emg_detectors.py:19": {
+      "references": [
+        {
+          "ref_id": "abbink1998",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Abbink onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.emg_detectors.bonato_onset_detection@ageoa/biosppy/emg_detectors.py:56": {
+      "references": [
+        {
+          "ref_id": "bonato1998",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Bonato onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.emg_detectors.threshold_based_onset_detection@ageoa/biosppy/emg_detectors.py:86": {
+      "references": [
+        {
+          "ref_id": "solnik2010",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Solnik onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.emg_detectors.solnik_onset_detect@ageoa/biosppy/emg_detectors.py:118": {
+      "references": [
+        {
+          "ref_id": "solnik2010",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Solnik onset detector attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.pcg_filters.homomorphic_signal_filtering@ageoa/biosppy/pcg_filters.py:15": {
+      "references": [
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.pcg_filters.homomorphicfilter@ageoa/biosppy/pcg_filters.py:39": {
+      "references": [
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013@ageoa/biosppy/ppg_detectors.py:20": {
+      "references": [
+        {
+          "ref_id": "elgendi2013ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Elgendi PPG onset attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.biosppy.ppg_detectors.detectonsetevents@ageoa/biosppy/ppg_detectors.py:50": {
+      "references": [
+        {
+          "ref_id": "kavsaoglu2016ppg",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exact Kavsaoglu PPG onset attribution."
+          }
+        },
+        {
+          "ref_id": "repo_biosppy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary BioSPPy software attribution."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

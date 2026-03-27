@@ -1,0 +1,76 @@
+{
+  "nodes": [
+    {
+      "node_id": "state_estimator_root",
+      "parent_id": null,
+      "name": "ageoa.pronto.state_estimator",
+      "description": "Consolidated module for ageoa.pronto.state_estimator.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "update_state_estimate"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "update_state_estimate",
+      "parent_id": "state_estimator_root",
+      "name": "update_state_estimate",
+      "description": "Fuses an incoming sensor measurement into the robot_primes Rigid Body Inertial State (RBIS) estimate using an EKF-style update.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "prior_state",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "prior_cov",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "measurement",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "utime",
+          "type_desc": "int",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(prior_state: np.ndarray, prior_cov: np.ndarray, measurement: np.ndarray, utime: int) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

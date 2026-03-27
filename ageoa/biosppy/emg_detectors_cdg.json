@@ -1,0 +1,263 @@
+{
+  "nodes": [
+    {
+      "node_id": "emg_detectors_root",
+      "parent_id": null,
+      "name": "ageoa.biosppy.emg_detectors",
+      "description": "Consolidated module for ageoa.biosppy.emg_detectors.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "detect_onsets_with_rest_aware_thresholds",
+        "bonato_onset_detection",
+        "threshold_based_onset_detection",
+        "solnik_onset_detect"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "detect_onsets_with_rest_aware_thresholds",
+      "parent_id": "emg_detectors_root",
+      "name": "detect_onsets_with_rest_aware_thresholds",
+      "description": "Detect onset events from an input signal using rest/reference information, window sizes, sampling rate, and transition/alarm thresholds.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "npt.NDArray[np.float64]",
+          "constraints": "required argument"
+        },
+        {
+          "name": "rest",
+          "type_desc": "npt.NDArray[np.float64] | float | int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "size",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "alarm_size",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "transition_threshold",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "npt.NDArray[np.float64]",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: npt.NDArray[np.float64], rest: npt.NDArray[np.float64] | float | int, sampling_rate: float, size: int, alarm_size: int, threshold: float, transition_threshold: float) -> npt.NDArray[np.float64]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "bonato_onset_detection",
+      "parent_id": "emg_detectors_root",
+      "name": "bonato_onset_detection",
+      "description": "Detects activity onsets in a signal using the Bonato double-threshold algorithm. It identifies points where the signal exceeds a defined threshold for a minimum duration.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "rest",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "samples_above_fail",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "fail_size",
+          "type_desc": "int",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "List[int]",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, rest: np.ndarray, sampling_rate: float, threshold: float, active_state_duration: float, samples_above_fail: int, fail_size: int) -> List[int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "threshold_based_onset_detection",
+      "parent_id": "emg_detectors_root",
+      "name": "threshold_based_onset_detection",
+      "description": "Detect activation onset points in a signal by comparing against a rest-derived baseline and enforcing a minimum active-state duration.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "rest",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, rest: np.ndarray, sampling_rate: float, threshold: float, active_state_duration: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "solnik_onset_detect",
+      "parent_id": "emg_detectors_root",
+      "name": "solnik_onset_detect",
+      "description": "Detects movement onsets in a signal using the Solnik algorithm: identifies transitions from rest to active state by comparing signal amplitude against a threshold over a minimum active-state duration window.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "rest",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "active_state_duration",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, rest: float, sampling_rate: float, threshold: float, active_state_duration: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

@@ -980,7 +980,7 @@ def assign_refs(entry: dict, upstream_repo: str | None) -> list[dict]:
         add_assignment(assignments, "elgendi2013ppg", 5, "high", "Exact Elgendi PPG onset attribution.")
     if "ppg_kavsaoglu" in lower:
         add_assignment(assignments, "kavsaoglu2016ppg", 5, "high", "Exact Kavsaoglu PPG onset attribution.")
-    if "ecg_asi" in lower:
+    if "thresholdbasedsignalsegmentation" in lower or "asi_signal_segmenter" in lower:
         add_assignment(assignments, "gutierrezrivas2015", 5, "high", "Primary adaptive-threshold ECG detector attribution.")
         add_assignment(assignments, "sadhukhan2012", 6, "high", "Secondary ASI detector attribution cited in upstream source.")
     if "emg_bonato" in lower:

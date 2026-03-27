@@ -27,7 +27,7 @@ def test_build_manifest_discovers_known_registered_atoms() -> None:
 
 def test_signature_fidelity_uses_vendored_source_when_mapped() -> None:
     manifest = build_manifest()
-    record = _record_for(manifest, "biosppy/ecg_asi:thresholdbasedsignalsegmentation")
+    record = _record_for(manifest, "biosppy/ecg_detectors:thresholdbasedsignalsegmentation")
     evidence = build_signature_evidence(record)
     assert evidence["mapping_found"] is True
     assert evidence["upstream_signature_source"] == "vendored_ast"

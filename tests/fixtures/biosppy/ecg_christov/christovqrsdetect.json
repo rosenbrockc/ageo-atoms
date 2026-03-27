@@ -1,7 +1,7 @@
 [
   {
     "function": "christov_segmenter",
-    "atom": "biosppy/ecg_christov:christovqrsdetect",
+    "atom": "biosppy/ecg_detectors:christovqrsdetect",
     "inputs": {
       "signal": {
         "__ndarray__": true,
@@ -29,7 +29,7 @@
   },
   {
     "function": "christov_segmenter",
-    "atom": "biosppy/ecg_christov:christovqrsdetect",
+    "atom": "biosppy/ecg_detectors:christovqrsdetect",
     "inputs": {
       "signal": {
         "__ndarray__": true,

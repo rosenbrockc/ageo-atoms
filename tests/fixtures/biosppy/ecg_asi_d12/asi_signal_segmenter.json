@@ -1,7 +1,7 @@
 [
   {
     "function": "ASI_segmenter",
-    "atom": "biosppy/ecg_asi_d12:asi_signal_segmenter",
+    "atom": "biosppy/ecg_detectors:asi_signal_segmenter",
     "inputs": {
       "signal": {
         "__ndarray__": true,

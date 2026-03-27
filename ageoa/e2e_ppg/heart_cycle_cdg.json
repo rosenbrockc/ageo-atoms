@@ -1,0 +1,105 @@
+{
+  "nodes": [
+    {
+      "node_id": "heart_cycle_root",
+      "parent_id": null,
+      "name": "ageoa.e2e_ppg.heart_cycle",
+      "description": "Consolidated module for ageoa.e2e_ppg.heart_cycle.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "detect_heart_cycles",
+        "heart_cycle_detection"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "detect_heart_cycles",
+      "parent_id": "heart_cycle_root",
+      "name": "detect_heart_cycles",
+      "description": "Detects individual heart cycles from a photoplethysmography (PPG) signal \u2014 an optical measurement of blood volume changes, typically recorded from a fingertip or wrist sensor.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(ppg: np.ndarray, sampling_rate: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "heart_cycle_detection",
+      "parent_id": "heart_cycle_root",
+      "name": "heart_cycle_detection",
+      "description": "Detects individual heart cycles from a photoplethysmography (PPG) signal at the given sampling rate, identifying cycle boundaries or fiducial points within the waveform.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "ppg",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "list[int]",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(ppg: np.ndarray, sampling_rate: float) -> list[int]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

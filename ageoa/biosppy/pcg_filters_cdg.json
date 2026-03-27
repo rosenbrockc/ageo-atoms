@@ -1,0 +1,105 @@
+{
+  "nodes": [
+    {
+      "node_id": "pcg_filters_root",
+      "parent_id": null,
+      "name": "ageoa.biosppy.pcg_filters",
+      "description": "Consolidated module for ageoa.biosppy.pcg_filters.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "homomorphic_signal_filtering",
+        "homomorphicfilter"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "homomorphic_signal_filtering",
+      "parent_id": "pcg_filters_root",
+      "name": "homomorphic_signal_filtering",
+      "description": "Apply homomorphic filtering to an input signal using the provided sampling rate.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, sampling_rate: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    },
+    {
+      "node_id": "homomorphicfilter",
+      "parent_id": "pcg_filters_root",
+      "name": "homomorphicfilter",
+      "description": "Applies a homomorphic filter to a phonocardiogram (PCG) heart-sound signal. Takes the logarithm, filters in the frequency domain, then exponentiates back to extract the signal envelope with compressed dynamic range.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: np.ndarray, sampling_rate: float) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

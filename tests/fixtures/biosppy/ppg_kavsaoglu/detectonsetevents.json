@@ -1,7 +1,7 @@
 [
   {
     "function": "find_onsets_kavsaoglu2016",
-    "atom": "biosppy/ppg_kavsaoglu:detectonsetevents",
+    "atom": "biosppy/ppg_detectors:detectonsetevents",
     "inputs": {
       "signal": {
         "__ndarray__": true,
@@ -58,7 +58,7 @@
   },
   {
     "function": "find_onsets_kavsaoglu2016",
-    "atom": "biosppy/ppg_kavsaoglu:detectonsetevents",
+    "atom": "biosppy/ppg_detectors:detectonsetevents",
     "inputs": {
       "signal": {
         "__ndarray__": true,

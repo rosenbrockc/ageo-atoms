@@ -1,10 +1,10 @@
 from __future__ import annotations
 from .aees.atoms import metropolishastingstransitionkernel, targetlogkerneloracle
-from .de.atoms import build_de_transition_kernel
-from .hmc.atoms import buildhmckernelfromlogdensityoracle
-from .mala.atoms import mala_proposal_adjustment
-from .nuts.atoms import nuts_recursive_tree_build
-from .rmhmc.atoms import buildrmhmctransitionkernel
+from .de import build_de_transition_kernel
+from .hmc import buildhmckernelfromlogdensityoracle
+from .mala import mala_proposal_adjustment
+from .nuts import nuts_recursive_tree_build
+from .rmhmc import buildrmhmctransitionkernel
 
 __all__ = [
     "metropolishastingstransitionkernel",

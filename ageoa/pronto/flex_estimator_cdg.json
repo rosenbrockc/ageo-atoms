@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "node_id": "flex_estimator_root",
+      "parent_id": null,
+      "name": "ageoa.pronto.flex_estimator",
+      "description": "Consolidated module for ageoa.pronto.flex_estimator.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "estimate_flex_deflection"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "estimate_flex_deflection",
+      "parent_id": "flex_estimator_root",
+      "name": "estimate_flex_deflection",
+      "description": "Estimates hip flexure deflection for a quadruped robot using kinematic state and joint effort to correct leg odometry.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "hip_positions",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "hip_efforts",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        },
+        {
+          "name": "stance_mask",
+          "type_desc": "np.ndarray",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.ndarray",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(hip_positions: np.ndarray, hip_efforts: np.ndarray, stance_mask: np.ndarray) -> np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

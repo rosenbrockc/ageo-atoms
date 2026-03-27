@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "node_id": "inverse_schmitt_root",
+      "parent_id": null,
+      "name": "ageoa.pronto.inverse_schmitt",
+      "description": "Consolidated module for ageoa.pronto.inverse_schmitt.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "inverse_schmitt_trigger_transform"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "inverse_schmitt_trigger_transform",
+      "parent_id": "inverse_schmitt_root",
+      "name": "inverse_schmitt_trigger_transform",
+      "description": "Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "input_signal",
+          "type_desc": "object",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "object",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(input_signal: object) -> object",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

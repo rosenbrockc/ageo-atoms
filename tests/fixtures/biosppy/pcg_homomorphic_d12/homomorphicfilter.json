@@ -1,7 +1,7 @@
 [
   {
     "function": "homomorphic_filter",
-    "atom": "biosppy/pcg_homomorphic_d12:homomorphicfilter",
+    "atom": "biosppy/pcg_filters:homomorphicfilter",
     "inputs": {
       "signal": {
         "__ndarray__": true,

@@ -1,0 +1,596 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "computeoptimaltrajectory",
+      "statement": "(total_shares: numeric, days: integer, risk_aversion: numeric) -> execution trajectory object (e.g., vector/list of allocations)",
+      "informal_desc": "Computes the optimal share-execution trajectory over the planning horizon given risk preference.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "computeoptimaltrajectory",
+          "type_signature": "(total_shares: numeric, days: integer, risk_aversion: numeric) -> execution trajectory object (e.g., vector/list of allocations)",
+          "docstring": "Computes the optimal share-execution trajectory over the planning horizon given risk preference.",
+          "conceptual_summary": "Risk-Regularized Finite-Horizon Allocation Schedule. Transforms a single aggregate quantity into a discrete-time allocation vector over a fixed horizon by solving a constrained optimization problem. The objective balances an efficiency term (e.g., immediate execution/actuation cost) against a variability-exposure penalty weighted by a preference coefficient. The result is an optimal depletion trajectory that satisfies conservation constraints and encodes the trade-off between aggressiveness and stability.. Applications: Scheduling gradual reagent infusion over clinical time windows to minimize total side-effect risk under a fixed dose budget, Planning staged battery discharge/load shedding across time slots to balance efficiency losses against uncertainty in demand, Allocating telescope or sensor dwell time across observation intervals to trade off measurement quality versus temporal noise exposure, Distributing material feed rates in additive manufacturing layers to minimize process instability while meeting total deposition targets",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "computeoptimaltrajectory",
+          "type_signature": "(total_shares: numeric, days: integer, risk_aversion: numeric) -> execution trajectory object (e.g., vector/list of allocations)",
+          "docstring": "Computes the optimal share-execution trajectory over the planning horizon given risk preference.",
+          "conceptual_summary": "Risk-Regularized Finite-Horizon Allocation Schedule. Transforms a single aggregate quantity into a discrete-time allocation vector over a fixed horizon by solving a constrained optimization problem. The objective balances an efficiency term (e.g., immediate execution/actuation cost) against a variability-exposure penalty weighted by a preference coefficient. The result is an optimal depletion trajectory that satisfies conservation constraints and encodes the trade-off between aggressiveness and stability.. Applications: Scheduling gradual reagent infusion over clinical time windows to minimize total side-effect risk under a fixed dose budget, Planning staged battery discharge/load shedding across time slots to balance efficiency losses against uncertainty in demand, Allocating telescope or sensor dwell time across observation intervals to trade off measurement quality versus temporal noise exposure, Distributing material feed rates in additive manufacturing layers to minimize process instability while meeting total deposition targets",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "computeoptimaltrajectory",
+            "type_signature": "(total_shares: numeric, days: integer, risk_aversion: numeric) -> execution trajectory object (e.g., vector/list of allocations)",
+            "docstring": "Computes the optimal share-execution trajectory over the planning horizon given risk preference.",
+            "conceptual_summary": "Risk-Regularized Finite-Horizon Allocation Schedule. Transforms a single aggregate quantity into a discrete-time allocation vector over a fixed horizon by solving a constrained optimization problem. The objective balances an efficiency term (e.g., immediate execution/actuation cost) against a variability-exposure penalty weighted by a preference coefficient. The result is an optimal depletion trajectory that satisfies conservation constraints and encodes the trade-off between aggressiveness and stability.. Applications: Scheduling gradual reagent infusion over clinical time windows to minimize total side-effect risk under a fixed dose budget, Planning staged battery discharge/load shedding across time slots to balance efficiency losses against uncertainty in demand, Allocating telescope or sensor dwell time across observation intervals to trade off measurement quality versus temporal noise exposure, Distributing material feed rates in additive manufacturing layers to minimize process instability while meeting total deposition targets",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "fractional_differentiator",
+      "statement": "(series: pd.Series, d: float, threshold: float) -> pd.Series",
+      "informal_desc": "Computes the fractional differentiation of a time series. It first calculates the necessary weights based on the differentiation order 'd' and then applies them to the series, dropping terms below a specified threshold.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "fractional_differentiator",
+          "type_signature": "(series: pd.Series, d: float, threshold: float) -> pd.Series",
+          "docstring": "Computes the fractional differentiation of a time series. It first calculates the necessary weights based on the differentiation order 'd' and then applies them to the series, dropping terms below a specified threshold.",
+          "conceptual_summary": "long_range_dependency_attenuator. Applies a convolution with a power-law kernel to a 1D ordered sequence. This transform acts as a tunable high-pass filter, systematically attenuating low-frequency components (i.e., long-term trends or memory) based on a continuous input parameter. The operation effectively generalizes integer-order differencing to a fractional degree, allowing fine-grained control over the memory preserved in the output sequence.. Applications: Filtering low-frequency drift from geophysical sensor data (e.g., seismic or GPS time series) to isolate high-frequency event signals., Normalizing gene expression data along a chromosome to remove large-scale regional biases, thereby highlighting local areas of significant regulation., In fluid dynamics, analyzing time-series data from a velocity probe to separate large-scale turbulent structures from small-scale fluctuations., Preprocessing sequential feature vectors for a machine learning model to induce stationarity, which can improve model stability and predictive performance.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "fractional_differentiator",
+          "type_signature": "(series: pd.Series, d: float, threshold: float) -> pd.Series",
+          "docstring": "Computes the fractional differentiation of a time series. It first calculates the necessary weights based on the differentiation order 'd' and then applies them to the series, dropping terms below a specified threshold.",
+          "conceptual_summary": "long_range_dependency_attenuator. Applies a convolution with a power-law kernel to a 1D ordered sequence. This transform acts as a tunable high-pass filter, systematically attenuating low-frequency components (i.e., long-term trends or memory) based on a continuous input parameter. The operation effectively generalizes integer-order differencing to a fractional degree, allowing fine-grained control over the memory preserved in the output sequence.. Applications: Filtering low-frequency drift from geophysical sensor data (e.g., seismic or GPS time series) to isolate high-frequency event signals., Normalizing gene expression data along a chromosome to remove large-scale regional biases, thereby highlighting local areas of significant regulation., In fluid dynamics, analyzing time-series data from a velocity probe to separate large-scale turbulent structures from small-scale fluctuations., Preprocessing sequential feature vectors for a machine learning model to induce stationarity, which can improve model stability and predictive performance.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "fractional_differentiator",
+            "type_signature": "(series: pd.Series, d: float, threshold: float) -> pd.Series",
+            "docstring": "Computes the fractional differentiation of a time series. It first calculates the necessary weights based on the differentiation order 'd' and then applies them to the series, dropping terms below a specified threshold.",
+            "conceptual_summary": "long_range_dependency_attenuator. Applies a convolution with a power-law kernel to a 1D ordered sequence. This transform acts as a tunable high-pass filter, systematically attenuating low-frequency components (i.e., long-term trends or memory) based on a continuous input parameter. The operation effectively generalizes integer-order differencing to a fractional degree, allowing fine-grained control over the memory preserved in the output sequence.. Applications: Filtering low-frequency drift from geophysical sensor data (e.g., seismic or GPS time series) to isolate high-frequency event signals., Normalizing gene expression data along a chromosome to remove large-scale regional biases, thereby highlighting local areas of significant regulation., In fluid dynamics, analyzing time-series data from a velocity probe to separate large-scale turbulent structures from small-scale fluctuations., Preprocessing sequential feature vectors for a machine learning model to induce stationarity, which can improve model stability and predictive performance.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "sample_hawkes_event_trajectory",
+      "statement": "(mu: float, alpha: float, beta: float, T: float) -> array<float>",
+      "informal_desc": "Simulates a Hawkes point-process realization over a finite horizon using the provided base intensity and excitation/decay parameters.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "sample_hawkes_event_trajectory",
+          "type_signature": "(mu: float, alpha: float, beta: float, T: float) -> array<float>",
+          "docstring": "Simulates a Hawkes point-process realization over a finite horizon using the provided base intensity and excitation/decay parameters.",
+          "conceptual_summary": "Self-Exciting Temporal Point Sequence Sampler. Generates a random ordered set of event timestamps on a bounded continuous interval from a history-dependent intensity function. The instantaneous event rate is the sum of a nonnegative baseline term and additive excitation contributions from prior events, where each contribution decays exponentially over time. The procedure evolves sequentially in time, updating intensity from realized history and emitting only timestamps within the horizon.. Applications: Modeling clustered microfracture timestamps in materials under stress testing, Generating bursty neural spike-time sequences in computational neuroscience simulations, Simulating cascaded intrusion-alert arrivals in cybersecurity monitoring streams, Creating synthetic congestion-triggered packet-arrival bursts in communication networks",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "sample_hawkes_event_trajectory",
+          "type_signature": "(mu: float, alpha: float, beta: float, T: float) -> array<float>",
+          "docstring": "Simulates a Hawkes point-process realization over a finite horizon using the provided base intensity and excitation/decay parameters.",
+          "conceptual_summary": "Self-Exciting Temporal Point Sequence Sampler. Generates a random ordered set of event timestamps on a bounded continuous interval from a history-dependent intensity function. The instantaneous event rate is the sum of a nonnegative baseline term and additive excitation contributions from prior events, where each contribution decays exponentially over time. The procedure evolves sequentially in time, updating intensity from realized history and emitting only timestamps within the horizon.. Applications: Modeling clustered microfracture timestamps in materials under stress testing, Generating bursty neural spike-time sequences in computational neuroscience simulations, Simulating cascaded intrusion-alert arrivals in cybersecurity monitoring streams, Creating synthetic congestion-triggered packet-arrival bursts in communication networks",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "sample_hawkes_event_trajectory",
+            "type_signature": "(mu: float, alpha: float, beta: float, T: float) -> array<float>",
+            "docstring": "Simulates a Hawkes point-process realization over a finite horizon using the provided base intensity and excitation/decay parameters.",
+            "conceptual_summary": "Self-Exciting Temporal Point Sequence Sampler. Generates a random ordered set of event timestamps on a bounded continuous interval from a history-dependent intensity function. The instantaneous event rate is the sum of a nonnegative baseline term and additive excitation contributions from prior events, where each contribution decays exponentially over time. The procedure evolves sequentially in time, updating intensity from realized history and emitting only timestamps within the horizon.. Applications: Modeling clustered microfracture timestamps in materials under stress testing, Generating bursty neural spike-time sequences in computational neuroscience simulations, Simulating cascaded intrusion-alert arrivals in cybersecurity monitoring streams, Creating synthetic congestion-triggered packet-arrival bursts in communication networks",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "hawkesprocesssimulator",
+      "statement": "(mu: float \u2014 baseline (background) intensity, \u03bc > 0, alpha: float \u2014 excitation amplitude, controls jump size at each event, beta: float \u2014 exponential decay rate of self-excitement kernel, T: float \u2014 simulation horizon, events drawn on (0, T]) -> array[float] \u2014 ordered arrival times of simulated events in (0, T]",
+      "informal_desc": "Simulates a univariate Hawkes self-exciting point process over the interval [0, T] using Ogata's thinning algorithm. Given baseline intensity mu, excitation amplitude alpha, and exponential decay rate beta, draws stochastic event times whose conditional intensity is \u03bb(t) = \u03bc + \u03a3\u1d62 \u03b1\u00b7exp(\u2212\u03b2(t\u2212t\u1d62)) for all past events t\u1d62 < t. Returns the full realisation as an array of arrival times.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "hawkesprocesssimulator",
+          "type_signature": "(mu: float \u2014 baseline (background) intensity, \u03bc > 0, alpha: float \u2014 excitation amplitude, controls jump size at each event, beta: float \u2014 exponential decay rate of self-excitement kernel, T: float \u2014 simulation horizon, events drawn on (0, T]) -> array[float] \u2014 ordered arrival times of simulated events in (0, T]",
+          "docstring": "Simulates a univariate Hawkes self-exciting point process over the interval [0, T] using Ogata's thinning algorithm. Given baseline intensity mu, excitation amplitude alpha, and exponential decay rate beta, draws stochastic event times whose conditional intensity is \u03bb(t) = \u03bc + \u03a3\u1d62 \u03b1\u00b7exp(\u2212\u03b2(t\u2212t\u1d62)) for all past events t\u1d62 < t. Returns the full realisation as an array of arrival times.",
+          "conceptual_summary": "SelfExcitingStochasticArrivalSampler. Generates a realization of a temporally ordered set of scalar arrival times over a bounded interval by sampling from a non-stationary stochastic point process whose instantaneous rate is a superposition of a constant baseline intensity and a sum of exponentially decaying excitation kernels triggered by each prior arrival \u2014 a feedback mechanism that makes the process self-reinforcing. The underlying rate function is integrated via an acceptance-rejection (thinning) step against a tractable upper-bounding envelope, ensuring exact simulation without discretization error. The result is a monotonically ordered array of continuous scalar timestamps whose inter-arrival statistics are neither independent nor identically distributed, but are governed by the full path history.. Applications: Seismology / Geophysics: Modeling aftershock sequences following a mainshock rupture, where each seismic event transiently elevates the probability of subsequent ruptures \u2014 the decay kernel captures the empirical Omori-Utsu power-law approximated by exponential relaxation, enabling synthetic catalog generation for hazard assessment., Computational Neuroscience: Simulating spike train bursting in recurrently coupled neural populations, where each action potential raises the short-term excitability of the same or downstream neuron before synaptic depression restores baseline firing rate \u2014 enabling synthetic electrophysiology data for testing spike-sorting and connectivity-inference algorithms., Epidemiology / Contagion Modeling: Generating synthetic transmission event timelines for a disease or information cascade in which each infection or repost event temporarily amplifies the local transmission rate before immunity, removal, or attention decay suppresses it \u2014 useful for calibrating branching-process reproductive number estimators., Materials Science / Reliability Engineering: Simulating cascading micro-fracture or dislocation avalanche sequences in stressed crystalline lattices, where each structural failure event locally concentrates stress and elevates the instantaneous rate of neighboring failures, modeling the temporal clustering observed in acoustic emission signals during fatigue testing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "hawkesprocesssimulator",
+          "type_signature": "(mu: float \u2014 baseline (background) intensity, \u03bc > 0, alpha: float \u2014 excitation amplitude, controls jump size at each event, beta: float \u2014 exponential decay rate of self-excitement kernel, T: float \u2014 simulation horizon, events drawn on (0, T]) -> array[float] \u2014 ordered arrival times of simulated events in (0, T]",
+          "docstring": "Simulates a univariate Hawkes self-exciting point process over the interval [0, T] using Ogata's thinning algorithm. Given baseline intensity mu, excitation amplitude alpha, and exponential decay rate beta, draws stochastic event times whose conditional intensity is \u03bb(t) = \u03bc + \u03a3\u1d62 \u03b1\u00b7exp(\u2212\u03b2(t\u2212t\u1d62)) for all past events t\u1d62 < t. Returns the full realisation as an array of arrival times.",
+          "conceptual_summary": "SelfExcitingStochasticArrivalSampler. Generates a realization of a temporally ordered set of scalar arrival times over a bounded interval by sampling from a non-stationary stochastic point process whose instantaneous rate is a superposition of a constant baseline intensity and a sum of exponentially decaying excitation kernels triggered by each prior arrival \u2014 a feedback mechanism that makes the process self-reinforcing. The underlying rate function is integrated via an acceptance-rejection (thinning) step against a tractable upper-bounding envelope, ensuring exact simulation without discretization error. The result is a monotonically ordered array of continuous scalar timestamps whose inter-arrival statistics are neither independent nor identically distributed, but are governed by the full path history.. Applications: Seismology / Geophysics: Modeling aftershock sequences following a mainshock rupture, where each seismic event transiently elevates the probability of subsequent ruptures \u2014 the decay kernel captures the empirical Omori-Utsu power-law approximated by exponential relaxation, enabling synthetic catalog generation for hazard assessment., Computational Neuroscience: Simulating spike train bursting in recurrently coupled neural populations, where each action potential raises the short-term excitability of the same or downstream neuron before synaptic depression restores baseline firing rate \u2014 enabling synthetic electrophysiology data for testing spike-sorting and connectivity-inference algorithms., Epidemiology / Contagion Modeling: Generating synthetic transmission event timelines for a disease or information cascade in which each infection or repost event temporarily amplifies the local transmission rate before immunity, removal, or attention decay suppresses it \u2014 useful for calibrating branching-process reproductive number estimators., Materials Science / Reliability Engineering: Simulating cascading micro-fracture or dislocation avalanche sequences in stressed crystalline lattices, where each structural failure event locally concentrates stress and elevates the instantaneous rate of neighboring failures, modeling the temporal clustering observed in acoustic emission signals during fatigue testing.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "hawkesprocesssimulator",
+            "type_signature": "(mu: float \u2014 baseline (background) intensity, \u03bc > 0, alpha: float \u2014 excitation amplitude, controls jump size at each event, beta: float \u2014 exponential decay rate of self-excitement kernel, T: float \u2014 simulation horizon, events drawn on (0, T]) -> array[float] \u2014 ordered arrival times of simulated events in (0, T]",
+            "docstring": "Simulates a univariate Hawkes self-exciting point process over the interval [0, T] using Ogata's thinning algorithm. Given baseline intensity mu, excitation amplitude alpha, and exponential decay rate beta, draws stochastic event times whose conditional intensity is \u03bb(t) = \u03bc + \u03a3\u1d62 \u03b1\u00b7exp(\u2212\u03b2(t\u2212t\u1d62)) for all past events t\u1d62 < t. Returns the full realisation as an array of arrival times.",
+            "conceptual_summary": "SelfExcitingStochasticArrivalSampler. Generates a realization of a temporally ordered set of scalar arrival times over a bounded interval by sampling from a non-stationary stochastic point process whose instantaneous rate is a superposition of a constant baseline intensity and a sum of exponentially decaying excitation kernels triggered by each prior arrival \u2014 a feedback mechanism that makes the process self-reinforcing. The underlying rate function is integrated via an acceptance-rejection (thinning) step against a tractable upper-bounding envelope, ensuring exact simulation without discretization error. The result is a monotonically ordered array of continuous scalar timestamps whose inter-arrival statistics are neither independent nor identically distributed, but are governed by the full path history.. Applications: Seismology / Geophysics: Modeling aftershock sequences following a mainshock rupture, where each seismic event transiently elevates the probability of subsequent ruptures \u2014 the decay kernel captures the empirical Omori-Utsu power-law approximated by exponential relaxation, enabling synthetic catalog generation for hazard assessment., Computational Neuroscience: Simulating spike train bursting in recurrently coupled neural populations, where each action potential raises the short-term excitability of the same or downstream neuron before synaptic depression restores baseline firing rate \u2014 enabling synthetic electrophysiology data for testing spike-sorting and connectivity-inference algorithms., Epidemiology / Contagion Modeling: Generating synthetic transmission event timelines for a disease or information cascade in which each infection or repost event temporarily amplifies the local transmission rate before immunity, removal, or attention decay suppresses it \u2014 useful for calibrating branching-process reproductive number estimators., Materials Science / Reliability Engineering: Simulating cascading micro-fracture or dislocation avalanche sequences in stressed crystalline lattices, where each structural failure event locally concentrates stress and elevates the instantaneous rate of neighboring failures, modeling the temporal clustering observed in acoustic emission signals during fatigue testing.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "hestonpathsampler",
+      "statement": "(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[float array [num_sims, n_steps+1], float array [num_sims, n_steps+1]]",
+      "informal_desc": "Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)\u00b7S\u00b7dW_S and dv = kappa\u00b7(theta - v)\u00b7dt + sigma_v\u00b7sqrt(v)\u00b7dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "hestonpathsampler",
+          "type_signature": "(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[float array [num_sims, n_steps+1], float array [num_sims, n_steps+1]]",
+          "docstring": "Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)\u00b7S\u00b7dW_S and dv = kappa\u00b7(theta - v)\u00b7dt + sigma_v\u00b7sqrt(v)\u00b7dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.",
+          "conceptual_summary": "CorrelatedBivariateMeanRevertingDiffusionEnsembleSampler. Jointly discretises two coupled It\u00f4 stochastic differential equations over a uniform time grid using an Euler\u2013Maruyama scheme, producing an ensemble of independent sample paths for two co-evolving scalar state variables: one following a scale-multiplicative geometric diffusion (log-normally distributed increments, strictly positive) and one following a square-root mean-reverting diffusion (CIR/Feller process, non-negative with an absorbing or reflecting boundary at zero). The two Wiener increment streams are linearly correlated via a scalar correlation coefficient, implemented through a 2\u00d72 Cholesky decomposition of the instantaneous covariance matrix applied at each time step. The result is a batch of [num_sims \u00d7 (n_steps+1)] trajectory matrices for each state variable, capturing the joint distributional evolution of the coupled system.. Applications: Neuroscience \u2013 joint simulation of membrane potential (geometric-like excursions) and synaptic conductance (mean-reverting toward a resting level) in a single-compartment neuron model, where the two processes are negatively correlated (increased conductance dampens voltage excursions), generating ensembles of correlated spike-drive trajectories for population coding analysis, Climate & Earth Systems Modelling \u2013 coupled simulation of a positive-definite atmospheric tracer concentration (multiplicative dispersion) and a mean-reverting turbulent diffusivity field (square-root CIR dynamics), with positive correlation encoding the feedback between concentration gradients and eddy mixing rates, producing trajectory ensembles for uncertainty quantification in climate projections, Epidemiology \u2013 simultaneous path sampling of a susceptible-population scalar (geometric depletion) and a mean-reverting time-varying transmission rate (CIR dynamics representing seasonal forcing with noise), with correlation encoding behavioural feedback loops between disease prevalence and contact-rate adaptation, enabling stochastic R\u2080 trajectory ensembles for outbreak forecasting, Materials Science / Rheology \u2013 correlated simulation of a polymer chain end-to-end distance scalar (multiplicative geometric diffusion under applied strain) and a mean-reverting internal relaxation modulus (square-root Feller process), with negative correlation capturing the Weissenberg effect, producing ensembles of viscoelastic response trajectories for Monte Carlo stress-relaxation analysis",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "hestonpathsampler",
+          "type_signature": "(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[float array [num_sims, n_steps+1], float array [num_sims, n_steps+1]]",
+          "docstring": "Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)\u00b7S\u00b7dW_S and dv = kappa\u00b7(theta - v)\u00b7dt + sigma_v\u00b7sqrt(v)\u00b7dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.",
+          "conceptual_summary": "CorrelatedBivariateMeanRevertingDiffusionEnsembleSampler. Jointly discretises two coupled It\u00f4 stochastic differential equations over a uniform time grid using an Euler\u2013Maruyama scheme, producing an ensemble of independent sample paths for two co-evolving scalar state variables: one following a scale-multiplicative geometric diffusion (log-normally distributed increments, strictly positive) and one following a square-root mean-reverting diffusion (CIR/Feller process, non-negative with an absorbing or reflecting boundary at zero). The two Wiener increment streams are linearly correlated via a scalar correlation coefficient, implemented through a 2\u00d72 Cholesky decomposition of the instantaneous covariance matrix applied at each time step. The result is a batch of [num_sims \u00d7 (n_steps+1)] trajectory matrices for each state variable, capturing the joint distributional evolution of the coupled system.. Applications: Neuroscience \u2013 joint simulation of membrane potential (geometric-like excursions) and synaptic conductance (mean-reverting toward a resting level) in a single-compartment neuron model, where the two processes are negatively correlated (increased conductance dampens voltage excursions), generating ensembles of correlated spike-drive trajectories for population coding analysis, Climate & Earth Systems Modelling \u2013 coupled simulation of a positive-definite atmospheric tracer concentration (multiplicative dispersion) and a mean-reverting turbulent diffusivity field (square-root CIR dynamics), with positive correlation encoding the feedback between concentration gradients and eddy mixing rates, producing trajectory ensembles for uncertainty quantification in climate projections, Epidemiology \u2013 simultaneous path sampling of a susceptible-population scalar (geometric depletion) and a mean-reverting time-varying transmission rate (CIR dynamics representing seasonal forcing with noise), with correlation encoding behavioural feedback loops between disease prevalence and contact-rate adaptation, enabling stochastic R\u2080 trajectory ensembles for outbreak forecasting, Materials Science / Rheology \u2013 correlated simulation of a polymer chain end-to-end distance scalar (multiplicative geometric diffusion under applied strain) and a mean-reverting internal relaxation modulus (square-root Feller process), with negative correlation capturing the Weissenberg effect, producing ensembles of viscoelastic response trajectories for Monte Carlo stress-relaxation analysis",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "hestonpathsampler",
+            "type_signature": "(S0: float, v0: float, rho: float, kappa: float, theta: float, sigma_v: float, T: float, dt: float, num_sims: int) -> tuple[float array [num_sims, n_steps+1], float array [num_sims, n_steps+1]]",
+            "docstring": "Simulates correlated Monte Carlo paths for both the stock price (S) and instantaneous variance (v) under the Heston stochastic-volatility model. Discretises the coupled SDEs dS = sqrt(v)\u00b7S\u00b7dW_S and dv = kappa\u00b7(theta - v)\u00b7dt + sigma_v\u00b7sqrt(v)\u00b7dW_v with correlation rho between the two Brownian increments, producing num_sims full trajectories over [0, T] with step size dt.",
+            "conceptual_summary": "CorrelatedBivariateMeanRevertingDiffusionEnsembleSampler. Jointly discretises two coupled It\u00f4 stochastic differential equations over a uniform time grid using an Euler\u2013Maruyama scheme, producing an ensemble of independent sample paths for two co-evolving scalar state variables: one following a scale-multiplicative geometric diffusion (log-normally distributed increments, strictly positive) and one following a square-root mean-reverting diffusion (CIR/Feller process, non-negative with an absorbing or reflecting boundary at zero). The two Wiener increment streams are linearly correlated via a scalar correlation coefficient, implemented through a 2\u00d72 Cholesky decomposition of the instantaneous covariance matrix applied at each time step. The result is a batch of [num_sims \u00d7 (n_steps+1)] trajectory matrices for each state variable, capturing the joint distributional evolution of the coupled system.. Applications: Neuroscience \u2013 joint simulation of membrane potential (geometric-like excursions) and synaptic conductance (mean-reverting toward a resting level) in a single-compartment neuron model, where the two processes are negatively correlated (increased conductance dampens voltage excursions), generating ensembles of correlated spike-drive trajectories for population coding analysis, Climate & Earth Systems Modelling \u2013 coupled simulation of a positive-definite atmospheric tracer concentration (multiplicative dispersion) and a mean-reverting turbulent diffusivity field (square-root CIR dynamics), with positive correlation encoding the feedback between concentration gradients and eddy mixing rates, producing trajectory ensembles for uncertainty quantification in climate projections, Epidemiology \u2013 simultaneous path sampling of a susceptible-population scalar (geometric depletion) and a mean-reverting time-varying transmission rate (CIR dynamics representing seasonal forcing with noise), with correlation encoding behavioural feedback loops between disease prevalence and contact-rate adaptation, enabling stochastic R\u2080 trajectory ensembles for outbreak forecasting, Materials Science / Rheology \u2013 correlated simulation of a polymer chain end-to-end distance scalar (multiplicative geometric diffusion under applied strain) and a mean-reverting internal relaxation modulus (square-root Feller process), with negative correlation capturing the Weissenberg effect, producing ensembles of viscoelastic response trajectories for Monte Carlo stress-relaxation analysis",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "hrppipelinerun",
+      "statement": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+      "informal_desc": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "hrppipelinerun",
+          "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+          "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+          "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "hrppipelinerun",
+          "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+          "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+          "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "hrppipelinerun",
+            "type_signature": "(data: array-like | DataFrame of shape (T, N) \u2014 T observations across N assets (returns or prices)) -> array-like | Series of shape (N,) \u2014 normalised portfolio weights summing to 1.0",
+            "docstring": "Executes the full Hierarchical Risk Parity pipeline: ingests asset return data, constructs a hierarchical clustering structure via a correlation/distance matrix, applies recursive bisection to allocate risk, and emits final portfolio weights.",
+            "conceptual_summary": "HierarchicalRecursiveBisectionWeightAllocator. Transforms a (T \u00d7 N) matrix of co-varying scalar time-series into a dendrogram by converting pairwise correlation into a metric distance and applying agglomerative hierarchical clustering. The resulting binary tree is then traversed via recursive bisection, at each split proportionally assigning a risk budget (inverse-variance) to the two sub-clusters, until leaf-level allocations are resolved. The output is a probability simplex vector of N non-negative weights summing to unity, where each weight encodes the fraction of total risk budget assigned to that leaf node.. Applications: Computational neuroscience \u2014 allocating signal reconstruction budget across N neural recording channels whose firing-rate time-series exhibit hierarchically clustered co-activation patterns, ensuring that correlated neuron ensembles are not over-represented in a downstream decoder, Wireless sensor network load balancing \u2014 distributing transmission power or sampling duty cycles across N sensors whose measurement sequences form correlation clusters, using recursive bisection to equalize the variance contribution of each sensor cluster to a fused global estimate, Genomics / multi-omics integration \u2014 assigning relative weights to N genomic features (gene-expression probes, methylation sites, etc.) measured across T biological samples, where hierarchical clustering of the feature correlation matrix reveals co-regulated modules that should share rather than dominate the aggregate explanatory budget, Robotic swarm task allocation \u2014 partitioning a collective action budget (energy, time, bandwidth) among N agents whose behavioral time-series are correlated due to shared environmental stimuli, using the dendrogram to identify functionally redundant sub-groups and recursively rebalance effort so no correlated cluster monopolizes resources",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "orderflowimbalanceevaluation",
+      "statement": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+      "informal_desc": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "orderflowimbalanceevaluation",
+          "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+          "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+          "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "orderflowimbalanceevaluation",
+          "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+          "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+          "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "orderflowimbalanceevaluation",
+            "type_signature": "(row: record-like market data row, prev_row: record-like market data row) -> float",
+            "docstring": "Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.",
+            "conceptual_summary": "BidirectionalStateDeltaImbalance. Maps two consecutive, schema-compatible records into a single signed scalar by conditionally differencing paired quantities from two opposing channels. For each channel, the transform applies direction-gated arithmetic (based on whether reference levels moved up, down, or stayed equal) and then aggregates the channel contributions into a net imbalance score. The result is a first-order temporal contrast that encodes which side gained relative influence between the two observations.. Applications: Computing directional load pressure in distributed systems from consecutive inbound vs outbound queue-depth snapshots., Estimating net membrane transport bias in cellular assays from sequential concentrations on two opposing sides of a boundary., Deriving airflow dominance shifts in HVAC diagnostics from successive supply-side and return-side sensor states., Quantifying bidirectional migration imbalance in ecological monitoring from consecutive counts across two connected habitats.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "pinlikelihoodevaluation",
+      "statement": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+      "informal_desc": "Computes the likelihood of observed inputs under the provided parameterization.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "pinlikelihoodevaluation",
+          "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+          "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+          "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "pinlikelihoodevaluation",
+          "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+          "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+          "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "pinlikelihoodevaluation",
+            "type_signature": "(params: parameter object or vector, B: observed data tensor/array, S: observed data tensor/array) -> float or array-like likelihood value",
+            "docstring": "Computes the likelihood of observed inputs under the provided parameterization.",
+            "conceptual_summary": "Parametric Observation Likelihood Scorer. Maps a parameterization and one or more observed tensors to the probability mass/density (or its equivalent score) assigned by a specified stochastic model. The operation compares observed values against model-implied distributions and aggregates per-element or per-sample contributions into a scalar or vector likelihood. This is an evaluation step only: it scores model fit without updating parameters.. Applications: Sensor-fusion model scoring in robotics by evaluating how well multi-channel measurements match hypothesized state parameters, Sequence-generation fit assessment in computational biology by scoring observed symbolic/numeric sequences under parametric generative models, Inverse-model validation in geophysics by evaluating observed field measurements under candidate subsurface parameter sets, Anomaly scoring in industrial monitoring by comparing streaming multivariate telemetry against calibrated probabilistic baselines",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "pinlikelihoodevaluator",
+      "statement": "(params: model parameters (e.g., dict or array of distributional parameters), B: scalar or array representing a sufficient statistic (e.g., number of buys), S: scalar or array representing a sufficient statistic (e.g., number of sells)) -> scalar float representing the log-likelihood value",
+      "informal_desc": "Evaluates the log-likelihood (or likelihood) of observed data given model parameters and sufficient statistics B and S. This is a stateless, pure oracle computation with no side effects or persistent state.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "pinlikelihoodevaluator",
+          "type_signature": "(params: model parameters (e.g., dict or array of distributional parameters), B: scalar or array representing a sufficient statistic (e.g., number of buys), S: scalar or array representing a sufficient statistic (e.g., number of sells)) -> scalar float representing the log-likelihood value",
+          "docstring": "Evaluates the log-likelihood (or likelihood) of observed data given model parameters and sufficient statistics B and S. This is a stateless, pure oracle computation with no side effects or persistent state.",
+          "conceptual_summary": "ParametricLogLikelihoodOracle. Given a fixed parametric distributional model and a pair of non-negative scalar or array sufficient statistics summarizing observed data, this atom computes the scalar log-probability of the observed data under the model \u2014 collapsing the full observation space into a single real-valued score on the log-probability manifold. The transform is a pure, deterministic projection from the Cartesian product of a parameter space and a sufficient-statistic space into the extended real line, with no mutation of state or accumulation of context. It acts as a scoring oracle that quantifies how well a candidate parameter configuration explains the observed aggregate counts.. Applications: Epidemiology \u2014 Latent-class infection rate estimation: given a two-component mixture model (symptomatic vs. asymptomatic transmission events) and the daily aggregated counts of two observable case types as sufficient statistics, evaluate the log-likelihood to score candidate infection-rate and detection-probability parameters during EM or MCMC inference, Particle physics \u2014 Signal/background event discrimination: given a compound Poisson mixture model separating signal events from background noise, and paired aggregate event counts from a detector readout window as sufficient statistics, score each candidate signal-rate / background-rate parameter pair to drive maximum-likelihood fitting of the detector response model, Ecology \u2014 Mark-recapture population size estimation: given a two-stream mixture model of marked versus unmarked individual sightings (analogous to two classes of discrete arrivals) and the paired capture-count sufficient statistics, compute the log-likelihood surface over population-size and detection-probability parameters to support Bayesian posterior sampling, Neuroscience \u2014 Spike-train neural coding model selection: given a mixture of Poisson processes representing spontaneous versus stimulus-driven neural firing, and the aggregated spike-count pairs from two experimental conditions as sufficient statistics, evaluate log-likelihood scores across candidate firing-rate parameter grids to identify the most probable latent neural state model",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "pinlikelihoodevaluator",
+          "type_signature": "(params: model parameters (e.g., dict or array of distributional parameters), B: scalar or array representing a sufficient statistic (e.g., number of buys), S: scalar or array representing a sufficient statistic (e.g., number of sells)) -> scalar float representing the log-likelihood value",
+          "docstring": "Evaluates the log-likelihood (or likelihood) of observed data given model parameters and sufficient statistics B and S. This is a stateless, pure oracle computation with no side effects or persistent state.",
+          "conceptual_summary": "ParametricLogLikelihoodOracle. Given a fixed parametric distributional model and a pair of non-negative scalar or array sufficient statistics summarizing observed data, this atom computes the scalar log-probability of the observed data under the model \u2014 collapsing the full observation space into a single real-valued score on the log-probability manifold. The transform is a pure, deterministic projection from the Cartesian product of a parameter space and a sufficient-statistic space into the extended real line, with no mutation of state or accumulation of context. It acts as a scoring oracle that quantifies how well a candidate parameter configuration explains the observed aggregate counts.. Applications: Epidemiology \u2014 Latent-class infection rate estimation: given a two-component mixture model (symptomatic vs. asymptomatic transmission events) and the daily aggregated counts of two observable case types as sufficient statistics, evaluate the log-likelihood to score candidate infection-rate and detection-probability parameters during EM or MCMC inference, Particle physics \u2014 Signal/background event discrimination: given a compound Poisson mixture model separating signal events from background noise, and paired aggregate event counts from a detector readout window as sufficient statistics, score each candidate signal-rate / background-rate parameter pair to drive maximum-likelihood fitting of the detector response model, Ecology \u2014 Mark-recapture population size estimation: given a two-stream mixture model of marked versus unmarked individual sightings (analogous to two classes of discrete arrivals) and the paired capture-count sufficient statistics, compute the log-likelihood surface over population-size and detection-probability parameters to support Bayesian posterior sampling, Neuroscience \u2014 Spike-train neural coding model selection: given a mixture of Poisson processes representing spontaneous versus stimulus-driven neural firing, and the aggregated spike-count pairs from two experimental conditions as sufficient statistics, evaluate log-likelihood scores across candidate firing-rate parameter grids to identify the most probable latent neural state model",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "pinlikelihoodevaluator",
+            "type_signature": "(params: model parameters (e.g., dict or array of distributional parameters), B: scalar or array representing a sufficient statistic (e.g., number of buys), S: scalar or array representing a sufficient statistic (e.g., number of sells)) -> scalar float representing the log-likelihood value",
+            "docstring": "Evaluates the log-likelihood (or likelihood) of observed data given model parameters and sufficient statistics B and S. This is a stateless, pure oracle computation with no side effects or persistent state.",
+            "conceptual_summary": "ParametricLogLikelihoodOracle. Given a fixed parametric distributional model and a pair of non-negative scalar or array sufficient statistics summarizing observed data, this atom computes the scalar log-probability of the observed data under the model \u2014 collapsing the full observation space into a single real-valued score on the log-probability manifold. The transform is a pure, deterministic projection from the Cartesian product of a parameter space and a sufficient-statistic space into the extended real line, with no mutation of state or accumulation of context. It acts as a scoring oracle that quantifies how well a candidate parameter configuration explains the observed aggregate counts.. Applications: Epidemiology \u2014 Latent-class infection rate estimation: given a two-component mixture model (symptomatic vs. asymptomatic transmission events) and the daily aggregated counts of two observable case types as sufficient statistics, evaluate the log-likelihood to score candidate infection-rate and detection-probability parameters during EM or MCMC inference, Particle physics \u2014 Signal/background event discrimination: given a compound Poisson mixture model separating signal events from background noise, and paired aggregate event counts from a detector readout window as sufficient statistics, score each candidate signal-rate / background-rate parameter pair to drive maximum-likelihood fitting of the detector response model, Ecology \u2014 Mark-recapture population size estimation: given a two-stream mixture model of marked versus unmarked individual sightings (analogous to two classes of discrete arrivals) and the paired capture-count sufficient statistics, compute the log-likelihood surface over population-size and detection-probability parameters to support Bayesian posterior sampling, Neuroscience \u2014 Spike-train neural coding model selection: given a mixture of Poisson processes representing spontaneous versus stimulus-driven neural firing, and the aggregated spike-count pairs from two experimental conditions as sufficient statistics, evaluate log-likelihood scores across candidate firing-rate parameter grids to identify the most probable latent neural state model",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

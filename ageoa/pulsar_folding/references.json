@@ -50,6 +50,31 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.pulsar_folding.dm_can.dm_candidate_filter@ageoa/pulsar_folding/dm_can.py:16": {
+      "references": [
+        {
+          "ref_id": "lorimer2005pulsar",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Broad pulsar-search attribution."
+          }
+        },
+        {
+          "ref_id": "repo_pulsar_folding",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored Pulsar_Folding repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

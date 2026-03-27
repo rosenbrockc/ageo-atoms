@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "node_id": "abp_root",
+      "parent_id": null,
+      "name": "ageoa.biosppy.abp",
+      "description": "Consolidated module for ageoa.biosppy.abp.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "audio_onset_detection"
+      ],
+      "depth": 0,
+      "type_signature": "module",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Grouped atoms sharing an upstream family or module.",
+      "critic_notes": "Auto-generated module CDG for consolidation.",
+      "decomposition_rationale": "Replaces singleton atom subpackages with a flat module layout."
+    },
+    {
+      "node_id": "audio_onset_detection",
+      "parent_id": "abp_root",
+      "name": "audio_onset_detection",
+      "description": "Detects note/event onset locations from an input audio signal using the Zong (2003) procedure and threshold/window parameters.",
+      "concept_type": "custom",
+      "inputs": [
+        {
+          "name": "signal",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sampling_rate",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "sm_size",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "size",
+          "type_desc": "int",
+          "constraints": "required argument"
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "wrange",
+          "type_desc": "int | tuple[int, int] | range",
+          "constraints": "required argument"
+        },
+        {
+          "name": "d1_th",
+          "type_desc": "float",
+          "constraints": "required argument"
+        },
+        {
+          "name": "d2_th",
+          "type_desc": "float",
+          "constraints": "required argument"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int_]",
+          "constraints": "function return value"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(signal: NDArray[np.float64], sampling_rate: float, sm_size: int, size: int, alpha: float, wrange: int | tuple[int, int] | range, d1_th: float, d2_th: float) -> NDArray[np.int_]",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Direct callable atom in the consolidated module.",
+      "critic_notes": "Signature derived from the Python wrapper definition.",
+      "decomposition_rationale": "Leaf atom."
+    }
+  ],
+  "edges": []
+}

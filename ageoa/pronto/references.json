@@ -25,6 +25,131 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.pronto.ekf_smoother.stateestimatorinit@ageoa/pronto/ekf_smoother.py:81": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.flex_estimator.estimate_flex_deflection@ageoa/pronto/flex_estimator.py:28": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform@ageoa/pronto/inverse_schmitt.py:19": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.state_estimator.update_state_estimate@ageoa/pronto/state_estimator.py:22": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage@ageoa/pronto/torque_adjustment.py:19": {
+      "references": [
+        {
+          "ref_id": "camurri2020pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Pronto software paper."
+          }
+        },
+        {
+          "ref_id": "repo_pronto",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored pronto repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }

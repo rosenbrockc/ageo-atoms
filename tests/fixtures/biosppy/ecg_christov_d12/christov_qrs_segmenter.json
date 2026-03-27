@@ -1,7 +1,7 @@
 [
   {
     "function": "christov_segmenter",
-    "atom": "biosppy/ecg_christov_d12:christov_qrs_segmenter",
+    "atom": "biosppy/ecg_detectors:christov_qrs_segmenter",
     "inputs": {
       "signal": {
         "__ndarray__": true,

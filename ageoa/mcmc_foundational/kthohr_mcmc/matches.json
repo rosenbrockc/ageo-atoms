@@ -1,0 +1,728 @@
+[
+  {
+    "pdg_node": {
+      "predicate_id": "build_de_transition_kernel",
+      "statement": "(target_log_kernel: callable) -> callable",
+      "informal_desc": "Creates a pure Differential Evolution transition kernel from the provided target log-density oracle.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "build_de_transition_kernel",
+          "type_signature": "(target_log_kernel: callable) -> callable",
+          "docstring": "Creates a pure Differential Evolution transition kernel from the provided target log-density oracle.",
+          "conceptual_summary": "oracle_conditioned_differential_perturbation_kernel_builder. Constructs a higher-order stochastic operator by binding a stateless log-score oracle into a Differential-Evolution-style transition rule. The resulting operator proposes new points by combining existing state vectors with scaled pairwise difference vectors, then uses oracle score differences to probabilistically select the next state. This converts a static compatibility evaluator into a pure, composable Markov transition mechanism with explicit randomness flow.. Applications: Parameter inference for nonlinear biochemical reaction-network models using only simulator-based log-fit or likelihood surrogates, Inverse reconstruction of subsurface physical fields in geophysical imaging from noisy forward-model mismatch scores, Calibration of multibody robotic system parameters (friction, compliance, offsets) from trajectory residual log-scores, Tuning high-dimensional climate or fluid-simulation parameter sets against observational consistency objectives",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "build_de_transition_kernel",
+          "type_signature": "(target_log_kernel: callable) -> callable",
+          "docstring": "Creates a pure Differential Evolution transition kernel from the provided target log-density oracle.",
+          "conceptual_summary": "oracle_conditioned_differential_perturbation_kernel_builder. Constructs a higher-order stochastic operator by binding a stateless log-score oracle into a Differential-Evolution-style transition rule. The resulting operator proposes new points by combining existing state vectors with scaled pairwise difference vectors, then uses oracle score differences to probabilistically select the next state. This converts a static compatibility evaluator into a pure, composable Markov transition mechanism with explicit randomness flow.. Applications: Parameter inference for nonlinear biochemical reaction-network models using only simulator-based log-fit or likelihood surrogates, Inverse reconstruction of subsurface physical fields in geophysical imaging from noisy forward-model mismatch scores, Calibration of multibody robotic system parameters (friction, compliance, offsets) from trajectory residual log-scores, Tuning high-dimensional climate or fluid-simulation parameter sets against observational consistency objectives",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "build_de_transition_kernel",
+            "type_signature": "(target_log_kernel: callable) -> callable",
+            "docstring": "Creates a pure Differential Evolution transition kernel from the provided target log-density oracle.",
+            "conceptual_summary": "oracle_conditioned_differential_perturbation_kernel_builder. Constructs a higher-order stochastic operator by binding a stateless log-score oracle into a Differential-Evolution-style transition rule. The resulting operator proposes new points by combining existing state vectors with scaled pairwise difference vectors, then uses oracle score differences to probabilistically select the next state. This converts a static compatibility evaluator into a pure, composable Markov transition mechanism with explicit randomness flow.. Applications: Parameter inference for nonlinear biochemical reaction-network models using only simulator-based log-fit or likelihood surrogates, Inverse reconstruction of subsurface physical fields in geophysical imaging from noisy forward-model mismatch scores, Calibration of multibody robotic system parameters (friction, compliance, offsets) from trajectory residual log-scores, Tuning high-dimensional climate or fluid-simulation parameter sets against observational consistency objectives",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildhmckernelfromlogdensityoracle",
+      "statement": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+      "informal_desc": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildhmckernelfromlogdensityoracle",
+          "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+          "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+          "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildhmckernelfromlogdensityoracle",
+          "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+          "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+          "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildhmckernelfromlogdensityoracle",
+            "type_signature": "(target_log_kernel: Callable[[position], log_prob]) -> Callable[[PRNGKey, HMCState], (PRNGKey, HMCState)]",
+            "docstring": "Creates a pure Hamiltonian Monte Carlo transition kernel from a provided target log-density oracle, with stochasticity and chain state threaded explicitly.",
+            "conceptual_summary": "Pure Symplectic Markov Transition Constructor from Scalar Potential Oracle. Transforms a deterministic oracle over a continuous state vector into a stochastic, state-to-state transition operator by introducing auxiliary momentum variables and numerically integrating coupled position-momentum dynamics. Each proposal is generated with a volume-preserving, approximately energy-conserving flow, then accept/reject corrected to target the desired invariant distribution. Randomness and chain state are threaded explicitly, yielding a referentially transparent transition function.. Applications: Sampling high-dimensional molecular conformation spaces under differentiable energy models in computational chemistry, Posterior exploration of latent parameter fields in geophysical inverse problems with differentiable forward models, Uncertainty-aware calibration of nonlinear dynamical system parameters in aerospace guidance and control, Bayesian reconstruction of spatially varying material properties in computational mechanics",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "compute_proposal_means_and_jacobians",
+      "statement": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+      "informal_desc": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "compute_proposal_means_and_jacobians",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+          "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "compute_proposal_means_and_jacobians",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+          "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "compute_proposal_means_and_jacobians",
+            "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, vals_bound: bool, mala_mean_fn: Callable, target_data: Any, step_size: fp_t) -> tuple[ColVec_t, ColVec_t, Mat_t, Mat_t]",
+            "docstring": "Computes the MALA proposal means for both previous and proposed states by calling the mean function. If parameters are bounded, it also retrieves the corresponding inverse Jacobian matrices.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "calculate_proposal_log_density_ratio",
+      "statement": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+      "informal_desc": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "calculate_proposal_log_density_ratio",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+          "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "calculate_proposal_log_density_ratio",
+          "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+          "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "calculate_proposal_log_density_ratio",
+            "type_signature": "(prop_vals: ColVec_t, prev_vals: ColVec_t, prop_mean: ColVec_t, prev_mean: ColVec_t, prop_inv_jacob: Mat_t, vals_bound: bool, step_size: fp_t, precond_mat: Mat_t) -> fp_t",
+            "docstring": "Calculates the log-ratio of the reverse-to-forward proposal densities using multivariate normal PDFs. It adjusts the covariance matrix based on whether the parameters are bounded (using Jacobians).",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "integrate_leaf_trajectory",
+      "statement": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, target_data: void*) -> NUTS_Trajectory_Leaf",
+      "informal_desc": "In the recursion base case (tree_depth=0), performs a single leapfrog integration step. It then computes the potential (U) and kinetic (K) energies of the new state, checks if the state is within the valid energy slice (n_val), and determines if the simulation has become unstable (s_val). It also calculates the Metropolis-Hastings acceptance contribution.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "integrate_leaf_trajectory",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, target_data: void*) -> NUTS_Trajectory_Leaf",
+          "docstring": "In the recursion base case (tree_depth=0), performs a single leapfrog integration step. It then computes the potential (U) and kinetic (K) energies of the new state, checks if the state is within the valid energy slice (n_val), and determines if the simulation has become unstable (s_val). It also calculates the Metropolis-Hastings acceptance contribution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "integrate_leaf_trajectory",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, target_data: void*) -> NUTS_Trajectory_Leaf",
+          "docstring": "In the recursion base case (tree_depth=0), performs a single leapfrog integration step. It then computes the potential (U) and kinetic (K) energies of the new state, checks if the state is within the valid energy slice (n_val), and determines if the simulation has become unstable (s_val). It also calculates the Metropolis-Hastings acceptance contribution.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "integrate_leaf_trajectory",
+            "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, target_data: void*) -> NUTS_Trajectory_Leaf",
+            "docstring": "In the recursion base case (tree_depth=0), performs a single leapfrog integration step. It then computes the potential (U) and kinetic (K) energies of the new state, checks if the state is within the valid energy slice (n_val), and determines if the simulation has become unstable (s_val). It also calculates the Metropolis-Hastings acceptance contribution.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "build_initial_subtree",
+      "statement": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+      "informal_desc": "Performs the first recursive call to `nuts_build_tree` with a decremented tree depth to build the initial half of the trajectory.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "build_initial_subtree",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+          "docstring": "Performs the first recursive call to `nuts_build_tree` with a decremented tree depth to build the initial half of the trajectory.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "build_initial_subtree",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+          "docstring": "Performs the first recursive call to `nuts_build_tree` with a decremented tree depth to build the initial half of the trajectory.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "build_initial_subtree",
+            "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+            "docstring": "Performs the first recursive call to `nuts_build_tree` with a decremented tree depth to build the initial half of the trajectory.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "build_doubled_subtree",
+      "statement": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, subtree1_endpoints: TrajectoryEndpoints, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+      "informal_desc": "If the initial subtree is valid, performs a second recursive call to `nuts_build_tree` to double the trajectory. The starting point for this build is the endpoint of the first subtree, in the specified direction.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "build_doubled_subtree",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, subtree1_endpoints: TrajectoryEndpoints, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+          "docstring": "If the initial subtree is valid, performs a second recursive call to `nuts_build_tree` to double the trajectory. The starting point for this build is the endpoint of the first subtree, in the specified direction.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "build_doubled_subtree",
+          "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, subtree1_endpoints: TrajectoryEndpoints, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+          "docstring": "If the initial subtree is valid, performs a second recursive call to `nuts_build_tree` to double the trajectory. The starting point for this build is the endpoint of the first subtree, in the specified direction.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "build_doubled_subtree",
+            "type_signature": "(direction_val: integer, step_size: fp_t, log_rand_val: fp_t, initial_state: HMCState, subtree1_endpoints: TrajectoryEndpoints, inv_precond_matrix: Mat_t, box_log_kernel_fn: Callable, leap_frog_fn: Callable, tree_depth: size_t, rand_engine: rand_engine_t, target_data: void*) -> NUTS_Trajectory_Recursive",
+            "docstring": "If the initial subtree is valid, performs a second recursive call to `nuts_build_tree` to double the trajectory. The starting point for this build is the endpoint of the first subtree, in the specified direction.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "combine_and_sample_proposals",
+      "statement": "(proposal1: ColVec_t, stats1: TrajectoryStats, proposal2: ColVec_t, stats2: TrajectoryStats, rand_engine: rand_engine_t) -> tuple[ColVec_t, TrajectoryStats]",
+      "informal_desc": "Probabilistically selects a new proposed state from the two subtrees, weighted by the number of valid samples in each. It also aggregates the statistics (sample count, alpha) from both subtrees.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "combine_and_sample_proposals",
+          "type_signature": "(proposal1: ColVec_t, stats1: TrajectoryStats, proposal2: ColVec_t, stats2: TrajectoryStats, rand_engine: rand_engine_t) -> tuple[ColVec_t, TrajectoryStats]",
+          "docstring": "Probabilistically selects a new proposed state from the two subtrees, weighted by the number of valid samples in each. It also aggregates the statistics (sample count, alpha) from both subtrees.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "combine_and_sample_proposals",
+          "type_signature": "(proposal1: ColVec_t, stats1: TrajectoryStats, proposal2: ColVec_t, stats2: TrajectoryStats, rand_engine: rand_engine_t) -> tuple[ColVec_t, TrajectoryStats]",
+          "docstring": "Probabilistically selects a new proposed state from the two subtrees, weighted by the number of valid samples in each. It also aggregates the statistics (sample count, alpha) from both subtrees.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "combine_and_sample_proposals",
+            "type_signature": "(proposal1: ColVec_t, stats1: TrajectoryStats, proposal2: ColVec_t, stats2: TrajectoryStats, rand_engine: rand_engine_t) -> tuple[ColVec_t, TrajectoryStats]",
+            "docstring": "Probabilistically selects a new proposed state from the two subtrees, weighted by the number of valid samples in each. It also aggregates the statistics (sample count, alpha) from both subtrees.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "check_global_u_turn",
+      "statement": "(combined_trajectory_endpoints: TrajectoryEndpoints, subtree2_stop_flag: size_t) -> size_t",
+      "informal_desc": "Checks the No-U-Turn condition across the entire combined trajectory using the outermost endpoints. This determines if the tree should stop growing in the next iteration.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "check_global_u_turn",
+          "type_signature": "(combined_trajectory_endpoints: TrajectoryEndpoints, subtree2_stop_flag: size_t) -> size_t",
+          "docstring": "Checks the No-U-Turn condition across the entire combined trajectory using the outermost endpoints. This determines if the tree should stop growing in the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "check_global_u_turn",
+          "type_signature": "(combined_trajectory_endpoints: TrajectoryEndpoints, subtree2_stop_flag: size_t) -> size_t",
+          "docstring": "Checks the No-U-Turn condition across the entire combined trajectory using the outermost endpoints. This determines if the tree should stop growing in the next iteration.",
+          "conceptual_summary": "",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "check_global_u_turn",
+            "type_signature": "(combined_trajectory_endpoints: TrajectoryEndpoints, subtree2_stop_flag: size_t) -> size_t",
+            "docstring": "Checks the No-U-Turn condition across the entire combined trajectory using the outermost endpoints. This determines if the tree should stop growing in the next iteration.",
+            "conceptual_summary": "",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "buildrmhmctransitionkernel",
+      "statement": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+      "informal_desc": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "buildrmhmctransitionkernel",
+          "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+          "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+          "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "buildrmhmctransitionkernel",
+          "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+          "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+          "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "buildrmhmctransitionkernel",
+            "type_signature": "(target_log_kernel: callable, tensor_fn: callable) -> callable",
+            "docstring": "Constructs a pure Riemannian Manifold HMC transition kernel from a target log-density oracle and metric/tensor oracle. The produced kernel is expected to thread immutable sampler state explicitly (e.g., position, momentum, mass/metric tensor, and PRNGKey) as state_in -> state_out.",
+            "conceptual_summary": "Geometry-Conditioned Stochastic State Transition Factory. Constructs a higher-order transition operator by combining a differentiable scalar-field oracle with a position-dependent tensor oracle on the same continuous space. The produced operator maps an explicit immutable state (coordinates, auxiliary momentum-like variables, geometry context, and random seed) to a new state by simulating curvature-aware Hamiltonian flow and applying an acceptance correction that preserves a target invariant distribution. This yields a composable one-step Markov update with no side effects.. Applications: Bayesian inverse estimation in PDE-based material or flow models with highly anisotropic parameter geometry., Latent-state inference for nonlinear biological network models where local uncertainty curvature varies across state space., Probabilistic calibration of robotic mechanism parameters on constrained configuration manifolds., High-dimensional uncertainty sampling for geospatial field reconstruction in climate or environmental modeling.",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  },
+  {
+    "pdg_node": {
+      "predicate_id": "constructrandomwalkmetropoliskernel",
+      "statement": "(target_log_kernel: Callable[[latent_state], float]) -> Callable[[chain_state, prng_key], (chain_state_next, diagnostics, prng_key_next)]",
+      "informal_desc": "Builds a pure Random-Walk Metropolis-Hastings transition kernel from a target log-density oracle, with explicit immutable state and RNG threading.",
+      "prover": "python",
+      "context": {}
+    },
+    "verified_match": {
+      "candidate": {
+        "declaration": {
+          "name": "constructrandomwalkmetropoliskernel",
+          "type_signature": "(target_log_kernel: Callable[[latent_state], float]) -> Callable[[chain_state, prng_key], (chain_state_next, diagnostics, prng_key_next)]",
+          "docstring": "Builds a pure Random-Walk Metropolis-Hastings transition kernel from a target log-density oracle, with explicit immutable state and RNG threading.",
+          "conceptual_summary": "Symmetric Perturbation Acceptance Transition Constructor. Constructs a stochastic state-transition operator that explores an unknown high-dimensional measure using local random perturbations and accept/reject correction. At each step, a candidate state is generated by adding symmetric noise to the current state, then accepted with probability based on the difference of oracle-provided log scores, yielding a valid Markov transition that preserves the target measure under standard conditions. The mechanism is exposed as a pure function with immutable state updates and explicit pseudo-random key threading.. Applications: Calibrating latent parameters in geophysical inverse models from noisy sensor fields, Sampling conformational states in computational chemistry using energy-like score oracles, Estimating posterior distributions of hidden ecological process parameters in population dynamics models, Exploring feasible design manifolds in engineering optimization when only black-box log-score evaluations are available",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      },
+      "verified": true,
+      "compiler_output": "",
+      "proof_term": "",
+      "error_message": "",
+      "verification_level": "type_checked"
+    },
+    "all_candidates": [
+      {
+        "declaration": {
+          "name": "constructrandomwalkmetropoliskernel",
+          "type_signature": "(target_log_kernel: Callable[[latent_state], float]) -> Callable[[chain_state, prng_key], (chain_state_next, diagnostics, prng_key_next)]",
+          "docstring": "Builds a pure Random-Walk Metropolis-Hastings transition kernel from a target log-density oracle, with explicit immutable state and RNG threading.",
+          "conceptual_summary": "Symmetric Perturbation Acceptance Transition Constructor. Constructs a stochastic state-transition operator that explores an unknown high-dimensional measure using local random perturbations and accept/reject correction. At each step, a candidate state is generated by adding symmetric noise to the current state, then accepted with probability based on the difference of oracle-provided log scores, yielding a valid Markov transition that preserves the target measure under standard conditions. The mechanism is exposed as a pure function with immutable state updates and explicit pseudo-random key threading.. Applications: Calibrating latent parameters in geophysical inverse models from noisy sensor fields, Sampling conformational states in computational chemistry using energy-like score oracles, Estimating posterior distributions of hidden ecological process parameters in population dynamics models, Exploring feasible design manifolds in engineering optimization when only black-box log-score evaluations are available",
+          "source_lib": "ingester",
+          "prover": "python",
+          "raw_code": ""
+        },
+        "score": 1.0,
+        "retrieval_method": "ingester"
+      }
+    ],
+    "all_verifications": [
+      {
+        "candidate": {
+          "declaration": {
+            "name": "constructrandomwalkmetropoliskernel",
+            "type_signature": "(target_log_kernel: Callable[[latent_state], float]) -> Callable[[chain_state, prng_key], (chain_state_next, diagnostics, prng_key_next)]",
+            "docstring": "Builds a pure Random-Walk Metropolis-Hastings transition kernel from a target log-density oracle, with explicit immutable state and RNG threading.",
+            "conceptual_summary": "Symmetric Perturbation Acceptance Transition Constructor. Constructs a stochastic state-transition operator that explores an unknown high-dimensional measure using local random perturbations and accept/reject correction. At each step, a candidate state is generated by adding symmetric noise to the current state, then accepted with probability based on the difference of oracle-provided log scores, yielding a valid Markov transition that preserves the target measure under standard conditions. The mechanism is exposed as a pure function with immutable state updates and explicit pseudo-random key threading.. Applications: Calibrating latent parameters in geophysical inverse models from noisy sensor fields, Sampling conformational states in computational chemistry using energy-like score oracles, Estimating posterior distributions of hidden ecological process parameters in population dynamics models, Exploring feasible design manifolds in engineering optimization when only black-box log-score evaluations are available",
+            "source_lib": "ingester",
+            "prover": "python",
+            "raw_code": ""
+          },
+          "score": 1.0,
+          "retrieval_method": "ingester"
+        },
+        "verified": true,
+        "compiler_output": "",
+        "proof_term": "",
+        "error_message": "",
+        "verification_level": "type_checked"
+      }
+    ]
+  }
+]

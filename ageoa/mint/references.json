@@ -50,6 +50,156 @@
         }
       ],
       "auto_attribution_runs": []
+    },
+    "ageoa.mint.apc_module.apccoreevaluation@ageoa/mint/apc_module.py:13": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.mint.axial_attention.rowselfattention@ageoa/mint/axial_attention.py:16": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.mint.axial_attention.row_self_attention@ageoa/mint/axial_attention.py:69": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.mint.encoding_dist_mat.encodedistancematrix@ageoa/mint/encoding_dist_mat.py:18": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.mint.incremental_attention.enable_incremental_state_configuration@ageoa/mint/incremental_attention.py:14": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "ageoa.mint.rotary_embedding.rotaryembedding@ageoa/mint/rotary_embedding.py:58": {
+      "references": [
+        {
+          "ref_id": "mint2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary mint paper cited by the upstream repository."
+          }
+        },
+        {
+          "ref_id": "repo_mint",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream implementation is mapped to the vendored mint repository."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
     }
   }
 }
