@@ -9,6 +9,9 @@ from typing import Any
 import importlib
 
 import icontract
+import numpy as np
+import numpy.typing as npt
+import scipy.sparse as sp
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import (
@@ -17,8 +20,6 @@ from .witnesses import (
     witness_patches_to_image_reconstruction,
     witness_voxel_grid_graph_assembly,
 )
-
-_SCIONA_UNSET = object()
 
 _SCIONA_SOURCE_MODULE = importlib.import_module("sklearn.feature_extraction.image")
 _EXTRACT_PATCHES_2D: Any = getattr(_SCIONA_SOURCE_MODULE, "extract_patches_2d")
@@ -29,6 +30,12 @@ _RECONSTRUCT_FROM_PATCHES_2D: Any = getattr(
 _IMG_TO_GRAPH: Any = getattr(_SCIONA_SOURCE_MODULE, "img_to_graph")
 _GRID_TO_GRAPH: Any = getattr(_SCIONA_SOURCE_MODULE, "grid_to_graph")
 
+PatchSize = tuple[int, int]
+ImageSize = tuple[int, int]
+OptionalDType = npt.DTypeLike | None
+OptionalRandomState = int | np.random.RandomState | np.random.Generator | None
+OptionalSparseCtor = type[sp.spmatrix] | None
+
 
 @register_atom(witness_image_patch_sampling_and_assembly)
 @icontract.require(lambda image: image is not None, "image cannot be None")
@@ -38,12 +45,12 @@ _GRID_TO_GRAPH: Any = getattr(_SCIONA_SOURCE_MODULE, "grid_to_graph")
     "image_patch_sampling_and_assembly output must not be None",
 )
 def extract_patches_2d(
-    image: Any,
-    patch_size: Any,
+    image: np.ndarray,
+    patch_size: PatchSize,
     *,
-    max_patches: Any = _SCIONA_UNSET,
-    random_state: Any = _SCIONA_UNSET,
-) -> object:
+    max_patches: int | float | None = None,
+    random_state: OptionalRandomState = None,
+) -> np.ndarray:
     """Computes valid patch counts, extracts sliding 2D patches from an image tensor, and optionally subsamples patches when max_patches is specified.
 
     Args:
@@ -53,14 +60,14 @@ def extract_patches_2d(
         random_state: Used only when randomized patch subsampling is active.
 
     Returns:
-        object
+        np.ndarray
     """
     call_kwargs: dict[str, Any] = {}
-    if max_patches is not _SCIONA_UNSET:
+    if max_patches is not None:
         call_kwargs["max_patches"] = max_patches
-    if random_state is not _SCIONA_UNSET:
+    if random_state is not None:
         call_kwargs["random_state"] = random_state
-    return _EXTRACT_PATCHES_2D(image, patch_size, **call_kwargs)
+    return np.asarray(_EXTRACT_PATCHES_2D(image, patch_size, **call_kwargs))
 
 
 @register_atom(witness_patches_to_image_reconstruction)
@@ -70,7 +77,7 @@ def extract_patches_2d(
     lambda result: result is not None,
     "patches_to_image_reconstruction output must not be None",
 )
-def reconstruct_from_patches_2d(patches: Any, image_size: Any) -> object:
+def reconstruct_from_patches_2d(patches: np.ndarray, image_size: ImageSize) -> np.ndarray:
     """Reconstructs a full 2D image tensor by assembling provided patches into the requested image size.
 
     Args:
@@ -78,9 +85,9 @@ def reconstruct_from_patches_2d(patches: Any, image_size: Any) -> object:
         image_size: Defines target reconstructed 2D image dimensions.
 
     Returns:
-        object
+        np.ndarray
     """
-    return _RECONSTRUCT_FROM_PATCHES_2D(patches, image_size)
+    return np.asarray(_RECONSTRUCT_FROM_PATCHES_2D(patches, image_size))
 
 
 @register_atom(witness_3d_image_graph_materialization)
@@ -90,12 +97,12 @@ def reconstruct_from_patches_2d(patches: Any, image_size: Any) -> object:
     "3D Image Graph Materialization output must not be None",
 )
 def img_to_graph(
-    img: Any,
+    img: np.ndarray,
     *,
-    mask: Any = _SCIONA_UNSET,
-    return_as: Any = _SCIONA_UNSET,
-    dtype: Any = _SCIONA_UNSET,
-) -> object:
+    mask: np.ndarray | None = None,
+    return_as: OptionalSparseCtor = None,
+    dtype: OptionalDType = None,
+) -> sp.spmatrix:
     """Converts a 3D image volume into a weighted voxel-adjacency graph by constructing neighborhood edges, computing gradient-based edge weights, optionally masking invalid edges, and returning the graph in the requested representation.
 
     Args:
@@ -105,14 +112,14 @@ def img_to_graph(
         dtype: used for edge-weight/output casting
 
     Returns:
-        object
+        scipy.sparse.spmatrix
     """
     call_kwargs: dict[str, Any] = {}
-    if mask is not _SCIONA_UNSET:
+    if mask is not None:
         call_kwargs["mask"] = mask
-    if return_as is not _SCIONA_UNSET:
+    if return_as is not None:
         call_kwargs["return_as"] = return_as
-    if dtype is not _SCIONA_UNSET:
+    if dtype is not None:
         call_kwargs["dtype"] = dtype
     return _IMG_TO_GRAPH(img, **call_kwargs)
 
@@ -125,14 +132,14 @@ def img_to_graph(
     "Voxel Grid Graph Assembly output must not be None",
 )
 def grid_to_graph(
-    n_x: Any,
-    n_y: Any,
-    n_z: Any = _SCIONA_UNSET,
+    n_x: int,
+    n_y: int,
+    n_z: int = 1,
     *,
-    mask: Any = _SCIONA_UNSET,
-    return_as: Any = _SCIONA_UNSET,
-    dtype: Any = _SCIONA_UNSET,
-) -> object:
+    mask: np.ndarray | None = None,
+    return_as: OptionalSparseCtor = None,
+    dtype: OptionalDType = None,
+) -> sp.spmatrix:
     """Constructs a 3D grid adjacency graph by generating lattice edges, optionally computing gradient-based edge weights, optionally masking invalid connections, and returning the graph in the requested representation.
 
     Args:
@@ -144,15 +151,15 @@ def grid_to_graph(
         dtype: numeric dtype for graph weights
 
     Returns:
-        object
+        scipy.sparse.spmatrix
     """
     call_kwargs: dict[str, Any] = {}
-    if n_z is not _SCIONA_UNSET:
+    if n_z != 1:
         call_kwargs["n_z"] = n_z
-    if mask is not _SCIONA_UNSET:
+    if mask is not None:
         call_kwargs["mask"] = mask
-    if return_as is not _SCIONA_UNSET:
+    if return_as is not None:
         call_kwargs["return_as"] = return_as
-    if dtype is not _SCIONA_UNSET:
+    if dtype is not None:
         call_kwargs["dtype"] = dtype
     return _GRID_TO_GRAPH(n_x, n_y, **call_kwargs)

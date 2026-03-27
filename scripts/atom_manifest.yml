@@ -73,6 +73,41 @@
     language: python
 
 # =============================================================================
+#  scikit-learn
+# =============================================================================
+- atom: sklearn/images:extract_patches_2d
+  upstream:
+    repo: ~
+    module: sklearn.feature_extraction.image
+    function: extract_patches_2d
+    language: python
+    notes: Uses the installed scikit-learn package as the upstream signature source.
+
+- atom: sklearn/images:reconstruct_from_patches_2d
+  upstream:
+    repo: ~
+    module: sklearn.feature_extraction.image
+    function: reconstruct_from_patches_2d
+    language: python
+    notes: Uses the installed scikit-learn package as the upstream signature source.
+
+- atom: sklearn/images:img_to_graph
+  upstream:
+    repo: ~
+    module: sklearn.feature_extraction.image
+    function: img_to_graph
+    language: python
+    notes: Uses the installed scikit-learn package as the upstream signature source.
+
+- atom: sklearn/images:grid_to_graph
+  upstream:
+    repo: ~
+    module: sklearn.feature_extraction.image
+    function: grid_to_graph
+    language: python
+    notes: Uses the installed scikit-learn package as the upstream signature source.
+
+# =============================================================================
 #  bayes (Rust)
 # =============================================================================
 - atom: bayes_rs/bernoulli:bernoulli_probabilistic_oracle
@@ -2607,6 +2642,22 @@
     module: Tempo.offset
     function: offset_tt2tdb
     language: julia
+
+- atom: tempo:offset_tt2tdb
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.offset
+    function: offset_tt2tdb
+    language: julia
+    notes: Hand-written Python approximation of the Tempo.jl offset function.
+
+- atom: tempo:offset_tai2tdb
+  upstream:
+    repo: Tempo.jl
+    module: Tempo.offset
+    function: offset_tt2tdb
+    language: julia
+    notes: Hand-written Python composition of TAI->TT and TT->TDB offsets.
 
 - atom: tempo_jl/offset_tt2tdb_d12:tt2tdb_offset
   upstream:

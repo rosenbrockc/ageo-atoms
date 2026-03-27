@@ -179,8 +179,11 @@ def _extract_with_inspect(mapping: UpstreamMapping) -> dict[str, Any] | None:
     except Exception:
         return None
     target: Any = module
-    for part in mapping.function.split("."):
-        target = getattr(target, part)
+    try:
+        for part in mapping.function.split("."):
+            target = getattr(target, part)
+    except Exception:
+        return None
     try:
         sig = inspect.signature(target)
     except Exception:

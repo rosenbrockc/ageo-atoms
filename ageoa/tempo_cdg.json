@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "node_id": "tempo_root",
+      "parent_id": null,
+      "name": "tempo",
+      "description": "Top-level time-scale offset wrappers.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "offset_tt2tdb",
+        "offset_tai2tdb"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "offset_tt2tdb",
+      "parent_id": "tempo_root",
+      "name": "offset_tt2tdb",
+      "description": "Compute the TT to TDB offset for scalar or vector elapsed-time inputs.",
+      "concept_type": "coordinate_transform",
+      "inputs": [
+        {
+          "name": "seconds",
+          "type_desc": "array",
+          "constraints": "scalar or array of elapsed seconds"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "offset_seconds",
+          "type_desc": "array",
+          "constraints": "same shape as input"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(seconds: array) -> array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Map TT elapsed seconds to a TDB offset.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "offset_tai2tdb",
+      "parent_id": "tempo_root",
+      "name": "offset_tai2tdb",
+      "description": "Compute the TAI to TDB offset for scalar or vector elapsed-time inputs.",
+      "concept_type": "coordinate_transform",
+      "inputs": [
+        {
+          "name": "seconds",
+          "type_desc": "array",
+          "constraints": "scalar or array of elapsed seconds"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "offset_seconds",
+          "type_desc": "array",
+          "constraints": "same shape as input"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(seconds: array) -> array",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Map TAI elapsed seconds to a TDB offset.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "hand_refined",
+    "module_name": "ageoa.tempo"
+  }
+}

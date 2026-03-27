@@ -41,3 +41,24 @@ def test_acceptability_caps_unmapped_atoms_below_trusted_range() -> None:
     result = score_acceptability(record, evidence)
     assert result["acceptability_score"] <= 59
     assert result["max_reviewable_verdict"] == "acceptable_with_limits"
+
+
+def test_extract_patches_manifest_is_not_marked_stateful_from_random_state_name() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "sklearn/images:extract_patches_2d")
+    assert record["stateful_kind"] == "none"
+    assert "stateful_api" not in record["risk_reasons"]
+
+
+def test_extract_patches_mapping_resolves_to_importable_sklearn_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "sklearn/images:extract_patches_2d")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "inspect"
+    assert evidence["upstream_signature"]["parameter_names"] == [
+        "image",
+        "patch_size",
+        "max_patches",
+        "random_state",
+    ]

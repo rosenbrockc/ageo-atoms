@@ -21,6 +21,7 @@ PLACEHOLDER_DOCSTRING_SNIPPETS = {
 }
 ALLOWED_SOURCE_KINDS = {"hand_written", "generated_ingest", "refined_ingest", "skeleton"}
 ALLOWED_STATEFUL_KINDS = {"none", "explicit_state_model", "argument_state", "return_state", "implicit_stateful"}
+NON_STATE_ARGUMENT_NAMES = {"random_state"}
 
 
 def _utc_now() -> str:
@@ -234,7 +235,7 @@ def _detect_ffi(path: Path, text: str) -> bool:
 def _detect_stateful(argument_names: list[str], return_annotation: str | None, artifacts: dict[str, bool]) -> bool:
     if artifacts["has_state_models"]:
         return True
-    if any(name.endswith("state") or name == "state" for name in argument_names):
+    if any((name.endswith("state") or name == "state") and name not in NON_STATE_ARGUMENT_NAMES for name in argument_names):
         return True
     return bool(return_annotation and "State" in return_annotation)
 
@@ -242,7 +243,7 @@ def _detect_stateful(argument_names: list[str], return_annotation: str | None, a
 def _detect_stateful_kind(argument_names: list[str], return_annotation: str | None, artifacts: dict[str, bool]) -> str:
     if artifacts["has_state_models"]:
         return "explicit_state_model"
-    if any(name.endswith("state") or name == "state" for name in argument_names):
+    if any((name.endswith("state") or name == "state") and name not in NON_STATE_ARGUMENT_NAMES for name in argument_names):
         return "argument_state"
     if return_annotation and "State" in return_annotation:
         return "return_state"
