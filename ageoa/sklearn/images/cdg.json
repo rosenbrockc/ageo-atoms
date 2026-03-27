@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "node_id": "extract_patches_2d_root",
+      "parent_id": null,
+      "name": "extract_patches_2d",
+      "description": "Ingested pipeline from extract_patches_2d",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "image_patch_sampling_and_assembly"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "image_patch_sampling_and_assembly",
+      "parent_id": "extract_patches_2d_root",
+      "name": "image_patch_sampling_and_assembly",
+      "description": "Computes valid patch counts, extracts sliding 2D patches from an image tensor, and optionally subsamples patches when max_patches is specified. [query]",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "patch_size",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_patches",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "random_state",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "patches",
+          "type_desc": "array of extracted 2D patches",
+          "constraints": "Shape reflects selected patch count and patch_size.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(image: Any, patch_size: Any, max_patches: Any, random_state: Any) -> array of extracted 2D patches",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Canonical query operation via extract_patches_2d.",
+      "critic_notes": "",
+      "decomposition_rationale": "canonical_ir"
+    },
+    {
+      "node_id": "reconstruct_from_patches_2d_root",
+      "parent_id": null,
+      "name": "reconstruct_from_patches_2d",
+      "description": "Ingested pipeline from reconstruct_from_patches_2d",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "patches_to_image_reconstruction"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "patches_to_image_reconstruction",
+      "parent_id": "reconstruct_from_patches_2d_root",
+      "name": "patches_to_image_reconstruction",
+      "description": "Reconstructs a full 2D image tensor by assembling provided patches into the requested image size. [query]",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "patches",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "image_size",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reconstructed_image",
+          "type_desc": "array-like",
+          "constraints": "Shape matches image_size.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(patches: Any, image_size: Any) -> array-like",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Canonical query operation via reconstruct_from_patches_2d.",
+      "critic_notes": "",
+      "decomposition_rationale": "canonical_ir"
+    },
+    {
+      "node_id": "img_to_graph_root",
+      "parent_id": null,
+      "name": "img_to_graph",
+      "description": "Ingested pipeline from img_to_graph",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "3d_image_graph_materialization"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "3d_image_graph_materialization",
+      "parent_id": "img_to_graph_root",
+      "name": "3D Image Graph Materialization",
+      "description": "Converts a 3D image volume into a weighted voxel-adjacency graph by constructing neighborhood edges, computing gradient-based edge weights, optionally masking invalid edges, and returning the graph in the requested representation. [query]",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "img",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "mask",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "return_as",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dtype",
+          "type_desc": "Any",
+          "constraints": "",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "graph",
+          "type_desc": "weighted adjacency graph/sparse matrix",
+          "constraints": "encodes 3D voxel neighborhood connectivity and weights",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(img: Any, mask: Any, return_as: Any, dtype: Any) -> weighted adjacency graph/sparse matrix",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Canonical query operation via img_to_graph. Planned group: 3d_image_graph_materialization.",
+      "critic_notes": "",
+      "decomposition_rationale": "canonical_ir"
+    }
+  ],
+  "edges": []
+}

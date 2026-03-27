@@ -57,6 +57,7 @@ for _name in (
     "skyfield",
     "hPDB",
     "heartpy",
+    "sklearn",
 ):
     _maybe_import(_name)
 
@@ -95,4 +96,5 @@ __all__ = [
     "skyfield",
     "hPDB",
     "heartpy",
+    "sklearn",
 ]
