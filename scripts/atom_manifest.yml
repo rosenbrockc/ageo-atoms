@@ -1594,6 +1594,27 @@
     function: q_solver
     language: python
 
+- atom: pasqal/docking:sub_graph_embedder
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_subgraph_vv
+    function: GreedySubgraphVV.obtain_embeddable_subgraphs
+    language: python
+
+- atom: pasqal/docking:graph_transformer
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.greedy_subgraph_vv
+    function: GreedySubgraphVV.generate_graph_to_solve
+    language: python
+
+- atom: pasqal/docking:quantum_mwis_solver
+  upstream:
+    repo: Molecular-Docking
+    module: src.solver.quantum_solver_molecular
+    function: q_solver
+    language: python
+
 - atom: molecular_docking/add_quantum_link:addquantumlink
   upstream:
     repo: Molecular-Docking

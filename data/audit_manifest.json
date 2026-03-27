@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-27T21:42:41+00:00",
+    "generated_at": "2026-03-27T21:51:34+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -74,11 +74,11 @@
     "skeleton_count": 0,
     "parity_coverage_count": 15,
     "reference_coverage_count": 501,
-    "unmapped_upstream_count": 66,
+    "unmapped_upstream_count": 63,
     "structural_status_counts": {
       "fail": 12,
-      "partial": 89,
-      "pass": 404
+      "partial": 86,
+      "pass": 407
     }
   },
   "atoms": [
@@ -3779,11 +3779,11 @@
         "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
+        "replace placeholder docstring text",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "replace placeholder docstring text"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "filtered",
@@ -3936,11 +3936,11 @@
         "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
+        "replace placeholder docstring text",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "replace placeholder docstring text"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "filtered",
@@ -4483,11 +4483,11 @@
         "STRUCT_WITNESS_PLACEHOLDER"
       ],
       "required_actions": [
+        "replace placeholder witness bindings with typed witnesses",
+        "replace placeholder witness with a typed witness binding",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "replace placeholder witness bindings with typed witnesses",
-        "replace placeholder witness with a typed witness binding"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "signal",
@@ -35620,12 +35620,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "a",
@@ -35783,12 +35783,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "a",
@@ -35946,12 +35946,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "a",
@@ -36109,12 +36109,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "a",
@@ -36272,12 +36272,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "n",
@@ -36421,12 +36421,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "x",
@@ -40639,20 +40639,26 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:27",
+      "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:39",
       "atom_name": "ageoa.pasqal.docking.sub_graph_embedder",
       "atom_key": "pasqal/docking:sub_graph_embedder",
       "module_import_path": "ageoa.pasqal.docking",
       "module_path": "ageoa/pasqal/docking.py",
       "wrapper_symbol": "sub_graph_embedder",
-      "wrapper_line": 27,
+      "wrapper_line": 39,
       "domain_family": "pasqal",
       "module_family": "pasqal",
       "source_kind": "hand_written",
       "risk_tier": "high",
-      "upstream_symbols": {},
+      "upstream_symbols": {
+        "repo": "Molecular-Docking",
+        "module": "src.solver.greedy_subgraph_vv",
+        "function": "GreedySubgraphVV.obtain_embeddable_subgraphs",
+        "language": "python",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -40662,24 +40668,21 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "current_graph",
@@ -40696,7 +40699,7 @@
           "name": "current_graph",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "nx.Graph"
+          "annotation": "'nx.Graph'"
         },
         {
           "name": "subgraph_quantity",
@@ -40733,6 +40736,12 @@
           "path": "ageoa/pasqal/docking.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Molecular-Docking",
+          "module": "src.solver.greedy_subgraph_vv",
+          "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pasqal/references.json"
         }
@@ -40740,7 +40749,6 @@
       "risk_reasons": [
         "stateful_api",
         "procedural_wrapper",
-        "unmapped_upstream",
         "missing_parity"
       ],
       "risk_score": null,
@@ -40754,29 +40762,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pasqal.docking.sub_graph_embedder@ageoa/pasqal/docking.py:27",
-          "atom_key": "pasqal/docking:sub_graph_embedder",
-          "domain_family": "pasqal",
-          "module_path": "ageoa/pasqal/docking.py",
-          "wrapper_symbol": "sub_graph_embedder",
-          "code": "STRUCT_IMPORT_HEAVY",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "heavy import: networkx",
-          "path": "ageoa/pasqal/docking.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-IMPORT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -40797,20 +40787,26 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:58",
+      "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:70",
       "atom_name": "ageoa.pasqal.docking.graph_transformer",
       "atom_key": "pasqal/docking:graph_transformer",
       "module_import_path": "ageoa.pasqal.docking",
       "module_path": "ageoa/pasqal/docking.py",
       "wrapper_symbol": "graph_transformer",
-      "wrapper_line": 58,
+      "wrapper_line": 70,
       "domain_family": "pasqal",
       "module_family": "pasqal",
       "source_kind": "hand_written",
       "risk_tier": "high",
-      "upstream_symbols": {},
+      "upstream_symbols": {
+        "repo": "Molecular-Docking",
+        "module": "src.solver.greedy_subgraph_vv",
+        "function": "GreedySubgraphVV.generate_graph_to_solve",
+        "language": "python",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -40820,24 +40816,21 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "current_graph",
@@ -40856,13 +40849,13 @@
           "name": "current_graph",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "nx.Graph"
+          "annotation": "'nx.Graph'"
         },
         {
           "name": "lattice",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "nx.Graph"
+          "annotation": "'nx.Graph'"
         },
         {
           "name": "mapping",
@@ -40877,7 +40870,7 @@
           "annotation": "MolecularDockingState"
         }
       ],
-      "return_annotation": "tuple[nx.Graph, MolecularDockingState]",
+      "return_annotation": "tuple['nx.Graph', MolecularDockingState]",
       "decorator_count": 4,
       "require_count": 1,
       "ensure_count": 2,
@@ -40899,6 +40892,12 @@
           "path": "ageoa/pasqal/docking.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Molecular-Docking",
+          "module": "src.solver.greedy_subgraph_vv",
+          "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pasqal/references.json"
         }
@@ -40906,7 +40905,6 @@
       "risk_reasons": [
         "stateful_api",
         "procedural_wrapper",
-        "unmapped_upstream",
         "missing_parity"
       ],
       "risk_score": null,
@@ -40920,29 +40918,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pasqal.docking.graph_transformer@ageoa/pasqal/docking.py:58",
-          "atom_key": "pasqal/docking:graph_transformer",
-          "domain_family": "pasqal",
-          "module_path": "ageoa/pasqal/docking.py",
-          "wrapper_symbol": "graph_transformer",
-          "code": "STRUCT_IMPORT_HEAVY",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "heavy import: networkx",
-          "path": "ageoa/pasqal/docking.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-IMPORT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -40963,20 +40943,26 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
+      "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:120",
       "atom_name": "ageoa.pasqal.docking.quantum_mwis_solver",
       "atom_key": "pasqal/docking:quantum_mwis_solver",
       "module_import_path": "ageoa.pasqal.docking",
       "module_path": "ageoa/pasqal/docking.py",
       "wrapper_symbol": "quantum_mwis_solver",
-      "wrapper_line": 107,
+      "wrapper_line": 120,
       "domain_family": "pasqal",
       "module_family": "pasqal",
       "source_kind": "hand_written",
       "risk_tier": "high",
-      "upstream_symbols": {},
+      "upstream_symbols": {
+        "repo": "Molecular-Docking",
+        "module": "src.solver.quantum_solver_molecular",
+        "function": "q_solver",
+        "language": "python",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -40986,24 +40972,21 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "unknown",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
+      "acceptability_score": 59,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "graph",
@@ -41022,7 +41005,7 @@
           "name": "graph",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "nx.Graph"
+          "annotation": "'nx.Graph'"
         },
         {
           "name": "lattice_id_coord_dic",
@@ -41065,6 +41048,12 @@
           "path": "ageoa/pasqal/docking.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Molecular-Docking",
+          "module": "src.solver.quantum_solver_molecular",
+          "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pasqal/references.json"
         }
@@ -41072,7 +41061,6 @@
       "risk_reasons": [
         "stateful_api",
         "procedural_wrapper",
-        "unmapped_upstream",
         "missing_parity"
       ],
       "risk_score": null,
@@ -41086,29 +41074,11 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ]
       },
-      "structural_findings": [
-        "STRUCT_IMPORT_HEAVY"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pasqal.docking.quantum_mwis_solver@ageoa/pasqal/docking.py:107",
-          "atom_key": "pasqal/docking:quantum_mwis_solver",
-          "domain_family": "pasqal",
-          "module_path": "ageoa/pasqal/docking.py",
-          "wrapper_symbol": "quantum_mwis_solver",
-          "code": "STRUCT_IMPORT_HEAVY",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "heavy import: networkx",
-          "path": "ageoa/pasqal/docking.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-IMPORT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [],
       "semantic_finding_details": [],
       "parity_coverage_level": "none",
@@ -45597,11 +45567,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
+        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "DM",
@@ -45747,11 +45717,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
+        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "data",
@@ -45921,11 +45891,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
+        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "data",
@@ -46071,11 +46041,11 @@
         "STRUCT_CDG_INVALID"
       ],
       "required_actions": [
+        "repair the CDG structure and schema",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "arr"
@@ -59133,12 +59103,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "x",
@@ -59310,12 +59280,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "x",
@@ -63687,12 +63657,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "W",
@@ -63843,12 +63813,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "L",
@@ -64000,12 +63970,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "x_hat",
@@ -64150,12 +64120,12 @@
         "STRUCT_CDG_MISSING"
       ],
       "required_actions": [
+        "add the missing CDG artifact",
+        "add a CDG artifact for this atom family",
         "add parity fixtures or a safe runtime probe",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest",
-        "add the missing CDG artifact",
-        "add a CDG artifact for this atom family"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "L",
