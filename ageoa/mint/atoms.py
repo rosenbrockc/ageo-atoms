@@ -1,103 +1,105 @@
-"""Auto-generated verified atom wrapper."""
+"""Deterministic wrappers for selected mint attention operations."""
 
-import numpy as np
+from __future__ import annotations
+
 import icontract
+import numpy as np
+
 from ageoa.ghost.registry import register_atom
+
 from .witnesses import witness_axial_attention, witness_rotary_positional_embeddings
 
 
+def _softmax(scores: np.ndarray, axis: int = -1) -> np.ndarray:
+    shifted = scores - np.max(scores, axis=axis, keepdims=True)
+    exp_scores = np.exp(shifted)
+    return exp_scores / np.sum(exp_scores, axis=axis, keepdims=True)
+
+
+def _rotate_half(x: np.ndarray) -> np.ndarray:
+    half = x.shape[-1] // 2
+    x1 = x[..., :half]
+    x2 = x[..., half:]
+    return np.concatenate((-x2, x1), axis=-1)
+
+
+def _apply_rotary_pos_emb(x: np.ndarray, cos: np.ndarray, sin: np.ndarray) -> np.ndarray:
+    return (x * cos) + (_rotate_half(x) * sin)
+
+
+def _is_finite_ndarray(value: object) -> bool:
+    return isinstance(value, np.ndarray) and np.isfinite(value).all()
+
+
+def _is_valid_axial_input(value: object) -> bool:
+    return (
+        isinstance(value, np.ndarray)
+        and value.ndim == 4
+        and value.shape[0] > 0
+        and value.shape[1] > 0
+        and value.shape[-1] > 0
+        and np.isfinite(value).all()
+    )
+
+
+def _is_valid_rotary_input(value: object) -> bool:
+    return isinstance(value, np.ndarray) and value.ndim >= 2 and value.shape[-1] % 2 == 0 and np.isfinite(value).all()
+
+
+def _same_shape(a: object, b: object) -> bool:
+    return isinstance(a, np.ndarray) and isinstance(b, np.ndarray) and a.shape == b.shape
+
 
 @register_atom(witness_axial_attention)
-@icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
-@icontract.require(lambda data: data.shape[0] > 0, "data must not be empty along first axis")
-@icontract.require(lambda data: data.ndim >= 2, "data must have at least two dimensions for 2D attention")
-@icontract.require(lambda data: data is not None, "data must not be None")
-@icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
+@icontract.require(lambda x: x is not None, "x must not be None")
+@icontract.require(lambda x: _is_valid_axial_input(x), "x must be a finite numpy array with shape (rows, cols, batch, embed_dim)")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
-@icontract.ensure(lambda result: result.ndim >= 2, "result must have at least two dimensions")
-def axial_attention(data: np.ndarray) -> np.ndarray:
-    """Implements factorized attention over 2D sequence alignments.
+@icontract.ensure(lambda result: isinstance(result, tuple), "result must be a tuple")
+def axial_attention(
+    x: np.ndarray,
+    self_attn_mask: np.ndarray | None = None,
+    self_attn_padding_mask: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Apply a deterministic row-wise self-attention approximation."""
+    del self_attn_mask
 
-    Args:
-        data: Input N-dimensional tensor or 1D scalar array.
+    rows, cols, batch_size, embed_dim = x.shape
+    scaling = 1.0 / np.sqrt(float(max(embed_dim * rows, 1)))
+    q = np.transpose(x, (0, 2, 1, 3))
+    k = np.transpose(x, (0, 2, 1, 3))
+    v = np.transpose(x, (0, 2, 1, 3))
 
-    Returns:
-        Processed output array.
-    """
-    # Factorized axial attention: row-wise then column-wise softmax attention
-    # data shape: (R, C, D) or (R, C)
-    if data.ndim == 2:
-        R, C = data.shape
-        # Row attention: softmax(data @ data.T / sqrt(C)) @ data
-        scores_row = data @ data.T / np.sqrt(C)
-        scores_row -= scores_row.max(axis=-1, keepdims=True)
-        attn_row = np.exp(scores_row) / np.exp(scores_row).sum(axis=-1, keepdims=True)
-        out_row = attn_row @ data
-        # Column attention
-        scores_col = out_row.T @ out_row / np.sqrt(R)
-        scores_col -= scores_col.max(axis=-1, keepdims=True)
-        attn_col = np.exp(scores_col) / np.exp(scores_col).sum(axis=-1, keepdims=True)
-        return (out_row @ attn_col)
-    else:
-        # 3D+: apply attention along first two axes
-        shape = data.shape
-        R, C = shape[0], shape[1]
-        D = int(np.prod(shape[2:])) if len(shape) > 2 else 1
-        flat = data.reshape(R, C, D)
-        # Row attention per column
-        for c in range(C):
-            col_data = flat[:, c, :]  # (R, D)
-            scores = col_data @ col_data.T / np.sqrt(D)
-            scores -= scores.max(axis=-1, keepdims=True)
-            attn = np.exp(scores) / np.exp(scores).sum(axis=-1, keepdims=True)
-            flat[:, c, :] = attn @ col_data
-        return flat.reshape(shape)
+    attn_logits = np.einsum("rbid,rbjd->bij", q, k) * scaling
+    if self_attn_padding_mask is not None:
+        padding = np.asarray(self_attn_padding_mask, dtype=bool)
+        if padding.shape == (batch_size, rows, cols):
+            masked_cols = padding[:, 0, :]
+            attn_logits = np.where(masked_cols[None, :, None], -1e9, attn_logits)
+    attn_probs = _softmax(attn_logits, axis=-1)
+    context = np.einsum("bij,rbjd->rbid", attn_probs, v)
+    output = np.transpose(context, (0, 2, 1, 3))
+    return output.astype(x.dtype, copy=False), attn_probs.astype(x.dtype, copy=False)
+
 
 @register_atom(witness_rotary_positional_embeddings)
-@icontract.require(lambda data: np.isfinite(data).all(), "data must contain only finite values")
-@icontract.require(lambda data: data.shape[0] > 0, "data must not be empty")
-@icontract.require(lambda data: data.ndim >= 1, "data must have at least one dimension")
-@icontract.require(lambda data: data is not None, "data must not be None")
-@icontract.require(lambda data: isinstance(data, np.ndarray), "data must be a numpy array")
+@icontract.require(lambda q: q is not None, "q must not be None")
+@icontract.require(lambda k: k is not None, "k must not be None")
+@icontract.require(lambda q: _is_valid_rotary_input(q), "q must be a finite numpy array with at least two dimensions and an even embedding size")
+@icontract.require(lambda k: _is_valid_rotary_input(k), "k must be a finite numpy array with at least two dimensions and an even embedding size")
+@icontract.require(lambda q, k: _same_shape(q, k), "q and k must have identical shapes")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-@icontract.ensure(lambda result: isinstance(result, np.ndarray), "result must be a numpy array")
-@icontract.ensure(lambda result: result.ndim >= 1, "result must have at least one dimension")
-def rotary_positional_embeddings(data: np.ndarray) -> np.ndarray:
-    """Encodes relative position into a tensor using rotary transformations.
-
-    Args:
-        data: Input N-dimensional tensor or 1D scalar array.
-
-    Returns:
-        Processed output array.
-    """
-    # Rotary positional embeddings (RoPE)
-    if data.ndim == 1:
-        seq_len = data.shape[0]
-        d = seq_len
-        freqs = 1.0 / (10000 ** (np.arange(0, d, 2, dtype=np.float64) / d))
-        positions = np.arange(seq_len, dtype=np.float64)
-        angles = np.outer(positions, freqs)
-        cos_a, sin_a = np.cos(angles), np.sin(angles)
-        out = np.empty_like(data)
-        half = d // 2
-        out[:half] = data[:half] * cos_a[:half, 0] - data[half:2*half] * sin_a[:half, 0] if 2*half <= d else data[:half]
-        if 2 * half <= d:
-            out[half:2*half] = data[:half] * sin_a[:half, 0] + data[half:2*half] * cos_a[:half, 0]
-        return out
-    # For higher dims, apply RoPE along last dimension
-    shape = data.shape
-    seq_len = shape[-2] if data.ndim >= 2 else shape[0]
-    head_dim = shape[-1]
-    freqs = 1.0 / (10000 ** (np.arange(0, head_dim, 2, dtype=np.float64) / head_dim))
+@icontract.ensure(lambda result: isinstance(result, tuple), "result must be a tuple")
+def rotary_positional_embeddings(q: np.ndarray, k: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Apply rotary position embeddings to a query/key pair."""
+    seq_len = k.shape[-2]
+    dim = k.shape[-1]
+    inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2, dtype=np.float64) / dim))
     positions = np.arange(seq_len, dtype=np.float64)
-    angles = np.outer(positions, freqs)
-    cos_a = np.cos(angles)
-    sin_a = np.sin(angles)
-    x1 = data[..., 0::2]
-    x2 = data[..., 1::2]
-    out = np.empty_like(data)
-    out[..., 0::2] = x1 * cos_a - x2 * sin_a
-    out[..., 1::2] = x1 * sin_a + x2 * cos_a
-    return out
+    freqs = np.einsum("i,j->ij", positions, inv_freq)
+    emb = np.concatenate((freqs, freqs), axis=-1)
+    cos = np.cos(emb)[None, ...]
+    sin = np.sin(emb)[None, ...]
+    return (
+        _apply_rotary_pos_emb(q, cos, sin).astype(q.dtype, copy=False),
+        _apply_rotary_pos_emb(k, cos, sin).astype(k.dtype, copy=False),
+    )

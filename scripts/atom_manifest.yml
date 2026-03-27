@@ -1947,6 +1947,54 @@
     language: python
     notes: Standard library; no third_party repo
 
+- atom: numpy/fft:fft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: fft
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft:ifft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: ifft
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft:rfft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: rfft
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft:irfft
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: irfft
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft:fftfreq
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: fftfreq
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: numpy/fft:fftshift
+  upstream:
+    repo: ~
+    module: numpy.fft
+    function: fftshift
+    language: python
+    notes: Standard library; no third_party repo
+
 - atom: numpy/random_v2:combinatoricssampler
   upstream:
     repo: ~
@@ -2195,6 +2243,25 @@
     module: pronto_quadruped.InverseSchmittTrigger
     function: InverseSchmittTrigger::update
     language: cpp
+
+# =============================================================================
+#  scipy  (standard library stubs – no third_party)
+# =============================================================================
+- atom: scipy/fft:dct
+  upstream:
+    repo: ~
+    module: scipy.fft
+    function: dct
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/fft:idct
+  upstream:
+    repo: ~
+    module: scipy.fft
+    function: idct
+    language: python
+    notes: Standard library; no third_party repo
 
 - atom: pronto/leg_odometer:posequeryaccessors
   upstream:

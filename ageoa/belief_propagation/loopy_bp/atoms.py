@@ -1,13 +1,16 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from typing import TYPE_CHECKING
 
 
 import numpy as np
 import icontract
-from typing import Any
 from ageoa.ghost.registry import register_atom
 from .state_models import BPState
+
+if TYPE_CHECKING:
+    import networkx as nx
 
 
 # Domain-specific type aliases
@@ -20,17 +23,17 @@ from .witnesses import (
 @register_atom(witness_initialize_message_passing_state)
 @icontract.require(lambda pgm: pgm is not None, "pgm cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_message_passing_state(pgm: object, state: BPState) -> tuple[object, BPState]:
+def initialize_message_passing_state(pgm: "nx.DiGraph", state: BPState) -> tuple[BPState, BPState]:
     """Build the immutable loopy Belief Propagation (BP) state from the Probabilistic Graphical Model (PGM).
 
     Args:
-        pgm: Factor graph structure with variable/factor neighborhoods.
+        pgm: Factor graph structure with variable and factor neighborhoods.
         state: Belief Propagation state containing cross-window persistent state.
 
     Returns:
-        Tuple of initialized state object and updated BPState.
+        Initialized message-passing state and the updated BPState.
     """
-    import networkx as nx
+    del state
     # Initialize uniform messages on all directed edges
     msg = {}
     msg_new = {}
@@ -52,7 +55,7 @@ def initialize_message_passing_state(pgm: object, state: BPState) -> tuple[objec
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def run_loopy_message_passing_and_belief_query(
     state_in: BPState, v_name: str, num_iter: int, state: BPState
-) -> tuple[tuple[np.ndarray, object], BPState]:
+) -> tuple[tuple[np.ndarray, BPState], BPState]:
     """Run loopy Belief Propagation (BP) message-passing iterations and return the queried variable's belief.
 
     Args:

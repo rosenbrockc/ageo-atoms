@@ -1,6 +1,6 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
-from typing import Any, Callable, cast
+from typing import TypedDict
 
 
 import numpy as np
@@ -12,7 +12,21 @@ import ctypes
 import ctypes.util
 from pathlib import Path
 
-YawLockState = object
+JointNameInput = list[str] | tuple[str, ...] | np.ndarray
+JointValueInput = list[float] | tuple[float, ...] | np.ndarray
+
+
+class YawLockState(TypedDict):
+    correction_period: float
+    yaw_slip_detect: bool
+    yaw_slip_threshold_degrees: float
+    yaw_slip_disable_period: float
+    is_robot_standing: bool
+    joint_name: JointNameInput | None
+    joint_position: JointValueInput | None
+    joint_angles_init: JointValueInput | None
+    left_standing_link: str | None
+    right_standing_link: str | None
 
 @register_atom(witness_initializeyawlockstate)
 @icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
@@ -102,7 +116,12 @@ def readrobotstandingstatus(state_in: YawLockState) -> bool:
 @icontract.require(lambda joint_position_in: joint_position_in is not None, "joint_position_in cannot be None")
 @icontract.require(lambda joint_angles_init_in: joint_angles_init_in is not None, "joint_angles_init_in cannot be None")
 @icontract.ensure(lambda result: result is not None, "SetJointPoseAndInitialAngles output must not be None")
-def setjointposeandinitialangles(state_in: YawLockState, joint_name_in: object, joint_position_in: object, joint_angles_init_in: object) -> YawLockState:
+def setjointposeandinitialangles(
+    state_in: YawLockState,
+    joint_name_in: JointNameInput,
+    joint_position_in: JointValueInput,
+    joint_angles_init_in: JointValueInput,
+) -> YawLockState:
     """Store joint identity/position inputs and corresponding initial-angle snapshot as a new immutable state.
 
     Args:
@@ -123,7 +142,7 @@ def setjointposeandinitialangles(state_in: YawLockState, joint_name_in: object, 
 @register_atom(witness_readinitialjointangles)
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
 @icontract.ensure(lambda result: result is not None, "ReadInitialJointAngles output must not be None")
-def readinitialjointangles(state_in: YawLockState) -> object:
+def readinitialjointangles(state_in: YawLockState) -> JointValueInput | None:
     """Read stored initial joint angles from immutable state.
 
     Args:
@@ -139,7 +158,7 @@ def readinitialjointangles(state_in: YawLockState) -> object:
 @icontract.require(lambda left_standing_link_in: left_standing_link_in is not None, "left_standing_link_in cannot be None")
 @icontract.require(lambda right_standing_link_in: right_standing_link_in is not None, "right_standing_link_in cannot be None")
 @icontract.ensure(lambda result: result is not None, "SetStandingLinkTargets output must not be None")
-def setstandinglinktargets(state_in: YawLockState, left_standing_link_in: object, right_standing_link_in: object) -> YawLockState:
+def setstandinglinktargets(state_in: YawLockState, left_standing_link_in: str, right_standing_link_in: str) -> YawLockState:
     """Set left/right standing link identifiers in a newly returned immutable state.
 
     Args:

@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform@ageoa/pronto/inverse_schmitt.py:19": {
+    "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform@ageoa/pronto/inverse_schmitt.py:21": {
       "references": [
         {
           "ref_id": "camurri2020pronto",

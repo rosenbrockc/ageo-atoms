@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "ageoa.pronto.yaw_lock.configurecorrectionandyawslippolicy@ageoa/pronto/yaw_lock/atoms.py:47": {
+    "ageoa.pronto.yaw_lock.configurecorrectionandyawslippolicy@ageoa/pronto/yaw_lock/atoms.py:61": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.initializeyawlockstate@ageoa/pronto/yaw_lock/atoms.py:20": {
+    "ageoa.pronto.yaw_lock.initializeyawlockstate@ageoa/pronto/yaw_lock/atoms.py:34": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.readinitialjointangles@ageoa/pronto/yaw_lock/atoms.py:126": {
+    "ageoa.pronto.yaw_lock.readinitialjointangles@ageoa/pronto/yaw_lock/atoms.py:145": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.readrobotstandingstatus@ageoa/pronto/yaw_lock/atoms.py:88": {
+    "ageoa.pronto.yaw_lock.readrobotstandingstatus@ageoa/pronto/yaw_lock/atoms.py:102": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -101,7 +101,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.setjointposeandinitialangles@ageoa/pronto/yaw_lock/atoms.py:105": {
+    "ageoa.pronto.yaw_lock.setjointposeandinitialangles@ageoa/pronto/yaw_lock/atoms.py:119": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -126,7 +126,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.setrobotstandingstatus@ageoa/pronto/yaw_lock/atoms.py:71": {
+    "ageoa.pronto.yaw_lock.setrobotstandingstatus@ageoa/pronto/yaw_lock/atoms.py:85": {
       "references": [
         {
           "ref_id": "camurri2020pronto",
@@ -151,7 +151,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.pronto.yaw_lock.setstandinglinktargets@ageoa/pronto/yaw_lock/atoms.py:142": {
+    "ageoa.pronto.yaw_lock.setstandinglinktargets@ageoa/pronto/yaw_lock/atoms.py:161": {
       "references": [
         {
           "ref_id": "camurri2020pronto",

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+
 import numpy as np
 
 import icontract
@@ -16,7 +18,7 @@ from pathlib import Path
 @register_atom(witness_inverse_schmitt_trigger_transform)  # type: ignore[untyped-decorator, name-defined]
 @icontract.require(lambda input_signal: input_signal is not None, "input_signal cannot be None")
 @icontract.ensure(lambda result: result is not None, "inverse_schmitt_trigger_transform output must not be None")
-def inverse_schmitt_trigger_transform(input_signal: object) -> object:
+def inverse_schmitt_trigger_transform(input_signal: np.ndarray | Mapping[str, object]) -> np.ndarray:
     """Entry-point pure transform for inverse Schmitt trigger behavior. No sub-methods, mutable attributes, or config-gated branches were provided, so this is modeled as a single stateless atom.
 
     Args:
@@ -28,11 +30,11 @@ def inverse_schmitt_trigger_transform(input_signal: object) -> object:
     import numpy as np
     # Inverse Schmitt trigger: output goes high when input drops below
     # low_threshold, goes low when input rises above high_threshold
-    if isinstance(input_signal, dict):
-        signal = np.asarray(input_signal.get('signal', []), dtype=np.float64)
-        low_thresh = float(input_signal.get('low_threshold', 0.3))
-        high_thresh = float(input_signal.get('high_threshold', 0.7))
-        prev_output = bool(input_signal.get('prev_output', False))
+    if isinstance(input_signal, Mapping):
+        signal = np.asarray(input_signal.get("signal", []), dtype=np.float64)
+        low_thresh = float(input_signal.get("low_threshold", 0.3))
+        high_thresh = float(input_signal.get("high_threshold", 0.7))
+        prev_output = bool(input_signal.get("prev_output", False))
     else:
         signal = np.atleast_1d(np.asarray(input_signal, dtype=np.float64))
         low_thresh, high_thresh = 0.3, 0.7

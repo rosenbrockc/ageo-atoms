@@ -51,7 +51,29 @@ def shgoglobaloptimization(func: Callable[..., float], bounds: list[tuple[float,
 @icontract.require(lambda recombination: isinstance(recombination, (float, int, np.number)), "recombination must be numeric")
 @icontract.require(lambda atol: isinstance(atol, (float, int, np.number)), "atol must be numeric")
 @icontract.ensure(lambda result: result is not None, "DifferentialEvolutionOptimization output must not be None")
-def differentialevolutionoptimization(func: Callable[..., float], bounds: list[tuple[float, float]], args: tuple, strategy: str, maxiter: int, popsize: int, tol: float, mutation: float | tuple[float, float], recombination: float, seed: int | np.random.RandomState | None, callback: Callable | None, disp: bool, polish: bool, init: str | np.ndarray, atol: float, updating: str, workers: int | Callable, constraints: list[dict] | dict | None, x0: np.ndarray | None) -> OptimizeResult:
+def differentialevolutionoptimization(
+    func: Callable[..., float],
+    bounds: list[tuple[float, float]],
+    args: tuple = (),
+    strategy: str = "best1bin",
+    maxiter: int = 1000,
+    popsize: int = 15,
+    tol: float = 0.01,
+    mutation: float | tuple[float, float] = (0.5, 1.0),
+    recombination: float = 0.7,
+    rng: int | np.random.RandomState | np.random.Generator | None = None,
+    callback: Callable | None = None,
+    disp: bool = False,
+    polish: bool = True,
+    init: str | np.ndarray = "latinhypercube",
+    atol: float = 0.0,
+    updating: str = "immediate",
+    workers: int | Callable = 1,
+    constraints: list[dict] | dict | tuple | None = (),
+    x0: np.ndarray | None = None,
+    integrality: np.ndarray | None = None,
+    vectorized: bool = False,
+) -> OptimizeResult:
     """Finds the global minimum of a scalar function using Differential Evolution (DE), a population-based optimization method. Applies stochastic mutation and crossover each generation to explore the bounded search space.
 
     Args:
@@ -64,7 +86,7 @@ def differentialevolutionoptimization(func: Callable[..., float], bounds: list[t
         tol: tol >= 0
         mutation: scalar in [0, 2] or tuple (min_F, max_F)
         recombination: in [0, 1]
-        seed: random state or seed integer; None for default
+        rng: random state or seed integer; None for default
         callback: return True to halt early; None to skip
         disp: whether to print convergence messages
         polish: whether to polish the best result with L-BFGS-B
@@ -74,9 +96,33 @@ def differentialevolutionoptimization(func: Callable[..., float], bounds: list[t
         workers: -1 uses all CPU cores; map-like must conform to Pool.map interface
         constraints: scipy-style constraint dicts or None
         x0: shape (N,); initial guess or None
+        integrality: optional integrality mask for mixed-integer optimization
+        vectorized: whether func accepts a population matrix in one call
 
     Returns:
         OptimizeResult with x, fun, and convergence metadata.
     """
     from scipy.optimize import differential_evolution as _de
-    return _de(func, bounds, args=args, strategy=strategy, maxiter=maxiter, popsize=popsize, tol=tol, mutation=mutation, recombination=recombination, seed=seed, callback=callback, disp=disp, polish=polish, init=init, atol=atol, updating=updating, workers=workers, constraints=constraints, x0=x0)
+    return _de(
+        func,
+        bounds,
+        args=args,
+        strategy=strategy,
+        maxiter=maxiter,
+        popsize=popsize,
+        tol=tol,
+        mutation=mutation,
+        recombination=recombination,
+        rng=rng,
+        callback=callback,
+        disp=disp,
+        polish=polish,
+        init=init,
+        atol=atol,
+        updating=updating,
+        workers=workers,
+        constraints=constraints,
+        x0=x0,
+        integrality=integrality,
+        vectorized=vectorized,
+    )
