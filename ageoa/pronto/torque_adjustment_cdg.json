@@ -29,7 +29,13 @@
       "name": "torqueadjustmentidentitystage",
       "description": "Represents the entry-point stage with no observable computation, state access, or side effects.",
       "concept_type": "custom",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "unit_token",
+          "type_desc": "unit",
+          "constraints": "implicit zero-argument invocation token"
+        }
+      ],
       "outputs": [
         {
           "name": "result",
@@ -40,7 +46,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(void) -> None",
+      "type_signature": "(unit_token: unit) -> None",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

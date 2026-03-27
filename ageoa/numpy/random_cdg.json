@@ -1,0 +1,159 @@
+{
+  "nodes": [
+    {
+      "node_id": "random_root",
+      "parent_id": null,
+      "name": "numpy.random",
+      "description": "Random number generation helpers backed by NumPy.",
+      "concept_type": "custom",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "rand",
+        "uniform",
+        "default_rng"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Seeded and unseeded random sampling helpers.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "rand",
+      "parent_id": "random_root",
+      "name": "rand",
+      "description": "Sample uniform random values on [0, 1) with optional shape and explicit generator control.",
+      "concept_type": "stochastic",
+      "inputs": [
+        {
+          "name": "size",
+          "type_desc": "ShapeLike | None",
+          "constraints": "optional scalar or sequence shape"
+        },
+        {
+          "name": "seed",
+          "type_desc": "SeedLike",
+          "constraints": "optional deterministic seed or generator seed material"
+        },
+        {
+          "name": "rng",
+          "type_desc": "np.random.Generator | None",
+          "constraints": "optional explicit generator object"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "float | np.ndarray",
+          "constraints": "scalar if size is None, otherwise shape matches size"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(size: ShapeLike | None, seed: SeedLike, rng: np.random.Generator | None) -> float | np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Uniform sampling on [0, 1) with explicit generator handling.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "uniform",
+      "parent_id": "random_root",
+      "name": "uniform",
+      "description": "Sample from a continuous uniform distribution over [low, high).",
+      "concept_type": "stochastic",
+      "inputs": [
+        {
+          "name": "low",
+          "type_desc": "float",
+          "constraints": "lower bound"
+        },
+        {
+          "name": "high",
+          "type_desc": "float",
+          "constraints": "upper bound with high >= low"
+        },
+        {
+          "name": "size",
+          "type_desc": "ShapeLike | None",
+          "constraints": "optional output shape"
+        },
+        {
+          "name": "seed",
+          "type_desc": "SeedLike",
+          "constraints": "optional deterministic seed or generator seed material"
+        },
+        {
+          "name": "rng",
+          "type_desc": "np.random.Generator | None",
+          "constraints": "optional explicit generator object"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "float | np.floating | np.ndarray",
+          "constraints": "scalar if size is None, otherwise shape matches size"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(low: float, high: float, size: ShapeLike | None, seed: SeedLike, rng: np.random.Generator | None) -> float | np.floating | np.ndarray",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Uniform sampling over a configurable interval.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    },
+    {
+      "node_id": "default_rng",
+      "parent_id": "random_root",
+      "name": "default_rng",
+      "description": "Construct a new NumPy Generator with the default bit generator.",
+      "concept_type": "stochastic",
+      "inputs": [
+        {
+          "name": "seed",
+          "type_desc": "SeedLike",
+          "constraints": "optional seed material or generator"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "np.random.Generator",
+          "constraints": "initialized generator object"
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(seed: SeedLike) -> np.random.Generator",
+      "matched_primitive": null,
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": false,
+      "conceptual_summary": "Explicit generator initialization boundary.",
+      "critic_notes": "",
+      "decomposition_rationale": ""
+    }
+  ],
+  "edges": []
+}

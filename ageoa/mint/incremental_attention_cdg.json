@@ -29,7 +29,13 @@
       "name": "enable_incremental_state_configuration",
       "description": "Produces an incremental-state-enabled class/configuration as a pure class-level transformation.",
       "concept_type": "custom",
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "cls",
+          "type_desc": "type",
+          "constraints": "required class object argument"
+        }
+      ],
       "outputs": [
         {
           "name": "result",
@@ -40,7 +46,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(void) -> type",
+      "type_signature": "(cls: type) -> type",
       "matched_primitive": null,
       "is_optional": false,
       "is_opaque": false,

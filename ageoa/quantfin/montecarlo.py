@@ -16,12 +16,12 @@ SIMULATOR_REGISTRY: Dict[str, SeededMonteCarloSimulator] = {}
 
 @icontract.require(lambda name: isinstance(name, str) and name.strip() != "", "name must be non-empty")
 @icontract.require(lambda simulator: callable(simulator), "simulator must be callable")
-def register_simulator(name: str, simulator: SeededMonteCarloSimulator) -> None:
+def _register_simulator(name: str, simulator: SeededMonteCarloSimulator) -> None:
     """Register a deterministic seeded simulator by name."""
     SIMULATOR_REGISTRY[name] = simulator
 
 
-def list_simulators() -> list[str]:
+def _list_simulators() -> list[str]:
     """Return sorted simulator registry keys."""
     return sorted(SIMULATOR_REGISTRY.keys())
 
@@ -46,6 +46,17 @@ def run_simulation(
     simulator_name: str,
 ) -> float:
     """Run one Monte Carlo pass with an explicit seeded RNG boundary.
+
+    Args:
+        model: Discretized market model or simulation model state.
+        claim: Contingent claim whose payoff is being priced.
+        seed: Non-negative RNG seed.
+        trials: Number of Monte Carlo trajectories.
+        anti: Whether to use antithetic pairing inside the simulator.
+        simulator_name: Registry key selecting the seeded simulator.
+
+    Returns:
+        Estimated discounted payoff expectation as a finite float.
     """
     simulator = _resolve_simulator(simulator_name)
     rng = np.random.default_rng(seed)
@@ -64,11 +75,17 @@ def run_simulation_anti(
     trials: int,
     simulator_name: str,
 ) -> float:
-    """Like 'run_simulation', but splits the trials in two and does antithetic variates.
+    """Run an antithetic Monte Carlo estimate with paired trajectories.
 
-    Applies antithetic variates (a variance-reduction technique that pairs each
-    random sample with its complement) to reduce Monte Carlo estimator variance
-    by pairing each random trajectory with its mirror.
+    Args:
+        model: Discretized market model or simulation model state.
+        claim: Contingent claim whose payoff is being priced.
+        seed: Non-negative RNG seed.
+        trials: Even number of Monte Carlo trajectories.
+        simulator_name: Registry key selecting the seeded simulator.
+
+    Returns:
+        Finite antithetic Monte Carlo estimate.
     """
     half_trials = trials // 2
     res_anti = run_simulation(model, claim, seed, half_trials, True, simulator_name)
@@ -88,5 +105,14 @@ def quick_sim_anti(
     simulator_name: str,
 ) -> float:
     """Convenience wrapper for antithetic Monte Carlo with a default seed.
+
+    Args:
+        model: Discretized market model or simulation model state.
+        claim: Contingent claim whose payoff is being priced.
+        trials: Even number of Monte Carlo trajectories.
+        simulator_name: Registry key selecting the seeded simulator.
+
+    Returns:
+        Finite antithetic Monte Carlo estimate.
     """
     return run_simulation_anti(model, claim, 500, trials, simulator_name)
