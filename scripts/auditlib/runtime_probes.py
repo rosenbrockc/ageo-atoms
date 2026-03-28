@@ -250,6 +250,13 @@ def _assert_permutation_list(expected: list[int]) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_value(expected: Any) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert result == expected
+
+    return _validator
+
+
 def _search_plans() -> dict[str, ProbePlan]:
     adjacency = np.array(
         [
@@ -1511,6 +1518,53 @@ def _biosppy_detector_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _biosppy_sqi_plans() -> dict[str, ProbePlan]:
+    signal = np.sin(np.linspace(0.0, 4.0 * np.pi, 200))
+    detector_1 = np.array([20, 60, 100, 140, 180])
+    detector_2 = np.array([21, 59, 101, 141, 179])
+    return {
+        "ageoa.biosppy.ecg_zz2018.calculatecompositesqi_zz2018": ProbePlan(
+            positive=ProbeCase(
+                "ZZ2018 composite SQI classifies a small synthetic signal",
+                lambda func: func(signal, detector_1, detector_2, 1000.0, 50, 64, "simple"),
+                _assert_value("Barely acceptable"),
+            ),
+            negative=ProbeCase(
+                "ZZ2018 composite SQI rejects a non-numeric sampling rate",
+                lambda func: func(signal, detector_1, detector_2, "bad", 50, 64, "simple"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_zz2018.calculatebeatagreementsqi": ProbePlan(
+            positive=ProbeCase(
+                "beat-agreement SQI returns the expected agreement score",
+                lambda func: func(detector_1, detector_2, 1000.0, "simple", 50),
+                _assert_scalar(100.0),
+            ),
+            negative=ProbeCase(
+                "beat-agreement SQI rejects a non-numeric sampling rate",
+                lambda func: func(detector_1, detector_2, "bad", "simple", 50),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_zz2018.calculatefrequencypowersqi": ProbePlan(
+            positive=ProbeCase(
+                "frequency-power SQI returns the expected band-power ratio",
+                lambda func: func(signal, 1000.0, 64, np.array([5, 15]), np.array([5, 40]), "simple"),
+                _assert_scalar(0.0),
+            ),
+            negative=ProbeCase(
+                "frequency-power SQI rejects a non-numeric sampling rate",
+                lambda func: func(signal, "bad", 64, np.array([5, 15]), np.array([5, 40]), "simple"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -1583,6 +1637,7 @@ PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
 PROBE_PLANS.update(_molecular_docking_plans())
 PROBE_PLANS.update(_biosppy_detector_plans())
+PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 
 import numpy as np
+import scipy.integrate as scipy_integrate
 
 import icontract
 from ageoa.ghost.registry import register_atom
@@ -12,6 +13,12 @@ from biosppy.signals.ecg import fSQI
 from biosppy.signals.ecg import kSQI
 
 # Witness functions should be imported from the generated witnesses module
+
+
+def _ensure_scipy_trapz() -> None:
+    """Compat shim for BioSPPy on SciPy versions without integrate.trapz."""
+    if not hasattr(scipy_integrate, "trapz"):
+        scipy_integrate.trapz = np.trapz  # type: ignore[attr-defined]
 
 @register_atom(witness_computebeatagreementsqi)
 @icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
@@ -49,6 +56,7 @@ def computefrequencysqi(ecg_signal: object, fs: float, nseg: int, num_spectrum: 
     Returns:
         spectral quality ratio/score
     """
+    _ensure_scipy_trapz()
     return fSQI(ecg_signal=ecg_signal, fs=fs, nseg=nseg, num_spectrum=num_spectrum, dem_spectrum=dem_spectrum, mode=mode)
 
 @register_atom(witness_computekurtosissqi)

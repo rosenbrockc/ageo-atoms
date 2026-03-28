@@ -318,6 +318,19 @@ def test_runtime_probe_marks_biosppy_hamilton_detectors_as_usage_equivalent() ->
         assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_biosppy_zz2018_main_wrappers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.ecg_zz2018.calculatecompositesqi_zz2018", "calculatecompositesqi_zz2018"),
+        ("ageoa.biosppy.ecg_zz2018.calculatebeatagreementsqi", "calculatebeatagreementsqi"),
+        ("ageoa.biosppy.ecg_zz2018.calculatefrequencypowersqi", "calculatefrequencypowersqi"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.ecg_zz2018.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(
