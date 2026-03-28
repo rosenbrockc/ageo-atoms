@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import importlib.util
 import sys
 import types
 from dataclasses import dataclass
@@ -48,10 +49,51 @@ def install_ageoa_stub(root: Path = ROOT) -> None:
     sys.modules["ageoa"] = stub
 
 
+def install_package_stub(package_name: str, root: Path = ROOT) -> None:
+    """Install a lightweight package stub for an ageoa subpackage."""
+    if package_name == "ageoa":
+        install_ageoa_stub(root)
+        return
+    if not package_name.startswith("ageoa."):
+        return
+    parent_name = package_name.rsplit(".", 1)[0]
+    install_package_stub(parent_name, root)
+    existing = sys.modules.get(package_name)
+    if existing is not None and getattr(existing, "__path__", None):
+        return
+    package_dir = root / Path(*package_name.split("."))
+    stub = types.ModuleType(package_name)
+    stub.__path__ = [str(package_dir)]
+    stub.__package__ = package_name
+    sys.modules[package_name] = stub
+
+
+def load_module_from_file(module_import_path: str, module_file: Path) -> Any:
+    """Load a module directly from its source file while preserving package-relative imports."""
+    package_name = module_import_path.rsplit(".", 1)[0]
+    install_package_stub(package_name)
+    spec = importlib.util.spec_from_file_location(module_import_path, module_file)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not create an import spec for {module_import_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_import_path] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def safe_import_module(module_import_path: str) -> Any:
     """Import an ageoa submodule without executing ageoa.__init__."""
     install_ageoa_stub()
-    return importlib.import_module(module_import_path)
+    try:
+        return importlib.import_module(module_import_path)
+    except ImportError:
+        if not module_import_path.startswith("ageoa."):
+            raise
+        module_file = ROOT / Path(*module_import_path.split("."))
+        module_file = module_file.with_suffix(".py")
+        if not module_file.exists():
+            raise
+        return load_module_from_file(module_import_path, module_file)
 
 
 def _summarize_value(value: Any) -> dict[str, Any]:
@@ -147,6 +189,26 @@ def _assert_optimize_result_near(expected_x0: float, *, atol: float = 1e-2) -> C
         assert hasattr(result, "x")
         assert hasattr(result, "fun")
         assert abs(float(result.x[0]) - expected_x0) < atol
+
+    return _validator
+
+
+def _assert_tuple(expected: tuple[Any, ...], *, atol: float = 1e-8) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == len(expected)
+        for actual_item, expected_item in zip(result, expected):
+            if isinstance(expected_item, float):
+                assert np.isclose(float(actual_item), expected_item, atol=atol)
+            else:
+                assert actual_item == expected_item
+
+    return _validator
+
+
+def _assert_type(expected_type: type[Any]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, expected_type)
 
     return _validator
 
@@ -961,6 +1023,227 @@ def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
+    class _DummyBlock:
+        def __init__(self, value: int) -> None:
+            self.value = value
+
+    return {
+        "ageoa.hftbacktest.initialize_glft_state": ProbePlan(
+            positive=ProbeCase(
+                "initialize GLFT state returns zero coefficients",
+                lambda func: func(),
+                _assert_tuple((0.0, 0.0)),
+            ),
+            parity_used=True,
+        ),
+        "ageoa.hftbacktest.update_glft_coefficients": ProbePlan(
+            positive=ProbeCase(
+                "GLFT coefficient update on a simple numeric input",
+                lambda func: func(0.0, 0.0, 2.0, 0.1, 1.0, 2.0, 4.0),
+                _assert_tuple((0.05, 0.27465307216702745)),
+            ),
+            negative=ProbeCase(
+                "GLFT update rejects non-numeric xi",
+                lambda func: func(0.0, 0.0, "bad", 0.1, 1.0, 2.0, 4.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.hftbacktest.evaluate_spread_conditions": ProbePlan(
+            positive=ProbeCase(
+                "spread evaluation computes a half-spread and validity flag",
+                lambda func: func(2.0, 0.5, 1.5, 2.0, 0.25, 1.0),
+                _assert_tuple((1.25, True)),
+            ),
+            negative=ProbeCase(
+                "spread evaluation rejects non-numeric c1",
+                lambda func: func("bad", 0.5, 1.5, 2.0, 0.25, 1.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.market_making_avellaneda": ProbePlan(
+            positive=ProbeCase(
+                "Avellaneda-Stoikov spread series over a small price vector",
+                lambda func: func(np.array([100.0, 101.0, 102.0])),
+                _assert_array(np.array([1.2907704244963784, 1.2907704244963784, 1.2907704244963784])),
+            ),
+            negative=ProbeCase(
+                "Avellaneda-Stoikov rejects empty data",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.almgren_chriss_execution": ProbePlan(
+            positive=ProbeCase(
+                "Almgren-Chriss execution returns a linear liquidation trajectory",
+                lambda func: func(np.array([12.0, 0.0, 0.0, 0.0])),
+                _assert_array(np.array([12.0, 9.0, 6.0, 3.0])),
+            ),
+            negative=ProbeCase(
+                "Almgren-Chriss rejects empty data",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.pin_informed_trading": ProbePlan(
+            positive=ProbeCase(
+                "PIN estimator computes order-flow imbalance",
+                lambda func: func(np.array([10.0, 8.0, 3.0, 1.0])),
+                _assert_array(np.array([0.6363636363636364])),
+            ),
+            negative=ProbeCase(
+                "PIN estimator rejects empty data",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.limit_order_queue_estimator": ProbePlan(
+            positive=ProbeCase(
+                "queue estimator normalizes cumulative queue position",
+                lambda func: func(np.array([2.0, 3.0, 5.0])),
+                _assert_array(np.array([0.2, 0.5, 1.0])),
+            ),
+            negative=ProbeCase(
+                "queue estimator rejects empty data",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.incremental_attention.enable_incremental_state_configuration": ProbePlan(
+            positive=ProbeCase(
+                "incremental attention decorates a class with state accessors",
+                lambda func: func(_DummyBlock),
+                _assert_type(type),
+            ),
+            negative=ProbeCase(
+                "incremental attention rejects a missing class",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_subgraph.greedy_maximum_subgraph": ProbePlan(
+            positive=ProbeCase(
+                "greedy maximum subgraph picks non-conflicting high-score nodes",
+                lambda func: func(
+                    np.array(
+                        [
+                            [False, True, False],
+                            [True, False, False],
+                            [False, False, False],
+                        ],
+                        dtype=bool,
+                    ),
+                    np.array([2.0, 1.0, 3.0]),
+                ),
+                _assert_array(np.array([True, False, True])),
+            ),
+            negative=ProbeCase(
+                "greedy maximum subgraph rejects a missing score vector",
+                lambda func: func(np.zeros((2, 2), dtype=bool), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
+def _molecular_docking_plans() -> dict[str, ProbePlan]:
+    def _add_quantum_link_positive(func: Callable[..., Any]) -> Any:
+        import networkx as nx
+
+        graph = nx.Graph()
+        graph.add_nodes_from(["A", "B"])
+        return func(graph, "A", "B", 3)
+
+    def _assert_add_quantum_link_result(result: Any) -> None:
+        import networkx as nx
+
+        assert isinstance(result, nx.Graph)
+        assert result.has_edge("A", "_qlink_A_B_0")
+        assert result.has_edge("_qlink_A_B_0", "_qlink_A_B_1")
+        assert result.has_edge("_qlink_A_B_1", "B")
+
+    def _assert_permutation_rows(result: Any) -> None:
+        arr = np.asarray(result)
+        assert arr.ndim == 2
+        width = arr.shape[1]
+        expected = np.arange(width)
+        for row in arr:
+            np.testing.assert_array_equal(np.sort(row), expected)
+
+    return {
+        "ageoa.molecular_docking.quantum_mwis_solver": ProbePlan(
+            positive=ProbeCase(
+                "MWIS solver falls back to a deterministic median threshold on 1D input",
+                lambda func: func(np.array([1.0, 3.0, 2.0])),
+                _assert_array(np.array([0.0, 1.0, 1.0])),
+            ),
+            negative=ProbeCase(
+                "MWIS solver rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.add_quantum_link.addquantumlink": ProbePlan(
+            positive=ProbeCase(
+                "quantum link insertion creates a deterministic chain between nodes",
+                _add_quantum_link_positive,
+                _assert_add_quantum_link_result,
+            ),
+            negative=ProbeCase(
+                "quantum link insertion rejects a missing graph",
+                lambda func: func(None, "A", "B", 2),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.mwis_sa.to_qubo": ProbePlan(
+            positive=ProbeCase(
+                "MWIS-to-QUBO conversion maps diagonal weights and edge penalties",
+                lambda func: func(np.array([[2.0, 1.0], [1.0, 3.0]]), 5.0),
+                _assert_array(np.array([[-2.0, 5.0], [5.0, -3.0]])),
+            ),
+            negative=ProbeCase(
+                "MWIS-to-QUBO rejects a missing graph",
+                lambda func: func(None, 5.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.enumerate_threshold_based_permutations": ProbePlan(
+            positive=ProbeCase(
+                "threshold-based permutation enumeration returns valid permutations",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 2.0, 0.0],
+                            [2.0, 0.0, 1.0],
+                            [0.0, 1.0, 0.0],
+                        ]
+                    ),
+                    2.0,
+                    np.array([0.25, 0.75]),
+                ),
+                _assert_permutation_rows,
+            ),
+            negative=ProbeCase(
+                "threshold permutation enumeration rejects a non-float amplitude",
+                lambda func: func(np.eye(2), "bad", np.array([0.25])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -1029,6 +1312,8 @@ PROBE_PLANS.update(_numpy_fft_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
+PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
+PROBE_PLANS.update(_molecular_docking_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 

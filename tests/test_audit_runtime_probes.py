@@ -159,6 +159,100 @@ def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_institutional_quant_engine_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.institutional_quant_engine.market_making_avellaneda",
+            "ageoa.institutional_quant_engine.atoms",
+            "market_making_avellaneda",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_passes_for_incremental_attention_configuration() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.mint.incremental_attention.enable_incremental_state_configuration",
+            "ageoa.mint.incremental_attention",
+            "enable_incremental_state_configuration",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_greedy_subgraph() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.molecular_docking.greedy_subgraph.greedy_maximum_subgraph",
+            "ageoa.molecular_docking.greedy_subgraph",
+            "greedy_maximum_subgraph",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_marks_quantum_mwis_solver_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.molecular_docking.quantum_mwis_solver",
+            "ageoa.molecular_docking.atoms",
+            "quantum_mwis_solver",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_add_quantum_link_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.molecular_docking.add_quantum_link.addquantumlink",
+            "ageoa.molecular_docking.add_quantum_link",
+            "addquantumlink",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_mwis_to_qubo_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.molecular_docking.mwis_sa.to_qubo",
+            "ageoa.molecular_docking.mwis_sa.atoms",
+            "to_qubo",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_threshold_permutation_enumeration_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.molecular_docking.minimize_bandwidth.enumerate_threshold_based_permutations",
+            "ageoa.molecular_docking.minimize_bandwidth.atoms",
+            "enumerate_threshold_based_permutations",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(
