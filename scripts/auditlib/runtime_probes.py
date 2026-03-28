@@ -818,6 +818,149 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
+    def _seeded_hawkes(func: Callable[..., Any]) -> Any:
+        state = np.random.get_state()
+        try:
+            np.random.seed(7)
+            return func(0.2, 0.3, 1.5, 2.0)
+        finally:
+            np.random.set_state(state)
+
+    def _seeded_heston(func: Callable[..., Any]) -> Any:
+        state = np.random.get_state()
+        try:
+            np.random.seed(11)
+            return func(100.0, 0.04, 0.1, 1.2, 0.04, 0.3, 1.0, 0.25, 3)
+        finally:
+            np.random.set_state(state)
+
+    def _assert_hawkes_points(result: Any) -> None:
+        arr = np.asarray(result, dtype=float)
+        assert arr.ndim == 1
+        if arr.size:
+            assert np.all(np.diff(arr) >= 0)
+            assert np.all(arr > 0.0)
+            assert np.all(arr <= 2.0)
+
+    def _assert_heston_paths(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        s_paths, v_paths = result
+        s_paths = np.asarray(s_paths, dtype=float)
+        v_paths = np.asarray(v_paths, dtype=float)
+        assert s_paths.shape == (3, 4)
+        assert v_paths.shape == (3, 4)
+        assert np.all(s_paths > 0.0)
+        assert np.all(v_paths >= 0.0)
+
+    return {
+        "ageoa.advancedvi.core.evaluate_log_probability_density": ProbePlan(
+            positive=ProbeCase(
+                "evaluate a diagonal Gaussian log density on a small vector",
+                lambda func: func(np.array([0.0, 0.0, 0.0, 0.0]), np.array([1.0, -1.0])),
+                _assert_scalar(-2.8378770664093453),
+            ),
+            negative=ProbeCase(
+                "reject a missing parameter vector",
+                lambda func: func(None, np.array([1.0, -1.0])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.institutional_quant_engine.hawkes_process.hawkesprocesssimulator": ProbePlan(
+            positive=ProbeCase(
+                "simulate a Hawkes trajectory with a fixed NumPy seed",
+                _seeded_hawkes,
+                _assert_hawkes_points,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric beta value",
+                lambda func: func(0.2, 0.3, "bad", 2.0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.institutional_quant_engine.heston_model.hestonpathsampler": ProbePlan(
+            positive=ProbeCase(
+                "sample Heston price and variance paths with a fixed NumPy seed",
+                _seeded_heston,
+                _assert_heston_paths,
+            ),
+            negative=ProbeCase(
+                "reject an invalid correlation coefficient",
+                lambda func: func(100.0, 0.04, 2.0, 1.2, 0.04, 0.3, 1.0, 0.25, 3),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
+    def _assert_particle_filter_result(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        posterior, trace = result
+        assert isinstance(posterior, dict)
+        assert isinstance(trace, dict)
+        assert "particles" in posterior and "weights" in posterior
+        assert "log_likelihood" in trace and "ess" in trace
+
+    def _pasqal_positive(func: Callable[..., Any]) -> Any:
+        import networkx as nx
+
+        state_mod = safe_import_module("ageoa.pasqal.docking_state")
+        state = state_mod.MolecularDockingState()
+        graph = nx.Graph()
+        graph.add_nodes_from([0, 1, 2])
+        return func(graph, 2, state)
+
+    def _assert_pasqal_result(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        mappings, state = result
+        assert isinstance(mappings, list)
+        assert len(mappings) == 2
+        assert all(isinstance(item, dict) for item in mappings)
+        assert hasattr(state, "graph")
+
+    return {
+        "ageoa.particle_filters.basic.resample_and_belief_projection": ProbePlan(
+            positive=ProbeCase(
+                "resample weighted particles into a posterior belief state",
+                lambda func: func(
+                    np.array([10.0, 20.0, 30.0]),
+                    np.array([0.2, 0.3, 0.5]),
+                    np.array([4], dtype=np.int64),
+                    -1.25,
+                ),
+                _assert_particle_filter_result,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric log likelihood",
+                lambda func: func(
+                    np.array([10.0, 20.0, 30.0]),
+                    np.array([0.2, 0.3, 0.5]),
+                    np.array([4], dtype=np.int64),
+                    "bad",
+                ),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.pasqal.docking.sub_graph_embedder": ProbePlan(
+            positive=ProbeCase(
+                "extract deterministic subgraph mappings from a small graph",
+                _pasqal_positive,
+                _assert_pasqal_result,
+            ),
+            negative=ProbeCase(
+                "reject a non-positive subgraph quantity",
+                lambda func: func(
+                    __import__("networkx").Graph(),
+                    0,
+                    safe_import_module("ageoa.pasqal.docking_state").MolecularDockingState(),
+                ),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -884,6 +1027,8 @@ PROBE_PLANS.update(_scipy_stats_plans())
 PROBE_PLANS.update(_scipy_integrate_plans())
 PROBE_PLANS.update(_numpy_fft_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
+PROBE_PLANS.update(_advancedvi_and_iqe_plans())
+PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 

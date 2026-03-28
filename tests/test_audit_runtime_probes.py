@@ -81,6 +81,71 @@ def test_runtime_probe_marks_sorting_as_usage_equivalent() -> None:
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_passes_for_advancedvi_log_density() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.advancedvi.core.evaluate_log_probability_density",
+            "ageoa.advancedvi.core",
+            "evaluate_log_probability_density",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_hawkes_process_simulator() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.institutional_quant_engine.hawkes_process.hawkesprocesssimulator",
+            "ageoa.institutional_quant_engine.hawkes_process",
+            "hawkesprocesssimulator",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_heston_path_sampler() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.institutional_quant_engine.heston_model.hestonpathsampler",
+            "ageoa.institutional_quant_engine.heston_model",
+            "hestonpathsampler",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_particle_filter_resample_projection() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.particle_filters.basic.resample_and_belief_projection",
+            "ageoa.particle_filters.basic.atoms",
+            "resample_and_belief_projection",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_pasqal_sub_graph_embedder() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.pasqal.docking.sub_graph_embedder",
+            "ageoa.pasqal.docking",
+            "sub_graph_embedder",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
