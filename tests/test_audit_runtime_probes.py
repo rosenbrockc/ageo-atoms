@@ -33,6 +33,24 @@ def test_runtime_probe_skips_unsupported_atom() -> None:
     assert probe["findings"] == ["RUNTIME_PROBE_SKIPPED"]
 
 
+def test_runtime_probe_passes_for_numpy_fft() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.numpy.fft.fft", "ageoa.numpy.fft", "fft")
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_sparse_graph_laplacian() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.scipy.sparse_graph.graph_laplacian", "ageoa.scipy.sparse_graph", "graph_laplacian")
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(

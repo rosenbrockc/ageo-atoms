@@ -119,6 +119,13 @@ def _assert_array(expected: np.ndarray, *, atol: float = 1e-8) -> Callable[[Any]
     return _validator
 
 
+def _assert_sorted_array(expected: np.ndarray) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        np.testing.assert_array_equal(np.asarray(result), expected)
+
+    return _validator
+
+
 def _search_plans() -> dict[str, ProbePlan]:
     adjacency = np.array(
         [
@@ -407,10 +414,314 @@ def _scipy_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _numpy_fft_plans() -> dict[str, ProbePlan]:
+    return {
+        "ageoa.numpy.fft.fft": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.fft over a short real vector",
+                lambda func: func(np.array([1.0, 2.0, 3.0])),
+                _assert_array(np.fft.fft(np.array([1.0, 2.0, 3.0]))),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.fft rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft.ifft": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.ifft over a short complex spectrum",
+                lambda func: func(np.fft.fft(np.array([1.0, 2.0, 3.0]))),
+                _assert_array(np.array([1.0, 2.0, 3.0]) + 0j),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.ifft rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft.rfft": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.rfft over a short real vector",
+                lambda func: func(np.array([1.0, 2.0, 3.0, 4.0])),
+                _assert_array(np.fft.rfft(np.array([1.0, 2.0, 3.0, 4.0]))),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.rfft rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft.irfft": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.irfft over a short Hermitian spectrum",
+                lambda func: func(np.fft.rfft(np.array([1.0, 2.0, 3.0, 4.0]))),
+                _assert_array(np.array([1.0, 2.0, 3.0, 4.0])),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.irfft rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft.fftfreq": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.fftfreq over a short window",
+                lambda func: func(4, d=0.5),
+                _assert_array(np.array([0.0, 0.5, -1.0, -0.5])),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.fftfreq rejects non-positive n",
+                lambda func: func(0),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft.fftshift": ProbePlan(
+            positive=ProbeCase(
+                "numpy.fft.fftshift over a short vector",
+                lambda func: func(np.array([0, 1, 2, 3])),
+                _assert_array(np.array([2, 3, 0, 1])),
+            ),
+            negative=ProbeCase(
+                "numpy.fft.fftshift rejects None",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _sorting_plans() -> dict[str, ProbePlan]:
+    base = np.array([4, 1, 3, 2], dtype=np.int64)
+    return {
+        "ageoa.algorithms.sorting.merge_sort": ProbePlan(
+            positive=ProbeCase(
+                "merge sort over a short integer vector",
+                lambda func: func(base),
+                _assert_sorted_array(np.array([1, 2, 3, 4], dtype=np.int64)),
+            ),
+            negative=ProbeCase(
+                "merge sort rejects empty input",
+                lambda func: func(np.array([], dtype=np.int64)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.sorting.quicksort": ProbePlan(
+            positive=ProbeCase(
+                "quicksort over a short integer vector",
+                lambda func: func(base),
+                _assert_sorted_array(np.array([1, 2, 3, 4], dtype=np.int64)),
+            ),
+            negative=ProbeCase(
+                "quicksort rejects empty input",
+                lambda func: func(np.array([], dtype=np.int64)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.sorting.heapsort": ProbePlan(
+            positive=ProbeCase(
+                "heapsort over a short integer vector",
+                lambda func: func(base),
+                _assert_sorted_array(np.array([1, 2, 3, 4], dtype=np.int64)),
+            ),
+            negative=ProbeCase(
+                "heapsort rejects empty input",
+                lambda func: func(np.array([], dtype=np.int64)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.sorting.counting_sort": ProbePlan(
+            positive=ProbeCase(
+                "counting sort over non-negative integers",
+                lambda func: func(base),
+                _assert_sorted_array(np.array([1, 2, 3, 4], dtype=np.int64)),
+            ),
+            negative=ProbeCase(
+                "counting sort rejects floating input",
+                lambda func: func(np.array([1.0, 2.0])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.algorithms.sorting.radix_sort": ProbePlan(
+            positive=ProbeCase(
+                "radix sort over non-negative integers",
+                lambda func: func(base),
+                _assert_sorted_array(np.array([1, 2, 3, 4], dtype=np.int64)),
+            ),
+            negative=ProbeCase(
+                "radix sort rejects negative integers",
+                lambda func: func(np.array([-1, 2], dtype=np.int64)),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _scipy_sparse_graph_plans() -> dict[str, ProbePlan]:
+    weights = np.array([[0.0, 1.0], [1.0, 0.0]])
+    laplacian = np.array([[1.0, -1.0], [-1.0, 1.0]])
+    signal = np.array([1.0, 0.0])
+    eigenvectors = np.array([[-0.70710678, -0.70710678], [-0.70710678, 0.70710678]])
+    x_hat = np.array([-0.70710678, -0.70710678])
+    return {
+        "ageoa.scipy.sparse_graph.graph_laplacian": ProbePlan(
+            positive=ProbeCase(
+                "graph Laplacian over a symmetric 2-node graph",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(weights)).toarray(),
+                _assert_array(laplacian),
+            ),
+            negative=ProbeCase(
+                "graph Laplacian rejects asymmetric weights",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(np.array([[0.0, 1.0], [0.0, 0.0]]))),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.sparse_graph.graph_fourier_transform": ProbePlan(
+            positive=ProbeCase(
+                "graph Fourier transform on a 2-node Laplacian",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(laplacian), signal),
+                lambda result: (
+                    np.testing.assert_allclose(np.asarray(result[0]), x_hat, atol=1e-6),
+                    np.testing.assert_allclose(np.asarray(result[1]), np.array([0.0, 2.0]), atol=1e-6),
+                    np.testing.assert_allclose(np.abs(np.asarray(result[2])), np.abs(eigenvectors), atol=1e-6),
+                ),
+            ),
+            negative=ProbeCase(
+                "graph Fourier transform rejects mismatched signal length",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(laplacian), np.array([1.0, 0.0, 2.0])),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.sparse_graph.inverse_graph_fourier_transform": ProbePlan(
+            positive=ProbeCase(
+                "inverse graph Fourier transform on a 2-node basis",
+                lambda func: func(x_hat, eigenvectors),
+                _assert_array(signal, atol=1e-6),
+            ),
+            negative=ProbeCase(
+                "inverse graph Fourier transform rejects mismatched coefficient count",
+                lambda func: func(np.array([1.0]), eigenvectors),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.scipy.sparse_graph.heat_kernel_diffusion": ProbePlan(
+            positive=ProbeCase(
+                "heat kernel diffusion smooths a 2-node signal",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(laplacian), signal, 0.5),
+                _assert_array(np.array([0.68393972, 0.31606028]), atol=1e-6),
+            ),
+            negative=ProbeCase(
+                "heat kernel diffusion rejects negative diffusion time",
+                lambda func: func(__import__("scipy.sparse").sparse.csr_matrix(laplacian), signal, -0.5),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _scipy_stats_plans() -> dict[str, ProbePlan]:
+    return {
+        "scipy.stats.ttest_ind": ProbePlan(
+            positive=ProbeCase(
+                "ttest_ind over two distinct samples",
+                lambda func: func(np.array([1.0, 2.0, 3.0]), np.array([4.0, 5.0, 6.0])),
+                lambda result: np.testing.assert_allclose(
+                    np.array([result.statistic, result.pvalue]),
+                    np.array([-3.6742346141747673, 0.021311641128756727]),
+                    atol=1e-8,
+                ),
+            ),
+            negative=ProbeCase(
+                "ttest_ind rejects None input",
+                lambda func: func(None, np.array([1.0, 2.0])),
+                expect_exception=True,
+            ),
+        ),
+        "scipy.stats.pearsonr": ProbePlan(
+            positive=ProbeCase(
+                "pearsonr over perfectly correlated samples",
+                lambda func: func(np.array([1.0, 2.0, 3.0]), np.array([2.0, 4.0, 6.0])),
+                lambda result: np.testing.assert_allclose(
+                    np.array([result.statistic, result.pvalue]),
+                    np.array([1.0, 0.0]),
+                    atol=1e-12,
+                ),
+            ),
+            negative=ProbeCase(
+                "pearsonr rejects too-short input",
+                lambda func: func(np.array([1.0]), np.array([1.0])),
+                expect_exception=True,
+            ),
+        ),
+        "scipy.stats.norm": ProbePlan(
+            positive=ProbeCase(
+                "norm returns a frozen normal distribution",
+                lambda func: func(loc=1.0, scale=2.0),
+                lambda result: np.testing.assert_allclose(
+                    np.array([result.mean(), result.std()]),
+                    np.array([1.0, 2.0]),
+                    atol=1e-12,
+                ),
+            ),
+            negative=ProbeCase(
+                "norm rejects non-positive scale",
+                lambda func: func(scale=0.0),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _scipy_integrate_plans() -> dict[str, ProbePlan]:
+    return {
+        "scipy.integrate.quad": ProbePlan(
+            positive=ProbeCase(
+                "quad integrates x^2 from 0 to 1",
+                lambda func: func(lambda x: x * x, 0.0, 1.0),
+                lambda result: np.testing.assert_allclose(np.array(result[:2]), np.array([1.0 / 3.0, result[1]]), atol=1e-8),
+            ),
+            negative=ProbeCase(
+                "quad rejects a missing function",
+                lambda func: func(None, 0.0, 1.0),
+                expect_exception=True,
+            ),
+        ),
+        "scipy.integrate.simpson": ProbePlan(
+            positive=ProbeCase(
+                "simpson integrates a quadratic sample",
+                lambda func: func(np.array([0.0, 1.0, 4.0]), x=np.array([0.0, 1.0, 2.0])),
+                _assert_scalar(8.0 / 3.0),
+            ),
+            negative=ProbeCase(
+                "simpson rejects empty input",
+                lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+        ),
+        "scipy.integrate.solve_ivp": ProbePlan(
+            positive=ProbeCase(
+                "solve_ivp integrates y'=-y over a short interval",
+                lambda func: func(lambda t, y: -y, (0.0, 1.0), np.array([1.0]), t_eval=np.array([0.0, 1.0])),
+                lambda result: np.testing.assert_allclose(result.y[:, -1], np.array([np.exp(-1.0)]), atol=5e-3),
+            ),
+            negative=ProbeCase(
+                "solve_ivp rejects missing initial condition",
+                lambda func: func(lambda t, y: -y, (0.0, 1.0), None),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
 PROBE_PLANS = {}
 PROBE_PLANS.update(_search_plans())
 PROBE_PLANS.update(_numpy_plans())
+PROBE_PLANS.update(_numpy_fft_plans())
 PROBE_PLANS.update(_scipy_plans())
+PROBE_PLANS.update(_sorting_plans())
+PROBE_PLANS.update(_scipy_sparse_graph_plans())
+PROBE_PLANS.update(_scipy_stats_plans())
+PROBE_PLANS.update(_scipy_integrate_plans())
 
 
 def build_runtime_probe(record: dict[str, Any]) -> dict[str, Any]:
