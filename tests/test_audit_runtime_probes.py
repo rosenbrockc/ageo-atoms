@@ -294,6 +294,18 @@ def test_runtime_probe_marks_minimize_bandwidth_numeric_helpers_as_usage_equival
         assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_numpy_lexsort_v2_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.numpy.search_sort_v2.lexicographicindirectsort",
+            "ageoa.numpy.search_sort_v2.atoms",
+            "lexicographicindirectsort",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(

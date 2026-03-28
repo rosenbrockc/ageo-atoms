@@ -885,6 +885,24 @@ def _numpy_fft_v2_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _numpy_search_sort_v2_plans() -> dict[str, ProbePlan]:
+    return {
+        "ageoa.numpy.search_sort_v2.lexicographicindirectsort": ProbePlan(
+            positive=ProbeCase(
+                "lexsort returns a deterministic indirect ordering for two key arrays",
+                lambda func: func((np.array([2, 1, 2]), np.array([1, 2, 0]))),
+                _assert_array(np.array([2, 0, 1])),
+            ),
+            negative=ProbeCase(
+                "lexsort rejects a missing key sequence",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
     def _quadratic(x: np.ndarray) -> float:
         x = np.asarray(x, dtype=float)
@@ -1504,6 +1522,7 @@ PROBE_PLANS.update(_scipy_sparse_graph_plans())
 PROBE_PLANS.update(_scipy_stats_plans())
 PROBE_PLANS.update(_scipy_integrate_plans())
 PROBE_PLANS.update(_numpy_fft_v2_plans())
+PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())

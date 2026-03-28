@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 276,
-      "medium": 229
+      "low": 277,
+      "medium": 228
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 92,
+    "parity_coverage_count": 93,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 52,
     "review_priority_counts": {
@@ -81,27 +81,27 @@
       "review_soon": 98
     },
     "high_risk_count": 0,
-    "medium_risk_count": 229,
-    "low_risk_count": 276,
+    "medium_risk_count": 228,
+    "low_risk_count": 277,
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 428,
+      "not_applicable": 427,
       "partial": 7,
-      "pass": 68
+      "pass": 69
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 68,
-      "unknown": 428
+      "pass": 69,
+      "unknown": 427
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "parity_coverage_level_counts": {
-      "none": 315,
+      "none": 314,
       "not_applicable": 98,
-      "parity_or_usage_equivalent": 45,
+      "parity_or_usage_equivalent": 46,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -125,7 +125,7 @@
       "mint": 12,
       "molecular_docking": 27,
       "neurokit2": 2,
-      "numpy": 21,
+      "numpy": 20,
       "particle_filters": 3,
       "pasqal": 2,
       "pronto": 31,
@@ -60231,7 +60231,7 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "numpy",
@@ -60249,20 +60249,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
@@ -60321,12 +60320,11 @@
       "risk_reasons": [
         "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 5,
@@ -60341,9 +60339,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -60401,19 +60398,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/numpy/search_sort_v2/atoms.py",
@@ -60422,14 +60419,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -98738,8 +98738,8 @@
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "pin source revision or upstream version in the manifest",
-        "repair input validation so obviously invalid inputs are rejected",
-        "repair input validation so invalid inputs are rejected"
+        "repair input validation so invalid inputs are rejected",
+        "repair input validation so obviously invalid inputs are rejected"
       ],
       "argument_names": [
         "patches",
@@ -98959,8 +98959,8 @@
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "pin source revision or upstream version in the manifest",
-        "repair input validation so obviously invalid inputs are rejected",
-        "repair input validation so invalid inputs are rejected"
+        "repair input validation so invalid inputs are rejected",
+        "repair input validation so obviously invalid inputs are rejected"
       ],
       "argument_names": [
         "img",
