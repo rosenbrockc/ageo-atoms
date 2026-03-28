@@ -243,6 +243,30 @@
     language: python
     notes: Uses the installed NumPy package as the upstream signature source.
 
+- atom: numpy/random:rand
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: rand
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/random:uniform
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: uniform
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
+- atom: numpy/random:default_rng
+  upstream:
+    repo: ~
+    module: numpy.random
+    function: default_rng
+    language: python
+    notes: Uses the installed NumPy package as the upstream signature source.
+
 # =============================================================================
 #  scipy.integrate
 # =============================================================================

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import importlib
+import importlib.metadata
 import inspect
 import os
 import subprocess
@@ -64,6 +65,18 @@ def get_repo_revision(repo_name: str | None) -> str | None:
         return None
     value = result.stdout.strip()
     return value or None
+
+
+@lru_cache(maxsize=None)
+def get_installed_package_version(module_name: str | None) -> str | None:
+    """Resolve an installed package version for import-based upstream mappings."""
+    if not module_name:
+        return None
+    root = module_name.split(".", 1)[0]
+    try:
+        return importlib.metadata.version(root)
+    except Exception:
+        return None
 
 
 def _module_to_candidate_paths(repo_name: str, module_name: str) -> list[Path]:

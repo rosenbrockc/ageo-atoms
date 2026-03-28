@@ -62,3 +62,19 @@ def test_extract_patches_mapping_resolves_to_importable_sklearn_signature() -> N
         "max_patches",
         "random_state",
     ]
+
+
+def test_numpy_random_manifest_records_installed_upstream_version() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "numpy/random:default_rng")
+    assert record["upstream_version"]
+    assert any(source.get("kind") == "installed_package" for source in record["authoritative_sources"])
+
+
+def test_numpy_random_mapping_resolves_to_imported_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "numpy/random:uniform")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_mapping"]["module"] == "numpy.random"
+    assert evidence["upstream_mapping"]["function"] == "uniform"

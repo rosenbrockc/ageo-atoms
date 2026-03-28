@@ -11,7 +11,7 @@ from typing import Any
 
 from .models import AtomRecord
 from .paths import AGEOA_DIR, AUDIT_MANIFEST_PATH, FIXTURES_DIR
-from .upstream import get_repo_revision, get_upstream_mapping
+from .upstream import get_installed_package_version, get_repo_revision, get_upstream_mapping
 
 WEAK_TYPES = {"Any", "object", "typing.Any"}
 RISKY_FAMILY_MARKERS = {"hmc", "nuts", "mcmc", "random", "rng", "stochastic", "particle", "bernoulli", "bayes"}
@@ -296,6 +296,7 @@ def _authoritative_sources(
     mapping_repo: str | None,
     mapping_module: str | None,
     source_revision: str | None,
+    upstream_version: str | None,
 ) -> list[dict[str, Any]]:
     rel_path = str(path.relative_to(AGEOA_DIR.parent))
     sources: list[dict[str, Any]] = [
@@ -310,6 +311,11 @@ def _authoritative_sources(
             entry["module"] = mapping_module
         if source_revision:
             entry["source_revision"] = source_revision
+        sources.append(entry)
+    elif mapping_repo in {None, "~"} and mapping_module:
+        entry = {"kind": "installed_package", "module": mapping_module}
+        if upstream_version:
+            entry["upstream_version"] = upstream_version
         sources.append(entry)
     if artifacts["has_references"]:
         sources.append(
@@ -445,6 +451,9 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
             placeholder_witness = _placeholder_witness(register_source)
             has_witnesses = artifacts["has_witnesses"] or (register_source is not None and not placeholder_witness)
             source_revision = None if mapping is None else get_repo_revision(mapping.repo)
+            upstream_version = None
+            if mapping is not None and mapping.repo in {None, "~"}:
+                upstream_version = get_installed_package_version(mapping.module)
             risk_reasons = _risk_reasons(
                 path=path,
                 source_kind=source_kind,
@@ -470,7 +479,7 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
                 source_kind=source_kind,
                 risk_tier="unknown",
                 upstream_symbols={} if mapping is None else mapping.to_dict(),
-                upstream_version=None,
+                upstream_version=upstream_version,
                 source_revision=source_revision,
                 review_basis_at=None,
                 stateful=stateful,
@@ -515,6 +524,7 @@ def discover_atoms() -> tuple[list[AtomRecord], list[dict[str, Any]]]:
                     mapping_repo=None if mapping is None else mapping.repo,
                     mapping_module=None if mapping is None else mapping.module,
                     source_revision=source_revision,
+                    upstream_version=upstream_version,
                 ),
                 risk_reasons=risk_reasons,
                 status_basis={
