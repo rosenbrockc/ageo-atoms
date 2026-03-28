@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import numpy as np
+import scipy.sparse as sp
 
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
@@ -122,6 +123,21 @@ def _assert_array(expected: np.ndarray, *, atol: float = 1e-8) -> Callable[[Any]
 def _assert_sorted_array(expected: np.ndarray) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         np.testing.assert_array_equal(np.asarray(result), expected)
+
+    return _validator
+
+
+def _assert_sparse_shape(expected_shape: tuple[int, int]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert sp.issparse(result)
+        assert tuple(result.shape) == expected_shape
+
+    return _validator
+
+
+def _assert_shape(expected_shape: tuple[int, ...]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert tuple(np.asarray(result).shape) == expected_shape
 
     return _validator
 
@@ -713,6 +729,61 @@ def _scipy_integrate_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _sklearn_image_plans() -> dict[str, ProbePlan]:
+    image = np.arange(16, dtype=float).reshape(4, 4)
+    volume = np.arange(8, dtype=float).reshape(2, 2, 2)
+    return {
+        "ageoa.sklearn.images.extract_patches_2d": ProbePlan(
+            positive=ProbeCase(
+                "extract 2x2 patches from a 4x4 image",
+                lambda func: func(image, (2, 2)),
+                _assert_shape((9, 2, 2)),
+            ),
+            negative=ProbeCase(
+                "reject patch sizes larger than the image",
+                lambda func: func(image, (5, 5)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.sklearn.images.reconstruct_from_patches_2d": ProbePlan(
+            positive=ProbeCase(
+                "reconstruct a 4x4 image from extracted 2x2 patches",
+                lambda func: func(np.arange(36, dtype=float).reshape(9, 2, 2), (4, 4)),
+                _assert_shape((4, 4)),
+            ),
+            negative=ProbeCase(
+                "reject incompatible patch layouts",
+                lambda func: func(np.arange(16, dtype=float).reshape(4, 2, 2), (4, 4)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.sklearn.images.img_to_graph": ProbePlan(
+            positive=ProbeCase(
+                "build an image graph for a 2x2x2 volume",
+                lambda func: func(volume),
+                _assert_sparse_shape((8, 8)),
+            ),
+            negative=ProbeCase(
+                "reject a scalar input instead of an image volume",
+                lambda func: func(np.array(1.0)),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.sklearn.images.grid_to_graph": ProbePlan(
+            positive=ProbeCase(
+                "build a voxel grid graph for a 2x2x2 lattice",
+                lambda func: func(2, 2, 2),
+                _assert_sparse_shape((8, 8)),
+            ),
+            negative=ProbeCase(
+                "reject a zero-sized grid dimension",
+                lambda func: func(0, 2, 2),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
 PROBE_PLANS = {}
 PROBE_PLANS.update(_search_plans())
 PROBE_PLANS.update(_numpy_plans())
@@ -722,6 +793,7 @@ PROBE_PLANS.update(_sorting_plans())
 PROBE_PLANS.update(_scipy_sparse_graph_plans())
 PROBE_PLANS.update(_scipy_stats_plans())
 PROBE_PLANS.update(_scipy_integrate_plans())
+PROBE_PLANS.update(_sklearn_image_plans())
 
 
 def build_runtime_probe(record: dict[str, Any]) -> dict[str, Any]:

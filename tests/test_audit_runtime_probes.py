@@ -51,6 +51,15 @@ def test_runtime_probe_passes_for_sparse_graph_laplacian() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_sklearn_image_grid_to_graph() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.sklearn.images.grid_to_graph", "ageoa.sklearn.images.atoms", "grid_to_graph")
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(
