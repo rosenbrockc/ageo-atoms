@@ -60,6 +60,40 @@ def test_runtime_probe_passes_for_sklearn_image_grid_to_graph() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_numpy_fft_v2() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.numpy.fft_v2.forwardmultidimensionalfft",
+            "ageoa.numpy.fft_v2.atoms",
+            "forwardmultidimensionalfft",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_marks_sorting_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.algorithms.sorting.merge_sort", "ageoa.algorithms.sorting", "merge_sort")
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
+def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.scipy.optimize_v2.shgoglobaloptimization",
+            "ageoa.scipy.optimize_v2.atoms",
+            "shgoglobaloptimization",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(

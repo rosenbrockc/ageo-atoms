@@ -142,6 +142,15 @@ def _assert_shape(expected_shape: tuple[int, ...]) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_optimize_result_near(expected_x0: float, *, atol: float = 1e-2) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert hasattr(result, "x")
+        assert hasattr(result, "fun")
+        assert abs(float(result.x[0]) - expected_x0) < atol
+
+    return _validator
+
+
 def _search_plans() -> dict[str, ProbePlan]:
     adjacency = np.array(
         [
@@ -521,6 +530,7 @@ def _sorting_plans() -> dict[str, ProbePlan]:
                 lambda func: func(np.array([], dtype=np.int64)),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.algorithms.sorting.quicksort": ProbePlan(
             positive=ProbeCase(
@@ -533,6 +543,7 @@ def _sorting_plans() -> dict[str, ProbePlan]:
                 lambda func: func(np.array([], dtype=np.int64)),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.algorithms.sorting.heapsort": ProbePlan(
             positive=ProbeCase(
@@ -545,6 +556,7 @@ def _sorting_plans() -> dict[str, ProbePlan]:
                 lambda func: func(np.array([], dtype=np.int64)),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.algorithms.sorting.counting_sort": ProbePlan(
             positive=ProbeCase(
@@ -557,6 +569,7 @@ def _sorting_plans() -> dict[str, ProbePlan]:
                 lambda func: func(np.array([1.0, 2.0])),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.algorithms.sorting.radix_sort": ProbePlan(
             positive=ProbeCase(
@@ -569,6 +582,7 @@ def _sorting_plans() -> dict[str, ProbePlan]:
                 lambda func: func(np.array([-1, 2], dtype=np.int64)),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
     }
 
@@ -729,6 +743,81 @@ def _scipy_integrate_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _numpy_fft_v2_plans() -> dict[str, ProbePlan]:
+    signal = np.arange(8, dtype=float).reshape(2, 4)
+    spectrum = np.fft.fftn(signal, s=(2, 4), axes=(0, 1), norm="backward")
+    return {
+        "ageoa.numpy.fft_v2.forwardmultidimensionalfft": ProbePlan(
+            positive=ProbeCase(
+                "forward N-D FFT over a small 2x4 signal",
+                lambda func: func(signal, [2, 4], [0, 1], "backward"),
+                _assert_array(spectrum),
+            ),
+            negative=ProbeCase(
+                "reject a missing input array",
+                lambda func: func(None, [2, 4], [0, 1], "backward"),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft_v2.inversemultidimensionalfft": ProbePlan(
+            positive=ProbeCase(
+                "inverse N-D FFT reconstructs the original signal",
+                lambda func: func(spectrum, [2, 4], [0, 1], "backward"),
+                _assert_array(signal.astype(complex)),
+            ),
+            negative=ProbeCase(
+                "reject a missing spectrum input",
+                lambda func: func(None, [2, 4], [0, 1], "backward"),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.numpy.fft_v2.hermitianspectraltransform": ProbePlan(
+            positive=ProbeCase(
+                "Hermitian FFT over a symmetric complex spectrum",
+                lambda func: func(np.array([1.0 + 0.0j, 2.0 + 0.0j, 1.0 + 0.0j]), 4, -1, "backward"),
+                _assert_shape((4,)),
+            ),
+            negative=ProbeCase(
+                "reject a missing Hermitian input",
+                lambda func: func(None, 4, -1, "backward"),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
+def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
+    def _quadratic(x: np.ndarray) -> float:
+        x = np.asarray(x, dtype=float)
+        return float((x[0] - 1.0) ** 2)
+
+    return {
+        "ageoa.scipy.optimize_v2.shgoglobaloptimization": ProbePlan(
+            positive=ProbeCase(
+                "SHGO minimizes a one-dimensional quadratic on a bounded interval",
+                lambda func: func(
+                    _quadratic,
+                    [(0.0, 2.0)],
+                    (),
+                    (),
+                    16,
+                    1,
+                    None,
+                    {},
+                    {},
+                    "simplicial",
+                ),
+                _assert_optimize_result_near(1.0),
+            ),
+            negative=ProbeCase(
+                "reject malformed bounds",
+                lambda func: func(_quadratic, [(0.0,)], (), (), 16, 1, None, {}, {}, "simplicial"),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -793,6 +882,8 @@ PROBE_PLANS.update(_sorting_plans())
 PROBE_PLANS.update(_scipy_sparse_graph_plans())
 PROBE_PLANS.update(_scipy_stats_plans())
 PROBE_PLANS.update(_scipy_integrate_plans())
+PROBE_PLANS.update(_numpy_fft_v2_plans())
+PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
