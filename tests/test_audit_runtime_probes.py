@@ -306,6 +306,18 @@ def test_runtime_probe_marks_numpy_lexsort_v2_as_usage_equivalent() -> None:
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_biosppy_hamilton_detectors_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.ecg_detectors.hamilton_segmentation", "hamilton_segmentation"),
+        ("ageoa.biosppy.ecg_detectors.hamilton_segmenter", "hamilton_segmenter"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.ecg_detectors", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(

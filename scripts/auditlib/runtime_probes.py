@@ -1457,6 +1457,60 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _biosppy_detector_plans() -> dict[str, ProbePlan]:
+    def _synthetic_ecg() -> np.ndarray:
+        fs = 1000.0
+        duration = 10.0
+        heart_rate = 75.0
+        t = np.linspace(0.0, duration, int(duration * fs), endpoint=False)
+        f0 = heart_rate / 60.0
+        signal = np.zeros_like(t)
+        peak_times = np.arange(0.5, duration, 1.0 / f0)
+        for peak in peak_times:
+            signal += 1.5 * np.exp(-((t - peak) ** 2) / (2 * (0.005 ** 2)))
+        rng = np.random.RandomState(7)
+        signal += 0.05 * rng.normal(size=len(t))
+        return signal
+
+    def _assert_peak_indices(result: Any) -> None:
+        peaks = np.asarray(result)
+        assert peaks.ndim == 1
+        assert peaks.size > 0
+        assert np.all(np.diff(peaks) >= 0)
+        assert np.all(peaks >= 0)
+        assert np.all(peaks < 10_000)
+
+    signal = _synthetic_ecg()
+    return {
+        "ageoa.biosppy.ecg_detectors.hamilton_segmentation": ProbePlan(
+            positive=ProbeCase(
+                "Hamilton ECG segmentation detects peaks on a synthetic ECG trace",
+                lambda func: func(signal, 1000.0),
+                _assert_peak_indices,
+            ),
+            negative=ProbeCase(
+                "Hamilton ECG segmentation rejects a missing signal",
+                lambda func: func(None, 1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_detectors.hamilton_segmenter": ProbePlan(
+            positive=ProbeCase(
+                "Hamilton ECG segmenter detects peaks on a synthetic ECG trace",
+                lambda func: func(signal, 1000.0),
+                _assert_peak_indices,
+            ),
+            negative=ProbeCase(
+                "Hamilton ECG segmenter rejects a non-numeric sampling rate",
+                lambda func: func(signal, "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -1528,6 +1582,7 @@ PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
 PROBE_PLANS.update(_molecular_docking_plans())
+PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 

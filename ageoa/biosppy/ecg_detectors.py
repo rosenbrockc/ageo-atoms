@@ -88,11 +88,11 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from biosppy.signals.ecg import christov_segmenter
-# from .ecg_detectors_witnesses import witness_christov_qrs_segmenter
+from .ecg_detectors_witnesses import witness_christov_qrs_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 
-@register_atom("witness_christov_qrs_segmenter")  # type: ignore[untyped-decorator]
+@register_atom(witness_christov_qrs_segmenter)  # type: ignore[untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.ensure(lambda result: result is not None, "christov_qrs_segmenter output must not be None")
 def christov_qrs_segmenter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:  # type: ignore[type-arg]
@@ -235,18 +235,19 @@ Args:
 
 Returns:
     Array of indices corresponding to the detected R-peaks."""
-    return hamilton_segmenter(signal=signal, sampling_rate=sampling_rate)["rpeaks"]
+    result = hamilton_segmenter(signal=signal, sampling_rate=sampling_rate)
+    return np.asarray(result, dtype=int)
 
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
 from biosppy.signals.ecg import hamilton_segmenter as _hamilton_segmenter
-# from .ecg_detectors_witnesses import witness_hamilton_segmenter
+from .ecg_detectors_witnesses import witness_hamilton_segmenter
 
 # Witness functions should be imported from the generated witnesses module
 
-@register_atom("witness_hamilton_segmenter")  # type: ignore[untyped-decorator]
+@register_atom(witness_hamilton_segmenter)  # type: ignore[untyped-decorator]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.ensure(lambda result: result is not None, "hamilton_segmenter output must not be None")
 def hamilton_segmenter(signal: np.ndarray, sampling_rate: float) -> np.ndarray:
