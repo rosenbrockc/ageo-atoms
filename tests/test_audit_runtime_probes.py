@@ -253,6 +253,47 @@ def test_runtime_probe_marks_threshold_permutation_enumeration_as_usage_equivale
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_minimize_bandwidth_validation_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.minimize_bandwidth.validate_square_matrix_shape", "validate_square_matrix_shape"),
+        ("ageoa.molecular_docking.minimize_bandwidth.validate_symmetric_input", "validate_symmetric_input"),
+        ("ageoa.molecular_docking.minimize_bandwidth.enforce_threshold_sparsity", "enforce_threshold_sparsity"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.minimize_bandwidth.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_minimize_bandwidth_state_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.minimize_bandwidth.initialize_reduction_state", "initialize_reduction_state"),
+        ("ageoa.molecular_docking.minimize_bandwidth.extract_final_permutation", "extract_final_permutation"),
+        ("ageoa.molecular_docking.minimize_bandwidth.select_minimum_bandwidth_permutation", "select_minimum_bandwidth_permutation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.minimize_bandwidth.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_minimize_bandwidth_numeric_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.minimize_bandwidth.compute_absolute_weighted_index_distances", "compute_absolute_weighted_index_distances"),
+        ("ageoa.molecular_docking.minimize_bandwidth.aggregate_maximum_distance_as_bandwidth", "aggregate_maximum_distance_as_bandwidth"),
+        ("ageoa.molecular_docking.minimize_bandwidth.build_sparse_graph_view", "build_sparse_graph_view"),
+        ("ageoa.molecular_docking.minimize_bandwidth.compute_symmetric_bandwidth_reducing_order", "compute_symmetric_bandwidth_reducing_order"),
+        ("ageoa.molecular_docking.minimize_bandwidth.build_threshold_search_space", "build_threshold_search_space"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.minimize_bandwidth.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     atom_name = "ageoa.example.fail"
     monkeypatch.setitem(

@@ -213,6 +213,43 @@ def _assert_type(expected_type: type[Any]) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_state_snapshot(expected_bandwidth: int, expected_remaining_iterations: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, np.ndarray)
+        assert result.shape == (1,)
+        state = result[0]
+        assert isinstance(state, dict)
+        assert state["bandwidth"] == expected_bandwidth
+        assert state["remaining_iterations"] == expected_remaining_iterations
+        assert isinstance(state["accumulated_permutation"], list)
+        assert state["accumulated_permutation"] == list(range(len(state["accumulated_permutation"])))
+        assert isinstance(state["working_matrix"], np.ndarray)
+
+    return _validator
+
+
+def _assert_search_space(expected_amplitude: float, expected_count: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        amplitude, truncation_values = result
+        assert np.isclose(float(amplitude), expected_amplitude)
+        truncation_values = np.asarray(truncation_values, dtype=float)
+        assert truncation_values.shape == (expected_count,)
+        assert np.isclose(truncation_values[0], 0.1)
+        assert np.isclose(truncation_values[-1], 0.99)
+
+    return _validator
+
+
+def _assert_permutation_list(expected: list[int]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, list)
+        assert result == expected
+
+    return _validator
+
+
 def _search_plans() -> dict[str, ProbePlan]:
     adjacency = np.array(
         [
@@ -1237,6 +1274,164 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "threshold permutation enumeration rejects a non-float amplitude",
                 lambda func: func(np.eye(2), "bad", np.array([0.25])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.validate_square_matrix_shape": ProbePlan(
+            positive=ProbeCase(
+                "square-matrix validation passes through a 3x3 matrix",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_array(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "square-matrix validation rejects a rectangular matrix",
+                lambda func: func(np.array([[1.0, 2.0, 3.0]])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.compute_absolute_weighted_index_distances": ProbePlan(
+            positive=ProbeCase(
+                "weighted index distance calculation matches elementwise |value * (i-j)|",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_array(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "weighted distance calculation rejects a missing matrix",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.aggregate_maximum_distance_as_bandwidth": ProbePlan(
+            positive=ProbeCase(
+                "bandwidth aggregation returns the maximum weighted distance",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_scalar(2.0),
+            ),
+            negative=ProbeCase(
+                "bandwidth aggregation rejects missing distances",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.validate_symmetric_input": ProbePlan(
+            positive=ProbeCase(
+                "symmetric-input validation passes through a symmetric matrix",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_array(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "symmetric-input validation rejects an asymmetric matrix",
+                lambda func: func(np.array([[0.0, 1.0], [0.0, 0.0]])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.initialize_reduction_state": ProbePlan(
+            positive=ProbeCase(
+                "reduction-state initialization creates a working matrix snapshot",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_state_snapshot(1, 100),
+            ),
+            negative=ProbeCase(
+                "reduction-state initialization rejects a missing matrix",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.enforce_threshold_sparsity": ProbePlan(
+            positive=ProbeCase(
+                "threshold sparsity zeros entries below the threshold",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]]), 1.5),
+                _assert_array(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 0.0], [0.0, 0.0, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "threshold sparsity rejects a non-float threshold",
+                lambda func: func(np.eye(2), "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.build_sparse_graph_view": ProbePlan(
+            positive=ProbeCase(
+                "sparse-graph view preserves the thresholded matrix content",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_array(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+            ),
+            negative=ProbeCase(
+                "sparse-graph view rejects a missing matrix",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.compute_symmetric_bandwidth_reducing_order": ProbePlan(
+            positive=ProbeCase(
+                "RCM ordering produces a valid reverse bandwidth permutation",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_array(np.array([2, 1, 0])),
+            ),
+            negative=ProbeCase(
+                "RCM ordering rejects a missing sparse matrix",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.build_threshold_search_space": ProbePlan(
+            positive=ProbeCase(
+                "threshold search space returns matrix amplitude and the 0.1..0.99 sweep",
+                lambda func: func(np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]])),
+                _assert_search_space(2.0, 90),
+            ),
+            negative=ProbeCase(
+                "threshold search space rejects a missing matrix",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.select_minimum_bandwidth_permutation": ProbePlan(
+            positive=ProbeCase(
+                "minimum-bandwidth selector returns the best candidate permutation",
+                lambda func: func(
+                    np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]]),
+                    np.array([[0, 1, 2], [2, 1, 0]]),
+                ),
+                _assert_permutation_list([0, 1, 2]),
+            ),
+            negative=ProbeCase(
+                "minimum-bandwidth selector rejects missing candidates",
+                lambda func: func(np.eye(2), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.extract_final_permutation": ProbePlan(
+            positive=ProbeCase(
+                "final-permutation extraction returns the accumulated permutation",
+                lambda func: func(
+                    np.array(
+                        [
+                            {
+                                "working_matrix": np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]]),
+                                "accumulated_permutation": [0, 1, 2],
+                                "bandwidth": 1,
+                                "remaining_iterations": 100,
+                            }
+                        ],
+                        dtype=object,
+                    )
+                ),
+                _assert_permutation_list([0, 1, 2]),
+            ),
+            negative=ProbeCase(
+                "final-permutation extraction rejects a missing terminal state",
+                lambda func: func(None),
                 expect_exception=True,
             ),
             parity_used=True,

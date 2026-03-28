@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-03-28T02:10:18+00:00",
+    "generated_at": "2026-03-28T03:18:56+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,44 +64,44 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 265,
-      "medium": 240
+      "low": 276,
+      "medium": 229
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 80,
+    "parity_coverage_count": 92,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 52,
     "review_priority_counts": {
-      "review_later": 394,
+      "review_later": 395,
       "review_now": 12,
-      "review_soon": 99
+      "review_soon": 98
     },
     "high_risk_count": 0,
-    "medium_risk_count": 240,
-    "low_risk_count": 265,
+    "medium_risk_count": 229,
+    "low_risk_count": 276,
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 440,
+      "not_applicable": 428,
       "partial": 7,
-      "pass": 56
+      "pass": 68
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 56,
-      "unknown": 440
+      "pass": 68,
+      "unknown": 428
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "parity_coverage_level_counts": {
-      "none": 327,
+      "none": 315,
       "not_applicable": 98,
-      "parity_or_usage_equivalent": 33,
+      "parity_or_usage_equivalent": 45,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -123,7 +123,7 @@
       "kalman_filters": 11,
       "mcmc_foundational": 24,
       "mint": 12,
-      "molecular_docking": 39,
+      "molecular_docking": 27,
       "neurokit2": 2,
       "numpy": 21,
       "particle_filters": 3,
@@ -181,6 +181,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -404,6 +405,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -653,6 +655,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -909,6 +912,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -1116,6 +1120,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -1323,6 +1328,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -1530,6 +1536,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -1737,6 +1744,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -1937,6 +1945,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -2145,6 +2154,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -2353,6 +2363,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -2561,6 +2572,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -2762,6 +2774,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -2963,6 +2976,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -3164,6 +3178,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -3365,6 +3380,7 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -3573,6 +3589,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -3806,6 +3823,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -4031,6 +4049,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -4256,6 +4275,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -4527,6 +4547,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -4744,6 +4765,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -4969,6 +4991,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -5208,7 +5231,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -5470,6 +5494,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -5678,6 +5703,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -5886,6 +5912,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -6102,6 +6129,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -6318,6 +6346,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -6526,6 +6555,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -6734,6 +6764,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -6947,7 +6978,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -7174,7 +7206,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -7398,7 +7431,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -7617,7 +7651,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -7833,7 +7868,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -8057,7 +8093,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -8281,7 +8318,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -8505,7 +8543,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -8729,7 +8768,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -8945,7 +8985,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -9161,7 +9202,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -9417,7 +9459,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "detector_1",
@@ -9660,7 +9703,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "ecg_signal",
@@ -9911,7 +9955,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -10130,7 +10175,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "detector_1",
@@ -10381,7 +10427,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "ecg_signal",
@@ -10641,7 +10688,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -10870,6 +10918,7 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -11158,6 +11207,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -11366,6 +11416,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -11587,7 +11638,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -11846,7 +11898,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -12102,7 +12155,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -12342,7 +12396,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -12577,6 +12632,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -12791,6 +12847,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -13007,6 +13064,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -13221,6 +13279,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -13437,6 +13496,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -13651,6 +13711,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -13867,6 +13928,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -14068,6 +14130,7 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe",
         "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
@@ -14281,7 +14344,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -14497,7 +14561,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -14716,7 +14781,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -14964,7 +15030,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "add a safe runtime probe or narrow the wrapper scope documentation",
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "signal",
@@ -45037,13 +45104,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.greedy_subgraph.greedy_maximum_subgraph@ageoa/molecular_docking/greedy_subgraph.py:26",
+      "atom_id": "ageoa.molecular_docking.greedy_subgraph.greedy_maximum_subgraph@ageoa/molecular_docking/greedy_subgraph.py:21",
       "atom_name": "ageoa.molecular_docking.greedy_subgraph.greedy_maximum_subgraph",
       "atom_key": "molecular_docking/greedy_subgraph:greedy_maximum_subgraph",
       "module_import_path": "ageoa.molecular_docking.greedy_subgraph",
       "module_path": "ageoa/molecular_docking/greedy_subgraph.py",
       "wrapper_symbol": "greedy_maximum_subgraph",
-      "wrapper_line": 26,
+      "wrapper_line": 21,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
@@ -45230,7 +45297,7 @@
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/greedy_subgraph.py",
-              "line": 26
+              "line": 21
             }
           ]
         }
@@ -45478,13 +45545,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "matrix_bandwidth",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the square-matrix precondition enforced by optimiser.matrix_bandwidth."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -45496,23 +45563,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "mat"
@@ -45552,7 +45616,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -45562,27 +45626,21 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 38,
+      "risk_score": 13,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -45601,10 +45659,8 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -45640,19 +45696,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -45661,14 +45717,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -45692,13 +45751,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "matrix_bandwidth",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper exposes the weighted-distance term computed inside optimiser.matrix_bandwidth."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -45710,23 +45769,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "square_mat"
@@ -45766,7 +45827,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -45777,26 +45838,24 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -45854,19 +45913,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -45875,14 +45934,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -45906,13 +45968,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "matrix_bandwidth",
         "language": "python",
-        "notes": "Bandwidth computation logic from permutations module"
+        "notes": "Wrapper isolates the max-weighted-distance reduction used inside optimiser.matrix_bandwidth."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -45924,23 +45986,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "weighted_distances"
@@ -45980,7 +46044,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -45990,27 +46054,24 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -46029,10 +46090,8 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -46068,19 +46127,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -46089,14 +46148,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -46120,13 +46182,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the symmetric-matrix precondition enforced by minimise_bandwidth_global."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -46138,23 +46200,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "matrix"
@@ -46194,7 +46258,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -46205,26 +46269,24 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -46282,19 +46344,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -46303,14 +46365,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -46334,13 +46399,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper exposes the sanitized working-state initialization performed at the start of minimise_bandwidth."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -46352,23 +46417,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "symmetric_matrix"
@@ -46408,7 +46475,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -46419,26 +46486,24 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -46496,19 +46561,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -46517,14 +46582,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -47029,12 +47097,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -47045,7 +47113,6 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
         "align wrapper parameters with the upstream required parameters",
         "remove or document invented wrapper parameters"
@@ -47098,12 +47165,11 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 38,
+      "risk_score": 30,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -47116,9 +47182,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -47176,19 +47241,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -47197,14 +47262,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -47228,13 +47296,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_above_threshold",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper exposes the thresholding step used before reverse Cuthill-McKee in minimise_bandwidth_above_threshold."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -47246,23 +47314,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "mat",
@@ -47310,7 +47375,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -47320,27 +47385,21 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 38,
+      "risk_score": 13,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -47359,10 +47418,8 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -47398,19 +47455,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -47419,14 +47476,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -47450,13 +47510,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper exposes the matrix-to-graph preparation that precedes reverse Cuthill-McKee inside minimise_bandwidth_global."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -47468,23 +47528,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "thresholded_matrix"
@@ -47524,7 +47586,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -47535,26 +47597,24 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -47612,19 +47672,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -47633,14 +47693,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -47664,7 +47727,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.permutations",
@@ -47682,12 +47745,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -47698,7 +47761,6 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
         "align wrapper parameters with the upstream required parameters",
         "remove or document invented wrapper parameters"
@@ -47752,11 +47814,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 35,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -47769,9 +47830,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -47796,7 +47856,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -47829,19 +47889,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -47850,14 +47910,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -47881,13 +47944,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the symmetric-matrix precondition enforced by minimise_bandwidth_global."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -47899,23 +47962,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "add parity fixtures or a safe runtime probe"
       ],
       "argument_names": [
         "mat"
@@ -47955,7 +48015,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -47966,26 +48026,21 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 38,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
-          "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -48043,19 +48098,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -48064,14 +48119,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -48095,13 +48153,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper materializes the threshold sweep that minimise_bandwidth_global iterates internally."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -48113,23 +48171,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "validated_mat"
@@ -48169,7 +48229,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -48180,26 +48240,24 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -48257,19 +48315,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -48278,14 +48336,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -48539,13 +48600,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the argmin-over-candidate-permutations step from minimise_bandwidth_global."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -48557,23 +48618,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "unknown",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add parity fixtures or a safe runtime probe",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "validated_mat",
@@ -48621,7 +48684,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -48631,27 +48694,24 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -48670,10 +48730,8 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -48709,19 +48767,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/minimize_bandwidth/atoms.py",
@@ -48730,14 +48788,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -98677,8 +98738,8 @@
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "pin source revision or upstream version in the manifest",
-        "repair input validation so invalid inputs are rejected",
-        "repair input validation so obviously invalid inputs are rejected"
+        "repair input validation so obviously invalid inputs are rejected",
+        "repair input validation so invalid inputs are rejected"
       ],
       "argument_names": [
         "patches",
@@ -98898,8 +98959,8 @@
       "required_actions": [
         "add parity fixtures or a safe runtime probe",
         "pin source revision or upstream version in the manifest",
-        "repair input validation so invalid inputs are rejected",
-        "repair input validation so obviously invalid inputs are rejected"
+        "repair input validation so obviously invalid inputs are rejected",
+        "repair input validation so invalid inputs are rejected"
       ],
       "argument_names": [
         "img",
