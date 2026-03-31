@@ -535,6 +535,73 @@
     function: find_onsets_zong2003
     language: python
 
+- atom: biosppy/ecg:bandpass_filter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: filter_signal
+    language: python
+    notes: ECG-specific FIR bandpass wrapper around BioSPPy filter_signal.
+
+- atom: biosppy/ecg:r_peak_detection
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: hamilton_segmenter
+    language: python
+
+- atom: biosppy/ecg:peak_correction
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: correct_rpeaks
+    language: python
+
+- atom: biosppy/ecg:template_extraction
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: extract_heartbeats
+    language: python
+
+- atom: biosppy/ecg:heart_rate_computation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: get_heart_rate
+    language: python
+
+- atom: biosppy/ecg:ssf_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: ssf_segmenter
+    language: python
+    notes: Wrapper adds a conservative threshold ladder and Hamilton fallback.
+
+- atom: biosppy/ecg:christov_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.ecg
+    function: christov_segmenter
+    language: python
+
+- atom: biosppy/eda:gamboa_segmenter
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.eda
+    function: basic_scr
+    language: python
+    notes: Wrapper provides deterministic onset segmentation for tonic/phasic EDA traces.
+
+- atom: biosppy/eda:eda_feature_extraction
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.eda
+    function: rec_times
+    language: python
+    notes: Wrapper extracts amplitude, rise-time, and decay-time features from detected EDA onsets.
+
 - atom: biosppy/ecg_detectors:thresholdbasedsignalsegmentation
   upstream:
     repo: BioSPPy
@@ -716,6 +783,22 @@
     module: biosppy.signals.ppg
     function: find_onsets_kavsaoglu2016
     language: python
+
+- atom: biosppy/pcg:shannon_energy
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.pcg
+    function: homomorphic_filter
+    language: python
+    notes: Wrapper exposes the normalized Shannon-energy style envelope used in the PCG pipeline.
+
+- atom: biosppy/pcg:pcg_segmentation
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.pcg
+    function: identify_heart_sounds
+    language: python
+    notes: Wrapper returns alternating S1/S2 event indices from a deterministic PCG energy envelope.
 
 - atom: biosppy/svm_proc:assess_classification
   upstream:
@@ -2881,6 +2964,38 @@
     function: dijkstra
     language: python
     notes: Standard library; no third_party repo
+
+- atom: scipy/sparse_graph:graph_laplacian
+  upstream:
+    repo: ~
+    module: scipy.sparse.csgraph
+    function: laplacian
+    language: python
+    notes: Standard library; no third_party repo
+
+- atom: scipy/sparse_graph:graph_fourier_transform
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: eigh
+    language: python
+    notes: Wrapper builds graph Fourier coefficients by eigendecomposing the Laplacian and projecting the signal.
+
+- atom: scipy/sparse_graph:inverse_graph_fourier_transform
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: eigh
+    language: python
+    notes: Wrapper reconstructs a graph signal from GFT coefficients and eigenvectors.
+
+- atom: scipy/sparse_graph:heat_kernel_diffusion
+  upstream:
+    repo: ~
+    module: scipy.linalg
+    function: eigh
+    language: python
+    notes: Wrapper applies a heat-kernel filter in the Laplacian eigenbasis.
 
 - atom: scipy/spatial_v2:delaunaytriangulation
   upstream:

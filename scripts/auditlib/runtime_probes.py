@@ -169,6 +169,19 @@ def _assert_sorted_array(expected: np.ndarray) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_monotonic_index_array(*, max_value: int | None = None) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray(result)
+        assert values.ndim == 1
+        if values.size:
+            assert np.all(np.diff(values) >= 0)
+            assert np.all(values >= 0)
+            if max_value is not None:
+                assert np.all(values <= max_value)
+
+    return _validator
+
+
 def _assert_sparse_shape(expected_shape: tuple[int, int]) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert sp.issparse(result)
@@ -180,6 +193,51 @@ def _assert_sparse_shape(expected_shape: tuple[int, int]) -> Callable[[Any], Non
 def _assert_shape(expected_shape: tuple[int, ...]) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert tuple(np.asarray(result).shape) == expected_shape
+
+    return _validator
+
+
+def _assert_pair_of_arrays() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        first = np.asarray(result[0])
+        second = np.asarray(result[1])
+        assert first.ndim >= 1
+        assert second.ndim == 1
+        if first.ndim >= 2:
+            assert first.shape[0] == second.shape[0]
+
+    return _validator
+
+
+def _assert_pair_of_sorted_integer_arrays() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        for values in result:
+            arr = np.asarray(values)
+            assert arr.ndim == 1
+            assert np.issubdtype(arr.dtype, np.integer)
+            if arr.size:
+                assert np.all(np.diff(arr) > 0)
+                assert np.all(arr >= 0)
+
+    return _validator
+
+
+def _assert_triple_of_arrays_matching_onsets() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 3
+        amps = np.asarray(result[0])
+        rises = np.asarray(result[1])
+        decays = np.asarray(result[2])
+        assert amps.ndim == rises.ndim == decays.ndim == 1
+        assert amps.shape == rises.shape == decays.shape
+        assert np.all(amps >= 0)
+        assert np.all(rises >= 0)
+        assert np.all(decays >= 0)
 
     return _validator
 
@@ -1488,7 +1546,144 @@ def _biosppy_detector_plans() -> dict[str, ProbePlan]:
         assert np.all(peaks < 10_000)
 
     signal = _synthetic_ecg()
+    ppg_sampling_rate = 100.0
+    ppg_time = np.linspace(0.0, 10.0, int(10.0 * ppg_sampling_rate), endpoint=False)
+    ppg_signal = np.full_like(ppg_time, 0.02)
+    for center in np.arange(0.5, 10.0, 1.0):
+        ppg_signal += np.exp(-((ppg_time - center) ** 2) / (2 * (0.03 ** 2)))
+
+    emg_sampling_rate = 1000.0
+    emg_time = np.linspace(0.0, 2.0, int(2.0 * emg_sampling_rate), endpoint=False)
+    emg_rest = 0.01 * np.sin(2 * np.pi * 10 * np.linspace(0.0, 0.4, int(0.4 * emg_sampling_rate), endpoint=False))
+    emg_signal = 0.01 * np.sin(2 * np.pi * 10 * emg_time)
+    emg_signal[700:1100] += 0.5 * np.sin(np.linspace(0.0, np.pi, 400))
+    emg_signal[1300:1600] += 0.7 * np.sin(np.linspace(0.0, np.pi, 300))
+
+    eda_sampling_rate = 100.0
+    eda_time = np.linspace(0.0, 20.0, int(20.0 * eda_sampling_rate), endpoint=False)
+    eda_signal = 0.1 + 0.02 * np.sin(2 * np.pi * 0.1 * eda_time)
+    for center in (4.0, 10.0, 16.0):
+        eda_signal += 0.5 * np.exp(-np.maximum(eda_time - center, 0.0) / 1.2) * (eda_time >= center)
+
+    pcg_sampling_rate = 1000.0
+    pcg_time = np.linspace(0.0, 4.0, int(4.0 * pcg_sampling_rate), endpoint=False)
+    pcg_signal = np.zeros_like(pcg_time)
+    for s1, s2 in [(0.4, 0.7), (1.4, 1.7), (2.4, 2.7), (3.4, 3.7)]:
+        pcg_signal += np.exp(-((pcg_time - s1) ** 2) / (2 * (0.01 ** 2)))
+        pcg_signal += 0.7 * np.exp(-((pcg_time - s2) ** 2) / (2 * (0.012 ** 2)))
+
+    abp_sampling_rate = 1000.0
+    abp_time = np.linspace(0.0, 10.0, int(10.0 * abp_sampling_rate), endpoint=False)
+    abp_signal = np.zeros_like(abp_time)
+    for center in np.arange(0.5, 10.0, 1.0):
+        abp_signal += 0.8 * np.exp(-((abp_time - center) ** 2) / (2 * (0.02 ** 2)))
+        abp_signal += 0.3 * np.exp(-((abp_time - (center + 0.08)) ** 2) / (2 * (0.03 ** 2)))
+
     return {
+        "ageoa.biosppy.abp.audio_onset_detection": ProbePlan(
+            positive=ProbeCase(
+                "ABP onset detection returns monotonic onset indices on a synthetic pulse trace",
+                lambda func: func(abp_signal, abp_sampling_rate),
+                _assert_monotonic_index_array(max_value=len(abp_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "ABP onset detection rejects a missing signal",
+                lambda func: func(None, abp_sampling_rate),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.bandpass_filter": ProbePlan(
+            positive=ProbeCase(
+                "ECG bandpass filtering preserves waveform shape on a synthetic ECG trace",
+                lambda func: func(signal, sampling_rate=1000.0),
+                _assert_shape(signal.shape),
+            ),
+            negative=ProbeCase(
+                "ECG bandpass filtering rejects a missing signal",
+                lambda func: func(None, sampling_rate=1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.r_peak_detection": ProbePlan(
+            positive=ProbeCase(
+                "R-peak detection returns monotonic peak indices on a synthetic ECG trace",
+                lambda func: func(signal, sampling_rate=1000.0),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "R-peak detection rejects a negative sampling rate",
+                lambda func: func(signal, sampling_rate=-1.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.peak_correction": ProbePlan(
+            positive=ProbeCase(
+                "Peak correction returns monotonic corrected peak indices on a synthetic ECG trace",
+                lambda func: func(signal, np.array([500, 1300, 2100, 2900, 3700, 4500, 5300, 6100, 6900, 7700], dtype=int), sampling_rate=1000.0),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Peak correction rejects a missing filtered signal",
+                lambda func: func(None, np.array([500, 1300], dtype=int), sampling_rate=1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.template_extraction": ProbePlan(
+            positive=ProbeCase(
+                "Template extraction returns templates and aligned peaks on a synthetic ECG trace",
+                lambda func: func(signal, np.array([500, 1300, 2100, 2900, 3700, 4500, 5300, 6100, 6900, 7700], dtype=int), sampling_rate=1000.0),
+                _assert_pair_of_arrays(),
+            ),
+            negative=ProbeCase(
+                "Template extraction rejects a missing filtered signal",
+                lambda func: func(None, np.array([500, 1300], dtype=int), sampling_rate=1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.heart_rate_computation": ProbePlan(
+            positive=ProbeCase(
+                "Heart-rate computation returns aligned index and bpm arrays",
+                lambda func: func(np.array([500, 1300, 2100, 2900, 3700, 4500, 5300, 6100, 6900, 7700], dtype=int), sampling_rate=1000.0),
+                _assert_pair_of_arrays(),
+            ),
+            negative=ProbeCase(
+                "Heart-rate computation rejects a negative sampling rate",
+                lambda func: func(np.array([500, 1300, 2100], dtype=int), sampling_rate=-1.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.ssf_segmenter": ProbePlan(
+            positive=ProbeCase(
+                "SSF segmenter returns monotonic peak indices on a synthetic ECG trace",
+                lambda func: func(signal, sampling_rate=1000.0),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "SSF segmenter rejects a missing signal",
+                lambda func: func(None, sampling_rate=1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg.christov_segmenter": ProbePlan(
+            positive=ProbeCase(
+                "Christov segmenter returns monotonic peak indices on a synthetic ECG trace",
+                lambda func: func(signal, sampling_rate=1000.0),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Christov segmenter rejects a missing signal",
+                lambda func: func(None, sampling_rate=1000.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.biosppy.ecg_detectors.hamilton_segmentation": ProbePlan(
             positive=ProbeCase(
                 "Hamilton ECG segmentation detects peaks on a synthetic ECG trace",
@@ -1502,6 +1697,19 @@ def _biosppy_detector_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.biosppy.ecg_detectors.thresholdbasedsignalsegmentation": ProbePlan(
+            positive=ProbeCase(
+                "ASI threshold segmentation detects peaks on a synthetic ECG trace",
+                lambda func: func(signal, 1000.0, 5.0),
+                _assert_peak_indices,
+            ),
+            negative=ProbeCase(
+                "ASI threshold segmentation rejects a missing signal",
+                lambda func: func(None, 1000.0, 5.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.biosppy.ecg_detectors.hamilton_segmenter": ProbePlan(
             positive=ProbeCase(
                 "Hamilton ECG segmenter detects peaks on a synthetic ECG trace",
@@ -1511,6 +1719,136 @@ def _biosppy_detector_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "Hamilton ECG segmenter rejects a non-numeric sampling rate",
                 lambda func: func(signal, "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.eda.gamboa_segmenter": ProbePlan(
+            positive=ProbeCase(
+                "EDA onset segmentation returns monotonic indices on a synthetic phasic signal",
+                lambda func: func(eda_signal, eda_sampling_rate),
+                _assert_monotonic_index_array(max_value=len(eda_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "EDA onset segmentation rejects an empty signal",
+                lambda func: func(np.asarray([], dtype=float), eda_sampling_rate),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.eda.eda_feature_extraction": ProbePlan(
+            positive=ProbeCase(
+                "EDA feature extraction returns aligned amplitude, rise-time, and decay arrays",
+                lambda func: func(eda_signal, np.array([400, 1000, 1600], dtype=int), eda_sampling_rate),
+                _assert_triple_of_arrays_matching_onsets(),
+            ),
+            negative=ProbeCase(
+                "EDA feature extraction rejects a missing signal",
+                lambda func: func(None, np.array([400, 1000], dtype=int), eda_sampling_rate),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013": ProbePlan(
+            positive=ProbeCase(
+                "Elgendi PPG onset detection finds the synthetic pulse train onsets",
+                lambda func: func(ppg_signal, ppg_sampling_rate, 0.111, 0.667, 0.02, 0.3),
+                _assert_sorted_array(np.array([50, 150, 250, 350, 450, 550, 650, 750, 850, 950])),
+            ),
+            negative=ProbeCase(
+                "Elgendi PPG onset detection rejects a non-numeric sampling rate",
+                lambda func: func(ppg_signal, "bad", 0.111, 0.667, 0.02, 0.3),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ppg_detectors.detectonsetevents": ProbePlan(
+            positive=ProbeCase(
+                "Kavsaoğlu PPG onset detection finds the synthetic pulse train events",
+                lambda func: func(ppg_signal, ppg_sampling_rate, 0.2, 4, 60.0, 0.3, 180.0),
+                _assert_sorted_array(np.array([78, 178, 278, 378, 478, 578, 678, 778, 878])),
+            ),
+            negative=ProbeCase(
+                "Kavsaoğlu PPG onset detection rejects a missing signal",
+                lambda func: func(None, ppg_sampling_rate, 0.2, 4, 60.0, 0.3, 180.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.pcg.shannon_energy": ProbePlan(
+            positive=ProbeCase(
+                "PCG Shannon-energy envelope preserves signal shape and non-negativity",
+                lambda func: func(pcg_signal),
+                _assert_shape(pcg_signal.shape),
+            ),
+            negative=ProbeCase(
+                "PCG Shannon-energy envelope rejects a non-array signal",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.pcg.pcg_segmentation": ProbePlan(
+            positive=ProbeCase(
+                "PCG segmentation returns alternating S1 and S2 peaks from a synthetic envelope",
+                lambda func: func(np.maximum(pcg_signal, 0.0), pcg_sampling_rate),
+                _assert_pair_of_sorted_integer_arrays(),
+            ),
+            negative=ProbeCase(
+                "PCG segmentation rejects an empty envelope",
+                lambda func: func(np.asarray([], dtype=float), pcg_sampling_rate),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.emg_detectors.detect_onsets_with_rest_aware_thresholds": ProbePlan(
+            positive=ProbeCase(
+                "rest-aware EMG onset detection returns a valid empty onset array for the quiet synthetic trace",
+                lambda func: func(emg_signal, emg_rest, emg_sampling_rate, 20, 10, 1.0, 0.5),
+                _assert_monotonic_index_array(max_value=len(emg_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "rest-aware EMG onset detection rejects a missing signal",
+                lambda func: func(None, emg_rest, emg_sampling_rate, 20, 10, 1.0, 0.5),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.emg_detectors.bonato_onset_detection": ProbePlan(
+            positive=ProbeCase(
+                "Bonato EMG onset detection returns a valid onset array for the quiet synthetic trace",
+                lambda func: func(emg_signal, emg_rest, emg_sampling_rate, 1.0, 0.05, 3, 2),
+                _assert_monotonic_index_array(max_value=len(emg_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Bonato EMG onset detection rejects a missing signal",
+                lambda func: func(None, emg_rest, emg_sampling_rate, 1.0, 0.05, 3, 2),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.emg_detectors.threshold_based_onset_detection": ProbePlan(
+            positive=ProbeCase(
+                "threshold-based EMG onset detection returns a valid onset array for the quiet synthetic trace",
+                lambda func: func(emg_signal, emg_rest, emg_sampling_rate, 1.0, 0.05),
+                _assert_monotonic_index_array(max_value=len(emg_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "threshold-based EMG onset detection rejects a missing signal",
+                lambda func: func(None, emg_rest, emg_sampling_rate, 1.0, 0.05),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.emg_detectors.solnik_onset_detect": ProbePlan(
+            positive=ProbeCase(
+                "Solnik EMG onset detection returns a valid onset array for the quiet synthetic trace",
+                lambda func: func(emg_signal, emg_rest, emg_sampling_rate, 1.0, 0.05),
+                _assert_monotonic_index_array(max_value=len(emg_signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Solnik EMG onset detection rejects a missing signal",
+                lambda func: func(None, emg_rest, emg_sampling_rate, 1.0, 0.05),
                 expect_exception=True,
             ),
             parity_used=True,

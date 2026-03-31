@@ -5,24 +5,26 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from biosppy.signals.ecg import ASI_segmenter
-# from .ecg_detectors_witnesses import *
+from .ecg_detectors_witnesses import witness_asi_signal_segmenter
 
-# Witness functions should be imported from the generated witnesses module
-
-@register_atom(lambda *args, **kwargs: None)  # type: ignore[untyped-decorator]
+@register_atom(witness_asi_signal_segmenter)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda sampling_rate: isinstance(sampling_rate, (float, int, np.number)), "sampling_rate must be numeric")
 @icontract.require(lambda Pth: isinstance(Pth, (float, int, np.number)), "Pth must be numeric")
 @icontract.ensure(lambda result: result is not None, "ThresholdBasedSignalSegmentation output must not be None")
-def thresholdbasedsignalsegmentation(signal: np.ndarray, sampling_rate: float, Pth: float) -> np.ndarray:
-    """Segments the input signal into activity regions using the provided sampling rate and decision threshold.
+def thresholdbasedsignalsegmentation(
+    signal: np.ndarray,
+    sampling_rate: float = 1000.0,
+    Pth: float = 5.0,
+) -> np.ndarray:
+    """Detect ECG peaks with the BioSPPy ASI segmenter.
 
     Args:
-        signal: 1-D or compatible signal shape; finite values preferred
-        sampling_rate: must be > 0
-        Pth: threshold parameter used for segmentation decision
+        signal: Input ECG signal samples.
+        sampling_rate: Sampling rate in Hz.
+        Pth: Detection threshold parameter used by `ASI_segmenter`.
 
     Returns:
-        derived deterministically from inputs
+        Detected peak indices as a 1D integer array.
     """
     return ASI_segmenter(signal=signal, sampling_rate=sampling_rate, Pth=Pth)["rpeaks"]
 

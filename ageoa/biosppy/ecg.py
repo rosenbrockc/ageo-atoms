@@ -98,41 +98,67 @@ def r_peak_detection(filtered: np.ndarray, *, sampling_rate: float = 1000.0) -> 
 
 
 @register_atom(witness_peak_correction)
-@icontract.require(lambda filtered: _is_vector(filtered), "filtered must be a 1D numpy array")
+@icontract.require(lambda signal: _is_vector(signal), "signal must be a 1D numpy array")
 @icontract.require(lambda rpeaks: _is_vector(rpeaks), "rpeaks must be a 1D numpy array")
 @icontract.require(_valid_sampling_rate, "sampling_rate must be positive")
 @icontract.ensure(lambda result: result is not None, "Peak Correction output must not be None")
 def peak_correction(
-    filtered: np.ndarray,
+    signal: np.ndarray,
     rpeaks: np.ndarray,
     *,
     sampling_rate: float = 1000.0,
+    tol: float = 0.05,
 ) -> np.ndarray:
-    """Correct R-peak indices against the filtered waveform."""
+    """Correct candidate R-peak locations against an ECG signal.
+
+    Args:
+        signal: Filtered 1D ECG signal used to refine the peak positions.
+        rpeaks: Candidate R-peak indices.
+        sampling_rate: Sampling rate in Hz.
+        tol: Relative correction window width, matching BioSPPy `correct_rpeaks`.
+
+    Returns:
+        Corrected R-peak indices as a 1D integer array.
+    """
     return biosppy_ecg.correct_rpeaks(
-        signal=filtered,
+        signal=signal,
         rpeaks=rpeaks,
         sampling_rate=float(sampling_rate),
-        tol=0.05,
+        tol=float(tol),
     )["rpeaks"]
 
 
 @register_atom(witness_template_extraction)
-@icontract.require(lambda filtered: _is_vector(filtered), "filtered must be a 1D numpy array")
+@icontract.require(lambda signal: _is_vector(signal), "signal must be a 1D numpy array")
 @icontract.require(lambda rpeaks: _is_vector(rpeaks), "rpeaks must be a 1D numpy array")
 @icontract.require(_valid_sampling_rate, "sampling_rate must be positive")
 @icontract.ensure(lambda result: all(item is not None for item in result), "Template Extraction outputs must not be None")
 def template_extraction(
-    filtered: np.ndarray,
+    signal: np.ndarray,
     rpeaks: np.ndarray,
     *,
     sampling_rate: float = 1000.0,
+    before: float = 0.2,
+    after: float = 0.4,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Extract heartbeat templates around corrected R-peaks."""
+    """Extract heartbeat templates around corrected R-peaks.
+
+    Args:
+        signal: Filtered 1D ECG signal used for heartbeat extraction.
+        rpeaks: Corrected R-peak indices.
+        sampling_rate: Sampling rate in Hz.
+        before: Seconds to include before each peak.
+        after: Seconds to include after each peak.
+
+    Returns:
+        Tuple of `(templates, aligned_rpeaks)` from BioSPPy `extract_heartbeats`.
+    """
     result = biosppy_ecg.extract_heartbeats(
-        signal=filtered,
+        signal=signal,
         rpeaks=rpeaks,
         sampling_rate=float(sampling_rate),
+        before=float(before),
+        after=float(after),
     )
     return result["templates"], result["rpeaks"]
 

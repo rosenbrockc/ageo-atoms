@@ -159,6 +159,111 @@ def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_biosppy_ppg_detectors() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013", "detect_signal_onsets_elgendi2013"),
+        ("ageoa.biosppy.ppg_detectors.detectonsetevents", "detectonsetevents"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.ppg_detectors", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_abp() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.biosppy.abp.audio_onset_detection",
+            "ageoa.biosppy.abp",
+            "audio_onset_detection",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_ecg_module_wrappers() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.ecg.bandpass_filter", "bandpass_filter"),
+        ("ageoa.biosppy.ecg.r_peak_detection", "r_peak_detection"),
+        ("ageoa.biosppy.ecg.peak_correction", "peak_correction"),
+        ("ageoa.biosppy.ecg.template_extraction", "template_extraction"),
+        ("ageoa.biosppy.ecg.heart_rate_computation", "heart_rate_computation"),
+        ("ageoa.biosppy.ecg.ssf_segmenter", "ssf_segmenter"),
+        ("ageoa.biosppy.ecg.christov_segmenter", "christov_segmenter"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.ecg", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_threshold_based_asi() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.biosppy.ecg_detectors.thresholdbasedsignalsegmentation",
+            "ageoa.biosppy.ecg_detectors",
+            "thresholdbasedsignalsegmentation",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_eda() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.eda.gamboa_segmenter", "gamboa_segmenter"),
+        ("ageoa.biosppy.eda.eda_feature_extraction", "eda_feature_extraction"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.eda", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_emg_detectors() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.emg_detectors.detect_onsets_with_rest_aware_thresholds", "detect_onsets_with_rest_aware_thresholds"),
+        ("ageoa.biosppy.emg_detectors.bonato_onset_detection", "bonato_onset_detection"),
+        ("ageoa.biosppy.emg_detectors.threshold_based_onset_detection", "threshold_based_onset_detection"),
+        ("ageoa.biosppy.emg_detectors.solnik_onset_detect", "solnik_onset_detect"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.emg_detectors", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_biosppy_pcg() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.pcg.shannon_energy", "shannon_energy"),
+        ("ageoa.biosppy.pcg.pcg_segmentation", "pcg_segmentation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.pcg", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")
