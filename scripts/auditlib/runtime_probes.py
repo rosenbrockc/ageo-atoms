@@ -403,6 +403,20 @@ def _assert_float_list(expected: list[float], *, atol: float = 1e-8) -> Callable
     return _validator
 
 
+def _assert_draw_bundle(expected_draws: int, expected_rng: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        draws, rng_state_out = result
+        assert isinstance(draws, dict)
+        assert "theta" in draws
+        theta = np.asarray(draws["theta"], dtype=float)
+        assert theta.shape == (expected_draws,)
+        assert int(rng_state_out) == expected_rng
+
+    return _validator
+
+
 def _assert_state_snapshot(expected_bandwidth: int, expected_remaining_iterations: int) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, np.ndarray)
@@ -2065,6 +2079,33 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a non-array matrix container",
                 lambda func: func([np.array([[1.0]], dtype=float)], 1, 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.jax_advi.optimize_advi.posteriordrawsampling": ProbePlan(
+            positive=ProbeCase(
+                "draw constrained posterior samples from a simple mean-field Gaussian state",
+                lambda func: func(
+                    {"theta": np.array([0.0, 1.0], dtype=float)},
+                    {"theta": np.array([1.0, 0.5], dtype=float)},
+                    {"theta": lambda x: x},
+                    3,
+                    lambda draws: draws,
+                    7,
+                ),
+                _assert_draw_bundle(3, 8),
+            ),
+            negative=ProbeCase(
+                "reject a missing variational mean state",
+                lambda func: func(
+                    None,
+                    {"theta": np.array([1.0, 0.5], dtype=float)},
+                    {"theta": lambda x: x},
+                    3,
+                    lambda draws: draws,
+                    7,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,

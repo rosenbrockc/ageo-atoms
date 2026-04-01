@@ -480,6 +480,20 @@ def test_runtime_probe_passes_for_fractional_diff_and_encoding_helpers() -> None
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_jax_advi_posterior_draws() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.jax_advi.optimize_advi.posteriordrawsampling",
+            "ageoa.jax_advi.optimize_advi.atoms",
+            "posteriordrawsampling",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
