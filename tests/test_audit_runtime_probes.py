@@ -380,6 +380,22 @@ def test_runtime_probe_passes_for_institutional_quant_engine_stateful_helpers() 
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_institutional_quant_engine_script_wrappers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.institutional_quant_engine.copula_dependence.simulate_copula_dependence", "ageoa.institutional_quant_engine.copula_dependence", "simulate_copula_dependence"),
+        ("ageoa.institutional_quant_engine.dynamic_hedge.kalman_hedge_ratio", "ageoa.institutional_quant_engine.dynamic_hedge", "kalman_hedge_ratio"),
+        ("ageoa.institutional_quant_engine.evt_model.fit_gpd_tail", "ageoa.institutional_quant_engine.evt_model", "fit_gpd_tail"),
+        ("ageoa.institutional_quant_engine.supply_chain.propagate_supply_shock", "ageoa.institutional_quant_engine.supply_chain", "propagate_supply_shock"),
+        ("ageoa.institutional_quant_engine.triangular_arbitrage.detect_triangular_arbitrage", "ageoa.institutional_quant_engine.triangular_arbitrage", "detect_triangular_arbitrage"),
+        ("ageoa.institutional_quant_engine.wash_trade.detect_wash_trade_rings", "ageoa.institutional_quant_engine.wash_trade", "detect_wash_trade_rings"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_rust_robotics_bicycle_dynamics() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

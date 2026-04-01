@@ -308,6 +308,42 @@ def _assert_type(expected_type: type[Any]) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_unit_interval_shape(expected_shape: tuple[int, ...]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray(result, dtype=float)
+        assert values.shape == expected_shape
+        assert np.all(values >= 0.0)
+        assert np.all(values <= 1.0)
+
+    return _validator
+
+
+def _assert_finite_vector(expected_length: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray(result, dtype=float)
+        assert values.shape == (expected_length,)
+        assert np.all(np.isfinite(values))
+
+    return _validator
+
+
+def _assert_profitable_cycles() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray(result, dtype=float)
+        assert values.ndim == 1
+        assert values.size >= 1
+        assert np.all(values > 1.0)
+
+    return _validator
+
+
+def _assert_float_mask(expected: np.ndarray) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        np.testing.assert_allclose(np.asarray(result, dtype=float), expected)
+
+    return _validator
+
+
 def _assert_state_snapshot(expected_bandwidth: int, expected_remaining_iterations: int) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, np.ndarray)
@@ -1249,6 +1285,139 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
                     safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0, 25.0),
                     -1.0,
                 ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.copula_dependence.simulate_copula_dependence": ProbePlan(
+            positive=ProbeCase(
+                "simulate a deterministic t-copula dependence surface with a fixed NumPy seed",
+                lambda func: (
+                    np.random.seed(7),
+                    func(
+                        np.array(
+                            [
+                                [0.01, -0.02],
+                                [0.03, 0.01],
+                                [-0.01, 0.02],
+                                [0.00, -0.01],
+                            ],
+                            dtype=float,
+                        ),
+                        0.25,
+                        5,
+                    ),
+                )[1],
+                _assert_unit_interval_shape((4, 2)),
+            ),
+            negative=ProbeCase(
+                "reject a non positive-semidefinite copula correlation",
+                lambda func: func(np.array([[0.01, -0.02], [0.03, 0.01]], dtype=float), 1.1, 5),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.dynamic_hedge.kalman_hedge_ratio": ProbePlan(
+            positive=ProbeCase(
+                "estimate a deterministic rolling hedge ratio for two short price series",
+                lambda func: func(
+                    np.array([10.0, 10.5, 11.0, 11.8], dtype=float),
+                    np.array([9.0, 9.6, 10.1, 10.9], dtype=float),
+                    0.05,
+                ),
+                _assert_array(np.array([0.0, 1.0825628, 1.08819893, 1.08327791], dtype=float), atol=1e-6),
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric state noise ratio",
+                lambda func: func(
+                    np.array([10.0, 10.5, 11.0], dtype=float),
+                    np.array([9.0, 9.6, 10.1], dtype=float),
+                    "bad",
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.evt_model.fit_gpd_tail": ProbePlan(
+            positive=ProbeCase(
+                "fit a deterministic GPD tail on a short return series",
+                lambda func: func(
+                    np.array([-0.08, -0.06, -0.03, -0.01, 0.01, 0.02, -0.07, -0.02], dtype=float),
+                    0.25,
+                ),
+                _assert_finite_vector(3),
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric threshold quantile",
+                lambda func: func(np.array([-0.02, -0.01, 0.01], dtype=float), "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.supply_chain.propagate_supply_shock": ProbePlan(
+            positive=ProbeCase(
+                "propagate a deterministic supply shock across a small weighted network",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 0.4, 0.0],
+                            [0.0, 0.0, 0.5],
+                            [0.0, 0.0, 0.0],
+                        ],
+                        dtype=float,
+                    ),
+                    np.array([1.0, 0.0, 0.0], dtype=float),
+                ),
+                _assert_array(np.array([1.0, 0.4, 0.2], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject incompatible adjacency and shock dimensions",
+                lambda func: func(np.eye(3, dtype=float), np.array([1.0, 0.0], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.triangular_arbitrage.detect_triangular_arbitrage": ProbePlan(
+            positive=ProbeCase(
+                "detect profitable three-currency arbitrage cycles in a deterministic rate matrix",
+                lambda func: func(
+                    np.array(
+                        [
+                            [1.0, 0.9, 1.2],
+                            [1.1, 1.0, 1.2],
+                            [0.95, 0.8, 1.0],
+                        ],
+                        dtype=float,
+                    )
+                ),
+                _assert_profitable_cycles(),
+            ),
+            negative=ProbeCase(
+                "reject a one-dimensional rate vector",
+                lambda func: func(np.array([1.0, 0.9, 1.2], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.wash_trade.detect_wash_trade_rings": ProbePlan(
+            positive=ProbeCase(
+                "flag participants in a deterministic directed wash-trade cycle",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 1.0, 0.0, 0.0],
+                            [0.0, 0.0, 1.0, 0.0],
+                            [1.0, 0.0, 0.0, 0.0],
+                            [0.0, 0.0, 0.0, 0.0],
+                        ],
+                        dtype=float,
+                    )
+                ),
+                _assert_float_mask(np.array([1.0, 1.0, 1.0, 0.0], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a one-dimensional trade graph",
+                lambda func: func(np.array([0.0, 1.0, 0.0], dtype=float)),
                 expect_exception=True,
             ),
             parity_used=True,
