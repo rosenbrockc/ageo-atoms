@@ -14,3 +14,12 @@ future changes in `../ageo-matcher`.
   array-compatible contracts when emitted code normalizes inputs with
   `np.asarray`, `np.atleast_1d`, or `np.atleast_2d`, instead of over-strengthening
   public contracts to scalar-only forms.
+
+- Older ingest-derived witness surfaces can also be semantically mismatched for
+  stateful estimator families even when the wrapper bodies are serviceable. A
+  concrete example is `pronto/dynamic_stance_estimator`, where witness
+  signatures drift into unrelated abstract-distribution shapes instead of
+  reflecting the wrapper's state-dict transition semantics. Future ingester
+  hardening should keep witness generation conservative for stateful filters and
+  estimators, preferring state-shaped abstract surrogates over conceptually
+  unrelated witness abstractions.

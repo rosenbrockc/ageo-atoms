@@ -301,6 +301,23 @@ def test_runtime_probe_passes_for_kalman_filter_families() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_pronto_blip_filter_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.pronto.blip_filter.bandpass_filter", "bandpass_filter"),
+        ("ageoa.pronto.blip_filter.r_peak_detection", "r_peak_detection"),
+        ("ageoa.pronto.blip_filter.peak_correction", "peak_correction"),
+        ("ageoa.pronto.blip_filter.template_extraction", "template_extraction"),
+        ("ageoa.pronto.blip_filter.heart_rate_computation", "heart_rate_computation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.pronto.blip_filter.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

@@ -2037,6 +2037,81 @@ def _biosppy_online_filter_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _pronto_blip_filter_plans() -> dict[str, ProbePlan]:
+    signal = np.zeros(2000, dtype=float)
+    peak_positions = np.array([300, 700, 1100, 1500, 1900], dtype=int)
+    signal[peak_positions] = np.array([1.0, 1.2, 0.9, 1.1, 1.0], dtype=float)
+    rpeaks = np.array([300, 700, 1100, 1500], dtype=int)
+
+    return {
+        "ageoa.pronto.blip_filter.bandpass_filter": ProbePlan(
+            positive=ProbeCase(
+                "Pronto blip-filter bandpass preserves waveform length on a synthetic ECG-like trace",
+                lambda func: func(signal),
+                _assert_shape(signal.shape),
+            ),
+            negative=ProbeCase(
+                "Pronto blip-filter bandpass rejects a missing signal",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.blip_filter.r_peak_detection": ProbePlan(
+            positive=ProbeCase(
+                "Pronto blip-filter peak detection returns monotonic peak indices",
+                lambda func: func(signal),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Pronto blip-filter peak detection rejects a missing filtered signal",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.blip_filter.peak_correction": ProbePlan(
+            positive=ProbeCase(
+                "Pronto blip-filter peak correction returns monotonic corrected peaks",
+                lambda func: func(signal, rpeaks),
+                _assert_monotonic_index_array(max_value=len(signal) - 1),
+            ),
+            negative=ProbeCase(
+                "Pronto blip-filter peak correction rejects a missing filtered signal",
+                lambda func: func(None, rpeaks),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.blip_filter.template_extraction": ProbePlan(
+            positive=ProbeCase(
+                "Pronto blip-filter template extraction returns templates and aligned peaks",
+                lambda func: func(signal, rpeaks),
+                _assert_pair_of_arrays(),
+            ),
+            negative=ProbeCase(
+                "Pronto blip-filter template extraction rejects a missing filtered signal",
+                lambda func: func(None, rpeaks),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.blip_filter.heart_rate_computation": ProbePlan(
+            positive=ProbeCase(
+                "Pronto blip-filter heart-rate computation returns aligned index and bpm arrays",
+                lambda func: func(rpeaks),
+                _assert_pair_of_arrays(),
+            ),
+            negative=ProbeCase(
+                "Pronto blip-filter heart-rate computation rejects a missing peak series",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -2323,6 +2398,7 @@ PROBE_PLANS.update(_molecular_docking_plans())
 PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_biosppy_online_filter_plans())
+PROBE_PLANS.update(_pronto_blip_filter_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
