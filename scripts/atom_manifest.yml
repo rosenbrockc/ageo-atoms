@@ -2569,6 +2569,27 @@
     function: runSimulation
     language: haskell
 
+- atom: quantfin/montecarlo:run_simulation
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulation
+    language: haskell
+
+- atom: quantfin/montecarlo:run_simulation_anti
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: runSimulationAnti
+    language: haskell
+
+- atom: quantfin/montecarlo:quick_sim_anti
+  upstream:
+    repo: quantfin
+    module: Quant.MonteCarlo
+    function: quickSimAnti
+    language: haskell
+
 - atom: quantfin:volatility_surface_modeling
   upstream:
     repo: quantfin

@@ -408,6 +408,20 @@ def test_runtime_probe_passes_for_pronto_state_estimator_update() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_quantfin_quick_sim_anti() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.quantfin.montecarlo.quick_sim_anti",
+            "ageoa.quantfin.montecarlo",
+            "quick_sim_anti",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-01T12:51:55+00:00",
+    "generated_at": "2026-04-01T13:06:07+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 313,
-      "medium": 192
+      "low": 316,
+      "medium": 189
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 161,
+    "parity_coverage_count": 162,
     "reference_coverage_count": 501,
-    "unmapped_upstream_count": 27,
+    "unmapped_upstream_count": 24,
     "structural_status_counts": {
       "partial": 81,
       "pass": 424
     },
     "parity_coverage_level_counts": {
-      "none": 247,
+      "none": 246,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 114,
+      "parity_or_usage_equivalent": 115,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -111,22 +111,22 @@
       "pulsar": 4,
       "pulsar_folding": 3,
       "quant_engine": 4,
-      "quantfin": 46,
+      "quantfin": 45,
       "scipy": 27,
       "skyfield": 2,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 357,
+      "not_applicable": 356,
       "partial": 7,
-      "pass": 139
+      "pass": 140
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 139,
-      "unknown": 357
+      "pass": 140,
+      "unknown": 356
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -137,8 +137,8 @@
       "review_soon": 82
     },
     "high_risk_count": 0,
-    "medium_risk_count": 192,
-    "low_risk_count": 313
+    "medium_risk_count": 189,
+    "low_risk_count": 316
   },
   "atoms": [
     {
@@ -82223,10 +82223,16 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "quantfin",
+        "module": "Quant.MonteCarlo",
+        "function": "runSimulation",
+        "language": "haskell",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -82243,15 +82249,13 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
+      "acceptability_score": 65,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "model",
@@ -82329,34 +82333,38 @@
           "path": "ageoa/quantfin/montecarlo.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "quantfin",
+          "module": "Quant.MonteCarlo",
+          "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quantfin/references.json"
         }
       ],
       "risk_reasons": [
         "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STOCHASTIC",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 36,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 11,
           "reasons": [
             "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -82467,10 +82475,16 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "quantfin",
+        "module": "Quant.MonteCarlo",
+        "function": "runSimulationAnti",
+        "language": "haskell",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -82487,15 +82501,13 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
+      "acceptability_score": 65,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "model",
@@ -82565,34 +82577,38 @@
           "path": "ageoa/quantfin/montecarlo.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "quantfin",
+          "module": "Quant.MonteCarlo",
+          "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quantfin/references.json"
         }
       ],
       "risk_reasons": [
         "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STOCHASTIC",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 36,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 11,
           "reasons": [
             "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -82703,10 +82719,16 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "quantfin",
+        "module": "Quant.MonteCarlo",
+        "function": "quickSimAnti",
+        "language": "haskell",
+        "notes": null
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -82715,23 +82737,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "model",
@@ -82793,33 +82812,35 @@
           "path": "ageoa/quantfin/montecarlo.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "quantfin",
+          "module": "Quant.MonteCarlo",
+          "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quantfin/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 32,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -82876,19 +82897,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/montecarlo.py",
@@ -82897,14 +82918,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

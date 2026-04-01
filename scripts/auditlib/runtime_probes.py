@@ -1320,6 +1320,58 @@ def _rust_robotics_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _quantfin_plans() -> dict[str, ProbePlan]:
+    def _quick_sim_anti_positive(func: Callable[..., Any]) -> Any:
+        module = safe_import_module("ageoa.quantfin.montecarlo")
+        original = dict(module.SIMULATOR_REGISTRY)
+
+        def _dummy_simulator(model: Any, claim: Any, rng: np.random.Generator, trials: int, anti: bool) -> float:
+            _ = (model, claim, rng)
+            return float(trials + (1 if anti else 3))
+
+        try:
+            module._register_simulator("unit_dummy", _dummy_simulator)
+            model = safe_import_module("ageoa.quantfin.models").DiscretizeModel()
+            claim = safe_import_module("ageoa.quantfin.models").ContingentClaim()
+            return func(model, claim, 8, "unit_dummy")
+        finally:
+            module.SIMULATOR_REGISTRY.clear()
+            module.SIMULATOR_REGISTRY.update(original)
+
+    def _quick_sim_anti_negative(func: Callable[..., Any]) -> Any:
+        module = safe_import_module("ageoa.quantfin.montecarlo")
+        original = dict(module.SIMULATOR_REGISTRY)
+
+        def _dummy_simulator(model: Any, claim: Any, rng: np.random.Generator, trials: int, anti: bool) -> float:
+            _ = (model, claim, rng, anti)
+            return float(trials)
+
+        try:
+            module._register_simulator("unit_dummy", _dummy_simulator)
+            model = safe_import_module("ageoa.quantfin.models").DiscretizeModel()
+            claim = safe_import_module("ageoa.quantfin.models").ContingentClaim()
+            return func(model, claim, 7, "unit_dummy")
+        finally:
+            module.SIMULATOR_REGISTRY.clear()
+            module.SIMULATOR_REGISTRY.update(original)
+
+    return {
+        "ageoa.quantfin.montecarlo.quick_sim_anti": ProbePlan(
+            positive=ProbeCase(
+                "run a deterministic antithetic Monte Carlo wrapper over a dummy seeded simulator",
+                _quick_sim_anti_positive,
+                _assert_scalar(6.0),
+            ),
+            negative=ProbeCase(
+                "reject an odd trial count for antithetic Monte Carlo",
+                _quick_sim_anti_negative,
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
     class _DummyBlock:
         def __init__(self, value: int) -> None:
@@ -2895,6 +2947,7 @@ PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
 PROBE_PLANS.update(_rust_robotics_plans())
+PROBE_PLANS.update(_quantfin_plans())
 PROBE_PLANS.update(_kalman_filter_plans())
 PROBE_PLANS.update(_mcmc_foundational_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
