@@ -2003,6 +2003,32 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.pulsar_folding.dm_can_brute_force": ProbePlan(
+            positive=ProbeCase(
+                "run deterministic brute-force DM search on a short folded profile",
+                lambda func: func(np.array([0.0, 2.0, 1.0, 0.5], dtype=float)),
+                _assert_array(np.array([0.0, 2.0, 1.0, 0.5], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject an empty folded profile",
+                lambda func: func(np.array([], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pulsar_folding.spline_bandpass_correction": ProbePlan(
+            positive=ProbeCase(
+                "subtract a smooth spline baseline from a short bandpass trace",
+                lambda func: func(np.array([1.0, 1.5, 2.0, 1.5, 1.0], dtype=float)),
+                _assert_shape((5,)),
+            ),
+            negative=ProbeCase(
+                "reject an empty bandpass trace",
+                lambda func: func(np.array([], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.mint.incremental_attention.enable_incremental_state_configuration": ProbePlan(
             positive=ProbeCase(
                 "incremental attention decorates a class with state accessors",

@@ -456,6 +456,18 @@ def test_runtime_probe_passes_for_quantfin_d12_helpers() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_signal_and_reconstruction_helpers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.pulsar_folding.dm_can_brute_force", "ageoa.pulsar_folding.atoms", "dm_can_brute_force"),
+        ("ageoa.pulsar_folding.spline_bandpass_correction", "ageoa.pulsar_folding.atoms", "spline_bandpass_correction"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
