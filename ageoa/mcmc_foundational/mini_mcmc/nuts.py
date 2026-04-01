@@ -22,8 +22,8 @@ from pathlib import Path
 @register_atom(witness_nuts_recursive_tree_build)
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
 @icontract.require(lambda log_slice_variable: isinstance(log_slice_variable, (float, int, np.number)), "log_slice_variable must be numeric")
-@icontract.require(lambda log_prob_oracle: isinstance(log_prob_oracle, (float, int, np.number)), "log_prob_oracle must be numeric")
-@icontract.require(lambda integrator_fn: isinstance(integrator_fn, (float, int, np.number)), "integrator_fn must be numeric")
+@icontract.require(lambda log_prob_oracle: callable(log_prob_oracle), "log_prob_oracle must be callable")
+@icontract.require(lambda integrator_fn: callable(integrator_fn), "integrator_fn must be callable")
 @icontract.ensure(lambda result: result is not None, "nuts_recursive_tree_build output must not be None")
 def nuts_recursive_tree_build(direction_val: int, step_size: float, log_slice_variable: float, initial_hmc_state: HMCState, log_prob_oracle: Callable[[Position], float], integrator_fn: Callable[[State, float, int], State], tree_depth: int) -> NUTS_Trajectory:
     """Recursively builds a binary tree for a No-U-Turn Sampler (NUTS) step.

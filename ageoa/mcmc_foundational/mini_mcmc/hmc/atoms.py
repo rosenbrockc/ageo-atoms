@@ -20,7 +20,7 @@ from .witnesses import (
 )
 
 @register_atom(witness_initializehmcstate)
-@icontract.require(lambda initial_positions: isinstance(initial_positions, (float, int, np.number)), "initial_positions must be numeric")
+@icontract.require(lambda initial_positions: initial_positions is not None, "initial_positions cannot be None")
 @icontract.require(lambda step_size: isinstance(step_size, (float, int, np.number)), "step_size must be numeric")
 @icontract.ensure(lambda result: all(r is not None for r in result), "InitializeHMCState all outputs must not be None")
 def initializehmcstate(target: Callable[[np.ndarray], float], initial_positions: np.ndarray, step_size: float, n_leapfrog: int, seed: int) -> tuple[np.ndarray, np.ndarray]:

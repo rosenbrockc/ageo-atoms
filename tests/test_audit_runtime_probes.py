@@ -350,6 +350,21 @@ def test_runtime_probe_passes_for_mcmc_foundational_builder_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_mini_mcmc_kernel_family() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc.initializehmcstate", "ageoa.mcmc_foundational.mini_mcmc.hmc.atoms", "initializehmcstate"),
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc.leapfrogproposalkernel", "ageoa.mcmc_foundational.mini_mcmc.hmc.atoms", "leapfrogproposalkernel"),
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc.metropolishmctransition", "ageoa.mcmc_foundational.mini_mcmc.hmc.atoms", "metropolishmctransition"),
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc.runsamplingloop", "ageoa.mcmc_foundational.mini_mcmc.hmc.atoms", "runsamplingloop"),
+        ("ageoa.mcmc_foundational.mini_mcmc.nuts.nuts_recursive_tree_build", "ageoa.mcmc_foundational.mini_mcmc.nuts", "nuts_recursive_tree_build"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.pronto.foot_contact.foot_sensing_state_update", "ageoa.pronto.foot_contact.atoms", "foot_sensing_state_update"),
@@ -502,6 +517,37 @@ def test_runtime_probe_passes_for_fractional_diff_and_encoding_helpers() -> None
         ("ageoa.mint.encoding_dist_mat.encodedistancematrix", "ageoa.mint.encoding_dist_mat", "encodedistancematrix"),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_mint_fasta_dataset_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.mint.fasta_dataset.dataset_state_initialization", "dataset_state_initialization"),
+        ("ageoa.mint.fasta_dataset.dataset_length_query", "dataset_length_query"),
+        ("ageoa.mint.fasta_dataset.dataset_item_retrieval", "dataset_item_retrieval"),
+        ("ageoa.mint.fasta_dataset.token_budget_batch_planning", "token_budget_batch_planning"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.mint.fasta_dataset.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_greedy_mapping_d12_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.greedy_mapping_d12.init_problem_context", "init_problem_context"),
+        ("ageoa.molecular_docking.greedy_mapping_d12.construct_mapping_state_via_greedy_expansion", "construct_mapping_state_via_greedy_expansion"),
+        ("ageoa.molecular_docking.greedy_mapping_d12.orchestrate_generation_and_validate", "orchestrate_generation_and_validate"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.greedy_mapping_d12.atoms", symbol)
+        )
         assert probe["status"] == "pass"
         assert probe["parity_used"] is True
         assert "RUNTIME_PROBE_PASS" in probe["findings"]
@@ -733,6 +779,18 @@ def test_runtime_probe_marks_minimize_bandwidth_state_helpers_as_usage_equivalen
         assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_minimize_bandwidth_greedy_loop_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.minimize_bandwidth.propose_greedy_permutation_step", "propose_greedy_permutation_step"),
+        ("ageoa.molecular_docking.minimize_bandwidth.update_state_with_improvement_criterion", "update_state_with_improvement_criterion"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.minimize_bandwidth.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
 def test_runtime_probe_marks_minimize_bandwidth_numeric_helpers_as_usage_equivalent() -> None:
     for atom_name, symbol in [
         ("ageoa.molecular_docking.minimize_bandwidth.compute_absolute_weighted_index_distances", "compute_absolute_weighted_index_distances"),
@@ -780,6 +838,19 @@ def test_runtime_probe_marks_biosppy_zz2018_main_wrappers_as_usage_equivalent() 
     ]:
         probe = runtime_probes.build_runtime_probe(
             _record(atom_name, "ageoa.biosppy.ecg_zz2018.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_biosppy_zz2018_d12_wrappers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi", "assemblezz2018sqi"),
+        ("ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi", "computebeatagreementsqi"),
+        ("ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi", "computefrequencysqi"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.ecg_zz2018_d12.atoms", symbol)
         )
         assert probe["status"] == "pass"
         assert probe["parity_used"] is True

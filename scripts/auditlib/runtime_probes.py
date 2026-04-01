@@ -308,6 +308,14 @@ def _assert_type(expected_type: type[Any]) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_dict_keys(expected_keys: set[str]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result.keys()) == expected_keys
+
+    return _validator
+
+
 def _assert_unit_interval_shape(expected_shape: tuple[int, ...]) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         values = np.asarray(result, dtype=float)
@@ -413,6 +421,23 @@ def _assert_draw_bundle(expected_draws: int, expected_rng: int) -> Callable[[Any
         theta = np.asarray(draws["theta"], dtype=float)
         assert theta.shape == (expected_draws,)
         assert int(rng_state_out) == expected_rng
+
+    return _validator
+
+
+def _assert_dataset_state(expected_labels: list[str], expected_sequences: list[str]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert result["sequence_labels"] == expected_labels
+        assert result["sequence_strs"] == expected_sequences
+
+    return _validator
+
+
+def _assert_batch_plan(expected: list[list[int]]) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, list)
+        assert result == expected
 
     return _validator
 
@@ -2378,6 +2403,62 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.mint.fasta_dataset.dataset_state_initialization": ProbePlan(
+            positive=ProbeCase(
+                "build an in-memory FASTA dataset state from aligned labels and sequences",
+                lambda func: func(["seq_a", "seq_b"], ["ACGT", "TT"], ""),
+                _assert_dataset_state(["seq_a", "seq_b"], ["ACGT", "TT"]),
+            ),
+            negative=ProbeCase(
+                "reject mismatched sequence label and sequence counts",
+                lambda func: func(["seq_a"], ["ACGT", "TT"], ""),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.fasta_dataset.dataset_length_query": ProbePlan(
+            positive=ProbeCase(
+                "query the length of a tiny FASTA dataset state",
+                lambda func: func({"sequence_labels": ["seq_a", "seq_b"], "sequence_strs": ["ACGT", "TT"]}),
+                _assert_scalar(2),
+            ),
+            negative=ProbeCase(
+                "reject a missing FASTA dataset state",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.fasta_dataset.dataset_item_retrieval": ProbePlan(
+            positive=ProbeCase(
+                "retrieve one labeled FASTA sequence by index",
+                lambda func: func({"sequence_labels": ["seq_a", "seq_b"], "sequence_strs": ["ACGT", "TT"]}, 1),
+                _assert_tuple(("seq_b", "TT")),
+            ),
+            negative=ProbeCase(
+                "reject a non-integer FASTA dataset index",
+                lambda func: func({"sequence_labels": ["seq_a"], "sequence_strs": ["ACGT"]}, "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.fasta_dataset.token_budget_batch_planning": ProbePlan(
+            positive=ProbeCase(
+                "plan one token-budget batch for a tiny FASTA dataset",
+                lambda func: func(
+                    {"sequence_labels": ["seq_a", "seq_b"], "sequence_strs": ["ACGT", "TT"]},
+                    8,
+                    1,
+                ),
+                _assert_batch_plan([[0, 1]]),
+            ),
+            negative=ProbeCase(
+                "reject a non-integer token budget",
+                lambda func: func({"sequence_labels": ["seq_a"], "sequence_strs": ["ACGT"]}, "bad", 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.jax_advi.optimize_advi.posteriordrawsampling": ProbePlan(
             positive=ProbeCase(
                 "draw constrained posterior samples from a simple mean-field Gaussian state",
@@ -2517,6 +2598,56 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
         assert isinstance(final_state, dict)
         assert final_state["mapping"] == {0: 10, 1: 11}
 
+    def _assert_greedy_mapping_d12_context(result: Any) -> None:
+        import networkx as nx
+
+        assert isinstance(result, dict)
+        assert isinstance(result["graph"], nx.Graph)
+        assert isinstance(result["lattice"], nx.Graph)
+        assert isinstance(result["lattice_instance"], nx.Graph)
+        assert result["seed"] == 11
+        assert isinstance(result["previously_generated_subgraphs"], list)
+
+    def _assert_greedy_mapping_d12_state(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        state, scores = result
+        assert isinstance(state, dict)
+        assert set(state) == {"mapping", "unmapping", "unexpanded_nodes"}
+        assert isinstance(scores, list)
+        assert len(scores) >= 1
+        for item in scores:
+            assert set(item) == {"node", "score"}
+
+    def _assert_greedy_mapping_d12_validation(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        mapping_state, is_valid = result
+        assert isinstance(mapping_state, dict)
+        assert set(mapping_state) == {"mapping", "unmapping", "unexpanded_nodes"}
+        assert is_valid is True
+
+    def _assert_bandwidth_proposal(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 4
+        iteration_state, candidate_permutation, candidate_matrix, candidate_bandwidth = result
+        assert isinstance(iteration_state, np.ndarray)
+        assert iteration_state.shape == (1,)
+        assert isinstance(candidate_permutation, list)
+        assert sorted(candidate_permutation) == [0, 1, 2]
+        assert isinstance(candidate_matrix, np.ndarray)
+        assert candidate_matrix.shape == (3, 3)
+        assert isinstance(candidate_bandwidth, int)
+        assert candidate_bandwidth >= 0
+
+    def _assert_bandwidth_state_update(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        next_state, continue_search = result
+        assert isinstance(next_state, np.ndarray)
+        assert next_state.shape == (1,)
+        state = next_state[0]
+        assert state["bandwidth"] == 1
+        assert state["remaining_iterations"] == 99
+        assert state["accumulated_permutation"] == [2, 1, 0]
+        assert continue_search is True
+
     return {
         "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext": ProbePlan(
             positive=ProbeCase(
@@ -2655,6 +2786,87 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a missing mapping context in the orchestration stage",
                 lambda func: func(None, 0, True, True, {"mapping": {}}, {"mapping": {}}, True),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping_d12.init_problem_context": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic refined-ingest greedy-mapping context",
+                lambda func: func(
+                    _greedy_mapping_context()[0],
+                    _greedy_mapping_context()[1],
+                    [],
+                    11,
+                ),
+                _assert_greedy_mapping_d12_context,
+            ),
+            negative=ProbeCase(
+                "reject a missing graph in refined-ingest greedy-mapping context initialization",
+                lambda func: func(None, _greedy_mapping_context()[1], [], 11),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping_d12.construct_mapping_state_via_greedy_expansion": ProbePlan(
+            positive=ProbeCase(
+                "construct one deterministic refined-ingest greedy mapping expansion state",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 11,
+                    },
+                    0,
+                    {"mapping": {}, "unmapping": {}, "unexpanded_nodes": set()},
+                    [0, 1, 2],
+                    True,
+                    True,
+                ),
+                _assert_greedy_mapping_d12_state,
+            ),
+            negative=ProbeCase(
+                "reject a missing problem context in refined-ingest greedy mapping expansion",
+                lambda func: func(None, 0, {"mapping": {}, "unmapping": {}, "unexpanded_nodes": set()}, [0, 1], True, True),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping_d12.orchestrate_generation_and_validate": ProbePlan(
+            positive=ProbeCase(
+                "validate one deterministic refined-ingest greedy mapping state",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 11,
+                    },
+                    0,
+                    True,
+                    True,
+                    {"mapping": {0: 10, 1: 11}, "unmapping": {10: 0, 11: 1}, "unexpanded_nodes": {0, 1}},
+                ),
+                _assert_greedy_mapping_d12_validation,
+            ),
+            negative=ProbeCase(
+                "reject a missing mapping state in refined-ingest greedy mapping orchestration",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 11,
+                    },
+                    0,
+                    True,
+                    True,
+                    None,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -2875,6 +3087,74 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "final-permutation extraction rejects a missing terminal state",
                 lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.propose_greedy_permutation_step": ProbePlan(
+            positive=ProbeCase(
+                "propose one greedy reverse-Cuthill-McKee permutation step",
+                lambda func: func(
+                    np.array(
+                        [
+                            {
+                                "working_matrix": np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]]),
+                                "accumulated_permutation": [0, 1, 2],
+                                "bandwidth": 2,
+                                "remaining_iterations": 100,
+                            }
+                        ],
+                        dtype=object,
+                    )
+                ),
+                _assert_bandwidth_proposal,
+            ),
+            negative=ProbeCase(
+                "reject a missing reduction state when proposing a greedy permutation step",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.minimize_bandwidth.update_state_with_improvement_criterion": ProbePlan(
+            positive=ProbeCase(
+                "accept an improved bandwidth candidate and decrement remaining iterations",
+                lambda func: func(
+                    np.array(
+                        [
+                            {
+                                "working_matrix": np.array([[0.0, 2.0, 0.0], [2.0, 0.0, 1.0], [0.0, 1.0, 0.0]]),
+                                "accumulated_permutation": [0, 1, 2],
+                                "bandwidth": 2,
+                                "remaining_iterations": 100,
+                            }
+                        ],
+                        dtype=object,
+                    ),
+                    [2, 1, 0],
+                    np.array([[0.0, 1.0, 0.0], [1.0, 0.0, 2.0], [0.0, 2.0, 0.0]]),
+                    1,
+                ),
+                _assert_bandwidth_state_update,
+            ),
+            negative=ProbeCase(
+                "reject a missing candidate matrix during bandwidth-state update",
+                lambda func: func(
+                    np.array(
+                        [
+                            {
+                                "working_matrix": np.eye(2),
+                                "accumulated_permutation": [0, 1],
+                                "bandwidth": 1,
+                                "remaining_iterations": 10,
+                            }
+                        ],
+                        dtype=object,
+                    ),
+                    [0, 1],
+                    None,
+                    1,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -3365,6 +3645,45 @@ def _biosppy_sqi_plans() -> dict[str, ProbePlan]:
             ),
             negative=ProbeCase(
                 "frequency-power SQI rejects a non-numeric sampling rate",
+                lambda func: func(signal, "bad", 64, np.array([5, 15]), np.array([5, 40]), "simple"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest ZZ2018 composite SQI assembles the expected score bundle",
+                lambda func: func(signal, detector_1, detector_2, 1000.0, 50, 64, "simple", 100.0, 0.0, 1.5),
+                _assert_dict_keys({"b_sqi", "f_sqi", "k_sqi"}),
+            ),
+            negative=ProbeCase(
+                "refined-ingest ZZ2018 composite SQI rejects a non-numeric sampling rate",
+                lambda func: func(signal, detector_1, detector_2, "bad", 50, 64, "simple", 100.0, 0.0, 1.5),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest beat-agreement SQI returns the expected agreement score",
+                lambda func: func(detector_1, detector_2, 1000.0, "simple", 50),
+                _assert_scalar(100.0),
+            ),
+            negative=ProbeCase(
+                "refined-ingest beat-agreement SQI rejects a non-numeric sampling rate",
+                lambda func: func(detector_1, detector_2, "bad", "simple", 50),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest frequency-power SQI returns the expected band-power ratio",
+                lambda func: func(signal, 1000.0, 64, np.array([5, 15]), np.array([5, 40]), "simple"),
+                _assert_scalar(0.0),
+            ),
+            negative=ProbeCase(
+                "refined-ingest frequency-power SQI rejects a non-numeric sampling rate",
                 lambda func: func(signal, "bad", 64, np.array([5, 15]), np.array([5, 40]), "simple"),
                 expect_exception=True,
             ),
@@ -4022,6 +4341,12 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
         np.testing.assert_allclose(np.asarray(kernel_spec, dtype=float), np.array([0.1, 4.0, 2.0], dtype=float))
         assert np.asarray(chain_state).shape == (5,)
 
+    def _assert_mini_hmc_init(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        chain_state, kernel_static = result
+        assert np.asarray(chain_state).shape == (4,)
+        np.testing.assert_allclose(np.asarray(kernel_static, dtype=float), np.array([0.1, 4.0, 1.0], dtype=float))
+
     def _assert_hmc_transition(result: Any) -> None:
         assert isinstance(result, tuple) and len(result) == 3
         state_out, prng_key_out, stats = result
@@ -4037,6 +4362,33 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
         assert np.asarray(trace).shape == (3, 3)
         assert np.asarray(nuts_state_out).shape == (5,)
         assert np.asarray(rng_key_out).shape == (1,)
+
+    def _assert_mini_hmc_proposal(result: Any) -> None:
+        arr = np.asarray(result, dtype=float)
+        assert arr.shape == (4,)
+        assert np.all(np.isfinite(arr))
+
+    def _assert_mini_hmc_transition(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        chain_state_out, transition_stats = result
+        state = np.asarray(chain_state_out, dtype=float)
+        stats = np.asarray(transition_stats, dtype=float)
+        assert state.shape == (4,)
+        assert stats.shape == (3,)
+        assert np.all(np.isfinite(stats))
+        assert 0.0 <= stats[1] <= 1.0
+
+    def _assert_sampling_loop(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 3
+        samples, trace, hmc_state_out = result
+        assert np.asarray(samples).shape == (2, 1)
+        assert np.asarray(trace).shape == (3, 3)
+        assert np.asarray(hmc_state_out).shape == (4,)
+
+    def _assert_nuts_tree(result: Any) -> None:
+        arr = np.asarray(result, dtype=float)
+        assert arr.shape == (1,)
+        assert np.all(np.isfinite(arr))
 
     def _invoke_rwmh(func: Callable[..., Any]) -> Any:
         kernel = func(target_log)
@@ -4153,6 +4505,87 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
                     np.array([7], dtype=np.int64),
                     target_log,
                 ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.mini_mcmc.hmc.initializehmcstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize deterministic mini-mcmc HMC state and static kernel parameters",
+                lambda func: func(target_log, np.array([0.5], dtype=float), 0.1, 4, 7),
+                _assert_mini_hmc_init,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric step size for mini-mcmc HMC initialization",
+                lambda func: func(target_log, np.array([0.5], dtype=float), "bad", 4, 7),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.mini_mcmc.hmc.leapfrogproposalkernel": ProbePlan(
+            positive=ProbeCase(
+                "run one deterministic leapfrog proposal step in mini-mcmc HMC",
+                lambda func: func(
+                    np.array([0.5, -0.125, 0.0], dtype=float),
+                    np.array([0.1, 2.0, 1.0], dtype=float),
+                    target_log,
+                ),
+                _assert_mini_hmc_proposal,
+            ),
+            negative=ProbeCase(
+                "reject a missing kernel specification for mini-mcmc leapfrog",
+                lambda func: func(np.array([0.5, -0.125, 0.0], dtype=float), None, target_log),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.mini_mcmc.hmc.metropolishmctransition": ProbePlan(
+            positive=ProbeCase(
+                "run one deterministic mini-mcmc HMC Metropolis transition",
+                lambda func: func(
+                    np.array([0.5, -0.125, 0.0, 7.0], dtype=float),
+                    np.array([0.1, 2.0, 1.0], dtype=float),
+                    np.array([0.51, -0.13, -0.2601, -0.50995, 0.049495, -0.05049995, -0.00499975], dtype=float),
+                ),
+                _assert_mini_hmc_transition,
+            ),
+            negative=ProbeCase(
+                "reject a missing proposal state for mini-mcmc HMC transition",
+                lambda func: func(np.array([0.5, -0.125, 0.0, 7.0], dtype=float), np.array([0.1, 2.0, 1.0], dtype=float), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.mini_mcmc.hmc.runsamplingloop": ProbePlan(
+            positive=ProbeCase(
+                "run a tiny deterministic mini-mcmc HMC sampling loop",
+                lambda func: func(np.array([0.5, -0.125, 0.0, 7.0], dtype=float), 2, 1),
+                _assert_sampling_loop,
+            ),
+            negative=ProbeCase(
+                "reject a missing initial mini-mcmc HMC state",
+                lambda func: func(None, 2, 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.mini_mcmc.nuts.nuts_recursive_tree_build": ProbePlan(
+            positive=ProbeCase(
+                "build a deterministic shallow NUTS subtree in mini-mcmc",
+                lambda func: func(
+                    1,
+                    0.1,
+                    -1.0,
+                    np.array([0.5], dtype=float),
+                    target_log,
+                    lambda state, step_size, direction: np.asarray(state, dtype=float) + direction * step_size,
+                    1,
+                ),
+                _assert_nuts_tree,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric step size for mini-mcmc NUTS tree build",
+                lambda func: func(1, "bad", -1.0, np.array([0.5], dtype=float), target_log, lambda state, step_size, direction: state, 1),
                 expect_exception=True,
             ),
             parity_used=True,

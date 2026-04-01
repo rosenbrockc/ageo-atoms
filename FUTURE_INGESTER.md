@@ -33,3 +33,14 @@ future changes in `../ageo-matcher`.
   runtime evidence could execute. Future ingester hardening should validate
   generated type imports against the real ghost abstract surface and avoid
   emitting redundant or non-existent abstract alias imports.
+
+- Older ingest-derived contracts still misclassify callable/oracle hooks and
+  array-normalized state inputs. A concrete example is the
+  `mcmc_foundational/mini_mcmc` family, where `nuts_recursive_tree_build`
+  originally required `log_prob_oracle` and `integrator_fn` to be numeric, and
+  `initializehmcstate` originally required `initial_positions` to be scalar
+  numeric even though the wrapper body immediately coerced it with
+  `np.asarray`/`np.atleast_1d`. Future ingester hardening should treat
+  callable-valued parameters as first-class contract categories and should keep
+  public preconditions aligned with array-coercing wrapper bodies instead of
+  collapsing them to scalar-only guards.

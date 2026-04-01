@@ -18,6 +18,8 @@ from biosppy.signals.ecg import kSQI
 
 def _ensure_scipy_trapz() -> None:
     """Compat shim for BioSPPy on SciPy versions without integrate.trapz."""
+    if not hasattr(np, "trapz") and hasattr(np, "trapezoid"):
+        np.trapz = np.trapezoid  # type: ignore[attr-defined]
     if not hasattr(scipy_integrate, "trapz"):
         scipy_integrate.trapz = np.trapz  # type: ignore[attr-defined]
 
