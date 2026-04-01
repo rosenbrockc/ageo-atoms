@@ -344,6 +344,36 @@ def _assert_float_mask(expected: np.ndarray) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_market_maker_state() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result.keys()) == {"s", "q", "sigma", "gamma", "k", "T", "t"}
+        assert np.isclose(float(result["s"]), 100.0)
+        assert np.isclose(float(result["q"]), 2.0)
+
+    return _validator
+
+
+def _assert_inventory_adjusted_quotes() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result.keys()) == {"reservation_price", "bid", "ask", "spread"}
+        assert float(result["bid"]) < float(result["ask"])
+        assert np.isclose(float(result["ask"]) - float(result["bid"]), float(result["spread"]))
+
+    return _validator
+
+
+def _assert_positive_weights(expected_length: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray(result, dtype=float)
+        assert values.shape == (expected_length,)
+        assert np.all(values >= 0.0)
+        assert np.isclose(float(values.sum()), 1.0)
+
+    return _validator
+
+
 def _assert_state_snapshot(expected_bandwidth: int, expected_remaining_iterations: int) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, np.ndarray)
@@ -1670,6 +1700,86 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "queue estimator rejects empty data",
                 lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.avellaneda_stoikov.initializemarketmakerstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic Avellaneda-Stoikov market-maker state",
+                lambda func: func(100.0, 2.0),
+                _assert_market_maker_state(),
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric inventory level",
+                lambda func: func(100.0, "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.avellaneda_stoikov.computeinventoryadjustedquotes": ProbePlan(
+            positive=ProbeCase(
+                "compute inventory-adjusted Avellaneda-Stoikov quotes from a deterministic state",
+                lambda func: func(
+                    {
+                        "s": 100.0,
+                        "q": 2.0,
+                        "sigma": 0.02,
+                        "gamma": 0.1,
+                        "k": 1.5,
+                        "T": 1.0,
+                        "t": 0.25,
+                    }
+                ),
+                _assert_inventory_adjusted_quotes(),
+            ),
+            negative=ProbeCase(
+                "reject a non-dict market-maker state",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.hierarchical_risk_parity.compute_hrp_weights": ProbePlan(
+            positive=ProbeCase(
+                "compute HRP weights for a deterministic three-asset return matrix",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.01, 0.02, -0.01],
+                            [0.00, 0.01, -0.02],
+                            [0.02, 0.015, -0.005],
+                            [0.01, 0.005, -0.01],
+                        ],
+                        dtype=float,
+                    )
+                ),
+                _assert_positive_weights(3),
+            ),
+            negative=ProbeCase(
+                "reject a one-dimensional return series",
+                lambda func: func(np.array([0.01, 0.02, -0.01], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.hierarchical_risk_parity.hrppipelinerun": ProbePlan(
+            positive=ProbeCase(
+                "execute the HRP pipeline over a deterministic pandas DataFrame",
+                lambda func: func(
+                    __import__("pandas").DataFrame(
+                        {
+                            "asset_a": [0.01, 0.00, 0.02, 0.01],
+                            "asset_b": [0.02, 0.01, 0.015, 0.005],
+                            "asset_c": [-0.01, -0.02, -0.005, -0.01],
+                        }
+                    )
+                ),
+                _assert_positive_weights(3),
+            ),
+            negative=ProbeCase(
+                "reject a single-asset DataFrame",
+                lambda func: func(__import__("pandas").DataFrame({"only_asset": [0.01, 0.0, 0.02]})),
                 expect_exception=True,
             ),
             parity_used=True,

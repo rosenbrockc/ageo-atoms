@@ -472,6 +472,20 @@ def test_runtime_probe_marks_institutional_quant_engine_as_usage_equivalent() ->
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_passes_for_institutional_quant_engine_portfolio_wrappers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.institutional_quant_engine.avellaneda_stoikov.initializemarketmakerstate", "ageoa.institutional_quant_engine.avellaneda_stoikov.atoms", "initializemarketmakerstate"),
+        ("ageoa.institutional_quant_engine.avellaneda_stoikov.computeinventoryadjustedquotes", "ageoa.institutional_quant_engine.avellaneda_stoikov.atoms", "computeinventoryadjustedquotes"),
+        ("ageoa.institutional_quant_engine.hierarchical_risk_parity.compute_hrp_weights", "ageoa.institutional_quant_engine.hierarchical_risk_parity", "compute_hrp_weights"),
+        ("ageoa.institutional_quant_engine.hierarchical_risk_parity.hrppipelinerun", "ageoa.institutional_quant_engine.hierarchical_risk_parity", "hrppipelinerun"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_incremental_attention_configuration() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
