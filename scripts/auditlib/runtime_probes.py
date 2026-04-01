@@ -2468,7 +2468,197 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
         for row in arr:
             np.testing.assert_array_equal(np.sort(row), expected)
 
+    def _greedy_mapping_context() -> tuple[Any, Any]:
+        import networkx as nx
+
+        graph = nx.Graph()
+        graph.add_edges_from([(0, 1), (1, 2)])
+        lattice = nx.Graph()
+        lattice.add_edges_from([(10, 11), (11, 12)])
+        return graph, lattice
+
+    def _assert_mapping_context(result: Any) -> None:
+        import networkx as nx
+
+        assert isinstance(result, dict)
+        assert isinstance(result["graph"], nx.Graph)
+        assert isinstance(result["lattice"], nx.Graph)
+        assert isinstance(result["lattice_instance"], nx.Graph)
+        assert result["previously_generated_subgraphs"] == []
+        assert result["seed"] == 7
+
+    def _assert_initialized_frontier(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert result["mapping"] == {0: 10}
+        assert result["unmapping"] == {10: 0}
+        assert result["unexpanded_nodes"] == {0}
+
+    def _assert_greedy_extension(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        state, scores = result
+        assert isinstance(state, dict)
+        assert isinstance(scores, dict)
+        assert state["mapping"] == {0: 10, 1: 11}
+        assert state["unmapping"] == {10: 0, 11: 1}
+        assert state["unexpanded_nodes"] == {0, 1}
+        assert scores == {1: 1.0, 2: 0.0}
+
+    def _assert_mapping_valid(result: Any) -> None:
+        assert result is True
+
+    def _assert_greedy_pipeline(result: Any) -> None:
+        import networkx as nx
+
+        assert isinstance(result, tuple) and len(result) == 2
+        generated_subgraph, final_state = result
+        assert isinstance(generated_subgraph, nx.Graph)
+        assert set(generated_subgraph.nodes()) == {0, 1}
+        assert set(generated_subgraph.edges()) == {(0, 1)}
+        assert isinstance(final_state, dict)
+        assert final_state["mapping"] == {0: 10, 1: 11}
+
     return {
+        "ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext": ProbePlan(
+            positive=ProbeCase(
+                "assemble deterministic static mapping context from graph and lattice inputs",
+                lambda func: func(*_greedy_mapping_context(), [], 7),
+                _assert_mapping_context,
+            ),
+            negative=ProbeCase(
+                "reject a missing graph input",
+                lambda func: func(None, _greedy_mapping_context()[1], [], 7),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping.initializefrontierfromstartnode": ProbePlan(
+            positive=ProbeCase(
+                "seed a frontier by mapping the starting node to the first free lattice node",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    0,
+                    {},
+                    {},
+                    set(),
+                ),
+                _assert_initialized_frontier,
+            ),
+            negative=ProbeCase(
+                "reject a missing mapping context",
+                lambda func: func(None, 0, {}, {}, set()),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping.scoreandextendgreedycandidates": ProbePlan(
+            positive=ProbeCase(
+                "score candidate nodes by mapped-neighbor support and greedily extend one step",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    [1, 2],
+                    {0},
+                    [11, 12],
+                    {0: 10},
+                    {10: 0},
+                    True,
+                    True,
+                ),
+                _assert_greedy_extension,
+            ),
+            negative=ProbeCase(
+                "reject a missing considered-node list",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    None,
+                    {0},
+                    [11, 12],
+                    {0: 10},
+                    {10: 0},
+                    True,
+                    True,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping.validatecurrentmapping": ProbePlan(
+            positive=ProbeCase(
+                "validate a deterministic edge-preserving partial graph-lattice mapping",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    {0: 10, 1: 11},
+                    {10: 0, 11: 1},
+                ),
+                _assert_mapping_valid,
+            ),
+            negative=ProbeCase(
+                "reject an inconsistent inverse mapping",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    {0: 10, 1: 11},
+                    {10: 0, 11: 2},
+                ),
+                _assert_value(False),
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline": ProbePlan(
+            positive=ProbeCase(
+                "assemble the greedy-mapping pipeline output from a validated partial state",
+                lambda func: func(
+                    {
+                        "graph": _greedy_mapping_context()[0],
+                        "lattice": _greedy_mapping_context()[1],
+                        "lattice_instance": _greedy_mapping_context()[1],
+                        "previously_generated_subgraphs": [],
+                        "seed": 7,
+                    },
+                    0,
+                    True,
+                    True,
+                    {"mapping": {0: 10}, "unmapping": {10: 0}, "unexpanded_nodes": {0}},
+                    {"mapping": {0: 10, 1: 11}, "unmapping": {10: 0, 11: 1}, "unexpanded_nodes": {0, 1}},
+                    True,
+                ),
+                _assert_greedy_pipeline,
+            ),
+            negative=ProbeCase(
+                "reject a missing mapping context in the orchestration stage",
+                lambda func: func(None, 0, True, True, {"mapping": {}}, {"mapping": {}}, True),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.molecular_docking.quantum_mwis_solver": ProbePlan(
             positive=ProbeCase(
                 "MWIS solver falls back to a deterministic median threshold on 1D input",

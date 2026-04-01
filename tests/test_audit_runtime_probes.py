@@ -654,6 +654,23 @@ def test_runtime_probe_marks_quantum_solver_helpers_as_usage_equivalent() -> Non
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_marks_greedy_mapping_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.greedy_mapping.assemblestaticmappingcontext", "assemblestaticmappingcontext"),
+        ("ageoa.molecular_docking.greedy_mapping.initializefrontierfromstartnode", "initializefrontierfromstartnode"),
+        ("ageoa.molecular_docking.greedy_mapping.scoreandextendgreedycandidates", "scoreandextendgreedycandidates"),
+        ("ageoa.molecular_docking.greedy_mapping.validatecurrentmapping", "validatecurrentmapping"),
+        ("ageoa.molecular_docking.greedy_mapping.rungreedymappingpipeline", "rungreedymappingpipeline"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.greedy_mapping.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_add_quantum_link_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
