@@ -23,3 +23,13 @@ future changes in `../ageo-matcher`.
   hardening should keep witness generation conservative for stateful filters and
   estimators, preferring state-shaped abstract surrogates over conceptually
   unrelated witness abstractions.
+
+- Some generated wrappers still emit imports for ghost abstract aliases that do
+  not actually exist in `ageoa.ghost.abstract`, even when the wrapper already
+  defines equivalent local `Any` aliases. A concrete example is
+  `molecular_docking/quantum_solver/atoms.py`, which imported `Boolean`,
+  `Integer`, `QuantumRegister`, `Permutation`, `CountDistribution`, and
+  `Solution` from `ageoa.ghost.abstract` and failed module import before any
+  runtime evidence could execute. Future ingester hardening should validate
+  generated type imports against the real ghost abstract surface and avoid
+  emitting redundant or non-existent abstract alias imports.

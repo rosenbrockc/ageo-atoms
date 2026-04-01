@@ -17,7 +17,6 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_adiabaticquantumsampler, witness_quantumproblemdefinition, witness_solutionextraction
-from ageoa.ghost.abstract import Boolean, Integer, QuantumRegister, Permutation, CountDistribution, Solution
 
 # Witness functions should be imported from the generated witnesses module
 

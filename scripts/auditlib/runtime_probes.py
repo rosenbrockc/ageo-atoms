@@ -2692,6 +2692,116 @@ def _molecular_docking_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _molecular_docking_quantum_solver_plans() -> dict[str, ProbePlan]:
+    def _assert_quantum_problem_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 5
+        register, parameters, permutation_list, backend_flags, num_sol = result
+        assert register == {0: (0.0, 0.0), 1: (1.0, 0.0)}
+        assert parameters["duration"] == 4000.0
+        assert parameters["detuning_maximum"] == 5.0
+        assert parameters["amplitude_maximum"] == 5.0
+        assert parameters["register"] == register
+        assert permutation_list == [[0, 1]]
+        assert backend_flags == {"run_qutip": False, "run_emu_mps": False, "run_sv": True}
+        assert num_sol == 2
+
+    def _assert_quantum_sample_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        measurement_counts, final_register = result
+        assert isinstance(measurement_counts, dict)
+        assert measurement_counts
+        assert set(measurement_counts.keys()).issubset({"00", "01", "10", "11"})
+        assert sum(int(v) for v in measurement_counts.values()) == 500
+        assert final_register == {0: (0.0, 0.0), 1: (1.0, 0.0)}
+
+    def _assert_solution_list(expected: list[list[int]]) -> Callable[[Any], None]:
+        def _assert(result: Any) -> None:
+            assert isinstance(result, list)
+            assert result == expected
+
+        return _assert
+
+    def _quantum_solver_graph() -> Any:
+        import networkx as nx
+
+        graph = nx.Graph()
+        graph.add_node(0, weight=1.0)
+        graph.add_node(1, weight=2.0)
+        graph.add_edge(0, 1)
+        return graph
+
+    return {
+        "ageoa.molecular_docking.quantum_solver.quantumproblemdefinition": ProbePlan(
+            positive=ProbeCase(
+                "prepare a deterministic two-node quantum problem definition bundle",
+                lambda func: func(
+                    _quantum_solver_graph(),
+                    {0: (0.0, 0.0), 1: (1.0, 0.0)},
+                    2,
+                    False,
+                ),
+                _assert_quantum_problem_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing problem graph",
+                lambda func: func(None, {0: (0.0, 0.0), 1: (1.0, 0.0)}, 2, False),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver.adiabaticquantumsampler": ProbePlan(
+            positive=ProbeCase(
+                "sample a deterministic two-node quantum register with a fixed RNG path",
+                lambda func: func(
+                    {0: (0.0, 0.0), 1: (1.0, 0.0)},
+                    {
+                        "graph": _quantum_solver_graph(),
+                        "duration": 4000.0,
+                        "detuning_maximum": 5.0,
+                        "amplitude_maximum": 5.0,
+                    },
+                    [[0, 1]],
+                    {"run_qutip": False, "run_emu_mps": False, "run_sv": True},
+                ),
+                _assert_quantum_sample_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing register definition",
+                lambda func: func(
+                    None,
+                    {
+                        "graph": _quantum_solver_graph(),
+                        "duration": 4000.0,
+                        "detuning_maximum": 5.0,
+                        "amplitude_maximum": 5.0,
+                    },
+                    [[0, 1]],
+                    {"run_qutip": False, "run_emu_mps": False, "run_sv": True},
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver.solutionextraction": ProbePlan(
+            positive=ProbeCase(
+                "extract the two most frequent bitstring solutions from a deterministic count map",
+                lambda func: func(
+                    {"10": 7, "01": 3},
+                    {0: (0.0, 0.0), 1: (1.0, 0.0)},
+                    2,
+                ),
+                _assert_solution_list([[0], [1]]),
+            ),
+            negative=ProbeCase(
+                "reject a missing measurement count distribution",
+                lambda func: func(None, {0: (0.0, 0.0), 1: (1.0, 0.0)}, 2),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _biosppy_detector_plans() -> dict[str, ProbePlan]:
     def _synthetic_ecg() -> np.ndarray:
         fs = 1000.0
@@ -3894,6 +4004,7 @@ PROBE_PLANS.update(_kalman_filter_plans())
 PROBE_PLANS.update(_mcmc_foundational_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
 PROBE_PLANS.update(_molecular_docking_plans())
+PROBE_PLANS.update(_molecular_docking_quantum_solver_plans())
 PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_biosppy_online_filter_plans())

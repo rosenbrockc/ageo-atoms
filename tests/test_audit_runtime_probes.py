@@ -639,6 +639,21 @@ def test_runtime_probe_marks_quantum_mwis_solver_as_usage_equivalent() -> None:
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_quantum_solver_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.molecular_docking.quantum_solver.quantumproblemdefinition", "quantumproblemdefinition"),
+        ("ageoa.molecular_docking.quantum_solver.adiabaticquantumsampler", "adiabaticquantumsampler"),
+        ("ageoa.molecular_docking.quantum_solver.solutionextraction", "solutionextraction"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.molecular_docking.quantum_solver.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_add_quantum_link_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

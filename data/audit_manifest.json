@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-01T16:16:17+00:00",
+    "generated_at": "2026-04-01T16:23:28+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 343,
-      "medium": 162
+      "low": 346,
+      "medium": 159
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 197,
+    "parity_coverage_count": 200,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 24,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 424
     },
     "parity_coverage_level_counts": {
-      "none": 211,
+      "none": 208,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 150,
+      "parity_or_usage_equivalent": 153,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -102,7 +102,7 @@
       "jax_advi": 1,
       "mcmc_foundational": 14,
       "mint": 11,
-      "molecular_docking": 27,
+      "molecular_docking": 24,
       "neurokit2": 2,
       "numpy": 20,
       "pasqal": 1,
@@ -116,27 +116,27 @@
     },
     "runtime_status_counts": {
       "fail": 5,
-      "not_applicable": 321,
+      "not_applicable": 318,
       "partial": 7,
-      "pass": 172
+      "pass": 175
     },
     "semantic_status_counts": {
       "fail": 5,
       "partial": 7,
-      "pass": 172,
-      "unknown": 321
+      "pass": 175,
+      "unknown": 318
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 407,
+      "review_later": 410,
       "review_now": 21,
-      "review_soon": 77
+      "review_soon": 74
     },
     "high_risk_count": 0,
-    "medium_risk_count": 162,
-    "low_risk_count": 343
+    "medium_risk_count": 159,
+    "low_risk_count": 346
   },
   "atoms": [
     {
@@ -51169,17 +51169,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.quantum_solver.quantumproblemdefinition@ageoa/molecular_docking/quantum_solver/atoms.py:30",
+      "atom_id": "ageoa.molecular_docking.quantum_solver.quantumproblemdefinition@ageoa/molecular_docking/quantum_solver/atoms.py:29",
       "atom_name": "ageoa.molecular_docking.quantum_solver.quantumproblemdefinition",
       "atom_key": "molecular_docking/quantum_solver:quantumproblemdefinition",
       "module_import_path": "ageoa.molecular_docking.quantum_solver.atoms",
       "module_path": "ageoa/molecular_docking/quantum_solver/atoms.py",
       "wrapper_symbol": "quantumproblemdefinition",
-      "wrapper_line": 30,
+      "wrapper_line": 29,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -51197,12 +51197,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -51213,7 +51213,6 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters",
         "align wrapper parameters with the upstream required parameters"
       ],
@@ -51290,11 +51289,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 35,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -51307,9 +51305,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -51334,7 +51331,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51370,35 +51367,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/quantum_solver/atoms.py",
-              "line": 30
+              "line": 29
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -51412,17 +51412,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.quantum_solver.adiabaticquantumsampler@ageoa/molecular_docking/quantum_solver/atoms.py:78",
+      "atom_id": "ageoa.molecular_docking.quantum_solver.adiabaticquantumsampler@ageoa/molecular_docking/quantum_solver/atoms.py:77",
       "atom_name": "ageoa.molecular_docking.quantum_solver.adiabaticquantumsampler",
       "atom_key": "molecular_docking/quantum_solver:adiabaticquantumsampler",
       "module_import_path": "ageoa.molecular_docking.quantum_solver.atoms",
       "module_path": "ageoa/molecular_docking/quantum_solver/atoms.py",
       "wrapper_symbol": "adiabaticquantumsampler",
-      "wrapper_line": 78,
+      "wrapper_line": 77,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -51440,12 +51440,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -51456,7 +51456,6 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters",
         "align wrapper parameters with the upstream required parameters"
       ],
@@ -51533,11 +51532,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 35,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -51550,9 +51548,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -51577,7 +51574,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51613,35 +51610,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/quantum_solver/atoms.py",
-              "line": 78
+              "line": 77
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -51655,17 +51655,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.quantum_solver.solutionextraction@ageoa/molecular_docking/quantum_solver/atoms.py:144",
+      "atom_id": "ageoa.molecular_docking.quantum_solver.solutionextraction@ageoa/molecular_docking/quantum_solver/atoms.py:143",
       "atom_name": "ageoa.molecular_docking.quantum_solver.solutionextraction",
       "atom_key": "molecular_docking/quantum_solver:solutionextraction",
       "module_import_path": "ageoa.molecular_docking.quantum_solver.atoms",
       "module_path": "ageoa/molecular_docking/quantum_solver/atoms.py",
       "wrapper_symbol": "solutionextraction",
-      "wrapper_line": 144,
+      "wrapper_line": 143,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -51683,12 +51683,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -51699,7 +51699,6 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters",
         "align wrapper parameters with the upstream required parameters"
       ],
@@ -51768,11 +51767,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 35,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -51785,9 +51783,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -51812,7 +51809,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51848,35 +51845,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/quantum_solver/atoms.py",
-              "line": 144
+              "line": 143
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
