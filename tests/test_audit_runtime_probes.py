@@ -146,6 +146,20 @@ def test_runtime_probe_passes_for_pasqal_sub_graph_embedder() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_pasqal_quantum_mwis_solver() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.pasqal.docking.quantum_mwis_solver",
+            "ageoa.pasqal.docking",
+            "quantum_mwis_solver",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

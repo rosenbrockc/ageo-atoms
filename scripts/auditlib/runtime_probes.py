@@ -1675,6 +1675,32 @@ def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
         assert all(isinstance(item, dict) for item in mappings)
         assert hasattr(state, "graph")
 
+    def _pasqal_mwis_positive(func: Callable[..., Any]) -> Any:
+        import networkx as nx
+
+        state_mod = safe_import_module("ageoa.pasqal.docking_state")
+        state = state_mod.MolecularDockingState()
+        graph = nx.Graph()
+        graph.add_nodes_from(
+            [
+                (0, {"weight": 1.0}),
+                (1, {"weight": 2.0}),
+                (2, {"weight": 1.5}),
+            ]
+        )
+        graph.add_edges_from([(0, 1), (1, 2)])
+        lattice = {0: (0.0, 0.0), 1: (1.0, 0.0), 2: (2.0, 0.0)}
+        return func(graph, lattice, 2, state)
+
+    def _assert_pasqal_mwis_result(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        solutions, state = result
+        assert isinstance(solutions, list)
+        assert len(solutions) == 2
+        assert all(solution == {0, 2} for solution in solutions)
+        assert getattr(state, "graph", None) is not None
+        assert getattr(state, "lattice_id_coord_dic", None) == {0: (0.0, 0.0), 1: (1.0, 0.0), 2: (2.0, 0.0)}
+
     return {
         "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch": ProbePlan(
             positive=ProbeCase(
@@ -1774,6 +1800,24 @@ def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
                 ),
                 expect_exception=True,
             ),
+        ),
+        "ageoa.pasqal.docking.quantum_mwis_solver": ProbePlan(
+            positive=ProbeCase(
+                "solve a deterministic path-graph MWIS heuristic twice",
+                _pasqal_mwis_positive,
+                _assert_pasqal_mwis_result,
+            ),
+            negative=ProbeCase(
+                "reject a non-positive sample count",
+                lambda func: func(
+                    __import__("networkx").path_graph(3),
+                    {0: (0.0, 0.0), 1: (1.0, 0.0), 2: (2.0, 0.0)},
+                    0,
+                    safe_import_module("ageoa.pasqal.docking_state").MolecularDockingState(),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
         ),
     }
 
