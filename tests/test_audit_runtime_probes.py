@@ -647,6 +647,20 @@ def test_runtime_probe_passes_for_institutional_quant_engine_portfolio_wrappers(
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_almgren_chriss_v2_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.institutional_quant_engine.almgren_chriss_v2.riskaversioninit", "riskaversioninit"),
+        ("ageoa.institutional_quant_engine.almgren_chriss_v2.optimalexecutiontrajectory", "optimalexecutiontrajectory"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.institutional_quant_engine.almgren_chriss_v2.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_incremental_attention_configuration() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

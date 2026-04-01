@@ -411,6 +411,17 @@ def _assert_float_list(expected: list[float], *, atol: float = 1e-8) -> Callable
     return _validator
 
 
+def _assert_nonincreasing_float_list(expected_last: float) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = np.asarray([float(item) for item in result], dtype=float)
+        assert values.ndim == 1
+        assert values.size >= 2
+        assert np.all(np.diff(values) <= 1e-12)
+        assert np.isclose(values[-1], expected_last)
+
+    return _validator
+
+
 def _assert_draw_bundle(expected_draws: int, expected_rng: int) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, tuple)
@@ -2227,6 +2238,32 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "Almgren-Chriss rejects empty data",
                 lambda func: func(np.array([])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.almgren_chriss_v2.riskaversioninit": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Almgren-Chriss risk aversion bootstrap preserves the scalar parameter",
+                lambda func: func(0.5),
+                _assert_scalar(0.5),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Almgren-Chriss bootstrap rejects a non-numeric risk aversion",
+                lambda func: func("bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.almgren_chriss_v2.optimalexecutiontrajectory": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Almgren-Chriss trajectory produces a nonincreasing liquidation schedule",
+                lambda func: func(0.5, 100.0, 4),
+                _assert_nonincreasing_float_list(0.0),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Almgren-Chriss trajectory rejects a non-numeric total share count",
+                lambda func: func(0.5, "bad", 4),
                 expect_exception=True,
             ),
             parity_used=True,
