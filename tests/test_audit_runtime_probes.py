@@ -557,6 +557,22 @@ def test_runtime_probe_marks_institutional_quant_engine_as_usage_equivalent() ->
     assert probe["parity_used"] is True
 
 
+def test_runtime_probe_passes_for_quant_engine_execution_helpers() -> None:
+    for atom_name, symbol in [
+        ("ageoa.quant_engine.calculate_ofi", "calculate_ofi"),
+        ("ageoa.quant_engine.execute_vwap", "execute_vwap"),
+        ("ageoa.quant_engine.execute_pov", "execute_pov"),
+        ("ageoa.quant_engine.execute_passive", "execute_passive"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.quant_engine.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_institutional_quant_engine_portfolio_wrappers() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.institutional_quant_engine.avellaneda_stoikov.initializemarketmakerstate", "ageoa.institutional_quant_engine.avellaneda_stoikov.atoms", "initializemarketmakerstate"),

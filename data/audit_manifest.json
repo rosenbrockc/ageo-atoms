@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-01T15:51:12+00:00",
+    "generated_at": "2026-04-01T16:11:21+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 317,
-      "medium": 188
+      "low": 342,
+      "medium": 163
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 163,
+    "parity_coverage_count": 196,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 24,
     "structural_status_counts": {
@@ -80,11 +80,11 @@
       "pass": 424
     },
     "parity_coverage_level_counts": {
-      "none": 245,
+      "none": 212,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 121,
-      "positive_and_negative": 36,
-      "positive_path": 6
+      "parity_or_usage_equivalent": 149,
+      "positive_and_negative": 39,
+      "positive_path": 8
     },
     "parity_fixture_file_count": 16,
     "parity_fixture_case_count": 25,
@@ -93,7 +93,7 @@
       "alphafold": 3,
       "astroflow": 1,
       "belief_propagation": 2,
-      "biosppy": 35,
+      "biosppy": 11,
       "datadriven": 1,
       "e2e_ppg": 12,
       "hPDB": 2,
@@ -105,40 +105,38 @@
       "molecular_docking": 27,
       "neurokit2": 2,
       "numpy": 20,
-      "pasqal": 3,
+      "pasqal": 2,
       "pronto": 20,
       "pulsar": 4,
       "pulsar_folding": 1,
-      "quant_engine": 4,
       "quantfin": 34,
       "scipy": 27,
-      "sklearn": 4,
       "skyfield": 2,
       "tempo": 2
     },
     "runtime_status_counts": {
-      "fail": 2,
-      "not_applicable": 326,
-      "partial": 38,
-      "pass": 139
+      "fail": 5,
+      "not_applicable": 322,
+      "partial": 7,
+      "pass": 171
     },
     "semantic_status_counts": {
-      "fail": 2,
-      "partial": 38,
-      "pass": 139,
-      "unknown": 326
+      "fail": 5,
+      "partial": 7,
+      "pass": 171,
+      "unknown": 322
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 386,
+      "review_later": 407,
       "review_now": 21,
-      "review_soon": 98
+      "review_soon": 77
     },
     "high_risk_count": 0,
-    "medium_risk_count": 188,
-    "low_risk_count": 317
+    "medium_risk_count": 163,
+    "low_risk_count": 342
   },
   "atoms": [
     {
@@ -5287,7 +5285,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.abp",
@@ -5305,23 +5303,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate",
@@ -5420,12 +5414,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -5438,11 +5430,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -5466,7 +5456,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -5502,20 +5492,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/abp.py",
@@ -5524,14 +5513,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -5555,7 +5547,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -5573,23 +5565,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 81,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 86,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate"
@@ -5645,12 +5633,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -5663,11 +5649,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -5689,7 +5673,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -5725,20 +5709,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -5747,14 +5730,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -5778,7 +5764,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -5796,23 +5782,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -5871,12 +5855,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -5889,11 +5871,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -5917,7 +5897,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -5953,20 +5933,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -5975,14 +5954,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -6006,7 +5988,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -6024,23 +6006,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rpeaks",
@@ -6112,12 +6090,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -6130,11 +6106,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -6158,7 +6132,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -6194,20 +6168,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -6216,14 +6189,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -6247,7 +6223,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -6265,23 +6241,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rpeaks",
@@ -6360,12 +6332,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -6378,11 +6348,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -6406,7 +6374,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -6442,20 +6410,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -6464,14 +6431,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -6495,7 +6465,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -6513,23 +6483,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -6587,12 +6555,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -6605,11 +6571,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -6631,7 +6595,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -6667,20 +6631,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -6689,14 +6652,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -6720,7 +6686,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -6738,23 +6704,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 81,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 86,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate"
@@ -6810,12 +6772,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -6828,11 +6788,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -6854,7 +6812,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -6890,20 +6848,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -6912,14 +6869,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -6943,7 +6903,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -6961,23 +6921,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate"
@@ -7033,12 +6989,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -7051,11 +7005,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -7077,7 +7029,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -7113,20 +7065,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg.py",
@@ -7135,14 +7086,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -7166,7 +7120,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -7186,21 +7140,17 @@
       "has_references": true,
       "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate",
@@ -7265,10 +7215,9 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 30,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -7281,10 +7230,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 6,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -7308,7 +7256,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -7344,20 +7292,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_detectors.py",
@@ -7369,13 +7316,14 @@
       "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_FIXTURE_PRESENT",
-        "PARITY_MISSING_NEGATIVE_CASES",
+        "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
         "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 1,
       "parity_case_count": 2,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -8975,7 +8923,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -8993,23 +8941,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate"
@@ -9066,12 +9010,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -9084,11 +9026,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -9110,7 +9050,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -9146,20 +9086,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_detectors.py",
@@ -9168,14 +9107,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -9199,7 +9141,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -9217,23 +9159,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate"
@@ -9290,12 +9228,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -9308,11 +9244,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -9334,7 +9268,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -9370,20 +9304,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_detectors.py",
@@ -9392,14 +9325,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -9423,7 +9359,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -9441,22 +9377,23 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "fail",
+      "semantic_status": "fail",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
-      "acceptability_band": "review_ready",
-      "max_reviewable_verdict": "acceptable_with_limits",
+      "overall_verdict": "broken",
+      "acceptability_score": 19,
+      "acceptability_band": "broken_candidate",
+      "max_reviewable_verdict": "broken",
       "blocking_findings": [
+        "RUNTIME_PROBE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
+        "repair the wrapper so a safe positive runtime probe succeeds"
       ],
       "argument_names": [
         "signal",
@@ -9554,12 +9491,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -9572,11 +9507,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -9598,7 +9531,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -9634,19 +9567,21 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "fail",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_FAIL",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
           "notes": [
-            "Import failed before the runtime probe could execute."
+            "Positive probe raised AttributeError: module 'numpy' has no attribute 'trapz'"
           ],
           "source_refs": [
             {
@@ -9656,14 +9591,15 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -9687,7 +9623,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -9705,23 +9641,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "detector_1",
         "detector_2",
@@ -9803,12 +9735,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -9821,11 +9751,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -9849,7 +9777,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -9885,20 +9813,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018/atoms.py",
@@ -9907,14 +9834,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -9938,7 +9868,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -9956,22 +9886,23 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "fail",
+      "semantic_status": "fail",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
-      "max_reviewable_verdict": "acceptable_with_limits",
+      "overall_verdict": "broken",
+      "acceptability_score": 19,
+      "acceptability_band": "broken_candidate",
+      "max_reviewable_verdict": "broken",
       "blocking_findings": [
+        "RUNTIME_PROBE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
+        "repair the wrapper so a safe positive runtime probe succeeds"
       ],
       "argument_names": [
         "ecg_signal",
@@ -10062,12 +9993,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -10080,11 +10009,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -10108,7 +10035,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -10144,19 +10071,21 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "fail",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_FAIL",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
           "notes": [
-            "Import failed before the runtime probe could execute."
+            "Positive probe raised AttributeError: module 'numpy' has no attribute 'trapz'"
           ],
           "source_refs": [
             {
@@ -10166,14 +10095,15 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -11937,13 +11867,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 86,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "onsets",
@@ -12008,18 +11936,18 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 21,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
+          "score": 12,
           "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -12138,7 +12066,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.emg",
@@ -12156,23 +12084,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rest",
@@ -12270,12 +12194,10 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -12288,11 +12210,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -12316,7 +12236,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12352,20 +12272,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/emg_detectors.py",
@@ -12374,14 +12293,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -12405,7 +12327,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.emg",
@@ -12423,23 +12345,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rest",
@@ -12536,12 +12454,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -12554,11 +12470,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -12580,7 +12494,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12616,20 +12530,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/emg_detectors.py",
@@ -12638,14 +12551,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -12669,7 +12585,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.emg",
@@ -12687,23 +12603,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rest",
@@ -12784,12 +12696,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -12802,11 +12712,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -12828,7 +12736,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -12864,20 +12772,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/emg_detectors.py",
@@ -12886,14 +12793,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -12917,7 +12827,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.emg",
@@ -12935,23 +12845,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "rest",
@@ -13032,12 +12938,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -13050,11 +12954,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -13076,7 +12978,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13112,20 +13014,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/emg_detectors.py",
@@ -13134,14 +13035,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -13183,23 +13087,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "b",
         "a"
@@ -13257,14 +13157,12 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 46,
+      "risk_score": 35,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -13277,11 +13175,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -13344,20 +13240,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter/atoms.py",
@@ -13366,14 +13261,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -13415,23 +13313,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -13491,15 +13387,13 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 48,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -13512,11 +13406,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -13580,20 +13472,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter/atoms.py",
@@ -13602,14 +13493,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -13651,23 +13545,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "b",
         "a"
@@ -13724,15 +13614,13 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 41,
+      "risk_score": 30,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -13745,11 +13633,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -13812,20 +13698,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_codex/atoms.py",
@@ -13834,14 +13719,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -13883,23 +13771,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -13958,16 +13844,14 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 43,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -13980,11 +13864,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -14048,20 +13930,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_codex/atoms.py",
@@ -14070,14 +13951,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -14119,23 +14003,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "b",
         "a"
@@ -14192,15 +14072,13 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 41,
+      "risk_score": 30,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -14213,11 +14091,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -14280,20 +14156,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_v2/atoms.py",
@@ -14302,14 +14177,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -14351,23 +14229,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -14426,16 +14302,14 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 43,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -14448,11 +14322,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -14516,20 +14388,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_v2/atoms.py",
@@ -14538,14 +14409,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -15444,7 +15318,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ppg",
@@ -15462,23 +15336,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 85,
+      "acceptability_score": 90,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate",
@@ -15567,12 +15437,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 36,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -15585,11 +15453,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -15611,7 +15477,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -15647,20 +15513,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ppg_detectors.py",
@@ -15669,14 +15534,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -15700,7 +15568,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ppg",
@@ -15720,21 +15588,17 @@
       "has_references": true,
       "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_rate",
@@ -15833,10 +15697,9 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 30,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -15849,10 +15712,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 6,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -15876,7 +15738,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -15912,20 +15774,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ppg_detectors.py",
@@ -15937,13 +15798,14 @@
       "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_FIXTURE_PRESENT",
-        "PARITY_MISSING_NEGATIVE_CASES",
+        "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
         "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 1,
       "parity_case_count": 2,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -43064,22 +42926,17 @@
       "has_references": true,
       "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "fail",
-      "semantic_status": "fail",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
-      "blocking_findings": [
-        "RUNTIME_PROBE_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
-      "required_actions": [
-        "repair the wrapper so a safe positive runtime probe succeeds"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "G",
         "node_A",
@@ -43232,21 +43089,18 @@
       "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
-        "RUNTIME_PROBE_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "fail",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_FAIL",
+            "RUNTIME_PROBE_PASS",
             "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Positive probe raised ModuleNotFoundError: No module named 'networkx'"
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/add_quantum_link.py",
@@ -43259,6 +43113,8 @@
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
         "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
         "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
@@ -63992,7 +63848,7 @@
       "domain_family": "pasqal",
       "module_family": "pasqal",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_subgraph_vv",
@@ -64010,22 +63866,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -64092,15 +63945,14 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
+        "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 34,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -64113,11 +63965,10 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 14,
+          "score": 5,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_USAGE_EQUIVALENCE"
           ]
         },
         "statefulness_risk": {
@@ -64143,7 +63994,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -64179,20 +64030,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pasqal/docking.py",
@@ -64201,14 +64051,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "positive_and_negative",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_MISSING_USAGE_EQUIVALENCE",
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "positive_and_negative",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -73431,12 +73284,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
       "acceptability_score": 59,
@@ -73444,7 +73297,6 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
@@ -73530,7 +73382,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
@@ -73538,7 +73389,7 @@
         "RISK_STATE_MODEL_PRESENT",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 42,
+      "risk_score": 34,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -73551,9 +73402,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -73615,19 +73465,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quant_engine/atoms.py",
@@ -73636,14 +73486,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -73679,12 +73532,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
       "acceptability_score": 59,
@@ -73692,7 +73545,6 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
@@ -73746,7 +73598,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
@@ -73754,7 +73605,7 @@
         "RISK_STATE_MODEL_PRESENT",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 42,
+      "risk_score": 34,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -73767,9 +73618,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -73831,19 +73681,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quant_engine/atoms.py",
@@ -73852,14 +73702,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -73895,12 +73748,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
       "acceptability_score": 59,
@@ -73908,7 +73761,6 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
@@ -73962,7 +73814,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
@@ -73970,7 +73821,7 @@
         "RISK_STATE_MODEL_PRESENT",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 42,
+      "risk_score": 34,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -73983,9 +73834,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -74047,19 +73897,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quant_engine/atoms.py",
@@ -74068,14 +73918,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -74111,12 +73964,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
       "acceptability_score": 59,
@@ -74124,7 +73977,6 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
@@ -74178,7 +74030,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
@@ -74186,7 +74037,7 @@
         "RISK_STATE_MODEL_PRESENT",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 42,
+      "risk_score": 34,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -74199,9 +74050,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -74263,19 +74113,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quant_engine/atoms.py",
@@ -74284,14 +74134,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -102093,7 +101946,7 @@
       "domain_family": "sklearn",
       "module_family": "sklearn",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "sklearn.feature_extraction.image",
@@ -102111,23 +101964,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": false,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "unknown",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 58,
+      "acceptability_score": 69,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -102194,33 +102043,28 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
+        "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_SKLEARN_GENERATED_FAMILY",
-        "RISK_STOCHASTIC",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STOCHASTIC"
       ],
-      "risk_score": 38,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 11,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_USAGE_EQUIVALENCE"
           ]
         },
         "statefulness_risk": {
@@ -102280,20 +102124,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/sklearn/images/atoms.py",
@@ -102302,14 +102145,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "positive_and_negative",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_MISSING_USAGE_EQUIVALENCE",
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "positive_and_negative",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -102333,7 +102179,7 @@
       "domain_family": "sklearn",
       "module_family": "sklearn",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "sklearn.feature_extraction.image",
@@ -102351,23 +102197,24 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": false,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "fail",
+      "semantic_status": "fail",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "unknown",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 58,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
+      "overall_verdict": "broken",
+      "acceptability_score": 19,
+      "acceptability_band": "broken_candidate",
+      "max_reviewable_verdict": "broken",
       "blocking_findings": [
+        "RUNTIME_CONTRACT_NEGATIVE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
-        "add vendored or importable upstream signature evidence",
+        "repair input validation so obviously invalid inputs are rejected",
+        "repair input validation so invalid inputs are rejected",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -102420,32 +102267,27 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_SKLEARN_GENERATED_FAMILY",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_PARITY_POSITIVE_ONLY",
+        "RISK_SKLEARN_GENERATED_FAMILY"
       ],
-      "risk_score": 38,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 13,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_PARITY_POSITIVE_ONLY"
           ]
         },
         "statefulness_risk": {
@@ -102504,20 +102346,20 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
+        "RUNTIME_CONTRACT_NEGATIVE_FAIL",
+        "RUNTIME_PROBE_PASS",
         "SEMANTIC_REVIEW_REQUIRED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "fail",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_FAIL"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/sklearn/images/atoms.py",
@@ -102526,14 +102368,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "positive_path",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_MISSING_NEGATIVE_CASES",
+        "PARITY_MISSING_USAGE_EQUIVALENCE",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "positive_path",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -102557,7 +102402,7 @@
       "domain_family": "sklearn",
       "module_family": "sklearn",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "sklearn.feature_extraction.image",
@@ -102575,23 +102420,24 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": false,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "fail",
+      "semantic_status": "fail",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "unknown",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 58,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
+      "overall_verdict": "broken",
+      "acceptability_score": 19,
+      "acceptability_band": "broken_candidate",
+      "max_reviewable_verdict": "broken",
       "blocking_findings": [
+        "RUNTIME_CONTRACT_NEGATIVE_FAIL",
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
-        "add vendored or importable upstream signature evidence",
+        "repair input validation so obviously invalid inputs are rejected",
+        "repair input validation so invalid inputs are rejected",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -102657,32 +102503,27 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_SKLEARN_GENERATED_FAMILY",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_PARITY_POSITIVE_ONLY",
+        "RISK_SKLEARN_GENERATED_FAMILY"
       ],
-      "risk_score": 38,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 13,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_PARITY_POSITIVE_ONLY"
           ]
         },
         "statefulness_risk": {
@@ -102741,20 +102582,20 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
+        "RUNTIME_CONTRACT_NEGATIVE_FAIL",
+        "RUNTIME_PROBE_PASS",
         "SEMANTIC_REVIEW_REQUIRED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "fail",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_FAIL"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/sklearn/images/atoms.py",
@@ -102763,14 +102604,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "positive_path",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_MISSING_NEGATIVE_CASES",
+        "PARITY_MISSING_USAGE_EQUIVALENCE",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "positive_path",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -102794,7 +102638,7 @@
       "domain_family": "sklearn",
       "module_family": "sklearn",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "sklearn.feature_extraction.image",
@@ -102812,23 +102656,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": false,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "partial",
-      "semantic_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "unknown",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 58,
+      "acceptability_score": 69,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "SEMANTIC_REVIEW_REQUIRED"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "repair the wrapper import path or document why runtime probing is not applicable",
-        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -102909,32 +102749,27 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_NO_RUNTIME_EVIDENCE",
-        "RISK_SKLEARN_GENERATED_FAMILY",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_USAGE_EQUIVALENCE",
+        "RISK_SKLEARN_GENERATED_FAMILY"
       ],
-      "risk_score": 38,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 20,
+          "score": 11,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS",
-            "RISK_NO_RUNTIME_EVIDENCE"
+            "RISK_MISSING_USAGE_EQUIVALENCE"
           ]
         },
         "statefulness_risk": {
@@ -102993,20 +102828,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_IMPORT_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "partial",
+          "status": "pass",
           "findings": [
-            "RUNTIME_IMPORT_FAIL"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Import failed before the runtime probe could execute."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/sklearn/images/atoms.py",
@@ -103015,14 +102849,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "positive_and_negative",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_MISSING_USAGE_EQUIVALENCE",
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "positive_and_negative",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
