@@ -336,6 +336,21 @@ def test_runtime_probe_passes_for_mcmc_foundational_builder_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.pronto.foot_contact.foot_sensing_state_update", "ageoa.pronto.foot_contact.atoms", "foot_sensing_state_update"),
+        ("ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform", "ageoa.pronto.inverse_schmitt", "inverse_schmitt_trigger_transform"),
+        ("ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage", "ageoa.pronto.torque_adjustment", "torqueadjustmentidentitystage"),
+        ("ageoa.pronto.yaw_lock.readrobotstandingstatus", "ageoa.pronto.yaw_lock.atoms", "readrobotstandingstatus"),
+        ("ageoa.pronto.yaw_lock.readinitialjointangles", "ageoa.pronto.yaw_lock.atoms", "readinitialjointangles"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

@@ -2378,6 +2378,84 @@ def _kalman_filter_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _pronto_state_readout_plans() -> dict[str, ProbePlan]:
+    yaw_state = {
+        "is_robot_standing": True,
+        "joint_angles_init": np.array([0.1, -0.2, 0.3], dtype=float),
+    }
+
+    def _assert_none(result: Any) -> None:
+        assert result is None
+
+    return {
+        "ageoa.pronto.foot_contact.foot_sensing_state_update": ProbePlan(
+            positive=ProbeCase(
+                "merge a foot sensing command into an immutable state snapshot",
+                lambda func: func({"left": False, "right": True}, {"left": True}),
+                _assert_value({"left": True, "right": True}),
+            ),
+            negative=ProbeCase(
+                "reject a missing sensing command",
+                lambda func: func({"left": False}, None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform": ProbePlan(
+            positive=ProbeCase(
+                "apply inverse Schmitt trigger hysteresis to a simple analog trace",
+                lambda func: func(np.array([0.2, 0.4, 0.8, 0.2], dtype=float)),
+                _assert_array(np.array([1.0, 1.0, 0.0, 1.0], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a missing input signal",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage": ProbePlan(
+            positive=ProbeCase(
+                "identity torque-adjustment stage returns no output",
+                lambda func: func(),
+                _assert_none,
+            ),
+            negative=ProbeCase(
+                "identity torque-adjustment stage rejects unexpected positional arguments",
+                lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.readrobotstandingstatus": ProbePlan(
+            positive=ProbeCase(
+                "read the robot-standing status flag from immutable yaw-lock state",
+                lambda func: func(yaw_state),
+                _assert_value(True),
+            ),
+            negative=ProbeCase(
+                "reject a missing yaw-lock state",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.readinitialjointangles": ProbePlan(
+            positive=ProbeCase(
+                "read the stored initial joint-angle vector from immutable yaw-lock state",
+                lambda func: func(yaw_state),
+                _assert_array(np.array([0.1, -0.2, 0.3], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a missing yaw-lock state",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
     target_log = lambda x: float(-0.5 * np.dot(x, x))
     tensor_fn = lambda x: np.eye(x.shape[0], dtype=float)
@@ -2567,6 +2645,7 @@ PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_biosppy_online_filter_plans())
 PROBE_PLANS.update(_pronto_blip_filter_plans())
+PROBE_PLANS.update(_pronto_state_readout_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
