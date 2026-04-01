@@ -1038,6 +1038,10 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
 
 
 def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
+    def _quadratic_obj(x: np.ndarray) -> float:
+        arr = np.asarray(x, dtype=float)
+        return float(np.sum(arr ** 2))
+
     def _seeded_hawkes(func: Callable[..., Any]) -> Any:
         state = np.random.get_state()
         try:
@@ -1071,6 +1075,14 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
         assert v_paths.shape == (3, 4)
         assert np.all(s_paths > 0.0)
         assert np.all(v_paths >= 0.0)
+
+    def _assert_advancedvi_gradient_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 4
+        grad, value, state_out, rng_out = result
+        np.testing.assert_allclose(np.asarray(grad, dtype=float), np.array([2.0, -4.0], dtype=float), atol=1e-4)
+        assert np.isclose(float(value), 5.0)
+        np.testing.assert_allclose(np.asarray(state_out, dtype=float), np.array([9.0, 8.0], dtype=float))
+        assert rng_out == 123
 
     def _assert_kalman_init_state(result: Any) -> None:
         assert hasattr(result, "x")
@@ -1126,6 +1138,35 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
                 lambda func: func(None, np.array([1.0, -1.0])),
                 expect_exception=True,
             ),
+        ),
+        "ageoa.advancedvi.core.gradient_oracle_evaluation": ProbePlan(
+            positive=ProbeCase(
+                "estimate a quadratic objective gradient with explicit state threading",
+                lambda func: func(
+                    123,
+                    _quadratic_obj,
+                    "fd",
+                    np.zeros(2, dtype=float),
+                    np.array([9.0, 8.0], dtype=float),
+                    np.array([1.0, -2.0], dtype=float),
+                    None,
+                ),
+                _assert_advancedvi_gradient_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing objective function",
+                lambda func: func(
+                    123,
+                    None,
+                    "fd",
+                    np.zeros(2, dtype=float),
+                    np.array([9.0, 8.0], dtype=float),
+                    np.array([1.0, -2.0], dtype=float),
+                    None,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
         ),
         "ageoa.institutional_quant_engine.hawkes_process.hawkesprocesssimulator": ProbePlan(
             positive=ProbeCase(
