@@ -12,6 +12,7 @@ from typing import Any, Callable
 
 import numpy as np
 import scipy.sparse as sp
+import scipy.spatial as spatial
 
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
@@ -2326,6 +2327,74 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a non-dict market-maker state",
                 lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.marketmakerstateinit": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Avellaneda-Stoikov state init returns the expected scalar tuple",
+                lambda func: func(100.0, 2.0),
+                _assert_tuple((0.1, 1.5, 2.0, 100.0, 0.02)),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Avellaneda-Stoikov state init rejects a non-numeric mid-price",
+                lambda func: func("bad", 2.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.optimalquotecalculation": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Avellaneda-Stoikov quote calculation returns a consistent quote tuple",
+                lambda func: func(0.1, 1.5, 2.0, 100.0, 0.02),
+                _assert_tuple((99.35451478862429, 100.64532521137572, 99.99992, 1.2908104227514234)),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Avellaneda-Stoikov quote calculation rejects a non-numeric volatility",
+                lambda func: func(0.1, 1.5, 2.0, 100.0, "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.scipy.spatial_v2.voronoitessellation": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Voronoi tessellation returns a SciPy Voronoi object for a small 2D point set",
+                lambda func: func(
+                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
+                    False,
+                    "",
+                ),
+                _assert_type(spatial.Voronoi),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Voronoi tessellation rejects a missing incremental flag",
+                lambda func: func(
+                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
+                    None,
+                    "",
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.scipy.spatial_v2.delaunaytriangulation": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest Delaunay triangulation returns a SciPy Delaunay object for a small 2D point set",
+                lambda func: func(
+                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
+                    False,
+                    "",
+                ),
+                _assert_type(spatial.Delaunay),
+            ),
+            negative=ProbeCase(
+                "refined-ingest Delaunay triangulation rejects a missing qhull options string",
+                lambda func: func(
+                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
+                    False,
+                    None,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,

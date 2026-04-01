@@ -661,6 +661,34 @@ def test_runtime_probe_passes_for_almgren_chriss_v2_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_avellaneda_stoikov_d12_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.institutional_quant_engine.avellaneda_stoikov_d12.marketmakerstateinit", "marketmakerstateinit"),
+        ("ageoa.institutional_quant_engine.avellaneda_stoikov_d12.optimalquotecalculation", "optimalquotecalculation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_scipy_spatial_v2_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.scipy.spatial_v2.voronoitessellation", "voronoitessellation"),
+        ("ageoa.scipy.spatial_v2.delaunaytriangulation", "delaunaytriangulation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.scipy.spatial_v2.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_incremental_attention_configuration() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
