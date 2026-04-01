@@ -1092,6 +1092,37 @@
     function: QueueTracker.process_trade
     language: python
 
+- atom: institutional_quant_engine/queue_estimator:initializeorderstate
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.49_limit_order_queue_estimator
+    function: QueueTracker.__init__
+    language: python
+    notes: Wrapper exposes the queue state initialization step that precedes QueueTracker.process_trade.
+
+- atom: institutional_quant_engine/queue_estimator:updatequeueontrade
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.49_limit_order_queue_estimator
+    function: QueueTracker.process_trade
+    language: python
+
+- atom: institutional_quant_engine/kalman_filter:kalmanfilterinit
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.10_kalman_filter_trend
+    function: KalmanFilter.__init__
+    language: python
+    notes: Wrapper exposes the state initialization half of the upstream KalmanFilter class.
+
+- atom: institutional_quant_engine/kalman_filter:kalmanmeasurementupdate
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: research_math.10_kalman_filter_trend
+    function: KalmanFilter.update
+    language: python
+    notes: Wrapper exposes the deterministic scalar update step implemented by the upstream KalmanFilter class.
+
 - atom: institutional_quant_engine:market_making_avellaneda
   upstream:
     repo: Institutional-Quant-Engine

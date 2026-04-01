@@ -366,6 +366,20 @@ def test_runtime_probe_passes_for_conjugate_and_small_mcmc_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_institutional_quant_engine_stateful_helpers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit", "ageoa.institutional_quant_engine.kalman_filter.atoms", "kalmanfilterinit"),
+        ("ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate", "ageoa.institutional_quant_engine.kalman_filter.atoms", "kalmanmeasurementupdate"),
+        ("ageoa.institutional_quant_engine.queue_estimator.initializeorderstate", "ageoa.institutional_quant_engine.queue_estimator.atoms", "initializeorderstate"),
+        ("ageoa.institutional_quant_engine.queue_estimator.updatequeueontrade", "ageoa.institutional_quant_engine.queue_estimator.atoms", "updatequeueontrade"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

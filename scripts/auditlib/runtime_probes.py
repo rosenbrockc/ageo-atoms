@@ -1072,6 +1072,48 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
         assert np.all(s_paths > 0.0)
         assert np.all(v_paths >= 0.0)
 
+    def _assert_kalman_init_state(result: Any) -> None:
+        assert hasattr(result, "x")
+        assert hasattr(result, "p")
+        assert hasattr(result, "q")
+        assert hasattr(result, "r")
+        assert np.isclose(float(result.x), 0.0)
+        assert np.isclose(float(result.p), 1.0)
+        assert np.isclose(float(result.q), 0.1)
+        assert np.isclose(float(result.r), 0.2)
+
+    def _assert_kalman_update_state(result: Any) -> None:
+        assert hasattr(result, "x")
+        assert hasattr(result, "p")
+        assert hasattr(result, "q")
+        assert hasattr(result, "r")
+        predicted_p = 1.0 + 0.1
+        gain = predicted_p / (predicted_p + 0.2)
+        assert np.isclose(float(result.x), gain * 2.0)
+        assert np.isclose(float(result.p), (1.0 - gain) * predicted_p)
+        assert np.isclose(float(result.q), 0.1)
+        assert np.isclose(float(result.r), 0.2)
+
+    def _assert_queue_state_init(result: Any) -> None:
+        assert hasattr(result, "my_order_id")
+        assert hasattr(result, "my_qty")
+        assert hasattr(result, "orders_ahead")
+        assert hasattr(result, "is_filled")
+        assert result.my_order_id == "order-1"
+        assert np.isclose(float(result.my_qty), 10.0)
+        assert np.isclose(float(result.orders_ahead), 25.0)
+        assert result.is_filled is False
+
+    def _assert_queue_state_update(result: Any) -> None:
+        assert hasattr(result, "my_order_id")
+        assert hasattr(result, "my_qty")
+        assert hasattr(result, "orders_ahead")
+        assert hasattr(result, "is_filled")
+        assert result.my_order_id == "order-1"
+        assert np.isclose(float(result.my_qty), 10.0)
+        assert np.isclose(float(result.orders_ahead), 13.0)
+        assert result.is_filled is False
+
     return {
         "ageoa.advancedvi.core.evaluate_log_probability_density": ProbePlan(
             positive=ProbeCase(
@@ -1108,6 +1150,67 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
                 lambda func: func(100.0, 0.04, 2.0, 1.2, 0.04, 0.3, 1.0, 0.25, 3),
                 expect_exception=True,
             ),
+        ),
+        "ageoa.institutional_quant_engine.kalman_filter.kalmanfilterinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic scalar Kalman state",
+                lambda func: func(0.1, 0.2, 1.0),
+                _assert_kalman_init_state,
+            ),
+            negative=ProbeCase(
+                "reject a non-positive process variance",
+                lambda func: func(0.0, 0.2, 1.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.kalman_filter.kalmanmeasurementupdate": ProbePlan(
+            positive=ProbeCase(
+                "apply one scalar Kalman measurement update",
+                lambda func: func(
+                    safe_import_module("ageoa.institutional_quant_engine.kalman_filter.atoms").kalmanfilterinit(0.1, 0.2, 1.0),
+                    2.0,
+                ),
+                _assert_kalman_update_state,
+            ),
+            negative=ProbeCase(
+                "reject a missing prior state",
+                lambda func: func(None, 2.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.queue_estimator.initializeorderstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic queue state",
+                lambda func: func("order-1", 10.0, 25.0),
+                _assert_queue_state_init,
+            ),
+            negative=ProbeCase(
+                "reject an empty order id",
+                lambda func: func("", 10.0, 25.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.queue_estimator.updatequeueontrade": ProbePlan(
+            positive=ProbeCase(
+                "advance queue state after consuming queue-ahead volume",
+                lambda func: func(
+                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0, 25.0),
+                    12.0,
+                ),
+                _assert_queue_state_update,
+            ),
+            negative=ProbeCase(
+                "reject a negative trade quantity",
+                lambda func: func(
+                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0, 25.0),
+                    -1.0,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
         ),
     }
 
