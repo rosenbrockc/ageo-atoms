@@ -351,6 +351,21 @@ def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_conjugate_and_small_mcmc_family() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.conjugate_priors.beta_binom.posterior_randmodel", "ageoa.conjugate_priors.beta_binom.atoms", "posterior_randmodel"),
+        ("ageoa.conjugate_priors.beta_binom.posterior_randmodel_weighted", "ageoa.conjugate_priors.beta_binom.atoms", "posterior_randmodel_weighted"),
+        ("ageoa.conjugate_priors.normal.normal_gamma_posterior_update", "ageoa.conjugate_priors.normal", "normal_gamma_posterior_update"),
+        ("ageoa.mcmc_foundational.kthohr_mcmc.de.build_de_transition_kernel", "ageoa.mcmc_foundational.kthohr_mcmc.de", "build_de_transition_kernel"),
+        ("ageoa.mcmc_foundational.kthohr_mcmc.mala.mala_proposal_adjustment", "ageoa.mcmc_foundational.kthohr_mcmc.mala", "mala_proposal_adjustment"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")
