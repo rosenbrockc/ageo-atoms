@@ -264,6 +264,43 @@ def test_runtime_probe_passes_for_biosppy_pcg() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_biosppy_online_filter_variants() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.biosppy.online_filter.filterstateinit", "ageoa.biosppy.online_filter.atoms", "filterstateinit"),
+        ("ageoa.biosppy.online_filter.filterstep", "ageoa.biosppy.online_filter.atoms", "filterstep"),
+        ("ageoa.biosppy.online_filter_codex.filterstateinit", "ageoa.biosppy.online_filter_codex.atoms", "filterstateinit"),
+        ("ageoa.biosppy.online_filter_codex.filterstep", "ageoa.biosppy.online_filter_codex.atoms", "filterstep"),
+        ("ageoa.biosppy.online_filter_v2.filterstateinit", "ageoa.biosppy.online_filter_v2.atoms", "filterstateinit"),
+        ("ageoa.biosppy.online_filter_v2.filterstep", "ageoa.biosppy.online_filter_v2.atoms", "filterstep"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_kalman_filter_families() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.kalman_filters.filter_rs.initializekalmanstatemodel", "ageoa.kalman_filters.filter_rs.atoms", "initializekalmanstatemodel"),
+        ("ageoa.kalman_filters.filter_rs.predictlatentstateandcovariance", "ageoa.kalman_filters.filter_rs.atoms", "predictlatentstateandcovariance"),
+        ("ageoa.kalman_filters.filter_rs.predictlatentstatesteadystate", "ageoa.kalman_filters.filter_rs.atoms", "predictlatentstatesteadystate"),
+        ("ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle", "ageoa.kalman_filters.filter_rs.atoms", "evaluatemeasurementoracle"),
+        ("ageoa.kalman_filters.filter_rs.updateposteriorstateandcovariance", "ageoa.kalman_filters.filter_rs.atoms", "updateposteriorstateandcovariance"),
+        ("ageoa.kalman_filters.filter_rs.updateposteriorstatesteadystate", "ageoa.kalman_filters.filter_rs.atoms", "updateposteriorstatesteadystate"),
+        ("ageoa.kalman_filters.static_kf.initializelineargaussianstatemodel", "ageoa.kalman_filters.static_kf.atoms", "initializelineargaussianstatemodel"),
+        ("ageoa.kalman_filters.static_kf.predictlatentstate", "ageoa.kalman_filters.static_kf.atoms", "predictlatentstate"),
+        ("ageoa.kalman_filters.static_kf.updatewithmeasurement", "ageoa.kalman_filters.static_kf.atoms", "updatewithmeasurement"),
+        ("ageoa.kalman_filters.static_kf.exposelatentmean", "ageoa.kalman_filters.static_kf.atoms", "exposelatentmean"),
+        ("ageoa.kalman_filters.static_kf.exposecovariance", "ageoa.kalman_filters.static_kf.atoms", "exposecovariance"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

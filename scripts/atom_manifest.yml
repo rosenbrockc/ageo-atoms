@@ -756,6 +756,54 @@
     function: solnik_onset_detector
     language: python
 
+- atom: biosppy/online_filter:filterstateinit
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.__init__
+    language: python
+    notes: Wrapper initializes a serializable chunked OnlineFilter state bundle.
+
+- atom: biosppy/online_filter:filterstep
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.filter
+    language: python
+    notes: Wrapper rehydrates OnlineFilter state, filters one chunk, and persists zi.
+
+- atom: biosppy/online_filter_codex:filterstateinit
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.__init__
+    language: python
+    notes: Wrapper initializes a serializable chunked OnlineFilter state bundle.
+
+- atom: biosppy/online_filter_codex:filterstep
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.filter
+    language: python
+    notes: Wrapper rehydrates OnlineFilter state, filters one chunk, and persists zi.
+
+- atom: biosppy/online_filter_v2:filterstateinit
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.__init__
+    language: python
+    notes: Wrapper initializes a serializable chunked OnlineFilter state bundle.
+
+- atom: biosppy/online_filter_v2:filterstep
+  upstream:
+    repo: BioSPPy
+    module: biosppy.signals.tools
+    function: OnlineFilter.filter
+    language: python
+    notes: Wrapper rehydrates OnlineFilter state, filters one chunk, and persists zi.
+
 - atom: biosppy/pcg_filters:homomorphic_signal_filtering
   upstream:
     repo: BioSPPy

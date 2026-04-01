@@ -226,6 +226,43 @@ def _assert_pair_of_sorted_integer_arrays() -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_online_filter_init_state() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        init_tuple, state = result
+        assert isinstance(init_tuple, tuple)
+        assert len(init_tuple) == 3
+        coeff_b, coeff_a, zi = init_tuple
+        np.testing.assert_allclose(np.asarray(coeff_b, dtype=float), np.array([0.5, 0.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(coeff_a, dtype=float), np.array([1.0], dtype=float))
+        assert zi is None
+        np.testing.assert_allclose(np.asarray(state.b, dtype=float), np.array([0.5, 0.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(state.a, dtype=float), np.array([1.0], dtype=float))
+        assert state.zi is None
+
+    return _validator
+
+
+def _assert_online_filter_step_result() -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        step_tuple, state = result
+        assert isinstance(step_tuple, tuple)
+        assert len(step_tuple) == 2
+        filtered, zi = step_tuple
+        filtered_array = np.asarray(filtered, dtype=float)
+        zi_array = np.asarray(zi, dtype=float)
+        np.testing.assert_allclose(filtered_array, np.array([0.0, 0.5, 1.5, 2.5], dtype=float))
+        assert zi_array.ndim == 1
+        assert zi_array.size >= 1
+        assert state.zi is not None
+        np.testing.assert_allclose(np.asarray(state.zi, dtype=float), zi_array)
+
+    return _validator
+
+
 def _assert_triple_of_arrays_matching_onsets() -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, tuple)
@@ -1903,6 +1940,103 @@ def _biosppy_sqi_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _biosppy_online_filter_plans() -> dict[str, ProbePlan]:
+    coeff_b = np.array([0.5, 0.5], dtype=float)
+    coeff_a = np.array([1.0], dtype=float)
+    signal = np.array([0.0, 1.0, 2.0, 3.0], dtype=float)
+
+    def _invoke_filterstep(func: Callable[..., Any]) -> Any:
+        module = importlib.import_module(func.__module__)
+        _, state = module.filterstateinit(coeff_b, coeff_a)
+        return func(signal, state)
+
+    def _invoke_invalid_filterstep(func: Callable[..., Any]) -> Any:
+        module = importlib.import_module(func.__module__)
+        _, state = module.filterstateinit(coeff_b, coeff_a)
+        return func(None, state)
+
+    return {
+        "ageoa.biosppy.online_filter.filterstateinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize a chunked BioSPPy OnlineFilter state bundle",
+                lambda func: func(coeff_b, coeff_a),
+                _assert_online_filter_init_state(),
+            ),
+            negative=ProbeCase(
+                "reject a zero leading denominator coefficient",
+                lambda func: func(coeff_b, np.array([0.0], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.online_filter.filterstep": ProbePlan(
+            positive=ProbeCase(
+                "filter one chunk with a serialized OnlineFilter state",
+                _invoke_filterstep,
+                _assert_online_filter_step_result(),
+            ),
+            negative=ProbeCase(
+                "reject a missing signal chunk",
+                _invoke_invalid_filterstep,
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.online_filter_codex.filterstateinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize a chunked BioSPPy OnlineFilter state bundle",
+                lambda func: func(coeff_b, coeff_a),
+                _assert_online_filter_init_state(),
+            ),
+            negative=ProbeCase(
+                "reject a zero leading denominator coefficient",
+                lambda func: func(coeff_b, np.array([0.0], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.online_filter_codex.filterstep": ProbePlan(
+            positive=ProbeCase(
+                "filter one chunk with a serialized OnlineFilter state",
+                _invoke_filterstep,
+                _assert_online_filter_step_result(),
+            ),
+            negative=ProbeCase(
+                "reject a missing signal chunk",
+                _invoke_invalid_filterstep,
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.online_filter_v2.filterstateinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize a chunked BioSPPy OnlineFilter state bundle",
+                lambda func: func(coeff_b, coeff_a),
+                _assert_online_filter_init_state(),
+            ),
+            negative=ProbeCase(
+                "reject a zero leading denominator coefficient",
+                lambda func: func(coeff_b, np.array([0.0], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.biosppy.online_filter_v2.filterstep": ProbePlan(
+            positive=ProbeCase(
+                "filter one chunk with a serialized OnlineFilter state",
+                _invoke_filterstep,
+                _assert_online_filter_step_result(),
+            ),
+            negative=ProbeCase(
+                "reject a missing signal chunk",
+                _invoke_invalid_filterstep,
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -1958,6 +2092,217 @@ def _sklearn_image_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _kalman_filter_plans() -> dict[str, ProbePlan]:
+    def _assert_filter_rs_state(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {"x", "P"}
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.0, -1.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.eye(2))
+
+    def _assert_filter_rs_predicted(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.5, -1.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), 1.1 * np.eye(2))
+
+    def _assert_filter_rs_steady(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.5, -1.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.eye(2))
+
+    def _assert_filter_rs_measurement(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        z_pred, innovation = result
+        np.testing.assert_allclose(np.asarray(z_pred, dtype=float), np.array([1.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(innovation, dtype=float), np.array([0.2], dtype=float))
+
+    def _assert_filter_rs_updated(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.1, -1.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.array([[0.5, 0.0], [0.0, 1.0]], dtype=float))
+
+    def _assert_filter_rs_steady_updated(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.1, -1.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.eye(2))
+
+    def _assert_static_state(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {"x", "P", "F", "Q", "H", "R"}
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.array([[1.0]], dtype=float))
+
+    def _assert_static_predicted(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([0.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.array([[0.35]], dtype=float))
+
+    def _assert_static_updated(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([1.09090909], dtype=float), atol=1e-8)
+        np.testing.assert_allclose(np.asarray(result["P"], dtype=float), np.array([[0.09090909]], dtype=float), atol=1e-8)
+
+    def _filter_rs_initial_state() -> dict[str, np.ndarray]:
+        module = safe_import_module("ageoa.kalman_filters.filter_rs.atoms")
+        return module.initializekalmanstatemodel({"x": np.array([1.0, -1.0]), "P": np.eye(2)})
+
+    def _static_initial_state() -> dict[str, np.ndarray]:
+        module = safe_import_module("ageoa.kalman_filters.static_kf.atoms")
+        return module.initializelineargaussianstatemodel(
+            1.0,
+            1.0,
+            0.5,
+            0.1,
+            1.0,
+            0.1,
+        )
+
+    return {
+        "ageoa.kalman_filters.filter_rs.initializekalmanstatemodel": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic Kalman state bundle",
+                lambda func: func({"x": np.array([1.0, -1.0]), "P": np.eye(2)}),
+                _assert_filter_rs_state,
+            ),
+            negative=ProbeCase(
+                "reject a missing initialization config",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.filter_rs.predictlatentstateandcovariance": ProbePlan(
+            positive=ProbeCase(
+                "predict latent mean and covariance for a linear Gaussian step",
+                lambda func: func(_filter_rs_initial_state(), np.array([0.5, -0.5]), np.eye(2), np.eye(2), 0.1 * np.eye(2)),
+                _assert_filter_rs_predicted,
+            ),
+            negative=ProbeCase(
+                "reject a missing transition matrix",
+                lambda func: func(_filter_rs_initial_state(), np.array([0.5, -0.5]), np.eye(2), None, 0.1 * np.eye(2)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.filter_rs.predictlatentstatesteadystate": ProbePlan(
+            positive=ProbeCase(
+                "predict only the latent mean for a steady-state Kalman step",
+                lambda func: func(_filter_rs_initial_state(), np.array([0.5, -0.5]), np.eye(2)),
+                _assert_filter_rs_steady,
+            ),
+            negative=ProbeCase(
+                "reject a missing control vector",
+                lambda func: func(_filter_rs_initial_state(), None, np.eye(2)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle": ProbePlan(
+            positive=ProbeCase(
+                "evaluate predicted measurement and innovation",
+                lambda func: func(np.array([1.0, -1.0]), np.array([1.2]), np.array([[1.0, 0.0]])),
+                _assert_filter_rs_measurement,
+            ),
+            negative=ProbeCase(
+                "reject a missing observation matrix",
+                lambda func: func(np.array([1.0, -1.0]), np.array([1.2]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.filter_rs.updateposteriorstateandcovariance": ProbePlan(
+            positive=ProbeCase(
+                "update posterior state and covariance from an innovation",
+                lambda func: func(_filter_rs_initial_state(), np.array([1.2]), np.array([[1.0]]), np.array([[1.0, 0.0]]), np.array([0.2])),
+                _assert_filter_rs_updated,
+            ),
+            negative=ProbeCase(
+                "reject a missing innovation vector",
+                lambda func: func(_filter_rs_initial_state(), np.array([1.2]), np.array([[1.0]]), np.array([[1.0, 0.0]]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.filter_rs.updateposteriorstatesteadystate": ProbePlan(
+            positive=ProbeCase(
+                "update a steady-state posterior using a precomputed gain",
+                lambda func: func({"x": np.array([1.0, -1.0]), "P": np.eye(2), "K": np.array([[0.5], [0.0]])}, np.array([1.2]), np.array([0.2])),
+                _assert_filter_rs_steady_updated,
+            ),
+            negative=ProbeCase(
+                "reject a missing innovation vector",
+                lambda func: func({"x": np.array([1.0, -1.0]), "P": np.eye(2), "K": np.array([[0.5], [0.0]])}, np.array([1.2]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.static_kf.initializelineargaussianstatemodel": ProbePlan(
+            positive=ProbeCase(
+                "initialize a scalar linear Gaussian state-space model",
+                lambda func: func(1.0, 1.0, 0.5, 0.1, 1.0, 0.1),
+                _assert_static_state,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric initial state",
+                lambda func: func(np.array([1.0]), 1.0, 0.5, 0.1, 1.0, 0.1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.static_kf.predictlatentstate": ProbePlan(
+            positive=ProbeCase(
+                "predict the latent state for a scalar Kalman model",
+                lambda func: func(_static_initial_state()),
+                _assert_static_predicted,
+            ),
+            negative=ProbeCase(
+                "reject a missing state model",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.static_kf.updatewithmeasurement": ProbePlan(
+            positive=ProbeCase(
+                "update the scalar Kalman model with one measurement",
+                lambda func: func(_static_initial_state(), 1.1),
+                _assert_static_updated,
+            ),
+            negative=ProbeCase(
+                "reject a missing measurement",
+                lambda func: func(_static_initial_state(), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.static_kf.exposelatentmean": ProbePlan(
+            positive=ProbeCase(
+                "expose the scalar latent mean from the model state",
+                lambda func: func(_static_initial_state()),
+                _assert_array(np.array([1.0], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a missing state model",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.kalman_filters.static_kf.exposecovariance": ProbePlan(
+            positive=ProbeCase(
+                "expose the scalar covariance matrix from the model state",
+                lambda func: func(_static_initial_state()),
+                _assert_array(np.array([[1.0]], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a missing state model",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 PROBE_PLANS = {}
 PROBE_PLANS.update(_search_plans())
 PROBE_PLANS.update(_numpy_plans())
@@ -1972,10 +2317,12 @@ PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
+PROBE_PLANS.update(_kalman_filter_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
 PROBE_PLANS.update(_molecular_docking_plans())
 PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
+PROBE_PLANS.update(_biosppy_online_filter_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
