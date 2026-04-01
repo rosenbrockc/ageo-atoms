@@ -374,6 +374,35 @@ def _assert_positive_weights(expected_length: int) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_int_pair(expected_first: int, expected_second: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        assert int(result[0]) == expected_first
+        assert int(result[1]) == expected_second
+
+    return _validator
+
+
+def _assert_float_int_pair(expected_first: float, expected_second: int, *, atol: float = 1e-12) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        assert np.isclose(float(result[0]), expected_first, atol=atol)
+        assert int(result[1]) == expected_second
+
+    return _validator
+
+
+def _assert_float_list(expected: list[float], *, atol: float = 1e-8) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        values = [float(item) for item in result]
+        assert len(values) == len(expected)
+        np.testing.assert_allclose(np.asarray(values, dtype=float), np.asarray(expected, dtype=float), atol=atol)
+
+    return _validator
+
+
 def _assert_state_snapshot(expected_bandwidth: int, expected_remaining_iterations: int) -> Callable[[Any], None]:
     def _validator(result: Any) -> None:
         assert isinstance(result, np.ndarray)
@@ -1605,6 +1634,196 @@ def _quantfin_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject an odd trial count for antithetic Monte Carlo",
                 _quick_sim_anti_negative,
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.local_vol_d12.allfort": ProbePlan(
+            positive=ProbeCase(
+                "extract one deterministic maturity slice from a simple quote surface",
+                lambda func: func(
+                    lambda callback, seq: [callback(item) for item in seq],
+                    {(90.0, 1.0): 0.22, (100.0, 1.0): 0.2, (110.0, 1.0): 0.24},
+                    [90.0, 100.0, 110.0],
+                    1.0,
+                    100.0,
+                ),
+                _assert_float_list([0.22, 0.2, 0.24]),
+            ),
+            negative=ProbeCase(
+                "reject a non-dict quote surface",
+                lambda func: func(
+                    lambda callback, seq: [callback(item) for item in seq],
+                    None,
+                    [90.0, 100.0],
+                    1.0,
+                    100.0,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.addmod64": ProbePlan(
+            positive=ProbeCase(
+                "compute a modular 64-bit sum deterministically",
+                lambda func: func(7, 9, 10, lambda a, b, m: (a + b) % m),
+                _assert_scalar(6),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive modulus",
+                lambda func: func(7, 9, 0, lambda a, b, m: (a + b) % m),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.next": ProbePlan(
+            positive=ProbeCase(
+                "advance the generator one step and return the provided 64-bit word",
+                lambda func: func(int, 11, 17, 23),
+                _assert_int_pair(23, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(int, -1, 17, 23),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.randomdouble": ProbePlan(
+            positive=ProbeCase(
+                "convert a fixed 53-bit mantissa fragment into a uniform double",
+                lambda func: func(divmod, float, 2**52, 11, 17),
+                _assert_float_int_pair(0.5, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(divmod, float, 2**52, -1, 17),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.randomint": ProbePlan(
+            positive=ProbeCase(
+                "convert a fixed 64-bit word to a platform integer",
+                lambda func: func(int, 11, 17, 23),
+                _assert_int_pair(23, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(int, -1, 17, 23),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.randomint64": ProbePlan(
+            positive=ProbeCase(
+                "convert a fixed 64-bit word to a signed 64-bit integer",
+                lambda func: func(int, 11, 17, 23),
+                _assert_int_pair(23, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(int, -1, 17, 23),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.randomword64": ProbePlan(
+            positive=ProbeCase(
+                "join two deterministic 32-bit words into a 64-bit word",
+                lambda func: func(lambda y1, y2: (y1 << 32) | y2, 11, 17, 1, 2),
+                _assert_int_pair((1 << 32) | 2, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(lambda y1, y2: (y1 << 32) | y2, -1, 17, 1, 2),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.tdma_solver_d12.tdmasolver": ProbePlan(
+            positive=ProbeCase(
+                "solve a simple three-by-three tridiagonal system with the Thomas algorithm",
+                lambda func: func(
+                    [0.0, -1.0, -1.0],
+                    [0.0, -1.0, -1.0],
+                    0.0,
+                    [2.0, 2.0, 2.0],
+                    [2.0, 2.0, 2.0],
+                    2.0,
+                    [-1.0, -1.0, 0.0],
+                    [],
+                    [-1.0, -1.0, 0.0],
+                    [],
+                    -1.0,
+                    -1.0,
+                    -1.0,
+                    [1.0, 0.0, 1.0],
+                    [],
+                    [1.0, 0.0, 1.0],
+                    [],
+                    1.0,
+                    1.0,
+                    lambda *args, **kwargs: None,
+                    list,
+                    lambda xs: xs[0],
+                    lambda xs: xs[-1],
+                    len,
+                    map,
+                    lambda n: [0.0] * n,
+                    lambda xs, i: xs[i],
+                    lambda xs: list(reversed(xs)),
+                    lambda thunk: thunk(),
+                    lambda xs: list(xs),
+                    list,
+                    lambda xs: xs,
+                    lambda xs, i, value: xs.__setitem__(i, value),
+                    [],
+                    0.0,
+                    [],
+                ),
+                _assert_float_list([1.0, 1.0, 1.0]),
+            ),
+            negative=ProbeCase(
+                "reject an empty main diagonal",
+                lambda func: func(
+                    [0.0],
+                    [0.0],
+                    0.0,
+                    [],
+                    [],
+                    0.0,
+                    [0.0],
+                    [],
+                    [0.0],
+                    [],
+                    0.0,
+                    0.0,
+                    0.0,
+                    [1.0],
+                    [],
+                    [1.0],
+                    [],
+                    1.0,
+                    1.0,
+                    lambda *args, **kwargs: None,
+                    list,
+                    lambda xs: xs[0],
+                    lambda xs: xs[-1],
+                    len,
+                    map,
+                    lambda n: [0.0] * n,
+                    lambda xs, i: xs[i],
+                    lambda xs: list(reversed(xs)),
+                    lambda thunk: thunk(),
+                    lambda xs: list(xs),
+                    list,
+                    lambda xs: xs,
+                    lambda xs, i, value: xs.__setitem__(i, value),
+                    [],
+                    0.0,
+                    [],
+                ),
                 expect_exception=True,
             ),
             parity_used=True,

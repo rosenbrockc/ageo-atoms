@@ -438,6 +438,24 @@ def test_runtime_probe_passes_for_quantfin_quick_sim_anti() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_quantfin_d12_helpers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.quantfin.local_vol_d12.allfort", "ageoa.quantfin.local_vol_d12.atoms", "allfort"),
+        ("ageoa.quantfin.rng_skip_d12.addmod64", "ageoa.quantfin.rng_skip_d12.atoms", "addmod64"),
+        ("ageoa.quantfin.rng_skip_d12.next", "ageoa.quantfin.rng_skip_d12.atoms", "next"),
+        ("ageoa.quantfin.rng_skip_d12.randomdouble", "ageoa.quantfin.rng_skip_d12.atoms", "randomdouble"),
+        ("ageoa.quantfin.rng_skip_d12.randomint", "ageoa.quantfin.rng_skip_d12.atoms", "randomint"),
+        ("ageoa.quantfin.rng_skip_d12.randomint64", "ageoa.quantfin.rng_skip_d12.atoms", "randomint64"),
+        ("ageoa.quantfin.rng_skip_d12.randomword64", "ageoa.quantfin.rng_skip_d12.atoms", "randomword64"),
+        ("ageoa.quantfin.tdma_solver_d12.tdmasolver", "ageoa.quantfin.tdma_solver_d12.atoms", "tdmasolver"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
