@@ -2029,6 +2029,46 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator": ProbePlan(
+            positive=ProbeCase(
+                "compute fractional differentiation on a short deterministic price series",
+                lambda func: func(
+                    __import__("pandas").Series([100.0, 101.0, 103.0, 102.0, 104.0]),
+                    0.4,
+                    0.01,
+                ),
+                _assert_type(__import__("pandas").Series),
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric differentiation order",
+                lambda func: func(__import__("pandas").Series([1.0, 2.0, 3.0]), "bad", 0.01),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.encoding_dist_mat.encodedistancematrix": ProbePlan(
+            positive=ProbeCase(
+                "pad and stack a pair of small distance matrices into a batched tensor",
+                lambda func: func(
+                    np.array(
+                        [
+                            np.array([[1.0, 2.0], [3.0, 4.0]], dtype=float),
+                            np.array([[5.0]], dtype=float),
+                        ],
+                        dtype=object,
+                    ),
+                    2,
+                    2,
+                ),
+                _assert_shape((2, 2, 2)),
+            ),
+            negative=ProbeCase(
+                "reject a non-array matrix container",
+                lambda func: func([np.array([[1.0]], dtype=float)], 1, 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.mint.incremental_attention.enable_incremental_state_configuration": ProbePlan(
             positive=ProbeCase(
                 "incremental attention decorates a class with state accessors",

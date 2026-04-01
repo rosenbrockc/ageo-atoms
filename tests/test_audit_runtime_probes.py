@@ -468,6 +468,18 @@ def test_runtime_probe_passes_for_signal_and_reconstruction_helpers() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_fractional_diff_and_encoding_helpers() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator", "ageoa.institutional_quant_engine.fractional_diff", "fractional_differentiator"),
+        ("ageoa.mint.encoding_dist_mat.encodedistancematrix", "ageoa.mint.encoding_dist_mat", "encodedistancematrix"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
