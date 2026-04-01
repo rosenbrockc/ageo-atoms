@@ -456,6 +456,20 @@ def test_runtime_probe_passes_for_quantfin_d12_helpers() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_additional_quantfin_helpers() -> None:
+    for atom_name, module_path, symbol, requires_negative in [
+        ("ageoa.quantfin.monte_carlo_anti_d12.avg", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "avg", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.maxstep", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "maxstep", True),
+        ("ageoa.quantfin.rng_skip_d12.randomword32", "ageoa.quantfin.rng_skip_d12.atoms", "randomword32", True),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        if requires_negative:
+            assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_signal_and_reconstruction_helpers() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.pulsar_folding.dm_can_brute_force", "ageoa.pulsar_folding.atoms", "dm_can_brute_force"),
@@ -506,6 +520,21 @@ def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
     assert probe["parity_used"] is True
     assert "RUNTIME_PROBE_PASS" in probe["findings"]
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_particle_filter_helpers() -> None:
+    for atom_name, symbol in [
+        ("ageoa.particle_filters.basic.filter_step_preparation_and_dispatch", "filter_step_preparation_and_dispatch"),
+        ("ageoa.particle_filters.basic.particle_propagation_kernel", "particle_propagation_kernel"),
+        ("ageoa.particle_filters.basic.likelihood_reweight_kernel", "likelihood_reweight_kernel"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.particle_filters.basic.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:

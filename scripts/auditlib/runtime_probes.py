@@ -1499,6 +1499,49 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
 
 
 def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
+    def _assert_filter_step_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 5
+        prior_state, model_spec, control_t, observation_t, rng_key = result
+        assert isinstance(prior_state, dict)
+        assert prior_state["rng_seed"] == 7
+        assert model_spec == {"transition": "unit"}
+        np.testing.assert_allclose(np.asarray(control_t, dtype=float), np.array([0.5], dtype=float))
+        np.testing.assert_allclose(np.asarray(observation_t, dtype=float), np.array([1.5], dtype=float))
+        np.testing.assert_array_equal(np.asarray(rng_key, dtype=np.int64), np.array([7], dtype=np.int64))
+
+    def _assert_particle_propagation_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 3
+        proposed, carry_weights, rng_key_next = result
+        expected_noise = np.random.RandomState(5).randn(2)
+        np.testing.assert_allclose(
+            np.asarray(proposed, dtype=float),
+            np.array([1.0, 2.0], dtype=float) + expected_noise,
+        )
+        np.testing.assert_allclose(
+            np.asarray(carry_weights, dtype=float),
+            np.array([0.25, 0.75], dtype=float),
+        )
+        np.testing.assert_array_equal(
+            np.asarray(rng_key_next, dtype=np.int64),
+            np.array([6], dtype=np.int64),
+        )
+
+    def _assert_likelihood_reweight_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        normalized, log_likelihood = result
+        particles = np.array([1.0, 2.0], dtype=float)
+        carry_weights = np.array([0.4, 0.6], dtype=float)
+        obs = 1.5
+        log_lik = -0.5 * (particles - obs) ** 2
+        log_weights = np.log(carry_weights + 1e-300) + log_lik
+        max_lw = np.max(log_weights)
+        weights_exp = np.exp(log_weights - max_lw)
+        total = weights_exp.sum()
+        expected_normalized = weights_exp / total
+        expected_log_likelihood = float(max_lw + np.log(total) - np.log(len(particles)))
+        np.testing.assert_allclose(np.asarray(normalized, dtype=float), expected_normalized)
+        assert abs(float(log_likelihood) - expected_log_likelihood) < 1e-12
+
     def _assert_particle_filter_result(result: Any) -> None:
         assert isinstance(result, tuple) and len(result) == 2
         posterior, trace = result
@@ -1525,6 +1568,67 @@ def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
         assert hasattr(state, "graph")
 
     return {
+        "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch": ProbePlan(
+            positive=ProbeCase(
+                "prepare a deterministic particle-filter step bundle from prior state",
+                lambda func: func(
+                    {
+                        "particles": np.array([1.0, 2.0], dtype=float),
+                        "weights": np.array([0.4, 0.6], dtype=float),
+                        "rng_seed": 7,
+                    },
+                    {"transition": "unit"},
+                    np.array([0.5], dtype=float),
+                    np.array([1.5], dtype=float),
+                ),
+                _assert_filter_step_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing prior state bundle",
+                lambda func: func(None, {"transition": "unit"}, np.array([0.5], dtype=float), np.array([1.5], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.particle_filters.basic.particle_propagation_kernel": ProbePlan(
+            positive=ProbeCase(
+                "propagate a deterministic particle pair with fixed RNG state",
+                lambda func: func(
+                    {
+                        "particles": np.array([1.0, 2.0], dtype=float),
+                        "weights": np.array([0.25, 0.75], dtype=float),
+                    },
+                    {"transition": "unit"},
+                    np.array([0.5], dtype=float),
+                    np.array([5], dtype=np.int64),
+                ),
+                _assert_particle_propagation_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing prior state during propagation",
+                lambda func: func(None, {"transition": "unit"}, np.array([0.5], dtype=float), np.array([5], dtype=np.int64)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.particle_filters.basic.likelihood_reweight_kernel": ProbePlan(
+            positive=ProbeCase(
+                "reweight a deterministic two-particle proposal against a scalar observation",
+                lambda func: func(
+                    np.array([1.0, 2.0], dtype=float),
+                    np.array([0.4, 0.6], dtype=float),
+                    np.array([1.5], dtype=float),
+                    {"likelihood": "gaussian"},
+                ),
+                _assert_likelihood_reweight_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing proposed particle array",
+                lambda func: func(None, np.array([0.4, 0.6], dtype=float), np.array([1.5], dtype=float), {"likelihood": "gaussian"}),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.particle_filters.basic.resample_and_belief_projection": ProbePlan(
             positive=ProbeCase(
                 "resample weighted particles into a posterior belief state",
@@ -1677,6 +1781,32 @@ def _quantfin_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.quantfin.monte_carlo_anti_d12.avg": ProbePlan(
+            positive=ProbeCase(
+                "compute the arithmetic mean over a short deterministic trial vector",
+                lambda func: func(float, sum, 4, [1.0, 2.0, 3.0, 6.0]),
+                _assert_scalar(3.0),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive trial count",
+                lambda func: func(float, sum, 0, [1.0]),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.monte_carlo_anti_d12.maxstep": ProbePlan(
+            positive=ProbeCase(
+                "return the default trading-day maximum time step",
+                lambda func: func(),
+                _assert_scalar(1.0 / 250.0),
+            ),
+            negative=ProbeCase(
+                "reject unexpected positional arguments",
+                lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.quantfin.rng_skip_d12.addmod64": ProbePlan(
             positive=ProbeCase(
                 "compute a modular 64-bit sum deterministically",
@@ -1738,6 +1868,19 @@ def _quantfin_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a negative generator state",
                 lambda func: func(int, -1, 17, 23),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.randomword32": ProbePlan(
+            positive=ProbeCase(
+                "generate a deterministic 32-bit word and updated state",
+                lambda func: func(5, 11, 17, 9, lambda a, b: a ^ b),
+                _assert_int_pair((5 ^ 9) & 0xFFFFFFFF, 17),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(5, -1, 17, 9, lambda a, b: a ^ b),
                 expect_exception=True,
             ),
             parity_used=True,
