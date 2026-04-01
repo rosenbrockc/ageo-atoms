@@ -1283,6 +1283,43 @@ def _particle_filter_and_pasqal_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _rust_robotics_plans() -> dict[str, ProbePlan]:
+    def _assert_bicycle_dynamics_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 3
+        x_dot, jacobian, u_inferred = result
+        np.testing.assert_allclose(np.asarray(x_dot, dtype=float), np.array([2.0, 0.0, 0.0, 0.5]))
+        assert np.asarray(jacobian, dtype=float).shape == (4, 4)
+        np.testing.assert_allclose(np.asarray(u_inferred, dtype=float), np.array([0.0, 0.5]))
+
+    return {
+        "ageoa.rust_robotics.bicycle_kinematic.evaluateandinvertdynamics": ProbePlan(
+            positive=ProbeCase(
+                "evaluate bicycle kinematics and recover the acceleration control component",
+                lambda func: func(
+                    {"lf": 1.2, "lr": 1.3, "L": 2.5},
+                    np.array([0.0, 0.0, 0.0, 2.0], dtype=float),
+                    np.array([0.0, 0.5], dtype=float),
+                    0.0,
+                    np.array([2.0, 0.0, 0.0, 0.5], dtype=float),
+                ),
+                _assert_bicycle_dynamics_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric evaluation time",
+                lambda func: func(
+                    {"lf": 1.2, "lr": 1.3, "L": 2.5},
+                    np.array([0.0, 0.0, 0.0, 2.0], dtype=float),
+                    np.array([0.0, 0.5], dtype=float),
+                    "bad",
+                    np.array([2.0, 0.0, 0.0, 0.5], dtype=float),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
     class _DummyBlock:
         def __init__(self, value: int) -> None:
@@ -2556,6 +2593,24 @@ def _pronto_state_readout_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.pronto.state_estimator.update_state_estimate": ProbePlan(
+            positive=ProbeCase(
+                "apply one deterministic EKF-style state update with identity observation model",
+                lambda func: func(
+                    np.array([0.0, 0.0], dtype=float),
+                    np.eye(2, dtype=float),
+                    np.array([1.0, -1.0], dtype=float),
+                    123456,
+                ),
+                _assert_array(np.array([0.9900990099009901, -0.9900990099009901], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a missing prior state",
+                lambda func: func(None, np.eye(2, dtype=float), np.array([1.0, -1.0], dtype=float), 123456),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
     }
 
 
@@ -2839,6 +2894,7 @@ PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
+PROBE_PLANS.update(_rust_robotics_plans())
 PROBE_PLANS.update(_kalman_filter_plans())
 PROBE_PLANS.update(_mcmc_foundational_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())

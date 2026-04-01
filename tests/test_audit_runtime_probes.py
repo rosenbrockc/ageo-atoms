@@ -380,6 +380,34 @@ def test_runtime_probe_passes_for_institutional_quant_engine_stateful_helpers() 
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_rust_robotics_bicycle_dynamics() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.rust_robotics.bicycle_kinematic.evaluateandinvertdynamics",
+            "ageoa.rust_robotics.bicycle_kinematic.atoms",
+            "evaluateandinvertdynamics",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_pronto_state_estimator_update() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.pronto.state_estimator.update_state_estimate",
+            "ageoa.pronto.state_estimator",
+            "update_state_estimate",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")
