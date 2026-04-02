@@ -173,6 +173,34 @@ def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_scipy_optimize_v2_differential_evolution() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.scipy.optimize_v2.differentialevolutionoptimization",
+            "ageoa.scipy.optimize_v2.atoms",
+            "differentialevolutionoptimization",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_marks_scipy_curve_fit_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.scipy.optimize.curve_fit",
+            "ageoa.scipy.optimize",
+            "curve_fit",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_biosppy_ppg_detectors() -> None:
     for atom_name, symbol in [
         ("ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013", "detect_signal_onsets_elgendi2013"),
@@ -355,7 +383,9 @@ def test_runtime_probe_passes_for_mcmc_foundational_builder_family() -> None:
         ("ageoa.mcmc_foundational.kthohr_mcmc.rmhmc.buildrmhmctransitionkernel", "ageoa.mcmc_foundational.kthohr_mcmc.rmhmc", "buildrmhmctransitionkernel"),
         ("ageoa.mcmc_foundational.kthohr_mcmc.rwmh.constructrandomwalkmetropoliskernel", "ageoa.mcmc_foundational.kthohr_mcmc.rwmh", "constructrandomwalkmetropoliskernel"),
         ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializehmckernelstate", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "initializehmckernelstate"),
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializesamplerrng", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "initializesamplerrng"),
         ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.hamiltoniantransitionkernel", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "hamiltoniantransitionkernel"),
+        ("ageoa.mcmc_foundational.mini_mcmc.nuts_llm.initializenutsstate", "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.atoms", "initializenutsstate"),
         ("ageoa.mcmc_foundational.mini_mcmc.nuts_llm.runnutstransitions", "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.atoms", "runnutstransitions"),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
@@ -958,6 +988,30 @@ def test_runtime_probe_marks_numpy_lexsort_v2_as_usage_equivalent() -> None:
     )
     assert probe["status"] == "pass"
     assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_numpy_search_sort_v2_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.numpy.search_sort_v2.binarysearchinsertion", "binarysearchinsertion"),
+        ("ageoa.numpy.search_sort_v2.partialsortpartition", "partialsortpartition"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.numpy.search_sort_v2.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_mint_axial_attention_helpers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.mint.axial_attention.rowselfattention", "rowselfattention"),
+        ("ageoa.mint.axial_attention.row_self_attention", "row_self_attention"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.mint.axial_attention", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
 
 
 def test_runtime_probe_marks_biosppy_hamilton_detectors_as_usage_equivalent() -> None:

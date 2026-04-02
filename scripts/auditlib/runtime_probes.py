@@ -731,6 +731,8 @@ def _scipy_plans() -> dict[str, ProbePlan]:
     vector = np.array([1.0, 2.0])
     lu = np.array([[4.0, 2.0], [0.25, 2.5]])
     piv = np.array([0, 1], dtype=np.int32)
+    def _linear_model(x: np.ndarray, a: float, b: float) -> np.ndarray:
+        return a * np.asarray(x, dtype=float) + b
     return {
         "ageoa.scipy.fft.dct": ProbePlan(
             positive=ProbeCase(
@@ -813,6 +815,30 @@ def _scipy_plans() -> dict[str, ProbePlan]:
                 lambda func: func((lu, piv), np.array([1.0, 2.0, 3.0])),
                 expect_exception=True,
             ),
+        ),
+        "ageoa.scipy.optimize.curve_fit": ProbePlan(
+            positive=ProbeCase(
+                "scipy.optimize.curve_fit recovers a simple linear model",
+                lambda func: func(
+                    _linear_model,
+                    np.array([0.0, 1.0, 2.0, 3.0], dtype=float),
+                    np.array([1.0, 3.0, 5.0, 7.0], dtype=float),
+                ),
+                lambda result: (
+                    np.testing.assert_allclose(np.asarray(result[0]), np.array([2.0, 1.0]), atol=1e-6),
+                    np.testing.assert_equal(np.asarray(result[1]).shape, (2, 2)),
+                ),
+            ),
+            negative=ProbeCase(
+                "scipy.optimize.curve_fit rejects mismatched input lengths",
+                lambda func: func(
+                    _linear_model,
+                    np.array([0.0, 1.0], dtype=float),
+                    np.array([1.0], dtype=float),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
         ),
     }
 
@@ -1165,7 +1191,32 @@ def _numpy_fft_v2_plans() -> dict[str, ProbePlan]:
 
 
 def _numpy_search_sort_v2_plans() -> dict[str, ProbePlan]:
+    def _assert_partition_result(expected_kth_value: int) -> Callable[[Any], None]:
+        def _validator(result: Any) -> None:
+            assert isinstance(result, tuple)
+            assert len(result) == 2
+            partitioned = np.asarray(result[0])
+            partition_indices = np.asarray(result[1])
+            assert partitioned.shape == (4,)
+            assert partition_indices.shape == (4,)
+            np.testing.assert_equal(partitioned[2], expected_kth_value)
+
+        return _validator
+
     return {
+        "ageoa.numpy.search_sort_v2.binarysearchinsertion": ProbePlan(
+            positive=ProbeCase(
+                "searchsorted returns deterministic insertion points for a sorted array",
+                lambda func: func(np.array([1, 3, 5]), np.array([0, 3, 4, 6]), side="left"),
+                _assert_array(np.array([0, 1, 2, 3])),
+            ),
+            negative=ProbeCase(
+                "searchsorted rejects a missing sorted array",
+                lambda func: func(None, np.array([1])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.numpy.search_sort_v2.lexicographicindirectsort": ProbePlan(
             positive=ProbeCase(
                 "lexsort returns a deterministic indirect ordering for two key arrays",
@@ -1179,6 +1230,19 @@ def _numpy_search_sort_v2_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.numpy.search_sort_v2.partialsortpartition": ProbePlan(
+            positive=ProbeCase(
+                "partition and argpartition agree on the median pivot location",
+                lambda func: func(np.array([4, 1, 3, 2]), 2),
+                _assert_partition_result(3),
+            ),
+            negative=ProbeCase(
+                "partition rejects a missing kth selector",
+                lambda func: func(np.array([1, 2, 3]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
     }
 
 
@@ -1188,6 +1252,29 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
         return float((x[0] - 1.0) ** 2)
 
     return {
+        "ageoa.scipy.optimize_v2.differentialevolutionoptimization": ProbePlan(
+            positive=ProbeCase(
+                "Differential evolution minimizes a one-dimensional quadratic on bounded input",
+                lambda func: func(
+                    _quadratic,
+                    [(0.0, 2.0)],
+                    maxiter=24,
+                    popsize=8,
+                    tol=0.0,
+                    atol=0.0,
+                    rng=np.random.default_rng(7),
+                    workers=1,
+                    polish=True,
+                ),
+                _assert_optimize_result_near(1.0, atol=1e-1),
+            ),
+            negative=ProbeCase(
+                "reject malformed bounds",
+                lambda func: func(_quadratic, [(0.0,)], rng=np.random.default_rng(7)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.scipy.optimize_v2.shgoglobaloptimization": ProbePlan(
             positive=ProbeCase(
                 "SHGO minimizes a one-dimensional quadratic on a bounded interval",
@@ -1210,6 +1297,63 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
                 lambda func: func(_quadratic, [(0.0,)], (), (), 16, 1, None, {}, {}, "simplicial"),
                 expect_exception=True,
             ),
+        ),
+    }
+
+
+def _mint_attention_plans() -> dict[str, ProbePlan]:
+    def _assert_numpy_attention_result(result: Any) -> None:
+        arr = np.asarray(result, dtype=float)
+        assert arr.shape == (2, 2)
+        assert np.all(np.isfinite(arr))
+
+    def _assert_torch_attention_result(result: Any) -> None:
+        import torch
+
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        output, attn = result
+        assert isinstance(output, torch.Tensor)
+        assert isinstance(attn, torch.Tensor)
+        assert tuple(output.shape) == (2, 2)
+        assert tuple(attn.shape) == (2, 2)
+        row_sums = attn.sum(dim=-1)
+        assert torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5)
+
+    return {
+        "ageoa.mint.axial_attention.rowselfattention": ProbePlan(
+            positive=ProbeCase(
+                "NumPy row self-attention returns a finite same-shape output",
+                lambda func: func(
+                    np.array([[1.0, 0.0], [0.0, 1.0]], dtype=float),
+                    np.ones((2, 2), dtype=int),
+                    np.zeros(2, dtype=int),
+                ),
+                _assert_numpy_attention_result,
+            ),
+            negative=ProbeCase(
+                "reject a missing attention tensor",
+                lambda func: func(None, np.ones((2, 2), dtype=int), np.zeros(2, dtype=int)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.axial_attention.row_self_attention": ProbePlan(
+            positive=ProbeCase(
+                "Torch row self-attention returns output and attention matrices with normalized rows",
+                lambda func: func(
+                    __import__("torch").tensor([[1.0, 0.0], [0.0, 1.0]], dtype=__import__("torch").float32),
+                    __import__("torch").ones((2, 2), dtype=__import__("torch").bool),
+                    __import__("torch").zeros(2, dtype=__import__("torch").bool),
+                ),
+                _assert_torch_attention_result,
+            ),
+            negative=ProbeCase(
+                "reject a missing attention tensor",
+                lambda func: func(None, __import__("torch").ones((2, 2), dtype=__import__("torch").bool), __import__("torch").zeros(2, dtype=__import__("torch").bool)),
+                expect_exception=True,
+            ),
+            parity_used=True,
         ),
     }
 
@@ -4762,6 +4906,18 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
         np.testing.assert_allclose(np.asarray(kernel_spec, dtype=float), np.array([0.1, 4.0, 2.0], dtype=float))
         assert np.asarray(chain_state).shape == (5,)
 
+    def _assert_hmc_rng(result: Any) -> None:
+        arr = np.asarray(result)
+        assert arr.shape == (1,)
+        assert np.issubdtype(arr.dtype, np.integer)
+        np.testing.assert_array_equal(arr, np.array([7], dtype=np.int64))
+
+    def _assert_nuts_init(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        nuts_state, rng_key = result
+        assert np.asarray(nuts_state).shape == (5,)
+        np.testing.assert_array_equal(np.asarray(rng_key), np.array([7], dtype=np.int64))
+
     def _assert_mini_hmc_init(result: Any) -> None:
         assert isinstance(result, tuple) and len(result) == 2
         chain_state, kernel_static = result
@@ -4907,6 +5063,19 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializesamplerrng": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic mini-mcmc sampler RNG key",
+                lambda func: func(7),
+                _assert_hmc_rng,
+            ),
+            negative=ProbeCase(
+                "reject a non-integer sampler seed",
+                lambda func: func(7.5),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.hamiltoniantransitionkernel": ProbePlan(
             positive=ProbeCase(
                 "run one seeded HMC transition from an explicit chain state and kernel spec",
@@ -5011,6 +5180,19 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.initializenutsstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize deterministic mini-mcmc NUTS state and RNG key",
+                lambda func: func(target_log, 0.2, 0.8, 7),
+                _assert_nuts_init,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric target acceptance probability",
+                lambda func: func(target_log, 0.2, "bad", 7),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.runnutstransitions": ProbePlan(
             positive=ProbeCase(
                 "run a small seeded NUTS transition loop with explicit discard and collection counts",
@@ -5056,6 +5238,7 @@ PROBE_PLANS.update(_pronto_blip_filter_plans())
 PROBE_PLANS.update(_pronto_backlash_filter_plans())
 PROBE_PLANS.update(_pronto_state_readout_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
+PROBE_PLANS.update(_mint_attention_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
