@@ -8,7 +8,6 @@ from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 def witness_initializeorderstate(
     my_order_id: AbstractScalar,
     my_qty: AbstractScalar,
-    orders_ahead: AbstractScalar,
 ) -> AbstractArray:
     """Initialization produces a small fixed-shape queue state record."""
 

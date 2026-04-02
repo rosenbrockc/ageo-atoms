@@ -18,15 +18,13 @@ def _is_numeric_scalar(value: object) -> bool:
 @register_atom(witness_initializeorderstate)
 @icontract.require(lambda my_order_id: isinstance(my_order_id, str) and bool(my_order_id), "my_order_id must be a non-empty string")
 @icontract.require(lambda my_qty: _is_numeric_scalar(my_qty) and float(my_qty) >= 0.0, "my_qty must be non-negative")
-@icontract.require(lambda orders_ahead: _is_numeric_scalar(orders_ahead) and float(orders_ahead) >= 0.0, "orders_ahead must be non-negative")
 @icontract.ensure(lambda result: result.my_qty >= 0.0 and result.orders_ahead >= 0.0, "state quantities must remain non-negative")
-def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float) -> OrderState:
+def initializeorderstate(my_order_id: str, my_qty: float) -> OrderState:
     """Create the initial queue state for a newly submitted order.
 
     Args:
         my_order_id: Unique identifier for the tracked order.
         my_qty: Remaining quantity resting at this order's price level.
-        orders_ahead: Aggregate quantity already resting ahead of the order.
 
     Returns:
         An immutable ``OrderState`` snapshot for downstream queue updates.
@@ -35,7 +33,7 @@ def initializeorderstate(my_order_id: str, my_qty: float, orders_ahead: float) -
     return OrderState(
         my_order_id=my_order_id,
         my_qty=float(my_qty),
-        orders_ahead=float(orders_ahead),
+        orders_ahead=10000.0,
         is_filled=float(my_qty) == 0.0,
     )
 

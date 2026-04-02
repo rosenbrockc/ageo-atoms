@@ -1463,7 +1463,7 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
         assert hasattr(result, "is_filled")
         assert result.my_order_id == "order-1"
         assert np.isclose(float(result.my_qty), 10.0)
-        assert np.isclose(float(result.orders_ahead), 25.0)
+        assert np.isclose(float(result.orders_ahead), 10000.0)
         assert result.is_filled is False
 
     def _assert_queue_state_update(result: Any) -> None:
@@ -1574,12 +1574,12 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
         "ageoa.institutional_quant_engine.queue_estimator.initializeorderstate": ProbePlan(
             positive=ProbeCase(
                 "initialize a deterministic queue state",
-                lambda func: func("order-1", 10.0, 25.0),
+                lambda func: func("order-1", 10.0),
                 _assert_queue_state_init,
             ),
             negative=ProbeCase(
                 "reject an empty order id",
-                lambda func: func("", 10.0, 25.0),
+                lambda func: func("", 10.0),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -1588,7 +1588,7 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
             positive=ProbeCase(
                 "advance queue state after consuming queue-ahead volume",
                 lambda func: func(
-                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0, 25.0),
+                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0).model_copy(update={"orders_ahead": 25.0}),
                     12.0,
                 ),
                 _assert_queue_state_update,
@@ -1596,7 +1596,7 @@ def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a negative trade quantity",
                 lambda func: func(
-                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0, 25.0),
+                    safe_import_module("ageoa.institutional_quant_engine.queue_estimator.atoms").initializeorderstate("order-1", 10.0).model_copy(update={"orders_ahead": 25.0}),
                     -1.0,
                 ),
                 expect_exception=True,

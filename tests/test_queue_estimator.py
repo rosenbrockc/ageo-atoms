@@ -7,16 +7,16 @@ from ageoa.institutional_quant_engine.queue_estimator.atoms import (
 
 
 def test_initializeorderstate_builds_order_state() -> None:
-    state = initializeorderstate("order-1", 10.0, 25.0)
+    state = initializeorderstate("order-1", 10.0)
 
     assert state.my_order_id == "order-1"
     assert state.my_qty == 10.0
-    assert state.orders_ahead == 25.0
+    assert state.orders_ahead == 10000.0
     assert state.is_filled is False
 
 
 def test_updatequeueontrade_consumes_queue_ahead_first() -> None:
-    state = initializeorderstate("order-1", 10.0, 25.0)
+    state = initializeorderstate("order-1", 10.0).model_copy(update={"orders_ahead": 25.0})
 
     next_state = updatequeueontrade(state, 12.0)
 
@@ -26,7 +26,7 @@ def test_updatequeueontrade_consumes_queue_ahead_first() -> None:
 
 
 def test_updatequeueontrade_fills_order_after_queue_ahead_is_cleared() -> None:
-    state = initializeorderstate("order-1", 10.0, 5.0)
+    state = initializeorderstate("order-1", 10.0).model_copy(update={"orders_ahead": 5.0})
 
     next_state = updatequeueontrade(state, 12.0)
 
@@ -36,7 +36,7 @@ def test_updatequeueontrade_fills_order_after_queue_ahead_is_cleared() -> None:
 
 
 def test_updatequeueontrade_marks_state_filled_when_qty_is_exhausted() -> None:
-    state = initializeorderstate("order-1", 4.0, 1.0)
+    state = initializeorderstate("order-1", 4.0).model_copy(update={"orders_ahead": 1.0})
 
     next_state = updatequeueontrade(state, 7.0)
 
