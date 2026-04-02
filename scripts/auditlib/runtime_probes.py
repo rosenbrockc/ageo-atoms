@@ -2300,6 +2300,19 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.institutional_quant_engine.almgren_chriss.computeoptimaltrajectory": ProbePlan(
+            positive=ProbeCase(
+                "generated Almgren-Chriss trajectory returns a linear liquidation array",
+                lambda func: func(12.0, 4, 0.5),
+                _assert_array(np.array([12.0, 9.0, 6.0, 3.0, 0.0], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "generated Almgren-Chriss trajectory rejects a non-integer day count",
+                lambda func: func(12.0, "bad", 0.5),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.institutional_quant_engine.pin_informed_trading": ProbePlan(
             positive=ProbeCase(
                 "PIN estimator computes order-flow imbalance",
