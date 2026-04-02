@@ -689,6 +689,16 @@ def test_runtime_probe_passes_for_scipy_spatial_v2_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_astroflow_dedispersionkernel() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.astroflow.dedispersionkernel", "ageoa.astroflow.atoms", "dedispersionkernel")
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_quantum_solver_d12_family() -> None:
     for atom_name, symbol in [
         ("ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator", "quantumsolverorchestrator"),

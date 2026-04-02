@@ -2430,6 +2430,37 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.astroflow.dedispersionkernel": ProbePlan(
+            positive=ProbeCase(
+                "dedispersion kernel averages delayed channel contributions into a deterministic output grid",
+                lambda func: func(
+                    np.array(
+                        [
+                            [1.0, 10.0],
+                            [2.0, 20.0],
+                            [3.0, 30.0],
+                            [4.0, 40.0],
+                            [5.0, 50.0],
+                        ],
+                        dtype=float,
+                    ),
+                    np.array([[0, 1], [1, 0]], dtype=int),
+                    2,
+                    1,
+                    3,
+                    2,
+                    0,
+                    32,
+                ),
+                _assert_array(np.array([[10.5, 16.0, 21.5], [6.0, 11.5, 17.0]], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "dedispersion kernel rejects a missing input array",
+                lambda func: func(None, np.array([[0, 1], [1, 0]], dtype=int), 2, 1, 3, 2, 0, 32),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator": ProbePlan(
             positive=ProbeCase(
                 "refined-ingest quantum solver orchestrator returns non-empty MWIS solutions and counts",
