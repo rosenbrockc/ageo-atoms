@@ -1014,6 +1014,18 @@ def test_runtime_probe_marks_mint_axial_attention_helpers_as_usage_equivalent() 
         assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_e2e_ppg_windowed_reconstruction_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
+            "ageoa.e2e_ppg.reconstruction.atoms",
+            "windowed_signal_reconstruction",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+
+
 def test_runtime_probe_marks_biosppy_hamilton_detectors_as_usage_equivalent() -> None:
     for atom_name, symbol in [
         ("ageoa.biosppy.ecg_detectors.hamilton_segmentation", "hamilton_segmentation"),

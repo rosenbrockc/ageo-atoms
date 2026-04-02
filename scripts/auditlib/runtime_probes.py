@@ -1358,6 +1358,35 @@ def _mint_attention_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _e2e_ppg_reconstruction_plans() -> dict[str, ProbePlan]:
+    def _assert_windowed_reconstruction(result: Any) -> None:
+        arr = np.asarray(result, dtype=float)
+        assert arr.shape == (400,)
+        assert np.all(np.isfinite(arr))
+
+    return {
+        "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction": ProbePlan(
+            positive=ProbeCase(
+                "reconstruction returns a same-length signal for an all-clean windowed input",
+                lambda func: func(
+                    np.sin(np.linspace(0.0, 8.0 * np.pi, 400, dtype=float)),
+                    [[i for i in range(400)]],
+                    [],
+                    20,
+                    False,
+                ),
+                _assert_windowed_reconstruction,
+            ),
+            negative=ProbeCase(
+                "reject a missing signal array",
+                lambda func: func(None, [[0, 1, 2]], [], 20, False),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
     def _quadratic_obj(x: np.ndarray) -> float:
         arr = np.asarray(x, dtype=float)
@@ -5239,6 +5268,7 @@ PROBE_PLANS.update(_pronto_backlash_filter_plans())
 PROBE_PLANS.update(_pronto_state_readout_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
 PROBE_PLANS.update(_mint_attention_plans())
+PROBE_PLANS.update(_e2e_ppg_reconstruction_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 

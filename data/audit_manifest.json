@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T19:55:58+00:00",
+    "generated_at": "2026-04-02T19:59:47+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 387,
-      "medium": 118
+      "low": 388,
+      "medium": 117
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 254,
+    "parity_coverage_count": 255,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 24,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 428
     },
     "parity_coverage_level_counts": {
-      "none": 154,
+      "none": 153,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 207,
+      "parity_or_usage_equivalent": 208,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -94,7 +94,7 @@
       "belief_propagation": 2,
       "biosppy": 8,
       "datadriven": 1,
-      "e2e_ppg": 12,
+      "e2e_ppg": 11,
       "hPDB": 2,
       "institutional_quant_engine": 3,
       "jFOF": 2,
@@ -115,27 +115,27 @@
     },
     "runtime_status_counts": {
       "fail": 3,
-      "not_applicable": 264,
+      "not_applicable": 263,
       "partial": 7,
-      "pass": 231
+      "pass": 232
     },
     "semantic_status_counts": {
       "fail": 3,
       "partial": 7,
-      "pass": 231,
-      "unknown": 264
+      "pass": 232,
+      "unknown": 263
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 432,
+      "review_later": 433,
       "review_now": 9,
-      "review_soon": 64
+      "review_soon": 63
     },
     "high_risk_count": 0,
-    "medium_risk_count": 118,
-    "low_risk_count": 387
+    "medium_risk_count": 117,
+    "low_risk_count": 388
   },
   "atoms": [
     {
@@ -21240,13 +21240,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.e2e_ppg.reconstruction.gan_patch_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:19",
+      "atom_id": "ageoa.e2e_ppg.reconstruction.gan_patch_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:65",
       "atom_name": "ageoa.e2e_ppg.reconstruction.gan_patch_reconstruction",
       "atom_key": "e2e_ppg/reconstruction:gan_patch_reconstruction",
       "module_import_path": "ageoa.e2e_ppg.reconstruction.atoms",
       "module_path": "ageoa/e2e_ppg/reconstruction/atoms.py",
       "wrapper_symbol": "gan_patch_reconstruction",
-      "wrapper_line": 19,
+      "wrapper_line": 65,
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "generated_ingest",
@@ -21454,7 +21454,7 @@
           "source_refs": [
             {
               "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
-              "line": 19
+              "line": 65
             }
           ]
         }
@@ -21480,17 +21480,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:40",
+      "atom_id": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction@ageoa/e2e_ppg/reconstruction/atoms.py:97",
       "atom_name": "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
       "atom_key": "e2e_ppg/reconstruction:windowed_signal_reconstruction",
       "module_import_path": "ageoa.e2e_ppg.reconstruction.atoms",
       "module_path": "ageoa/e2e_ppg/reconstruction/atoms.py",
       "wrapper_symbol": "windowed_signal_reconstruction",
-      "wrapper_line": 40,
+      "wrapper_line": 97,
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "E2E-PPG",
         "module": "ppg_reconstruction",
@@ -21508,21 +21508,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 90,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "required_actions": [],
       "argument_names": [
         "sig",
         "clean_indices",
@@ -21548,13 +21546,13 @@
           "name": "clean_indices",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "Sequence[Sequence[int]] | np.ndarray"
         },
         {
           "name": "noisy_indices",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "Sequence[Sequence[int]] | np.ndarray"
         },
         {
           "name": "sampling_rate",
@@ -21603,11 +21601,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 33,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -21620,9 +21617,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -21645,7 +21641,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -21681,35 +21677,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/e2e_ppg/reconstruction/atoms.py",
-              "line": 40
+              "line": 97
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
