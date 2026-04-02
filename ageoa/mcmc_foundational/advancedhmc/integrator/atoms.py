@@ -7,9 +7,6 @@ import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 
-from juliacall import Main as jl  # type: ignore[import-untyped]
-
-
 from .witnesses import witness_hamiltonianphasepointtransition, witness_temperingfactorcomputation
 @register_atom(witness_temperingfactorcomputation)
 @icontract.require(lambda lf: lf is not None, "lf cannot be None")
@@ -59,18 +56,18 @@ def hamiltonianphasepointtransition(lf: np.ndarray, h: np.ndarray, z: np.ndarray
     is_valid = bool(np.all(np.isfinite(z_new)))
     return (z_new, is_valid)
 
-
 """Auto-generated FFI bindings for julia implementations."""
 
-# duplicate future import removed
 
-from juliacall import Main as jl  # type: ignore[import-untyped]
-# removed duplicate future import (already declared at top of file)
+def _jl_main():
+    from juliacall import Main as jl  # type: ignore[import-untyped]
+
+    return jl
 
 def _temperingfactorcomputation_ffi(lf: np.ndarray, r: np.ndarray, step: int, n_steps: int) -> float:
     """Wrapper that calls the Julia version of tempering factor computation. Passes arguments through and returns the result."""
-    return jl.eval("temperingfactorcomputation(lf, r, step, n_steps)")
+    return _jl_main().eval("temperingfactorcomputation(lf, r, step, n_steps)")
 
 def _hamiltonianphasepointtransition_ffi(lf: np.ndarray, h: np.ndarray, z: np.ndarray, tempering_scale: float) -> tuple[np.ndarray, bool]:
     """Wrapper that calls the Julia version of hamiltonian phasepoint transition. Passes arguments through and returns the result."""
-    return jl.eval("hamiltonianphasepointtransition(lf, h, z, tempering_scale)")
+    return _jl_main().eval("hamiltonianphasepointtransition(lf, h, z, tempering_scale)")

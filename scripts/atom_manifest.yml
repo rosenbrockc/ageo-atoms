@@ -1304,6 +1304,38 @@
     language: python
     notes: Upstream is script-level nx.simple_cycles; no named function
 
+- atom: quant_engine:calculate_ofi
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.28_order_flow_imbalance
+    function: calculate_ofi
+    language: python
+    notes: Local state-threaded adapter around the upstream order-flow imbalance calculation.
+
+- atom: quant_engine:execute_vwap
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.04_vwap_analyzer
+    function: calculate_vwap
+    language: python
+    notes: Local execution-state update wrapper derived from the upstream VWAP computation workflow.
+
+- atom: quant_engine:execute_pov
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_optimal_execution_almgren
+    function: optimal_trajectory
+    language: python
+    notes: Local state-threaded proportional-participation execution wrapper inspired by the low-urgency branch of the upstream execution trajectory.
+
+- atom: quant_engine:execute_passive
+  upstream:
+    repo: Institutional-Quant-Engine
+    module: execution_hft.17_optimal_execution_almgren
+    function: optimal_trajectory
+    language: python
+    notes: Local passive execution-state update wrapper aligned to the low-impact execution trajectory in the upstream script.
+
 # =============================================================================
 #  jax_advi
 # =============================================================================
@@ -2616,7 +2648,7 @@
   upstream:
     repo: quantfin
     module: Quant.Math.Integration
-    function: ~
+    function: charFuncOption.integrand_f
     language: haskell
     notes: Integration helper for characteristic function pricing
 

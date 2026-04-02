@@ -87,7 +87,7 @@ def safe_import_module(module_import_path: str) -> Any:
     install_ageoa_stub()
     try:
         return importlib.import_module(module_import_path)
-    except ImportError:
+    except Exception:
         if not module_import_path.startswith("ageoa."):
             raise
         module_file = ROOT / Path(*module_import_path.split("."))
@@ -2196,6 +2196,37 @@ def _quantfin_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject unexpected positional arguments",
                 lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.char_func_option_d12.f": ProbePlan(
+            positive=ProbeCase(
+                "evaluate the real-valued characteristic-function integrand at a simple deterministic point",
+                lambda func: func(
+                    np.exp,
+                    1j,
+                    complex(np.log(100.0), 0.0),
+                    complex(2.0, 0.0),
+                    lambda z: z.real,
+                    complex(3.0, 0.0),
+                    complex(0.0, 0.0),
+                    complex(0.0, 0.0),
+                ),
+                _assert_scalar(6.0),
+            ),
+            negative=ProbeCase(
+                "reject a non-complex log-strike argument",
+                lambda func: func(
+                    np.exp,
+                    1j,
+                    1.0,
+                    complex(2.0, 0.0),
+                    lambda z: z.real,
+                    complex(3.0, 0.0),
+                    complex(0.0, 0.0),
+                    complex(0.0, 0.0),
+                ),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -5047,6 +5078,17 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
         assert arr.shape == (1,)
         assert np.all(np.isfinite(arr))
 
+    def _assert_advancedhmc_tempering(result: Any) -> None:
+        assert np.isclose(float(result), 1.0)
+
+    def _assert_advancedhmc_transition(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 2
+        z_out, is_valid = result
+        arr = np.asarray(z_out, dtype=float)
+        assert arr.shape == (2,)
+        assert np.allclose(arr, np.array([0.65, -0.6], dtype=float))
+        assert is_valid is True
+
     def _invoke_rwmh(func: Callable[..., Any]) -> Any:
         kernel = func(target_log)
         return kernel(np.array([0.5, -0.5], dtype=float), np.array([1, 2], dtype=np.int64))
@@ -5256,6 +5298,52 @@ def _mcmc_foundational_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a non-numeric step size for mini-mcmc NUTS tree build",
                 lambda func: func(1, "bad", -1.0, np.array([0.5], dtype=float), target_log, lambda state, step_size, direction: state, 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.advancedhmc.integrator.temperingfactorcomputation": ProbePlan(
+            positive=ProbeCase(
+                "compute a deterministic AdvancedHMC tempering factor at the midpoint step",
+                lambda func: func(
+                    np.array([1.0, -1.0], dtype=float),
+                    np.array([0.5, 0.25], dtype=float),
+                    2,
+                    4,
+                ),
+                _assert_advancedhmc_tempering,
+            ),
+            negative=ProbeCase(
+                "reject a missing AdvancedHMC step count",
+                lambda func: func(
+                    np.array([1.0, -1.0], dtype=float),
+                    np.array([0.5, 0.25], dtype=float),
+                    2,
+                    None,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mcmc_foundational.advancedhmc.integrator.hamiltonianphasepointtransition": ProbePlan(
+            positive=ProbeCase(
+                "run one deterministic AdvancedHMC phase-point transition",
+                lambda func: func(
+                    np.array([1.0, 2.0], dtype=float),
+                    np.array([0.1, -0.2], dtype=float),
+                    np.array([0.5, 0.0], dtype=float),
+                    1.5,
+                ),
+                _assert_advancedhmc_transition,
+            ),
+            negative=ProbeCase(
+                "reject a missing AdvancedHMC tempering scale",
+                lambda func: func(
+                    np.array([1.0, 2.0], dtype=float),
+                    np.array([0.1, -0.2], dtype=float),
+                    np.array([0.5, 0.0], dtype=float),
+                    None,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,

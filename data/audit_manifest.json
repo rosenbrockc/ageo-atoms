@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T20:49:39+00:00",
+    "generated_at": "2026-04-02T21:12:47+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 393,
-      "medium": 112
+      "low": 400,
+      "medium": 105
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 257,
+    "parity_coverage_count": 260,
     "reference_coverage_count": 501,
-    "unmapped_upstream_count": 24,
+    "unmapped_upstream_count": 20,
     "structural_status_counts": {
       "partial": 77,
       "pass": 428
     },
     "parity_coverage_level_counts": {
-      "none": 151,
+      "none": 148,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 210,
+      "parity_or_usage_equivalent": 213,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -99,7 +99,7 @@
       "institutional_quant_engine": 3,
       "jFOF": 2,
       "jax_advi": 1,
-      "mcmc_foundational": 7,
+      "mcmc_foundational": 5,
       "mint": 5,
       "molecular_docking": 7,
       "neurokit2": 2,
@@ -108,34 +108,34 @@
       "pronto": 15,
       "pulsar": 4,
       "pulsar_folding": 1,
-      "quantfin": 30,
+      "quantfin": 29,
       "scipy": 23,
       "skyfield": 2,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 3,
-      "not_applicable": 261,
+      "not_applicable": 258,
       "partial": 7,
-      "pass": 234
+      "pass": 237
     },
     "semantic_status_counts": {
       "fail": 3,
       "partial": 7,
-      "pass": 234,
-      "unknown": 261
+      "pass": 237,
+      "unknown": 258
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
       "review_later": 438,
-      "review_now": 6,
-      "review_soon": 61
+      "review_now": 10,
+      "review_soon": 57
     },
     "high_risk_count": 0,
-    "medium_risk_count": 112,
-    "low_risk_count": 393
+    "medium_risk_count": 105,
+    "low_risk_count": 400
   },
   "atoms": [
     {
@@ -33976,17 +33976,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.mcmc_foundational.advancedhmc.integrator.temperingfactorcomputation@ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py:20",
+      "atom_id": "ageoa.mcmc_foundational.advancedhmc.integrator.temperingfactorcomputation@ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py:17",
       "atom_name": "ageoa.mcmc_foundational.advancedhmc.integrator.temperingfactorcomputation",
       "atom_key": "mcmc_foundational/advancedhmc/integrator:temperingfactorcomputation",
       "module_import_path": "ageoa.mcmc_foundational.advancedhmc.integrator.atoms",
       "module_path": "ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py",
       "wrapper_symbol": "temperingfactorcomputation",
-      "wrapper_line": 20,
+      "wrapper_line": 17,
       "domain_family": "mcmc_foundational",
       "module_family": "mcmc_foundational",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "AdvancedHMC.jl",
         "module": "AdvancedHMC.integrator",
@@ -34004,20 +34004,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -34094,11 +34093,10 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 36,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -34111,9 +34109,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -34176,35 +34173,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py",
-              "line": 20
+              "line": 17
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -34218,17 +34218,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.mcmc_foundational.advancedhmc.integrator.hamiltonianphasepointtransition@ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py:45",
+      "atom_id": "ageoa.mcmc_foundational.advancedhmc.integrator.hamiltonianphasepointtransition@ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py:42",
       "atom_name": "ageoa.mcmc_foundational.advancedhmc.integrator.hamiltonianphasepointtransition",
       "atom_key": "mcmc_foundational/advancedhmc/integrator:hamiltonianphasepointtransition",
       "module_import_path": "ageoa.mcmc_foundational.advancedhmc.integrator.atoms",
       "module_path": "ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py",
       "wrapper_symbol": "hamiltonianphasepointtransition",
-      "wrapper_line": 45,
+      "wrapper_line": 42,
       "domain_family": "mcmc_foundational",
       "module_family": "mcmc_foundational",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "AdvancedHMC.jl",
         "module": "AdvancedHMC.integrator",
@@ -34246,20 +34246,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -34336,11 +34335,10 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 36,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -34353,9 +34351,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -34418,35 +34415,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/mcmc_foundational/advancedhmc/integrator/atoms.py",
-              "line": 45
+              "line": 42
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -72900,10 +72900,16 @@
       "domain_family": "quant_engine",
       "module_family": "quant_engine",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Institutional-Quant-Engine",
+        "module": "execution_hft.28_order_flow_imbalance",
+        "function": "calculate_ofi",
+        "language": "python",
+        "notes": "Local state-threaded adapter around the upstream order-flow imbalance calculation."
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -72919,15 +72925,17 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "bid_px",
@@ -73005,34 +73013,38 @@
           "path": "ageoa/quant_engine/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Institutional-Quant-Engine",
+          "module": "execution_hft.28_order_flow_imbalance",
+          "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quant_engine/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
+        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 34,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 9,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73057,7 +73069,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_now",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -73148,10 +73160,16 @@
       "domain_family": "quant_engine",
       "module_family": "quant_engine",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Institutional-Quant-Engine",
+        "module": "execution_hft.04_vwap_analyzer",
+        "function": "calculate_vwap",
+        "language": "python",
+        "notes": "Local execution-state update wrapper derived from the upstream VWAP computation workflow."
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -73167,15 +73185,17 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73221,34 +73241,38 @@
           "path": "ageoa/quant_engine/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Institutional-Quant-Engine",
+          "module": "execution_hft.04_vwap_analyzer",
+          "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quant_engine/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
+        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 34,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 9,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73273,7 +73297,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_now",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -73364,10 +73388,16 @@
       "domain_family": "quant_engine",
       "module_family": "quant_engine",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Institutional-Quant-Engine",
+        "module": "execution_hft.17_optimal_execution_almgren",
+        "function": "optimal_trajectory",
+        "language": "python",
+        "notes": "Local state-threaded proportional-participation execution wrapper inspired by the low-urgency branch of the upstream execution trajectory."
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -73383,15 +73413,17 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73437,34 +73469,39 @@
           "path": "ageoa/quant_engine/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Institutional-Quant-Engine",
+          "module": "execution_hft.17_optimal_execution_almgren",
+          "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quant_engine/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PROVENANCE",
+        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
+        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 34,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 9,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73485,11 +73522,13 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_now",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -73580,10 +73619,16 @@
       "domain_family": "quant_engine",
       "module_family": "quant_engine",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Institutional-Quant-Engine",
+        "module": "execution_hft.17_optimal_execution_almgren",
+        "function": "optimal_trajectory",
+        "language": "python",
+        "notes": "Local passive execution-state update wrapper aligned to the low-impact execution trajectory in the upstream script."
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753",
       "review_basis_at": null,
       "stateful": true,
       "ffi": false,
@@ -73599,15 +73644,17 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73653,34 +73700,39 @@
           "path": "ageoa/quant_engine/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Institutional-Quant-Engine",
+          "module": "execution_hft.17_optimal_execution_almgren",
+          "source_revision": "aef5608c41014827d8acd5d47682b9981f8dc753"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/quant_engine/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PROVENANCE",
+        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
+        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 34,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
-          "score": 9,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73701,11 +73753,13 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_now",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -74713,11 +74767,11 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.Math.Integration",
-        "function": null,
+        "function": "charFuncOption.integrand_f",
         "language": "haskell",
         "notes": "Integration helper for characteristic function pricing"
       },
@@ -74731,21 +74785,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -74852,28 +74904,25 @@
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 38,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -74894,10 +74943,8 @@
           ]
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -74936,19 +74983,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
@@ -74957,14 +75004,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

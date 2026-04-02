@@ -107,6 +107,30 @@ def test_runtime_probe_passes_for_hawkes_process_simulator() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_advancedhmc_integrator_family() -> None:
+    tempering_probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.mcmc_foundational.advancedhmc.integrator.temperingfactorcomputation",
+            "ageoa.mcmc_foundational.advancedhmc.integrator.atoms",
+            "temperingfactorcomputation",
+        )
+    )
+    transition_probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.mcmc_foundational.advancedhmc.integrator.hamiltonianphasepointtransition",
+            "ageoa.mcmc_foundational.advancedhmc.integrator.atoms",
+            "hamiltonianphasepointtransition",
+        )
+    )
+
+    assert tempering_probe["status"] == "pass"
+    assert transition_probe["status"] == "pass"
+    assert "RUNTIME_PROBE_PASS" in tempering_probe["findings"]
+    assert "RUNTIME_PROBE_PASS" in transition_probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in tempering_probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in transition_probe["findings"]
+
+
 def test_runtime_probe_passes_for_heston_path_sampler() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
@@ -198,6 +222,20 @@ def test_runtime_probe_marks_scipy_curve_fit_as_usage_equivalent() -> None:
     assert probe["status"] == "pass"
     assert probe["parity_used"] is True
     assert "RUNTIME_PROBE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_char_func_option_integrand_helper() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.quantfin.char_func_option_d12.f",
+            "ageoa.quantfin.char_func_option_d12.atoms",
+            "f",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
