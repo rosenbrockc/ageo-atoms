@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import re
 from collections import Counter
 from dataclasses import asdict
 from datetime import datetime, timezone
@@ -228,8 +229,20 @@ def _detect_source_kind(path: Path, skeleton: bool, artifacts: dict[str, bool]) 
 def _detect_ffi(path: Path, text: str) -> bool:
     if any(part in {"tempo_jl", "rust_robotics", "bayes_rs"} for part in path.parts):
         return True
-    signals = ("ctypes", "cffi", "juliacall", ".dylib", ".so")
-    return any(signal in text for signal in signals)
+    lowered = text.lower()
+    if any(
+        signal in lowered
+        for signal in (
+            "import ctypes",
+            "from ctypes",
+            "import cffi",
+            "from cffi",
+            "import juliacall",
+            "from juliacall",
+        )
+    ):
+        return True
+    return bool(re.search(r"""['"][^'"]+\.(?:so|dylib)['"]""", text))
 
 
 def _detect_stateful(argument_names: list[str], return_annotation: str | None, artifacts: dict[str, bool]) -> bool:

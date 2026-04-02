@@ -24,25 +24,28 @@ def _as_numeric_vector(array: np.ndarray, name: str) -> np.ndarray:
 
 
 @register_atom(witness_initialize_filter)
-@icontract.require(lambda b: _is_vector(b), "b must be a non-empty 1D numpy array")
-@icontract.require(lambda a: _is_vector(a), "a must be a non-empty 1D numpy array")
-@icontract.require(lambda a: float(a[0]) != 0.0, "a[0] must be non-zero")
+@icontract.require(lambda b: b is None or _is_vector(b), "b must be None or a non-empty 1D numpy array")
+@icontract.require(lambda a: a is None or _is_vector(a), "a must be None or a non-empty 1D numpy array")
+@icontract.require(lambda a: a is None or float(a[0]) != 0.0, "a[0] must be non-zero")
 @icontract.ensure(lambda result: result[0][2] is None, "initial zi must be None")
 def filterstateinit(
-    b: np.ndarray,
-    a: np.ndarray,
+    b: np.ndarray | None = None,
+    a: np.ndarray | None = None,
 ) -> tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]:
     """Initialize an OnlineFilter coefficient/state bundle for chunked use.
 
     Args:
-        b: Numerator coefficients for the linear filter.
-        a: Denominator coefficients for the linear filter; ``a[0]`` must be non-zero.
+        b: Optional numerator coefficients for the linear filter.
+        a: Optional denominator coefficients for the linear filter; ``a[0]`` must be non-zero when provided.
 
     Returns:
         A tuple ``((b, a, zi), state)`` where ``zi`` is initially ``None`` and
         ``state`` carries the immutable chunk-to-chunk filter state.
     """
-
+    if b is None:
+        raise TypeError("Please specify the numerator coefficients.")
+    if a is None:
+        raise TypeError("Please specify the denominator coefficients.")
     coeff_b = _as_numeric_vector(b, "b")
     coeff_a = _as_numeric_vector(a, "a")
     obj = OnlineFilter(b=coeff_b, a=coeff_a)
@@ -51,18 +54,18 @@ def filterstateinit(
 
 
 @register_atom(witness_filter_chunk)
-@icontract.require(lambda signal: _is_vector(signal), "signal must be a non-empty 1D numpy array")
+@icontract.require(lambda signal: signal is None or _is_vector(signal), "signal must be None or a non-empty 1D numpy array")
 @icontract.require(lambda state: state is not None, "state cannot be None")
 @icontract.require(lambda state: state.b is not None and state.a is not None, "state must carry filter coefficients")
 @icontract.ensure(lambda result, signal: result[0][0].shape == signal.shape, "filtered output shape must match input")
 def filterstep(
-    signal: np.ndarray,
-    state: FilterState,
+    signal: np.ndarray | None = None,
+    state: FilterState | None = None,
 ) -> tuple[tuple[np.ndarray, np.ndarray], FilterState]:
     """Filter one signal chunk and return the next immutable filter state.
 
     Args:
-        signal: One-dimensional numeric signal chunk.
+        signal: Optional one-dimensional numeric signal chunk.
         state: Prior filter state produced by :func:`filterstateinit` or a
             previous :func:`filterstep` call.
 
@@ -70,7 +73,8 @@ def filterstep(
         A tuple ``((filtered_signal, zi_out), next_state)`` with the filtered
         chunk and the updated delay-line state for the next chunk.
     """
-
+    if signal is None:
+        raise TypeError("Please specify the input signal.")
     chunk = _as_numeric_vector(signal, "signal")
     obj = OnlineFilter(b=np.asarray(state.b, dtype=float), a=np.asarray(state.a, dtype=float))
     if state.zi is not None:

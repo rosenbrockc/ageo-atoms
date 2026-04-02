@@ -244,6 +244,7 @@ def test_runtime_probe_passes_for_pronto_backlash_filter_family() -> None:
             _record(atom_name, "ageoa.pronto.backlash_filter.atoms", symbol)
         )
         assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
         assert "RUNTIME_PROBE_PASS" in probe["findings"]
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 

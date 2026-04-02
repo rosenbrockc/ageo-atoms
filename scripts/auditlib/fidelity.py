@@ -28,6 +28,19 @@ def _status_for_findings(mapping_found: bool, findings: list[str], upstream_sign
     return "pass"
 
 
+def _state_adapter_parameters(record: dict[str, Any], mapping: UpstreamMapping | None) -> set[str]:
+    if mapping is None or not mapping.function or "." not in mapping.function:
+        return set()
+    if record.get("stateful_kind") not in {"argument_state", "explicit_state_model"}:
+        return set()
+    adapters = {
+        name
+        for name in record.get("argument_names", [])
+        if name == "state" or name.endswith("_state")
+    }
+    return adapters
+
+
 def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
     """Compare one wrapper signature to its mapped upstream symbol."""
     mapping_dict = record.get("upstream_symbols") or {}
@@ -47,19 +60,22 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
         if upstream_signature is None:
             findings.append("FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE")
         else:
+            state_adapters = _state_adapter_parameters(record, mapping)
             upstream_params = upstream_signature["parameter_names"]
             upstream_required = upstream_signature["required_parameter_names"]
-            missing_required = [name for name in upstream_required if name not in wrapper_params]
-            invented = [name for name in wrapper_params if name not in upstream_params]
+            comparable_wrapper_params = [name for name in wrapper_params if name not in state_adapters]
+            comparable_wrapper_required = [name for name in wrapper_required if name not in state_adapters]
+            missing_required = [name for name in upstream_required if name not in comparable_wrapper_params]
+            invented = [name for name in comparable_wrapper_params if name not in upstream_params]
             if missing_required:
                 findings.append("FIDELITY_SIGNATURE_MISSING_REQUIRED")
                 notes.append("missing_required=" + ",".join(missing_required))
             if invented:
                 findings.append("FIDELITY_SIGNATURE_INVENTED_PARAMETER")
                 notes.append("invented_parameters=" + ",".join(invented))
-            if not missing_required and not invented and wrapper_params != upstream_params:
+            if not missing_required and not invented and comparable_wrapper_params != upstream_params:
                 findings.append("FIDELITY_SIGNATURE_ORDER_MISMATCH")
-            if wrapper_required != [name for name in upstream_required if name in wrapper_params]:
+            if comparable_wrapper_required != [name for name in upstream_required if name in comparable_wrapper_params]:
                 findings.append("FIDELITY_REQUIREDNESS_MISMATCH")
 
     if record.get("uses_varargs"):

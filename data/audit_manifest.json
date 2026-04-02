@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T15:49:42+00:00",
+    "generated_at": "2026-04-02T16:21:54+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,13 +64,13 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 352,
-      "medium": 153
+      "low": 375,
+      "medium": 130
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
-    "ffi_count": 240,
+    "ffi_count": 199,
     "skeleton_count": 0,
     "parity_coverage_count": 246,
     "reference_coverage_count": 501,
@@ -82,8 +82,8 @@
     "parity_coverage_level_counts": {
       "none": 162,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 196,
-      "positive_and_negative": 42,
+      "parity_or_usage_equivalent": 199,
+      "positive_and_negative": 39,
       "positive_path": 8
     },
     "parity_fixture_file_count": 16,
@@ -129,13 +129,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 411,
-      "review_now": 21,
-      "review_soon": 73
+      "review_later": 428,
+      "review_now": 9,
+      "review_soon": 68
     },
     "high_risk_count": 0,
-    "medium_risk_count": 153,
-    "low_risk_count": 352
+    "medium_risk_count": 130,
+    "low_risk_count": 375
   },
   "atoms": [
     {
@@ -2574,7 +2574,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -2638,12 +2638,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -2671,10 +2670,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -2778,7 +2775,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -2842,12 +2839,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -2875,10 +2871,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -2982,7 +2976,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -3046,12 +3040,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -3079,10 +3072,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -3186,7 +3177,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -3250,12 +3241,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -3283,10 +3273,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -3390,7 +3378,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -3454,12 +3442,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_UPSTREAM_UNMAPPED"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -3487,10 +3474,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -13054,7 +13039,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -13080,7 +13065,7 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 87,
+      "acceptability_score": 91,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
@@ -13089,22 +13074,19 @@
         "b",
         "a"
       ],
-      "required_parameter_names": [
-        "b",
-        "a"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "b",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "a",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]",
@@ -13143,21 +13125,18 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 35,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -13189,7 +13168,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13270,17 +13249,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter.filterstep@ageoa/biosppy/online_filter/atoms.py:58",
+      "atom_id": "ageoa.biosppy.online_filter.filterstep@ageoa/biosppy/online_filter/atoms.py:61",
       "atom_name": "ageoa.biosppy.online_filter.filterstep",
       "atom_key": "biosppy/online_filter:filterstep",
       "module_import_path": "ageoa.biosppy.online_filter.atoms",
       "module_path": "ageoa/biosppy/online_filter/atoms.py",
       "wrapper_symbol": "filterstep",
-      "wrapper_line": 58,
+      "wrapper_line": 61,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -13305,36 +13284,29 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "state"
       ],
-      "required_parameter_names": [
-        "signal",
-        "state"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "signal",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "state",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "FilterState"
+          "annotation": "FilterState | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterState]",
@@ -13374,21 +13346,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 37,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -13421,7 +13390,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13473,7 +13442,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter/atoms.py",
-              "line": 58
+              "line": 61
             }
           ]
         }
@@ -13512,7 +13481,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -13538,7 +13507,7 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 87,
+      "acceptability_score": 91,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
@@ -13547,22 +13516,19 @@
         "b",
         "a"
       ],
-      "required_parameter_names": [
-        "b",
-        "a"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "b",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "a",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]",
@@ -13601,21 +13567,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 30,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -13647,7 +13610,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13728,17 +13691,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:58",
+      "atom_id": "ageoa.biosppy.online_filter_codex.filterstep@ageoa/biosppy/online_filter_codex/atoms.py:61",
       "atom_name": "ageoa.biosppy.online_filter_codex.filterstep",
       "atom_key": "biosppy/online_filter_codex:filterstep",
       "module_import_path": "ageoa.biosppy.online_filter_codex.atoms",
       "module_path": "ageoa/biosppy/online_filter_codex/atoms.py",
       "wrapper_symbol": "filterstep",
-      "wrapper_line": 58,
+      "wrapper_line": 61,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -13763,36 +13726,29 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "state"
       ],
-      "required_parameter_names": [
-        "signal",
-        "state"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "signal",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "state",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "FilterState"
+          "annotation": "FilterState | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterState]",
@@ -13832,21 +13788,18 @@
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 32,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -13879,7 +13832,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -13931,7 +13884,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_codex/atoms.py",
-              "line": 58
+              "line": 61
             }
           ]
         }
@@ -13970,7 +13923,7 @@
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -13996,7 +13949,7 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 87,
+      "acceptability_score": 91,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
@@ -14005,22 +13958,19 @@
         "b",
         "a"
       ],
-      "required_parameter_names": [
-        "b",
-        "a"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "b",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "a",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray, np.ndarray | None], FilterState]",
@@ -14059,21 +14009,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 30,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -14105,7 +14052,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -14186,17 +14133,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:58",
+      "atom_id": "ageoa.biosppy.online_filter_v2.filterstep@ageoa/biosppy/online_filter_v2/atoms.py:61",
       "atom_name": "ageoa.biosppy.online_filter_v2.filterstep",
       "atom_key": "biosppy/online_filter_v2:filterstep",
       "module_import_path": "ageoa.biosppy.online_filter_v2.atoms",
       "module_path": "ageoa/biosppy/online_filter_v2/atoms.py",
       "wrapper_symbol": "filterstep",
-      "wrapper_line": 58,
+      "wrapper_line": 61,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.tools",
@@ -14221,36 +14168,29 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "state"
       ],
-      "required_parameter_names": [
-        "signal",
-        "state"
-      ],
+      "required_parameter_names": [],
       "argument_details": [
         {
           "name": "signal",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "state",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "FilterState"
+          "annotation": "FilterState | None"
         }
       ],
       "return_annotation": "tuple[tuple[np.ndarray, np.ndarray], FilterState]",
@@ -14290,21 +14230,18 @@
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 32,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -14337,7 +14274,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -14389,7 +14326,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/online_filter_v2/atoms.py",
-              "line": 58
+              "line": 61
             }
           ]
         }
@@ -17746,7 +17683,7 @@
       "source_revision": "d5a0a5abe941e95022f20401586a5c1b753b95c6",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -17830,12 +17767,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 26,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -17864,10 +17800,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -17977,7 +17911,7 @@
       "source_revision": "d5a0a5abe941e95022f20401586a5c1b753b95c6",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -18069,12 +18003,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 26,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -18103,10 +18036,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -18216,7 +18147,7 @@
       "source_revision": "d5a0a5abe941e95022f20401586a5c1b753b95c6",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -18292,12 +18223,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 26,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -18326,10 +18256,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -28410,7 +28338,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "research_math.10_kalman_filter_trend",
@@ -28435,16 +28363,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "prior_state",
         "measurement"
@@ -28503,21 +28427,18 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 35,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -28549,7 +28470,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -29609,7 +29530,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "execution_hft.49_limit_order_queue_estimator",
@@ -29634,16 +29555,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "current_order_state",
         "trade_qty"
@@ -29702,21 +29619,18 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 35,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -29748,7 +29662,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -40628,7 +40542,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -40712,14 +40626,13 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 40,
+      "risk_score": 35,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -40749,10 +40662,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -40861,7 +40772,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -40945,13 +40856,12 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 38,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -40981,10 +40891,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -41314,7 +41222,7 @@
       "domain_family": "mint",
       "module_family": "mint",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "mint",
         "module": "mint.data",
@@ -41326,7 +41234,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -41339,25 +41247,19 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "sequence_labels",
-        "sequence_strs",
-        "fasta_file"
+        "sequence_strs"
       ],
       "required_parameter_names": [
         "sequence_labels",
-        "sequence_strs",
-        "fasta_file"
+        "sequence_strs"
       ],
       "argument_details": [
         {
@@ -41371,12 +41273,6 @@
           "required": true,
           "kind": "positional_or_keyword",
           "annotation": "list[str]"
-        },
-        {
-          "name": "fasta_file",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "str"
         }
       ],
       "return_annotation": "DatasetState",
@@ -41386,7 +41282,7 @@
       "witness_binding": "register_atom(witness_dataset_state_initialization)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Build a read-only sequence dataset state.",
+      "docstring_summary": "Build a read-only sequence dataset state from aligned in-memory inputs.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -41412,23 +41308,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 35,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -41449,17 +41341,15 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -41540,17 +41430,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:70",
+      "atom_id": "ageoa.mint.fasta_dataset.dataset_length_query@ageoa/mint/fasta_dataset/atoms.py:47",
       "atom_name": "ageoa.mint.fasta_dataset.dataset_length_query",
       "atom_key": "mint/fasta_dataset:dataset_length_query",
       "module_import_path": "ageoa.mint.fasta_dataset.atoms",
       "module_path": "ageoa/mint/fasta_dataset/atoms.py",
       "wrapper_symbol": "dataset_length_query",
-      "wrapper_line": 70,
+      "wrapper_line": 47,
       "domain_family": "mint",
       "module_family": "mint",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "mint",
         "module": "mint.data",
@@ -41562,7 +41452,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -41575,16 +41465,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "dataset_state"
       ],
@@ -41632,23 +41518,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 35,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -41669,17 +41551,15 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -41731,7 +41611,7 @@
           "source_refs": [
             {
               "path": "ageoa/mint/fasta_dataset/atoms.py",
-              "line": 70
+              "line": 47
             }
           ]
         }
@@ -41760,17 +41640,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.mint.fasta_dataset.dataset_item_retrieval@ageoa/mint/fasta_dataset/atoms.py:85",
+      "atom_id": "ageoa.mint.fasta_dataset.dataset_item_retrieval@ageoa/mint/fasta_dataset/atoms.py:62",
       "atom_name": "ageoa.mint.fasta_dataset.dataset_item_retrieval",
       "atom_key": "mint/fasta_dataset:dataset_item_retrieval",
       "module_import_path": "ageoa.mint.fasta_dataset.atoms",
       "module_path": "ageoa/mint/fasta_dataset/atoms.py",
       "wrapper_symbol": "dataset_item_retrieval",
-      "wrapper_line": 85,
+      "wrapper_line": 62,
       "domain_family": "mint",
       "module_family": "mint",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "mint",
         "module": "mint.data",
@@ -41782,7 +41662,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -41795,16 +41675,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "dataset_state",
         "idx"
@@ -41860,23 +41736,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 35,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -41897,17 +41769,15 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -41959,7 +41829,7 @@
           "source_refs": [
             {
               "path": "ageoa/mint/fasta_dataset/atoms.py",
-              "line": 85
+              "line": 62
             }
           ]
         }
@@ -41988,17 +41858,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:102",
+      "atom_id": "ageoa.mint.fasta_dataset.token_budget_batch_planning@ageoa/mint/fasta_dataset/atoms.py:79",
       "atom_name": "ageoa.mint.fasta_dataset.token_budget_batch_planning",
       "atom_key": "mint/fasta_dataset:token_budget_batch_planning",
       "module_import_path": "ageoa.mint.fasta_dataset.atoms",
       "module_path": "ageoa/mint/fasta_dataset/atoms.py",
       "wrapper_symbol": "token_budget_batch_planning",
-      "wrapper_line": 102,
+      "wrapper_line": 79,
       "domain_family": "mint",
       "module_family": "mint",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "mint",
         "module": "mint.data",
@@ -42010,7 +41880,7 @@
       "source_revision": "12946127faeba20698e83bfc040913ebc993a3c7",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -42023,16 +41893,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "dataset_state",
         "toks_per_batch",
@@ -42040,8 +41906,7 @@
       ],
       "required_parameter_names": [
         "dataset_state",
-        "toks_per_batch",
-        "extra_toks_per_seq"
+        "toks_per_batch"
       ],
       "argument_details": [
         {
@@ -42058,7 +41923,7 @@
         },
         {
           "name": "extra_toks_per_seq",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int"
         }
@@ -42096,23 +41961,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 35,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -42133,17 +41994,15 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
           "reasons": []
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -42195,7 +42054,7 @@
           "source_refs": [
             {
               "path": "ageoa/mint/fasta_dataset/atoms.py",
-              "line": 102
+              "line": 79
             }
           ]
         }
@@ -44517,7 +44376,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -44529,7 +44388,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -44619,14 +44478,13 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STOCHASTIC"
       ],
-      "risk_score": 32,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -44656,10 +44514,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -44668,7 +44524,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -44771,7 +44627,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -44873,14 +44729,13 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 37,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -44911,10 +44766,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -45026,7 +44879,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -45152,14 +45005,13 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 37,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -45190,10 +45042,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -45293,7 +45143,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -45305,7 +45155,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -45391,13 +45241,12 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 32,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -45426,10 +45275,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -45438,7 +45285,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -45541,7 +45388,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -45659,7 +45506,6 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
@@ -45667,7 +45513,7 @@
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 41,
+      "risk_score": 36,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -45699,10 +45545,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -45814,7 +45658,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -45904,13 +45748,12 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STOCHASTIC"
       ],
-      "risk_score": 29,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -45940,10 +45783,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -46041,7 +45882,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -46053,7 +45894,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -46165,13 +46006,12 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 30,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -46202,10 +46042,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -46303,7 +46141,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -46315,7 +46153,7 @@
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
       "review_basis_at": null,
       "stateful": true,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -46417,14 +46255,13 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 32,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -46455,10 +46292,8 @@
           ]
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 2,
@@ -58082,7 +57917,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -58157,11 +57992,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -58187,10 +58021,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -58297,7 +58129,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -58364,11 +58196,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -58394,10 +58225,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -58504,7 +58333,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -58571,11 +58400,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -58601,10 +58429,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -58711,7 +58537,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -58799,11 +58625,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -58829,10 +58654,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -64752,7 +64575,7 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_utils.backlash_filter",
@@ -64824,11 +64647,10 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -64841,10 +64663,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 5,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_MISSING_USAGE_EQUIVALENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -64870,7 +64691,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -64927,17 +64748,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "positive_and_negative",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE",
         "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
-        "PARITY_RUNTIME_PROBE_SUPPORT"
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "positive_and_negative",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -64961,7 +64782,7 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_utils.backlash_filter",
@@ -65052,11 +64873,10 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -65069,10 +64889,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 5,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_MISSING_USAGE_EQUIVALENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -65098,7 +64917,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -65155,17 +64974,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "positive_and_negative",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE",
         "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
-        "PARITY_RUNTIME_PROBE_SUPPORT"
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "positive_and_negative",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -65189,7 +65008,7 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_utils.backlash_filter",
@@ -65280,11 +65099,10 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -65297,10 +65115,9 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 5,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_REVIEW_BASIS",
-            "RISK_MISSING_USAGE_EQUIVALENCE"
+            "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
@@ -65326,7 +65143,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -65383,17 +65200,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "positive_and_negative",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE",
         "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
-        "PARITY_RUNTIME_PROBE_SUPPORT"
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "positive_and_negative",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -84422,11 +84239,11 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "mulMod64",
         "language": "haskell",
         "notes": "Modular multiplication for 64-bit RNG"
       },
@@ -84448,12 +84265,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -84531,18 +84347,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -84665,11 +84481,11 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "powMod64",
         "language": "haskell",
         "notes": "Modular exponentiation for skip-ahead"
       },
@@ -84691,12 +84507,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -84774,18 +84589,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -84908,11 +84723,11 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "skip",
         "language": "haskell",
         "notes": "Skip-ahead for parallel RNG streams"
       },
@@ -84934,12 +84749,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -85006,21 +84820,20 @@
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
-        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -85046,10 +84859,8 @@
           ]
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -85385,11 +85196,11 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "split",
         "language": "haskell",
         "notes": "Stream splitting for parallel RNG"
       },
@@ -85411,12 +85222,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -85483,21 +85293,20 @@
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
-        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 30,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
@@ -85523,10 +85332,8 @@
           ]
         },
         "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
+          "score": 0,
+          "reasons": []
         }
       },
       "review_priority": "review_later",
@@ -92440,7 +92247,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -92607,11 +92414,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -92637,10 +92443,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -92747,7 +92551,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -92880,12 +92684,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 28,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 12,
@@ -92913,10 +92716,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -93041,7 +92842,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -93129,11 +92930,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -93159,10 +92959,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -93895,7 +93693,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -94010,11 +93808,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_MISSING_USAGE_EQUIVALENCE"
       ],
-      "risk_score": 10,
+      "risk_score": 5,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -94040,10 +93837,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -94153,7 +93948,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -94232,12 +94027,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_MISSING_USAGE_EQUIVALENCE",
         "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 22,
+      "risk_score": 17,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -94265,10 +94059,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -94378,7 +94170,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -94459,12 +94251,11 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_NO_RUNTIME_EVIDENCE",
         "RISK_PARITY_POSITIVE_ONLY"
       ],
-      "risk_score": 15,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -94491,10 +94282,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -94603,7 +94392,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -94682,11 +94471,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_MISSING_USAGE_EQUIVALENCE"
       ],
-      "risk_score": 10,
+      "risk_score": 5,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -94712,10 +94500,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -94825,7 +94611,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -94919,11 +94705,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_MISSING_USAGE_EQUIVALENCE"
       ],
-      "risk_score": 10,
+      "risk_score": 5,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -94949,10 +94734,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -96811,7 +96594,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -96914,11 +96697,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -96944,10 +96726,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -97054,7 +96834,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -97165,11 +96945,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -97195,10 +96974,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -97305,7 +97082,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -97416,11 +97193,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -97446,10 +97222,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -97556,7 +97330,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -97666,11 +97440,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -97696,10 +97469,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -97806,7 +97577,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -97895,11 +97666,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -97925,10 +97695,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -98035,7 +97803,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -98132,11 +97900,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -98162,10 +97929,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,
@@ -98272,7 +98037,7 @@
       "source_revision": null,
       "review_basis_at": null,
       "stateful": false,
-      "ffi": true,
+      "ffi": false,
       "skeleton": false,
       "has_state_models": false,
       "has_witnesses": true,
@@ -98381,11 +98146,10 @@
         }
       ],
       "risk_reasons": [
-        "RISK_FFI_BACKED",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 16,
+      "risk_score": 11,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -98411,10 +98175,8 @@
           "reasons": []
         },
         "ffi_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_FFI_BACKED"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "semantics_proxy_risk": {
           "score": 0,

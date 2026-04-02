@@ -25,43 +25,20 @@ class DatasetState(TypedDict):
 def dataset_state_initialization(
     sequence_labels: list[str],
     sequence_strs: list[str],
-    fasta_file: str,
 ) -> DatasetState:
-    """Build a read-only sequence dataset state.
+    """Build a read-only sequence dataset state from aligned in-memory inputs.
 
     Args:
         sequence_labels: Sequence identifiers.
         sequence_strs: Biological sequence strings.
-        fasta_file: Optional FASTA file path whose contents override the in-memory inputs.
 
     Returns:
         DatasetState with aligned label and sequence lists.
     """
-    state: DatasetState = {
+    return {
         "sequence_labels": list(sequence_labels),
         "sequence_strs": list(sequence_strs),
     }
-    if fasta_file:
-        labels: list[str] = []
-        seqs: list[str] = []
-        current_label: str | None = None
-        current_seq: list[str] = []
-        with open(fasta_file) as handle:
-            for raw_line in handle:
-                line = raw_line.strip()
-                if line.startswith(">"):
-                    if current_label is not None:
-                        labels.append(current_label)
-                        seqs.append("".join(current_seq))
-                    current_label = line[1:]
-                    current_seq = []
-                else:
-                    current_seq.append(line)
-        if current_label is not None:
-            labels.append(current_label)
-            seqs.append("".join(current_seq))
-        state = {"sequence_labels": labels, "sequence_strs": seqs}
-    return state
 
 
 @register_atom(witness_dataset_length_query)
@@ -102,7 +79,7 @@ def dataset_item_retrieval(dataset_state: DatasetState, idx: int) -> tuple[str, 
 def token_budget_batch_planning(
     dataset_state: DatasetState,
     toks_per_batch: int,
-    extra_toks_per_seq: int,
+    extra_toks_per_seq: int = 0,
 ) -> list[list[int]]:
     """Plan batches under a token budget.
 
@@ -115,18 +92,26 @@ def token_budget_batch_planning(
         List of batches, each represented as dataset indices.
     """
     seqs = dataset_state["sequence_strs"]
-    sizes = [(i, len(seq) + extra_toks_per_seq) for i, seq in enumerate(seqs)]
-    sizes.sort(key=lambda item: item[1], reverse=True)
+    sizes = [(len(seq), i) for i, seq in enumerate(seqs)]
+    sizes.sort()
     batches: list[list[int]] = []
     current_batch: list[int] = []
-    current_tokens = 0
-    for idx, tok_count in sizes:
-        if current_batch and current_tokens + tok_count > toks_per_batch:
-            batches.append(current_batch)
-            current_batch = []
-            current_tokens = 0
-        current_batch.append(idx)
-        current_tokens += tok_count
-    if current_batch:
+    max_len = 0
+
+    def _flush_current_batch() -> None:
+        nonlocal current_batch, max_len
+        if not current_batch:
+            return
         batches.append(current_batch)
+        current_batch = []
+        max_len = 0
+
+    for seq_len, idx in sizes:
+        token_count = seq_len + extra_toks_per_seq
+        if max(token_count, max_len) * (len(current_batch) + 1) > toks_per_batch:
+            _flush_current_batch()
+        max_len = max(max_len, token_count)
+        current_batch.append(idx)
+
+    _flush_current_batch()
     return batches

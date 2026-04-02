@@ -3,12 +3,18 @@ from __future__ import annotations
 import numpy as np
 import pytest
 from biosppy.signals.tools import OnlineFilter
+from auditlib import runtime_probes
 
-from ageoa.biosppy.online_filter.atoms import filterstateinit, filterstep
-from ageoa.biosppy.online_filter_codex.atoms import filterstateinit as codex_filterstateinit
-from ageoa.biosppy.online_filter_codex.atoms import filterstep as codex_filterstep
-from ageoa.biosppy.online_filter_v2.atoms import filterstateinit as v2_filterstateinit
-from ageoa.biosppy.online_filter_v2.atoms import filterstep as v2_filterstep
+_online_filter_atoms = runtime_probes.safe_import_module("ageoa.biosppy.online_filter.atoms")
+_online_filter_codex_atoms = runtime_probes.safe_import_module("ageoa.biosppy.online_filter_codex.atoms")
+_online_filter_v2_atoms = runtime_probes.safe_import_module("ageoa.biosppy.online_filter_v2.atoms")
+
+filterstateinit = _online_filter_atoms.filterstateinit
+filterstep = _online_filter_atoms.filterstep
+codex_filterstateinit = _online_filter_codex_atoms.filterstateinit
+codex_filterstep = _online_filter_codex_atoms.filterstep
+v2_filterstateinit = _online_filter_v2_atoms.filterstateinit
+v2_filterstep = _online_filter_v2_atoms.filterstep
 
 
 def test_online_filter_state_init_and_chunked_filter_match_direct_execution() -> None:
@@ -74,3 +80,30 @@ def test_refined_online_filter_variants_match_chunked_execution(init_atom, step_
     expected = np.convolve(signal, b, mode="full")[: signal.shape[0]]
 
     assert np.allclose(chunked, expected)
+
+
+@pytest.mark.parametrize(
+    ("init_atom",),
+    [
+        (filterstateinit,),
+        (codex_filterstateinit,),
+        (v2_filterstateinit,),
+    ],
+)
+def test_online_filter_state_init_matches_upstream_optional_signature(init_atom) -> None:
+    with pytest.raises(TypeError):
+        init_atom()
+
+
+@pytest.mark.parametrize(
+    ("init_atom", "step_atom"),
+    [
+        (filterstateinit, filterstep),
+        (codex_filterstateinit, codex_filterstep),
+        (v2_filterstateinit, v2_filterstep),
+    ],
+)
+def test_online_filter_step_matches_upstream_optional_signal_signature(init_atom, step_atom) -> None:
+    (_, _, _), state = init_atom(np.array([1.0], dtype=float), np.array([1.0], dtype=float))
+    with pytest.raises(TypeError):
+        step_atom(state=state)

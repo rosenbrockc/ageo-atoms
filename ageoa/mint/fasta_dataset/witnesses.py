@@ -1,8 +1,8 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 
 
-def witness_dataset_state_initialization(sequence_labels: AbstractArray, sequence_strs: AbstractArray, fasta_file: AbstractArray) -> AbstractArray:
+def witness_dataset_state_initialization(sequence_labels: AbstractArray, sequence_strs: AbstractArray) -> AbstractArray:
     """Shape-and-type check for dataset state initialization. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=sequence_labels.shape,

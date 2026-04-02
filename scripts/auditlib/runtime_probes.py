@@ -2782,12 +2782,12 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
         "ageoa.mint.fasta_dataset.dataset_state_initialization": ProbePlan(
             positive=ProbeCase(
                 "build an in-memory FASTA dataset state from aligned labels and sequences",
-                lambda func: func(["seq_a", "seq_b"], ["ACGT", "TT"], ""),
+                lambda func: func(["seq_a", "seq_b"], ["ACGT", "TT"]),
                 _assert_dataset_state(["seq_a", "seq_b"], ["ACGT", "TT"]),
             ),
             negative=ProbeCase(
                 "reject mismatched sequence label and sequence counts",
-                lambda func: func(["seq_a"], ["ACGT", "TT"], ""),
+                lambda func: func(["seq_a"], ["ACGT", "TT"]),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -2826,7 +2826,7 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
                     8,
                     1,
                 ),
-                _assert_batch_plan([[0, 1]]),
+                _assert_batch_plan([[1], [0]]),
             ),
             negative=ProbeCase(
                 "reject a non-integer token budget",
@@ -4254,6 +4254,7 @@ def _pronto_backlash_filter_plans() -> dict[str, ProbePlan]:
                 lambda fn: fn(unexpected=True),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.pronto.backlash_filter.updatealphaparameter": ProbePlan(
             positive=ProbeCase(
@@ -4266,6 +4267,7 @@ def _pronto_backlash_filter_plans() -> dict[str, ProbePlan]:
                 lambda fn: fn({"state": "bad"}, 0.25),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
         "ageoa.pronto.backlash_filter.updatecrossingtimemaximum": ProbePlan(
             positive=ProbeCase(
@@ -4278,6 +4280,7 @@ def _pronto_backlash_filter_plans() -> dict[str, ProbePlan]:
                 lambda fn: fn(state.copy(), np.nan),
                 expect_exception=True,
             ),
+            parity_used=True,
         ),
     }
 

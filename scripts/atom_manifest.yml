@@ -2759,7 +2759,7 @@
   upstream:
     repo: quantfin
     module: Quant.RNG.MWC64X
-    function: ~
+    function: mulMod64
     language: haskell
     notes: Modular multiplication for 64-bit RNG
 
@@ -2774,7 +2774,7 @@
   upstream:
     repo: quantfin
     module: Quant.RNG.MWC64X
-    function: ~
+    function: powMod64
     language: haskell
     notes: Modular exponentiation for skip-ahead
 
@@ -2817,7 +2817,7 @@
   upstream:
     repo: quantfin
     module: Quant.RNG.MWC64X
-    function: ~
+    function: skip
     language: haskell
     notes: Skip-ahead for parallel RNG streams
 
@@ -2825,7 +2825,7 @@
   upstream:
     repo: quantfin
     module: Quant.RNG.MWC64X
-    function: ~
+    function: split
     language: haskell
     notes: Stream splitting for parallel RNG
 

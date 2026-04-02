@@ -78,3 +78,25 @@ def test_numpy_random_mapping_resolves_to_imported_signature() -> None:
     assert evidence["mapping_found"] is True
     assert evidence["upstream_mapping"]["module"] == "numpy.random"
     assert evidence["upstream_mapping"]["function"] == "uniform"
+
+
+def test_fasta_dataset_manifest_is_not_marked_ffi_from_sort_method_name() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "mint/fasta_dataset:dataset_state_initialization")
+    assert record["ffi"] is False
+
+
+def test_fasta_dataset_state_adapter_is_not_treated_as_invented_parameter() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "mint/fasta_dataset:dataset_length_query")
+    evidence = build_signature_evidence(record)
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]
+
+
+def test_online_filter_state_adapter_is_not_treated_as_invented_parameter() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "biosppy/online_filter:filterstep")
+    evidence = build_signature_evidence(record)
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]
