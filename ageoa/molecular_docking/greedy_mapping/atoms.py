@@ -103,7 +103,7 @@ def initializefrontierfromstartnode(mapping_context: MappingContext, starting_no
 @icontract.require(lambda remove_invalid_placement_nodes: remove_invalid_placement_nodes is not None, "remove_invalid_placement_nodes cannot be None")
 @icontract.require(lambda rank_nodes: rank_nodes is not None, "rank_nodes cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "ScoreAndExtendGreedyCandidates all outputs must not be None")
-def scoreandextendgreedycandidates(mapping_context: MappingContext, considered_nodes: List[GraphNode], unexpanded_nodes: Set[GraphNode], free_lattice_neighbors: Set[LatticeNode], mapping: Map[GraphNode,LatticeNode], unmapping: Map[LatticeNode,GraphNode], remove_invalid_placement_nodes: bool, rank_nodes: bool) -> tuple[MappingState, Map[GraphNode,float]]:
+def scoreandextendgreedycandidates(mapping_context: MappingContext, considered_nodes: List[GraphNode], unexpanded_nodes: Set[GraphNode], free_lattice_neighbors: Set[LatticeNode], mapping: Map[GraphNode,LatticeNode], unmapping: Map[LatticeNode,GraphNode], remove_invalid_placement_nodes: bool = True, rank_nodes: bool = True) -> tuple[MappingState, Map[GraphNode,float]]:
     """Score candidate placements and greedily extend the mapping frontier using ranking and validity filtering flags.
 
     Args:

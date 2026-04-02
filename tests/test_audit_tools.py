@@ -100,3 +100,11 @@ def test_online_filter_state_adapter_is_not_treated_as_invented_parameter() -> N
     evidence = build_signature_evidence(record)
     assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
     assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]
+
+
+def test_greedy_mapping_context_adapter_is_not_treated_as_invented_parameter() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "molecular_docking/greedy_mapping:initializefrontierfromstartnode")
+    evidence = build_signature_evidence(record)
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]

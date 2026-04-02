@@ -31,12 +31,12 @@ def _status_for_findings(mapping_found: bool, findings: list[str], upstream_sign
 def _state_adapter_parameters(record: dict[str, Any], mapping: UpstreamMapping | None) -> set[str]:
     if mapping is None or not mapping.function or "." not in mapping.function:
         return set()
-    if record.get("stateful_kind") not in {"argument_state", "explicit_state_model"}:
+    if record.get("stateful_kind") not in {"argument_state", "explicit_state_model", "return_state"}:
         return set()
     adapters = {
         name
         for name in record.get("argument_names", [])
-        if name == "state" or name.endswith("_state")
+        if name == "state" or name.endswith("_state") or name.endswith("_context")
     }
     return adapters
 

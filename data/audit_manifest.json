@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T19:59:47+00:00",
+    "generated_at": "2026-04-02T20:05:18+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 388,
-      "medium": 117
+      "low": 390,
+      "medium": 115
     },
     "stateful_count": 68,
     "stochastic_count": 27,
@@ -129,13 +129,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 433,
-      "review_now": 9,
+      "review_later": 435,
+      "review_now": 7,
       "review_soon": 63
     },
     "high_risk_count": 0,
-    "medium_risk_count": 117,
-    "low_risk_count": 388
+    "medium_risk_count": 115,
+    "low_risk_count": 390
   },
   "atoms": [
     {
@@ -44495,7 +44495,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -44520,16 +44520,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "mapping_context",
         "starting_node",
@@ -44612,20 +44608,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 32,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -44656,7 +44649,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -44747,7 +44740,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
@@ -44772,16 +44765,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "mapping_context",
         "considered_nodes",
@@ -44798,9 +44787,7 @@
         "unexpanded_nodes",
         "free_lattice_neighbors",
         "mapping",
-        "unmapping",
-        "remove_invalid_placement_nodes",
-        "rank_nodes"
+        "unmapping"
       ],
       "argument_details": [
         {
@@ -44841,13 +44828,13 @@
         },
         {
           "name": "remove_invalid_placement_nodes",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "rank_nodes",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         }
@@ -44888,20 +44875,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 32,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -44932,7 +44916,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -46046,16 +46030,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "problem_context",
         "starting_node",
