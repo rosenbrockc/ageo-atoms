@@ -498,6 +498,37 @@ def _assert_value(expected: Any) -> Callable[[Any], None]:
     return _validator
 
 
+def _assert_quantum_solver_orchestrator_result(expected_num_solutions: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        solutions, count_dist = result
+        assert isinstance(solutions, list)
+        assert len(solutions) == expected_num_solutions
+        assert all(isinstance(sol, list) for sol in solutions)
+        assert isinstance(count_dist, dict)
+        assert len(count_dist) > 0
+        assert all(isinstance(k, str) for k in count_dist)
+        assert all(isinstance(v, int) and v > 0 for v in count_dist.values())
+
+    return _validator
+
+
+def _assert_quantum_solution_extractor(expected_num_solutions: int) -> Callable[[Any], None]:
+    def _validator(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        solutions, counts = result
+        assert isinstance(solutions, list)
+        assert len(solutions) == expected_num_solutions
+        assert all(isinstance(sol, list) for sol in solutions)
+        assert isinstance(counts, list)
+        assert len(counts) == expected_num_solutions
+        assert all(isinstance(v, int) and v >= 0 for v in counts)
+
+    return _validator
+
+
 def _search_plans() -> dict[str, ProbePlan]:
     adjacency = np.array(
         [
@@ -2395,6 +2426,94 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
                     False,
                     None,
                 ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest quantum solver orchestrator returns non-empty MWIS solutions and counts",
+                lambda func: func(
+                    __import__("networkx").Graph([(0, 1), (1, 2)]),
+                    {
+                        0: np.array([0.0, 0.0], dtype=float),
+                        1: np.array([1.0, 0.0], dtype=float),
+                        2: np.array([0.0, 1.0], dtype=float),
+                    },
+                    2,
+                    False,
+                ),
+                _assert_quantum_solver_orchestrator_result(2),
+            ),
+            negative=ProbeCase(
+                "refined-ingest quantum solver orchestrator rejects a non-graph input",
+                lambda func: func([], {}, 2, False),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver_d12.interactionboundscomputer": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest interaction bounds computer returns a valid positive bound pair",
+                lambda func: func(
+                    {
+                        0: np.array([0.0, 0.0], dtype=float),
+                        1: np.array([1.0, 0.0], dtype=float),
+                        2: np.array([0.0, 2.0], dtype=float),
+                    },
+                    __import__("networkx").Graph([(0, 1)]),
+                ),
+                _assert_float_int_pair(862690.0, 862690),
+            ),
+            negative=ProbeCase(
+                "refined-ingest interaction bounds computer rejects an empty register layout",
+                lambda func: func({}, __import__("networkx").Graph()),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest adiabatic pulse assembler returns a pulse-sequence dict",
+                lambda func: func({0: np.array([0.0, 0.0], dtype=float)}, {"duration": 4000.0, "detuning_maximum": 2.0}),
+                _assert_dict_keys({"register", "parameters", "duration", "type"}),
+            ),
+            negative=ProbeCase(
+                "refined-ingest adiabatic pulse assembler rejects parameters without duration",
+                lambda func: func({0: np.array([0.0, 0.0], dtype=float)}, {"detuning_maximum": 2.0}),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver_d12.quantumcircuitsampler": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest quantum circuit sampler returns a non-empty count dictionary",
+                lambda func: func(
+                    {"graph": __import__("networkx").Graph([(0, 1)])},
+                    {0: np.array([0.0, 0.0], dtype=float), 1: np.array([1.0, 0.0], dtype=float)},
+                    [0, 1],
+                    False,
+                    False,
+                    True,
+                ),
+                _assert_type(dict),
+            ),
+            negative=ProbeCase(
+                "refined-ingest quantum circuit sampler rejects a non-list permutation",
+                lambda func: func({"graph": __import__("networkx").Graph([(0, 1)])}, {0: np.array([0.0, 0.0], dtype=float)}, None, False, False, True),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.quantum_solver_d12.quantumsolutionextractor": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest quantum solution extractor decodes top bitstrings into ranked solutions",
+                lambda func: func({"10": 7, "01": 5, "11": 1}, {0: np.array([0.0, 0.0], dtype=float), 1: np.array([1.0, 0.0], dtype=float)}, 2),
+                _assert_quantum_solution_extractor(2),
+            ),
+            negative=ProbeCase(
+                "refined-ingest quantum solution extractor rejects an empty count distribution",
+                lambda func: func({}, {0: np.array([0.0, 0.0], dtype=float)}, 2),
                 expect_exception=True,
             ),
             parity_used=True,
