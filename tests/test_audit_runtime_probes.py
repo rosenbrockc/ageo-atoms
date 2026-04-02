@@ -157,6 +157,20 @@ def test_runtime_probe_passes_for_skyfield_family() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in spherical_probe["findings"]
 
 
+def test_runtime_probe_passes_for_datadriven_discover_equations() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.datadriven.discover_equations",
+            "ageoa.datadriven.atoms",
+            "discover_equations",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_heston_path_sampler() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

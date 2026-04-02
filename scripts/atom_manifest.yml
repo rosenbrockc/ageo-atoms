@@ -906,6 +906,17 @@
     language: python
 
 # =============================================================================
+#  DataDrivenDiffEq.jl  (Julia)
+# =============================================================================
+- atom: datadriven:discover_equations
+  upstream:
+    repo: DataDrivenDiffEq.jl
+    module: DataDrivenDiffEq
+    function: solve
+    language: julia
+    notes: Local wrapper orchestrates DirectDataDrivenProblem, polynomial basis construction, ADMM sparsification, and solve.
+
+# =============================================================================
 #  ConjugatePriors.jl  (Julia)
 # =============================================================================
 - atom: conjugate_priors/beta_binom:posterior_randmodel

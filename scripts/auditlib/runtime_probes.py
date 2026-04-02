@@ -1435,6 +1435,43 @@ def _e2e_ppg_reconstruction_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _datadriven_plans() -> dict[str, ProbePlan]:
+    def _assert_equation_result(result: Any) -> None:
+        assert type(result).__name__ == "EquationResult"
+        assert isinstance(result.equations, list)
+        assert len(result.equations) >= 1
+        assert all(isinstance(eq, str) and eq.strip() for eq in result.equations)
+        assert isinstance(result.parameter_map, dict)
+
+    return {
+        "ageoa.datadriven.discover_equations": ProbePlan(
+            positive=ProbeCase(
+                "Discovers at least one sparse equation from a one-feature linear system",
+                lambda func: func(
+                    np.array([[0.0, 1.0, 2.0, 3.0]], dtype=float),
+                    np.array([[0.0, 2.0, 4.0, 6.0]], dtype=float),
+                    ["x"],
+                    max_degree=1,
+                    lambda_val=0.1,
+                ),
+                _assert_equation_result,
+            ),
+            negative=ProbeCase(
+                "reject invalid Julia identifiers in variable_names",
+                lambda func: func(
+                    np.array([[0.0, 1.0, 2.0, 3.0]], dtype=float),
+                    np.array([[0.0, 2.0, 4.0, 6.0]], dtype=float),
+                    ["1bad"],
+                    max_degree=1,
+                    lambda_val=0.1,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _advancedvi_and_iqe_plans() -> dict[str, ProbePlan]:
     def _quadratic_obj(x: np.ndarray) -> float:
         arr = np.asarray(x, dtype=float)
@@ -5458,6 +5495,7 @@ PROBE_PLANS.update(_pronto_dynamic_stance_d12_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
 PROBE_PLANS.update(_mint_attention_plans())
 PROBE_PLANS.update(_e2e_ppg_reconstruction_plans())
+PROBE_PLANS.update(_datadriven_plans())
 PROBE_PLANS.update(_sklearn_image_plans())
 
 
