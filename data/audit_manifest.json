@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T21:12:47+00:00",
+    "generated_at": "2026-04-02T21:27:14+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 400,
-      "medium": 105
+      "low": 402,
+      "medium": 103
     },
     "stateful_count": 68,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 260,
+    "parity_coverage_count": 262,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 20,
     "structural_status_counts": {
-      "partial": 77,
-      "pass": 428
+      "partial": 75,
+      "pass": 430
     },
     "parity_coverage_level_counts": {
-      "none": 148,
+      "none": 146,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 213,
+      "parity_or_usage_equivalent": 215,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -110,32 +110,31 @@
       "pulsar_folding": 1,
       "quantfin": 29,
       "scipy": 23,
-      "skyfield": 2,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 3,
-      "not_applicable": 258,
+      "not_applicable": 256,
       "partial": 7,
-      "pass": 237
+      "pass": 239
     },
     "semantic_status_counts": {
       "fail": 3,
       "partial": 7,
-      "pass": 237,
-      "unknown": 258
+      "pass": 239,
+      "unknown": 256
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
       "review_later": 438,
-      "review_now": 10,
-      "review_soon": 57
+      "review_now": 11,
+      "review_soon": 56
     },
     "high_risk_count": 0,
-    "medium_risk_count": 105,
-    "low_risk_count": 400
+    "medium_risk_count": 103,
+    "low_risk_count": 402
   },
   "atoms": [
     {
@@ -47980,10 +47979,10 @@
       "risk_tier": "medium",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": null,
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the bandwidth-improvement accept-or-stop branch inside the iterative minimize_bandwidth loop."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -48002,14 +48001,17 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
-      "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [],
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
+      "blocking_findings": [
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
+      ],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "current_iteration_state",
@@ -48073,7 +48075,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -48085,19 +48087,19 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_SIGNATURE_MISMATCH",
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 35,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 12,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -48129,7 +48131,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_now",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -102502,7 +102504,7 @@
       "domain_family": "skyfield",
       "module_family": "skyfield",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "skyfield",
         "module": "skyfield.functions",
@@ -102520,24 +102522,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "r",
         "v"
@@ -102593,29 +102590,22 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 38,
+      "risk_score": 13,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
           "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -102647,7 +102637,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -102671,56 +102661,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.skyfield.compute_spherical_coordinate_rates@ageoa/skyfield/atoms.py:21",
-          "atom_key": "skyfield:compute_spherical_coordinate_rates",
-          "domain_family": "skyfield",
-          "module_path": "ageoa/skyfield/atoms.py",
-          "wrapper_symbol": "compute_spherical_coordinate_rates",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.333",
-          "path": "ageoa/skyfield/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.skyfield.compute_spherical_coordinate_rates@ageoa/skyfield/atoms.py:21",
-          "atom_key": "skyfield:compute_spherical_coordinate_rates",
-          "domain_family": "skyfield",
-          "module_path": "ageoa/skyfield/atoms.py",
-          "wrapper_symbol": "compute_spherical_coordinate_rates",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/skyfield/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/skyfield/atoms.py",
@@ -102729,14 +102685,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -102760,7 +102719,7 @@
       "domain_family": "skyfield",
       "module_family": "skyfield",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "skyfield",
         "module": "skyfield.functions",
@@ -102778,24 +102737,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 82,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "u",
         "v"
@@ -102851,29 +102805,22 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 38,
+      "risk_score": 13,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
           "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -102905,7 +102852,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -102929,56 +102876,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.skyfield.calculate_vector_angle@ageoa/skyfield/atoms.py:37",
-          "atom_key": "skyfield:calculate_vector_angle",
-          "domain_family": "skyfield",
-          "module_path": "ageoa/skyfield/atoms.py",
-          "wrapper_symbol": "calculate_vector_angle",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.333",
-          "path": "ageoa/skyfield/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.skyfield.calculate_vector_angle@ageoa/skyfield/atoms.py:37",
-          "atom_key": "skyfield:calculate_vector_angle",
-          "domain_family": "skyfield",
-          "module_path": "ageoa/skyfield/atoms.py",
-          "wrapper_symbol": "calculate_vector_angle",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/skyfield/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/skyfield/atoms.py",
@@ -102987,14 +102900,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

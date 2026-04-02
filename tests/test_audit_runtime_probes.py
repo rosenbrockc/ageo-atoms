@@ -131,6 +131,32 @@ def test_runtime_probe_passes_for_advancedhmc_integrator_family() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in transition_probe["findings"]
 
 
+def test_runtime_probe_passes_for_skyfield_family() -> None:
+    angle_probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.skyfield.calculate_vector_angle",
+            "ageoa.skyfield.atoms",
+            "calculate_vector_angle",
+        )
+    )
+    spherical_probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.skyfield.compute_spherical_coordinate_rates",
+            "ageoa.skyfield.atoms",
+            "compute_spherical_coordinate_rates",
+        )
+    )
+
+    assert angle_probe["status"] == "pass"
+    assert spherical_probe["status"] == "pass"
+    assert angle_probe["parity_used"] is True
+    assert spherical_probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in angle_probe["findings"]
+    assert "RUNTIME_PROBE_PASS" in spherical_probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in angle_probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in spherical_probe["findings"]
+
+
 def test_runtime_probe_passes_for_heston_path_sampler() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

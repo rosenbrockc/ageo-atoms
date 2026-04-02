@@ -1301,6 +1301,54 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _skyfield_plans() -> dict[str, ProbePlan]:
+    return {
+        "ageoa.skyfield.calculate_vector_angle": ProbePlan(
+            positive=ProbeCase(
+                "Computes the angle between orthogonal basis vectors",
+                lambda func: func(np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0])),
+                lambda result: np.testing.assert_allclose(result, np.pi / 2.0, atol=1e-12),
+            ),
+            negative=ProbeCase(
+                "reject missing second vector",
+                lambda func: func(np.array([1.0, 0.0, 0.0]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.skyfield.compute_spherical_coordinate_rates": ProbePlan(
+            positive=ProbeCase(
+                "Converts a Cartesian state into spherical coordinates and rates",
+                lambda func: func(np.array([1.0, 2.0, 3.0]), np.array([0.1, 0.2, 0.3])),
+                lambda result: (
+                    isinstance(result, tuple)
+                    and len(result) == 6
+                    and np.testing.assert_allclose(
+                        np.asarray(result, dtype=float),
+                        np.array(
+                            [
+                                3.7416573867739413,
+                                0.9302740141154721,
+                                1.1071487177940904,
+                                0.3741657386773941,
+                                0.0,
+                                0.0,
+                            ]
+                        ),
+                        atol=1e-12,
+                    )
+                ),
+            ),
+            negative=ProbeCase(
+                "reject missing velocity vector",
+                lambda func: func(np.array([1.0, 2.0, 3.0]), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _mint_attention_plans() -> dict[str, ProbePlan]:
     def _assert_numpy_attention_result(result: Any) -> None:
         arr = np.asarray(result, dtype=float)
@@ -5389,6 +5437,7 @@ PROBE_PLANS.update(_scipy_integrate_plans())
 PROBE_PLANS.update(_numpy_fft_v2_plans())
 PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
+PROBE_PLANS.update(_skyfield_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_quant_engine_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())

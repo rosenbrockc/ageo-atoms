@@ -35,14 +35,14 @@
       "inputs": [
         {
           "name": "r",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "array-like",
           "constraints": "Cartesian position vector(s).",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "array-like",
           "constraints": "Cartesian velocity vector(s).",
           "required": true,
           "default_value_repr": ""
@@ -51,7 +51,7 @@
       "outputs": [
         {
           "name": "spherical_rates",
-          "type_desc": "tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]",
+          "type_desc": "tuple",
           "constraints": "A tuple containing the rates of change for range, right ascension, and declination.",
           "required": true,
           "default_value_repr": ""
@@ -60,7 +60,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(r: numpy.ndarray, v: numpy.ndarray) -> tuple[numpy.ndarray, numpy.ndarray, numpy.ndarray]",
+      "type_signature": "(r: array-like, v: array-like) -> tuple",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -81,14 +81,14 @@
       "inputs": [
         {
           "name": "u",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "array-like",
           "constraints": "First vector.",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "v",
-          "type_desc": "numpy.ndarray",
+          "type_desc": "array-like",
           "constraints": "Second vector.",
           "required": true,
           "default_value_repr": ""
@@ -106,7 +106,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(u: numpy.ndarray, v: numpy.ndarray) -> float",
+      "type_signature": "(u: array-like, v: array-like) -> float",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

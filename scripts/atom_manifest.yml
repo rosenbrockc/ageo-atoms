@@ -2025,9 +2025,10 @@
 - atom: molecular_docking/minimize_bandwidth:update_state_with_improvement_criterion
   upstream:
     repo: Molecular-Docking
-    module: src.solver.permutations
-    function: ~
+    module: src.solver.optimiser
+    function: minimize_bandwidth
     language: python
+    notes: Wrapper isolates the bandwidth-improvement accept-or-stop branch inside the iterative minimize_bandwidth loop.
 
 - atom: molecular_docking/minimize_bandwidth:validate_square_matrix_shape
   upstream:
