@@ -2313,6 +2313,35 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.institutional_quant_engine.order_flow_imbalance.orderflowimbalanceevaluation": ProbePlan(
+            positive=ProbeCase(
+                "generated OFI wrapper returns the expected bid-ask imbalance for two snapshots",
+                lambda func: func(
+                    {"bid_price": 101.0, "bid_size": 7.0, "ask_price": 103.0, "ask_size": 6.0},
+                    {"bid_price": 100.0, "bid_size": 4.0, "ask_price": 104.0, "ask_size": 5.0},
+                ),
+                _assert_scalar(1.0),
+            ),
+            negative=ProbeCase(
+                "generated OFI wrapper rejects a missing previous row",
+                lambda func: func({"bid_price": 101.0, "bid_size": 7.0}, None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.institutional_quant_engine.pin_model.pinlikelihoodevaluation": ProbePlan(
+            positive=ProbeCase(
+                "generated PIN likelihood wrapper returns the expected squared-error score",
+                lambda func: func([0.5, 0.25, 4.0, 1.0], np.array([1.0, 2.0]), np.array([2.0, 1.0])),
+                _assert_scalar(3.0),
+            ),
+            negative=ProbeCase(
+                "generated PIN likelihood wrapper rejects a missing parameter vector",
+                lambda func: func(None, np.array([1.0, 2.0]), np.array([2.0, 1.0])),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.institutional_quant_engine.pin_informed_trading": ProbePlan(
             positive=ProbeCase(
                 "PIN estimator computes order-flow imbalance",

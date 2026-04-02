@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T15:08:10+00:00",
+    "generated_at": "2026-04-02T15:15:53+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -72,7 +72,7 @@
     "procedural_count": 25,
     "ffi_count": 243,
     "skeleton_count": 0,
-    "parity_coverage_count": 235,
+    "parity_coverage_count": 237,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 24,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 424
     },
     "parity_coverage_level_counts": {
-      "none": 173,
+      "none": 171,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 188,
+      "parity_or_usage_equivalent": 190,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -96,7 +96,7 @@
       "datadriven": 1,
       "e2e_ppg": 12,
       "hPDB": 2,
-      "institutional_quant_engine": 5,
+      "institutional_quant_engine": 3,
       "jFOF": 2,
       "jax_advi": 1,
       "mcmc_foundational": 9,
@@ -115,15 +115,15 @@
     },
     "runtime_status_counts": {
       "fail": 3,
-      "not_applicable": 283,
+      "not_applicable": 281,
       "partial": 7,
-      "pass": 212
+      "pass": 214
     },
     "semantic_status_counts": {
       "fail": 3,
       "partial": 7,
-      "pass": 212,
-      "unknown": 283
+      "pass": 214,
+      "unknown": 281
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -28658,23 +28658,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
+      "acceptability_score": 83,
       "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
         "STRUCT_WEAK_TYPES"
       ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "required_actions": [],
       "argument_names": [
         "row",
         "prev_row"
@@ -28735,12 +28733,11 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_WEAK_TYPES"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 12,
@@ -28755,9 +28752,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -28836,19 +28832,19 @@
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/institutional_quant_engine/order_flow_imbalance.py",
@@ -28857,14 +28853,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -28906,23 +28905,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
+      "acceptability_score": 83,
       "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
         "STRUCT_WEAK_TYPES"
       ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "required_actions": [],
       "argument_names": [
         "params",
         "B",
@@ -28993,12 +28990,11 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_WEAK_TYPES"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 12,
@@ -29013,9 +29009,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -29094,19 +29089,19 @@
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/institutional_quant_engine/pin_model.py",
@@ -29115,14 +29110,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

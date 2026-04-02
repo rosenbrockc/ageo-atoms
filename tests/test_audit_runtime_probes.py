@@ -675,6 +675,26 @@ def test_runtime_probe_passes_for_almgren_chriss_generated_wrapper() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_order_flow_and_pin_generated_wrappers() -> None:
+    for atom_name, module_path, symbol in [
+        (
+            "ageoa.institutional_quant_engine.order_flow_imbalance.orderflowimbalanceevaluation",
+            "ageoa.institutional_quant_engine.order_flow_imbalance",
+            "orderflowimbalanceevaluation",
+        ),
+        (
+            "ageoa.institutional_quant_engine.pin_model.pinlikelihoodevaluation",
+            "ageoa.institutional_quant_engine.pin_model",
+            "pinlikelihoodevaluation",
+        ),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_avellaneda_stoikov_d12_family() -> None:
     for atom_name, symbol in [
         ("ageoa.institutional_quant_engine.avellaneda_stoikov_d12.marketmakerstateinit", "marketmakerstateinit"),
