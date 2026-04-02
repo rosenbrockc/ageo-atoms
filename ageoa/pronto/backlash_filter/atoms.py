@@ -1,19 +1,33 @@
 from __future__ import annotations
-"""Auto-generated atom wrappers following the ageoa pattern."""
-from typing import Any
+"""Backlash filter state wrappers for the Pronto family."""
 
 
 import numpy as np
+from numpy.typing import NDArray
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from .witnesses import witness_initializebacklashfilterstate, witness_updatealphaparameter, witness_updatecrossingtimemaximum
+from .witnesses import (
+    witness_initializebacklashfilterstate,
+    witness_updatealphaparameter,
+    witness_updatecrossingtimemaximum,
+)
 
-import ctypes
-import ctypes.util
-from pathlib import Path
+BacklashFilterState = NDArray[np.float64]
+_STATE_SHAPE = (4,)
+_DEFAULT_STATE = np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
 
-BacklashFilterState = np.ndarray
+
+def _is_backlash_filter_state(value: object) -> bool:
+    """Return whether ``value`` matches the local backlash filter state layout."""
+    if not isinstance(value, np.ndarray):
+        return False
+    return value.ndim == 1 and value.shape == _STATE_SHAPE and np.isfinite(value).all()
+
+
+def _is_finite_scalar(value: object) -> bool:
+    """Return whether ``value`` is a finite numeric scalar."""
+    return isinstance(value, (float, int, np.number)) and np.isfinite(value)
 
 # Witness functions should be imported from the generated witnesses module
 
@@ -29,12 +43,12 @@ def initializebacklashfilterstate() -> BacklashFilterState:
         BacklashFilterState: The initial filter state.
     """
     # State layout: [alpha_, t_crossing_max_, last_output_, last_crossing_time_]
-    return np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
+    return _DEFAULT_STATE.copy()
 
 @register_atom(witness_updatealphaparameter)
-@icontract.ensure(lambda result: result is not None, "UpdateAlphaParameter output must not be None")
-@icontract.require(lambda state_in: isinstance(state_in, np.ndarray), "state_in must be an ndarray")
-@icontract.require(lambda alpha_in: isinstance(alpha_in, (float, int, np.number)), "alpha_in must be numeric")
+@icontract.ensure(lambda result: _is_backlash_filter_state(result), "updated state must preserve the local backlash filter state layout")
+@icontract.require(lambda state_in: _is_backlash_filter_state(state_in), "state_in must be a finite 1D backlash filter state with four entries")
+@icontract.require(lambda alpha_in: _is_finite_scalar(alpha_in), "alpha_in must be a finite numeric scalar")
 def updatealphaparameter(state_in: BacklashFilterState, alpha_in: float) -> BacklashFilterState:
     """Produce a new filter state with an updated alpha parameter.
 
@@ -45,14 +59,14 @@ def updatealphaparameter(state_in: BacklashFilterState, alpha_in: float) -> Back
     Returns:
         BacklashFilterState: Same as state_in, except alpha_ = alpha_in.
     """
-    out = state_in.copy()
+    out = np.asarray(state_in, dtype=np.float64).copy()
     out[0] = float(alpha_in)
     return out
 
 @register_atom(witness_updatecrossingtimemaximum)
-@icontract.ensure(lambda result: result is not None, "UpdateCrossingTimeMaximum output must not be None")
-@icontract.require(lambda state_in: isinstance(state_in, np.ndarray), "state_in must be an ndarray")
-@icontract.require(lambda t_crossing_max_in: isinstance(t_crossing_max_in, (float, int, np.number)), "t_crossing_max_in must be numeric")
+@icontract.ensure(lambda result: _is_backlash_filter_state(result), "updated state must preserve the local backlash filter state layout")
+@icontract.require(lambda state_in: _is_backlash_filter_state(state_in), "state_in must be a finite 1D backlash filter state with four entries")
+@icontract.require(lambda t_crossing_max_in: _is_finite_scalar(t_crossing_max_in), "t_crossing_max_in must be a finite numeric scalar")
 def updatecrossingtimemaximum(state_in: BacklashFilterState, t_crossing_max_in: float) -> BacklashFilterState:
     """Produce a new filter state with an updated maximum crossing time.
 
@@ -63,21 +77,6 @@ def updatecrossingtimemaximum(state_in: BacklashFilterState, t_crossing_max_in: 
     Returns:
         Same as state_in, except t_crossing_max_ = t_crossing_max_in.
     """
-    out = state_in.copy()
+    out = np.asarray(state_in, dtype=np.float64).copy()
     out[1] = float(t_crossing_max_in)
     return out
-
-
-"""Auto-generated FFI bindings for cpp implementations."""
-
-def _initializebacklashfilterstate_ffi() -> np.ndarray:
-    """Wrapper that calls the C++ version of initialize backlash filter state. Passes arguments through and returns the result."""
-    raise NotImplementedError("Wire to original implementation")
-
-def _updatealphaparameter_ffi(state_in: np.ndarray, alpha_in: float) -> np.ndarray:
-    """Wrapper that calls the C++ version of update alpha parameter. Passes arguments through and returns the result."""
-    raise NotImplementedError("Wire to original implementation")
-
-def _updatecrossingtimemaximum_ffi(state_in: np.ndarray, t_crossing_max_in: float) -> np.ndarray:
-    """Wrapper that calls the C++ version of update crossing time maximum. Passes arguments through and returns the result."""
-    raise NotImplementedError("Wire to original implementation")

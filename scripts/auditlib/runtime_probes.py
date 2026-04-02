@@ -2118,6 +2118,58 @@ def _quantfin_plans() -> dict[str, ProbePlan]:
             ),
             parity_used=True,
         ),
+        "ageoa.quantfin.rng_skip_d12.mulmod64": ProbePlan(
+            positive=ProbeCase(
+                "compute a modular 64-bit product deterministically",
+                lambda func: func(7, 9, lambda *args: 0, 10),
+                _assert_scalar(3),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive modulus",
+                lambda func: func(7, 9, lambda *args: 0, 0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.powmod64": ProbePlan(
+            positive=ProbeCase(
+                "compute modular exponentiation deterministically",
+                lambda func: func(7, 5, lambda *args: 0, 11),
+                _assert_scalar(10),
+            ),
+            negative=ProbeCase(
+                "reject a negative exponent",
+                lambda func: func(7, -1, lambda *args: 0, 11),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.skip": ProbePlan(
+            positive=ProbeCase(
+                "return the supplied advanced generator state",
+                lambda func: func(5, 11, 42),
+                _assert_scalar(42),
+            ),
+            negative=ProbeCase(
+                "reject a negative skip distance",
+                lambda func: func(-1, 11, 42),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.split": ProbePlan(
+            positive=ProbeCase(
+                "split a generator into skipped and original streams",
+                lambda func: func(11, lambda d, st: st + d, 7),
+                _assert_tuple((18, 11)),
+            ),
+            negative=ProbeCase(
+                "reject a negative generator state",
+                lambda func: func(-1, lambda d, st: st + d, 7),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.quantfin.tdma_solver_d12.tdmasolver": ProbePlan(
             positive=ProbeCase(
                 "solve a simple three-by-three tridiagonal system with the Thomas algorithm",
@@ -2499,6 +2551,32 @@ def _hftbacktest_and_ingest_family_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "dedispersion kernel rejects a missing input array",
                 lambda func: func(None, np.array([[0, 1], [1, 0]], dtype=int), 2, 1, 3, 2, 0, 32),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.build_interaction_graph.pair_distance_compatibility_check": ProbePlan(
+            positive=ProbeCase(
+                "pair-distance compatibility accepts a right-side distance inside the expanded left interval",
+                lambda func: func(np.array([1.0, 3.0], dtype=float), np.array([2.4, 5.0], dtype=float), 0.5),
+                _assert_scalar(True),
+            ),
+            negative=ProbeCase(
+                "pair-distance compatibility rejects a non-numeric interaction threshold",
+                lambda func: func(np.array([1.0, 3.0], dtype=float), np.array([2.4, 5.0], dtype=float), "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization": ProbePlan(
+            positive=ProbeCase(
+                "weighted graph materialization returns a NetworkX graph with the provided weighted edge",
+                lambda func: func([("a", "b", 1.5)], {"a", "b"}),
+                _assert_type(__import__("networkx").Graph),
+            ),
+            negative=ProbeCase(
+                "weighted graph materialization rejects missing edges",
+                lambda func: func(None, {"a", "b"}),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -4162,6 +4240,48 @@ def _pronto_blip_filter_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _pronto_backlash_filter_plans() -> dict[str, ProbePlan]:
+    state = np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
+    return {
+        "ageoa.pronto.backlash_filter.initializebacklashfilterstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize a local backlash filter state snapshot",
+                lambda fn: fn(),
+                _assert_array(state),
+            ),
+            negative=ProbeCase(
+                "reject unexpected arguments for the zero-parameter initializer",
+                lambda fn: fn(unexpected=True),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.pronto.backlash_filter.updatealphaparameter": ProbePlan(
+            positive=ProbeCase(
+                "update only the alpha slot of the local backlash filter state",
+                lambda fn: fn(state.copy(), 0.25),
+                _assert_array(np.array([0.25, 1.0, 0.0, 0.0], dtype=np.float64)),
+            ),
+            negative=ProbeCase(
+                "reject non-array state input for alpha updates",
+                lambda fn: fn({"state": "bad"}, 0.25),
+                expect_exception=True,
+            ),
+        ),
+        "ageoa.pronto.backlash_filter.updatecrossingtimemaximum": ProbePlan(
+            positive=ProbeCase(
+                "update only the crossing-time slot of the local backlash filter state",
+                lambda fn: fn(state.copy(), 2.5),
+                _assert_array(np.array([0.5, 2.5, 0.0, 0.0], dtype=np.float64)),
+            ),
+            negative=ProbeCase(
+                "reject non-finite crossing-time updates",
+                lambda fn: fn(state.copy(), np.nan),
+                expect_exception=True,
+            ),
+        ),
+    }
+
+
 def _sklearn_image_plans() -> dict[str, ProbePlan]:
     image = np.arange(16, dtype=float).reshape(4, 4)
     volume = np.arange(8, dtype=float).reshape(2, 2, 2)
@@ -4930,6 +5050,7 @@ PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_biosppy_online_filter_plans())
 PROBE_PLANS.update(_pronto_blip_filter_plans())
+PROBE_PLANS.update(_pronto_backlash_filter_plans())
 PROBE_PLANS.update(_pronto_state_readout_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
 PROBE_PLANS.update(_sklearn_image_plans())

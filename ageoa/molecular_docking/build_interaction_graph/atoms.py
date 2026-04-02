@@ -28,15 +28,17 @@ def pair_distance_compatibility_check(L_feature_min_max: object, R_features_dist
     Returns:
         True when pair satisfies distance constraints.
     """
-    l_min_max = np.asarray(L_feature_min_max)
-    r_dist = np.asarray(R_features_distance)
-    # Check if any right-side distance falls within the left envelope
-    # expanded by the interaction distance
-    l_min = float(l_min_max.min()) if l_min_max.size > 0 else 0.0
-    l_max = float(l_min_max.max()) if l_min_max.size > 0 else 0.0
-    r_min = float(r_dist.min()) if r_dist.size > 0 else 0.0
-    r_max = float(r_dist.max()) if r_dist.size > 0 else 0.0
-    return bool(abs(l_min - r_min) <= interaction_distance or abs(l_max - r_max) <= interaction_distance)
+    l_min_max = np.asarray(L_feature_min_max, dtype=float)
+    r_dist = np.asarray(R_features_distance, dtype=float)
+    if l_min_max.size == 0 or r_dist.size == 0:
+        return False
+    # Treat the left feature distances as an interval and accept when any
+    # right-side distance falls within the interaction-distance-expanded band.
+    l_min = float(l_min_max.min())
+    l_max = float(l_min_max.max())
+    lower = l_min - float(interaction_distance)
+    upper = l_max + float(interaction_distance)
+    return bool(np.any((r_dist >= lower) & (r_dist <= upper)))
 
 @register_atom(witness_weighted_interaction_edge_derivation)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
