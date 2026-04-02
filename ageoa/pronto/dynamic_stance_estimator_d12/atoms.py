@@ -41,7 +41,7 @@ def stancestateinit(config: dict[str, float]) -> StanceState:
 
 
 @register_atom(witness_stanceestimation)  # type: ignore[untyped-decorator]
-@icontract.require(lambda observation: isinstance(observation, (float, int, np.number)), "observation must be numeric")
+@icontract.require(lambda observation: observation is not None, "observation cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "StanceEstimation all outputs must not be None")
 def stanceestimation(stance_state: StanceState, observation: np.ndarray) -> tuple[StanceState, np.ndarray]:
     """Core dynamic-stance estimation pass: consumes the current stance state and a new observation vector, runs the estimation kernel (predict + update), and returns an updated immutable stance state together with the estimated stance output.

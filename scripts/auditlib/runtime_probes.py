@@ -4820,6 +4820,57 @@ def _pronto_state_readout_plans() -> dict[str, ProbePlan]:
     }
 
 
+def _pronto_dynamic_stance_d12_plans() -> dict[str, ProbePlan]:
+    def _assert_stance_state(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {"stance", "force_threshold", "n_legs", "grf_history"}
+        np.testing.assert_allclose(np.asarray(result["stance"], dtype=float), np.zeros(4, dtype=float))
+        np.testing.assert_allclose(np.asarray(result["grf_history"], dtype=float), np.zeros(4, dtype=float))
+
+    def _assert_stance_update(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        state_out, stance = result
+        assert isinstance(state_out, dict)
+        stance_arr = np.asarray(stance, dtype=float)
+        np.testing.assert_allclose(stance_arr, np.array([0.0, 1.0, 1.0, 0.0], dtype=float))
+        np.testing.assert_allclose(np.asarray(state_out["stance"], dtype=float), stance_arr)
+        np.testing.assert_allclose(np.asarray(state_out["grf_history"], dtype=float), np.array([30.0, 55.0, 80.0, 10.0], dtype=float))
+
+    def _stance_state() -> dict[str, np.ndarray]:
+        module = safe_import_module("ageoa.pronto.dynamic_stance_estimator_d12.atoms")
+        return module.stancestateinit({"n_legs": 4, "force_threshold": 50.0})
+
+    return {
+        "ageoa.pronto.dynamic_stance_estimator_d12.stancestateinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize deterministic dynamic stance estimator state",
+                lambda func: func({"n_legs": 4, "force_threshold": 50.0}),
+                _assert_stance_state,
+            ),
+            negative=ProbeCase(
+                "reject a missing config mapping",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.dynamic_stance_estimator_d12.stanceestimation": ProbePlan(
+            positive=ProbeCase(
+                "estimate stance from a thresholded ground-reaction-force observation",
+                lambda func: func(_stance_state(), np.array([30.0, 55.0, 80.0, 10.0], dtype=float)),
+                _assert_stance_update,
+            ),
+            negative=ProbeCase(
+                "reject a missing observation vector",
+                lambda func: func(_stance_state(), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _conjugate_prior_and_small_mcmc_plans() -> dict[str, ProbePlan]:
     target_log = lambda x: float(-0.5 * np.dot(x, x))
     mala_mean = lambda x: 2.0 * np.asarray(x, dtype=float)
@@ -5266,6 +5317,7 @@ PROBE_PLANS.update(_biosppy_online_filter_plans())
 PROBE_PLANS.update(_pronto_blip_filter_plans())
 PROBE_PLANS.update(_pronto_backlash_filter_plans())
 PROBE_PLANS.update(_pronto_state_readout_plans())
+PROBE_PLANS.update(_pronto_dynamic_stance_d12_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
 PROBE_PLANS.update(_mint_attention_plans())
 PROBE_PLANS.update(_e2e_ppg_reconstruction_plans())
