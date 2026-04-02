@@ -1,6 +1,7 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -17,7 +18,11 @@ from .witnesses import witness_networkx_weighted_graph_materialization, witness_
 @register_atom(witness_pair_distance_compatibility_check)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
 @icontract.ensure(lambda result: result is not None, "Pair Distance Compatibility Check output must not be None")
-def pair_distance_compatibility_check(L_feature_min_max: object, R_features_distance: object, interaction_distance: float) -> bool:
+def pair_distance_compatibility_check(
+    L_feature_min_max: Sequence[float] | np.ndarray,
+    R_features_distance: float | Sequence[float] | np.ndarray,
+    interaction_distance: float,
+) -> bool:
     """Evaluates whether a candidate left/right feature pair satisfies interaction-distance constraints.
 
     Args:

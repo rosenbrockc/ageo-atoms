@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+
 import numpy as np
 
 import icontract
@@ -12,7 +14,7 @@ from .order_flow_imbalance_witnesses import witness_orderflowimbalanceevaluation
 @icontract.require(lambda row: row is not None, "row cannot be None")
 @icontract.require(lambda prev_row: prev_row is not None, "prev_row cannot be None")
 @icontract.ensure(lambda result: result is not None, "OrderFlowImbalanceEvaluation output must not be None")
-def orderflowimbalanceevaluation(row: object, prev_row: object) -> float:
+def orderflowimbalanceevaluation(row: Mapping[str, float], prev_row: Mapping[str, float]) -> float:
     """Computes the order flow imbalance signal for the current observation relative to the previous observation as a pure, stateless transformation.
 
 Args:

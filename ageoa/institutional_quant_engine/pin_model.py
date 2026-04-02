@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
+
 import numpy as np
 
 import icontract
@@ -13,7 +15,11 @@ from .pin_model_witnesses import witness_pinlikelihoodevaluation
 @icontract.require(lambda B: B is not None, "B cannot be None")
 @icontract.require(lambda S: S is not None, "S cannot be None")
 @icontract.ensure(lambda result: result is not None, "PinLikelihoodEvaluation output must not be None")
-def pinlikelihoodevaluation(params: object, B: object, S: object) -> object:
+def pinlikelihoodevaluation(
+    params: Sequence[float] | np.ndarray,
+    B: float | np.ndarray,
+    S: float | np.ndarray,
+) -> float:
     """Computes the likelihood of observed inputs under the provided parameterization.
 
     Args:
