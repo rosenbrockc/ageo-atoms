@@ -2,10 +2,12 @@ from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
+from collections.abc import Hashable, Iterator, Mapping, Sequence
 from typing import Any, Union
 import numpy as np
 
 import icontract
+import biosppy.biometrics as biometrics
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_assess_classification, witness_assess_runs, witness_combination, witness_cross_validation, witness_get_auth_rates, witness_get_id_rates, witness_get_subject_results, witness_majority_rule
 
@@ -71,7 +73,14 @@ def get_id_rates(H: np.ndarray, M: np.ndarray, R: np.ndarray, N: int, thresholds
 @icontract.require(lambda subject_dict: subject_dict is not None, "subject_dict cannot be None")
 @icontract.require(lambda subject_idx: subject_idx is not None, "subject_idx cannot be None")
 @icontract.ensure(lambda result: result is not None, "Get Subject Results output must not be None")
-def get_subject_results(results: dict, subject: object, thresholds: np.ndarray, subjects: list, subject_dict: dict, subject_idx: list) -> dict:
+def get_subject_results(
+    results: dict[str, Any],
+    subject: Hashable,
+    thresholds: np.ndarray,
+    subjects: Sequence[Hashable],
+    subject_dict: Mapping[Hashable, int],
+    subject_idx: Sequence[int],
+) -> dict[str, Any]:
     """Compute authentication and identification performance metrics for a
 given subject.
 
@@ -256,10 +265,14 @@ Returns
 @icontract.require(lambda labels: labels is not None, "labels cannot be None")
 @icontract.require(lambda n_iter: n_iter is not None, "n_iter cannot be None")
 @icontract.require(lambda test_size: test_size is not None, "test_size cannot be None")
-@icontract.require(lambda train_size: train_size is not None, "train_size cannot be None")
-@icontract.require(lambda random_state: random_state is not None, "random_state cannot be None")
 @icontract.ensure(lambda result: result is not None, "Cross Validation output must not be None")
-def cross_validation(labels: Union[list, np.ndarray], n_iter: int, test_size: Union[float, int], train_size: Union[float, int, None], random_state: Union[int, None]) -> object:
+def cross_validation(
+    labels: Union[list, np.ndarray],
+    n_iter: int = 10,
+    test_size: Union[float, int] = 0.1,
+    train_size: Union[float, int, None] = None,
+    random_state: Union[int, None] = None,
+) -> Iterator[tuple[np.ndarray, np.ndarray]]:
     """Return a Cross Validation (CV) iterator.
 
 Wraps the StratifiedShuffleSplit iterator from sklearn.model_selection.
@@ -297,5 +310,10 @@ cv : CV iterator
     Returns:
         Result data.
     """
-    from sklearn.model_selection import StratifiedShuffleSplit
-    return StratifiedShuffleSplit(n_splits=n_iter, test_size=test_size, train_size=train_size, random_state=random_state)
+    return biometrics.cross_validation(
+        labels=labels,
+        n_iter=n_iter,
+        test_size=test_size,
+        train_size=train_size,
+        random_state=random_state,
+    )[0]

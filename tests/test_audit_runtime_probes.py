@@ -415,6 +415,26 @@ def test_runtime_probe_passes_for_biosppy_online_filter_variants() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_biosppy_svm_proc_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.biosppy.svm_proc.get_auth_rates", "get_auth_rates"),
+        ("ageoa.biosppy.svm_proc.get_id_rates", "get_id_rates"),
+        ("ageoa.biosppy.svm_proc.get_subject_results", "get_subject_results"),
+        ("ageoa.biosppy.svm_proc.assess_classification", "assess_classification"),
+        ("ageoa.biosppy.svm_proc.assess_runs", "assess_runs"),
+        ("ageoa.biosppy.svm_proc.combination", "combination"),
+        ("ageoa.biosppy.svm_proc.majority_rule", "majority_rule"),
+        ("ageoa.biosppy.svm_proc.cross_validation", "cross_validation"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.biosppy.svm_proc.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_kalman_filter_families() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.kalman_filters.filter_rs.initializekalmanstatemodel", "ageoa.kalman_filters.filter_rs.atoms", "initializekalmanstatemodel"),

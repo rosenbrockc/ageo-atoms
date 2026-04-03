@@ -25,6 +25,60 @@ def get_probe_plans() -> dict[str, Any]:
     _assert_triple_of_arrays_matching_onsets = rt._assert_triple_of_arrays_matching_onsets
     _assert_value = rt._assert_value
 
+    def _assert_dict_threshold_bundle(expected_keys: set[str]) -> Callable[[Any], None]:
+        def _assert(result: Any) -> None:
+            assert isinstance(result, dict)
+            assert set(result.keys()) == expected_keys
+            thresholds = np.asarray(result["thresholds"])
+            assert thresholds.ndim == 1
+            for key, value in result.items():
+                if key == "thresholds":
+                    continue
+                if key == "N":
+                    assert isinstance(value, (int, np.integer))
+                    continue
+                arr = np.asarray(value)
+                assert arr.shape == thresholds.shape
+
+        return _assert
+
+    def _assert_assess_runs_result(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result.keys()) == {"results", "subjects"}
+        assert isinstance(result["results"], list)
+        assert isinstance(result["subjects"], list)
+
+    def _assert_combination_result(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 4
+        decision, confidence, counts, classes = result
+        counts_arr = np.asarray(counts)
+        classes_arr = np.asarray(classes)
+        assert counts_arr.ndim == 1
+        assert classes_arr.ndim == 1
+        assert counts_arr.shape == classes_arr.shape
+        assert counts_arr.size > 0
+        assert decision in set(classes_arr.tolist())
+        assert 0.0 <= float(confidence) <= 1.0
+
+    def _assert_majority_rule_result(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        _, count = result
+        assert int(count) >= 1
+
+    def _assert_cross_validation_result(result: Any) -> None:
+        first_split = next(iter(result))
+        assert isinstance(first_split, tuple)
+        assert len(first_split) == 2
+        train_idx, test_idx = first_split
+        train_idx = np.asarray(train_idx)
+        test_idx = np.asarray(test_idx)
+        assert train_idx.ndim == 1
+        assert test_idx.ndim == 1
+        assert train_idx.size > 0
+        assert test_idx.size > 0
+
     def _biosppy_detector_plans() -> dict[str, ProbePlan]:
         def _synthetic_ecg() -> np.ndarray:
             fs = 1000.0
@@ -358,6 +412,128 @@ def get_probe_plans() -> dict[str, Any]:
             ),
         }
 
+    def _biosppy_svm_proc_plans() -> dict[str, ProbePlan]:
+        thresholds = np.array([0.2, 0.5], dtype=float)
+        tp = np.array([8.0, 9.0], dtype=float)
+        fp = np.array([1.0, 0.0], dtype=float)
+        tn = np.array([11.0, 12.0], dtype=float)
+        fn = np.array([0.0, 1.0], dtype=float)
+        hits = np.array([7.0, 8.0], dtype=float)
+        misses = np.array([2.0, 1.0], dtype=float)
+        rejects = np.array([1.0, 1.0], dtype=float)
+        subject_results = {
+            "authentication": {"foo": 1},
+            "identification": {"bar": 2},
+        }
+        labels = np.array([0, 0, 1, 1, 1, 0], dtype=int)
+
+        return {
+            "ageoa.biosppy.svm_proc.get_auth_rates": ProbePlan(
+                positive=ProbeCase(
+                    "SVM authentication-rate helper returns aligned threshold metrics",
+                    lambda func: func(tp, fp, tn, fn, thresholds),
+                    _assert_dict_threshold_bundle({"FAR", "FRR", "accuracy", "thresholds"}),
+                ),
+                negative=ProbeCase(
+                    "SVM authentication-rate helper rejects a missing TP array",
+                    lambda func: func(None, fp, tn, fn, thresholds),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.get_id_rates": ProbePlan(
+                positive=ProbeCase(
+                    "SVM identification-rate helper returns aligned threshold metrics",
+                    lambda func: func(hits, misses, rejects, 10, thresholds),
+                    _assert_dict_threshold_bundle({"accuracy", "miss_rate", "reject_rate", "N", "thresholds"}),
+                ),
+                negative=ProbeCase(
+                    "SVM identification-rate helper rejects missing thresholds",
+                    lambda func: func(hits, misses, rejects, 10, None),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.get_subject_results": ProbePlan(
+                positive=ProbeCase(
+                    "SVM subject-result helper returns the expected assessment bundle",
+                    lambda func: func(subject_results, "s1", thresholds, ["s1"], {"s1": 0}, [0]),
+                    _assert_dict_keys({"authentication", "identification", "subject", "thresholds"}),
+                ),
+                negative=ProbeCase(
+                    "SVM subject-result helper rejects missing results",
+                    lambda func: func(None, "s1", thresholds, ["s1"], {"s1": 0}, [0]),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.assess_classification": ProbePlan(
+                positive=ProbeCase(
+                    "SVM classification assessment returns the result/threshold bundle",
+                    lambda func: func({"authentication": {}}, thresholds),
+                    _assert_dict_keys({"results", "thresholds"}),
+                ),
+                negative=ProbeCase(
+                    "SVM classification assessment rejects missing results",
+                    lambda func: func(None, thresholds),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.assess_runs": ProbePlan(
+                positive=ProbeCase(
+                    "SVM run assessment returns the expected aggregation bundle",
+                    lambda func: func([{"acc": 0.9}], ["s1"]),
+                    _assert_assess_runs_result,
+                ),
+                negative=ProbeCase(
+                    "SVM run assessment rejects missing results",
+                    lambda func: func(None, ["s1"]),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.combination": ProbePlan(
+                positive=ProbeCase(
+                    "SVM result combination returns a weighted consensus tuple",
+                    lambda func: func({"a": "x", "b": "x", "c": "y"}, {"a": 1.0, "b": 0.5, "c": 0.25}),
+                    _assert_combination_result,
+                ),
+                negative=ProbeCase(
+                    "SVM result combination rejects missing result votes",
+                    lambda func: func(None, {"a": 1.0}),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.majority_rule": ProbePlan(
+                positive=ProbeCase(
+                    "SVM majority-rule voting returns a winning label and count",
+                    lambda func: func([1, 1, 2, 3], False),
+                    _assert_majority_rule_result,
+                ),
+                negative=ProbeCase(
+                    "SVM majority-rule voting rejects missing labels",
+                    lambda func: func(None, False),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.svm_proc.cross_validation": ProbePlan(
+                positive=ProbeCase(
+                    "SVM cross-validation helper returns a stratified shuffle split iterator",
+                    lambda func: func(labels, 2, 0.33, None, 7),
+                    _assert_cross_validation_result,
+                ),
+                negative=ProbeCase(
+                    "SVM cross-validation helper rejects missing labels",
+                    lambda func: func(None, 2, 0.33, None, 7),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+        }
+
 
     def _biosppy_sqi_plans() -> dict[str, ProbePlan]:
         signal = np.sin(np.linspace(0.0, 4.0 * np.pi, 200))
@@ -544,6 +720,7 @@ def get_probe_plans() -> dict[str, Any]:
 
     plans: dict[str, Any] = {}
     plans.update(_biosppy_detector_plans())
+    plans.update(_biosppy_svm_proc_plans())
     plans.update(_biosppy_sqi_plans())
     plans.update(_biosppy_online_filter_plans())
     return plans

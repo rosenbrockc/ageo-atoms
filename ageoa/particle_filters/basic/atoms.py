@@ -2,6 +2,8 @@ from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
+from collections.abc import Mapping
+
 import numpy as np
 import icontract
 from ageoa.ghost.registry import register_atom
@@ -13,13 +15,21 @@ from .witnesses import (
     witness_resample_and_belief_projection,
 )
 
+ParticleState = dict[str, np.ndarray | int] | np.ndarray
+ModelSpec = Mapping[str, object]
+ControlValue = np.ndarray | float | int
+ObservationValue = np.ndarray | float | int
+
 
 @register_atom(witness_filter_step_preparation_and_dispatch)
 @icontract.require(lambda up: up is not None, "prior state up cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def filter_step_preparation_and_dispatch(
-    up: object, b: object, a: object, o: object
-) -> tuple[object, object, object, object, np.ndarray]:
+    up: ParticleState,
+    b: ModelSpec,
+    a: ControlValue,
+    o: ObservationValue,
+) -> tuple[ParticleState, ModelSpec, ControlValue, ObservationValue, np.ndarray]:
     """Entry-point orchestration for one Sequential Monte Carlo (SMC) step.
 
 Args:
@@ -42,7 +52,10 @@ Returns:
 @icontract.require(lambda prior_state: prior_state is not None, "prior_state cannot be None")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def particle_propagation_kernel(
-    prior_state: object, model_spec: object, control_t: object, rng_key: np.ndarray
+    prior_state: ParticleState,
+    model_spec: ModelSpec,
+    control_t: ControlValue,
+    rng_key: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Propagate particles from prior to proposed latent state.
 
@@ -73,7 +86,7 @@ def likelihood_reweight_kernel(
     proposed_particles: np.ndarray,
     carry_weights: np.ndarray,
     observation_t: np.ndarray,
-    model_spec: object,
+    model_spec: ModelSpec,
 ) -> tuple[np.ndarray, float]:
     """Compute observation likelihoods and perform Sequential Monte Carlo (SMC) weight update.
 

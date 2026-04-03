@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-02T23:32:37+00:00",
+    "generated_at": "2026-04-03T16:58:58+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 403,
-      "medium": 102
+      "low": 407,
+      "medium": 98
     },
-    "stateful_count": 68,
+    "stateful_count": 69,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 263,
+    "parity_coverage_count": 271,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 75,
-      "pass": 430
+      "partial": 70,
+      "pass": 435
     },
     "parity_coverage_level_counts": {
-      "none": 145,
+      "none": 137,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 216,
+      "parity_or_usage_equivalent": 224,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -92,7 +92,6 @@
       "advancedvi": 1,
       "alphafold": 3,
       "belief_propagation": 2,
-      "biosppy": 8,
       "e2e_ppg": 11,
       "hPDB": 2,
       "institutional_quant_engine": 3,
@@ -112,16 +111,16 @@
       "tempo": 2
     },
     "runtime_status_counts": {
-      "fail": 3,
-      "not_applicable": 255,
+      "fail": 2,
+      "not_applicable": 247,
       "partial": 7,
-      "pass": 240
+      "pass": 249
     },
     "semantic_status_counts": {
-      "fail": 3,
+      "fail": 2,
       "partial": 7,
-      "pass": 240,
-      "unknown": 255
+      "pass": 249,
+      "unknown": 247
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -132,8 +131,8 @@
       "review_soon": 56
     },
     "high_risk_count": 0,
-    "medium_risk_count": 102,
-    "low_risk_count": 403
+    "medium_risk_count": 98,
+    "low_risk_count": 407
   },
   "atoms": [
     {
@@ -15739,13 +15738,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.get_auth_rates@ageoa/biosppy/svm_proc/atoms.py:21",
+      "atom_id": "ageoa.biosppy.svm_proc.get_auth_rates@ageoa/biosppy/svm_proc/atoms.py:23",
       "atom_name": "ageoa.biosppy.svm_proc.get_auth_rates",
       "atom_key": "biosppy/svm_proc:get_auth_rates",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "get_auth_rates",
-      "wrapper_line": 21,
+      "wrapper_line": 23,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -15767,20 +15766,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -15863,11 +15861,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -15880,9 +15877,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -15941,35 +15937,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 21
+              "line": 23
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -15983,13 +15982,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.get_id_rates@ageoa/biosppy/svm_proc/atoms.py:47",
+      "atom_id": "ageoa.biosppy.svm_proc.get_id_rates@ageoa/biosppy/svm_proc/atoms.py:49",
       "atom_name": "ageoa.biosppy.svm_proc.get_id_rates",
       "atom_key": "biosppy/svm_proc:get_id_rates",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "get_id_rates",
-      "wrapper_line": 47,
+      "wrapper_line": 49,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -16011,20 +16010,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -16107,11 +16105,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -16124,9 +16121,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -16185,35 +16181,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 47
+              "line": 49
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -16227,17 +16226,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.get_subject_results@ageoa/biosppy/svm_proc/atoms.py:74",
+      "atom_id": "ageoa.biosppy.svm_proc.get_subject_results@ageoa/biosppy/svm_proc/atoms.py:76",
       "atom_name": "ageoa.biosppy.svm_proc.get_subject_results",
       "atom_key": "biosppy/svm_proc:get_subject_results",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "get_subject_results",
-      "wrapper_line": 74,
+      "wrapper_line": 76,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.biometrics",
@@ -16255,22 +16254,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -16294,13 +16290,13 @@
           "name": "results",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict"
+          "annotation": "dict[str, Any]"
         },
         {
           "name": "subject",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "Hashable"
         },
         {
           "name": "thresholds",
@@ -16312,22 +16308,22 @@
           "name": "subjects",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "list"
+          "annotation": "Sequence[Hashable]"
         },
         {
           "name": "subject_dict",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict"
+          "annotation": "Mapping[Hashable, int]"
         },
         {
           "name": "subject_idx",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "list"
+          "annotation": "Sequence[int]"
         }
       ],
-      "return_annotation": "dict",
+      "return_annotation": "dict[str, Any]",
       "decorator_count": 8,
       "require_count": 6,
       "ensure_count": 1,
@@ -16335,10 +16331,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute authentication and identification performance metrics for a",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "subject:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -16363,31 +16357,24 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 47,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -16419,7 +16406,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -16443,56 +16430,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.svm_proc.get_subject_results@ageoa/biosppy/svm_proc/atoms.py:74",
-          "atom_key": "biosppy/svm_proc:get_subject_results",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/svm_proc/atoms.py",
-          "wrapper_symbol": "get_subject_results",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/svm_proc/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 74
+              "line": 76
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -16506,13 +16478,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:118",
+      "atom_id": "ageoa.biosppy.svm_proc.assess_classification@ageoa/biosppy/svm_proc/atoms.py:127",
       "atom_name": "ageoa.biosppy.svm_proc.assess_classification",
       "atom_key": "biosppy/svm_proc:assess_classification",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "assess_classification",
-      "wrapper_line": 118,
+      "wrapper_line": 127,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -16534,20 +16506,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -16606,11 +16577,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -16623,9 +16593,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -16684,35 +16653,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 118
+              "line": 127
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -16726,13 +16698,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.assess_runs@ageoa/biosppy/svm_proc/atoms.py:147",
+      "atom_id": "ageoa.biosppy.svm_proc.assess_runs@ageoa/biosppy/svm_proc/atoms.py:156",
       "atom_name": "ageoa.biosppy.svm_proc.assess_runs",
       "atom_key": "biosppy/svm_proc:assess_runs",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "assess_runs",
-      "wrapper_line": 147,
+      "wrapper_line": 156,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -16754,20 +16726,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -16826,11 +16797,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -16843,9 +16813,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -16904,35 +16873,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 147
+              "line": 156
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -16946,13 +16918,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.combination@ageoa/biosppy/svm_proc/atoms.py:176",
+      "atom_id": "ageoa.biosppy.svm_proc.combination@ageoa/biosppy/svm_proc/atoms.py:185",
       "atom_name": "ageoa.biosppy.svm_proc.combination",
       "atom_key": "biosppy/svm_proc:combination",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "combination",
-      "wrapper_line": 176,
+      "wrapper_line": 185,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -16974,20 +16946,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -17046,11 +17017,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -17063,9 +17033,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -17124,35 +17093,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 176
+              "line": 185
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -17166,13 +17138,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.majority_rule@ageoa/biosppy/svm_proc/atoms.py:221",
+      "atom_id": "ageoa.biosppy.svm_proc.majority_rule@ageoa/biosppy/svm_proc/atoms.py:230",
       "atom_name": "ageoa.biosppy.svm_proc.majority_rule",
       "atom_key": "biosppy/svm_proc:majority_rule",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "majority_rule",
-      "wrapper_line": 221,
+      "wrapper_line": 230,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
@@ -17194,20 +17166,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -17266,11 +17237,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -17283,9 +17253,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -17344,35 +17313,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 221
+              "line": 230
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -17386,17 +17358,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.svm_proc.cross_validation@ageoa/biosppy/svm_proc/atoms.py:262",
+      "atom_id": "ageoa.biosppy.svm_proc.cross_validation@ageoa/biosppy/svm_proc/atoms.py:269",
       "atom_name": "ageoa.biosppy.svm_proc.cross_validation",
       "atom_key": "biosppy/svm_proc:cross_validation",
       "module_import_path": "ageoa.biosppy.svm_proc.atoms",
       "module_path": "ageoa/biosppy/svm_proc/atoms.py",
       "wrapper_symbol": "cross_validation",
-      "wrapper_line": 262,
+      "wrapper_line": 269,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.biometrics",
@@ -17414,22 +17386,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -17440,11 +17409,7 @@
         "random_state"
       ],
       "required_parameter_names": [
-        "labels",
-        "n_iter",
-        "test_size",
-        "train_size",
-        "random_state"
+        "labels"
       ],
       "argument_details": [
         {
@@ -17455,41 +17420,39 @@
         },
         {
           "name": "n_iter",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int"
         },
         {
           "name": "test_size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "Union[float, int]"
         },
         {
           "name": "train_size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "Union[float, int, None]"
         },
         {
           "name": "random_state",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "Union[int, None]"
         }
       ],
-      "return_annotation": "object",
-      "decorator_count": 7,
-      "require_count": 5,
+      "return_annotation": "Iterator[tuple[np.ndarray, np.ndarray]]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_cross_validation)",
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Return a Cross Validation (CV) iterator.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -17514,32 +17477,25 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STOCHASTIC",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 47,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -17572,7 +17528,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -17596,56 +17552,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.svm_proc.cross_validation@ageoa/biosppy/svm_proc/atoms.py:262",
-          "atom_key": "biosppy/svm_proc:cross_validation",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/svm_proc/atoms.py",
-          "wrapper_symbol": "cross_validation",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/svm_proc/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/svm_proc/atoms.py",
-              "line": 262
+              "line": 269
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -31192,22 +31133,19 @@
       "has_references": true,
       "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "fail",
-      "semantic_status": "fail",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "broken",
-      "acceptability_score": 19,
-      "acceptability_band": "broken_candidate",
-      "max_reviewable_verdict": "broken",
+      "overall_verdict": "misleading",
+      "acceptability_score": 49,
+      "acceptability_band": "misleading_candidate",
+      "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "RUNTIME_PROBE_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "repair the wrapper so a safe positive runtime probe succeeds",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -31378,21 +31316,18 @@
       "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
-        "RUNTIME_PROBE_FAIL",
-        "SEMANTIC_REVIEW_REQUIRED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "fail",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_FAIL",
+            "RUNTIME_PROBE_PASS",
             "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Positive probe raised ModuleNotFoundError: No module named 'jax'"
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/jax_advi/optimize_advi/atoms.py",
@@ -31405,6 +31340,8 @@
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
         "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
         "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
@@ -62445,13 +62382,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:20",
+      "atom_id": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:27",
       "atom_name": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch",
       "atom_key": "particle_filters/basic:filter_step_preparation_and_dispatch",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "filter_step_preparation_and_dispatch",
-      "wrapper_line": 20,
+      "wrapper_line": 27,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -62466,7 +62403,7 @@
       "upstream_version": null,
       "source_revision": "f5a349b09195f987f2dd7d4ae25b5378e9d3cf5a",
       "review_basis_at": null,
-      "stateful": false,
+      "stateful": true,
       "ffi": false,
       "skeleton": false,
       "has_state_models": false,
@@ -62474,19 +62411,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add vendored or importable upstream signature evidence"
       ],
@@ -62507,28 +62442,28 @@
           "name": "up",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ParticleState"
         },
         {
           "name": "b",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ModelSpec"
         },
         {
           "name": "a",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ControlValue"
         },
         {
           "name": "o",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ObservationValue"
         }
       ],
-      "return_annotation": "tuple[object, object, object, object, np.ndarray]",
+      "return_annotation": "tuple[ParticleState, ModelSpec, ControlValue, ObservationValue, np.ndarray]",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -62536,17 +62471,12 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Entry-point orchestration for one Sequential Monte Carlo (SMC) step.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "up:object",
-        "b:object",
-        "a:object",
-        "o:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
-      "stateful_kind": "none",
+      "stateful_kind": "return_state",
       "stochastic": false,
       "procedural": true,
       "authoritative_sources": [
@@ -62570,22 +62500,18 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
+        "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 45,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
@@ -62596,9 +62522,10 @@
           ]
         },
         "statefulness_risk": {
-          "score": 4,
+          "score": 9,
           "reasons": [
-            "RISK_PROCEDURAL_WRAPPER"
+            "RISK_PROCEDURAL_WRAPPER",
+            "RISK_STATEFUL_API"
           ]
         },
         "generation_risk": {
@@ -62618,7 +62545,7 @@
           ]
         }
       },
-      "review_priority": "review_later",
+      "review_priority": "review_soon",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -62627,7 +62554,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -62651,26 +62578,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:20",
-          "atom_key": "particle_filters/basic:filter_step_preparation_and_dispatch",
-          "domain_family": "particle_filters",
-          "module_path": "ageoa/particle_filters/basic/atoms.py",
-          "wrapper_symbol": "filter_step_preparation_and_dispatch",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/particle_filters/basic/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -62688,7 +62597,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 20
+              "line": 27
             }
           ]
         }
@@ -62717,17 +62626,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:44",
+      "atom_id": "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:54",
       "atom_name": "ageoa.particle_filters.basic.particle_propagation_kernel",
       "atom_key": "particle_filters/basic:particle_propagation_kernel",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "particle_propagation_kernel",
-      "wrapper_line": 44,
+      "wrapper_line": 54,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "ParticleFilters.jl",
         "module": "ParticleFilters.basic",
@@ -62746,19 +62655,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add vendored or importable upstream signature evidence"
       ],
@@ -62779,19 +62686,19 @@
           "name": "prior_state",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ParticleState"
         },
         {
           "name": "model_spec",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ModelSpec"
         },
         {
           "name": "control_t",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ControlValue"
         },
         {
           "name": "rng_key",
@@ -62808,12 +62715,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Propagate particles from prior to proposed latent state.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "prior_state:object",
-        "model_spec:object",
-        "control_t:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -62840,22 +62743,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 44,
+      "risk_score": 26,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
@@ -62886,7 +62784,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -62895,7 +62793,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -62919,26 +62817,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:44",
-          "atom_key": "particle_filters/basic:particle_propagation_kernel",
-          "domain_family": "particle_filters",
-          "module_path": "ageoa/particle_filters/basic/atoms.py",
-          "wrapper_symbol": "particle_propagation_kernel",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/particle_filters/basic/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -62956,7 +62836,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 44
+              "line": 54
             }
           ]
         }
@@ -62985,17 +62865,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:72",
+      "atom_id": "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:85",
       "atom_name": "ageoa.particle_filters.basic.likelihood_reweight_kernel",
       "atom_key": "particle_filters/basic:likelihood_reweight_kernel",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "likelihood_reweight_kernel",
-      "wrapper_line": 72,
+      "wrapper_line": 85,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "ParticleFilters.jl",
         "module": "ParticleFilters.basic",
@@ -63014,19 +62894,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add vendored or importable upstream signature evidence"
       ],
@@ -63065,7 +62943,7 @@
           "name": "model_spec",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ModelSpec"
         }
       ],
       "return_annotation": "tuple[np.ndarray, float]",
@@ -63076,10 +62954,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute observation likelihoods and perform Sequential Monte Carlo (SMC) weight update.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "model_spec:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -63105,22 +62981,17 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 39,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
@@ -63158,7 +63029,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -63182,26 +63053,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:72",
-          "atom_key": "particle_filters/basic:likelihood_reweight_kernel",
-          "domain_family": "particle_filters",
-          "module_path": "ageoa/particle_filters/basic/atoms.py",
-          "wrapper_symbol": "likelihood_reweight_kernel",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/particle_filters/basic/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -63219,7 +63072,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 72
+              "line": 85
             }
           ]
         }
@@ -63248,13 +63101,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.resample_and_belief_projection@ageoa/particle_filters/basic/atoms.py:106",
+      "atom_id": "ageoa.particle_filters.basic.resample_and_belief_projection@ageoa/particle_filters/basic/atoms.py:119",
       "atom_name": "ageoa.particle_filters.basic.resample_and_belief_projection",
       "atom_key": "particle_filters/basic:resample_and_belief_projection",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "resample_and_belief_projection",
-      "wrapper_line": 106,
+      "wrapper_line": 119,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -63460,7 +63313,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 106
+              "line": 119
             }
           ]
         }
