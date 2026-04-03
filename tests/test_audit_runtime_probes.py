@@ -157,6 +157,24 @@ def test_runtime_probe_passes_for_skyfield_family() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in spherical_probe["findings"]
 
 
+def test_runtime_probe_passes_for_e2e_ppg_family() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.e2e_ppg.kazemi_peak_detection", "ageoa.e2e_ppg.atoms", "kazemi_peak_detection"),
+        ("ageoa.e2e_ppg.ppg_reconstruction", "ageoa.e2e_ppg.atoms", "ppg_reconstruction"),
+        ("ageoa.e2e_ppg.ppg_sqa", "ageoa.e2e_ppg.atoms", "ppg_sqa"),
+        (
+            "ageoa.e2e_ppg.template_matching.templatefeaturecomputation",
+            "ageoa.e2e_ppg.template_matching",
+            "templatefeaturecomputation",
+        ),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_datadriven_discover_equations() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(

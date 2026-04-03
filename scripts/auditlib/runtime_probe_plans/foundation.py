@@ -168,6 +168,98 @@ def _e2e_ppg_reconstruction_plans(ProbeCase: type, ProbePlan: type) -> dict[str,
     }
 
 
+def _e2e_ppg_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
+    signal = np.sin(np.linspace(0.0, 12.0 * np.pi, 1000, dtype=float))
+    heart_cycles = [
+        np.sin(np.linspace(0.0, np.pi, 40, dtype=float)),
+        np.sin(np.linspace(0.1, np.pi + 0.1, 40, dtype=float)),
+        np.sin(np.linspace(-0.1, np.pi - 0.1, 40, dtype=float)),
+    ]
+
+    def _assert_peak_indices(result: Any) -> None:
+        arr = np.asarray(result, dtype=int)
+        assert arr.ndim == 1
+        assert np.all(arr >= 0)
+        assert np.all(np.diff(arr) >= 0)
+
+    def _assert_ppg_reconstruction(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 3
+        reconstructed, clean_indices, noisy_indices = result
+        assert np.asarray(reconstructed).shape == (signal.shape[0],)
+        assert isinstance(clean_indices, list)
+        assert isinstance(noisy_indices, list)
+
+    def _assert_ppg_sqa(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        clean_indices, noisy_indices = result
+        assert isinstance(clean_indices, list)
+        assert isinstance(noisy_indices, list)
+
+    def _assert_template_features(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        euclidean, corr = result
+        assert np.isfinite(float(euclidean))
+        assert np.isfinite(float(corr))
+
+    return {
+        "ageoa.e2e_ppg.kazemi_peak_detection": ProbePlan(
+            positive=ProbeCase(
+                "kazemi peak detection returns monotonic peak indices on a synthetic pulse trace",
+                lambda func: func(signal, 20, 4, 1, 1),
+                _assert_peak_indices,
+            ),
+            negative=ProbeCase(
+                "reject a missing signal array",
+                lambda func: func(None, 20, 4, 1, 1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.e2e_ppg.ppg_reconstruction": ProbePlan(
+            positive=ProbeCase(
+                "ppg reconstruction returns a reconstructed trace and grouped indices",
+                lambda func: func(signal, [[i for i in range(700)]], [[i for i in range(700, 1000)]], 20),
+                _assert_ppg_reconstruction,
+            ),
+            negative=ProbeCase(
+                "reject a missing signal array",
+                lambda func: func(None, [], [], 20),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.e2e_ppg.ppg_sqa": ProbePlan(
+            positive=ProbeCase(
+                "ppg sqa returns clean/noisy grouped indices for a synthetic signal",
+                lambda func: func(signal, 20),
+                _assert_ppg_sqa,
+            ),
+            negative=ProbeCase(
+                "reject a missing signal array",
+                lambda func: func(None, 20),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.e2e_ppg.template_matching.templatefeaturecomputation": ProbePlan(
+            positive=ProbeCase(
+                "template matching computes deterministic euclidean/correlation features",
+                lambda func: func(heart_cycles),
+                _assert_template_features,
+            ),
+            negative=ProbeCase(
+                "reject a missing heart-cycle list",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _datadriven_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     def _assert_equation_result(result: Any) -> None:
         assert type(result).__name__ == "EquationResult"
@@ -312,6 +404,7 @@ def get_probe_plans() -> dict[str, Any]:
     plans: dict[str, Any] = {}
     plans.update(_skyfield_plans(ProbeCase, ProbePlan))
     plans.update(_mint_attention_plans(ProbeCase, ProbePlan))
+    plans.update(_e2e_ppg_plans(ProbeCase, ProbePlan))
     plans.update(_e2e_ppg_reconstruction_plans(ProbeCase, ProbePlan))
     plans.update(_datadriven_plans(ProbeCase, ProbePlan))
     plans.update(_pronto_backlash_filter_plans(ProbeCase, ProbePlan))
