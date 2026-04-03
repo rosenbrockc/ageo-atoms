@@ -17,7 +17,7 @@ import scipy.spatial as spatial
 
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
-from .runtime_probe_plans import get_biosppy_probe_plans, get_foundation_probe_plans, get_molecular_docking_probe_plans, get_pronto_probe_plans, get_quantfin_probe_plans
+from .runtime_probe_plans import get_biosppy_probe_plans, get_foundation_probe_plans, get_mcmc_foundational_probe_plans, get_molecular_docking_probe_plans, get_pronto_probe_plans, get_quantfin_probe_plans
 from .semantics import utc_now, write_evidence_section
 
 _PROBE_JULIA_PROJECT = "/tmp/ageoa_juliapkg_project"
@@ -4672,7 +4672,7 @@ PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
 PROBE_PLANS.update(_rust_robotics_plans())
 PROBE_PLANS.update(get_quantfin_probe_plans())
 PROBE_PLANS.update(_kalman_filter_plans())
-PROBE_PLANS.update(_mcmc_foundational_plans())
+PROBE_PLANS.update(get_mcmc_foundational_probe_plans())
 PROBE_PLANS.update(_hftbacktest_and_ingest_family_plans())
 PROBE_PLANS.update(get_molecular_docking_probe_plans())
 PROBE_PLANS.update(get_biosppy_probe_plans())

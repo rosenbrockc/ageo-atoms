@@ -2,8 +2,9 @@
 
 from .biosppy import get_probe_plans as get_biosppy_probe_plans
 from .foundation import get_probe_plans as get_foundation_probe_plans
+from .mcmc_foundational import get_probe_plans as get_mcmc_foundational_probe_plans
 from .molecular_docking import get_probe_plans as get_molecular_docking_probe_plans
 from .pronto import get_probe_plans as get_pronto_probe_plans
 from .quantfin import get_probe_plans as get_quantfin_probe_plans
 
-__all__ = ["get_biosppy_probe_plans", "get_foundation_probe_plans", "get_molecular_docking_probe_plans", "get_pronto_probe_plans", "get_quantfin_probe_plans"]
+__all__ = ["get_biosppy_probe_plans", "get_foundation_probe_plans", "get_mcmc_foundational_probe_plans", "get_molecular_docking_probe_plans", "get_pronto_probe_plans", "get_quantfin_probe_plans"]
