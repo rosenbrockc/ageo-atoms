@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T19:39:30+00:00",
+    "generated_at": "2026-04-03T20:06:11+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 420,
-      "medium": 85
+      "low": 423,
+      "medium": 82
     },
     "stateful_count": 69,
     "stochastic_count": 27,
@@ -76,8 +76,8 @@
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 60,
-      "pass": 445
+      "partial": 55,
+      "pass": 450
     },
     "parity_coverage_level_counts": {
       "none": 129,
@@ -126,13 +126,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 447,
+      "review_later": 450,
       "review_now": 11,
-      "review_soon": 47
+      "review_soon": 44
     },
     "high_risk_count": 0,
-    "medium_risk_count": 85,
-    "low_risk_count": 420
+    "medium_risk_count": 82,
+    "low_risk_count": 423
   },
   "atoms": [
     {
@@ -914,8 +914,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1124,8 +1124,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1334,8 +1334,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1544,8 +1544,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1754,8 +1754,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1957,8 +1957,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2168,8 +2168,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2379,8 +2379,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2590,8 +2590,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2791,8 +2791,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2992,8 +2992,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3193,8 +3193,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3394,8 +3394,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3602,8 +3602,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3838,8 +3838,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -4066,8 +4066,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -22738,8 +22738,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "c1",
@@ -23215,10 +23215,7 @@
       "acceptability_score": 87,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "risk_aversion"
@@ -23432,9 +23429,7 @@
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
         "remove or document invented wrapper parameters"
@@ -23885,8 +23880,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "data"
@@ -24101,8 +24096,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "data"
@@ -24317,8 +24312,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "data"
@@ -24966,10 +24961,7 @@
       "acceptability_score": 87,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "s0",
@@ -25191,9 +25183,7 @@
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
         "remove or document invented wrapper parameters"
@@ -25443,8 +25433,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "returns",
@@ -25672,8 +25662,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "asset_a",
@@ -25901,8 +25891,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "returns",
@@ -29371,8 +29361,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "adjacency",
@@ -29592,8 +29582,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "rates"
@@ -29805,8 +29795,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "trade_graph"
@@ -30024,8 +30014,8 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "x",
@@ -40602,8 +40592,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "mat_list",
@@ -42597,8 +42587,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "data"
@@ -43464,8 +43454,8 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "L_features",
@@ -45452,8 +45442,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "problem_context",
@@ -45959,8 +45949,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "adjacency",
@@ -46601,8 +46591,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "square_mat"
@@ -46820,8 +46810,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "weighted_distances"
@@ -47036,8 +47026,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "matrix"
@@ -47255,8 +47245,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "symmetric_matrix"
@@ -47474,8 +47464,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "iteration_state"
@@ -47698,8 +47688,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "current_iteration_state",
@@ -47944,8 +47934,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "terminal_state"
@@ -48378,8 +48368,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "thresholded_matrix"
@@ -48597,8 +48587,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "sparse_matrix"
@@ -49026,8 +49016,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "validated_mat"
@@ -49245,8 +49235,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "validated_mat",
@@ -49477,8 +49467,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "validated_mat",
@@ -50559,8 +50549,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "graph",
@@ -50802,8 +50792,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "initial_register",
@@ -51045,8 +51035,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "measurement_counts",
@@ -51246,7 +51236,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -51265,20 +51255,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 83,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "graph",
@@ -51351,21 +51338,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -51400,7 +51382,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -51409,7 +51391,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -51433,42 +51415,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator@ageoa/molecular_docking/quantum_solver_d12/atoms.py:37",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumsolverorchestrator",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumsolverorchestrator",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.653",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator@ageoa/molecular_docking/quantum_solver_d12/atoms.py:37",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumsolverorchestrator",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumsolverorchestrator",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 43 non-normalizable type descriptors",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -51544,20 +51492,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 87,
+      "acceptability_score": 91,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "register_coord",
@@ -51614,20 +51559,15 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 27,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
@@ -51669,7 +51609,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -51693,42 +51633,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.interactionboundscomputer@ageoa/molecular_docking/quantum_solver_d12/atoms.py:119",
-          "atom_key": "molecular_docking/quantum_solver_d12:interactionboundscomputer",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "interactionboundscomputer",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.653",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.interactionboundscomputer@ageoa/molecular_docking/quantum_solver_d12/atoms.py:119",
-          "atom_key": "molecular_docking/quantum_solver_d12:interactionboundscomputer",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "interactionboundscomputer",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 43 non-normalizable type descriptors",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -51804,20 +51710,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 87,
+      "acceptability_score": 91,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "register",
@@ -51874,20 +51777,15 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 27,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
@@ -51929,7 +51827,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -51953,42 +51851,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
-          "atom_key": "molecular_docking/quantum_solver_d12:adiabaticpulseassembler",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "adiabaticpulseassembler",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.653",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.adiabaticpulseassembler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:176",
-          "atom_key": "molecular_docking/quantum_solver_d12:adiabaticpulseassembler",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "adiabaticpulseassembler",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 43 non-normalizable type descriptors",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -52045,7 +51909,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -52064,20 +51928,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 83,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "parameters",
@@ -52166,21 +52027,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -52215,7 +52071,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52224,7 +52080,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -52248,42 +52104,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumcircuitsampler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:210",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumcircuitsampler",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumcircuitsampler",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.653",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumcircuitsampler@ageoa/molecular_docking/quantum_solver_d12/atoms.py:210",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumcircuitsampler",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumcircuitsampler",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 43 non-normalizable type descriptors",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -52340,7 +52162,7 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.quantum_solver_molecular",
@@ -52359,20 +52181,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 83,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "count_dist",
@@ -52437,21 +52256,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -52486,7 +52300,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52495,7 +52309,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -52519,42 +52333,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumsolutionextractor@ageoa/molecular_docking/quantum_solver_d12/atoms.py:285",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumsolutionextractor",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumsolutionextractor",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.653",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.molecular_docking.quantum_solver_d12.quantumsolutionextractor@ageoa/molecular_docking/quantum_solver_d12/atoms.py:285",
-          "atom_key": "molecular_docking/quantum_solver_d12:quantumsolutionextractor",
-          "domain_family": "molecular_docking",
-          "module_path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "wrapper_symbol": "quantumsolutionextractor",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 43 non-normalizable type descriptors",
-          "path": "ageoa/molecular_docking/quantum_solver_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -54112,8 +53892,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "a",
@@ -63602,8 +63382,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "graph",
@@ -70871,10 +70651,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema",
         "map this atom in scripts/atom_manifest.yml",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "add vendored or importable upstream signature evidence",
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "DM",
@@ -71109,10 +70889,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema",
         "map this atom in scripts/atom_manifest.yml",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "add vendored or importable upstream signature evidence",
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "data",
@@ -71371,10 +71151,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema",
         "map this atom in scripts/atom_manifest.yml",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "add vendored or importable upstream signature evidence",
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "data",
@@ -71609,10 +71389,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
+        "repair the CDG structure and schema",
         "map this atom in scripts/atom_manifest.yml",
-        "pin source revision or upstream version in the manifest",
-        "repair the CDG structure and schema"
+        "add vendored or importable upstream signature evidence",
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "arr"
@@ -72540,8 +72320,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "bid_px",
@@ -72800,8 +72580,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73028,8 +72808,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73259,8 +73039,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -84958,8 +84738,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "a_prime",
@@ -85233,8 +85013,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
-        "map this atom in scripts/atom_manifest.yml"
+        "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "acc",
@@ -88071,8 +87851,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -91049,8 +90829,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence",
         "map this atom in scripts/atom_manifest.yml",
+        "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -97802,8 +97582,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "W",
@@ -98030,8 +97810,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "L",
@@ -98262,8 +98042,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "x_hat",
@@ -98487,8 +98267,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "align wrapper parameters with the upstream required parameters",
-        "remove or document invented wrapper parameters"
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
         "L",
@@ -101358,9 +101138,9 @@
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "pin source revision or upstream version in the manifest",
+        "repair input validation so obviously invalid inputs are rejected",
         "repair input validation so invalid inputs are rejected",
-        "repair input validation so obviously invalid inputs are rejected"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "patches",
@@ -101581,9 +101361,9 @@
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "pin source revision or upstream version in the manifest",
+        "repair input validation so obviously invalid inputs are rejected",
         "repair input validation so invalid inputs are rejected",
-        "repair input validation so obviously invalid inputs are rejected"
+        "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
         "img",
