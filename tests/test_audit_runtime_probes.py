@@ -1186,10 +1186,21 @@ def test_runtime_probe_marks_biosppy_zz2018_d12_wrappers_as_usage_equivalent() -
         ("ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi", "assemblezz2018sqi"),
         ("ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi", "computebeatagreementsqi"),
         ("ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi", "computefrequencysqi"),
+        ("ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi", "computekurtosissqi"),
     ]:
         probe = runtime_probes.build_runtime_probe(
             _record(atom_name, "ageoa.biosppy.ecg_zz2018_d12.atoms", symbol)
         )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_neurokit2_wrappers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.neurokit2.averageqrstemplate", "averageqrstemplate"),
+        ("ageoa.neurokit2.zhao2018hrvanalysis", "zhao2018hrvanalysis"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, "ageoa.neurokit2.atoms", symbol))
         assert probe["status"] == "pass"
         assert probe["parity_used"] is True
 

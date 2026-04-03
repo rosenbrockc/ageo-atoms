@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T20:34:26+00:00",
+    "generated_at": "2026-04-03T21:01:25+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 426,
-      "medium": 79
+      "low": 431,
+      "medium": 74
     },
     "stateful_count": 69,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 279,
+    "parity_coverage_count": 281,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 453
     },
     "parity_coverage_level_counts": {
-      "none": 129,
+      "none": 127,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 232,
+      "parity_or_usage_equivalent": 234,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -100,7 +100,6 @@
       "mcmc_foundational": 5,
       "mint": 5,
       "molecular_docking": 7,
-      "neurokit2": 2,
       "numpy": 18,
       "pasqal": 1,
       "pronto": 15,
@@ -112,27 +111,27 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 239,
+      "not_applicable": 236,
       "partial": 7,
-      "pass": 257
+      "pass": 260
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 257,
-      "unknown": 239
+      "pass": 260,
+      "unknown": 236
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 450,
+      "review_later": 455,
       "review_now": 11,
-      "review_soon": 44
+      "review_soon": 39
     },
     "high_risk_count": 0,
-    "medium_risk_count": 79,
-    "low_risk_count": 426
+    "medium_risk_count": 74,
+    "low_risk_count": 431
   },
   "atoms": [
     {
@@ -10266,17 +10265,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:29",
+      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:32",
       "atom_name": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi",
       "atom_key": "biosppy/ecg_zz2018_d12:computebeatagreementsqi",
       "module_import_path": "ageoa.biosppy.ecg_zz2018_d12.atoms",
       "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "wrapper_symbol": "computebeatagreementsqi",
-      "wrapper_line": 29,
+      "wrapper_line": 32,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -10302,15 +10301,15 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
-      "required_actions": [],
+      "required_actions": [
+        "replace placeholder docstring text"
+      ],
       "argument_names": [
         "detector_1",
         "detector_2",
@@ -10320,41 +10319,38 @@
       ],
       "required_parameter_names": [
         "detector_1",
-        "detector_2",
-        "fs",
-        "mode",
-        "search_window"
+        "detector_2"
       ],
       "argument_details": [
         {
           "name": "detector_1",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ArrayLike"
         },
         {
           "name": "detector_2",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ArrayLike"
         },
         {
           "name": "fs",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "float"
         },
         {
           "name": "mode",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "str"
         },
         {
           "name": "search_window",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "float"
+          "annotation": "int"
         }
       ],
       "return_annotation": "float",
@@ -10364,12 +10360,9 @@
       "witness_binding": "register_atom(witness_computebeatagreementsqi)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes a beat-detector agreement Signal Quality Index (SQI) for an electrocardiogram (ECG) signal. Compares heartbeat locations found by two independent detectors: if they agree on where beats occur (within a search window), the signal is likely clean.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "detector_1:object",
-        "detector_2:object"
-      ],
+      "docstring_summary": "Compute the detector-agreement SQI from two beat-location streams.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -10393,29 +10386,22 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 45,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 18,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -10444,7 +10430,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -10453,8 +10439,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics",
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -10479,55 +10464,23 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:29",
+          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:32",
           "atom_key": "biosppy/ecg_zz2018_d12:computebeatagreementsqi",
           "domain_family": "biosppy",
           "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "wrapper_symbol": "computebeatagreementsqi",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.785",
+          "source": "audit.py",
+          "message": "computebeatagreementsqi: docstring missing 'Args:' section",
           "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:29",
-          "atom_key": "biosppy/ecg_zz2018_d12:computebeatagreementsqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computebeatagreementsqi",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 14 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computebeatagreementsqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:29",
-          "atom_key": "biosppy/ecg_zz2018_d12:computebeatagreementsqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computebeatagreementsqi",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
@@ -10547,7 +10500,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-              "line": 29
+              "line": 32
             }
           ]
         }
@@ -10576,17 +10529,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:47",
+      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:46",
       "atom_name": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi",
       "atom_key": "biosppy/ecg_zz2018_d12:computefrequencysqi",
       "module_import_path": "ageoa.biosppy.ecg_zz2018_d12.atoms",
       "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "wrapper_symbol": "computefrequencysqi",
-      "wrapper_line": 47,
+      "wrapper_line": 46,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -10612,15 +10565,15 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
-      "required_actions": [],
+      "required_actions": [
+        "replace placeholder docstring text"
+      ],
       "argument_names": [
         "ecg_signal",
         "fs",
@@ -10630,47 +10583,42 @@
         "mode"
       ],
       "required_parameter_names": [
-        "ecg_signal",
-        "fs",
-        "nseg",
-        "num_spectrum",
-        "dem_spectrum",
-        "mode"
+        "ecg_signal"
       ],
       "argument_details": [
         {
           "name": "ecg_signal",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ArrayLike"
         },
         {
           "name": "fs",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "float"
         },
         {
           "name": "nseg",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int"
         },
         {
           "name": "num_spectrum",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "tuple[float, float] | ArrayLike"
         },
         {
           "name": "dem_spectrum",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "tuple[float, float] | ArrayLike | None"
         },
         {
           "name": "mode",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "str"
         }
@@ -10682,13 +10630,9 @@
       "witness_binding": "register_atom(witness_computefrequencysqi)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes a frequency-domain Signal Quality Index (SQI) for an electrocardiogram (ECG) signal. Measures the ratio of signal power in expected ECG frequency bands versus total or noise bands \u2014 a clean ECG concentrates power in narrow physiological frequency ranges.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "ecg_signal:object",
-        "num_spectrum:object",
-        "dem_spectrum:object"
-      ],
+      "docstring_summary": "Compute the frequency-domain SQI for an ECG waveform.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -10712,29 +10656,22 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 45,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 18,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -10763,7 +10700,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -10772,8 +10709,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics",
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -10798,55 +10734,23 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:47",
+          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:46",
           "atom_key": "biosppy/ecg_zz2018_d12:computefrequencysqi",
           "domain_family": "biosppy",
           "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "wrapper_symbol": "computefrequencysqi",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.785",
+          "source": "audit.py",
+          "message": "computefrequencysqi: docstring missing 'Args:' section",
           "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:47",
-          "atom_key": "biosppy/ecg_zz2018_d12:computefrequencysqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computefrequencysqi",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 14 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computefrequencysqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:47",
-          "atom_key": "biosppy/ecg_zz2018_d12:computefrequencysqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computefrequencysqi",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
@@ -10866,7 +10770,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-              "line": 47
+              "line": 46
             }
           ]
         }
@@ -10895,17 +10799,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:68",
+      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:70",
       "atom_name": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi",
       "atom_key": "biosppy/ecg_zz2018_d12:computekurtosissqi",
       "module_import_path": "ageoa.biosppy.ecg_zz2018_d12.atoms",
       "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "wrapper_symbol": "computekurtosissqi",
-      "wrapper_line": 68,
+      "wrapper_line": 70,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -10925,41 +10829,38 @@
       "has_references": true,
       "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 67,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "replace placeholder docstring text"
       ],
       "argument_names": [
         "signal",
         "fisher"
       ],
       "required_parameter_names": [
-        "signal",
-        "fisher"
+        "signal"
       ],
       "argument_details": [
         {
           "name": "signal",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "ArrayLike"
         },
         {
           "name": "fisher",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         }
@@ -10971,11 +10872,9 @@
       "witness_binding": "register_atom(witness_computekurtosissqi)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes a kurtosis-based Signal Quality Index (SQI) for an electrocardiogram (ECG) signal. Kurtosis measures how \"peaked\" or \"tailed\" a distribution is \u2014 clean ECG signals have characteristic kurtosis values due to their sharp R-peaks, while noisy signals deviate.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "signal:object"
-      ],
+      "docstring_summary": "Compute the kurtosis-based SQI for an ECG waveform.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -10999,29 +10898,22 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 45,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 18,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -11050,7 +10942,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -11059,8 +10951,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics",
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -11085,75 +10976,43 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:68",
+          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:70",
           "atom_key": "biosppy/ecg_zz2018_d12:computekurtosissqi",
           "domain_family": "biosppy",
           "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "wrapper_symbol": "computekurtosissqi",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.785",
+          "source": "audit.py",
+          "message": "computekurtosissqi: docstring missing 'Args:' section",
           "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:68",
-          "atom_key": "biosppy/ecg_zz2018_d12:computekurtosissqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computekurtosissqi",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 14 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:68",
-          "atom_key": "biosppy/ecg_zz2018_d12:computekurtosissqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "computekurtosissqi",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-              "line": 68
+              "line": 70
             }
           ]
         }
@@ -11161,13 +11020,14 @@
       "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_FIXTURE_PRESENT",
-        "PARITY_MISSING_NEGATIVE_CASES",
+        "PARITY_NEGATIVE_CASES_PRESENT",
         "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
         "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -11181,13 +11041,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:87",
+      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:80",
       "atom_name": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
       "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
       "module_import_path": "ageoa.biosppy.ecg_zz2018_d12.atoms",
       "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "wrapper_symbol": "assemblezz2018sqi",
-      "wrapper_line": 87,
+      "wrapper_line": 80,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
@@ -11222,80 +11082,25 @@
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
         "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED",
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters"
+        "replace placeholder docstring text",
+        "remove or document invented wrapper parameters",
+        "align wrapper parameters with the upstream required parameters"
       ],
       "argument_names": [
-        "signal",
-        "detector_1",
-        "detector_2",
-        "fs",
-        "search_window",
-        "nseg",
-        "mode",
         "b_sqi",
         "f_sqi",
         "k_sqi"
       ],
       "required_parameter_names": [
-        "signal",
-        "detector_1",
-        "detector_2",
-        "fs",
-        "search_window",
-        "nseg",
-        "mode",
         "b_sqi",
         "f_sqi",
         "k_sqi"
       ],
       "argument_details": [
-        {
-          "name": "signal",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "detector_1",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "detector_2",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "fs",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "float"
-        },
-        {
-          "name": "search_window",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "float"
-        },
-        {
-          "name": "nseg",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "int"
-        },
-        {
-          "name": "mode",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "str"
-        },
         {
           "name": "b_sqi",
           "required": true,
@@ -11315,21 +11120,16 @@
           "annotation": "float"
         }
       ],
-      "return_annotation": "object",
-      "decorator_count": 7,
-      "require_count": 5,
+      "return_annotation": "dict[str, float]",
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_assemblezz2018sqi)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Builds the final signal-quality score by combining beat-agreement, frequency, and shape evidence.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "signal:object",
-        "detector_1:object",
-        "detector_2:object",
-        "return:object"
-      ],
+      "docstring_summary": "Package the three ZZ2018 SQI components into a compact score bundle.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -11353,28 +11153,24 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 45,
+      "risk_score": 34,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 18,
+          "score": 12,
           "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
+            "RISK_SIGNATURE_MISMATCH"
           ]
         },
         "evidence_gap_risk": {
@@ -11413,8 +11209,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics",
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -11439,55 +11234,23 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:87",
+          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:80",
           "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
           "domain_family": "biosppy",
           "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "wrapper_symbol": "assemblezz2018sqi",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.785",
+          "source": "audit.py",
+          "message": "assemblezz2018sqi: docstring missing 'Args:' section",
           "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:87",
-          "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "assemblezz2018sqi",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 14 non-normalizable type descriptors",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:87",
-          "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "assemblezz2018sqi",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
@@ -11507,7 +11270,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-              "line": 87
+              "line": 80
             }
           ]
         }
@@ -52339,17 +52102,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+      "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:22",
       "atom_name": "ageoa.neurokit2.zhao2018hrvanalysis",
       "atom_key": "neurokit2:zhao2018hrvanalysis",
       "module_import_path": "ageoa.neurokit2.atoms",
       "module_path": "ageoa/neurokit2/atoms.py",
       "wrapper_symbol": "zhao2018hrvanalysis",
-      "wrapper_line": 21,
+      "wrapper_line": 22,
       "domain_family": "neurokit2",
       "module_family": "neurokit2",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "NeuroKit2",
         "module": "neurokit2.ecg.ecg_quality",
@@ -52367,23 +52130,22 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "replace placeholder docstring text"
       ],
       "argument_names": [
         "ecg_cleaned",
@@ -52393,11 +52155,7 @@
         "mode"
       ],
       "required_parameter_names": [
-        "ecg_cleaned",
-        "rpeaks",
-        "sampling_rate",
-        "window",
-        "mode"
+        "ecg_cleaned"
       ],
       "argument_details": [
         {
@@ -52408,37 +52166,37 @@
         },
         {
           "name": "rpeaks",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "sampling_rate",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "Union[int, float]"
+          "annotation": "int | float"
         },
         {
           "name": "window",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "Union[int, float, tuple]"
+          "annotation": "int | float | tuple[Any, ...]"
         },
         {
           "name": "mode",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "str"
         }
       ],
-      "return_annotation": "dict",
-      "decorator_count": 6,
-      "require_count": 4,
+      "return_annotation": "str",
+      "decorator_count": 7,
+      "require_count": 5,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_zhao2018hrvanalysis)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Measures how much the time between heartbeats varies over sliding windows.",
+      "docstring_summary": "Compute the Zhao 2018 ECG quality verdict over a cleaned ECG trace.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -52464,33 +52222,26 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 52,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -52515,7 +52266,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52524,7 +52275,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -52549,71 +52300,58 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
+          "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:22",
           "atom_key": "neurokit2:zhao2018hrvanalysis",
           "domain_family": "neurokit2",
           "module_path": "ageoa/neurokit2/atoms.py",
           "wrapper_symbol": "zhao2018hrvanalysis",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.600",
+          "source": "audit.py",
+          "message": "zhao2018hrvanalysis: docstring missing 'Args:' section",
           "path": "ageoa/neurokit2/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.neurokit2.zhao2018hrvanalysis@ageoa/neurokit2/atoms.py:21",
-          "atom_key": "neurokit2:zhao2018hrvanalysis",
-          "domain_family": "neurokit2",
-          "module_path": "ageoa/neurokit2/atoms.py",
-          "wrapper_symbol": "zhao2018hrvanalysis",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/neurokit2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/neurokit2/atoms.py",
-              "line": 21
+              "line": 22
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -52627,17 +52365,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.neurokit2.averageqrstemplate@ageoa/neurokit2/atoms.py:40",
+      "atom_id": "ageoa.neurokit2.averageqrstemplate@ageoa/neurokit2/atoms.py:44",
       "atom_name": "ageoa.neurokit2.averageqrstemplate",
       "atom_key": "neurokit2:averageqrstemplate",
       "module_import_path": "ageoa.neurokit2.atoms",
       "module_path": "ageoa/neurokit2/atoms.py",
       "wrapper_symbol": "averageqrstemplate",
-      "wrapper_line": 40,
+      "wrapper_line": 44,
       "domain_family": "neurokit2",
       "module_family": "neurokit2",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "NeuroKit2",
         "module": "neurokit2.ecg.ecg_quality",
@@ -52655,23 +52393,22 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
+        "replace placeholder docstring text"
       ],
       "argument_names": [
         "ecg_cleaned",
@@ -52679,9 +52416,7 @@
         "sampling_rate"
       ],
       "required_parameter_names": [
-        "ecg_cleaned",
-        "rpeaks",
-        "sampling_rate"
+        "ecg_cleaned"
       ],
       "argument_details": [
         {
@@ -52692,15 +52427,15 @@
         },
         {
           "name": "rpeaks",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
+          "annotation": "np.ndarray | None"
         },
         {
           "name": "sampling_rate",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "Union[int, float]"
+          "annotation": "int | float"
         }
       ],
       "return_annotation": "np.ndarray",
@@ -52710,7 +52445,7 @@
       "witness_binding": "register_atom(witness_averageqrstemplate)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Averages all detected beats to build one representative beat shape.",
+      "docstring_summary": "Build an average QRS template aligned to the detected R-peaks.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -52736,33 +52471,26 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 52,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -52787,7 +52515,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -52796,7 +52524,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -52821,71 +52549,58 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.neurokit2.averageqrstemplate@ageoa/neurokit2/atoms.py:40",
+          "atom_id": "ageoa.neurokit2.averageqrstemplate@ageoa/neurokit2/atoms.py:44",
           "atom_key": "neurokit2:averageqrstemplate",
           "domain_family": "neurokit2",
           "module_path": "ageoa/neurokit2/atoms.py",
           "wrapper_symbol": "averageqrstemplate",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.600",
+          "source": "audit.py",
+          "message": "averageqrstemplate: docstring missing 'Args:' section",
           "path": "ageoa/neurokit2/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.neurokit2.averageqrstemplate@ageoa/neurokit2/atoms.py:40",
-          "atom_key": "neurokit2:averageqrstemplate",
-          "domain_family": "neurokit2",
-          "module_path": "ageoa/neurokit2/atoms.py",
-          "wrapper_symbol": "averageqrstemplate",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/neurokit2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/neurokit2/atoms.py",
-              "line": 40
+              "line": 44
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -61859,13 +61574,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:27",
+      "atom_id": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch@ageoa/particle_filters/basic/atoms.py:36",
       "atom_name": "ageoa.particle_filters.basic.filter_step_preparation_and_dispatch",
       "atom_key": "particle_filters/basic:filter_step_preparation_and_dispatch",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "filter_step_preparation_and_dispatch",
-      "wrapper_line": 27,
+      "wrapper_line": 36,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -62074,7 +61789,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 27
+              "line": 36
             }
           ]
         }
@@ -62103,13 +61818,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:54",
+      "atom_id": "ageoa.particle_filters.basic.particle_propagation_kernel@ageoa/particle_filters/basic/atoms.py:59",
       "atom_name": "ageoa.particle_filters.basic.particle_propagation_kernel",
       "atom_key": "particle_filters/basic:particle_propagation_kernel",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "particle_propagation_kernel",
-      "wrapper_line": 54,
+      "wrapper_line": 59,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -62313,7 +62028,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 54
+              "line": 59
             }
           ]
         }
@@ -62342,13 +62057,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:85",
+      "atom_id": "ageoa.particle_filters.basic.likelihood_reweight_kernel@ageoa/particle_filters/basic/atoms.py:90",
       "atom_name": "ageoa.particle_filters.basic.likelihood_reweight_kernel",
       "atom_key": "particle_filters/basic:likelihood_reweight_kernel",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "likelihood_reweight_kernel",
-      "wrapper_line": 85,
+      "wrapper_line": 90,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -62549,7 +62264,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 85
+              "line": 90
             }
           ]
         }
@@ -62578,13 +62293,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.particle_filters.basic.resample_and_belief_projection@ageoa/particle_filters/basic/atoms.py:119",
+      "atom_id": "ageoa.particle_filters.basic.resample_and_belief_projection@ageoa/particle_filters/basic/atoms.py:124",
       "atom_name": "ageoa.particle_filters.basic.resample_and_belief_projection",
       "atom_key": "particle_filters/basic:resample_and_belief_projection",
       "module_import_path": "ageoa.particle_filters.basic.atoms",
       "module_path": "ageoa/particle_filters/basic/atoms.py",
       "wrapper_symbol": "resample_and_belief_projection",
-      "wrapper_line": 119,
+      "wrapper_line": 124,
       "domain_family": "particle_filters",
       "module_family": "particle_filters",
       "source_kind": "generated_ingest",
@@ -62790,7 +62505,7 @@
           "source_refs": [
             {
               "path": "ageoa/particle_filters/basic/atoms.py",
-              "line": 119
+              "line": 124
             }
           ]
         }

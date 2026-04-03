@@ -26,6 +26,7 @@ from .runtime_probe_plans import (
     get_kalman_filter_probe_plans,
     get_mcmc_foundational_probe_plans,
     get_molecular_docking_probe_plans,
+    get_neurokit2_probe_plans,
     get_particle_filter_and_pasqal_probe_plans,
     get_pronto_probe_plans,
     get_quant_engine_probe_plans,
@@ -2757,6 +2758,7 @@ PROBE_PLANS.update(get_kalman_filter_probe_plans())
 PROBE_PLANS.update(get_mcmc_foundational_probe_plans())
 PROBE_PLANS.update(get_hftbacktest_and_ingest_probe_plans())
 PROBE_PLANS.update(get_molecular_docking_probe_plans())
+PROBE_PLANS.update(get_neurokit2_probe_plans())
 PROBE_PLANS.update(get_biosppy_probe_plans())
 PROBE_PLANS.update(get_pronto_probe_plans())
 PROBE_PLANS.update(get_conjugate_priors_and_small_mcmc_probe_plans())

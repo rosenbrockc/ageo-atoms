@@ -2,13 +2,13 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, AbstractMCMCTrace, AbstractRNGState
 
 
-def witness_filter_step_preparation_and_dispatch(up: AbstractArray, b: AbstractArray, a: AbstractArray, o: AbstractArray) -> AbstractArray:
+def witness_filter_step_preparation_and_dispatch(up: AbstractArray, b: AbstractArray, a: AbstractArray, o: AbstractArray) -> tuple[AbstractArray, AbstractArray, AbstractArray, AbstractArray, AbstractArray]:
     """Shape-and-type check for filter step preparation and dispatch. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=up.shape,
-        dtype="float64",
+    rng_key = AbstractArray(
+        shape=(1,),
+        dtype="int64",
     )
-    return result
+    return up, b, a, o, rng_key
 
 def witness_particle_propagation_kernel(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
     """Shape-and-type check for mcmc sampler: particle propagation kernel. Returns output metadata without running the real computation."""

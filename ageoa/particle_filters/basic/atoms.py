@@ -15,10 +15,19 @@ from .witnesses import (
     witness_resample_and_belief_projection,
 )
 
-ParticleState = dict[str, np.ndarray | int] | np.ndarray
+ParticleState = Mapping[str, np.ndarray | int]
 ModelSpec = Mapping[str, object]
 ControlValue = np.ndarray | float | int
 ObservationValue = np.ndarray | float | int
+
+
+def _rng_key_from_state(up: ParticleState) -> np.ndarray:
+    rng_seed = up["rng_seed"]
+    if isinstance(rng_seed, np.integer):
+        rng_seed = int(rng_seed)
+    if not isinstance(rng_seed, int):
+        raise TypeError("prior state rng_seed must be an int")
+    return np.array([rng_seed], dtype=np.int64)
 
 
 @register_atom(witness_filter_step_preparation_and_dispatch)
@@ -33,18 +42,14 @@ def filter_step_preparation_and_dispatch(
     """Entry-point orchestration for one Sequential Monte Carlo (SMC) step.
 
 Args:
-    up: Prior state carrying particles, weights, and random number generator (RNG) state.
+    up: Prior state carrying particles, weights, and explicit RNG state.
     b: Transition and likelihood model definitions.
     a: Control/action at current step.
     o: Measurement for current time index.
 
 Returns:
     Tuple of (prior_state, model_spec, control_t, observation_t, rng_key)."""
-    # Unpack prior state and prepare for one SMC step
-    particles = up.get('particles', np.array([])) if isinstance(up, dict) else up
-    weights = up.get('weights', np.ones(1)) if isinstance(up, dict) else np.ones(1)
-    rng_seed = up.get('rng_seed', 0) if isinstance(up, dict) else 0
-    rng_key = np.array([rng_seed], dtype=np.int64)
+    rng_key = _rng_key_from_state(up)
     return (up, b, a, o, rng_key)
 
 

@@ -1,10 +1,10 @@
 {
   "nodes": [
     {
-      "node_id": "NeuroKitIngest_root",
+      "node_id": "neurokit2_root",
       "parent_id": null,
-      "name": "NeuroKitIngest",
-      "description": "Ingested pipeline from NeuroKitIngest",
+      "name": "NeuroKit2QualityFamily",
+      "description": "Canonical CDG for the NeuroKit2 ECG quality helper wrappers.",
       "concept_type": "custom",
       "inputs": [],
       "outputs": [],
@@ -28,60 +28,24 @@
     },
     {
       "node_id": "zhao2018hrvanalysis",
-      "parent_id": "NeuroKitIngest_root",
+      "parent_id": "neurokit2_root",
       "name": "Zhao2018HRVAnalysis",
-      "description": "Applies Zhao et al. 2018 method to analyze heart rate variability from ECG signals using windowed processing",
-      "concept_type": "signal_transform",
+      "description": "Compute the Zhao 2018 ECG quality verdict over a cleaned ECG trace.",
+      "concept_type": "analysis",
       "inputs": [
-        {
-          "name": "ecg_cleaned",
-          "type_desc": "array-like",
-          "constraints": "cleaned ECG signal",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "rpeaks",
-          "type_desc": "array-like",
-          "constraints": "R-peak indices",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "sampling_rate",
-          "type_desc": "numeric",
-          "constraints": "sampling frequency in Hz",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "window",
-          "type_desc": "numeric or tuple",
-          "constraints": "analysis window specification",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "mode",
-          "type_desc": "string",
-          "constraints": "processing mode",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "ecg_cleaned", "type_desc": "ndarray", "constraints": "cleaned ECG signal", "required": true, "default_value_repr": ""},
+        {"name": "rpeaks", "type_desc": "ndarray | None", "constraints": "R-peak indices", "required": false, "default_value_repr": "None"},
+        {"name": "sampling_rate", "type_desc": "int | float", "constraints": "> 0", "required": false, "default_value_repr": "1000"},
+        {"name": "window", "type_desc": "int | float | tuple", "constraints": "window specification", "required": false, "default_value_repr": "1024"},
+        {"name": "mode", "type_desc": "str", "constraints": "quality mode", "required": false, "default_value_repr": "'simple'"}
       ],
       "outputs": [
-        {
-          "name": "hrv_metrics",
-          "type_desc": "dict or array",
-          "constraints": "heart rate variability features",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "quality_label", "type_desc": "str", "constraints": "quality verdict string", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(ecg_cleaned: array-like, rpeaks: array-like, sampling_rate: numeric, window: numeric or tuple, mode: string) -> dict or array",
+      "type_signature": "(ecg_cleaned: ndarray, rpeaks: ndarray | None = None, sampling_rate: int | float = 1000, window: int | float | tuple = 1024, mode: str = 'simple') -> str",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -89,52 +53,28 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "windowed_inter_event_variability_extractor. Converts a 1D continuous signal and a sequence of discrete event markers into a set of statistical variability features by first computing inter-event temporal intervals, then applying windowed segmentation and extracting distributional moments, frequency-domain characteristics, and entropy measures within each segment. This is a dimensionality-reducing lossy transform from a time-indexed event sequence to a compact feature vector characterizing temporal regularity/irregularity.. Applications: Seismology: Characterize earthquake clustering patterns by analyzing variability in inter-event times between seismic events within moving time windows to distinguish Poissonian from correlated seismicity., Network traffic engineering: Detect congestion, DDoS attacks, or protocol anomalies by computing variability features from packet or connection inter-arrival times over sliding windows., Manufacturing quality control: Monitor machine health by tracking variability in cycle completion intervals or defect occurrence times, flagging increased irregularity as early wear indicators., Neuroscience: Classify neuronal firing patterns (bursting vs. regular spiking) by extracting inter-spike interval variability features from electrophysiology recordings in sliding temporal windows.",
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
     {
       "node_id": "averageqrstemplate",
-      "parent_id": "NeuroKitIngest_root",
+      "parent_id": "neurokit2_root",
       "name": "AverageQRSTemplate",
-      "description": "Computes averaged QRS complex template by aligning and averaging heartbeat waveforms around R-peaks",
+      "description": "Build an average QRS template aligned to the detected R-peaks.",
       "concept_type": "signal_transform",
       "inputs": [
-        {
-          "name": "ecg_cleaned",
-          "type_desc": "array-like",
-          "constraints": "cleaned ECG signal",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "rpeaks",
-          "type_desc": "array-like",
-          "constraints": "R-peak indices",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "sampling_rate",
-          "type_desc": "numeric",
-          "constraints": "sampling frequency in Hz",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "ecg_cleaned", "type_desc": "ndarray", "constraints": "cleaned ECG signal", "required": true, "default_value_repr": ""},
+        {"name": "rpeaks", "type_desc": "ndarray | None", "constraints": "R-peak indices", "required": false, "default_value_repr": "None"},
+        {"name": "sampling_rate", "type_desc": "int | float", "constraints": "> 0", "required": false, "default_value_repr": "1000"}
       ],
       "outputs": [
-        {
-          "name": "qrs_template",
-          "type_desc": "array",
-          "constraints": "averaged QRS waveform",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "qrs_template", "type_desc": "ndarray", "constraints": "same length as the cleaned ECG signal", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(ecg_cleaned: array-like, rpeaks: array-like, sampling_rate: numeric) -> array",
+      "type_signature": "(ecg_cleaned: ndarray, rpeaks: ndarray | None = None, sampling_rate: int | float = 1000) -> ndarray",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -142,14 +82,14 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "Landmark-Aligned Ensemble Waveform Averaging. Extracts a prototypical pattern from a repetitive signal by windowing segments around predefined landmarks, aligning them temporally to a common reference frame, and computing the pointwise mean across all instances. This reduces noise and variability to isolate the stable, recurring structure while discarding transient or uncorrelated components.. Applications: Seismology: Generate station-specific earthquake waveform templates by averaging seismic traces aligned to P-wave or S-wave arrival times for matched filter detection, Neuroscience: Construct spike waveform templates for extracellular neural recordings by aligning and averaging action potentials at their peaks for multi-unit spike sorting, Astronomy: Create standard supernova or variable star light curve templates by time-aligning and averaging multiple observations at peak luminosity or phase markers, Industrial vibration analysis: Build reference vibration signatures for rotating machinery by averaging acceleration waveforms aligned to shaft rotation markers for anomaly detection",
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     }
   ],
   "edges": [],
   "metadata": {
-    "source": "ingester",
-    "class_name": "NeuroKitIngest"
+    "source": "manual_compaction",
+    "family": "neurokit2"
   }
 }

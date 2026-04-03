@@ -582,12 +582,12 @@ def get_probe_plans() -> dict[str, Any]:
             "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi": ProbePlan(
                 positive=ProbeCase(
                     "refined-ingest ZZ2018 composite SQI assembles the expected score bundle",
-                    lambda func: func(signal, detector_1, detector_2, 1000.0, 50, 64, "simple", 100.0, 0.0, 1.5),
+                    lambda func: func(100.0, 0.0, 1.5),
                     _assert_dict_keys({"b_sqi", "f_sqi", "k_sqi"}),
                 ),
                 negative=ProbeCase(
-                    "refined-ingest ZZ2018 composite SQI rejects a non-numeric sampling rate",
-                    lambda func: func(signal, detector_1, detector_2, "bad", 50, 64, "simple", 100.0, 0.0, 1.5),
+                    "refined-ingest ZZ2018 composite SQI rejects a non-numeric component score",
+                    lambda func: func("bad", 0.0, 1.5),
                     expect_exception=True,
                 ),
                 parity_used=True,
@@ -614,6 +614,19 @@ def get_probe_plans() -> dict[str, Any]:
                 negative=ProbeCase(
                     "refined-ingest frequency-power SQI rejects a non-numeric sampling rate",
                     lambda func: func(signal, "bad", 64, np.array([5, 15]), np.array([5, 40]), "simple"),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.biosppy.ecg_zz2018_d12.computekurtosissqi": ProbePlan(
+                positive=ProbeCase(
+                    "refined-ingest kurtosis SQI returns the expected scalar score",
+                    lambda func: func(signal, True),
+                    _assert_scalar(-1.492462311557789),
+                ),
+                negative=ProbeCase(
+                    "refined-ingest kurtosis SQI rejects a missing signal",
+                    lambda func: func(None, True),
                     expect_exception=True,
                 ),
                 parity_used=True,
