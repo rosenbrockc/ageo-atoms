@@ -10,6 +10,7 @@ from .molecular_docking import get_probe_plans as get_molecular_docking_probe_pl
 from .particle_filter_and_pasqal import get_probe_plans as get_particle_filter_and_pasqal_probe_plans
 from .pronto import get_probe_plans as get_pronto_probe_plans
 from .quantfin import get_probe_plans as get_quantfin_probe_plans
+from .rust_robotics import get_probe_plans as get_rust_robotics_probe_plans
 
 __all__ = [
     "get_advancedvi_and_iqe_probe_plans",
@@ -22,4 +23,5 @@ __all__ = [
     "get_particle_filter_and_pasqal_probe_plans",
     "get_pronto_probe_plans",
     "get_quantfin_probe_plans",
+    "get_rust_robotics_probe_plans",
 ]
