@@ -2,24 +2,48 @@ from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
 
+from typing import Any, Callable
+
 import numpy as np
 
 import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_meanfieldvariationalfit, witness_posteriordrawsampling
 
+ThetaShapeDict = dict[str, tuple[int, ...]]
+ParameterDict = dict[str, Any]
+ConstraintFn = Callable[[Any], tuple[Any, float]]
+ConstraintMap = dict[str, ConstraintFn]
+LogDensityFn = Callable[[ParameterDict], Any]
+VarParamInits = dict[str, tuple[float, float]]
+ObjectiveFn = Callable[[Any], Any]
+PosteriorTransform = Callable[[ParameterDict], Any]
+
+DEFAULT_CONSTRAINTS: ConstraintMap = {}
+DEFAULT_VAR_PARAM_INITS: VarParamInits = {
+    "mean": (0.0, 0.0),
+    "log_sd": (0.0, 0.0),
+}
+
 @register_atom(witness_meanfieldvariationalfit)
 @icontract.require(lambda theta_shape_dict: theta_shape_dict is not None, "theta_shape_dict cannot be None")
 @icontract.require(lambda log_prior_fun: log_prior_fun is not None, "log_prior_fun cannot be None")
 @icontract.require(lambda log_lik_fun: log_lik_fun is not None, "log_lik_fun cannot be None")
-@icontract.require(lambda M: M is not None, "M cannot be None")
-@icontract.require(lambda constrain_fun_dict: constrain_fun_dict is not None, "constrain_fun_dict cannot be None")
-@icontract.require(lambda seed: seed is not None, "seed cannot be None")
-@icontract.require(lambda var_param_inits: var_param_inits is not None, "var_param_inits cannot be None")
-@icontract.require(lambda opt_method: opt_method is not None, "opt_method cannot be None")
-@icontract.require(lambda verbose: verbose is not None, "verbose cannot be None")
+@icontract.require(lambda M: M > 0, "M must be positive")
+@icontract.require(lambda n_draws: n_draws is None or n_draws >= 0, "n_draws must be non-negative when provided")
 @icontract.ensure(lambda result: all(r is not None for r in result), "MeanFieldVariationalFit all outputs must not be None")
-def meanfieldvariationalfit(theta_shape_dict: dict[str, tuple[int, ...]], log_prior_fun: object, log_lik_fun: object, M: int, constrain_fun_dict: dict[str, object], seed: int | object, var_param_inits: dict[str, object] | None, opt_method: str, verbose: bool) -> tuple[dict[str, object], dict[str, object], object, int | object]:
+def meanfieldvariationalfit(
+    theta_shape_dict: ThetaShapeDict,
+    log_prior_fun: LogDensityFn,
+    log_lik_fun: LogDensityFn,
+    M: int = 100,
+    constrain_fun_dict: ConstraintMap = DEFAULT_CONSTRAINTS,
+    verbose: bool = False,
+    seed: int = 2,
+    n_draws: int | None = 1000,
+    var_param_inits: VarParamInits = DEFAULT_VAR_PARAM_INITS,
+    opt_method: str = "trust-ncg",
+) -> tuple[ParameterDict, ParameterDict, ObjectiveFn, int]:
     """Builds a stochastic Evidence Lower Bound (ELBO) objective from prior/likelihood oracles and optimizes mean-field variational parameters as immutable variational state (latent mean and latent scale). Private objective construction helper is grouped with the optimizer entrypoint.
 
 Args:
@@ -28,10 +52,11 @@ Args:
     log_lik_fun: Pure likelihood/log-likelihood oracle; no persistent state writes.
     M: Monte Carlo sample count, M > 0.
     constrain_fun_dict: Maps unconstrained variational coordinates to constrained parameter space.
+    verbose: Logging flag only; does not alter statistical semantics.
     seed: Explicit stochastic input; treated as immutable random number generator (RNG) state.
+    n_draws: Number of posterior draws requested from the fitted approximation.
     var_param_inits: Optional initial latent mean/scale values.
     opt_method: Optimization algorithm selection.
-    verbose: Logging flag only; does not alter statistical semantics.
 
 Returns:
     free_means: Optimized latent mean parameters.
@@ -48,10 +73,11 @@ Returns:
         log_lik_fun=log_lik_fun,
         M=M,
         constrain_fun_dict=constrain_fun_dict,
+        verbose=verbose,
         seed=seed_int,
+        n_draws=n_draws,
         var_param_inits=var_param_inits,
         opt_method=opt_method,
-        verbose=verbose,
     )
     rng_state_out = seed_int + 1
     return (result['free_means'], result['free_sds'], result['objective_fun'], rng_state_out)
@@ -60,11 +86,17 @@ Returns:
 @icontract.require(lambda free_means: free_means is not None, "free_means cannot be None")
 @icontract.require(lambda free_sds: free_sds is not None, "free_sds cannot be None")
 @icontract.require(lambda constrain_fun_dict: constrain_fun_dict is not None, "constrain_fun_dict cannot be None")
-@icontract.require(lambda n_draws: n_draws is not None, "n_draws cannot be None")
-@icontract.require(lambda fun_to_apply: fun_to_apply is not None, "fun_to_apply cannot be None")
+@icontract.require(lambda n_draws: n_draws >= 0, "n_draws must be non-negative")
 @icontract.require(lambda rng_state_in: rng_state_in is not None, "rng_state_in cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "PosteriorDrawSampling all outputs must not be None")
-def posteriordrawsampling(free_means: dict[str, object], free_sds: dict[str, object], constrain_fun_dict: dict[str, object], n_draws: int, fun_to_apply: object | None, rng_state_in: int | object) -> tuple[object | dict[str, object], int | object]:
+def posteriordrawsampling(
+    free_means: ParameterDict,
+    free_sds: ParameterDict,
+    constrain_fun_dict: ConstraintMap,
+    n_draws: int,
+    fun_to_apply: PosteriorTransform | None,
+    rng_state_in: int,
+) -> tuple[Any, int]:
     """Samples from the fitted mean-field posterior using latent mean/scale state, applies constraint transforms, and optionally applies a post-processing function.
 
 Args:

@@ -9,6 +9,8 @@ import scipy.spatial as spatial
 
 
 def get_probe_plans() -> dict[str, Any]:
+    import jax.numpy as jnp
+
     from .. import runtime_probes as rt
 
     ProbeCase = rt.ProbeCase
@@ -38,9 +40,27 @@ def get_probe_plans() -> dict[str, Any]:
             (("L1", "R1"), ("L0", "R0")),
         ]
 
+    def _assert_mean_field_fit_result(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 4
+        free_means, free_sds, objective_fun, rng_state_out = result
+        assert set(free_means) == {"theta"}
+        assert set(free_sds) == {"theta"}
+        assert tuple(np.asarray(free_means["theta"]).shape) == (1,)
+        assert tuple(np.asarray(free_sds["theta"]).shape) == (1,)
+        assert np.all(np.asarray(free_sds["theta"]) > 0.0)
+        assert callable(objective_fun)
+        assert int(rng_state_out) == 3
+
     class _DummyBlock:
         def __init__(self, value: int) -> None:
             self.value = value
+
+    def _jax_log_prior(theta: dict[str, Any]) -> Any:
+        return -0.5 * jnp.sum(theta["theta"] ** 2)
+
+    def _jax_log_lik(theta: dict[str, Any]) -> Any:
+        return -0.5 * jnp.sum((theta["theta"] - 1.0) ** 2)
 
     return {
         "ageoa.hftbacktest.initialize_glft_state": ProbePlan(
@@ -721,6 +741,30 @@ def get_probe_plans() -> dict[str, Any]:
                     lambda draws: draws,
                     7,
                 ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.jax_advi.optimize_advi.meanfieldvariationalfit": ProbePlan(
+            positive=ProbeCase(
+                "fit a tiny one-parameter mean-field approximation with JAX-safe likelihood and prior callables",
+                lambda func: func(
+                    {"theta": (1,)},
+                    _jax_log_prior,
+                    _jax_log_lik,
+                    2,
+                    {},
+                    False,
+                    2,
+                    4,
+                    {"mean": (0.0, 0.01), "log_sd": (-1.0, 0.01)},
+                    "L-BFGS-B",
+                ),
+                _assert_mean_field_fit_result,
+            ),
+            negative=ProbeCase(
+                "reject a missing likelihood oracle",
+                lambda func: func({"theta": (1,)}, lambda theta: -0.5, None),
                 expect_exception=True,
             ),
             parity_used=True,

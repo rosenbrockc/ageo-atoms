@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T23:34:56+00:00",
+    "generated_at": "2026-04-03T23:46:21+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 440,
-      "medium": 65
+      "low": 441,
+      "medium": 64
     },
     "stateful_count": 69,
     "stochastic_count": 24,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 290,
+    "parity_coverage_count": 291,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 44,
-      "pass": 461
+      "partial": 43,
+      "pass": 462
     },
     "parity_coverage_level_counts": {
-      "none": 118,
+      "none": 117,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 243,
+      "parity_or_usage_equivalent": 244,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -96,7 +96,6 @@
       "hPDB": 2,
       "institutional_quant_engine": 3,
       "jFOF": 1,
-      "jax_advi": 1,
       "mcmc_foundational": 5,
       "mint": 5,
       "molecular_docking": 6,
@@ -111,27 +110,27 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 226,
+      "not_applicable": 225,
       "partial": 7,
-      "pass": 270
+      "pass": 271
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 270,
-      "unknown": 226
+      "pass": 271,
+      "unknown": 225
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 464,
+      "review_later": 465,
       "review_now": 11,
-      "review_soon": 30
+      "review_soon": 29
     },
     "high_risk_count": 0,
-    "medium_risk_count": 65,
-    "low_risk_count": 440
+    "medium_risk_count": 64,
+    "low_risk_count": 441
   },
   "atoms": [
     {
@@ -30127,17 +30126,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.jax_advi.optimize_advi.meanfieldvariationalfit@ageoa/jax_advi/optimize_advi/atoms.py:22",
+      "atom_id": "ageoa.jax_advi.optimize_advi.meanfieldvariationalfit@ageoa/jax_advi/optimize_advi/atoms.py:35",
       "atom_name": "ageoa.jax_advi.optimize_advi.meanfieldvariationalfit",
       "atom_key": "jax_advi/optimize_advi:meanfieldvariationalfit",
       "module_import_path": "ageoa.jax_advi.optimize_advi.atoms",
       "module_path": "ageoa/jax_advi/optimize_advi/atoms.py",
       "wrapper_symbol": "meanfieldvariationalfit",
-      "wrapper_line": 22,
+      "wrapper_line": 35,
       "domain_family": "jax_advi",
       "module_family": "jax_advi",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "jax_advi",
         "module": "jax_advi.advi",
@@ -30155,114 +30154,108 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 67,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "theta_shape_dict",
         "log_prior_fun",
         "log_lik_fun",
         "M",
         "constrain_fun_dict",
+        "verbose",
         "seed",
+        "n_draws",
         "var_param_inits",
-        "opt_method",
-        "verbose"
+        "opt_method"
       ],
       "required_parameter_names": [
         "theta_shape_dict",
         "log_prior_fun",
-        "log_lik_fun",
-        "M",
-        "constrain_fun_dict",
-        "seed",
-        "var_param_inits",
-        "opt_method",
-        "verbose"
+        "log_lik_fun"
       ],
       "argument_details": [
         {
           "name": "theta_shape_dict",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict[str, tuple[int, ...]]"
+          "annotation": "ThetaShapeDict"
         },
         {
           "name": "log_prior_fun",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "LogDensityFn"
         },
         {
           "name": "log_lik_fun",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "LogDensityFn"
         },
         {
           "name": "M",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int"
         },
         {
           "name": "constrain_fun_dict",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "dict[str, object]"
-        },
-        {
-          "name": "seed",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "int | object"
-        },
-        {
-          "name": "var_param_inits",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "dict[str, object] | None"
-        },
-        {
-          "name": "opt_method",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "str"
+          "annotation": "ConstraintMap"
         },
         {
           "name": "verbose",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
+        },
+        {
+          "name": "seed",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "int"
+        },
+        {
+          "name": "n_draws",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "int | None"
+        },
+        {
+          "name": "var_param_inits",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "VarParamInits"
+        },
+        {
+          "name": "opt_method",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "str"
         }
       ],
-      "return_annotation": "tuple[dict[str, object], dict[str, object], object, int | object]",
-      "decorator_count": 11,
-      "require_count": 9,
+      "return_annotation": "tuple[ParameterDict, ParameterDict, ObjectiveFn, int]",
+      "decorator_count": 7,
+      "require_count": 5,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_meanfieldvariationalfit)",
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Builds a stochastic Evidence Lower Bound (ELBO) objective from prior/likelihood oracles and optimizes mean-field variational parameters as immutable variational state (latent mean and latent scale). Private objective construction helper is grouped with the optimizer entrypoint.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "log_prior_fun:object",
-        "log_lik_fun:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -30288,32 +30281,22 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STOCHASTIC",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STOCHASTIC"
       ],
-      "risk_score": 53,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 18,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -30339,7 +30322,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -30348,7 +30331,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -30372,56 +30355,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.jax_advi.optimize_advi.meanfieldvariationalfit@ageoa/jax_advi/optimize_advi/atoms.py:22",
-          "atom_key": "jax_advi/optimize_advi:meanfieldvariationalfit",
-          "domain_family": "jax_advi",
-          "module_path": "ageoa/jax_advi/optimize_advi/atoms.py",
-          "wrapper_symbol": "meanfieldvariationalfit",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/jax_advi/optimize_advi/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/jax_advi/optimize_advi/atoms.py",
-              "line": 22
+              "line": 35
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -30435,13 +30403,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.jax_advi.optimize_advi.posteriordrawsampling@ageoa/jax_advi/optimize_advi/atoms.py:67",
+      "atom_id": "ageoa.jax_advi.optimize_advi.posteriordrawsampling@ageoa/jax_advi/optimize_advi/atoms.py:92",
       "atom_name": "ageoa.jax_advi.optimize_advi.posteriordrawsampling",
       "atom_key": "jax_advi/optimize_advi:posteriordrawsampling",
       "module_import_path": "ageoa.jax_advi.optimize_advi.atoms",
       "module_path": "ageoa/jax_advi/optimize_advi/atoms.py",
       "wrapper_symbol": "posteriordrawsampling",
-      "wrapper_line": 67,
+      "wrapper_line": 92,
       "domain_family": "jax_advi",
       "module_family": "jax_advi",
       "source_kind": "generated_ingest",
@@ -30501,19 +30469,19 @@
           "name": "free_means",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict[str, object]"
+          "annotation": "ParameterDict"
         },
         {
           "name": "free_sds",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict[str, object]"
+          "annotation": "ParameterDict"
         },
         {
           "name": "constrain_fun_dict",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "dict[str, object]"
+          "annotation": "ConstraintMap"
         },
         {
           "name": "n_draws",
@@ -30525,18 +30493,18 @@
           "name": "fun_to_apply",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object | None"
+          "annotation": "PosteriorTransform | None"
         },
         {
           "name": "rng_state_in",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "int | object"
+          "annotation": "int"
         }
       ],
-      "return_annotation": "tuple[object | dict[str, object], int | object]",
-      "decorator_count": 8,
-      "require_count": 6,
+      "return_annotation": "tuple[Any, int]",
+      "decorator_count": 7,
+      "require_count": 5,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_posteriordrawsampling)",
       "placeholder_witness": false,
@@ -30663,7 +30631,7 @@
           "source_refs": [
             {
               "path": "ageoa/jax_advi/optimize_advi/atoms.py",
-              "line": 67
+              "line": 92
             }
           ]
         }
