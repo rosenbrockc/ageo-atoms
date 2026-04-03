@@ -1,7 +1,7 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
-from collections.abc import Sequence
+from collections.abc import Hashable, Sequence
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -14,6 +14,11 @@ from ageoa.ghost.registry import register_atom
 from .witnesses import witness_networkx_weighted_graph_materialization, witness_pair_distance_compatibility_check, witness_weighted_interaction_edge_derivation
 
 # Witness functions should be imported from the generated witnesses module
+
+Feature = Hashable
+FeaturePair = tuple[Feature, Feature]
+InteractionNode = tuple[Feature, Feature]
+InteractionEdge = tuple[InteractionNode, InteractionNode]
 
 @register_atom(witness_pair_distance_compatibility_check)
 @icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
@@ -46,46 +51,18 @@ def pair_distance_compatibility_check(
     return bool(np.any((r_dist >= lower) & (r_dist <= upper)))
 
 @register_atom(witness_weighted_interaction_edge_derivation)
-@icontract.require(lambda interaction_distance: isinstance(interaction_distance, (float, int, np.number)), "interaction_distance must be numeric")
-@icontract.ensure(lambda result: all(r is not None for r in result), "Weighted Interaction Edge Derivation all outputs must not be None")
-def weighted_interaction_edge_derivation(L_features: object, R_features: object, L_distance_matrix: object, R_distance_matrix: object, interaction_distance: float, distance_match: bool) -> tuple[list[tuple[object, object, float]], list[object] | set[object]]:
-    """
-    Args:
-        L_features: Left-side feature set.
-        R_features: Right-side feature set.
-        L_distance_matrix: Pairwise distances among left-side features.
-        R_distance_matrix: Pairwise distances among right-side features.
-        interaction_distance: Distance criterion used for matching/scoring.
-        distance_match: Compatibility signal from pair distance check.
-
-    Returns:
-        edges: Each edge contains endpoints and associated weight.
-        nodes: Unique nodes participating in edges.
-    """
-    L_feat = list(L_features) if not isinstance(L_features, list) else L_features
-    R_feat = list(R_features) if not isinstance(R_features, list) else R_features
-    L_dm = np.asarray(L_distance_matrix)
-    R_dm = np.asarray(R_distance_matrix)
-    edges: list[tuple[object, object, float]] = []
-    node_set: set[object] = set()
-
-    if not distance_match:
-        return edges, list(node_set)
-
-    for i, l_feat in enumerate(L_feat):
-        for j, r_feat in enumerate(R_feat):
-            # Weight based on how close the distance matrices match
-            l_dists = L_dm[i] if L_dm.ndim > 1 else L_dm
-            r_dists = R_dm[j] if R_dm.ndim > 1 else R_dm
-            # Compute a compatibility score as inverse distance difference
-            weight = max(0.0, interaction_distance - abs(float(np.mean(l_dists)) - float(np.mean(r_dists))))
-            if weight > 0:
-                node_pair = (l_feat, r_feat)
-                edges.append((node_pair[0], node_pair[1], weight))
-                node_set.add(node_pair[0])
-                node_set.add(node_pair[1])
-
-    return edges, list(node_set)
+@icontract.require(lambda L_feature_pair: L_feature_pair is not None, "L_feature_pair cannot be None")
+@icontract.require(lambda R_feature_pair: R_feature_pair is not None, "R_feature_pair cannot be None")
+@icontract.ensure(lambda result: result is not None, "Weighted Interaction Edge Derivation output must not be None")
+def weighted_interaction_edge_derivation(
+    L_feature_pair: FeaturePair,
+    R_feature_pair: FeaturePair,
+) -> list[InteractionEdge]:
+    """Return the two physically possible interaction-edge layouts for a ligand/receptor feature pair."""
+    return [
+        ((L_feature_pair[0], R_feature_pair[1]), (L_feature_pair[1], R_feature_pair[0])),
+        ((L_feature_pair[1], R_feature_pair[1]), (L_feature_pair[0], R_feature_pair[0])),
+    ]
 
 @register_atom(witness_networkx_weighted_graph_materialization)
 @icontract.require(lambda edges: edges is not None, "edges cannot be None")

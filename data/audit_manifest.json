@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T22:40:05+00:00",
+    "generated_at": "2026-04-03T23:34:56+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 439,
-      "medium": 66
+      "low": 440,
+      "medium": 65
     },
     "stateful_count": 69,
     "stochastic_count": 24,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 289,
+    "parity_coverage_count": 290,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 461
     },
     "parity_coverage_level_counts": {
-      "none": 119,
+      "none": 118,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 242,
+      "parity_or_usage_equivalent": 243,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -99,7 +99,7 @@
       "jax_advi": 1,
       "mcmc_foundational": 5,
       "mint": 5,
-      "molecular_docking": 7,
+      "molecular_docking": 6,
       "numpy": 15,
       "pasqal": 1,
       "pronto": 15,
@@ -111,27 +111,27 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 227,
+      "not_applicable": 226,
       "partial": 7,
-      "pass": 269
+      "pass": 270
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 269,
-      "unknown": 227
+      "pass": 270,
+      "unknown": 226
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 463,
+      "review_later": 464,
       "review_now": 11,
-      "review_soon": 31
+      "review_soon": 30
     },
     "high_risk_count": 0,
-    "medium_risk_count": 66,
-    "low_risk_count": 439
+    "medium_risk_count": 65,
+    "low_risk_count": 440
   },
   "atoms": [
     {
@@ -42785,13 +42785,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.build_interaction_graph.pair_distance_compatibility_check@ageoa/molecular_docking/build_interaction_graph/atoms.py:21",
+      "atom_id": "ageoa.molecular_docking.build_interaction_graph.pair_distance_compatibility_check@ageoa/molecular_docking/build_interaction_graph/atoms.py:26",
       "atom_name": "ageoa.molecular_docking.build_interaction_graph.pair_distance_compatibility_check",
       "atom_key": "molecular_docking/build_interaction_graph:pair_distance_compatibility_check",
       "module_import_path": "ageoa.molecular_docking.build_interaction_graph.atoms",
       "module_path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
       "wrapper_symbol": "pair_distance_compatibility_check",
-      "wrapper_line": 21,
+      "wrapper_line": 26,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
@@ -42982,7 +42982,7 @@
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
-              "line": 21
+              "line": 26
             }
           ]
         }
@@ -43011,17 +43011,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:51",
+      "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:57",
       "atom_name": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation",
       "atom_key": "molecular_docking/build_interaction_graph:weighted_interaction_edge_derivation",
       "module_import_path": "ageoa.molecular_docking.build_interaction_graph.atoms",
       "module_path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
       "wrapper_symbol": "weighted_interaction_edge_derivation",
-      "wrapper_line": 51,
+      "wrapper_line": 57,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.graph.interaction_graph",
@@ -43039,96 +43039,55 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 48,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 90,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED",
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "replace placeholder docstring text"
       ],
       "argument_names": [
-        "L_features",
-        "R_features",
-        "L_distance_matrix",
-        "R_distance_matrix",
-        "interaction_distance",
-        "distance_match"
+        "L_feature_pair",
+        "R_feature_pair"
       ],
       "required_parameter_names": [
-        "L_features",
-        "R_features",
-        "L_distance_matrix",
-        "R_distance_matrix",
-        "interaction_distance",
-        "distance_match"
+        "L_feature_pair",
+        "R_feature_pair"
       ],
       "argument_details": [
         {
-          "name": "L_features",
+          "name": "L_feature_pair",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "FeaturePair"
         },
         {
-          "name": "R_features",
+          "name": "R_feature_pair",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "L_distance_matrix",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "R_distance_matrix",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "object"
-        },
-        {
-          "name": "interaction_distance",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "float"
-        },
-        {
-          "name": "distance_match",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "bool"
+          "annotation": "FeaturePair"
         }
       ],
-      "return_annotation": "tuple[list[tuple[object, object, float]], list[object] | set[object]]",
-      "decorator_count": 3,
-      "require_count": 1,
+      "return_annotation": "list[InteractionEdge]",
+      "decorator_count": 4,
+      "require_count": 2,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_weighted_interaction_edge_derivation)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Args:",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "L_features:object",
-        "R_features:object",
-        "L_distance_matrix:object",
-        "R_distance_matrix:object"
-      ],
+      "docstring_summary": "Return the two physically possible interaction-edge layouts for a ligand/receptor feature pair.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -43153,13 +43112,10 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES"
+        "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 51,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 12,
@@ -43168,16 +43124,12 @@
           ]
         },
         "fidelity_risk": {
-          "score": 18,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH",
-            "RISK_WEAK_TYPES"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -43200,7 +43152,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -43209,7 +43161,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -43234,55 +43186,58 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_WEAK_TYPES"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:51",
+          "atom_id": "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation@ageoa/molecular_docking/build_interaction_graph/atoms.py:57",
           "atom_key": "molecular_docking/build_interaction_graph:weighted_interaction_edge_derivation",
           "domain_family": "molecular_docking",
           "module_path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
           "wrapper_symbol": "weighted_interaction_edge_derivation",
-          "code": "STRUCT_WEAK_TYPES",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
+          "source": "audit.py",
+          "message": "weighted_interaction_edge_derivation: docstring missing 'Args:' section",
           "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
-              "line": 51
+              "line": 57
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -43296,13 +43251,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:95",
+      "atom_id": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization@ageoa/molecular_docking/build_interaction_graph/atoms.py:72",
       "atom_name": "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization",
       "atom_key": "molecular_docking/build_interaction_graph:networkx_weighted_graph_materialization",
       "module_import_path": "ageoa.molecular_docking.build_interaction_graph.atoms",
       "module_path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
       "wrapper_symbol": "networkx_weighted_graph_materialization",
-      "wrapper_line": 95,
+      "wrapper_line": 72,
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
@@ -43482,7 +43437,7 @@
           "source_refs": [
             {
               "path": "ageoa/molecular_docking/build_interaction_graph/atoms.py",
-              "line": 95
+              "line": 72
             }
           ]
         }

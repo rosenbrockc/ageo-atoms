@@ -934,6 +934,10 @@ def test_runtime_probe_passes_for_build_interaction_graph_family() -> None:
             "pair_distance_compatibility_check",
         ),
         (
+            "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation",
+            "weighted_interaction_edge_derivation",
+        ),
+        (
             "ageoa.molecular_docking.build_interaction_graph.networkx_weighted_graph_materialization",
             "networkx_weighted_graph_materialization",
         ),

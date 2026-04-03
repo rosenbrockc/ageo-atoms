@@ -31,6 +31,13 @@ def get_probe_plans() -> dict[str, Any]:
     _assert_tuple = rt._assert_tuple
     _assert_type = rt._assert_type
 
+    def _assert_weighted_interaction_edges(result: Any) -> None:
+        assert isinstance(result, list)
+        assert result == [
+            (("L0", "R1"), ("L1", "R0")),
+            (("L1", "R1"), ("L0", "R0")),
+        ]
+
     class _DummyBlock:
         def __init__(self, value: int) -> None:
             self.value = value
@@ -407,6 +414,19 @@ def get_probe_plans() -> dict[str, Any]:
             negative=ProbeCase(
                 "pair-distance compatibility rejects a non-numeric interaction threshold",
                 lambda func: func(np.array([1.0, 3.0], dtype=float), np.array([2.4, 5.0], dtype=float), "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.molecular_docking.build_interaction_graph.weighted_interaction_edge_derivation": ProbePlan(
+            positive=ProbeCase(
+                "weighted interaction edge derivation mirrors the vendored two-pair edge expansion",
+                lambda func: func(("L0", "L1"), ("R0", "R1")),
+                _assert_weighted_interaction_edges,
+            ),
+            negative=ProbeCase(
+                "weighted interaction edge derivation rejects a missing ligand feature pair",
+                lambda func: func(None, ("R0", "R1")),
                 expect_exception=True,
             ),
             parity_used=True,
