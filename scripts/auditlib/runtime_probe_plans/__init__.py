@@ -7,6 +7,7 @@ from .hftbacktest_and_ingest import get_probe_plans as get_hftbacktest_and_inges
 from .kalman_filter import get_probe_plans as get_kalman_filter_probe_plans
 from .mcmc_foundational import get_probe_plans as get_mcmc_foundational_probe_plans
 from .molecular_docking import get_probe_plans as get_molecular_docking_probe_plans
+from .particle_filter_and_pasqal import get_probe_plans as get_particle_filter_and_pasqal_probe_plans
 from .pronto import get_probe_plans as get_pronto_probe_plans
 from .quantfin import get_probe_plans as get_quantfin_probe_plans
 
@@ -18,6 +19,7 @@ __all__ = [
     "get_kalman_filter_probe_plans",
     "get_mcmc_foundational_probe_plans",
     "get_molecular_docking_probe_plans",
+    "get_particle_filter_and_pasqal_probe_plans",
     "get_pronto_probe_plans",
     "get_quantfin_probe_plans",
 ]
