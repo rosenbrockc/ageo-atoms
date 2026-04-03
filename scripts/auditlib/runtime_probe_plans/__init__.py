@@ -3,6 +3,7 @@
 from .advancedvi_and_iqe import get_probe_plans as get_advancedvi_and_iqe_probe_plans
 from .biosppy import get_probe_plans as get_biosppy_probe_plans
 from .foundation import get_probe_plans as get_foundation_probe_plans
+from .hftbacktest_and_ingest import get_probe_plans as get_hftbacktest_and_ingest_probe_plans
 from .kalman_filter import get_probe_plans as get_kalman_filter_probe_plans
 from .mcmc_foundational import get_probe_plans as get_mcmc_foundational_probe_plans
 from .molecular_docking import get_probe_plans as get_molecular_docking_probe_plans
@@ -13,6 +14,7 @@ __all__ = [
     "get_advancedvi_and_iqe_probe_plans",
     "get_biosppy_probe_plans",
     "get_foundation_probe_plans",
+    "get_hftbacktest_and_ingest_probe_plans",
     "get_kalman_filter_probe_plans",
     "get_mcmc_foundational_probe_plans",
     "get_molecular_docking_probe_plans",
