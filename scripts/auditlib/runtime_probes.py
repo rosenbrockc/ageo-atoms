@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import importlib.util
+import os
 import sys
 import types
 from dataclasses import dataclass
@@ -16,7 +17,13 @@ import scipy.spatial as spatial
 
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
+from .runtime_probe_plans import get_foundation_probe_plans, get_pronto_probe_plans
 from .semantics import utc_now, write_evidence_section
+
+_PROBE_JULIA_PROJECT = "/tmp/ageoa_juliapkg_project"
+_PROBE_JULIA_DEPOT = "/tmp/ageoa_julia_depot"
+os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", _PROBE_JULIA_PROJECT)
+os.environ.setdefault("JULIA_DEPOT_PATH", _PROBE_JULIA_DEPOT)
 
 
 @dataclass(frozen=True)
@@ -69,6 +76,32 @@ def install_package_stub(package_name: str, root: Path = ROOT) -> None:
     sys.modules[package_name] = stub
 
 
+def _load_alias_module(alias_name: str, alias_file: Path) -> Any:
+    """Load a temporary top-level alias module from a sibling artefact file."""
+    spec = importlib.util.spec_from_file_location(alias_name, alias_file)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not create an import spec for alias module {alias_name}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[alias_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def _install_legacy_sibling_aliases(module_file: Path) -> list[str]:
+    """Install temporary aliases for older sibling artefact naming patterns."""
+    installed: list[str] = []
+    legacy_candidates = {
+        "state_models": module_file.with_name(f"{module_file.stem}_state.py"),
+        "witnesses": module_file.with_name(f"{module_file.stem}_witnesses.py"),
+    }
+    for alias_name, alias_file in legacy_candidates.items():
+        if alias_name in sys.modules or not alias_file.exists():
+            continue
+        _load_alias_module(alias_name, alias_file)
+        installed.append(alias_name)
+    return installed
+
+
 def load_module_from_file(module_import_path: str, module_file: Path) -> Any:
     """Load a module directly from its source file while preserving package-relative imports."""
     package_name = module_import_path.rsplit(".", 1)[0]
@@ -78,7 +111,22 @@ def load_module_from_file(module_import_path: str, module_file: Path) -> Any:
         raise ImportError(f"Could not create an import spec for {module_import_path}")
     module = importlib.util.module_from_spec(spec)
     sys.modules[module_import_path] = module
-    spec.loader.exec_module(module)
+    module_dir = str(module_file.parent)
+    added_sys_path = False
+    if module_dir not in sys.path:
+        sys.path.insert(0, module_dir)
+        added_sys_path = True
+    alias_names = _install_legacy_sibling_aliases(module_file)
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        for alias_name in alias_names:
+            sys.modules.pop(alias_name, None)
+        if added_sys_path:
+            try:
+                sys.path.remove(module_dir)
+            except ValueError:
+                pass
     return module
 
 
@@ -1297,177 +1345,6 @@ def _scipy_optimize_v2_plans() -> dict[str, ProbePlan]:
                 lambda func: func(_quadratic, [(0.0,)], (), (), 16, 1, None, {}, {}, "simplicial"),
                 expect_exception=True,
             ),
-        ),
-    }
-
-
-def _skyfield_plans() -> dict[str, ProbePlan]:
-    return {
-        "ageoa.skyfield.calculate_vector_angle": ProbePlan(
-            positive=ProbeCase(
-                "Computes the angle between orthogonal basis vectors",
-                lambda func: func(np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0])),
-                lambda result: np.testing.assert_allclose(result, np.pi / 2.0, atol=1e-12),
-            ),
-            negative=ProbeCase(
-                "reject missing second vector",
-                lambda func: func(np.array([1.0, 0.0, 0.0]), None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.skyfield.compute_spherical_coordinate_rates": ProbePlan(
-            positive=ProbeCase(
-                "Converts a Cartesian state into spherical coordinates and rates",
-                lambda func: func(np.array([1.0, 2.0, 3.0]), np.array([0.1, 0.2, 0.3])),
-                lambda result: (
-                    isinstance(result, tuple)
-                    and len(result) == 6
-                    and np.testing.assert_allclose(
-                        np.asarray(result, dtype=float),
-                        np.array(
-                            [
-                                3.7416573867739413,
-                                0.9302740141154721,
-                                1.1071487177940904,
-                                0.3741657386773941,
-                                0.0,
-                                0.0,
-                            ]
-                        ),
-                        atol=1e-12,
-                    )
-                ),
-            ),
-            negative=ProbeCase(
-                "reject missing velocity vector",
-                lambda func: func(np.array([1.0, 2.0, 3.0]), None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _mint_attention_plans() -> dict[str, ProbePlan]:
-    def _assert_numpy_attention_result(result: Any) -> None:
-        arr = np.asarray(result, dtype=float)
-        assert arr.shape == (2, 2)
-        assert np.all(np.isfinite(arr))
-
-    def _assert_torch_attention_result(result: Any) -> None:
-        import torch
-
-        assert isinstance(result, tuple)
-        assert len(result) == 2
-        output, attn = result
-        assert isinstance(output, torch.Tensor)
-        assert isinstance(attn, torch.Tensor)
-        assert tuple(output.shape) == (2, 2)
-        assert tuple(attn.shape) == (2, 2)
-        row_sums = attn.sum(dim=-1)
-        assert torch.allclose(row_sums, torch.ones_like(row_sums), atol=1e-5)
-
-    return {
-        "ageoa.mint.axial_attention.rowselfattention": ProbePlan(
-            positive=ProbeCase(
-                "NumPy row self-attention returns a finite same-shape output",
-                lambda func: func(
-                    np.array([[1.0, 0.0], [0.0, 1.0]], dtype=float),
-                    np.ones((2, 2), dtype=int),
-                    np.zeros(2, dtype=int),
-                ),
-                _assert_numpy_attention_result,
-            ),
-            negative=ProbeCase(
-                "reject a missing attention tensor",
-                lambda func: func(None, np.ones((2, 2), dtype=int), np.zeros(2, dtype=int)),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.mint.axial_attention.row_self_attention": ProbePlan(
-            positive=ProbeCase(
-                "Torch row self-attention returns output and attention matrices with normalized rows",
-                lambda func: func(
-                    __import__("torch").tensor([[1.0, 0.0], [0.0, 1.0]], dtype=__import__("torch").float32),
-                    __import__("torch").ones((2, 2), dtype=__import__("torch").bool),
-                    __import__("torch").zeros(2, dtype=__import__("torch").bool),
-                ),
-                _assert_torch_attention_result,
-            ),
-            negative=ProbeCase(
-                "reject a missing attention tensor",
-                lambda func: func(None, __import__("torch").ones((2, 2), dtype=__import__("torch").bool), __import__("torch").zeros(2, dtype=__import__("torch").bool)),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _e2e_ppg_reconstruction_plans() -> dict[str, ProbePlan]:
-    def _assert_windowed_reconstruction(result: Any) -> None:
-        arr = np.asarray(result, dtype=float)
-        assert arr.shape == (400,)
-        assert np.all(np.isfinite(arr))
-
-    return {
-        "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction": ProbePlan(
-            positive=ProbeCase(
-                "reconstruction returns a same-length signal for an all-clean windowed input",
-                lambda func: func(
-                    np.sin(np.linspace(0.0, 8.0 * np.pi, 400, dtype=float)),
-                    [[i for i in range(400)]],
-                    [],
-                    20,
-                    False,
-                ),
-                _assert_windowed_reconstruction,
-            ),
-            negative=ProbeCase(
-                "reject a missing signal array",
-                lambda func: func(None, [[0, 1, 2]], [], 20, False),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _datadriven_plans() -> dict[str, ProbePlan]:
-    def _assert_equation_result(result: Any) -> None:
-        assert type(result).__name__ == "EquationResult"
-        assert isinstance(result.equations, list)
-        assert len(result.equations) >= 1
-        assert all(isinstance(eq, str) and eq.strip() for eq in result.equations)
-        assert isinstance(result.parameter_map, dict)
-
-    return {
-        "ageoa.datadriven.discover_equations": ProbePlan(
-            positive=ProbeCase(
-                "Discovers at least one sparse equation from a one-feature linear system",
-                lambda func: func(
-                    np.array([[0.0, 1.0, 2.0, 3.0]], dtype=float),
-                    np.array([[0.0, 2.0, 4.0, 6.0]], dtype=float),
-                    ["x"],
-                    max_degree=1,
-                    lambda_val=0.1,
-                ),
-                _assert_equation_result,
-            ),
-            negative=ProbeCase(
-                "reject invalid Julia identifiers in variable_names",
-                lambda func: func(
-                    np.array([[0.0, 1.0, 2.0, 3.0]], dtype=float),
-                    np.array([[0.0, 2.0, 4.0, 6.0]], dtype=float),
-                    ["1bad"],
-                    max_degree=1,
-                    lambda_val=0.1,
-                ),
-                expect_exception=True,
-            ),
-            parity_used=True,
         ),
     }
 
@@ -4454,181 +4331,6 @@ def _biosppy_online_filter_plans() -> dict[str, ProbePlan]:
     }
 
 
-def _pronto_blip_filter_plans() -> dict[str, ProbePlan]:
-    signal = np.zeros(2000, dtype=float)
-    peak_positions = np.array([300, 700, 1100, 1500, 1900], dtype=int)
-    signal[peak_positions] = np.array([1.0, 1.2, 0.9, 1.1, 1.0], dtype=float)
-    rpeaks = np.array([300, 700, 1100, 1500], dtype=int)
-
-    return {
-        "ageoa.pronto.blip_filter.bandpass_filter": ProbePlan(
-            positive=ProbeCase(
-                "Pronto blip-filter bandpass preserves waveform length on a synthetic ECG-like trace",
-                lambda func: func(signal),
-                _assert_shape(signal.shape),
-            ),
-            negative=ProbeCase(
-                "Pronto blip-filter bandpass rejects a missing signal",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.blip_filter.r_peak_detection": ProbePlan(
-            positive=ProbeCase(
-                "Pronto blip-filter peak detection returns monotonic peak indices",
-                lambda func: func(signal),
-                _assert_monotonic_index_array(max_value=len(signal) - 1),
-            ),
-            negative=ProbeCase(
-                "Pronto blip-filter peak detection rejects a missing filtered signal",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.blip_filter.peak_correction": ProbePlan(
-            positive=ProbeCase(
-                "Pronto blip-filter peak correction returns monotonic corrected peaks",
-                lambda func: func(signal, rpeaks),
-                _assert_monotonic_index_array(max_value=len(signal) - 1),
-            ),
-            negative=ProbeCase(
-                "Pronto blip-filter peak correction rejects a missing filtered signal",
-                lambda func: func(None, rpeaks),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.blip_filter.template_extraction": ProbePlan(
-            positive=ProbeCase(
-                "Pronto blip-filter template extraction returns templates and aligned peaks",
-                lambda func: func(signal, rpeaks),
-                _assert_pair_of_arrays(),
-            ),
-            negative=ProbeCase(
-                "Pronto blip-filter template extraction rejects a missing filtered signal",
-                lambda func: func(None, rpeaks),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.blip_filter.heart_rate_computation": ProbePlan(
-            positive=ProbeCase(
-                "Pronto blip-filter heart-rate computation returns aligned index and bpm arrays",
-                lambda func: func(rpeaks),
-                _assert_pair_of_arrays(),
-            ),
-            negative=ProbeCase(
-                "Pronto blip-filter heart-rate computation rejects a missing peak series",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _pronto_backlash_filter_plans() -> dict[str, ProbePlan]:
-    state = np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
-    return {
-        "ageoa.pronto.backlash_filter.initializebacklashfilterstate": ProbePlan(
-            positive=ProbeCase(
-                "initialize a local backlash filter state snapshot",
-                lambda fn: fn(),
-                _assert_array(state),
-            ),
-            negative=ProbeCase(
-                "reject unexpected arguments for the zero-parameter initializer",
-                lambda fn: fn(unexpected=True),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.backlash_filter.updatealphaparameter": ProbePlan(
-            positive=ProbeCase(
-                "update only the alpha slot of the local backlash filter state",
-                lambda fn: fn(state.copy(), 0.25),
-                _assert_array(np.array([0.25, 1.0, 0.0, 0.0], dtype=np.float64)),
-            ),
-            negative=ProbeCase(
-                "reject non-array state input for alpha updates",
-                lambda fn: fn({"state": "bad"}, 0.25),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.backlash_filter.updatecrossingtimemaximum": ProbePlan(
-            positive=ProbeCase(
-                "update only the crossing-time slot of the local backlash filter state",
-                lambda fn: fn(state.copy(), 2.5),
-                _assert_array(np.array([0.5, 2.5, 0.0, 0.0], dtype=np.float64)),
-            ),
-            negative=ProbeCase(
-                "reject non-finite crossing-time updates",
-                lambda fn: fn(state.copy(), np.nan),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _sklearn_image_plans() -> dict[str, ProbePlan]:
-    image = np.arange(16, dtype=float).reshape(4, 4)
-    volume = np.arange(8, dtype=float).reshape(2, 2, 2)
-    return {
-        "ageoa.sklearn.images.extract_patches_2d": ProbePlan(
-            positive=ProbeCase(
-                "extract 2x2 patches from a 4x4 image",
-                lambda func: func(image, (2, 2)),
-                _assert_shape((9, 2, 2)),
-            ),
-            negative=ProbeCase(
-                "reject patch sizes larger than the image",
-                lambda func: func(image, (5, 5)),
-                expect_exception=True,
-            ),
-        ),
-        "ageoa.sklearn.images.reconstruct_from_patches_2d": ProbePlan(
-            positive=ProbeCase(
-                "reconstruct a 4x4 image from extracted 2x2 patches",
-                lambda func: func(np.arange(36, dtype=float).reshape(9, 2, 2), (4, 4)),
-                _assert_shape((4, 4)),
-            ),
-            negative=ProbeCase(
-                "reject incompatible patch layouts",
-                lambda func: func(np.arange(16, dtype=float).reshape(4, 2, 2), (4, 4)),
-                expect_exception=True,
-            ),
-        ),
-        "ageoa.sklearn.images.img_to_graph": ProbePlan(
-            positive=ProbeCase(
-                "build an image graph for a 2x2x2 volume",
-                lambda func: func(volume),
-                _assert_sparse_shape((8, 8)),
-            ),
-            negative=ProbeCase(
-                "reject a scalar input instead of an image volume",
-                lambda func: func(np.array(1.0)),
-                expect_exception=True,
-            ),
-        ),
-        "ageoa.sklearn.images.grid_to_graph": ProbePlan(
-            positive=ProbeCase(
-                "build a voxel grid graph for a 2x2x2 lattice",
-                lambda func: func(2, 2, 2),
-                _assert_sparse_shape((8, 8)),
-            ),
-            negative=ProbeCase(
-                "reject a zero-sized grid dimension",
-                lambda func: func(0, 2, 2),
-                expect_exception=True,
-            ),
-        ),
-    }
-
-
 def _kalman_filter_plans() -> dict[str, ProbePlan]:
     def _assert_filter_rs_state(result: Any) -> None:
         assert isinstance(result, dict)
@@ -4833,153 +4535,6 @@ def _kalman_filter_plans() -> dict[str, ProbePlan]:
             negative=ProbeCase(
                 "reject a missing state model",
                 lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _pronto_state_readout_plans() -> dict[str, ProbePlan]:
-    yaw_state = {
-        "is_robot_standing": True,
-        "joint_angles_init": np.array([0.1, -0.2, 0.3], dtype=float),
-    }
-
-    def _assert_none(result: Any) -> None:
-        assert result is None
-
-    return {
-        "ageoa.pronto.foot_contact.foot_sensing_state_update": ProbePlan(
-            positive=ProbeCase(
-                "merge a foot sensing command into an immutable state snapshot",
-                lambda func: func({"left": False, "right": True}, {"left": True}),
-                _assert_value({"left": True, "right": True}),
-            ),
-            negative=ProbeCase(
-                "reject a missing sensing command",
-                lambda func: func({"left": False}, None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform": ProbePlan(
-            positive=ProbeCase(
-                "apply inverse Schmitt trigger hysteresis to a simple analog trace",
-                lambda func: func(np.array([0.2, 0.4, 0.8, 0.2], dtype=float)),
-                _assert_array(np.array([1.0, 1.0, 0.0, 1.0], dtype=float)),
-            ),
-            negative=ProbeCase(
-                "reject a missing input signal",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage": ProbePlan(
-            positive=ProbeCase(
-                "identity torque-adjustment stage returns no output",
-                lambda func: func(),
-                _assert_none,
-            ),
-            negative=ProbeCase(
-                "identity torque-adjustment stage rejects unexpected positional arguments",
-                lambda func: func(1),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.yaw_lock.readrobotstandingstatus": ProbePlan(
-            positive=ProbeCase(
-                "read the robot-standing status flag from immutable yaw-lock state",
-                lambda func: func(yaw_state),
-                _assert_value(True),
-            ),
-            negative=ProbeCase(
-                "reject a missing yaw-lock state",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.yaw_lock.readinitialjointangles": ProbePlan(
-            positive=ProbeCase(
-                "read the stored initial joint-angle vector from immutable yaw-lock state",
-                lambda func: func(yaw_state),
-                _assert_array(np.array([0.1, -0.2, 0.3], dtype=float)),
-            ),
-            negative=ProbeCase(
-                "reject a missing yaw-lock state",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.state_estimator.update_state_estimate": ProbePlan(
-            positive=ProbeCase(
-                "apply one deterministic EKF-style state update with identity observation model",
-                lambda func: func(
-                    np.array([0.0, 0.0], dtype=float),
-                    np.eye(2, dtype=float),
-                    np.array([1.0, -1.0], dtype=float),
-                    123456,
-                ),
-                _assert_array(np.array([0.9900990099009901, -0.9900990099009901], dtype=float)),
-            ),
-            negative=ProbeCase(
-                "reject a missing prior state",
-                lambda func: func(None, np.eye(2, dtype=float), np.array([1.0, -1.0], dtype=float), 123456),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-    }
-
-
-def _pronto_dynamic_stance_d12_plans() -> dict[str, ProbePlan]:
-    def _assert_stance_state(result: Any) -> None:
-        assert isinstance(result, dict)
-        assert set(result) == {"stance", "force_threshold", "n_legs", "grf_history"}
-        np.testing.assert_allclose(np.asarray(result["stance"], dtype=float), np.zeros(4, dtype=float))
-        np.testing.assert_allclose(np.asarray(result["grf_history"], dtype=float), np.zeros(4, dtype=float))
-
-    def _assert_stance_update(result: Any) -> None:
-        assert isinstance(result, tuple)
-        assert len(result) == 2
-        state_out, stance = result
-        assert isinstance(state_out, dict)
-        stance_arr = np.asarray(stance, dtype=float)
-        np.testing.assert_allclose(stance_arr, np.array([0.0, 1.0, 1.0, 0.0], dtype=float))
-        np.testing.assert_allclose(np.asarray(state_out["stance"], dtype=float), stance_arr)
-        np.testing.assert_allclose(np.asarray(state_out["grf_history"], dtype=float), np.array([30.0, 55.0, 80.0, 10.0], dtype=float))
-
-    def _stance_state() -> dict[str, np.ndarray]:
-        module = safe_import_module("ageoa.pronto.dynamic_stance_estimator_d12.atoms")
-        return module.stancestateinit({"n_legs": 4, "force_threshold": 50.0})
-
-    return {
-        "ageoa.pronto.dynamic_stance_estimator_d12.stancestateinit": ProbePlan(
-            positive=ProbeCase(
-                "initialize deterministic dynamic stance estimator state",
-                lambda func: func({"n_legs": 4, "force_threshold": 50.0}),
-                _assert_stance_state,
-            ),
-            negative=ProbeCase(
-                "reject a missing config mapping",
-                lambda func: func(None),
-                expect_exception=True,
-            ),
-            parity_used=True,
-        ),
-        "ageoa.pronto.dynamic_stance_estimator_d12.stanceestimation": ProbePlan(
-            positive=ProbeCase(
-                "estimate stance from a thresholded ground-reaction-force observation",
-                lambda func: func(_stance_state(), np.array([30.0, 55.0, 80.0, 10.0], dtype=float)),
-                _assert_stance_update,
-            ),
-            negative=ProbeCase(
-                "reject a missing observation vector",
-                lambda func: func(_stance_state(), None),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -5474,7 +5029,7 @@ PROBE_PLANS.update(_scipy_integrate_plans())
 PROBE_PLANS.update(_numpy_fft_v2_plans())
 PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
-PROBE_PLANS.update(_skyfield_plans())
+PROBE_PLANS.update(get_foundation_probe_plans())
 PROBE_PLANS.update(_advancedvi_and_iqe_plans())
 PROBE_PLANS.update(_quant_engine_plans())
 PROBE_PLANS.update(_particle_filter_and_pasqal_plans())
@@ -5488,15 +5043,8 @@ PROBE_PLANS.update(_molecular_docking_quantum_solver_plans())
 PROBE_PLANS.update(_biosppy_detector_plans())
 PROBE_PLANS.update(_biosppy_sqi_plans())
 PROBE_PLANS.update(_biosppy_online_filter_plans())
-PROBE_PLANS.update(_pronto_blip_filter_plans())
-PROBE_PLANS.update(_pronto_backlash_filter_plans())
-PROBE_PLANS.update(_pronto_state_readout_plans())
-PROBE_PLANS.update(_pronto_dynamic_stance_d12_plans())
+PROBE_PLANS.update(get_pronto_probe_plans())
 PROBE_PLANS.update(_conjugate_prior_and_small_mcmc_plans())
-PROBE_PLANS.update(_mint_attention_plans())
-PROBE_PLANS.update(_e2e_ppg_reconstruction_plans())
-PROBE_PLANS.update(_datadriven_plans())
-PROBE_PLANS.update(_sklearn_image_plans())
 
 
 def build_runtime_probe(record: dict[str, Any]) -> dict[str, Any]:
