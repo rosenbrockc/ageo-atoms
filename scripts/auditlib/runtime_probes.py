@@ -27,6 +27,7 @@ from .runtime_probe_plans import (
     get_molecular_docking_probe_plans,
     get_particle_filter_and_pasqal_probe_plans,
     get_pronto_probe_plans,
+    get_quant_engine_probe_plans,
     get_quantfin_probe_plans,
     get_rust_robotics_probe_plans,
 )
@@ -3222,7 +3223,7 @@ PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(get_foundation_probe_plans())
 PROBE_PLANS.update(get_advancedvi_and_iqe_probe_plans())
-PROBE_PLANS.update(_quant_engine_plans())
+PROBE_PLANS.update(get_quant_engine_probe_plans())
 PROBE_PLANS.update(get_particle_filter_and_pasqal_probe_plans())
 PROBE_PLANS.update(get_rust_robotics_probe_plans())
 PROBE_PLANS.update(get_quantfin_probe_plans())
