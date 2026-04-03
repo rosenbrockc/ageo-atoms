@@ -35,7 +35,7 @@
       "inputs": [
         {
           "name": "risk_aversion",
-          "type_desc": "float \u2014 non-negative scalar (\u03bb) penalizing variance relative to expected execution cost",
+          "type_desc": "float",
           "constraints": "\u2265 0",
           "required": true,
           "default_value_repr": ""
@@ -44,7 +44,7 @@
       "outputs": [
         {
           "name": "risk_aversion",
-          "type_desc": "float \u2014 validated scalar stored as immutable model parameter",
+          "type_desc": "float",
           "constraints": "\u2265 0",
           "required": true,
           "default_value_repr": ""
@@ -53,7 +53,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(risk_aversion: float \u2014 non-negative scalar (\u03bb) penalizing variance relative to expected execution cost) -> float \u2014 validated scalar stored as immutable model parameter",
+      "type_signature": "(risk_aversion: float) -> float",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -74,21 +74,21 @@
       "inputs": [
         {
           "name": "risk_aversion",
-          "type_desc": "float \u2014 risk-aversion coefficient \u03bb flowing in from RiskAversionInit",
+          "type_desc": "float",
           "constraints": "\u2265 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "total_shares",
-          "type_desc": "float \u2014 initial inventory X to be fully liquidated by the end of the horizon",
+          "type_desc": "float",
           "constraints": "> 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "days",
-          "type_desc": "int \u2014 number of discrete trading periods T over which liquidation occurs",
+          "type_desc": "int",
           "constraints": "\u2265 1",
           "required": true,
           "default_value_repr": ""
@@ -97,7 +97,7 @@
       "outputs": [
         {
           "name": "trajectory",
-          "type_desc": "array[float] of length (days+1) \u2014 optimal share holdings x_0, x_1, \u2026, x_T where x_0 = total_shares and x_T = 0",
+          "type_desc": "list[float]",
           "constraints": "monotonically non-increasing, x_T = 0",
           "required": true,
           "default_value_repr": ""
@@ -106,7 +106,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(risk_aversion: float \u2014 risk-aversion coefficient \u03bb flowing in from RiskAversionInit, total_shares: float \u2014 initial inventory X to be fully liquidated by the end of the horizon, days: int \u2014 number of discrete trading periods T over which liquidation occurs) -> array[float] of length (days+1) \u2014 optimal share holdings x_0, x_1, \u2026, x_T where x_0 = total_shares and x_T = 0",
+      "type_signature": "(risk_aversion: float, total_shares: float, days: int) -> list[float]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

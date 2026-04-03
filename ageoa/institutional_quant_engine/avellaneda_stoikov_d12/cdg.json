@@ -35,14 +35,14 @@
       "inputs": [
         {
           "name": "s0",
-          "type_desc": "float — initial mid-price of the asset",
+          "type_desc": "float",
           "constraints": "s0 > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "inventory",
-          "type_desc": "float — starting inventory position (signed)",
+          "type_desc": "float",
           "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
@@ -51,35 +51,35 @@
       "outputs": [
         {
           "name": "gamma",
-          "type_desc": "float — absolute risk-aversion coefficient",
+          "type_desc": "float",
           "constraints": "gamma > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
-          "type_desc": "float — market-depth / order-arrival rate parameter",
+          "type_desc": "float",
           "constraints": "k > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "q",
-          "type_desc": "float — current inventory position",
+          "type_desc": "float",
           "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "s",
-          "type_desc": "float — current mid-price",
+          "type_desc": "float",
           "constraints": "s > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sigma",
-          "type_desc": "float — asset price volatility",
+          "type_desc": "float",
           "constraints": "sigma > 0",
           "required": true,
           "default_value_repr": ""
@@ -88,7 +88,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(s0: float — initial mid-price of the asset, inventory: float — starting inventory position (signed)) -> tuple[float — absolute risk-aversion coefficient, float — market-depth / order-arrival rate parameter, float — current inventory position, float — current mid-price, float — asset price volatility]",
+      "type_signature": "(s0: float, inventory: float) -> tuple[float, float, float, float, float]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -109,35 +109,35 @@
       "inputs": [
         {
           "name": "gamma",
-          "type_desc": "float — absolute risk-aversion coefficient",
+          "type_desc": "float",
           "constraints": "gamma > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "k",
-          "type_desc": "float — market-depth / order-arrival rate parameter",
+          "type_desc": "float",
           "constraints": "k > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "q",
-          "type_desc": "float — current inventory position",
+          "type_desc": "float",
           "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "s",
-          "type_desc": "float — current mid-price",
+          "type_desc": "float",
           "constraints": "s > 0",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "sigma",
-          "type_desc": "float — asset price volatility",
+          "type_desc": "float",
           "constraints": "sigma > 0",
           "required": true,
           "default_value_repr": ""
@@ -146,28 +146,28 @@
       "outputs": [
         {
           "name": "bid_price",
-          "type_desc": "float — optimal bid quote",
+          "type_desc": "float",
           "constraints": "bid_price < s",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "ask_price",
-          "type_desc": "float — optimal ask quote",
+          "type_desc": "float",
           "constraints": "ask_price > s",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "reservation_price",
-          "type_desc": "float — inventory-adjusted mid-price",
+          "type_desc": "float",
           "constraints": "finite numeric value",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "optimal_spread",
-          "type_desc": "float — total bid-ask spread",
+          "type_desc": "float",
           "constraints": "optimal_spread > 0",
           "required": true,
           "default_value_repr": ""
@@ -176,7 +176,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(gamma: float — absolute risk-aversion coefficient, k: float — market-depth / order-arrival rate parameter, q: float — current inventory position, s: float — current mid-price, sigma: float — asset price volatility) -> tuple[float — optimal bid quote, float — optimal ask quote, float — inventory-adjusted mid-price, float — total bid-ask spread]",
+      "type_signature": "(gamma: float, k: float, q: float, s: float, sigma: float) -> tuple[float, float, float, float]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T19:17:52+00:00",
+    "generated_at": "2026-04-03T19:39:30+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 408,
-      "medium": 97
+      "low": 420,
+      "medium": 85
     },
     "stateful_count": 69,
     "stochastic_count": 27,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 275,
+    "parity_coverage_count": 279,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 69,
-      "pass": 436
+      "partial": 60,
+      "pass": 445
     },
     "parity_coverage_level_counts": {
-      "none": 133,
+      "none": 129,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 228,
+      "parity_or_usage_equivalent": 232,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -106,33 +106,33 @@
       "pronto": 15,
       "pulsar": 4,
       "pulsar_folding": 1,
-      "quantfin": 29,
+      "quantfin": 25,
       "scipy": 23,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 243,
+      "not_applicable": 239,
       "partial": 7,
-      "pass": 253
+      "pass": 257
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 253,
-      "unknown": 243
+      "pass": 257,
+      "unknown": 239
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 438,
+      "review_later": 447,
       "review_now": 11,
-      "review_soon": 56
+      "review_soon": 47
     },
     "high_risk_count": 0,
-    "medium_risk_count": 97,
-    "low_risk_count": 408
+    "medium_risk_count": 85,
+    "low_risk_count": 420
   },
   "atoms": [
     {
@@ -914,8 +914,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1124,8 +1124,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1334,8 +1334,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1544,8 +1544,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1754,8 +1754,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -1957,8 +1957,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2168,8 +2168,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2379,8 +2379,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2590,8 +2590,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2791,8 +2791,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -2992,8 +2992,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3193,8 +3193,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3394,8 +3394,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3602,8 +3602,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -3838,8 +3838,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -4066,8 +4066,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -18541,7 +18541,7 @@
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "E2E-PPG",
         "module": "kazemi_peak_detection",
@@ -18560,22 +18560,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 90,
+      "acceptability_score": 94,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "required_actions": [
-        "replace placeholder docstring text"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "signal",
         "sampling_freq",
@@ -18629,7 +18625,7 @@
       "witness_binding": "register_atom(witness_kazemi_peak_detection)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Detect peaks in a PPG signal using a deterministic local-maxima proxy.",
+      "docstring_summary": "Detect photoplethysmography peaks with a deterministic local-maxima proxy.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -18658,16 +18654,13 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 33,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
@@ -18701,7 +18694,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -18710,7 +18703,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -18734,26 +18727,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.e2e_ppg.kazemi_peak_detection@ageoa/e2e_ppg/atoms.py:47",
-          "atom_key": "e2e_ppg:kazemi_peak_detection",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/atoms.py",
-          "wrapper_symbol": "kazemi_peak_detection",
-          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "kazemi_peak_detection: docstring missing 'Args:' section",
-          "path": "ageoa/e2e_ppg/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-DOC"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -18800,17 +18775,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:74",
+      "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:85",
       "atom_name": "ageoa.e2e_ppg.ppg_reconstruction",
       "atom_key": "e2e_ppg:ppg_reconstruction",
       "module_import_path": "ageoa.e2e_ppg.atoms",
       "module_path": "ageoa/e2e_ppg/atoms.py",
       "wrapper_symbol": "ppg_reconstruction",
-      "wrapper_line": 74,
+      "wrapper_line": 85,
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "E2E-PPG",
         "module": "ppg_reconstruction",
@@ -18829,22 +18804,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 90,
+      "acceptability_score": 94,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "required_actions": [
-        "replace placeholder docstring text"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "sig",
         "clean_indices",
@@ -18897,7 +18868,7 @@
       "witness_binding": "register_atom(witness_ppg_reconstruction)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Reconstruct noisy PPG segments with interpolation over noisy regions.",
+      "docstring_summary": "Reconstruct noisy PPG spans by interpolating over marked noisy regions.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -18926,16 +18897,13 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 33,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
@@ -18969,7 +18937,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -18978,7 +18946,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -19002,26 +18970,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.e2e_ppg.ppg_reconstruction@ageoa/e2e_ppg/atoms.py:74",
-          "atom_key": "e2e_ppg:ppg_reconstruction",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/atoms.py",
-          "wrapper_symbol": "ppg_reconstruction",
-          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "ppg_reconstruction: docstring missing 'Args:' section",
-          "path": "ageoa/e2e_ppg/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-DOC"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -19039,7 +18989,7 @@
           "source_refs": [
             {
               "path": "ageoa/e2e_ppg/atoms.py",
-              "line": 74
+              "line": 85
             }
           ]
         }
@@ -19068,17 +19018,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.e2e_ppg.ppg_sqa@ageoa/e2e_ppg/atoms.py:111",
+      "atom_id": "ageoa.e2e_ppg.ppg_sqa@ageoa/e2e_ppg/atoms.py:133",
       "atom_name": "ageoa.e2e_ppg.ppg_sqa",
       "atom_key": "e2e_ppg:ppg_sqa",
       "module_import_path": "ageoa.e2e_ppg.atoms",
       "module_path": "ageoa/e2e_ppg/atoms.py",
       "wrapper_symbol": "ppg_sqa",
-      "wrapper_line": 111,
+      "wrapper_line": 133,
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "E2E-PPG",
         "module": "ppg_sqa",
@@ -19097,22 +19047,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 90,
+      "acceptability_score": 94,
       "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "required_actions": [
-        "replace placeholder docstring text"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "sig",
         "sampling_rate",
@@ -19149,7 +19095,7 @@
       "witness_binding": "register_atom(witness_ppg_sqa)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Segment a PPG signal into simple clean and noisy spans.",
+      "docstring_summary": "Classify a PPG trace into clean and noisy sample groups.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -19178,16 +19124,13 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 33,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 0,
@@ -19221,7 +19164,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -19230,7 +19173,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -19254,26 +19197,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.e2e_ppg.ppg_sqa@ageoa/e2e_ppg/atoms.py:111",
-          "atom_key": "e2e_ppg:ppg_sqa",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/atoms.py",
-          "wrapper_symbol": "ppg_sqa",
-          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "ppg_sqa: docstring missing 'Args:' section",
-          "path": "ageoa/e2e_ppg/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-DOC"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -19291,7 +19216,7 @@
           "source_refs": [
             {
               "path": "ageoa/e2e_ppg/atoms.py",
-              "line": 111
+              "line": 133
             }
           ]
         }
@@ -22813,8 +22738,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "c1",
@@ -23261,7 +23186,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "execution_hft.17_almgren_chriss_class",
@@ -23280,15 +23205,15 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 83,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
         "STRUCT_CDG_TYPE_HEALTH_LOW",
@@ -23342,21 +23267,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -23391,7 +23311,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -23400,7 +23320,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -23424,42 +23344,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_v2.riskaversioninit@ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py:16",
-          "atom_key": "institutional_quant_engine/almgren_chriss_v2:riskaversioninit",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "wrapper_symbol": "riskaversioninit",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.333",
-          "path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_v2.riskaversioninit@ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py:16",
-          "atom_key": "institutional_quant_engine/almgren_chriss_v2:riskaversioninit",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "wrapper_symbol": "riskaversioninit",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -23516,7 +23402,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "execution_hft.17_almgren_chriss_class",
@@ -23535,7 +23421,7 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
@@ -23616,21 +23502,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -23665,7 +23546,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -23674,7 +23555,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -23698,42 +23579,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_v2.optimalexecutiontrajectory@ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py:31",
-          "atom_key": "institutional_quant_engine/almgren_chriss_v2:optimalexecutiontrajectory",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "wrapper_symbol": "optimalexecutiontrajectory",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.333",
-          "path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.institutional_quant_engine.almgren_chriss_v2.optimalexecutiontrajectory@ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py:31",
-          "atom_key": "institutional_quant_engine/almgren_chriss_v2:optimalexecutiontrajectory",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "wrapper_symbol": "optimalexecutiontrajectory",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 4 non-normalizable type descriptors",
-          "path": "ageoa/institutional_quant_engine/almgren_chriss_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -24038,8 +23885,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "data"
@@ -24254,8 +24101,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "data"
@@ -24470,8 +24317,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "data"
@@ -25090,7 +24937,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "execution_hft.23_market_making_avellaneda",
@@ -25109,15 +24956,15 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 83,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
         "STRUCT_CDG_TYPE_HEALTH_LOW",
@@ -25179,21 +25026,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -25228,7 +25070,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -25237,7 +25079,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -25261,42 +25103,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.marketmakerstateinit@ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py:16",
-          "atom_key": "institutional_quant_engine/avellaneda_stoikov_d12:marketmakerstateinit",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "wrapper_symbol": "marketmakerstateinit",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.062",
-          "path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.marketmakerstateinit@ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py:16",
-          "atom_key": "institutional_quant_engine/avellaneda_stoikov_d12:marketmakerstateinit",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "wrapper_symbol": "marketmakerstateinit",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 15 non-normalizable type descriptors",
-          "path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -25353,7 +25161,7 @@
       "domain_family": "institutional_quant_engine",
       "module_family": "institutional_quant_engine",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Institutional-Quant-Engine",
         "module": "execution_hft.23_market_making_avellaneda",
@@ -25372,7 +25180,7 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
@@ -25469,21 +25277,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 39,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -25518,7 +25321,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -25527,7 +25330,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -25551,42 +25354,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.optimalquotecalculation@ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py:43",
-          "atom_key": "institutional_quant_engine/avellaneda_stoikov_d12:optimalquotecalculation",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "wrapper_symbol": "optimalquotecalculation",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.062",
-          "path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.institutional_quant_engine.avellaneda_stoikov_d12.optimalquotecalculation@ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py:43",
-          "atom_key": "institutional_quant_engine/avellaneda_stoikov_d12:optimalquotecalculation",
-          "domain_family": "institutional_quant_engine",
-          "module_path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "wrapper_symbol": "optimalquotecalculation",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 15 non-normalizable type descriptors",
-          "path": "ageoa/institutional_quant_engine/avellaneda_stoikov_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -25674,8 +25443,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "returns",
@@ -25903,8 +25672,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "asset_a",
@@ -26132,8 +25901,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "returns",
@@ -29602,8 +29371,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "adjacency",
@@ -29823,8 +29592,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "rates"
@@ -30036,8 +29805,8 @@
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "trade_graph"
@@ -30255,8 +30024,8 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "x",
@@ -40833,8 +40602,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "mat_list",
@@ -42828,8 +42597,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "data"
@@ -43695,8 +43464,8 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "L_features",
@@ -45683,8 +45452,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "problem_context",
@@ -46190,8 +45959,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "adjacency",
@@ -46832,8 +46601,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "square_mat"
@@ -47051,8 +46820,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "weighted_distances"
@@ -47267,8 +47036,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "matrix"
@@ -47486,8 +47255,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "symmetric_matrix"
@@ -47705,8 +47474,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "iteration_state"
@@ -47929,8 +47698,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "current_iteration_state",
@@ -48175,8 +47944,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "terminal_state"
@@ -48609,8 +48378,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "thresholded_matrix"
@@ -48828,8 +48597,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "sparse_matrix"
@@ -49257,8 +49026,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "validated_mat"
@@ -49476,8 +49245,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "validated_mat",
@@ -49708,8 +49477,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "validated_mat",
@@ -50790,8 +50559,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "graph",
@@ -51033,8 +50802,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "initial_register",
@@ -51276,8 +51045,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "measurement_counts",
@@ -54343,8 +54112,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "a",
@@ -63833,8 +63602,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "graph",
@@ -71102,10 +70871,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "map this atom in scripts/atom_manifest.yml",
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "DM",
@@ -71340,10 +71109,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "map this atom in scripts/atom_manifest.yml",
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "data",
@@ -71602,10 +71371,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "map this atom in scripts/atom_manifest.yml",
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "data",
@@ -71840,10 +71609,10 @@
       ],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "map this atom in scripts/atom_manifest.yml",
+        "pin source revision or upstream version in the manifest",
+        "repair the CDG structure and schema"
       ],
       "argument_names": [
         "arr"
@@ -72771,8 +72540,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "bid_px",
@@ -73031,8 +72800,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73259,8 +73028,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -73490,8 +73259,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "trade_qty",
@@ -80508,7 +80277,7 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.ContingentClaim",
@@ -80526,20 +80295,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -80639,12 +80407,11 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -80657,9 +80424,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -80722,19 +80488,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
@@ -80743,14 +80509,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -80792,22 +80561,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
+      "acceptability_score": 62,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [
         "STRUCT_WEAK_TYPES"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -80861,14 +80629,13 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_STRUCTURAL_PARTIAL",
         "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 49,
+      "risk_score": 41,
       "risk_dimensions": {
         "structural_risk": {
           "score": 12,
@@ -80884,9 +80651,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -80967,19 +80733,19 @@
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
@@ -80988,14 +80754,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -81261,7 +81030,7 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.ContingentClaim",
@@ -81279,20 +81048,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -81376,12 +81144,11 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -81394,9 +81161,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -81459,19 +81225,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
@@ -81480,14 +81246,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -81511,7 +81280,7 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.ContingentClaim",
@@ -81529,20 +81298,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -81626,12 +81394,11 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -81644,9 +81411,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -81709,19 +81475,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
@@ -81730,14 +81496,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -85189,8 +84958,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "a_prime",
@@ -85464,8 +85233,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence"
+        "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml"
       ],
       "argument_names": [
         "acc",
@@ -88302,8 +88071,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -91280,8 +91049,8 @@
       "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
+        "map this atom in scripts/atom_manifest.yml",
         "pin source revision or upstream version in the manifest"
       ],
       "argument_names": [
@@ -98033,8 +97802,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "W",
@@ -98261,8 +98030,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "L",
@@ -98493,8 +98262,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "x_hat",
@@ -98718,8 +98487,8 @@
         "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
+        "align wrapper parameters with the upstream required parameters",
+        "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "L",
@@ -99708,17 +99477,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.spatial_v2.voronoitessellation@ageoa/scipy/spatial_v2/atoms.py:18",
+      "atom_id": "ageoa.scipy.spatial_v2.voronoitessellation@ageoa/scipy/spatial_v2/atoms.py:17",
       "atom_name": "ageoa.scipy.spatial_v2.voronoitessellation",
       "atom_key": "scipy/spatial_v2:voronoitessellation",
       "module_import_path": "ageoa.scipy.spatial_v2.atoms",
       "module_path": "ageoa/scipy/spatial_v2/atoms.py",
       "wrapper_symbol": "voronoitessellation",
-      "wrapper_line": 18,
+      "wrapper_line": 17,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "scipy.spatial",
@@ -99737,30 +99506,26 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 79,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "points",
+        "furthest_site",
         "incremental",
         "qhull_options"
       ],
       "required_parameter_names": [
-        "points",
-        "incremental",
-        "qhull_options"
+        "points"
       ],
       "argument_details": [
         {
@@ -99770,21 +99535,27 @@
           "annotation": "np.ndarray"
         },
         {
+          "name": "furthest_site",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "bool"
+        },
+        {
           "name": "incremental",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "qhull_options",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "str"
+          "annotation": "str | None"
         }
       ],
       "return_annotation": "'scipy.spatial.Voronoi'",
-      "decorator_count": 4,
-      "require_count": 2,
+      "decorator_count": 3,
+      "require_count": 1,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_voronoitessellation)",
       "placeholder_witness": false,
@@ -99814,27 +99585,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 39,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -99863,7 +99626,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -99872,7 +99635,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -99896,42 +99659,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.spatial_v2.voronoitessellation@ageoa/scipy/spatial_v2/atoms.py:18",
-          "atom_key": "scipy/spatial_v2:voronoitessellation",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/spatial_v2/atoms.py",
-          "wrapper_symbol": "voronoitessellation",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.250",
-          "path": "ageoa/scipy/spatial_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.spatial_v2.voronoitessellation@ageoa/scipy/spatial_v2/atoms.py:18",
-          "atom_key": "scipy/spatial_v2:voronoitessellation",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/spatial_v2/atoms.py",
-          "wrapper_symbol": "voronoitessellation",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 6 non-normalizable type descriptors",
-          "path": "ageoa/scipy/spatial_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -99949,7 +99678,7 @@
           "source_refs": [
             {
               "path": "ageoa/scipy/spatial_v2/atoms.py",
-              "line": 18
+              "line": 17
             }
           ]
         }
@@ -99978,17 +99707,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.spatial_v2.delaunaytriangulation@ageoa/scipy/spatial_v2/atoms.py:35",
+      "atom_id": "ageoa.scipy.spatial_v2.delaunaytriangulation@ageoa/scipy/spatial_v2/atoms.py:44",
       "atom_name": "ageoa.scipy.spatial_v2.delaunaytriangulation",
       "atom_key": "scipy/spatial_v2:delaunaytriangulation",
       "module_import_path": "ageoa.scipy.spatial_v2.atoms",
       "module_path": "ageoa/scipy/spatial_v2/atoms.py",
       "wrapper_symbol": "delaunaytriangulation",
-      "wrapper_line": 35,
+      "wrapper_line": 44,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "scipy.spatial",
@@ -100007,30 +99736,26 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 79,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
+      "blocking_findings": [],
       "required_actions": [],
       "argument_names": [
         "points",
+        "furthest_site",
         "incremental",
         "qhull_options"
       ],
       "required_parameter_names": [
-        "points",
-        "incremental",
-        "qhull_options"
+        "points"
       ],
       "argument_details": [
         {
@@ -100040,21 +99765,27 @@
           "annotation": "np.ndarray"
         },
         {
+          "name": "furthest_site",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "bool"
+        },
+        {
           "name": "incremental",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "qhull_options",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "str"
+          "annotation": "str | None"
         }
       ],
       "return_annotation": "'scipy.spatial.Delaunay'",
-      "decorator_count": 4,
-      "require_count": 2,
+      "decorator_count": 3,
+      "require_count": 1,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_delaunaytriangulation)",
       "placeholder_witness": false,
@@ -100084,27 +99815,19 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 39,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -100133,7 +99856,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -100142,7 +99865,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -100166,42 +99889,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.spatial_v2.delaunaytriangulation@ageoa/scipy/spatial_v2/atoms.py:35",
-          "atom_key": "scipy/spatial_v2:delaunaytriangulation",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/spatial_v2/atoms.py",
-          "wrapper_symbol": "delaunaytriangulation",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.250",
-          "path": "ageoa/scipy/spatial_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.scipy.spatial_v2.delaunaytriangulation@ageoa/scipy/spatial_v2/atoms.py:35",
-          "atom_key": "scipy/spatial_v2:delaunaytriangulation",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/spatial_v2/atoms.py",
-          "wrapper_symbol": "delaunaytriangulation",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 6 non-normalizable type descriptors",
-          "path": "ageoa/scipy/spatial_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -100219,7 +99908,7 @@
           "source_refs": [
             {
               "path": "ageoa/scipy/spatial_v2/atoms.py",
-              "line": 35
+              "line": 44
             }
           ]
         }
@@ -101669,9 +101358,9 @@
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair input validation so obviously invalid inputs are rejected",
+        "pin source revision or upstream version in the manifest",
         "repair input validation so invalid inputs are rejected",
-        "pin source revision or upstream version in the manifest"
+        "repair input validation so obviously invalid inputs are rejected"
       ],
       "argument_names": [
         "patches",
@@ -101892,9 +101581,9 @@
         "SEMANTIC_REVIEW_REQUIRED"
       ],
       "required_actions": [
-        "repair input validation so obviously invalid inputs are rejected",
+        "pin source revision or upstream version in the manifest",
         "repair input validation so invalid inputs are rejected",
-        "pin source revision or upstream version in the manifest"
+        "repair input validation so obviously invalid inputs are rejected"
       ],
       "argument_names": [
         "img",

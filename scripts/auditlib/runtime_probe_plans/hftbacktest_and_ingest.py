@@ -257,18 +257,12 @@ def get_probe_plans() -> dict[str, Any]:
                 "refined-ingest Voronoi tessellation returns a SciPy Voronoi object for a small 2D point set",
                 lambda func: func(
                     np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
-                    False,
-                    "",
                 ),
                 _assert_type(spatial.Voronoi),
             ),
             negative=ProbeCase(
-                "refined-ingest Voronoi tessellation rejects a missing incremental flag",
-                lambda func: func(
-                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
-                    None,
-                    "",
-                ),
+                "refined-ingest Voronoi tessellation rejects a missing point set",
+                lambda func: func(None),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -278,18 +272,12 @@ def get_probe_plans() -> dict[str, Any]:
                 "refined-ingest Delaunay triangulation returns a SciPy Delaunay object for a small 2D point set",
                 lambda func: func(
                     np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
-                    False,
-                    "",
                 ),
                 _assert_type(spatial.Delaunay),
             ),
             negative=ProbeCase(
-                "refined-ingest Delaunay triangulation rejects a missing qhull options string",
-                lambda func: func(
-                    np.array([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]], dtype=float),
-                    False,
-                    None,
-                ),
+                "refined-ingest Delaunay triangulation rejects a missing point set",
+                lambda func: func(None),
                 expect_exception=True,
             ),
             parity_used=True,

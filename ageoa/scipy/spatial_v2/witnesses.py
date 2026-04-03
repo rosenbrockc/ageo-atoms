@@ -2,7 +2,7 @@ from __future__ import annotations
 from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 
 
-def witness_voronoitessellation(points: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
+def witness_voronoitessellation(points: AbstractArray, furthest_site: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
     """Shape-and-type check for voronoi tessellation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=points.shape,
@@ -10,7 +10,7 @@ def witness_voronoitessellation(points: AbstractArray, incremental: AbstractArra
     
     return result
 
-def witness_delaunaytriangulation(points: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
+def witness_delaunaytriangulation(points: AbstractArray, furthest_site: AbstractArray, incremental: AbstractArray, qhull_options: AbstractArray) -> AbstractArray:
     """Shape-and-type check for delaunay triangulation. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=points.shape,

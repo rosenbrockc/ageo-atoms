@@ -35,30 +35,37 @@
       "inputs": [
         {
           "name": "points",
-          "type_desc": "array-like of shape (N, D) \u2014 N points in D-dimensional space",
+          "type_desc": "ndarray",
           "constraints": "N >= D+1 for non-degenerate tessellation",
           "required": true,
           "default_value_repr": ""
         },
         {
+          "name": "furthest_site",
+          "type_desc": "bool",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "False"
+        },
+        {
           "name": "incremental",
-          "type_desc": "bool \u2014 whether to allow incremental addition of points",
-          "constraints": "optional, default False",
-          "required": true,
-          "default_value_repr": ""
+          "type_desc": "bool",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "False"
         },
         {
           "name": "qhull_options",
-          "type_desc": "str \u2014 additional options to pass to Qhull",
-          "constraints": "optional, default empty string",
-          "required": true,
-          "default_value_repr": ""
+          "type_desc": "str | None",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "None"
         }
       ],
       "outputs": [
         {
           "name": "voronoi_diagram",
-          "type_desc": "scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+          "type_desc": "Voronoi",
           "constraints": "vertices at infinity represented by index -1",
           "required": true,
           "default_value_repr": ""
@@ -67,7 +74,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Voronoi \u2014 object containing vertices, ridge_points, ridge_vertices, regions, point_region",
+      "type_signature": "(points: ndarray, furthest_site: bool = False, incremental: bool = False, qhull_options: str | None = None) -> Voronoi",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -88,30 +95,37 @@
       "inputs": [
         {
           "name": "points",
-          "type_desc": "array-like of shape (N, D) \u2014 N points in D-dimensional space",
+          "type_desc": "ndarray",
           "constraints": "N >= D+1 for non-degenerate triangulation",
           "required": true,
           "default_value_repr": ""
         },
         {
+          "name": "furthest_site",
+          "type_desc": "bool",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "False"
+        },
+        {
           "name": "incremental",
-          "type_desc": "bool \u2014 whether to allow incremental addition of points",
-          "constraints": "optional, default False",
-          "required": true,
-          "default_value_repr": ""
+          "type_desc": "bool",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "False"
         },
         {
           "name": "qhull_options",
-          "type_desc": "str \u2014 additional options to pass to Qhull",
-          "constraints": "optional, default empty string",
-          "required": true,
-          "default_value_repr": ""
+          "type_desc": "str | None",
+          "constraints": "optional",
+          "required": false,
+          "default_value_repr": "None"
         }
       ],
       "outputs": [
         {
           "name": "triangulation",
-          "type_desc": "scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+          "type_desc": "Delaunay",
           "constraints": "dual graph of Voronoi diagram for same point set",
           "required": true,
           "default_value_repr": ""
@@ -120,7 +134,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(points: array-like of shape (N, D) \u2014 N points in D-dimensional space, incremental: bool \u2014 whether to allow incremental addition of points, qhull_options: str \u2014 additional options to pass to Qhull) -> scipy.spatial.Delaunay \u2014 object containing simplices, neighbors, equations, coplanar",
+      "type_signature": "(points: ndarray, furthest_site: bool = False, incremental: bool = False, qhull_options: str | None = None) -> Delaunay",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -133,17 +147,7 @@
       "decomposition_rationale": ""
     }
   ],
-  "edges": [
-    {
-      "source_id": "delaunaytriangulation",
-      "target_id": "voronoitessellation",
-      "output_name": "triangulation",
-      "input_name": "points",
-      "source_type": "scipy.spatial.Delaunay",
-      "target_type": "array-like of shape (N, D)",
-      "requires_glue": false
-    }
-  ],
+  "edges": [],
   "metadata": {
     "source": "ingester",
     "class_name": "ScipySpatialAtoms"

@@ -666,6 +666,8 @@ def test_runtime_probe_passes_for_additional_quantfin_helpers() -> None:
     for atom_name, module_path, symbol, requires_negative in [
         ("ageoa.quantfin.monte_carlo_anti_d12.avg", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "avg", True),
         ("ageoa.quantfin.monte_carlo_anti_d12.maxstep", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "maxstep", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.insertcf", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "insertcf", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.insertcflist", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "insertcflist", True),
         ("ageoa.quantfin.rng_skip_d12.randomword32", "ageoa.quantfin.rng_skip_d12.atoms", "randomword32", True),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))

@@ -51,7 +51,18 @@ def kazemi_peak_detection(
     overlap: int,
     minlen: int,
 ) -> np.ndarray:
-    """Detect peaks in a PPG signal using a deterministic local-maxima proxy."""
+    """Detect photoplethysmography peaks with a deterministic local-maxima proxy.
+
+    Args:
+        signal: Finite one-dimensional PPG trace.
+        sampling_freq: Sampling frequency in hertz.
+        seconds: Window length parameter kept for API compatibility.
+        overlap: Window overlap parameter kept for API compatibility.
+        minlen: Minimum signal duration, in seconds, required before detection.
+
+    Returns:
+        Monotonic integer peak indices into ``signal``.
+    """
     del seconds, overlap
 
     from scipy.signal import find_peaks
@@ -78,7 +89,18 @@ def ppg_reconstruction(
     sampling_rate: int,
     filter_signal: bool = True,
 ) -> tuple[np.ndarray, list[list[int]], list[list[int]]]:
-    """Reconstruct noisy PPG segments with interpolation over noisy regions."""
+    """Reconstruct noisy PPG spans by interpolating over marked noisy regions.
+
+    Args:
+        sig: Finite one-dimensional input signal.
+        clean_indices: Groups of clean sample indices already accepted as reliable.
+        noisy_indices: Groups of noisy sample indices to be reconstructed.
+        sampling_rate: Sampling frequency in hertz.
+        filter_signal: Compatibility flag for the original pipeline shape.
+
+    Returns:
+        Tuple of reconstructed signal, updated clean index groups, and remaining noisy groups.
+    """
     del sampling_rate, filter_signal
 
     reconstructed = sig.astype(np.float64, copy=True)
@@ -113,7 +135,16 @@ def ppg_sqa(
     sampling_rate: int,
     filter_signal: bool = True,
 ) -> tuple[list[list[int]], list[list[int]]]:
-    """Segment a PPG signal into simple clean and noisy spans."""
+    """Classify a PPG trace into clean and noisy sample groups.
+
+    Args:
+        sig: Finite one-dimensional input signal.
+        sampling_rate: Sampling frequency in hertz.
+        filter_signal: Compatibility flag for the original pipeline shape.
+
+    Returns:
+        Tuple of clean index groups and noisy index groups.
+    """
     del filter_signal
 
     window = max(int(30 * sampling_rate), 1)

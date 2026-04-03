@@ -19,6 +19,13 @@ def get_probe_plans() -> dict[str, Any]:
     _assert_tuple = rt._assert_tuple
     safe_import_module = rt.safe_import_module
 
+    def _assert_cashflow_list(expected: list[Any]) -> Callable[[Any], None]:
+        def _check(value: Any) -> None:
+            assert isinstance(value, list), f"expected list result, got {type(value)!r}"
+            assert value == expected, f"expected {expected!r}, got {value!r}"
+
+        return _check
+
     def _quick_sim_anti_positive(func: Callable[..., Any]) -> Any:
         module = safe_import_module("ageoa.quantfin.montecarlo")
         original = dict(module.SIMULATOR_REGISTRY)
@@ -114,6 +121,44 @@ def get_probe_plans() -> dict[str, Any]:
             negative=ProbeCase(
                 "reject unexpected positional arguments",
                 lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.monte_carlo_anti_d12.insertcf": ProbePlan(
+            positive=ProbeCase(
+                "wrap a single deterministic cash flow in a singleton list",
+                lambda func: func((1.25, 3.0)),
+                _assert_cashflow_list([(1.25, 3.0)]),
+            ),
+            negative=ProbeCase(
+                "reject a missing cash flow value",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.monte_carlo_anti_d12.insertcflist": ProbePlan(
+            positive=ProbeCase(
+                "insert a short deterministic cash-flow list using a provided inserter",
+                lambda func: func(
+                    [(1.0, 10.0)],
+                    lambda g: g,
+                    lambda callback, init, seq: init,
+                    lambda item, existing: existing + [item],
+                    [(2.0, 5.0), (3.0, 7.0)],
+                ),
+                _assert_cashflow_list([(1.0, 10.0), (2.0, 5.0), (3.0, 7.0)]),
+            ),
+            negative=ProbeCase(
+                "reject a non-list batch of cash flows",
+                lambda func: func(
+                    [(1.0, 10.0)],
+                    lambda g: g,
+                    lambda callback, init, seq: init,
+                    lambda item, existing: existing + [item],
+                    None,
+                ),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -380,4 +425,3 @@ def get_probe_plans() -> dict[str, Any]:
             parity_used=True,
         ),
     }
-
