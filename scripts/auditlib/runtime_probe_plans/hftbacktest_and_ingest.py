@@ -282,6 +282,91 @@ def get_probe_plans() -> dict[str, Any]:
             ),
             parity_used=True,
         ),
+        "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest sparse-graph single-source shortest path returns the expected distance vector",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 1.0, 4.0],
+                            [1.0, 0.0, 2.0],
+                            [4.0, 2.0, 0.0],
+                        ],
+                        dtype=float,
+                    ),
+                    indices=0,
+                ),
+                _assert_array(np.array([0.0, 1.0, 3.0], dtype=float)),
+            ),
+            negative=ProbeCase(
+                "refined-ingest sparse-graph single-source shortest path rejects a non-numeric limit",
+                lambda func: func(np.array([[0.0, 1.0], [1.0, 0.0]], dtype=float), limit="bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.scipy.sparse_graph_v2.allpairsshortestpath": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest sparse-graph all-pairs shortest path returns the expected distance matrix",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 1.0, 4.0],
+                            [1.0, 0.0, 2.0],
+                            [4.0, 2.0, 0.0],
+                        ],
+                        dtype=float,
+                    )
+                ),
+                _assert_array(
+                    np.array(
+                        [
+                            [0.0, 1.0, 3.0],
+                            [1.0, 0.0, 2.0],
+                            [3.0, 2.0, 0.0],
+                        ],
+                        dtype=float,
+                    )
+                ),
+            ),
+            negative=ProbeCase(
+                "refined-ingest sparse-graph all-pairs shortest path rejects a missing graph",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.scipy.sparse_graph_v2.minimumspanningtree": ProbePlan(
+            positive=ProbeCase(
+                "refined-ingest sparse-graph minimum spanning tree returns the expected weighted tree",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 1.0, 4.0],
+                            [1.0, 0.0, 2.0],
+                            [4.0, 2.0, 0.0],
+                        ],
+                        dtype=float,
+                    )
+                ).toarray(),
+                _assert_array(
+                    np.array(
+                        [
+                            [0.0, 1.0, 0.0],
+                            [0.0, 0.0, 2.0],
+                            [0.0, 0.0, 0.0],
+                        ],
+                        dtype=float,
+                    )
+                ),
+            ),
+            negative=ProbeCase(
+                "refined-ingest sparse-graph minimum spanning tree rejects a missing graph",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.astroflow.dedispersionkernel": ProbePlan(
             positive=ProbeCase(
                 "dedispersion kernel averages delayed channel contributions into a deterministic output grid",

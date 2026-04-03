@@ -1,10 +1,10 @@
 {
   "nodes": [
     {
-      "node_id": "jFOFIngest_root",
+      "node_id": "jfof_root",
       "parent_id": null,
-      "name": "jFOFIngest",
-      "description": "Ingested pipeline from jFOFIngest",
+      "name": "jFOFFamily",
+      "description": "Canonical CDG for the vendored jFOF wrapper family.",
       "concept_type": "custom",
       "inputs": [],
       "outputs": [],
@@ -27,67 +27,25 @@
     },
     {
       "node_id": "find_fof_clusters",
-      "parent_id": "jFOFIngest_root",
-      "name": "find_fof_clusters",
-      "description": "Computes friends-of-friends (FOF) clusters for a set of points on a periodic grid. This is a core clustering algorithm used in cosmology and astrophysics to identify gravitationally bound structures.",
+      "parent_id": "jfof_root",
+      "name": "FindFOFClusters",
+      "description": "Compute friends-of-friends cluster labels for a periodic point cloud.",
       "concept_type": "graph_optimization",
       "inputs": [
-        {
-          "name": "x",
-          "type_desc": "Array of particle positions, typically of shape (n_particles, n_dims).",
-          "constraints": "Must be a numeric array.",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "b",
-          "type_desc": "The linking length, a scalar value defining the maximum distance for two particles to be considered 'friends'.",
-          "constraints": "Must be a positive float.",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "L",
-          "type_desc": "The size of the periodic box, a scalar or array matching the number of dimensions.",
-          "constraints": "Must be a positive float.",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "mode",
-          "type_desc": "A string or enum indicating the specific algorithm or mode to use for the computation.",
-          "constraints": "non-empty string",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "max_neighbors",
-          "type_desc": "The maximum number of neighbors to consider for each particle, used to pre-allocate memory.",
-          "constraints": "Must be a positive integer.",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "batch_size",
-          "type_desc": "The number of particles to process in a single batch to manage memory usage.",
-          "constraints": "Must be a positive integer.",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "x", "type_desc": "ndarray", "constraints": "point cloud with shape (n_particles, n_dims)", "required": true, "default_value_repr": ""},
+        {"name": "b", "type_desc": "float", "constraints": "linking length threshold", "required": true, "default_value_repr": ""},
+        {"name": "L", "type_desc": "float", "constraints": "periodic box size", "required": true, "default_value_repr": ""},
+        {"name": "mode", "type_desc": "str", "constraints": "neighbor-search mode", "required": false, "default_value_repr": "'precompute'"},
+        {"name": "max_neighbors", "type_desc": "int | None", "constraints": "optional neighborhood allocation hint", "required": false, "default_value_repr": "None"},
+        {"name": "batch_size", "type_desc": "int | None", "constraints": "optional batching hint", "required": false, "default_value_repr": "None"}
       ],
       "outputs": [
-        {
-          "name": "clusters",
-          "type_desc": "An array of cluster labels, where each element corresponds to a particle in the input array 'x'.",
-          "constraints": "The output array will have a length equal to the number of particles.",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "cluster_labels", "type_desc": "ndarray", "constraints": "one cluster label per particle", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(x: Array of particle positions, typically of shape (n_particles, n_dims)., b: The linking length, a scalar value defining the maximum distance for two particles to be considered 'friends'., L: The size of the periodic box, a scalar or array matching the number of dimensions., mode: A string or enum indicating the specific algorithm or mode to use for the computation., max_neighbors: The maximum number of neighbors to consider for each particle, used to pre-allocate memory., batch_size: The number of particles to process in a single batch to manage memory usage.) -> An array of cluster labels, where each element corresponds to a particle in the input array 'x'.",
+      "type_signature": "(x: ndarray, b: float, L: float, mode: str = 'precompute', max_neighbors: int | None = None, batch_size: int | None = None) -> ndarray",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -95,14 +53,14 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "transitive_proximity_partitioning. Partitions a set of points in an N-dimensional space with periodic boundaries into disjoint subsets. The partitioning is based on constructing a proximity graph where an edge exists between any two points if their distance is below a specified threshold. Each output subset represents a connected component of this graph, effectively forming a transitive closure over the 'is-a-neighbor' relationship.. Applications: Molecular Dynamics: Identifying groups of interacting atoms or molecules in a simulation with a periodic solvent box to study aggregation or complex formation., Epidemiology: Modeling contagion clusters in a population distributed over a geographical area with wrap-around boundaries, where the linking length represents the transmission radius., Materials Science: Analyzing the formation of crystal grains or the propagation of defects within a simulated material lattice that uses periodic boundary conditions., Sensor Networks: Grouping signals from a distributed network of sensors deployed in a toroidal or wrap-around physical space to identify event regions.",
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     }
   ],
   "edges": [],
   "metadata": {
-    "source": "ingester",
-    "class_name": "jFOFIngest"
+    "source": "manual_compaction",
+    "family": "jfof"
   }
 }

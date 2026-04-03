@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T21:01:25+00:00",
+    "generated_at": "2026-04-03T22:40:05+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 431,
-      "medium": 74
+      "low": 439,
+      "medium": 66
     },
     "stateful_count": 69,
-    "stochastic_count": 27,
+    "stochastic_count": 24,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 281,
+    "parity_coverage_count": 289,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 52,
-      "pass": 453
+      "partial": 44,
+      "pass": 461
     },
     "parity_coverage_level_counts": {
-      "none": 127,
+      "none": 119,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 234,
+      "parity_or_usage_equivalent": 242,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -92,46 +92,46 @@
       "advancedvi": 1,
       "alphafold": 3,
       "belief_propagation": 2,
-      "e2e_ppg": 7,
+      "e2e_ppg": 6,
       "hPDB": 2,
       "institutional_quant_engine": 3,
-      "jFOF": 2,
+      "jFOF": 1,
       "jax_advi": 1,
       "mcmc_foundational": 5,
       "mint": 5,
       "molecular_docking": 7,
-      "numpy": 18,
+      "numpy": 15,
       "pasqal": 1,
       "pronto": 15,
       "pulsar": 4,
       "pulsar_folding": 1,
       "quantfin": 25,
-      "scipy": 23,
+      "scipy": 20,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 236,
+      "not_applicable": 227,
       "partial": 7,
-      "pass": 260
+      "pass": 269
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 260,
-      "unknown": 236
+      "pass": 269,
+      "unknown": 227
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 455,
+      "review_later": 463,
       "review_now": 11,
-      "review_soon": 39
+      "review_soon": 31
     },
     "high_risk_count": 0,
-    "medium_risk_count": 74,
-    "low_risk_count": 431
+    "medium_risk_count": 66,
+    "low_risk_count": 439
   },
   "atoms": [
     {
@@ -20311,13 +20311,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:16",
+      "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:25",
       "atom_name": "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal",
       "atom_key": "e2e_ppg/kazemi_wrapper_d12:normalizesignal",
       "module_import_path": "ageoa.e2e_ppg.kazemi_wrapper_d12.atoms",
       "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
       "wrapper_symbol": "normalizesignal",
-      "wrapper_line": 16,
+      "wrapper_line": 25,
       "domain_family": "e2e_ppg",
       "module_family": "e2e_ppg",
       "source_kind": "refined_ingest",
@@ -20340,23 +20340,18 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 79,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "arr"
       ],
@@ -20378,7 +20373,7 @@
       "witness_binding": "register_atom(witness_normalizesignal)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Normalizes a raw array to a standard scale, producing a unit-normalized output suitable for downstream comparison or scoring.",
+      "docstring_summary": "Normalize an array into the unit interval used by the vendored Kazemi peak wrapper.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -20404,18 +20399,238 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
+        "RISK_LOW_NAME_ALIGNMENT",
+        "RISK_MISSING_REVIEW_BASIS",
+        "RISK_REFINED_INGEST"
+      ],
+      "risk_score": 10,
+      "risk_dimensions": {
+        "structural_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "fidelity_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "evidence_gap_risk": {
+          "score": 3,
+          "reasons": [
+            "RISK_MISSING_REVIEW_BASIS"
+          ]
+        },
+        "statefulness_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "generation_risk": {
+          "score": 5,
+          "reasons": [
+            "RISK_REFINED_INGEST"
+          ]
+        },
+        "ffi_risk": {
+          "score": 0,
+          "reasons": []
+        },
+        "semantics_proxy_risk": {
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
+        }
+      },
+      "review_priority": "review_later",
+      "status_basis": {
+        "inventory": [
+          "ast_discovery",
+          "fixture_index",
+          "artifact_presence",
+          "upstream_manifest_lookup"
+        ],
+        "structural": [
+          "no_structural_findings"
+        ],
+        "parity": [
+          "fixtures",
+          "runtime_probes",
+          "manifest"
+        ],
+        "runtime": [
+          "runtime_probe"
+        ],
+        "semantic": [
+          "runtime_probe"
+        ],
+        "developer_semantics": [
+          "no_generated_noun_evidence"
+        ],
+        "risk": [
+          "manifest",
+          "structural_report",
+          "signature_evidence",
+          "acceptability_scores",
+          "parity_coverage"
+        ]
+      },
+      "structural_findings": [],
+      "structural_finding_details": [],
+      "semantic_findings": [
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
+      ],
+      "semantic_finding_details": [
+        {
+          "category": "runtime_probe",
+          "status": "pass",
+          "findings": [
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
+          ],
+          "notes": [],
+          "source_refs": [
+            {
+              "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
+              "line": 25
+            }
+          ]
+        }
+      ],
+      "parity_coverage_level": "parity_or_usage_equivalent",
+      "parity_coverage_reasons": [
+        "PARITY_FIXTURE_PRESENT",
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
+      ],
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "usage_test_coverage": "usage_equivalent",
+      "review_status": "missing",
+      "review_record_path": null,
+      "reviewer_type": null,
+      "reviewed_at": null,
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "review_limitations": [],
+      "review_required_actions": [],
+      "trust_readiness": "not_reviewed",
+      "trust_blockers": [],
+      "recommended_overall_verdict": null
+    },
+    {
+      "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:34",
+      "atom_name": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate",
+      "atom_key": "e2e_ppg/kazemi_wrapper_d12:wrapperevaluate",
+      "module_import_path": "ageoa.e2e_ppg.kazemi_wrapper_d12.atoms",
+      "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
+      "wrapper_symbol": "wrapperevaluate",
+      "wrapper_line": 34,
+      "domain_family": "e2e_ppg",
+      "module_family": "e2e_ppg",
+      "source_kind": "refined_ingest",
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "E2E-PPG",
+        "module": "kazemi_peak_detection",
+        "function": "Wrapper_function",
+        "language": "python",
+        "notes": null
+      },
+      "upstream_version": null,
+      "source_revision": "504e3e517acbb07bd0192e89d5baf2bf5818ab53",
+      "review_basis_at": null,
+      "stateful": false,
+      "ffi": false,
+      "skeleton": false,
+      "has_state_models": false,
+      "has_witnesses": true,
+      "has_cdg": true,
+      "has_references": true,
+      "has_parity_tests": true,
+      "structural_status": "partial",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
+      "developer_semantics_status": "unknown",
+      "parity_test_status": "pass",
+      "references_status": "pass",
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [
+        "STRUCT_DOCSTRING_PLACEHOLDER"
+      ],
+      "required_actions": [
+        "replace placeholder docstring text"
+      ],
+      "argument_names": [
+        "prediction",
+        "raw_signal"
+      ],
+      "required_parameter_names": [
+        "prediction",
+        "raw_signal"
+      ],
+      "argument_details": [
+        {
+          "name": "prediction",
+          "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "np.ndarray"
+        },
+        {
+          "name": "raw_signal",
+          "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "np.ndarray"
+        }
+      ],
+      "return_annotation": "np.ndarray",
+      "decorator_count": 4,
+      "require_count": 2,
+      "ensure_count": 1,
+      "witness_binding": "register_atom(witness_wrapperevaluate)",
+      "placeholder_witness": false,
+      "has_docstring": true,
+      "docstring_summary": "Post-process normalized predictions against the raw signal to extract final peak indices.",
+      "has_weak_types": false,
+      "weak_type_annotations": [],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "inventory_notes": [],
+      "stateful_kind": "none",
+      "stochastic": false,
+      "procedural": false,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py"
+        },
+        {
+          "kind": "vendored_repo",
+          "repo": "E2E-PPG",
+          "module": "kazemi_peak_detection",
+          "source_revision": "504e3e517acbb07bd0192e89d5baf2bf5818ab53"
+        },
+        {
+          "kind": "local_references",
+          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/references.json"
+        }
+      ],
+      "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_STRUCTURAL_PARTIAL"
       ],
-      "risk_score": 27,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
+          "score": 12,
           "reasons": [
-            "RISK_CDG_ISSUES",
             "RISK_STRUCTURAL_PARTIAL"
           ]
         },
@@ -20459,7 +20674,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "audit.py"
         ],
         "parity": [
           "fixtures",
@@ -20484,347 +20699,58 @@
         ]
       },
       "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "STRUCT_DOCSTRING_PLACEHOLDER"
       ],
       "structural_finding_details": [
         {
-          "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:16",
-          "atom_key": "e2e_ppg/kazemi_wrapper_d12:normalizesignal",
+          "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:34",
+          "atom_key": "e2e_ppg/kazemi_wrapper_d12:wrapperevaluate",
           "domain_family": "e2e_ppg",
           "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "wrapper_symbol": "normalizesignal",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
+          "wrapper_symbol": "wrapperevaluate",
+          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
           "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.000",
+          "source": "audit.py",
+          "message": "wrapperevaluate: docstring missing 'Args:' section",
           "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
           "line": null,
           "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:16",
-          "atom_key": "e2e_ppg/kazemi_wrapper_d12:normalizesignal",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "wrapper_symbol": "normalizesignal",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 17 non-normalizable type descriptors",
-          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
+          "raw_code": "A-DOC"
         }
       ],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-              "line": 16
+              "line": 34
             }
           ]
         }
       ],
       "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
-        "PARITY_FIXTURE_PRESENT",
-        "PARITY_MISSING_NEGATIVE_CASES",
-        "PARITY_POSITIVE_CASES_PRESENT",
-        "PARITY_USAGE_EQUIVALENCE_PRESENT"
-      ],
-      "parity_fixture_count": 1,
-      "parity_case_count": 1,
-      "usage_test_coverage": "none",
-      "review_status": "missing",
-      "review_record_path": null,
-      "reviewer_type": null,
-      "reviewed_at": null,
-      "review_semantic_verdict": "unknown",
-      "review_developer_semantics_verdict": "unknown",
-      "review_limitations": [],
-      "review_required_actions": [],
-      "trust_readiness": "not_reviewed",
-      "trust_blockers": [],
-      "recommended_overall_verdict": null
-    },
-    {
-      "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:33",
-      "atom_name": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate",
-      "atom_key": "e2e_ppg/kazemi_wrapper_d12:wrapperevaluate",
-      "module_import_path": "ageoa.e2e_ppg.kazemi_wrapper_d12.atoms",
-      "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-      "wrapper_symbol": "wrapperevaluate",
-      "wrapper_line": 33,
-      "domain_family": "e2e_ppg",
-      "module_family": "e2e_ppg",
-      "source_kind": "refined_ingest",
-      "risk_tier": "medium",
-      "upstream_symbols": {
-        "repo": "E2E-PPG",
-        "module": "kazemi_peak_detection",
-        "function": "Wrapper_function",
-        "language": "python",
-        "notes": null
-      },
-      "upstream_version": null,
-      "source_revision": "504e3e517acbb07bd0192e89d5baf2bf5818ab53",
-      "review_basis_at": null,
-      "stateful": false,
-      "ffi": false,
-      "skeleton": false,
-      "has_state_models": false,
-      "has_witnesses": true,
-      "has_cdg": true,
-      "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
-      "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
-      "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "remove or document invented wrapper parameters"
-      ],
-      "argument_names": [
-        "prediction",
-        "raw_signal",
-        "normalized_arr"
-      ],
-      "required_parameter_names": [
-        "prediction",
-        "raw_signal",
-        "normalized_arr"
-      ],
-      "argument_details": [
-        {
-          "name": "prediction",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "raw_signal",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        },
-        {
-          "name": "normalized_arr",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "np.ndarray"
-        }
-      ],
-      "return_annotation": "np.ndarray",
-      "decorator_count": 5,
-      "require_count": 3,
-      "ensure_count": 1,
-      "witness_binding": "register_atom(witness_wrapperevaluate)",
-      "placeholder_witness": false,
-      "has_docstring": true,
-      "docstring_summary": "Post-processes model predictions against the raw signal and normalized array to extract final peak indices.",
-      "has_weak_types": false,
-      "weak_type_annotations": [],
-      "uses_varargs": false,
-      "uses_kwargs": false,
-      "inventory_notes": [],
-      "stateful_kind": "none",
-      "stochastic": false,
-      "procedural": false,
-      "authoritative_sources": [
-        {
-          "kind": "local_wrapper",
-          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py"
-        },
-        {
-          "kind": "vendored_repo",
-          "repo": "E2E-PPG",
-          "module": "kazemi_peak_detection",
-          "source_revision": "504e3e517acbb07bd0192e89d5baf2bf5818ab53"
-        },
-        {
-          "kind": "local_references",
-          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/references.json"
-        }
-      ],
-      "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
-      ],
-      "risk_score": 47,
-      "risk_dimensions": {
-        "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
-        },
-        "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
-        },
-        "evidence_gap_risk": {
-          "score": 11,
-          "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_REVIEW_BASIS"
-          ]
-        },
-        "statefulness_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "generation_risk": {
-          "score": 5,
-          "reasons": [
-            "RISK_REFINED_INGEST"
-          ]
-        },
-        "ffi_risk": {
-          "score": 0,
-          "reasons": []
-        },
-        "semantics_proxy_risk": {
-          "score": 2,
-          "reasons": [
-            "RISK_LOW_NAME_ALIGNMENT"
-          ]
-        }
-      },
-      "review_priority": "review_soon",
-      "status_basis": {
-        "inventory": [
-          "ast_discovery",
-          "fixture_index",
-          "artifact_presence",
-          "upstream_manifest_lookup"
-        ],
-        "structural": [
-          "type_and_isomorphism_audit.py"
-        ],
-        "parity": [
-          "fixtures",
-          "runtime_probes",
-          "manifest"
-        ],
-        "runtime": [
-          "runtime_probe"
-        ],
-        "semantic": [
-          "runtime_probe"
-        ],
-        "developer_semantics": [
-          "no_generated_noun_evidence"
-        ],
-        "risk": [
-          "manifest",
-          "structural_report",
-          "signature_evidence",
-          "acceptability_scores",
-          "parity_coverage"
-        ]
-      },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:33",
-          "atom_key": "e2e_ppg/kazemi_wrapper_d12:wrapperevaluate",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "wrapper_symbol": "wrapperevaluate",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.000",
-          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate@ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py:33",
-          "atom_key": "e2e_ppg/kazemi_wrapper_d12:wrapperevaluate",
-          "domain_family": "e2e_ppg",
-          "module_path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "wrapper_symbol": "wrapperevaluate",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 17 non-normalizable type descriptors",
-          "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
-      "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
-      ],
-      "semantic_finding_details": [
-        {
-          "category": "runtime_probe",
-          "status": "not_applicable",
-          "findings": [
-            "RUNTIME_PROBE_SKIPPED"
-          ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
-          "source_refs": [
-            {
-              "path": "ageoa/e2e_ppg/kazemi_wrapper_d12/atoms.py",
-              "line": 33
-            }
-          ]
-        }
-      ],
-      "parity_coverage_level": "none",
-      "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -29688,17 +29614,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.jFOF.find_fof_clusters@ageoa/jFOF/atoms.py:21",
+      "atom_id": "ageoa.jFOF.find_fof_clusters@ageoa/jFOF/atoms.py:18",
       "atom_name": "ageoa.jFOF.find_fof_clusters",
       "atom_key": "jFOF:find_fof_clusters",
       "module_import_path": "ageoa.jFOF.atoms",
       "module_path": "ageoa/jFOF/atoms.py",
       "wrapper_symbol": "find_fof_clusters",
-      "wrapper_line": 21,
+      "wrapper_line": 18,
       "domain_family": "jFOF",
       "module_family": "jFOF",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "jFOF",
         "module": "fof.fofkd",
@@ -29716,12 +29642,12 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
@@ -29729,12 +29655,9 @@
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
         "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters",
         "align wrapper parameters with the upstream required parameters"
       ],
@@ -29749,10 +29672,7 @@
       "required_parameter_names": [
         "x",
         "b",
-        "L",
-        "mode",
-        "max_neighbors",
-        "batch_size"
+        "L"
       ],
       "argument_details": [
         {
@@ -29775,31 +29695,31 @@
         },
         {
           "name": "mode",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "str"
         },
         {
           "name": "max_neighbors",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "int"
+          "annotation": "int | None"
         },
         {
           "name": "batch_size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "int"
+          "annotation": "int | None"
         }
       ],
       "return_annotation": "np.ndarray",
-      "decorator_count": 8,
-      "require_count": 6,
+      "decorator_count": 5,
+      "require_count": 3,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_find_fof_clusters)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes friends-of-friends (FOF) clusters for a set of points on a periodic grid. This is a core clustering algorithm used in cosmology and astrophysics to identify gravitationally bound structures.",
+      "docstring_summary": "Compute periodic friends-of-friends cluster labels for a point cloud.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -29825,21 +29745,15 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 50,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -29848,9 +29762,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -29873,7 +29786,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -29882,7 +29795,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -29906,72 +29819,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.jFOF.find_fof_clusters@ageoa/jFOF/atoms.py:21",
-          "atom_key": "jFOF:find_fof_clusters",
-          "domain_family": "jFOF",
-          "module_path": "ageoa/jFOF/atoms.py",
-          "wrapper_symbol": "find_fof_clusters",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.143",
-          "path": "ageoa/jFOF/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.jFOF.find_fof_clusters@ageoa/jFOF/atoms.py:21",
-          "atom_key": "jFOF:find_fof_clusters",
-          "domain_family": "jFOF",
-          "module_path": "ageoa/jFOF/atoms.py",
-          "wrapper_symbol": "find_fof_clusters",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 6 non-normalizable type descriptors",
-          "path": "ageoa/jFOF/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/jFOF/atoms.py",
-              "line": 21
+              "line": 18
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -59908,7 +59790,7 @@
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "numpy.random",
@@ -59926,24 +59808,21 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
@@ -59957,10 +59836,7 @@
       "required_parameter_names": [
         "mean",
         "cov",
-        "alpha",
-        "size",
-        "check_valid",
-        "tol"
+        "alpha"
       ],
       "argument_details": [
         {
@@ -59983,19 +59859,19 @@
         },
         {
           "name": "size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int | tuple[int, ...] | None"
         },
         {
           "name": "check_valid",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "str"
         },
         {
           "name": "tol",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "float"
         }
@@ -60007,7 +59883,7 @@
       "witness_binding": "register_atom(witness_continuousmultivariatesampler)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Draws samples from continuous multivariate distributions: Multivariate Normal (MVN) and Dirichlet. Produces independent, identically distributed (IID) draws given distribution parameters.",
+      "docstring_summary": "Draw from NumPy's multivariate normal and dirichlet helpers using shared batch settings.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -60032,22 +59908,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 47,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -60056,9 +59926,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -60083,7 +59952,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -60092,7 +59961,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -60116,56 +59985,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.random_v2.continuousmultivariatesampler@ageoa/numpy/random_v2/atoms.py:16",
-          "atom_key": "numpy/random_v2:continuousmultivariatesampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "continuousmultivariatesampler",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.650",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.random_v2.continuousmultivariatesampler@ageoa/numpy/random_v2/atoms.py:16",
-          "atom_key": "numpy/random_v2:continuousmultivariatesampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "continuousmultivariatesampler",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 7 non-normalizable type descriptors",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/numpy/random_v2/atoms.py",
@@ -60174,14 +60009,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -60195,17 +60033,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.random_v2.discreteeventsampler@ageoa/numpy/random_v2/atoms.py:38",
+      "atom_id": "ageoa.numpy.random_v2.discreteeventsampler@ageoa/numpy/random_v2/atoms.py:44",
       "atom_name": "ageoa.numpy.random_v2.discreteeventsampler",
       "atom_key": "numpy/random_v2:discreteeventsampler",
       "module_import_path": "ageoa.numpy.random_v2.atoms",
       "module_path": "ageoa/numpy/random_v2/atoms.py",
       "wrapper_symbol": "discreteeventsampler",
-      "wrapper_line": 38,
+      "wrapper_line": 44,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "numpy.random",
@@ -60223,24 +60061,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 75,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "n",
         "pvals",
@@ -60248,8 +60081,7 @@
       ],
       "required_parameter_names": [
         "n",
-        "pvals",
-        "size"
+        "pvals"
       ],
       "argument_details": [
         {
@@ -60266,7 +60098,7 @@
         },
         {
           "name": "size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int | tuple[int, ...] | None"
         }
@@ -60278,7 +60110,7 @@
       "witness_binding": "register_atom(witness_discreteeventsampler)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Draws integer count vectors from the Multinomial distribution. Represents a single stateless stochastic step that maps a probability simplex (pvals) and a trial count (n) to an observed frequency vector. Commonly used to simulate categorical observations in generative models and particle filters.",
+      "docstring_summary": "Draw integer count vectors from NumPy's multinomial helper.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -60303,33 +60135,23 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 47,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -60354,7 +60176,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -60363,7 +60185,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -60387,72 +60209,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.random_v2.discreteeventsampler@ageoa/numpy/random_v2/atoms.py:38",
-          "atom_key": "numpy/random_v2:discreteeventsampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "discreteeventsampler",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.650",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.random_v2.discreteeventsampler@ageoa/numpy/random_v2/atoms.py:38",
-          "atom_key": "numpy/random_v2:discreteeventsampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "discreteeventsampler",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 7 non-normalizable type descriptors",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/numpy/random_v2/atoms.py",
-              "line": 38
+              "line": 44
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -60466,17 +60257,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.numpy.random_v2.combinatoricssampler@ageoa/numpy/random_v2/atoms.py:54",
+      "atom_id": "ageoa.numpy.random_v2.combinatoricssampler@ageoa/numpy/random_v2/atoms.py:65",
       "atom_name": "ageoa.numpy.random_v2.combinatoricssampler",
       "atom_key": "numpy/random_v2:combinatoricssampler",
       "module_import_path": "ageoa.numpy.random_v2.atoms",
       "module_path": "ageoa/numpy/random_v2/atoms.py",
       "wrapper_symbol": "combinatoricssampler",
-      "wrapper_line": 54,
+      "wrapper_line": 65,
       "domain_family": "numpy",
       "module_family": "numpy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "numpy.random",
@@ -60494,29 +60285,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "misleading",
       "acceptability_score": 49,
       "acceptability_band": "misleading_candidate",
       "max_reviewable_verdict": "misleading",
       "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
+        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
       ],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "remove or document invented wrapper parameters"
       ],
       "argument_names": [
         "x",
-        "axis",
         "a",
         "size",
         "replace",
@@ -60524,11 +60311,7 @@
       ],
       "required_parameter_names": [
         "x",
-        "axis",
-        "a",
-        "size",
-        "replace",
-        "p"
+        "a"
       ],
       "argument_details": [
         {
@@ -60538,12 +60321,6 @@
           "annotation": "int | np.ndarray"
         },
         {
-          "name": "axis",
-          "required": true,
-          "kind": "positional_or_keyword",
-          "annotation": "int"
-        },
-        {
           "name": "a",
           "required": true,
           "kind": "positional_or_keyword",
@@ -60551,31 +60328,31 @@
         },
         {
           "name": "size",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "int | tuple[int, ...] | None"
         },
         {
           "name": "replace",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "p",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "np.ndarray | None"
         }
       ],
       "return_annotation": "tuple[np.ndarray, np.ndarray]",
-      "decorator_count": 3,
-      "require_count": 1,
+      "decorator_count": 4,
+      "require_count": 2,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_combinatoricssampler)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Randomly permutes or selects elements from a sequence. Permutation shuffles all elements; choice draws a sample with or without replacement.",
+      "docstring_summary": "Randomly permute and sample from NumPy sequences.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -60600,22 +60377,16 @@
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 47,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -60624,9 +60395,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -60651,7 +60421,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -60660,7 +60430,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -60684,72 +60454,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_HEALTH_LOW",
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.numpy.random_v2.combinatoricssampler@ageoa/numpy/random_v2/atoms.py:54",
-          "atom_key": "numpy/random_v2:combinatoricssampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "combinatoricssampler",
-          "code": "STRUCT_CDG_TYPE_HEALTH_LOW",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG type health score is 0.650",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        },
-        {
-          "atom_id": "ageoa.numpy.random_v2.combinatoricssampler@ageoa/numpy/random_v2/atoms.py:54",
-          "atom_key": "numpy/random_v2:combinatoricssampler",
-          "domain_family": "numpy",
-          "module_path": "ageoa/numpy/random_v2/atoms.py",
-          "wrapper_symbol": "combinatoricssampler",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 7 non-normalizable type descriptors",
-          "path": "ageoa/numpy/random_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/numpy/random_v2/atoms.py",
-              "line": 54
+              "line": 65
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -98136,17 +97875,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
+      "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:17",
       "atom_name": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath",
       "atom_key": "scipy/sparse_graph_v2:singlesourceshortestpath",
       "module_import_path": "ageoa.scipy.sparse_graph_v2.atoms",
       "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
       "wrapper_symbol": "singlesourceshortestpath",
-      "wrapper_line": 20,
+      "wrapper_line": 17,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "scipy.sparse.csgraph",
@@ -98164,23 +97903,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 77,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "csgraph",
         "directed",
@@ -98191,13 +97926,7 @@
         "min_only"
       ],
       "required_parameter_names": [
-        "csgraph",
-        "directed",
-        "indices",
-        "return_predecessors",
-        "unweighted",
-        "limit",
-        "min_only"
+        "csgraph"
       ],
       "argument_details": [
         {
@@ -98208,37 +97937,37 @@
         },
         {
           "name": "directed",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "indices",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "np.ndarray | int | None"
         },
         {
           "name": "return_predecessors",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "unweighted",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "limit",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "float"
         },
         {
           "name": "min_only",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         }
@@ -98250,14 +97979,14 @@
       "witness_binding": "register_atom(witness_singlesourceshortestpath)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes shortest-path distances from one or more source nodes to all reachable nodes. Dijkstra's greedy algorithm is used for non-negative weights; Bellman-Ford's edge-relaxation handles negative weights. Both share the same intent - locate optimal routes from a set of origins - and return a distance matrix plus an optional predecessor map.",
+      "docstring_summary": "Compute shortest-path distances from one or more source nodes with SciPy's ``dijkstra``.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
       "stateful_kind": "none",
-      "stochastic": true,
+      "stochastic": false,
       "procedural": false,
       "authoritative_sources": [
         {
@@ -98276,31 +98005,22 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STOCHASTIC",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 46,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -98309,10 +98029,9 @@
           "reasons": []
         },
         "generation_risk": {
-          "score": 9,
+          "score": 5,
           "reasons": [
-            "RISK_REFINED_INGEST",
-            "RISK_STOCHASTIC"
+            "RISK_REFINED_INGEST"
           ]
         },
         "ffi_risk": {
@@ -98326,7 +98045,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -98335,7 +98054,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -98359,56 +98078,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.sparse_graph_v2.singlesourceshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:20",
-          "atom_key": "scipy/sparse_graph_v2:singlesourceshortestpath",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "wrapper_symbol": "singlesourceshortestpath",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 1 non-normalizable type descriptors",
-          "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-              "line": 20
+              "line": 17
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -98422,17 +98126,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:45",
+      "atom_id": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:46",
       "atom_name": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath",
       "atom_key": "scipy/sparse_graph_v2:allpairsshortestpath",
       "module_import_path": "ageoa.scipy.sparse_graph_v2.atoms",
       "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
       "wrapper_symbol": "allpairsshortestpath",
-      "wrapper_line": 45,
+      "wrapper_line": 46,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "scipy.sparse.csgraph",
@@ -98450,34 +98154,28 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "csgraph",
         "directed",
         "return_predecessors",
-        "unweighted"
+        "unweighted",
+        "overwrite"
       ],
       "required_parameter_names": [
-        "csgraph",
-        "directed",
-        "return_predecessors",
-        "unweighted"
+        "csgraph"
       ],
       "argument_details": [
         {
@@ -98488,38 +98186,44 @@
         },
         {
           "name": "directed",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "return_predecessors",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         },
         {
           "name": "unweighted",
-          "required": true,
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "bool"
+        },
+        {
+          "name": "overwrite",
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         }
       ],
       "return_annotation": "tuple[np.ndarray, ...] | np.ndarray",
-      "decorator_count": 6,
-      "require_count": 4,
+      "decorator_count": 3,
+      "require_count": 1,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_allpairsshortestpath)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Computes the full N\u00d7N shortest-path distance matrix for every source\u2013destination pair simultaneously using the Floyd-Warshall dynamic-programming recurrence. Suitable for dense reachability queries where all pairwise distances are required at once.",
+      "docstring_summary": "Compute all-pairs shortest paths with SciPy's ``floyd_warshall``.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
       "stateful_kind": "none",
-      "stochastic": true,
+      "stochastic": false,
       "procedural": false,
       "authoritative_sources": [
         {
@@ -98538,20 +98242,15 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STOCHASTIC",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_SIGNATURE_MISMATCH"
       ],
-      "risk_score": 46,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
           "score": 12,
@@ -98560,9 +98259,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -98571,10 +98269,9 @@
           "reasons": []
         },
         "generation_risk": {
-          "score": 9,
+          "score": 5,
           "reasons": [
-            "RISK_REFINED_INGEST",
-            "RISK_STOCHASTIC"
+            "RISK_REFINED_INGEST"
           ]
         },
         "ffi_risk": {
@@ -98588,7 +98285,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -98597,7 +98294,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -98621,56 +98318,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.sparse_graph_v2.allpairsshortestpath@ageoa/scipy/sparse_graph_v2/atoms.py:45",
-          "atom_key": "scipy/sparse_graph_v2:allpairsshortestpath",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "wrapper_symbol": "allpairsshortestpath",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 1 non-normalizable type descriptors",
-          "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-              "line": 45
+              "line": 46
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -98684,17 +98366,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.scipy.sparse_graph_v2.minimumspanningtree@ageoa/scipy/sparse_graph_v2/atoms.py:65",
+      "atom_id": "ageoa.scipy.sparse_graph_v2.minimumspanningtree@ageoa/scipy/sparse_graph_v2/atoms.py:77",
       "atom_name": "ageoa.scipy.sparse_graph_v2.minimumspanningtree",
       "atom_key": "scipy/sparse_graph_v2:minimumspanningtree",
       "module_import_path": "ageoa.scipy.sparse_graph_v2.atoms",
       "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
       "wrapper_symbol": "minimumspanningtree",
-      "wrapper_line": 65,
+      "wrapper_line": 77,
       "domain_family": "scipy",
       "module_family": "scipy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": null,
         "module": "scipy.sparse.csgraph",
@@ -98712,30 +98394,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 77,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation"
-      ],
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "csgraph",
         "overwrite"
       ],
       "required_parameter_names": [
-        "csgraph",
-        "overwrite"
+        "csgraph"
       ],
       "argument_details": [
         {
@@ -98746,26 +98423,26 @@
         },
         {
           "name": "overwrite",
-          "required": true,
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "bool"
         }
       ],
       "return_annotation": "np.ndarray",
-      "decorator_count": 4,
-      "require_count": 2,
+      "decorator_count": 3,
+      "require_count": 1,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_minimumspanningtree)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Extracts the Minimum Spanning Tree (MST) of a sparse undirected weighted graph. Returns a new sparse matrix containing only the tree edges that connect all nodes with minimum total weight.",
+      "docstring_summary": "Extract the minimum spanning tree of a sparse weighted graph.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
       "stateful_kind": "none",
-      "stochastic": true,
+      "stochastic": false,
       "procedural": false,
       "authoritative_sources": [
         {
@@ -98784,31 +98461,22 @@
       ],
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STOCHASTIC",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 46,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -98817,10 +98485,9 @@
           "reasons": []
         },
         "generation_risk": {
-          "score": 9,
+          "score": 5,
           "reasons": [
-            "RISK_REFINED_INGEST",
-            "RISK_STOCHASTIC"
+            "RISK_REFINED_INGEST"
           ]
         },
         "ffi_risk": {
@@ -98834,7 +98501,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -98843,7 +98510,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "type_and_isomorphism_audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -98867,56 +98534,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_TYPE_NON_NORMALIZED"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.scipy.sparse_graph_v2.minimumspanningtree@ageoa/scipy/sparse_graph_v2/atoms.py:65",
-          "atom_key": "scipy/sparse_graph_v2:minimumspanningtree",
-          "domain_family": "scipy",
-          "module_path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "wrapper_symbol": "minimumspanningtree",
-          "code": "STRUCT_CDG_TYPE_NON_NORMALIZED",
-          "severity": "warning",
-          "source": "type_and_isomorphism_audit.py",
-          "message": "CDG has 1 non-normalizable type descriptors",
-          "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/scipy/sparse_graph_v2/atoms.py",
-              "line": 65
+              "line": 77
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

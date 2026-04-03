@@ -1,10 +1,10 @@
 {
   "nodes": [
     {
-      "node_id": "Wrapper_function_root",
+      "node_id": "kazemi_wrapper_d12_root",
       "parent_id": null,
-      "name": "Wrapper_function",
-      "description": "Ingested pipeline from Wrapper_function",
+      "name": "KazemiWrapperFamily",
+      "description": "Canonical CDG for the refined-ingest Kazemi peak-detection helper wrappers.",
       "concept_type": "custom",
       "inputs": [],
       "outputs": [],
@@ -28,32 +28,20 @@
     },
     {
       "node_id": "normalizesignal",
-      "parent_id": "Wrapper_function_root",
+      "parent_id": "kazemi_wrapper_d12_root",
       "name": "NormalizeSignal",
-      "description": "Normalizes a raw array to a standard scale, producing a unit-normalized output suitable for downstream comparison or scoring.",
+      "description": "Normalize a prediction trace into the unit interval used by the vendored Kazemi peak wrapper.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "arr",
-          "type_desc": "numeric array",
-          "constraints": "non-empty, finite values",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "arr", "type_desc": "ndarray", "constraints": "non-empty numeric vector", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "normalized_arr",
-          "type_desc": "numeric array",
-          "constraints": "same shape as input, normalized",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "normalized_arr", "type_desc": "ndarray", "constraints": "same shape as input, values in [0, 1]", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(arr: numeric array) -> numeric array",
+      "type_signature": "(arr: ndarray) -> ndarray",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -61,234 +49,27 @@
       "is_opaque": false,
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": "MagnitudeInvariantVectorRescaling. Maps a finite, non-empty numeric vector from its native magnitude space into a standardized unit range by computing a global rescaling factor derived from the vector's own statistical or geometric properties (e.g., L2 norm, min-max span, or standard deviation). The transform is strictly algebraic and elementwise: each scalar component is divided by the same derived constant, preserving the internal ratio structure of the original sequence. The resulting vector occupies a canonical magnitude envelope, making it directly comparable to any other vector that has undergone the same normalization contract.. Applications: Computational neuroscience: rescaling multi-electrode spike-rate arrays from different subjects or sessions onto a common magnitude envelope before population-level decoding, eliminating between-subject gain differences without altering relative firing-rate ratios, Robotics / sensor fusion: standardizing heterogeneous inertial measurement unit (IMU) channel readings (accelerometer, gyroscope, magnetometer) that carry vastly different physical units and dynamic ranges before fusing them in a Kalman filter state vector, Natural language processing / embedding retrieval: projecting raw token frequency count vectors onto the unit hypersphere prior to cosine-similarity search, ensuring that document length does not dominate semantic distance measurements in a high-dimensional latent space, Materials science / spectroscopy: normalizing raw X-ray diffraction intensity profiles acquired under different beam-flux conditions to a common peak-height scale, enabling instrument-agnostic peak-position and relative-intensity comparison across experimental runs",
+      "conceptual_summary": "",
       "critic_notes": "",
       "decomposition_rationale": ""
     },
     {
       "node_id": "wrapperevaluate",
-      "parent_id": "Wrapper_function_root",
+      "parent_id": "kazemi_wrapper_d12_root",
       "name": "WrapperEvaluate",
-      "description": "Top-level entry point that accepts a prediction and a raw signal, orchestrates normalization of the signal, and produces a final evaluation result by comparing prediction against the normalized signal.",
-      "concept_type": "conditional_routing",
-      "inputs": [
-        {
-          "name": "prediction",
-          "type_desc": "numeric or array value",
-          "constraints": "valid numeric or array value",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "raw_signal",
-          "type_desc": "numeric array",
-          "constraints": "non-empty, finite values",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "normalized_arr",
-          "type_desc": "numeric array",
-          "constraints": "output of NormalizeSignal",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "outputs": [
-        {
-          "name": "result",
-          "type_desc": "evaluation output",
-          "constraints": "valid evaluation output",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "status": "decomposed",
-      "children": [
-        "normalize_prediction_signal",
-        "detect_peak_candidates",
-        "suppress_nearby_duplicate_peaks",
-        "filter_nonpositive_peaks"
-      ],
-      "depth": 1,
-      "type_signature": "(prediction: numeric or array value, raw_signal: numeric array, normalized_arr: numeric array) -> evaluation output",
-      "matched_primitive": null,
-      "primitive_binding_confidence": 0.0,
-      "primitive_binding_source": "",
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "NormalizedReferenceComparator. Accepts a candidate scalar or vector alongside a raw, unnormalized reference signal, orchestrates a preprocessing pipeline that maps the raw signal into a canonical scale or distribution, then performs a comparative evaluation between the candidate and the normalized reference to produce a structured result. The operation acts as a top-level dispatch controller: it sequences subordinate transforms (normalization, then comparison) and conditionally routes execution based on the structural validity and shape of the inputs. The final output encodes the degree of agreement, divergence, or classification outcome between the submitted candidate and the normalized reference space.. Applications: Anomaly detection in sensor networks: a candidate sensor reading is compared against a z-score-normalized historical baseline signal to classify it as nominal or anomalous — the orchestrator sequences ingestion, normalization, and threshold comparison, Genomic variant scoring: a proposed variant effect score (candidate) is evaluated against a normalized population-level allele frequency distribution (raw reference signal rescaled to [0,1]), routing to pathogenic or benign classification, Quality control in additive manufacturing: a measured geometric deviation vector (candidate) is compared against a min-max normalized tolerance signal derived from CAD specifications, producing a pass/fail or deviation-magnitude result, Cognitive load assessment in HCI research: a user's real-time physiological response metric (candidate) is benchmarked against a normalized baseline response series recorded during a calibration phase, yielding a relative cognitive load score",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "normalize_prediction_signal",
-      "parent_id": "wrapperevaluate",
-      "name": "normalize_prediction_signal",
-      "description": "Applies normalization to the raw model prediction array to produce a scaled signal suitable for threshold-based peak detection.",
-      "concept_type": "signal_filter",
-      "inputs": [
-        {
-          "name": "prediction",
-          "type_desc": "numpy.ndarray",
-          "constraints": "numeric array of model outputs",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "outputs": [
-        {
-          "name": "normalized_prediction",
-          "type_desc": "numpy.ndarray",
-          "constraints": "values scaled to a comparable range, same length as prediction",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(prediction: numpy.ndarray) -> numpy.ndarray",
-      "matched_primitive": null,
-      "primitive_binding_confidence": 0.0,
-      "primitive_binding_source": "",
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "detect_peak_candidates",
-      "parent_id": "wrapperevaluate",
-      "name": "detect_peak_candidates",
-      "description": "Scans the normalized prediction using a sliding window (size 15, or 7 near the end) to locate candidate peak indices. For each window where the threshold ≥ 0.70 is met, finds the position of the maximum normalized value; if ties exist, resolves them by selecting the position of the maximum in the corresponding raw signal window. Advances the cursor by the window size after each match, or by 1 otherwise.",
+      "description": "Apply the vendored Kazemi post-processing loop to prediction scores and the raw signal to extract peak indices.",
       "concept_type": "searching",
       "inputs": [
-        {
-          "name": "normalized_prediction",
-          "type_desc": "numpy.ndarray",
-          "constraints": "normalized signal, length >= 3",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
-          "constraints": "original raw signal, same length as normalized_prediction",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "prediction", "type_desc": "ndarray", "constraints": "model prediction trace", "required": true, "default_value_repr": ""},
+        {"name": "raw_signal", "type_desc": "ndarray", "constraints": "raw signal aligned to prediction", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "candidate_indices",
-          "type_desc": "list of int",
-          "constraints": "global indices of detected peak candidates, may contain duplicates or closely spaced entries",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "peak_indices", "type_desc": "ndarray", "constraints": "monotonic integer peak indices", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
-      "depth": 2,
-      "type_signature": "(normalized_prediction: numpy.ndarray, raw_signal: numpy.ndarray) -> list of int",
-      "matched_primitive": null,
-      "primitive_binding_confidence": 0.0,
-      "primitive_binding_source": "",
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "suppress_nearby_duplicate_peaks",
-      "parent_id": "wrapperevaluate",
-      "name": "suppress_nearby_duplicate_peaks",
-      "description": "Iterates through candidate peak indices and removes duplicates that are closer than 35 samples apart, keeping the one with the higher raw signal amplitude. Ensures no two retained peaks are within the minimum separation distance.",
-      "concept_type": "signal_filter",
-      "inputs": [
-        {
-          "name": "candidate_indices",
-          "type_desc": "list of int",
-          "constraints": "sorted list of candidate peak positions",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
-          "constraints": "original raw signal used to compare amplitudes",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "outputs": [
-        {
-          "name": "deduped_indices",
-          "type_desc": "list of int",
-          "constraints": "peak indices with near-duplicate entries removed, minimum spacing >= 35",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(candidate_indices: list of int, raw_signal: numpy.ndarray) -> list of int",
-      "matched_primitive": null,
-      "primitive_binding_confidence": 0.0,
-      "primitive_binding_source": "",
-      "is_optional": false,
-      "is_opaque": false,
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": "",
-      "critic_notes": "",
-      "decomposition_rationale": ""
-    },
-    {
-      "node_id": "filter_nonpositive_peaks",
-      "parent_id": "wrapperevaluate",
-      "name": "filter_nonpositive_peaks",
-      "description": "Removes any peak indices whose corresponding raw signal value is less than or equal to zero, retaining only physiologically valid (positive-amplitude) peaks.",
-      "concept_type": "signal_filter",
-      "inputs": [
-        {
-          "name": "deduped_indices",
-          "type_desc": "list of int",
-          "constraints": "deduplicated peak indices",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "raw_signal",
-          "type_desc": "numpy.ndarray",
-          "constraints": "original raw signal",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "outputs": [
-        {
-          "name": "final_indices",
-          "type_desc": "numpy.ndarray",
-          "constraints": "array of valid peak indices where raw_signal > 0",
-          "required": true,
-          "default_value_repr": ""
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 2,
-      "type_signature": "(deduped_indices: list of int, raw_signal: numpy.ndarray) -> numpy.ndarray",
+      "depth": 1,
+      "type_signature": "(prediction: ndarray, raw_signal: ndarray) -> ndarray",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -301,46 +82,9 @@
       "decomposition_rationale": ""
     }
   ],
-  "edges": [
-    {
-      "source_id": "normalize_prediction_signal",
-      "target_id": "detect_peak_candidates",
-      "output_name": "normalized_prediction",
-      "input_name": "normalized_prediction",
-      "source_type": "numpy.ndarray",
-      "target_type": "numpy.ndarray",
-      "requires_glue": false
-    },
-    {
-      "source_id": "detect_peak_candidates",
-      "target_id": "suppress_nearby_duplicate_peaks",
-      "output_name": "candidate_indices",
-      "input_name": "candidate_indices",
-      "source_type": "list of int",
-      "target_type": "list of int",
-      "requires_glue": false
-    },
-    {
-      "source_id": "suppress_nearby_duplicate_peaks",
-      "target_id": "filter_nonpositive_peaks",
-      "output_name": "deduped_indices",
-      "input_name": "deduped_indices",
-      "source_type": "list of int",
-      "target_type": "list of int",
-      "requires_glue": false
-    },
-    {
-      "source_id": "normalizesignal",
-      "target_id": "wrapperevaluate",
-      "output_name": "normalized_arr",
-      "input_name": "normalized_arr",
-      "source_type": "numeric array",
-      "target_type": "numeric array",
-      "requires_glue": false
-    }
-  ],
+  "edges": [],
   "metadata": {
-    "source": "ingester",
-    "class_name": "Wrapper_function"
+    "source": "manual_compaction",
+    "family": "e2e_ppg_kazemi_wrapper_d12"
   }
 }

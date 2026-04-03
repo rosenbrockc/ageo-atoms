@@ -244,6 +244,120 @@ def _e2e_ppg_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
             ),
             parity_used=True,
         ),
+        "ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal": ProbePlan(
+            positive=ProbeCase(
+                "kazemi wrapper normalization rescales a signal to the unit interval",
+                lambda func: func(np.array([1.0, 3.0, 2.0], dtype=float)),
+                _assert_shape((3,)),
+            ),
+            negative=ProbeCase(
+                "reject a missing normalization array",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate": ProbePlan(
+            positive=ProbeCase(
+                "kazemi wrapper evaluation returns monotonic peak indices",
+                lambda func: func(
+                    np.array([0.1] * 10 + [1.0] + [0.1] * 19, dtype=float),
+                    np.array([1.0] * 30, dtype=float),
+                ),
+                _assert_peak_indices,
+            ),
+            negative=ProbeCase(
+                "reject a missing prediction array",
+                lambda func: func(None, np.array([1.0] * 30, dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.numpy.random_v2.continuousmultivariatesampler": ProbePlan(
+            positive=ProbeCase(
+                "numpy random_v2 continuous multivariate sampler returns paired sample arrays",
+                lambda func: func(
+                    np.array([0.0, 1.0], dtype=float),
+                    np.array([[1.0, 0.0], [0.0, 1.0]], dtype=float),
+                    np.array([1.0, 2.0], dtype=float),
+                    size=2,
+                ),
+                lambda result: (
+                    isinstance(result, tuple)
+                    and len(result) == 2
+                    and tuple(np.asarray(result[0]).shape) == (2, 2)
+                    and tuple(np.asarray(result[1]).shape) == (2, 2)
+                ),
+            ),
+            negative=ProbeCase(
+                "reject a missing mean vector",
+                lambda func: func(None, np.eye(2), np.array([1.0, 2.0], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.numpy.random_v2.discreteeventsampler": ProbePlan(
+            positive=ProbeCase(
+                "numpy random_v2 discrete event sampler returns multinomial counts",
+                lambda func: func(5, np.array([0.2, 0.8], dtype=float)),
+                lambda result: (
+                    tuple(np.asarray(result).shape) == (2,)
+                    and int(np.asarray(result).sum()) == 5
+                ),
+            ),
+            negative=ProbeCase(
+                "reject a missing probability vector",
+                lambda func: func(5, None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.numpy.random_v2.combinatoricssampler": ProbePlan(
+            positive=ProbeCase(
+                "numpy random_v2 combinatorics sampler returns a permutation and choice sample",
+                lambda func: func(np.array([1, 2, 3], dtype=int), np.array([10, 20, 30], dtype=int), size=2, replace=False),
+                lambda result: (
+                    isinstance(result, tuple)
+                    and len(result) == 2
+                    and sorted(np.asarray(result[0]).tolist()) == [1, 2, 3]
+                    and tuple(np.asarray(result[1]).shape) == (2,)
+                ),
+            ),
+            negative=ProbeCase(
+                "reject a missing permutation input",
+                lambda func: func(None, np.array([10, 20, 30], dtype=int)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.jFOF.find_fof_clusters": ProbePlan(
+            positive=ProbeCase(
+                "jFOF wrapper returns one integer cluster label per point on a simple periodic point cloud",
+                lambda func: func(
+                    np.array(
+                        [
+                            [0.0, 0.0],
+                            [0.1, 0.0],
+                            [1.0, 1.0],
+                        ],
+                        dtype=float,
+                    ),
+                    0.2,
+                    2.0,
+                ),
+                lambda result: (
+                    tuple(np.asarray(result).shape) == (3,)
+                    and np.asarray(result).dtype.kind in {"i", "u"}
+                    and np.asarray(result)[0] == np.asarray(result)[1]
+                ),
+            ),
+            negative=ProbeCase(
+                "reject a missing point cloud",
+                lambda func: func(None, 0.2, 2.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.e2e_ppg.template_matching.templatefeaturecomputation": ProbePlan(
             positive=ProbeCase(
                 "template matching computes deterministic euclidean/correlation features",

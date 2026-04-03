@@ -902,6 +902,21 @@ def test_runtime_probe_passes_for_scipy_spatial_v2_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_scipy_sparse_graph_v2_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.scipy.sparse_graph_v2.singlesourceshortestpath", "singlesourceshortestpath"),
+        ("ageoa.scipy.sparse_graph_v2.allpairsshortestpath", "allpairsshortestpath"),
+        ("ageoa.scipy.sparse_graph_v2.minimumspanningtree", "minimumspanningtree"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.scipy.sparse_graph_v2.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_astroflow_dedispersionkernel() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.astroflow.dedispersionkernel", "ageoa.astroflow.atoms", "dedispersionkernel")
@@ -1203,6 +1218,39 @@ def test_runtime_probe_marks_neurokit2_wrappers_as_usage_equivalent() -> None:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, "ageoa.neurokit2.atoms", symbol))
         assert probe["status"] == "pass"
         assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_kazemi_wrapper_d12_wrappers_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.e2e_ppg.kazemi_wrapper_d12.normalizesignal", "normalizesignal"),
+        ("ageoa.e2e_ppg.kazemi_wrapper_d12.wrapperevaluate", "wrapperevaluate"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, "ageoa.e2e_ppg.kazemi_wrapper_d12.atoms", symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
+def test_runtime_probe_marks_numpy_random_v2_family_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.numpy.random_v2.continuousmultivariatesampler", "continuousmultivariatesampler"),
+        ("ageoa.numpy.random_v2.discreteeventsampler", "discreteeventsampler"),
+        ("ageoa.numpy.random_v2.combinatoricssampler", "combinatoricssampler"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, "ageoa.numpy.random_v2.atoms", symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_marks_jfof_wrapper_as_usage_equivalent() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record("ageoa.jFOF.find_fof_clusters", "ageoa.jFOF.atoms", "find_fof_clusters")
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
 def test_runtime_probe_records_positive_failure(monkeypatch) -> None:

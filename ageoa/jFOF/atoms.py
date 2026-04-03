@@ -14,23 +14,27 @@ from .witnesses import witness_find_fof_clusters
 @icontract.require(lambda x: x is not None, "x cannot be None")
 @icontract.require(lambda b: b is not None, "b cannot be None")
 @icontract.require(lambda L: L is not None, "L cannot be None")
-@icontract.require(lambda mode: mode is not None, "mode cannot be None")
-@icontract.require(lambda max_neighbors: max_neighbors is not None, "max_neighbors cannot be None")
-@icontract.require(lambda batch_size: batch_size is not None, "batch_size cannot be None")
 @icontract.ensure(lambda result: result is not None, "find_fof_clusters output must not be None")
-def find_fof_clusters(x: np.ndarray, b: float, L: float, mode: str, max_neighbors: int, batch_size: int) -> np.ndarray:
-    """Computes friends-of-friends (FOF) clusters for a set of points on a periodic grid. This is a core clustering algorithm used in cosmology and astrophysics to identify gravitationally bound structures.
+def find_fof_clusters(
+    x: np.ndarray,
+    b: float,
+    L: float,
+    mode: str = "precompute",
+    max_neighbors: int | None = None,
+    batch_size: int | None = None,
+) -> np.ndarray:
+    """Compute periodic friends-of-friends cluster labels for a point cloud.
 
     Args:
-        x: Must be a numeric array.
-        b: Must be a positive float.
-        L: Must be a positive float.
-        mode: Input data.
-        max_neighbors: Must be a positive integer.
-        batch_size: Must be a positive integer.
+        x: Particle positions with shape ``(n_particles, n_dims)``.
+        b: Linking length threshold.
+        L: Periodic box size used when ``mode`` is ``"periodic"``.
+        mode: Neighbor-search mode carried through from the vendored wrapper.
+        max_neighbors: Optional neighborhood-allocation hint from the vendored wrapper.
+        batch_size: Optional batching hint from the vendored wrapper.
 
     Returns:
-        The output array will have a length equal to the number of particles.
+        Cluster label for each particle.
     """
     # Friends-of-Friends clustering on periodic grid
     from scipy.spatial import cKDTree

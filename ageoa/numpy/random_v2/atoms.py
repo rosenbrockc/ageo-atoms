@@ -8,63 +8,78 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from .witnesses import witness_continuousmultivariatesampler, witness_discreteeventsampler, witness_combinatoricssampler
 @register_atom(witness_continuousmultivariatesampler)  # type: ignore[untyped-decorator]
-@icontract.require(lambda mean: isinstance(mean, (float, int, np.number)), "mean must be numeric")
-@icontract.require(lambda cov: isinstance(cov, (float, int, np.number)), "cov must be numeric")
-@icontract.require(lambda alpha: isinstance(alpha, (float, int, np.number)), "alpha must be numeric")
+@icontract.require(lambda mean: mean is not None, "mean cannot be None")
+@icontract.require(lambda cov: cov is not None, "cov cannot be None")
+@icontract.require(lambda alpha: alpha is not None, "alpha cannot be None")
 @icontract.require(lambda tol: isinstance(tol, (float, int, np.number)), "tol must be numeric")
 @icontract.ensure(lambda result: all(r is not None for r in result), "ContinuousMultivariateSampler all outputs must not be None")
-def continuousmultivariatesampler(mean: np.ndarray, cov: np.ndarray, alpha: np.ndarray, size: int | tuple[int, ...] | None, check_valid: str, tol: float) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
-    """Draws samples from continuous multivariate distributions: Multivariate Normal (MVN) and Dirichlet. Produces independent, identically distributed (IID) draws given distribution parameters.
+def continuousmultivariatesampler(
+    mean: np.ndarray,
+    cov: np.ndarray,
+    alpha: np.ndarray,
+    size: int | tuple[int, ...] | None = None,
+    check_valid: str = "warn",
+    tol: float = 1e-8,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Draw from NumPy's multivariate normal and dirichlet helpers using shared batch settings.
 
     Args:
-        mean: length must match leading dim of cov
-        cov: must be symmetric positive-semidefinite
-        alpha: all elements > 0
-        size: determines output batch shape
-        check_valid: controls covariance validation
-        tol: tolerance for covariance symmetry check
+        mean: Mean vector for the multivariate normal draw.
+        cov: Covariance matrix for the multivariate normal draw.
+        alpha: Concentration parameters for the Dirichlet draw.
+        size: Optional batch size passed through to both NumPy draws.
+        check_valid: Covariance validation mode for ``multivariate_normal``.
+        tol: Covariance validation tolerance for ``multivariate_normal``.
 
     Returns:
-        mvn_samples: drawn IID from N(mean, cov)
-        dirichlet_samples: rows sum to 1; drawn from Dir(alpha)
+        Tuple of multivariate-normal samples and Dirichlet samples.
     """
     mvn_samples = np.random.multivariate_normal(mean, cov, size=size, check_valid=check_valid, tol=tol)
     dirichlet_samples = np.random.dirichlet(alpha, size=size)
     return mvn_samples, dirichlet_samples
 
 @register_atom(witness_discreteeventsampler)  # type: ignore[untyped-decorator]
-@icontract.require(lambda pvals: isinstance(pvals, (float, int, np.number)), "pvals must be numeric")
+@icontract.require(lambda pvals: pvals is not None, "pvals cannot be None")
 @icontract.ensure(lambda result: result is not None, "DiscreteEventSampler output must not be None")
-def discreteeventsampler(n: int, pvals: np.ndarray, size: int | tuple[int, ...] | None) -> np.ndarray:  # type: ignore[type-arg]
-    """Draws integer count vectors from the Multinomial distribution. Represents a single stateless stochastic step that maps a probability simplex (pvals) and a trial count (n) to an observed frequency vector. Commonly used to simulate categorical observations in generative models and particle filters.
+def discreteeventsampler(
+    n: int,
+    pvals: np.ndarray,
+    size: int | tuple[int, ...] | None = None,
+) -> np.ndarray:
+    """Draw integer count vectors from NumPy's multinomial helper.
 
     Args:
-        n: total number of trials, n >= 0
-        pvals: non-negative; must sum to <= 1 (last bucket absorbs remainder)
-        size: determines output batch shape
+        n: Total number of trials.
+        pvals: Outcome probabilities for each bucket.
+        size: Optional batch size for repeated draws.
 
     Returns:
-        each row sums to n; counts[i] >= 0
+        Multinomial count vector or batch of count vectors.
     """
     return np.random.multinomial(n, pvals, size=size)
 
 @register_atom(witness_combinatoricssampler)  # type: ignore[untyped-decorator]
-@icontract.require(lambda p: isinstance(p, (float, int, np.number)), "p must be numeric")
+@icontract.require(lambda x: x is not None, "x cannot be None")
+@icontract.require(lambda a: a is not None, "a cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "CombinatoricsSampler all outputs must not be None")
-def combinatoricssampler(x: int | np.ndarray, axis: int, a: int | np.ndarray, size: int | tuple[int, ...] | None, replace: bool, p: np.ndarray | None) -> tuple[np.ndarray, np.ndarray]:  # type: ignore[type-arg]
-    """Randomly permutes or selects elements from a sequence. Permutation shuffles all elements; choice draws a sample with or without replacement.
+def combinatoricssampler(
+    x: int | np.ndarray,
+    a: int | np.ndarray,
+    size: int | tuple[int, ...] | None = None,
+    replace: bool = True,
+    p: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Randomly permute and sample from NumPy sequences.
 
     Args:
-        x: for permutation; int must be >= 0
-        axis: axis along which to permute / select; 0-based
-        a: for choice; int must be >= 1
-        size: output shape for choice
-        replace: sampling with (True) or without (False) replacement
-        p: selection probabilities; must sum to 1 if provided
+        x: Input for ``np.random.permutation``.
+        a: Population input for ``np.random.choice``.
+        size: Optional output shape for ``choice``.
+        replace: Whether ``choice`` samples with replacement.
+        p: Optional selection probabilities for ``choice``.
 
     Returns:
-        permuted: all elements of x present exactly once
-        selected: drawn from a along axis; respects replace flag
+        Tuple of permuted input and sampled selection.
     """
     permuted = np.random.permutation(x)
     selected = np.random.choice(a, size=size, replace=replace, p=p)

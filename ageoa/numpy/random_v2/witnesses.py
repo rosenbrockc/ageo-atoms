@@ -1,27 +1,35 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, AbstractMCMCTrace, AbstractRNGState
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 
 
-def witness_continuousmultivariatesampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Shape-and-type check for mcmc sampler: continuous multivariate sampler. Returns output metadata without running the real computation."""
-    if trace.param_dims != target.event_shape:
-        raise ValueError(
-            f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
-        )
-    return trace.step(accepted=True), rng.advance(n_draws=1)
+def witness_continuousmultivariatesampler(
+    mean: AbstractArray,
+    cov: AbstractArray,
+    alpha: AbstractArray,
+    size: AbstractScalar | AbstractArray | None,
+    check_valid: AbstractScalar,
+    tol: AbstractScalar,
+) -> tuple[AbstractArray, AbstractArray]:
+    """Return shape metadata for the paired multivariate-normal and Dirichlet draws."""
+    mvn = AbstractArray(shape=mean.shape, dtype="float64")
+    dirichlet = AbstractArray(shape=alpha.shape, dtype="float64")
+    return mvn, dirichlet
 
-def witness_discreteeventsampler(trace: AbstractMCMCTrace, target: AbstractDistribution, rng: AbstractRNGState) -> tuple[AbstractMCMCTrace, AbstractRNGState]:
-    """Shape-and-type check for mcmc sampler: discrete event sampler. Returns output metadata without running the real computation."""
-    if trace.param_dims != target.event_shape:
-        raise ValueError(
-            f"param_dims {trace.param_dims} vs event_shape {target.event_shape}"
-        )
-    return trace.step(accepted=True), rng.advance(n_draws=1)
+def witness_discreteeventsampler(n: AbstractScalar, pvals: AbstractArray, size: AbstractScalar | AbstractArray | None) -> AbstractArray:
+    """Return count-vector metadata for the multinomial wrapper."""
+    return AbstractArray(shape=pvals.shape, dtype="int64")
 
-def witness_combinatoricssampler(x: AbstractArray, axis: AbstractArray, a: AbstractArray, size: AbstractArray, replace: AbstractArray, p: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for combinatorics sampler. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=x.shape,
-        dtype="float64",
+def witness_combinatoricssampler(
+    x: AbstractArray | AbstractScalar,
+    a: AbstractArray | AbstractScalar,
+    size: AbstractScalar | AbstractArray | None,
+    replace: AbstractScalar,
+    p: AbstractArray | None,
+) -> tuple[AbstractArray, AbstractArray]:
+    """Return permutation and sampling metadata for the combinatorics wrapper."""
+    source = x if isinstance(x, AbstractArray) else AbstractArray(shape=("N",), dtype="int64")
+    choice_source = a if isinstance(a, AbstractArray) else AbstractArray(shape=("N",), dtype="int64")
+    return (
+        AbstractArray(shape=source.shape, dtype=source.dtype),
+        AbstractArray(shape=choice_source.shape, dtype=choice_source.dtype),
     )
-    return result
