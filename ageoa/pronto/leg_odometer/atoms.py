@@ -1,6 +1,8 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from collections.abc import Mapping
+from typing import Protocol
 
 import numpy as np
 
@@ -13,12 +15,17 @@ import ctypes.util
 from pathlib import Path
 
 
+class _VelocityStateLike(Protocol):
+    xd_b: np.ndarray
+    vel_cov: np.ndarray
+
+
 # Witness functions should be imported from the generated witnesses module
 
 @register_atom(witness_velocitystatereadout)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda state_in: state_in is not None, "state_in cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "VelocityStateReadout all outputs must not be None")
-def velocitystatereadout(state_in: object) -> tuple[object, object]:
+def velocitystatereadout(state_in: Mapping[str, np.ndarray] | _VelocityStateLike) -> tuple[np.ndarray, np.ndarray]:
     """Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.
 
     Args:
@@ -28,18 +35,18 @@ def velocitystatereadout(state_in: object) -> tuple[object, object]:
         velocity: Derived from xd_b_.
         velocity_covariance: Directly from vel_cov_; no mutation.
     """
-    if isinstance(state_in, dict):
+    if isinstance(state_in, Mapping):
         velocity = state_in.get('xd_b', state_in.get('velocity', np.zeros(3)))
         velocity_covariance = state_in.get('vel_cov', state_in.get('velocity_covariance', np.eye(3)))
     else:
         velocity = getattr(state_in, 'xd_b', np.zeros(3))
         velocity_covariance = getattr(state_in, 'vel_cov', np.eye(3))
-    return (velocity, velocity_covariance)
+    return (np.asarray(velocity, dtype=np.float64), np.asarray(velocity_covariance, dtype=np.float64))
 
 @register_atom(witness_posequeryaccessors)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda: True, "no preconditions for zero-parameter initializer")
 @icontract.ensure(lambda result: result is not None, "PoseQueryAccessors output must not be None")
-def posequeryaccessors() -> object:
+def posequeryaccessors() -> dict[str, np.ndarray]:
     """Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.
 
     Returns:

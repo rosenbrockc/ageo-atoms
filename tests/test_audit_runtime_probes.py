@@ -157,6 +157,20 @@ def test_runtime_probe_passes_for_skyfield_family() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in spherical_probe["findings"]
 
 
+def test_runtime_probe_passes_for_pulsar_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.pulsar.pipeline.delay_from_DM", "delay_from_DM"),
+        ("ageoa.pulsar.pipeline.de_disperse", "de_disperse"),
+        ("ageoa.pulsar.pipeline.fold_signal", "fold_signal"),
+        ("ageoa.pulsar.pipeline.SNR", "SNR"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, "ageoa.pulsar.pipeline", symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_e2e_ppg_family() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.e2e_ppg.kazemi_peak_detection", "ageoa.e2e_ppg.atoms", "kazemi_peak_detection"),
@@ -240,6 +254,19 @@ def test_runtime_probe_passes_for_pasqal_quantum_mwis_solver() -> None:
     assert probe["parity_used"] is True
     assert "RUNTIME_PROBE_PASS" in probe["findings"]
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_marks_pronto_leg_odometer_and_mode_readouts_as_usage_equivalent() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.pronto.foot_contact.mode_snapshot_readout", "ageoa.pronto.foot_contact.atoms", "mode_snapshot_readout"),
+        ("ageoa.pronto.leg_odometer.velocitystatereadout", "ageoa.pronto.leg_odometer.atoms", "velocitystatereadout"),
+        ("ageoa.pronto.leg_odometer.posequeryaccessors", "ageoa.pronto.leg_odometer.atoms", "posequeryaccessors"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
 def test_runtime_probe_passes_for_scipy_optimize_v2_shgo() -> None:

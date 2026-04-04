@@ -30,6 +30,70 @@ def _assert_shape(expected_shape: tuple[int, ...]):
     return _validator
 
 
+def _pulsar_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
+    spectrogram = np.zeros((16, 4), dtype=float)
+    spectrogram[2:6, :] = 1.0
+    folded_input = np.vstack([np.zeros((4, 1), dtype=float), np.ones((4, 1), dtype=float)])
+    snr_profile = np.array([0.1, 0.2, 1.0, 0.2], dtype=float)
+
+    return {
+        "ageoa.pulsar.pipeline.delay_from_DM": ProbePlan(
+            positive=ProbeCase(
+                "delay_from_DM returns a non-negative scalar delay for a positive frequency",
+                lambda func: func(10.0, 1400.0),
+                lambda result: np.testing.assert_allclose(
+                    float(result), 10.0 / (0.000241 * 1400.0 * 1400.0), atol=1e-12
+                ),
+            ),
+            negative=ProbeCase(
+                "reject a negative emission frequency",
+                lambda func: func(10.0, -1.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pulsar.pipeline.de_disperse": ProbePlan(
+            positive=ProbeCase(
+                "de_disperse preserves spectrogram shape on a small synthetic input",
+                lambda func: func(spectrogram, 10.0, 1400.0, 0.5, 0.00035),
+                _assert_shape((16, 4)),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive sampling interval",
+                lambda func: func(spectrogram, 10.0, 1400.0, 0.5, 0.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pulsar.pipeline.fold_signal": ProbePlan(
+            positive=ProbeCase(
+                "fold_signal averages complete periods into a 1D profile",
+                lambda func: func(folded_input, 4),
+                _assert_array(np.full(4, 0.5, dtype=float)),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive folding period",
+                lambda func: func(folded_input, 0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pulsar.pipeline.SNR": ProbePlan(
+            positive=ProbeCase(
+                "SNR returns a finite positive score for a peaked profile",
+                lambda func: func(snr_profile),
+                lambda result: np.testing.assert_allclose(float(result), np.log(1.0 / np.mean(snr_profile)), atol=1e-12),
+            ),
+            negative=ProbeCase(
+                "reject an empty profile",
+                lambda func: func(np.array([], dtype=float)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _skyfield_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     return {
         "ageoa.skyfield.calculate_vector_angle": ProbePlan(
@@ -721,6 +785,7 @@ def get_probe_plans() -> dict[str, Any]:
     from ..runtime_probes import ProbeCase, ProbePlan
 
     plans: dict[str, Any] = {}
+    plans.update(_pulsar_plans(ProbeCase, ProbePlan))
     plans.update(_skyfield_plans(ProbeCase, ProbePlan))
     plans.update(_mint_attention_plans(ProbeCase, ProbePlan))
     plans.update(_mint_top_level_plans(ProbeCase, ProbePlan))

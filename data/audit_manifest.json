@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T02:56:33+00:00",
+    "generated_at": "2026-04-04T15:49:15+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 449,
-      "medium": 56
+      "low": 456,
+      "medium": 49
     },
     "stateful_count": 69,
     "stochastic_count": 22,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 298,
+    "parity_coverage_count": 305,
     "reference_coverage_count": 501,
-    "unmapped_upstream_count": 19,
+    "unmapped_upstream_count": 15,
     "structural_status_counts": {
-      "partial": 38,
-      "pass": 467
+      "partial": 31,
+      "pass": 474
     },
     "parity_coverage_level_counts": {
-      "none": 110,
+      "none": 103,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 251,
+      "parity_or_usage_equivalent": 258,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -100,8 +100,7 @@
       "molecular_docking": 6,
       "numpy": 15,
       "pasqal": 1,
-      "pronto": 15,
-      "pulsar": 4,
+      "pronto": 12,
       "pulsar_folding": 1,
       "quantfin": 25,
       "scipy": 18,
@@ -109,15 +108,15 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 218,
+      "not_applicable": 211,
       "partial": 7,
-      "pass": 278
+      "pass": 285
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 278,
-      "unknown": 218
+      "pass": 285,
+      "unknown": 211
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -128,8 +127,8 @@
       "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 56,
-    "low_risk_count": 449
+    "medium_risk_count": 49,
+    "low_risk_count": 456
   },
   "atoms": [
     {
@@ -66696,13 +66695,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pronto.foot_contact.foot_sensing_state_update@ageoa/pronto/foot_contact/atoms.py:22",
+      "atom_id": "ageoa.pronto.foot_contact.foot_sensing_state_update@ageoa/pronto/foot_contact/atoms.py:29",
       "atom_name": "ageoa.pronto.foot_contact.foot_sensing_state_update",
       "atom_key": "pronto/foot_contact:foot_sensing_state_update",
       "module_import_path": "ageoa.pronto.foot_contact.atoms",
       "module_path": "ageoa/pronto/foot_contact/atoms.py",
       "wrapper_symbol": "foot_sensing_state_update",
-      "wrapper_line": 22,
+      "wrapper_line": 29,
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
@@ -66890,7 +66889,7 @@
           "source_refs": [
             {
               "path": "ageoa/pronto/foot_contact/atoms.py",
-              "line": 22
+              "line": 29
             }
           ]
         }
@@ -66919,17 +66918,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pronto.foot_contact.mode_snapshot_readout@ageoa/pronto/foot_contact/atoms.py:40",
+      "atom_id": "ageoa.pronto.foot_contact.mode_snapshot_readout@ageoa/pronto/foot_contact/atoms.py:47",
       "atom_name": "ageoa.pronto.foot_contact.mode_snapshot_readout",
       "atom_key": "pronto/foot_contact:mode_snapshot_readout",
       "module_import_path": "ageoa.pronto.foot_contact.atoms",
       "module_path": "ageoa/pronto/foot_contact/atoms.py",
       "wrapper_symbol": "mode_snapshot_readout",
-      "wrapper_line": 40,
+      "wrapper_line": 47,
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.FootSensorStanceDetector",
@@ -66947,22 +66946,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -66976,10 +66972,10 @@
           "name": "mode_state_in",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "Mapping[str, Hashable | None] | _ModeStateLike"
         }
       ],
-      "return_annotation": "tuple[object, object]",
+      "return_annotation": "tuple[Hashable | None, Hashable | None]",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -66987,10 +66983,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Reads current and previous mode from immutable classifier state and exposes them as explicit outputs.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "mode_state_in:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -67016,31 +67010,24 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 52,
+      "risk_score": 26,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -67074,7 +67061,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -67098,56 +67085,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pronto.foot_contact.mode_snapshot_readout@ageoa/pronto/foot_contact/atoms.py:40",
-          "atom_key": "pronto/foot_contact:mode_snapshot_readout",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/foot_contact/atoms.py",
-          "wrapper_symbol": "mode_snapshot_readout",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/pronto/foot_contact/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/foot_contact/atoms.py",
-              "line": 40
+              "line": 47
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -67376,17 +67348,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pronto.leg_odometer.velocitystatereadout@ageoa/pronto/leg_odometer/atoms.py:21",
+      "atom_id": "ageoa.pronto.leg_odometer.velocitystatereadout@ageoa/pronto/leg_odometer/atoms.py:28",
       "atom_name": "ageoa.pronto.leg_odometer.velocitystatereadout",
       "atom_key": "pronto/leg_odometer:velocitystatereadout",
       "module_import_path": "ageoa.pronto.leg_odometer.atoms",
       "module_path": "ageoa/pronto/leg_odometer/atoms.py",
       "wrapper_symbol": "velocitystatereadout",
-      "wrapper_line": 21,
+      "wrapper_line": 28,
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.LegOdometer",
@@ -67404,22 +67376,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -67433,10 +67402,10 @@
           "name": "state_in",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "Mapping[str, np.ndarray] | _VelocityStateLike"
         }
       ],
-      "return_annotation": "tuple[object, object]",
+      "return_annotation": "tuple[np.ndarray, np.ndarray]",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -67444,10 +67413,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Reads immutable velocity state-space components (body-frame velocity and its covariance) and returns the current velocity estimate.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "state_in:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -67474,31 +67441,24 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 54,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -67534,7 +67494,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -67558,56 +67518,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pronto.leg_odometer.velocitystatereadout@ageoa/pronto/leg_odometer/atoms.py:21",
-          "atom_key": "pronto/leg_odometer:velocitystatereadout",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/leg_odometer/atoms.py",
-          "wrapper_symbol": "velocitystatereadout",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/pronto/leg_odometer/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/leg_odometer/atoms.py",
-              "line": 21
+              "line": 28
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -67621,17 +67566,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.pronto.leg_odometer.posequeryaccessors@ageoa/pronto/leg_odometer/atoms.py:42",
+      "atom_id": "ageoa.pronto.leg_odometer.posequeryaccessors@ageoa/pronto/leg_odometer/atoms.py:49",
       "atom_name": "ageoa.pronto.leg_odometer.posequeryaccessors",
       "atom_key": "pronto/leg_odometer:posequeryaccessors",
       "module_import_path": "ageoa.pronto.leg_odometer.atoms",
       "module_path": "ageoa/pronto/leg_odometer/atoms.py",
       "wrapper_symbol": "posequeryaccessors",
-      "wrapper_line": 42,
+      "wrapper_line": 49,
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.LegOdometer",
@@ -67649,28 +67594,25 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [],
       "required_parameter_names": [],
       "argument_details": [],
-      "return_annotation": "object",
+      "return_annotation": "dict[str, np.ndarray]",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -67678,10 +67620,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Provides stateless pose-related query endpoints and no-op/placeholder call sites with no declared state reads or writes.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -67708,31 +67648,24 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 54,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -67768,7 +67701,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -67792,56 +67725,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pronto.leg_odometer.posequeryaccessors@ageoa/pronto/leg_odometer/atoms.py:42",
-          "atom_key": "pronto/leg_odometer:posequeryaccessors",
-          "domain_family": "pronto",
-          "module_path": "ageoa/pronto/leg_odometer/atoms.py",
-          "wrapper_symbol": "posequeryaccessors",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/pronto/leg_odometer/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/leg_odometer/atoms.py",
-              "line": 42
+              "line": 49
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -69921,10 +69839,16 @@
       "domain_family": "pulsar",
       "module_family": "pulsar",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Pulsar_Folding",
+        "module": "Pulsar_Dedisperse.ipynb",
+        "function": "delay_from_DM",
+        "language": "python",
+        "notes": "Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb"
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -69933,26 +69857,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "DM",
@@ -69998,39 +69916,36 @@
           "path": "ageoa/pulsar/pipeline.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Pulsar_Folding",
+          "module": "Pulsar_Dedisperse.ipynb",
+          "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pulsar/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 53,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -70062,7 +69977,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -70086,40 +70001,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pulsar.pipeline.delay_from_DM@ageoa/pulsar/pipeline.py:24",
-          "atom_key": "pulsar/pipeline:delay_from_DM",
-          "domain_family": "pulsar",
-          "module_path": "ageoa/pulsar/pipeline.py",
-          "wrapper_symbol": "delay_from_DM",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "delay_from_dm.inputs.freq_emitted: empty constraints",
-          "path": "ageoa/pulsar/pipeline.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-CONSTRAINT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pulsar/pipeline.py",
@@ -70128,14 +70025,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -70159,10 +70059,16 @@
       "domain_family": "pulsar",
       "module_family": "pulsar",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Pulsar_Folding",
+        "module": "Pulsar_Dedisperse.ipynb",
+        "function": "de_disperse",
+        "language": "python",
+        "notes": "Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb"
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -70171,26 +70077,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "data",
@@ -70260,39 +70160,36 @@
           "path": "ageoa/pulsar/pipeline.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Pulsar_Folding",
+          "module": "Pulsar_Dedisperse.ipynb",
+          "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pulsar/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 53,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -70324,7 +70221,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -70348,40 +70245,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pulsar.pipeline.de_disperse@ageoa/pulsar/pipeline.py:44",
-          "atom_key": "pulsar/pipeline:de_disperse",
-          "domain_family": "pulsar",
-          "module_path": "ageoa/pulsar/pipeline.py",
-          "wrapper_symbol": "de_disperse",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "delay_from_dm.inputs.freq_emitted: empty constraints",
-          "path": "ageoa/pulsar/pipeline.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-CONSTRAINT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pulsar/pipeline.py",
@@ -70390,14 +70269,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -70421,10 +70303,16 @@
       "domain_family": "pulsar",
       "module_family": "pulsar",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Pulsar_Folding",
+        "module": "Pulsar_folding.ipynb",
+        "function": "fold.sum(axis=1)",
+        "language": "python",
+        "notes": "Local wrapper names the notebook period-folding loop and final profile reduction."
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -70433,26 +70321,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "data",
@@ -70498,39 +70380,36 @@
           "path": "ageoa/pulsar/pipeline.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Pulsar_Folding",
+          "module": "Pulsar_folding.ipynb",
+          "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pulsar/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 53,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -70562,7 +70441,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -70586,40 +70465,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pulsar.pipeline.fold_signal@ageoa/pulsar/pipeline.py:84",
-          "atom_key": "pulsar/pipeline:fold_signal",
-          "domain_family": "pulsar",
-          "module_path": "ageoa/pulsar/pipeline.py",
-          "wrapper_symbol": "fold_signal",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "delay_from_dm.inputs.freq_emitted: empty constraints",
-          "path": "ageoa/pulsar/pipeline.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-CONSTRAINT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pulsar/pipeline.py",
@@ -70628,14 +70489,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -70659,10 +70523,16 @@
       "domain_family": "pulsar",
       "module_family": "pulsar",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
-      "upstream_symbols": {},
+      "risk_tier": "low",
+      "upstream_symbols": {
+        "repo": "Pulsar_Folding",
+        "module": "Pulsar_Dedisperse.ipynb",
+        "function": "SNR",
+        "language": "python",
+        "notes": "Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb"
+      },
       "upstream_version": null,
-      "source_revision": null,
+      "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da",
       "review_basis_at": null,
       "stateful": false,
       "ffi": false,
@@ -70671,26 +70541,20 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 57,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "repair the CDG structure and schema",
-        "map this atom in scripts/atom_manifest.yml",
-        "add vendored or importable upstream signature evidence",
-        "pin source revision or upstream version in the manifest"
+        "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
         "arr"
@@ -70728,39 +70592,36 @@
           "path": "ageoa/pulsar/pipeline.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "Pulsar_Folding",
+          "module": "Pulsar_Dedisperse.ipynb",
+          "source_revision": "98e223cfd1e40dcb40f6ce5717433423cf6587da"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/pulsar/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_CDG_ISSUES",
-        "RISK_MISSING_PARITY",
-        "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 53,
+      "risk_score": 15,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 17,
-          "reasons": [
-            "RISK_CDG_ISSUES",
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
-            "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -70792,7 +70653,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -70816,40 +70677,22 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_CDG_INVALID"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.pulsar.pipeline.SNR@ageoa/pulsar/pipeline.py:113",
-          "atom_key": "pulsar/pipeline:SNR",
-          "domain_family": "pulsar",
-          "module_path": "ageoa/pulsar/pipeline.py",
-          "wrapper_symbol": "SNR",
-          "code": "STRUCT_CDG_INVALID",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "delay_from_dm.inputs.freq_emitted: empty constraints",
-          "path": "ageoa/pulsar/pipeline.py",
-          "line": null,
-          "column": null,
-          "raw_code": "C-CONSTRAINT"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pulsar/pipeline.py",
@@ -70858,14 +70701,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

@@ -87,9 +87,29 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
         "is_robot_standing": True,
         "joint_angles_init": np.array([0.1, -0.2, 0.3], dtype=float),
     }
+    leg_state = {
+        "xd_b": np.array([0.25, -0.5, 0.75], dtype=float),
+        "vel_cov": np.diag([1.0, 2.0, 3.0]).astype(float),
+    }
 
     def _assert_none(result: Any) -> None:
         assert result is None
+
+    def _assert_mode_snapshot(result: Any) -> None:
+        assert result == ("stance", "swing")
+
+    def _assert_velocity_readout(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        velocity, velocity_covariance = result
+        helpers["_assert_array"](np.array([0.25, -0.5, 0.75], dtype=float))(velocity)
+        helpers["_assert_array"](np.diag([1.0, 2.0, 3.0]).astype(float))(velocity_covariance)
+
+    def _assert_pose_snapshot(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {"position", "orientation"}
+        helpers["_assert_array"](np.zeros(3, dtype=float))(result["position"])
+        helpers["_assert_array"](np.eye(3, dtype=float))(result["orientation"])
 
     return {
         "ageoa.pronto.foot_contact.foot_sensing_state_update": ProbePlan(
@@ -105,6 +125,19 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
             ),
             parity_used=True,
         ),
+        "ageoa.pronto.foot_contact.mode_snapshot_readout": ProbePlan(
+            positive=ProbeCase(
+                "read current and previous gait modes from immutable foot-contact state",
+                lambda func: func({"mode": "stance", "previous_mode": "swing"}),
+                _assert_mode_snapshot,
+            ),
+            negative=ProbeCase(
+                "reject a missing mode-state snapshot",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform": ProbePlan(
             positive=ProbeCase(
                 "apply inverse Schmitt trigger hysteresis to a simple analog trace",
@@ -114,6 +147,32 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
             negative=ProbeCase(
                 "reject a missing input signal",
                 lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.leg_odometer.velocitystatereadout": ProbePlan(
+            positive=ProbeCase(
+                "read body velocity and covariance from immutable leg-odometer state",
+                lambda func: func(leg_state),
+                _assert_velocity_readout,
+            ),
+            negative=ProbeCase(
+                "reject a missing leg-odometer state snapshot",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.leg_odometer.posequeryaccessors": ProbePlan(
+            positive=ProbeCase(
+                "return deterministic pose query accessors with identity defaults",
+                lambda func: func(),
+                _assert_pose_snapshot,
+            ),
+            negative=ProbeCase(
+                "reject unexpected positional arguments for the stateless pose query accessor",
+                lambda func: func(1),
                 expect_exception=True,
             ),
             parity_used=True,

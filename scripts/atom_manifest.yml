@@ -2581,6 +2581,38 @@
 # =============================================================================
 #  Pulsar_Folding
 # =============================================================================
+- atom: pulsar/pipeline:delay_from_DM
+  upstream:
+    repo: Pulsar_Folding
+    module: Pulsar_Dedisperse.ipynb
+    function: delay_from_DM
+    language: python
+    notes: Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb
+
+- atom: pulsar/pipeline:de_disperse
+  upstream:
+    repo: Pulsar_Folding
+    module: Pulsar_Dedisperse.ipynb
+    function: de_disperse
+    language: python
+    notes: Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb
+
+- atom: pulsar/pipeline:fold_signal
+  upstream:
+    repo: Pulsar_Folding
+    module: Pulsar_folding.ipynb
+    function: fold.sum(axis=1)
+    language: python
+    notes: Local wrapper names the notebook period-folding loop and final profile reduction.
+
+- atom: pulsar/pipeline:SNR
+  upstream:
+    repo: Pulsar_Folding
+    module: Pulsar_Dedisperse.ipynb
+    function: SNR
+    language: python
+    notes: Vendored notebook-defined helper in third_party/Pulsar_Folding/Pulsar_Dedisperse.ipynb
+
 - atom: pulsar_folding:dm_can_brute_force
   upstream:
     repo: Pulsar_Folding

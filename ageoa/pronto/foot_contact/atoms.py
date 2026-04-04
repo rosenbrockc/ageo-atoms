@@ -1,6 +1,8 @@
 from __future__ import annotations
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from collections.abc import Hashable, Mapping
+from typing import Protocol
 
 import numpy as np
 
@@ -11,6 +13,11 @@ from .witnesses import witness_foot_sensing_state_update, witness_mode_snapshot_
 import ctypes
 import ctypes.util
 from pathlib import Path
+
+
+class _ModeStateLike(Protocol):
+    mode: Hashable | None
+    previous_mode: Hashable | None
 
 
 # Witness functions should be imported from the generated witnesses module
@@ -37,7 +44,9 @@ def foot_sensing_state_update(foot_sensing_state_in: dict[str, bool], foot_sensi
 @register_atom(witness_mode_snapshot_readout)  # type: ignore[untyped-decorator,name-defined]
 @icontract.require(lambda mode_state_in: mode_state_in is not None, "mode_state_in cannot be None")
 @icontract.ensure(lambda result: all(r is not None for r in result), "Mode Snapshot Readout all outputs must not be None")
-def mode_snapshot_readout(mode_state_in: object) -> tuple[object, object]:
+def mode_snapshot_readout(
+    mode_state_in: Mapping[str, Hashable | None] | _ModeStateLike,
+) -> tuple[Hashable | None, Hashable | None]:
     """Reads current and previous mode from immutable classifier state and exposes them as explicit outputs.
 
     Args:
@@ -47,7 +56,7 @@ def mode_snapshot_readout(mode_state_in: object) -> tuple[object, object]:
         mode: Current classifier mode.
         previous_mode: Previous classifier mode.
     """
-    if isinstance(mode_state_in, dict):
+    if isinstance(mode_state_in, Mapping):
         mode = mode_state_in.get('mode', None)
         previous_mode = mode_state_in.get('previous_mode', None)
     else:
