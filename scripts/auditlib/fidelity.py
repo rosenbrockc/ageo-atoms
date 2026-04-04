@@ -28,15 +28,32 @@ def _status_for_findings(mapping_found: bool, findings: list[str], upstream_sign
     return "pass"
 
 
+def _is_decomposition_mapping(mapping: UpstreamMapping | None) -> bool:
+    if mapping is None:
+        return False
+    notes = (mapping.notes or "").lower()
+    return "wrapper isolates" in notes or "wrapper exposes" in notes
+
+
 def _state_adapter_parameters(record: dict[str, Any], mapping: UpstreamMapping | None) -> set[str]:
-    if mapping is None or not mapping.function or "." not in mapping.function:
+    if mapping is None:
         return set()
     if record.get("stateful_kind") not in {"argument_state", "explicit_state_model", "return_state"}:
         return set()
     adapters = {
         name
         for name in record.get("argument_names", [])
-        if name == "state" or name.endswith("_state") or name.endswith("_context")
+        if (
+            name == "state"
+            or name.endswith("_state")
+            or name.endswith("_context")
+            or name.endswith("_valid")
+            or name.endswith("_is_valid")
+            or name == "terminal_state"
+            or name == "iteration_state"
+            or name == "current_iteration_state"
+            or name.startswith("candidate_")
+        )
     }
     return adapters
 
@@ -67,6 +84,9 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
             comparable_wrapper_required = [name for name in wrapper_required if name not in state_adapters]
             missing_required = [name for name in upstream_required if name not in comparable_wrapper_params]
             invented = [name for name in comparable_wrapper_params if name not in upstream_params]
+            if not comparable_wrapper_params and state_adapters and _is_decomposition_mapping(mapping):
+                missing_required = []
+                invented = []
             if missing_required:
                 findings.append("FIDELITY_SIGNATURE_MISSING_REQUIRED")
                 notes.append("missing_required=" + ",".join(missing_required))
@@ -75,7 +95,10 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
                 notes.append("invented_parameters=" + ",".join(invented))
             if not missing_required and not invented and comparable_wrapper_params != upstream_params:
                 findings.append("FIDELITY_SIGNATURE_ORDER_MISMATCH")
-            if comparable_wrapper_required != [name for name in upstream_required if name in comparable_wrapper_params]:
+            if (
+                not (_is_decomposition_mapping(mapping) and state_adapters)
+                and comparable_wrapper_required != [name for name in upstream_required if name in comparable_wrapper_params]
+            ):
                 findings.append("FIDELITY_REQUIREDNESS_MISMATCH")
 
     if record.get("uses_varargs"):

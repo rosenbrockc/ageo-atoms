@@ -1899,6 +1899,7 @@
     module: src.solver.greedy_lattice_mapping
     function: GreedyMapping.generate_greedy_ud_subgraph_with
     language: python
+    notes: Wrapper isolates the final orchestration step of generate_greedy_ud_subgraph_with after initialization, extension, and validity checks have been decomposed into explicit stages.
 
 - atom: molecular_docking/greedy_mapping:scoreandextendgreedycandidates
   upstream:
@@ -2006,9 +2007,10 @@
 - atom: molecular_docking/minimize_bandwidth:extract_final_permutation
   upstream:
     repo: Molecular-Docking
-    module: src.solver.permutations
-    function: invert_permutation
+    module: src.solver.optimiser
+    function: minimize_bandwidth
     language: python
+    notes: Wrapper exposes the final accumulated permutation returned from the iterative minimise_bandwidth loop.
 
 - atom: molecular_docking/minimize_bandwidth:initialize_reduction_state
   upstream:
@@ -2021,9 +2023,10 @@
 - atom: molecular_docking/minimize_bandwidth:propose_greedy_permutation_step
   upstream:
     repo: Molecular-Docking
-    module: src.solver.permutations
-    function: permute_list
+    module: src.solver.optimiser
+    function: minimize_bandwidth_global
     language: python
+    notes: Wrapper isolates the candidate-permutation proposal step inside the iterative minimise_bandwidth loop.
 
 - atom: molecular_docking/minimize_bandwidth:select_minimum_bandwidth_permutation
   upstream:

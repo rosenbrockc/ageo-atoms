@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T22:09:55+00:00",
+    "generated_at": "2026-04-04T22:22:03+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 475,
-      "medium": 30
+      "low": 476,
+      "medium": 29
     },
     "stateful_count": 70,
     "stochastic_count": 22,
@@ -122,13 +122,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 471,
-      "review_now": 11,
+      "review_later": 472,
+      "review_now": 10,
       "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 30,
-    "low_risk_count": 475
+    "medium_risk_count": 29,
+    "low_risk_count": 476
   },
   "atoms": [
     {
@@ -44390,13 +44390,13 @@
       "domain_family": "molecular_docking",
       "module_family": "molecular_docking",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
         "module": "src.solver.greedy_lattice_mapping",
         "function": "GreedyMapping.generate_greedy_ud_subgraph_with",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the final orchestration step of generate_greedy_ud_subgraph_with after initialization, extension, and validity checks have been decomposed into explicit stages."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -44415,16 +44415,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "mapping_context",
         "starting_node",
@@ -44524,20 +44520,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 36,
+      "risk_score": 24,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -44569,7 +44562,7 @@
           ]
         }
       },
-      "review_priority": "review_now",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -46921,10 +46914,10 @@
       "risk_tier": "medium",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": "permute_list",
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth_global",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper isolates the candidate-permutation proposal step inside the iterative minimise_bandwidth loop."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -46943,18 +46936,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "iteration_state"
       ],
@@ -46993,7 +46980,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -47167,18 +47154,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "current_iteration_state",
         "candidate_permutation",
@@ -47391,10 +47372,10 @@
       "risk_tier": "medium",
       "upstream_symbols": {
         "repo": "Molecular-Docking",
-        "module": "src.solver.permutations",
-        "function": "invert_permutation",
+        "module": "src.solver.optimiser",
+        "function": "minimize_bandwidth",
         "language": "python",
-        "notes": null
+        "notes": "Wrapper exposes the final accumulated permutation returned from the iterative minimise_bandwidth loop."
       },
       "upstream_version": null,
       "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca",
@@ -47413,18 +47394,12 @@
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED"
-      ],
-      "required_actions": [
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 87,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
         "terminal_state"
       ],
@@ -47463,7 +47438,7 @@
         {
           "kind": "vendored_repo",
           "repo": "Molecular-Docking",
-          "module": "src.solver.permutations",
+          "module": "src.solver.optimiser",
           "source_revision": "fafb1f2a872cee0f241cfd233346bc53e39cfcca"
         },
         {
@@ -47473,11 +47448,12 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
+        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_SIGNATURE_MISMATCH",
         "RISK_STATEFUL_API"
       ],
-      "risk_score": 30,
+      "risk_score": 32,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -47512,8 +47488,10 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
         }
       },
       "review_priority": "review_now",

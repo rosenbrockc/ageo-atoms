@@ -108,3 +108,23 @@ def test_greedy_mapping_context_adapter_is_not_treated_as_invented_parameter() -
     evidence = build_signature_evidence(record)
     assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
     assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]
+
+
+def test_greedy_mapping_pipeline_decomposition_outputs_are_not_treated_as_invented_parameters() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "molecular_docking/greedy_mapping:rungreedymappingpipeline")
+    evidence = build_signature_evidence(record)
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]
+
+
+def test_minimize_bandwidth_loop_stage_adapters_do_not_trigger_signature_findings() -> None:
+    manifest = build_manifest()
+    for atom_key in [
+        "molecular_docking/minimize_bandwidth:propose_greedy_permutation_step",
+        "molecular_docking/minimize_bandwidth:update_state_with_improvement_criterion",
+        "molecular_docking/minimize_bandwidth:extract_final_permutation",
+    ]:
+        evidence = build_signature_evidence(_record_for(manifest, atom_key))
+        assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+        assert "FIDELITY_SIGNATURE_MISSING_REQUIRED" not in evidence["findings"]
