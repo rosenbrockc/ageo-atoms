@@ -19,6 +19,7 @@ from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
 from .runtime_probe_plans import (
     get_advancedvi_and_iqe_probe_plans,
+    get_belief_propagation_probe_plans,
     get_biosppy_probe_plans,
     get_conjugate_priors_and_small_mcmc_probe_plans,
     get_foundation_probe_plans,
@@ -2750,6 +2751,7 @@ PROBE_PLANS.update(_numpy_search_sort_v2_plans())
 PROBE_PLANS.update(_scipy_optimize_v2_plans())
 PROBE_PLANS.update(get_foundation_probe_plans())
 PROBE_PLANS.update(get_advancedvi_and_iqe_probe_plans())
+PROBE_PLANS.update(get_belief_propagation_probe_plans())
 PROBE_PLANS.update(get_quant_engine_probe_plans())
 PROBE_PLANS.update(get_particle_filter_and_pasqal_probe_plans())
 PROBE_PLANS.update(get_rust_robotics_probe_plans())

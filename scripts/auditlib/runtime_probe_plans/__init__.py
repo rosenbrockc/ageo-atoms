@@ -1,6 +1,7 @@
 """Family-scoped runtime probe plan registries."""
 
 from .advancedvi_and_iqe import get_probe_plans as get_advancedvi_and_iqe_probe_plans
+from .belief_propagation import get_probe_plans as get_belief_propagation_probe_plans
 from .biosppy import get_probe_plans as get_biosppy_probe_plans
 from .conjugate_priors_and_small_mcmc import get_probe_plans as get_conjugate_priors_and_small_mcmc_probe_plans
 from .foundation import get_probe_plans as get_foundation_probe_plans
@@ -17,6 +18,7 @@ from .rust_robotics import get_probe_plans as get_rust_robotics_probe_plans
 
 __all__ = [
     "get_advancedvi_and_iqe_probe_plans",
+    "get_belief_propagation_probe_plans",
     "get_biosppy_probe_plans",
     "get_conjugate_priors_and_small_mcmc_probe_plans",
     "get_foundation_probe_plans",

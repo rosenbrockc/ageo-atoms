@@ -866,6 +866,20 @@ def test_runtime_probe_passes_for_particle_filter_helpers() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_belief_propagation_loopy_bp() -> None:
+    for atom_name, symbol in [
+        ("ageoa.belief_propagation.loopy_bp.initialize_message_passing_state", "initialize_message_passing_state"),
+        ("ageoa.belief_propagation.loopy_bp.run_loopy_message_passing_and_belief_query", "run_loopy_message_passing_and_belief_query"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.belief_propagation.loopy_bp.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")
