@@ -1,22 +1,14 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 
 
-def witness_var(s: AbstractArray, t: AbstractArray, t_prime: AbstractArray, v: AbstractArray, vs: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for var. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=s.shape,
-        dtype="float64",
-    )
-    return result
+def witness_var(s: AbstractScalar, t: AbstractScalar, t_prime: AbstractScalar, v: AbstractScalar, vs: AbstractScalar) -> AbstractScalar:
+    """Describe the scalar implied variance returned from a local-vol surface."""
+    return AbstractScalar(dtype="float64", min_val=0.0)
 
-def witness_localvol(dwdt: AbstractArray, k: AbstractArray, otherwise: AbstractArray, rcurve: AbstractArray, s0: AbstractArray, solution: AbstractArray, sqrt: AbstractArray, t: AbstractArray, v: AbstractArray, w: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for localvol. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=dwdt.shape,
-        dtype="float64",
-    )
-    return result
+def witness_localvol(dwdt: AbstractScalar, k: AbstractScalar, otherwise: AbstractScalar, rcurve: AbstractScalar, s0: AbstractScalar, solution: AbstractScalar, sqrt: AbstractScalar, t: AbstractScalar, v: AbstractScalar, w: AbstractScalar) -> AbstractScalar:
+    """Describe the scalar Dupire local volatility returned at one surface point."""
+    return AbstractScalar(dtype="float64", min_val=0.0)
 
 def witness_vol(x: AbstractArray) -> AbstractArray:
     """Shape-and-type check for vol. Returns output metadata without running the real computation."""

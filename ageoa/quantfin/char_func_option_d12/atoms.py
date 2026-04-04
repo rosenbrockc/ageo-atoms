@@ -2,9 +2,10 @@ from __future__ import annotations
 
 """Atom wrappers for characteristic-function option pricing."""
 
+from collections.abc import Mapping
 import numpy as np
 import icontract
-from typing import Callable
+from typing import Protocol, TypeAlias
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_cf, witness_charfuncoption, witness_f
@@ -12,6 +13,48 @@ from .witnesses import witness_cf, witness_charfuncoption, witness_f
 import ctypes
 import ctypes.util
 from pathlib import Path
+
+
+QuantfinContext: TypeAlias = Mapping[str, float | complex | str | bool]
+
+
+class ComplexFunction(Protocol):
+    def __call__(self, x: complex, /) -> complex: ...
+
+
+class RealFunction(Protocol):
+    def __call__(self, x: float, /) -> float: ...
+
+
+class RealFromComplex(Protocol):
+    def __call__(self, x: complex, /) -> float: ...
+
+
+class RealIntegrand(Protocol):
+    def __call__(self, x: float, /) -> float: ...
+
+
+class RealIntegrator(Protocol):
+    def __call__(self, func: RealIntegrand, lower: float, upper: float, tolerance: float, /) -> float: ...
+
+
+class MartingaleCharacteristicBuilder(Protocol):
+    def __call__(self, model: QuantfinContext, fg: QuantfinContext, tmat: float, /) -> ComplexFunction: ...
+
+
+class IntegrandFunction(Protocol):
+    def __call__(
+        self,
+        exp: ComplexFunction,
+        i: complex,
+        k: complex,
+        leftTerm: complex,
+        realPart: RealFromComplex,
+        rightTerm: complex,
+        v: complex,
+        v_prime: complex,
+        /,
+    ) -> float: ...
 
 
 # ---------------------------------------------------------------------------
@@ -25,29 +68,29 @@ from pathlib import Path
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def charfuncoption(
     arg0: float,
-    cf: Callable,
-    charFuncMart: Callable,
+    cf: ComplexFunction,
+    charFuncMart: MartingaleCharacteristicBuilder,
     d: float,
     damp: float,
     damp_prime: float,
-    disc: Callable,
-    exp: Callable,
-    f: Callable,
-    fg: object,
-    func1: Callable,
-    func2: Callable,
+    disc: RealFunction,
+    exp: ComplexFunction,
+    f: IntegrandFunction,
+    fg: QuantfinContext,
+    func1: RealIntegrand,
+    func2: RealIntegrand,
     i: complex,
-    intF: Callable,
+    intF: RealIntegrator,
     k: float,
     leftTerm: complex,
-    log: Callable,
-    model: object,
-    opt: object,
+    log: RealFunction,
+    model: QuantfinContext,
+    opt: str,
     p1: float,
     p2: float,
     pi: float,
     q: float,
-    realPart: Callable,
+    realPart: RealFromComplex,
     rightTerm: complex,
     s: float,
     strike: float,
@@ -55,7 +98,7 @@ def charfuncoption(
     v: complex,
     v_prime: complex,
     x: float,
-    yc: object,
+    yc: QuantfinContext,
 ) -> float:
     """Price a European option via characteristic-function inversion.
 
@@ -123,11 +166,11 @@ def charfuncoption(
 @icontract.require(lambda k: isinstance(k, complex), "k must be complex")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def f(
-    exp: Callable,
+    exp: ComplexFunction,
     i: complex,
     k: complex,
     leftTerm: complex,
-    realPart: Callable,
+    realPart: RealFromComplex,
     rightTerm: complex,
     v: complex,
     v_prime: complex,
@@ -166,9 +209,9 @@ def f(
 @icontract.require(lambda x: isinstance(x, complex), "x must be complex")
 @icontract.ensure(lambda result: isinstance(result, complex), "result must be complex")
 def cf(
-    charFuncMart: Callable,
-    fg: object,
-    model: object,
+    charFuncMart: MartingaleCharacteristicBuilder,
+    fg: QuantfinContext,
+    model: QuantfinContext,
     tmat: float,
     x: complex,
 ) -> complex:

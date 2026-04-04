@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T15:49:15+00:00",
+    "generated_at": "2026-04-04T16:14:36+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,25 +64,25 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 456,
-      "medium": 49
+      "low": 460,
+      "medium": 45
     },
     "stateful_count": 69,
     "stochastic_count": 22,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 305,
+    "parity_coverage_count": 309,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 15,
     "structural_status_counts": {
-      "partial": 31,
-      "pass": 474
+      "partial": 27,
+      "pass": 478
     },
     "parity_coverage_level_counts": {
-      "none": 103,
+      "none": 99,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 258,
+      "parity_or_usage_equivalent": 262,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -102,21 +102,21 @@
       "pasqal": 1,
       "pronto": 12,
       "pulsar_folding": 1,
-      "quantfin": 25,
+      "quantfin": 21,
       "scipy": 18,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 211,
+      "not_applicable": 207,
       "partial": 7,
-      "pass": 285
+      "pass": 289
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 285,
-      "unknown": 211
+      "pass": 289,
+      "unknown": 207
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -127,8 +127,8 @@
       "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 49,
-    "low_risk_count": 456
+    "medium_risk_count": 45,
+    "low_risk_count": 460
   },
   "atoms": [
     {
@@ -72791,17 +72791,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.char_func_option_d12.charfuncoption@ageoa/quantfin/char_func_option_d12/atoms.py:26",
+      "atom_id": "ageoa.quantfin.char_func_option_d12.charfuncoption@ageoa/quantfin/char_func_option_d12/atoms.py:69",
       "atom_name": "ageoa.quantfin.char_func_option_d12.charfuncoption",
       "atom_key": "quantfin/char_func_option_d12:charfuncoption",
       "module_import_path": "ageoa.quantfin.char_func_option_d12.atoms",
       "module_path": "ageoa/quantfin/char_func_option_d12/atoms.py",
       "wrapper_symbol": "charfuncoption",
-      "wrapper_line": 26,
+      "wrapper_line": 69,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.ContingentClaim",
@@ -72819,22 +72819,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -72916,13 +72913,13 @@
           "name": "cf",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "ComplexFunction"
         },
         {
           "name": "charFuncMart",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "MartingaleCharacteristicBuilder"
         },
         {
           "name": "d",
@@ -72946,37 +72943,37 @@
           "name": "disc",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealFunction"
         },
         {
           "name": "exp",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "ComplexFunction"
         },
         {
           "name": "f",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "IntegrandFunction"
         },
         {
           "name": "fg",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinContext"
         },
         {
           "name": "func1",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealIntegrand"
         },
         {
           "name": "func2",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealIntegrand"
         },
         {
           "name": "i",
@@ -72988,7 +72985,7 @@
           "name": "intF",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealIntegrator"
         },
         {
           "name": "k",
@@ -73006,19 +73003,19 @@
           "name": "log",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealFunction"
         },
         {
           "name": "model",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinContext"
         },
         {
           "name": "opt",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "str"
         },
         {
           "name": "p1",
@@ -73048,7 +73045,7 @@
           "name": "realPart",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealFromComplex"
         },
         {
           "name": "rightTerm",
@@ -73096,7 +73093,7 @@
           "name": "yc",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinContext"
         }
       ],
       "return_annotation": "float",
@@ -73107,13 +73104,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Price a European option via characteristic-function inversion.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "fg:object",
-        "model:object",
-        "opt:object",
-        "yc:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -73139,32 +73131,25 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 49,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73200,7 +73185,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -73224,56 +73209,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.quantfin.char_func_option_d12.charfuncoption@ageoa/quantfin/char_func_option_d12/atoms.py:26",
-          "atom_key": "quantfin/char_func_option_d12:charfuncoption",
-          "domain_family": "quantfin",
-          "module_path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-          "wrapper_symbol": "charfuncoption",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-              "line": 26
+              "line": 69
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -73287,13 +73257,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.char_func_option_d12.f@ageoa/quantfin/char_func_option_d12/atoms.py:125",
+      "atom_id": "ageoa.quantfin.char_func_option_d12.f@ageoa/quantfin/char_func_option_d12/atoms.py:168",
       "atom_name": "ageoa.quantfin.char_func_option_d12.f",
       "atom_key": "quantfin/char_func_option_d12:f",
       "module_import_path": "ageoa.quantfin.char_func_option_d12.atoms",
       "module_path": "ageoa/quantfin/char_func_option_d12/atoms.py",
       "wrapper_symbol": "f",
-      "wrapper_line": 125,
+      "wrapper_line": 168,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -73355,7 +73325,7 @@
           "name": "exp",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "ComplexFunction"
         },
         {
           "name": "i",
@@ -73379,7 +73349,7 @@
           "name": "realPart",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealFromComplex"
         },
         {
           "name": "rightTerm",
@@ -73529,7 +73499,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-              "line": 125
+              "line": 168
             }
           ]
         }
@@ -73558,17 +73528,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.char_func_option_d12.cf@ageoa/quantfin/char_func_option_d12/atoms.py:168",
+      "atom_id": "ageoa.quantfin.char_func_option_d12.cf@ageoa/quantfin/char_func_option_d12/atoms.py:211",
       "atom_name": "ageoa.quantfin.char_func_option_d12.cf",
       "atom_key": "quantfin/char_func_option_d12:cf",
       "module_import_path": "ageoa.quantfin.char_func_option_d12.atoms",
       "module_path": "ageoa/quantfin/char_func_option_d12/atoms.py",
       "wrapper_symbol": "cf",
-      "wrapper_line": 168,
+      "wrapper_line": 211,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.Models.Heston",
@@ -73586,22 +73556,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -73623,19 +73590,19 @@
           "name": "charFuncMart",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "MartingaleCharacteristicBuilder"
         },
         {
           "name": "fg",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinContext"
         },
         {
           "name": "model",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinContext"
         },
         {
           "name": "tmat",
@@ -73658,11 +73625,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Evaluate the martingale-corrected characteristic function.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "fg:object",
-        "model:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -73688,32 +73652,25 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 49,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -73749,7 +73706,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -73773,56 +73730,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.quantfin.char_func_option_d12.cf@ageoa/quantfin/char_func_option_d12/atoms.py:168",
-          "atom_key": "quantfin/char_func_option_d12:cf",
-          "domain_family": "quantfin",
-          "module_path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-          "wrapper_symbol": "cf",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/char_func_option_d12/atoms.py",
-              "line": 168
+              "line": 211
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -73836,17 +73778,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.local_vol_d12.var@ageoa/quantfin/local_vol_d12/atoms.py:25",
+      "atom_id": "ageoa.quantfin.local_vol_d12.var@ageoa/quantfin/local_vol_d12/atoms.py:33",
       "atom_name": "ageoa.quantfin.local_vol_d12.var",
       "atom_key": "quantfin/local_vol_d12:var",
       "module_import_path": "ageoa.quantfin.local_vol_d12.atoms",
       "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
       "wrapper_symbol": "var",
-      "wrapper_line": 25,
+      "wrapper_line": 33,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.VolSurf",
@@ -73864,22 +73806,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -73925,7 +73864,7 @@
           "name": "vs",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinSurfaceContext"
         }
       ],
       "return_annotation": "float",
@@ -73936,10 +73875,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute implied variance for a strike and maturity on a volatility surface.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "vs:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -73965,32 +73902,25 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 49,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -74026,7 +73956,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -74050,56 +73980,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.quantfin.local_vol_d12.var@ageoa/quantfin/local_vol_d12/atoms.py:25",
-          "atom_key": "quantfin/local_vol_d12:var",
-          "domain_family": "quantfin",
-          "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
-          "wrapper_symbol": "var",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-              "line": 25
+              "line": 33
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -74113,17 +74028,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.local_vol_d12.localvol@ageoa/quantfin/local_vol_d12/atoms.py:60",
+      "atom_id": "ageoa.quantfin.local_vol_d12.localvol@ageoa/quantfin/local_vol_d12/atoms.py:68",
       "atom_name": "ageoa.quantfin.local_vol_d12.localvol",
       "atom_key": "quantfin/local_vol_d12:localvol",
       "module_import_path": "ageoa.quantfin.local_vol_d12.atoms",
       "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
       "wrapper_symbol": "localvol",
-      "wrapper_line": 60,
+      "wrapper_line": 68,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.Models.Dupire",
@@ -74141,22 +74056,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
-      "structural_status": "partial",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "has_parity_tests": true,
+      "structural_status": "pass",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -74206,7 +74118,7 @@
           "name": "rcurve",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "object"
+          "annotation": "QuantfinSurfaceContext"
         },
         {
           "name": "s0",
@@ -74224,7 +74136,7 @@
           "name": "sqrt",
           "required": true,
           "kind": "positional_or_keyword",
-          "annotation": "Callable"
+          "annotation": "RealUnaryFunction"
         },
         {
           "name": "t",
@@ -74253,10 +74165,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Compute Dupire local volatility at a given spot level and time.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "rcurve:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -74282,32 +74192,25 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 49,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -74343,7 +74246,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -74367,56 +74270,41 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.quantfin.local_vol_d12.localvol@ageoa/quantfin/local_vol_d12/atoms.py:60",
-          "atom_key": "quantfin/local_vol_d12:localvol",
-          "domain_family": "quantfin",
-          "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
-          "wrapper_symbol": "localvol",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-              "line": 60
+              "line": 68
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -74430,13 +74318,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.local_vol_d12.vol@ageoa/quantfin/local_vol_d12/atoms.py:113",
+      "atom_id": "ageoa.quantfin.local_vol_d12.vol@ageoa/quantfin/local_vol_d12/atoms.py:121",
       "atom_name": "ageoa.quantfin.local_vol_d12.vol",
       "atom_key": "quantfin/local_vol_d12:vol",
       "module_import_path": "ageoa.quantfin.local_vol_d12.atoms",
       "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
       "wrapper_symbol": "vol",
-      "wrapper_line": 113,
+      "wrapper_line": 121,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -74619,7 +74507,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-              "line": 113
+              "line": 121
             }
           ]
         }
@@ -74645,13 +74533,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.local_vol_d12.vol@ageoa/quantfin/local_vol_d12/atoms.py:136",
+      "atom_id": "ageoa.quantfin.local_vol_d12.vol@ageoa/quantfin/local_vol_d12/atoms.py:144",
       "atom_name": "ageoa.quantfin.local_vol_d12.vol",
       "atom_key": "quantfin/local_vol_d12:vol",
       "module_import_path": "ageoa.quantfin.local_vol_d12.atoms",
       "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
       "wrapper_symbol": "vol",
-      "wrapper_line": 136,
+      "wrapper_line": 144,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -74906,7 +74794,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-              "line": 136
+              "line": 144
             }
           ]
         }
@@ -74932,13 +74820,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.local_vol_d12.allfort@ageoa/quantfin/local_vol_d12/atoms.py:186",
+      "atom_id": "ageoa.quantfin.local_vol_d12.allfort@ageoa/quantfin/local_vol_d12/atoms.py:194",
       "atom_name": "ageoa.quantfin.local_vol_d12.allfort",
       "atom_key": "quantfin/local_vol_d12:allfort",
       "module_import_path": "ageoa.quantfin.local_vol_d12.atoms",
       "module_path": "ageoa/quantfin/local_vol_d12/atoms.py",
       "wrapper_symbol": "allfort",
-      "wrapper_line": 186,
+      "wrapper_line": 194,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -75153,7 +75041,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/local_vol_d12/atoms.py",
-              "line": 186
+              "line": 194
             }
           ]
         }

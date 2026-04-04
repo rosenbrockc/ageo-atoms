@@ -324,6 +324,42 @@ def test_runtime_probe_passes_for_char_func_option_integrand_helper() -> None:
     assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_char_func_option_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.quantfin.char_func_option_d12.cf", "cf"),
+        ("ageoa.quantfin.char_func_option_d12.charfuncoption", "charfuncoption"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(
+                atom_name,
+                "ageoa.quantfin.char_func_option_d12.atoms",
+                symbol,
+            )
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_local_vol_d12_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.quantfin.local_vol_d12.var", "var"),
+        ("ageoa.quantfin.local_vol_d12.localvol", "localvol"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(
+                atom_name,
+                "ageoa.quantfin.local_vol_d12.atoms",
+                symbol,
+            )
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_biosppy_ppg_detectors() -> None:
     for atom_name, symbol in [
         ("ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013", "detect_signal_onsets_elgendi2013"),

@@ -2,9 +2,10 @@ from __future__ import annotations
 
 """Atom wrappers for local-volatility surface operations (Dupire model)."""
 
+from collections.abc import Mapping
 import numpy as np
 import icontract
-from typing import Callable, List
+from typing import Protocol
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_allfort, witness_localvol, witness_var, witness_vol
@@ -12,6 +13,13 @@ from .witnesses import witness_allfort, witness_localvol, witness_var, witness_v
 import ctypes
 import ctypes.util
 from pathlib import Path
+
+
+QuantfinSurfaceContext = Mapping[str, float | complex | str | bool]
+
+
+class RealUnaryFunction(Protocol):
+    def __call__(self, x: float, /) -> float: ...
 
 
 # ---------------------------------------------------------------------------
@@ -27,7 +35,7 @@ def var(
     t: float,
     t_prime: float,
     v: float,
-    vs: object,
+    vs: QuantfinSurfaceContext,
 ) -> float:
     """Compute implied variance for a strike and maturity on a volatility surface.
 
@@ -61,10 +69,10 @@ def localvol(
     dwdt: float,
     k: float,
     otherwise: float,
-    rcurve: object,
+    rcurve: QuantfinSurfaceContext,
     s0: float,
     solution: float,
-    sqrt: Callable,
+    sqrt: RealUnaryFunction,
     t: float,
     v: float,
     w: float,

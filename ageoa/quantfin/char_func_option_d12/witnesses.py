@@ -1,27 +1,15 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractScalar, AbstractDistribution, AbstractSignal, ANYTHING
+from ageoa.ghost.abstract import AbstractArray, AbstractScalar
 
 
-def witness_charfuncoption(arg0: AbstractArray, cf: AbstractArray, charFuncMart: AbstractArray, d: AbstractArray, damp: AbstractArray, damp_prime: AbstractArray, disc: AbstractArray, exp: AbstractArray, f: AbstractArray, fg: AbstractArray, func1: AbstractArray, func2: AbstractArray, i: AbstractArray, intF: AbstractArray, k: AbstractArray, leftTerm: AbstractArray, log: AbstractArray, model: AbstractArray, opt: AbstractArray, p1: AbstractArray, p2: AbstractArray, pi: AbstractArray, q: AbstractArray, realPart: AbstractArray, rightTerm: AbstractArray, s: AbstractArray, strike: AbstractArray, tmat: AbstractArray, v: AbstractArray, v_prime: AbstractArray, x: AbstractArray, yc: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for charfuncoption. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=cf.shape,
-        dtype="float64",
-    )
-    return result
+def witness_charfuncoption(arg0: AbstractScalar, cf: AbstractScalar, charFuncMart: AbstractScalar, d: AbstractScalar, damp: AbstractScalar, damp_prime: AbstractScalar, disc: AbstractScalar, exp: AbstractScalar, f: AbstractScalar, fg: AbstractScalar, func1: AbstractScalar, func2: AbstractScalar, i: AbstractScalar, intF: AbstractScalar, k: AbstractScalar, leftTerm: AbstractScalar, log: AbstractScalar, model: AbstractScalar, opt: AbstractScalar, p1: AbstractScalar, p2: AbstractScalar, pi: AbstractScalar, q: AbstractScalar, realPart: AbstractScalar, rightTerm: AbstractScalar, s: AbstractScalar, strike: AbstractScalar, tmat: AbstractScalar, v: AbstractScalar, v_prime: AbstractScalar, x: AbstractScalar, yc: AbstractScalar) -> AbstractScalar:
+    """Describe the scalar option price returned by characteristic-function inversion."""
+    return AbstractScalar(dtype="float64")
 
-def witness_f(exp: AbstractArray, i: AbstractArray, k: AbstractArray, leftTerm: AbstractArray, realPart: AbstractArray, rightTerm: AbstractArray, v: AbstractArray, v_prime: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for f. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=exp.shape,
-        dtype="float64",
-    )
-    return result
+def witness_f(exp: AbstractScalar, i: AbstractScalar, k: AbstractScalar, leftTerm: AbstractScalar, realPart: AbstractScalar, rightTerm: AbstractScalar, v: AbstractScalar, v_prime: AbstractScalar) -> AbstractScalar:
+    """Describe the scalar real-valued Fourier integrand."""
+    return AbstractScalar(dtype="float64")
 
-def witness_cf(charFuncMart: AbstractArray, fg: AbstractArray, model: AbstractArray, tmat: AbstractArray, x: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for cf. Returns output metadata without running the real computation."""
-    result = AbstractArray(
-        shape=charFuncMart.shape,
-        dtype="float64",
-    )
-    return result
+def witness_cf(charFuncMart: AbstractScalar, fg: AbstractScalar, model: AbstractScalar, tmat: AbstractScalar, x: AbstractScalar) -> AbstractScalar:
+    """Describe the complex characteristic-function value at a single frequency."""
+    return AbstractScalar(dtype="complex128")

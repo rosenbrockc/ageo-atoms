@@ -26,6 +26,13 @@ def get_probe_plans() -> dict[str, Any]:
 
         return _check
 
+    def _assert_complex_scalar(expected: complex) -> Callable[[Any], None]:
+        def _check(value: Any) -> None:
+            assert isinstance(value, complex), f"expected complex result, got {type(value)!r}"
+            assert value == expected, f"expected {expected!r}, got {value!r}"
+
+        return _check
+
     def _quick_sim_anti_positive(func: Callable[..., Any]) -> Any:
         module = safe_import_module("ageoa.quantfin.montecarlo")
         original = dict(module.SIMULATOR_REGISTRY)
@@ -95,6 +102,32 @@ def get_probe_plans() -> dict[str, Any]:
                     1.0,
                     100.0,
                 ),
+                expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+        "ageoa.quantfin.local_vol_d12.var": ProbePlan(
+            positive=ProbeCase(
+                "compute implied variance from a deterministic volatility/time pair",
+                lambda func: func(100.0, 1.0, 1.0, 0.2, {"surface": "flat"}),
+                _assert_scalar(0.04000000000000001),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive strike for implied variance lookup",
+                lambda func: func(0.0, 1.0, 1.0, 0.2, {"surface": "flat"}),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.local_vol_d12.localvol": ProbePlan(
+            positive=ProbeCase(
+                "compute Dupire local volatility for a deterministic denominator and derivative",
+                lambda func: func(0.18, 100.0, 0.2, {"curve": "flat"}, 100.0, 0.09, np.sqrt, 1.0, 0.04, 0.04),
+                _assert_scalar(np.sqrt(2.0)),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive current stock level",
+                lambda func: func(0.18, 0.0, 0.2, {"curve": "flat"}, 100.0, 0.09, np.sqrt, 1.0, 0.04, 0.04),
                 expect_exception=True,
             ),
             parity_used=True,
@@ -189,6 +222,110 @@ def get_probe_plans() -> dict[str, Any]:
                     complex(3.0, 0.0),
                     complex(0.0, 0.0),
                     complex(0.0, 0.0),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.char_func_option_d12.cf": ProbePlan(
+            positive=ProbeCase(
+                "evaluate a deterministic martingale-corrected characteristic function at one complex frequency",
+                lambda func: func(
+                    lambda model, fg, tmat: lambda x: complex(model["scale"] * x.real + fg["offset"], x.imag + tmat),
+                    {"offset": 0.25},
+                    {"scale": 2.0},
+                    1.5,
+                    complex(0.5, -0.25),
+                ),
+                _assert_complex_scalar(complex(1.25, 1.25)),
+            ),
+            negative=ProbeCase(
+                "reject a non-complex frequency argument",
+                lambda func: func(
+                    lambda model, fg, tmat: lambda x: complex(model["scale"] * x.real + fg["offset"], x.imag + tmat),
+                    {"offset": 0.25},
+                    {"scale": 2.0},
+                    1.5,
+                    0.5,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.char_func_option_d12.charfuncoption": ProbePlan(
+            positive=ProbeCase(
+                "price a deterministic option with zeroed inversion integrals and matching spot-strike terms",
+                lambda func: func(
+                    0.0,
+                    lambda x: x,
+                    lambda model, fg, tmat: lambda x: complex(x.real + model["shift"], x.imag + fg["shift"] + tmat),
+                    0.95,
+                    0.1,
+                    0.2,
+                    lambda t: 0.95,
+                    np.exp,
+                    lambda exp_fn, imag, k, left, real_part, right, v, v_prime: float(real_part(exp_fn(-imag * v * k) * left * right)),
+                    {"shift": 0.0},
+                    lambda v: 0.0,
+                    lambda v: 0.0,
+                    1j,
+                    lambda func_inner, lower, upper, tol: 0.0,
+                    float(np.log(100.0)),
+                    complex(2.0, 0.0),
+                    np.log,
+                    {"shift": 0.0},
+                    "call",
+                    0.0,
+                    0.0,
+                    float(np.pi),
+                    1.0,
+                    lambda z: float(z.real),
+                    complex(3.0, 0.0),
+                    100.0,
+                    100.0,
+                    1.0,
+                    complex(0.0, 0.0),
+                    complex(0.0, 0.0),
+                    0.0,
+                    {"curve": "flat"},
+                ),
+                _assert_scalar(0.0),
+            ),
+            negative=ProbeCase(
+                "reject a non-positive strike price",
+                lambda func: func(
+                    0.0,
+                    lambda x: x,
+                    lambda model, fg, tmat: lambda x: complex(x.real, x.imag),
+                    0.95,
+                    0.1,
+                    0.2,
+                    lambda t: 0.95,
+                    np.exp,
+                    lambda exp_fn, imag, k, left, real_part, right, v, v_prime: 0.0,
+                    {"shift": 0.0},
+                    lambda v: 0.0,
+                    lambda v: 0.0,
+                    1j,
+                    lambda func_inner, lower, upper, tol: 0.0,
+                    float(np.log(100.0)),
+                    complex(2.0, 0.0),
+                    np.log,
+                    {"shift": 0.0},
+                    "call",
+                    0.0,
+                    0.0,
+                    float(np.pi),
+                    1.0,
+                    lambda z: float(z.real),
+                    complex(3.0, 0.0),
+                    100.0,
+                    0.0,
+                    1.0,
+                    complex(0.0, 0.0),
+                    complex(0.0, 0.0),
+                    0.0,
+                    {"curve": "flat"},
                 ),
                 expect_exception=True,
             ),
