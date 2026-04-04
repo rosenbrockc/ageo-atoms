@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import icontract
+from typing import TypedDict
 from ageoa.ghost.registry import register_atom
 
 from .witnesses import (
@@ -18,13 +19,29 @@ from .witnesses import (
 )
 
 
-_MODEL = {'mass': 1500.0, 'area_frontal': 2.2, 'Cd': 0.3, 'rho': 1.225, 'Cr': 0.01, 'g': 9.81}
+class VehicleModelSpec(TypedDict):
+    mass: float
+    area_frontal: float
+    Cd: float
+    rho: float
+    Cr: float
+    g: float
+
+
+_MODEL: VehicleModelSpec = {
+    'mass': 1500.0,
+    'area_frontal': 2.2,
+    'Cd': 0.3,
+    'rho': 1.225,
+    'Cr': 0.01,
+    'g': 9.81,
+}
 
 @register_atom(witness_initialize_model)
 @icontract.require(lambda mass: isinstance(mass, (float, int, np.number)), "mass must be numeric")
 @icontract.require(lambda area_frontal: isinstance(area_frontal, (float, int, np.number)), "area_frontal must be numeric")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def initialize_model(mass: float, area_frontal: float) -> object:
+def initialize_model(mass: float, area_frontal: float) -> VehicleModelSpec:
     """Create an immutable vehicle dynamics model from physical parameters.
 
     Args:
@@ -35,7 +52,7 @@ def initialize_model(mass: float, area_frontal: float) -> object:
         Immutable model value object for downstream pure calls.
     """
     global _MODEL
-    model = {
+    model: VehicleModelSpec = {
         'mass': float(mass),
         'area_frontal': float(area_frontal),
         'Cd': 0.3,
@@ -205,7 +222,7 @@ def solve_control_for_target_derivative(x: np.ndarray, x_dot_desired: np.ndarray
 @register_atom(witness_deserialize_model_spec)
 @icontract.require(lambda filename: isinstance(filename, str), "filename must be str")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
-def deserialize_model_spec(filename: str) -> object:
+def deserialize_model_spec(filename: str) -> VehicleModelSpec:
     """Load model parameters from file and construct model data.
 
     Args:

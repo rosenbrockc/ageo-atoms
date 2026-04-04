@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T22:00:41+00:00",
+    "generated_at": "2026-04-04T22:09:55+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 473,
-      "medium": 32
+      "low": 475,
+      "medium": 30
     },
     "stateful_count": 70,
     "stochastic_count": 22,
@@ -76,8 +76,8 @@
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 15,
     "structural_status_counts": {
-      "partial": 14,
-      "pass": 491
+      "partial": 12,
+      "pass": 493
     },
     "parity_coverage_level_counts": {
       "none": 86,
@@ -127,8 +127,8 @@
       "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 32,
-    "low_risk_count": 473
+    "medium_risk_count": 30,
+    "low_risk_count": 475
   },
   "atoms": [
     {
@@ -86717,17 +86717,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.initialize_model@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:27",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.initialize_model@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:44",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.initialize_model",
       "atom_key": "rust_robotics/longitudinal_dynamics:initialize_model",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "initialize_model",
-      "wrapper_line": 27,
+      "wrapper_line": 44,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "rust_robotics",
         "module": "models.ground_vehicles.longitudinal_dynamics",
@@ -86746,19 +86746,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "not_applicable",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
+      "acceptability_score": 62,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
@@ -86785,7 +86783,7 @@
           "annotation": "float"
         }
       ],
-      "return_annotation": "object",
+      "return_annotation": "VehicleModelSpec",
       "decorator_count": 4,
       "require_count": 2,
       "ensure_count": 1,
@@ -86793,10 +86791,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Create an immutable vehicle dynamics model from physical parameters.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -86824,22 +86820,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 46,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
@@ -86881,7 +86872,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -86905,26 +86896,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.initialize_model@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:27",
-          "atom_key": "rust_robotics/longitudinal_dynamics:initialize_model",
-          "domain_family": "rust_robotics",
-          "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-          "wrapper_symbol": "initialize_model",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_PROBE_SKIPPED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
@@ -86942,7 +86915,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 27
+              "line": 44
             }
           ]
         }
@@ -86967,13 +86940,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_aerodynamic_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:53",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_aerodynamic_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:70",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.compute_aerodynamic_force",
       "atom_key": "rust_robotics/longitudinal_dynamics:compute_aerodynamic_force",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "compute_aerodynamic_force",
-      "wrapper_line": 53,
+      "wrapper_line": 70,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -87157,7 +87130,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 53
+              "line": 70
             }
           ]
         }
@@ -87182,13 +87155,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_rolling_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:72",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_rolling_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:89",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.compute_rolling_force",
       "atom_key": "rust_robotics/longitudinal_dynamics:compute_rolling_force",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "compute_rolling_force",
-      "wrapper_line": 72,
+      "wrapper_line": 89,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -87372,7 +87345,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 72
+              "line": 89
             }
           ]
         }
@@ -87397,13 +87370,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_gravity_grade_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:91",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.compute_gravity_grade_force@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:108",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.compute_gravity_grade_force",
       "atom_key": "rust_robotics/longitudinal_dynamics:compute_gravity_grade_force",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "compute_gravity_grade_force",
-      "wrapper_line": 91,
+      "wrapper_line": 108,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -87584,7 +87557,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 91
+              "line": 108
             }
           ]
         }
@@ -87609,13 +87582,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.evaluate_dynamics_derivatives@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:111",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.evaluate_dynamics_derivatives@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:128",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.evaluate_dynamics_derivatives",
       "atom_key": "rust_robotics/longitudinal_dynamics:evaluate_dynamics_derivatives",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "evaluate_dynamics_derivatives",
-      "wrapper_line": 111,
+      "wrapper_line": 128,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -87812,7 +87785,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 111
+              "line": 128
             }
           ]
         }
@@ -87837,13 +87810,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.linearize_dynamics@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:145",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.linearize_dynamics@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:162",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.linearize_dynamics",
       "atom_key": "rust_robotics/longitudinal_dynamics:linearize_dynamics",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "linearize_dynamics",
-      "wrapper_line": 145,
+      "wrapper_line": 162,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -88040,7 +88013,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 145
+              "line": 162
             }
           ]
         }
@@ -88065,13 +88038,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.solve_control_for_target_derivative@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:175",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.solve_control_for_target_derivative@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:192",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.solve_control_for_target_derivative",
       "atom_key": "rust_robotics/longitudinal_dynamics:solve_control_for_target_derivative",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "solve_control_for_target_derivative",
-      "wrapper_line": 175,
+      "wrapper_line": 192,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
@@ -88271,7 +88244,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 175
+              "line": 192
             }
           ]
         }
@@ -88296,17 +88269,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.deserialize_model_spec@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:208",
+      "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.deserialize_model_spec@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:225",
       "atom_name": "ageoa.rust_robotics.longitudinal_dynamics.deserialize_model_spec",
       "atom_key": "rust_robotics/longitudinal_dynamics:deserialize_model_spec",
       "module_import_path": "ageoa.rust_robotics.longitudinal_dynamics.atoms",
       "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
       "wrapper_symbol": "deserialize_model_spec",
-      "wrapper_line": 208,
+      "wrapper_line": 225,
       "domain_family": "rust_robotics",
       "module_family": "rust_robotics",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "rust_robotics",
         "module": "models.ground_vehicles.longitudinal_dynamics",
@@ -88325,19 +88298,17 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": false,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "not_applicable",
       "semantic_status": "unknown",
       "developer_semantics_status": "unknown",
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 54,
+      "acceptability_score": 62,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
-      "blocking_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
+      "blocking_findings": [],
       "required_actions": [
         "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
@@ -88356,7 +88327,7 @@
           "annotation": "str"
         }
       ],
-      "return_annotation": "object",
+      "return_annotation": "VehicleModelSpec",
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
@@ -88364,10 +88335,8 @@
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Load model parameters from file and construct model data.",
-      "has_weak_types": true,
-      "weak_type_annotations": [
-        "return:object"
-      ],
+      "has_weak_types": false,
+      "weak_type_annotations": [],
       "uses_varargs": false,
       "uses_kwargs": false,
       "inventory_notes": [],
@@ -88395,22 +88364,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STRUCTURAL_PARTIAL",
-        "RISK_WEAK_TYPES",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 46,
+      "risk_score": 28,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 14,
+          "score": 8,
           "reasons": [
-            "RISK_WEAK_TYPES",
             "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
@@ -88452,7 +88416,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "manifest_heuristics"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -88476,26 +88440,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_WEAK_TYPES"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.rust_robotics.longitudinal_dynamics.deserialize_model_spec@ageoa/rust_robotics/longitudinal_dynamics/atoms.py:208",
-          "atom_key": "rust_robotics/longitudinal_dynamics:deserialize_model_spec",
-          "domain_family": "rust_robotics",
-          "module_path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-          "wrapper_symbol": "deserialize_model_spec",
-          "code": "STRUCT_WEAK_TYPES",
-          "severity": "warning",
-          "source": "manifest_heuristics",
-          "message": "Weak public type annotations detected",
-          "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": null
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_PROBE_SKIPPED",
         "SEMANTIC_RUNTIME_SUPPORT_MISSING"
@@ -88513,7 +88459,7 @@
           "source_refs": [
             {
               "path": "ageoa/rust_robotics/longitudinal_dynamics/atoms.py",
-              "line": 208
+              "line": 225
             }
           ]
         }
