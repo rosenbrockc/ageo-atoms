@@ -60,7 +60,17 @@ def axial_attention(
     self_attn_mask: np.ndarray | None = None,
     self_attn_padding_mask: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Apply a deterministic row-wise self-attention approximation."""
+    """Apply a deterministic row-wise self-attention approximation.
+
+    Args:
+        x: Input tensor with shape `(rows, cols, batch, embed_dim)`.
+        self_attn_mask: Optional attention mask. Present for API compatibility.
+        self_attn_padding_mask: Optional padding mask with shape `(batch, rows, cols)`.
+
+    Returns:
+        output: Contextualized tensor with the same shape as `x`.
+        attn_probs: Attention weights over the column dimension.
+    """
     del self_attn_mask
 
     rows, cols, batch_size, embed_dim = x.shape
@@ -90,7 +100,16 @@ def axial_attention(
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 @icontract.ensure(lambda result: isinstance(result, tuple), "result must be a tuple")
 def rotary_positional_embeddings(q: np.ndarray, k: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """Apply rotary position embeddings to a query/key pair."""
+    """Apply rotary position embeddings to a query/key pair.
+
+    Args:
+        q: Query tensor with an even embedding dimension.
+        k: Key tensor with the same shape as `q`.
+
+    Returns:
+        q_rotated: Query tensor after rotary position embedding.
+        k_rotated: Key tensor after rotary position embedding.
+    """
     seq_len = k.shape[-2]
     dim = k.shape[-1]
     inv_freq = 1.0 / (10000 ** (np.arange(0, dim, 2, dtype=np.float64) / dim))

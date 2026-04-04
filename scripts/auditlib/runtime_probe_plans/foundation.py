@@ -139,6 +139,61 @@ def _mint_attention_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     }
 
 
+def _mint_top_level_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
+    def _assert_axial_attention_result(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        output, attn_probs = result
+        assert tuple(np.asarray(output).shape) == (2, 2, 1, 4)
+        assert tuple(np.asarray(attn_probs).shape) == (1, 2, 2)
+        assert np.all(np.isfinite(np.asarray(output, dtype=float)))
+        assert np.all(np.isfinite(np.asarray(attn_probs, dtype=float)))
+
+    def _assert_rotary_result(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        q_out, k_out = result
+        assert tuple(np.asarray(q_out).shape) == (1, 2, 4)
+        assert tuple(np.asarray(k_out).shape) == (1, 2, 4)
+        assert np.all(np.isfinite(np.asarray(q_out, dtype=float)))
+        assert np.all(np.isfinite(np.asarray(k_out, dtype=float)))
+
+    return {
+        "ageoa.mint.axial_attention": ProbePlan(
+            positive=ProbeCase(
+                "mint axial attention returns contextualized embeddings and attention weights for a tiny 4D tensor",
+                lambda func: func(np.arange(16, dtype=np.float64).reshape(2, 2, 1, 4)),
+                _assert_axial_attention_result,
+            ),
+            negative=ProbeCase(
+                "reject an attention tensor with the wrong rank",
+                lambda func: func(np.arange(8, dtype=np.float64).reshape(2, 4)),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.mint.rotary_positional_embeddings": ProbePlan(
+            positive=ProbeCase(
+                "mint rotary positional embeddings rotate a small query/key pair without changing shape",
+                lambda func: func(
+                    np.arange(8, dtype=np.float64).reshape(1, 2, 4),
+                    np.arange(8, dtype=np.float64).reshape(1, 2, 4) + 1.0,
+                ),
+                _assert_rotary_result,
+            ),
+            negative=ProbeCase(
+                "reject a query tensor with an odd embedding dimension",
+                lambda func: func(
+                    np.arange(6, dtype=np.float64).reshape(1, 2, 3),
+                    np.arange(6, dtype=np.float64).reshape(1, 2, 3),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _e2e_ppg_reconstruction_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     def _assert_windowed_reconstruction(result: Any) -> None:
         arr = np.asarray(result, dtype=float)
@@ -518,6 +573,7 @@ def get_probe_plans() -> dict[str, Any]:
     plans: dict[str, Any] = {}
     plans.update(_skyfield_plans(ProbeCase, ProbePlan))
     plans.update(_mint_attention_plans(ProbeCase, ProbePlan))
+    plans.update(_mint_top_level_plans(ProbeCase, ProbePlan))
     plans.update(_e2e_ppg_plans(ProbeCase, ProbePlan))
     plans.update(_e2e_ppg_reconstruction_plans(ProbeCase, ProbePlan))
     plans.update(_datadriven_plans(ProbeCase, ProbePlan))

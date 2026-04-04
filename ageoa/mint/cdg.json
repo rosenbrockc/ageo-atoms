@@ -1,199 +1,130 @@
 {
   "nodes": [
     {
-      "node_id": "MINTSequenceProcessor_root",
+      "node_id": "mint_attention_root",
       "parent_id": null,
-      "name": "MINTSequenceProcessor",
-      "description": "Ingested pipeline for multimeric protein sequence processing",
+      "name": "MintAttentionHelpers",
+      "description": "Canonical CDG for the exported MINT attention helper wrappers.",
       "concept_type": "custom",
       "inputs": [],
       "outputs": [],
       "status": "decomposed",
       "children": [
-        "multimer_collator",
-        "protein_transformer",
-        "chain_level_contextualizer"
+        "axial_attention",
+        "rotary_positional_embeddings"
       ],
       "depth": 0,
       "type_signature": "",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
-      "critic_notes": "",
-      "decomposition_rationale": "",
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": ""
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
     },
     {
-      "node_id": "multimer_collator",
-      "parent_id": "MINTSequenceProcessor_root",
-      "name": "Multimer Collator",
-      "description": "Pads, tokenizes, and concatenates multiple protein chains into a single multimeric representation with chain IDs.",
-      "concept_type": "custom",
+      "node_id": "axial_attention",
+      "parent_id": "mint_attention_root",
+      "name": "AxialAttention",
+      "description": "Apply a deterministic row-wise self-attention approximation.",
+      "concept_type": "attention",
       "inputs": [
         {
-          "name": "sequences",
-          "type_desc": "list[str]",
-          "constraints": "list of amino acid strings"
+          "name": "x",
+          "type_desc": "ndarray",
+          "constraints": "shape (rows, cols, batch, embed_dim); finite"
+        },
+        {
+          "name": "self_attn_mask",
+          "type_desc": "ndarray | None",
+          "constraints": "optional attention mask"
+        },
+        {
+          "name": "self_attn_padding_mask",
+          "type_desc": "ndarray | None",
+          "constraints": "optional padding mask with shape (batch, rows, cols)"
         }
       ],
       "outputs": [
         {
-          "name": "tokens",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
+          "name": "output",
+          "type_desc": "ndarray",
+          "constraints": "same shape as x"
         },
         {
-          "name": "chain_ids",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
+          "name": "attn_probs",
+          "type_desc": "ndarray",
+          "constraints": "finite attention weights"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(sequences: list[str]) -> tuple[torch.Tensor, torch.Tensor]",
+      "type_signature": "(x: ndarray, self_attn_mask: ndarray | None = None, self_attn_padding_mask: ndarray | None = None) -> tuple[ndarray, ndarray]",
       "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
-      "critic_notes": "",
-      "decomposition_rationale": "",
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": ""
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
     },
     {
-      "node_id": "protein_transformer",
-      "parent_id": "MINTSequenceProcessor_root",
-      "name": "Protein Transformer",
-      "description": "Black-box transformer boundary for multimeric sequence representations.",
-      "concept_type": "custom",
+      "node_id": "rotary_positional_embeddings",
+      "parent_id": "mint_attention_root",
+      "name": "RotaryPositionalEmbeddings",
+      "description": "Apply rotary position embeddings to a query/key pair.",
+      "concept_type": "attention",
       "inputs": [
         {
-          "name": "tokens",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
+          "name": "q",
+          "type_desc": "ndarray",
+          "constraints": "finite; at least rank 2; even embedding dimension"
         },
         {
-          "name": "chain_ids",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
+          "name": "k",
+          "type_desc": "ndarray",
+          "constraints": "same shape as q"
         }
       ],
       "outputs": [
         {
-          "name": "representations",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen, EmbedDim)"
+          "name": "q_rotated",
+          "type_desc": "ndarray",
+          "constraints": "same shape as q"
+        },
+        {
+          "name": "k_rotated",
+          "type_desc": "ndarray",
+          "constraints": "same shape as k"
         }
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
+      "type_signature": "(q: ndarray, k: ndarray) -> tuple[ndarray, ndarray]",
       "matched_primitive": null,
-      "is_optional": false,
-      "is_opaque": true,
-      "critic_notes": "",
-      "decomposition_rationale": "",
-      "is_external": false,
-      "parallelizable": false,
-      "conceptual_summary": ""
-    },
-    {
-      "node_id": "chain_level_contextualizer",
-      "parent_id": "MINTSequenceProcessor_root",
-      "name": "Chain-level Contextualizer",
-      "description": "Applies masking and per-chain mean pooling to extract sequence-level embeddings for all chains.",
-      "concept_type": "custom",
-      "inputs": [
-        {
-          "name": "representations",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen, EmbedDim)"
-        },
-        {
-          "name": "tokens",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
-        },
-        {
-          "name": "chain_ids",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, TotalSeqLen)"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "contextualized_embeddings",
-          "type_desc": "Tensor",
-          "constraints": "(Batch, N_Chains * EmbedDim)"
-        }
-      ],
-      "status": "atomic",
-      "children": [],
-      "depth": 1,
-      "type_signature": "(representations: torch.Tensor, tokens: torch.Tensor, chain_ids: torch.Tensor) -> torch.Tensor",
-      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
       "is_optional": false,
       "is_opaque": false,
-      "critic_notes": "",
-      "decomposition_rationale": "",
       "is_external": false,
       "parallelizable": false,
-      "conceptual_summary": ""
+      "conceptual_summary": "",
+      "critic_notes": "",
+      "decomposition_rationale": ""
     }
   ],
-  "edges": [
-    {
-      "source_id": "multimer_collator",
-      "target_id": "protein_transformer",
-      "output_name": "tokens",
-      "input_name": "tokens",
-      "source_type": "torch.Tensor",
-      "target_type": "torch.Tensor",
-      "requires_glue": false
-    },
-    {
-      "source_id": "multimer_collator",
-      "target_id": "protein_transformer",
-      "output_name": "chain_ids",
-      "input_name": "chain_ids",
-      "source_type": "torch.Tensor",
-      "target_type": "torch.Tensor",
-      "requires_glue": false
-    },
-    {
-      "source_id": "protein_transformer",
-      "target_id": "chain_level_contextualizer",
-      "output_name": "representations",
-      "input_name": "representations",
-      "source_type": "torch.Tensor",
-      "target_type": "torch.Tensor",
-      "requires_glue": false
-    },
-    {
-      "source_id": "multimer_collator",
-      "target_id": "chain_level_contextualizer",
-      "output_name": "tokens",
-      "input_name": "tokens",
-      "source_type": "torch.Tensor",
-      "target_type": "torch.Tensor",
-      "requires_glue": false
-    },
-    {
-      "source_id": "multimer_collator",
-      "target_id": "chain_level_contextualizer",
-      "output_name": "chain_ids",
-      "input_name": "chain_ids",
-      "source_type": "torch.Tensor",
-      "target_type": "torch.Tensor",
-      "requires_glue": false
-    }
-  ],
+  "edges": [],
   "metadata": {
-    "source": "ingester",
-    "class_name": "MINTSequenceProcessor"
+    "source": "manual_compaction",
+    "family": "mint_attention_helpers"
   }
 }
