@@ -1,7 +1,7 @@
 from __future__ import annotations
-from ageoa.ghost.abstract import AbstractArray, AbstractDistribution, AbstractScalar, AbstractSignal
 """Auto-generated atom wrappers following the ageoa pattern."""
 
+from typing import TYPE_CHECKING
 
 import numpy as np
 
@@ -9,16 +9,63 @@ import icontract
 from ageoa.ghost.registry import register_atom  # type: ignore[import-untyped]
 from .witnesses import witness_cubicsplinefit, witness_rbfinterpolatorfit
 
+if TYPE_CHECKING:
+    from scipy.interpolate import CubicSpline, RBFInterpolator
+
 # Witness functions should be imported from the generated witnesses module
 
+
+def _is_array(value: object, *, ndim: int | None = None) -> bool:
+    """Return whether ``value`` is a NumPy array with an optional rank constraint."""
+    if not isinstance(value, np.ndarray):
+        return False
+    if ndim is not None and value.ndim != ndim:
+        return False
+    return np.all(np.isfinite(value))
+
+
+def _is_axis_index(value: object) -> bool:
+    """Return whether ``value`` is an integer axis index."""
+    return isinstance(value, (int, np.integer))
+
+
+def _is_boundary_condition(value: object) -> bool:
+    """Return whether ``value`` is a valid boundary-condition shape for ``CubicSpline``."""
+    return value is None or isinstance(value, (str, tuple))
+
+
+def _is_extrapolation_mode(value: object) -> bool:
+    """Return whether ``value`` is an accepted extrapolation mode for ``CubicSpline``."""
+    return value is None or isinstance(value, (bool, str))
+
+
+def _is_optional_int(value: object) -> bool:
+    """Return whether ``value`` is ``None`` or an integer."""
+    return value is None or isinstance(value, (int, np.integer))
+
+
+def _is_optional_smoothing(value: object) -> bool:
+    """Return whether ``value`` is a valid smoothing parameter for ``RBFInterpolator``."""
+    return value is None or isinstance(value, (float, int, np.number, np.ndarray))
+
+
+def _is_optional_str(value: object) -> bool:
+    """Return whether ``value`` is ``None`` or a string."""
+    return value is None or isinstance(value, str)
+
+
+def _is_optional_float(value: object) -> bool:
+    """Return whether ``value`` is ``None`` or a numeric scalar."""
+    return value is None or isinstance(value, (float, int, np.number))
+
 @register_atom(witness_cubicsplinefit)
-@icontract.require(lambda x: x is not None, "x cannot be None")
-@icontract.require(lambda y: y is not None, "y cannot be None")
-@icontract.require(lambda axis: axis is not None, "axis cannot be None")
-@icontract.require(lambda bc_type: bc_type is not None, "bc_type cannot be None")
-@icontract.require(lambda extrapolate: extrapolate is not None, "extrapolate cannot be None")
+@icontract.require(lambda x: _is_array(x, ndim=1), "x must be a finite 1D ndarray")
+@icontract.require(lambda y: _is_array(y), "y must be a finite ndarray")
+@icontract.require(lambda axis: _is_axis_index(axis), "axis must be an integer axis index")
+@icontract.require(lambda bc_type: _is_boundary_condition(bc_type), "bc_type must be a string or a tuple boundary specification")
+@icontract.require(lambda extrapolate: _is_extrapolation_mode(extrapolate), "extrapolate must be None, bool, or string")
 @icontract.ensure(lambda result: result is not None, "CubicSplineFit output must not be None")
-def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | tuple | None = None, extrapolate: bool | str | None = None) -> object:  # type: ignore[type-arg]
+def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | tuple = "not-a-knot", extrapolate: bool | str | None = None) -> CubicSpline:
     """Constructs a piecewise cubic polynomial interpolator through 1-D data points, exposing boundary-condition and extrapolation policy as configuration knobs. Returns a callable CubicSpline object that evaluates (and optionally differentiates) the interpolant at arbitrary query points.
 
     Args:
@@ -35,11 +82,15 @@ def cubicsplinefit(x: np.ndarray, y: np.ndarray, axis: int = 0, bc_type: str | t
     return CubicSpline(x, y, axis=axis, bc_type=bc_type, extrapolate=extrapolate)
 
 @register_atom(witness_rbfinterpolatorfit)
-@icontract.require(lambda y: isinstance(y, (float, int, np.number)), "y must be numeric")
-@icontract.require(lambda smoothing: isinstance(smoothing, (float, int, np.number)), "smoothing must be numeric")
-@icontract.require(lambda epsilon: isinstance(epsilon, (float, int, np.number)), "epsilon must be numeric")
+@icontract.require(lambda y: _is_array(y, ndim=2), "y must be a finite 2D ndarray of coordinates")
+@icontract.require(lambda d: _is_array(d), "d must be a finite ndarray of values")
+@icontract.require(lambda neighbors: _is_optional_int(neighbors), "neighbors must be None or an integer")
+@icontract.require(lambda smoothing: _is_optional_smoothing(smoothing), "smoothing must be a numeric scalar or an ndarray")
+@icontract.require(lambda kernel: _is_optional_str(kernel), "kernel must be a string")
+@icontract.require(lambda epsilon: _is_optional_float(epsilon), "epsilon must be None or a numeric scalar")
+@icontract.require(lambda degree: _is_optional_int(degree), "degree must be None or an integer")
 @icontract.ensure(lambda result: result is not None, "RBFInterpolatorFit output must not be None")
-def rbfinterpolatorfit(y: np.ndarray, d: np.ndarray, neighbors: int | None = None, smoothing: float | np.ndarray | None = None, kernel: str | None = None, epsilon: float | None = None, degree: int | None = None) -> object:  # type: ignore[type-arg]
+def rbfinterpolatorfit(y: np.ndarray, d: np.ndarray, neighbors: int | None = None, smoothing: float | np.ndarray = 0.0, kernel: str = "thin_plate_spline", epsilon: float | None = None, degree: int | None = None) -> RBFInterpolator:
     """Constructs a Radial Basis Function interpolator over scattered N-dimensional data. Supports local approximation via k-nearest-neighbor subsets, smoothing regularisation, a choice of radial kernels, a kernel shape parameter, and an optional polynomial augmentation degree. Returns a callable RBFInterpolator object.
 
     Args:

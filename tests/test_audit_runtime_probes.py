@@ -916,6 +916,20 @@ def test_runtime_probe_passes_for_scipy_spatial_v2_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_scipy_interpolate_v2_family() -> None:
+    for atom_name, symbol in [
+        ("ageoa.scipy.interpolate_v2.cubicsplinefit", "cubicsplinefit"),
+        ("ageoa.scipy.interpolate_v2.rbfinterpolatorfit", "rbfinterpolatorfit"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.scipy.interpolate_v2.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_scipy_sparse_graph_v2_family() -> None:
     for atom_name, symbol in [
         ("ageoa.scipy.sparse_graph_v2.singlesourceshortestpath", "singlesourceshortestpath"),

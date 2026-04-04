@@ -664,6 +664,58 @@ def _sklearn_image_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     }
 
 
+def _scipy_interpolate_v2_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
+    def _assert_cubic_spline_callable(result: Any) -> None:
+        values = np.asarray(result(np.array([0.5, 1.5], dtype=float)))
+        assert values.shape == (2,)
+        assert np.all(np.isfinite(values))
+
+    def _assert_rbf_callable(result: Any) -> None:
+        values = np.asarray(result(np.array([[0.5], [1.5]], dtype=float)))
+        assert values.shape == (2,)
+        assert np.all(np.isfinite(values))
+
+    return {
+        "ageoa.scipy.interpolate_v2.cubicsplinefit": ProbePlan(
+            positive=ProbeCase(
+                "build a callable cubic spline interpolator for three 1D samples",
+                lambda func: func(
+                    np.array([0.0, 1.0, 2.0], dtype=float),
+                    np.array([0.0, 1.0, 0.0], dtype=float),
+                ),
+                _assert_cubic_spline_callable,
+            ),
+            negative=ProbeCase(
+                "reject non-monotonic x coordinates",
+                lambda func: func(
+                    np.array([0.0, 2.0, 1.0], dtype=float),
+                    np.array([0.0, 1.0, 0.0], dtype=float),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.scipy.interpolate_v2.rbfinterpolatorfit": ProbePlan(
+            positive=ProbeCase(
+                "build a callable radial basis interpolator for simple 1D scattered data",
+                lambda func: func(
+                    np.array([[0.0], [1.0], [2.0]], dtype=float),
+                    np.array([0.0, 1.0, 0.0], dtype=float),
+                    smoothing=0.0,
+                    kernel="linear",
+                ),
+                _assert_rbf_callable,
+            ),
+            negative=ProbeCase(
+                "reject a missing data-value array",
+                lambda func: func(np.array([[0.0], [1.0]], dtype=float), None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def get_probe_plans() -> dict[str, Any]:
     """Return the foundation-family probe registry."""
     from ..runtime_probes import ProbeCase, ProbePlan
@@ -677,5 +729,6 @@ def get_probe_plans() -> dict[str, Any]:
     plans.update(_datadriven_plans(ProbeCase, ProbePlan))
     plans.update(_alphafold_plans(ProbeCase, ProbePlan))
     plans.update(_pronto_backlash_filter_plans(ProbeCase, ProbePlan))
+    plans.update(_scipy_interpolate_v2_plans(ProbeCase, ProbePlan))
     plans.update(_sklearn_image_plans(ProbeCase, ProbePlan))
     return plans

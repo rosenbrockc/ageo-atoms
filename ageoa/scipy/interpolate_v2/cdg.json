@@ -35,14 +35,14 @@
       "inputs": [
         {
           "name": "x",
-          "type_desc": "1-D array of strictly-increasing sample-point coordinates",
+          "type_desc": "ndarray[float64]",
           "constraints": "monotonically increasing; length >= 2",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "y",
-          "type_desc": "Array of sample values; interpolation is performed along the given axis",
+          "type_desc": "ndarray[float64]",
           "constraints": "size along `axis` must equal len(x)",
           "required": true,
           "default_value_repr": ""
@@ -51,28 +51,28 @@
           "name": "axis",
           "type_desc": "int",
           "constraints": "valid axis index of y; defaults to 0",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "0"
         },
         {
           "name": "bc_type",
-          "type_desc": "str or 2-tuple of boundary-condition specs (optional)",
+          "type_desc": "str | tuple",
           "constraints": "one of 'not-a-knot', 'periodic', 'clamped', 'natural', or explicit first/second derivative pairs",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "'not-a-knot'"
         },
         {
           "name": "extrapolate",
-          "type_desc": "bool or the string 'periodic' (optional)",
+          "type_desc": "bool | str | None",
           "constraints": "controls whether the spline is evaluated outside the data range",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "None"
         }
       ],
       "outputs": [
         {
           "name": "spline_interpolator",
-          "type_desc": "CubicSpline callable interpolator object",
+          "type_desc": "CubicSpline",
           "constraints": "supports __call__(x_new), .derivative(), .antiderivative()",
           "required": true,
           "default_value_repr": ""
@@ -81,7 +81,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(x: 1-D array of strictly-increasing sample-point coordinates, y: Array of sample values; interpolation is performed along the given axis, axis: int, bc_type: str or 2-tuple of boundary-condition specs (optional), extrapolate: bool or the string 'periodic' (optional)) -> CubicSpline callable interpolator object",
+      "type_signature": "(x: ndarray[float64], y: ndarray[float64], axis: int = 0, bc_type: str | tuple = 'not-a-knot', extrapolate: bool | str | None = None) -> CubicSpline",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -102,58 +102,58 @@
       "inputs": [
         {
           "name": "y",
-          "type_desc": "2-D float array of data-point coordinates, shape (n_points, n_dims)",
+          "type_desc": "ndarray[float64]",
           "constraints": "all values finite; n_points >= 1",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "d",
-          "type_desc": "Array of data values at coordinates y, shape (n_points, ...) or (n_points,)",
+          "type_desc": "ndarray[float64]",
           "constraints": "all values finite; leading dimension must equal n_points",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "neighbors",
-          "type_desc": "int (optional)",
+          "type_desc": "int | None",
           "constraints": "number of nearest neighbours used per query point; None means use all n_points",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "None"
         },
         {
           "name": "smoothing",
-          "type_desc": "float or 1-D array of length n_points (optional)",
+          "type_desc": "float | ndarray[float64]",
           "constraints": ">= 0; 0 produces exact interpolation",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "0.0"
         },
         {
           "name": "kernel",
-          "type_desc": "str (optional)",
+          "type_desc": "str",
           "constraints": "one of 'linear', 'thin_plate_spline', 'cubic', 'quintic', 'multiquadric', 'inverse_multiquadric', 'inverse_quadratic', 'gaussian'",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "'thin_plate_spline'"
         },
         {
           "name": "epsilon",
-          "type_desc": "float (optional)",
+          "type_desc": "float | None",
           "constraints": "> 0; shape/scale parameter required by 'multiquadric', 'inverse_multiquadric', 'inverse_quadratic', 'gaussian'",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "None"
         },
         {
           "name": "degree",
-          "type_desc": "int (optional)",
+          "type_desc": "int | None",
           "constraints": "degree of supplementary polynomial; -1 disables polynomial augmentation; minimum degree enforced per kernel",
-          "required": true,
-          "default_value_repr": ""
+          "required": false,
+          "default_value_repr": "None"
         }
       ],
       "outputs": [
         {
           "name": "rbf_interpolator",
-          "type_desc": "RBFInterpolator callable interpolator object",
+          "type_desc": "RBFInterpolator",
           "constraints": "supports __call__(x_new) where x_new is shape (m_points, n_dims)",
           "required": true,
           "default_value_repr": ""
@@ -162,7 +162,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(y: 2-D float array of data-point coordinates, shape (n_points, n_dims), d: Array of data values at coordinates y, shape (n_points, ...) or (n_points,), neighbors: int (optional), smoothing: float or 1-D array of length n_points (optional), kernel: str (optional), epsilon: float (optional), degree: int (optional)) -> RBFInterpolator callable interpolator object",
+      "type_signature": "(y: ndarray[float64], d: ndarray[float64], neighbors: int | None = None, smoothing: float | ndarray[float64] = 0.0, kernel: str = 'thin_plate_spline', epsilon: float | None = None, degree: int | None = None) -> RBFInterpolator",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
