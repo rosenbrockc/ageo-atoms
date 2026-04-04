@@ -105,7 +105,7 @@ def querystance(current_state: StateModelSpec) -> float:
     Returns:
         The estimated position
     """
-    return float(current_state['x'][0])
+    return float(np.asarray(current_state['x'], dtype=float).reshape(-1)[0])
 
 
 """Auto-generated FFI bindings for cpp implementations."""

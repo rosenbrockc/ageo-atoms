@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T16:27:50+00:00",
+    "generated_at": "2026-04-04T22:00:41+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 472,
-      "medium": 33
+      "low": 473,
+      "medium": 32
     },
     "stateful_count": 70,
     "stochastic_count": 22,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 317,
+    "parity_coverage_count": 322,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 15,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 491
     },
     "parity_coverage_level_counts": {
-      "none": 91,
+      "none": 86,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 270,
+      "parity_or_usage_equivalent": 275,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -100,35 +100,35 @@
       "molecular_docking": 6,
       "numpy": 15,
       "pasqal": 1,
-      "pronto": 12,
+      "pronto": 8,
       "pulsar_folding": 1,
-      "quantfin": 13,
+      "quantfin": 12,
       "scipy": 18,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 199,
+      "not_applicable": 194,
       "partial": 7,
-      "pass": 297
+      "pass": 302
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 297,
-      "unknown": 199
+      "pass": 302,
+      "unknown": 194
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 470,
+      "review_later": 471,
       "review_now": 11,
-      "review_soon": 24
+      "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 33,
-    "low_risk_count": 472
+    "medium_risk_count": 32,
+    "low_risk_count": 473
   },
   "atoms": [
     {
@@ -64875,20 +64875,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -64981,12 +64980,11 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -64999,9 +64997,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -65066,19 +65063,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/dynamic_stance_estimator/atoms.py",
@@ -65087,14 +65084,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -65136,20 +65136,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -65218,13 +65217,12 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 45,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -65237,9 +65235,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -65305,19 +65302,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/dynamic_stance_estimator/atoms.py",
@@ -65326,14 +65323,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -65375,20 +65375,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -65457,13 +65456,12 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 45,
+      "risk_score": 37,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -65476,9 +65474,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -65544,19 +65541,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/dynamic_stance_estimator/atoms.py",
@@ -65565,14 +65562,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -65614,20 +65614,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -65680,12 +65679,11 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -65698,9 +65696,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -65765,19 +65762,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/pronto/dynamic_stance_estimator/atoms.py",
@@ -65786,14 +65783,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -76382,7 +76382,7 @@
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.MonteCarlo",
@@ -76400,20 +76400,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -76552,13 +76551,12 @@
       ],
       "risk_reasons": [
         "RISK_FFI_BACKED",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 34,
+      "risk_score": 26,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -76571,9 +76569,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -76600,7 +76597,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -76636,19 +76633,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
@@ -76657,14 +76654,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -76678,13 +76678,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.maxstep@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:291",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.maxstep@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:304",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.maxstep",
       "atom_key": "quantfin/monte_carlo_anti_d12:maxstep",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "maxstep",
-      "wrapper_line": 291,
+      "wrapper_line": 304,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -76859,7 +76859,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 291
+              "line": 304
             }
           ]
         }
@@ -76888,13 +76888,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.simulatestate@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:311",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.simulatestate@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:324",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.simulatestate",
       "atom_key": "quantfin/monte_carlo_anti_d12:simulatestate",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "simulatestate",
-      "wrapper_line": 311,
+      "wrapper_line": 324,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -77125,7 +77125,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 311
+              "line": 324
             }
           ]
         }
@@ -77154,13 +77154,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.runsim@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:349",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.runsim@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:362",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.runsim",
       "atom_key": "quantfin/monte_carlo_anti_d12:runsim",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "runsim",
-      "wrapper_line": 349,
+      "wrapper_line": 362,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -77393,7 +77393,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 349
+              "line": 362
             }
           ]
         }
@@ -77422,13 +77422,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:387",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:400",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
       "atom_key": "quantfin/monte_carlo_anti_d12:process",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "process",
-      "wrapper_line": 387,
+      "wrapper_line": 400,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -77835,7 +77835,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 387
+              "line": 400
             }
           ]
         }
@@ -77861,13 +77861,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:485",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:498",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
       "atom_key": "quantfin/monte_carlo_anti_d12:process",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "process",
-      "wrapper_line": 485,
+      "wrapper_line": 498,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -78218,7 +78218,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 485
+              "line": 498
             }
           ]
         }
@@ -78244,13 +78244,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:558",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:571",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
       "atom_key": "quantfin/monte_carlo_anti_d12:process",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "process",
-      "wrapper_line": 558,
+      "wrapper_line": 571,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -78521,7 +78521,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 558
+              "line": 571
             }
           ]
         }
@@ -78547,13 +78547,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:613",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.process@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:626",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.process",
       "atom_key": "quantfin/monte_carlo_anti_d12:process",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "process",
-      "wrapper_line": 613,
+      "wrapper_line": 626,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -78744,7 +78744,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 613
+              "line": 626
             }
           ]
         }
@@ -78770,13 +78770,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcf@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:640",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcf@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:653",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.insertcf",
       "atom_key": "quantfin/monte_carlo_anti_d12:insertcf",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "insertcf",
-      "wrapper_line": 640,
+      "wrapper_line": 653,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -79007,7 +79007,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 640
+              "line": 653
             }
           ]
         }
@@ -79036,13 +79036,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcf@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:683",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcf@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:696",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.insertcf",
       "atom_key": "quantfin/monte_carlo_anti_d12:insertcf",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "insertcf",
-      "wrapper_line": 683,
+      "wrapper_line": 696,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -79225,7 +79225,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 683
+              "line": 696
             }
           ]
         }
@@ -79254,13 +79254,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.avg@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:705",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.avg@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:718",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.avg",
       "atom_key": "quantfin/monte_carlo_anti_d12:avg",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "avg",
-      "wrapper_line": 705,
+      "wrapper_line": 718,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -79467,7 +79467,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 705
+              "line": 718
             }
           ]
         }
@@ -79496,13 +79496,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:735",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:748",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist",
       "atom_key": "quantfin/monte_carlo_anti_d12:insertcflist",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "insertcflist",
-      "wrapper_line": 735,
+      "wrapper_line": 748,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -79717,7 +79717,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 735
+              "line": 748
             }
           ]
         }
@@ -79746,13 +79746,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:771",
+      "atom_id": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist@ageoa/quantfin/monte_carlo_anti_d12/atoms.py:784",
       "atom_name": "ageoa.quantfin.monte_carlo_anti_d12.insertcflist",
       "atom_key": "quantfin/monte_carlo_anti_d12:insertcflist",
       "module_import_path": "ageoa.quantfin.monte_carlo_anti_d12.atoms",
       "module_path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
       "wrapper_symbol": "insertcflist",
-      "wrapper_line": 771,
+      "wrapper_line": 784,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -79967,7 +79967,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/monte_carlo_anti_d12/atoms.py",
-              "line": 771
+              "line": 784
             }
           ]
         }

@@ -303,6 +303,134 @@ def _pronto_dynamic_stance_d12_plans(ProbeCase: type, ProbePlan: type, helpers: 
     }
 
 
+def _pronto_dynamic_stance_plans(ProbeCase: type, ProbePlan: type, helpers: dict[str, Any]) -> dict[str, Any]:
+    _assert_value = helpers["_assert_value"]
+
+    def _assert_filter_init(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        state, params = result
+        assert set(state) == {"x", "P"}
+        assert set(params) == {"A", "H", "Q", "R"}
+        np.testing.assert_allclose(np.asarray(state["x"], dtype=float), np.array([[0.0], [1.0]], dtype=float))
+        np.testing.assert_allclose(np.asarray(state["P"], dtype=float), np.eye(2, dtype=float))
+
+    def _filter_fixture() -> tuple[dict[str, np.ndarray], dict[str, np.ndarray]]:
+        x0 = np.array([[0.0], [1.0]], dtype=float)
+        p0 = np.eye(2, dtype=float)
+        A = np.array([[1.0, 1.0], [0.0, 1.0]], dtype=float)
+        H = np.array([[1.0, 0.0]], dtype=float)
+        Q = 0.1 * np.eye(2, dtype=float)
+        R = np.array([[0.5]], dtype=float)
+        state = {"x": x0, "P": p0}
+        params = {"A": A, "H": H, "Q": Q, "R": R}
+        return state, params
+
+    def _assert_predict(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(np.asarray(result["x"], dtype=float), np.array([[1.0], [1.0]], dtype=float))
+        np.testing.assert_allclose(
+            np.asarray(result["P"], dtype=float),
+            np.array([[2.1, 1.0], [1.0, 1.1]], dtype=float),
+        )
+
+    def _assert_update(result: Any) -> None:
+        assert isinstance(result, dict)
+        np.testing.assert_allclose(
+            np.asarray(result["x"], dtype=float),
+            np.array([[1.1615384615384614], [1.0769230769230769]], dtype=float),
+            atol=1e-9,
+        )
+        np.testing.assert_allclose(
+            np.asarray(result["P"], dtype=float),
+            np.array([[0.40384615384615374, 0.1923076923076923], [0.19230769230769226, 0.7153846153846153]], dtype=float),
+            atol=1e-9,
+        )
+
+    return {
+        "ageoa.pronto.dynamic_stance_estimator.initializefilter": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic Kalman-style stance estimator state and parameter bundle",
+                lambda func: func(
+                    np.array([[0.0], [1.0]], dtype=float),
+                    np.eye(2, dtype=float),
+                    np.array([[1.0, 1.0], [0.0, 1.0]], dtype=float),
+                    np.array([[1.0, 0.0]], dtype=float),
+                    0.1 * np.eye(2, dtype=float),
+                    np.array([[0.5]], dtype=float),
+                ),
+                _assert_filter_init,
+            ),
+            negative=ProbeCase(
+                "reject a missing initial state vector",
+                lambda func: func(
+                    None,
+                    np.eye(2, dtype=float),
+                    np.array([[1.0, 1.0], [0.0, 1.0]], dtype=float),
+                    np.array([[1.0, 0.0]], dtype=float),
+                    0.1 * np.eye(2, dtype=float),
+                    np.array([[0.5]], dtype=float),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.dynamic_stance_estimator.predictstep": ProbePlan(
+            positive=ProbeCase(
+                "propagate the deterministic stance state one step forward",
+                lambda func: func(*_filter_fixture(), 0.1),
+                _assert_predict,
+            ),
+            negative=ProbeCase(
+                "reject a non-numeric timestep",
+                lambda func: func(*_filter_fixture(), "bad"),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.dynamic_stance_estimator.updatestep": ProbePlan(
+            positive=ProbeCase(
+                "update the deterministic stance state with one scalar measurement",
+                lambda func: func(
+                    {
+                        "x": np.array([[1.0], [1.0]], dtype=float),
+                        "P": np.array([[2.1, 1.0], [1.0, 1.1]], dtype=float),
+                    },
+                    _filter_fixture()[1],
+                    np.array([[1.2]], dtype=float),
+                ),
+                _assert_update,
+            ),
+            negative=ProbeCase(
+                "reject a missing measurement",
+                lambda func: func(
+                    {
+                        "x": np.array([[1.0], [1.0]], dtype=float),
+                        "P": np.array([[2.1, 1.0], [1.0, 1.1]], dtype=float),
+                    },
+                    _filter_fixture()[1],
+                    None,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.dynamic_stance_estimator.querystance": ProbePlan(
+            positive=ProbeCase(
+                "read the stance scalar from the first state component",
+                lambda func: func({"x": np.array([[1.1615384615384614], [1.0769230769230769]], dtype=float), "P": np.eye(2, dtype=float)}),
+                _assert_value(1.1615384615384614),
+            ),
+            negative=ProbeCase(
+                "reject a missing current state",
+                lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def get_probe_plans() -> dict[str, Any]:
     from ..runtime_probes import (
         ProbeCase,
@@ -326,6 +454,7 @@ def get_probe_plans() -> dict[str, Any]:
 
     plans: dict[str, Any] = {}
     plans.update(_pronto_blip_filter_plans(ProbeCase, ProbePlan, helpers))
+    plans.update(_pronto_dynamic_stance_plans(ProbeCase, ProbePlan, helpers))
     plans.update(_pronto_state_readout_plans(ProbeCase, ProbePlan, helpers))
     plans.update(_pronto_dynamic_stance_d12_plans(ProbeCase, ProbePlan, helpers))
     return plans

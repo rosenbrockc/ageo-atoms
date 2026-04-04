@@ -278,7 +278,20 @@ def evolve(
     else:
         t_mid = timeOffset(t1, ms)
         evolve_prime(mdl, anti, t1, t_mid)
-        return evolve(mdl, anti, t_mid, t2)
+        return evolve(
+            anti,
+            evolve,
+            evolve_prime,
+            get,
+            maxStep,
+            mdl,
+            ms,
+            t_mid,
+            t2,
+            timeDiff,
+            timeOffset,
+            unless,
+        )
 
 
 # ---------------------------------------------------------------------------

@@ -391,6 +391,49 @@ def get_probe_plans() -> dict[str, Any]:
             ),
             parity_used=True,
         ),
+        "ageoa.quantfin.monte_carlo_anti_d12.evolve": ProbePlan(
+            positive=ProbeCase(
+                "subdivide a long timestep into repeated single-step evolution calls",
+                lambda func: func(
+                    False,
+                    func,
+                    lambda mdl, anti, start, stop: {"model": mdl["name"], "anti": anti, "start": start, "stop": stop},
+                    lambda: {"model": "unit", "anti": False, "start": 0.0, "stop": 0.0},
+                    lambda mdl: 1.0,
+                    {"name": "unit"},
+                    1.0,
+                    0.0,
+                    2.5,
+                    lambda t2, t1: t2 - t1,
+                    lambda t, offset: t + offset,
+                    lambda cond, thunk: thunk() if not cond else None,
+                ),
+                lambda value: (
+                    isinstance(value, dict)
+                    and value["start"] == 2.0
+                    and value["stop"] == 2.5
+                ) or (_ for _ in ()).throw(AssertionError(f"unexpected evolve result: {value!r}")),
+            ),
+            negative=ProbeCase(
+                "reject a missing model",
+                lambda func: func(
+                    False,
+                    func,
+                    lambda mdl, anti, start, stop: {"model": mdl["name"], "anti": anti, "start": start, "stop": stop},
+                    lambda: {"model": "unit", "anti": False, "start": 0.0, "stop": 0.0},
+                    lambda mdl: 1.0,
+                    None,
+                    1.0,
+                    0.0,
+                    2.5,
+                    lambda t2, t1: t2 - t1,
+                    lambda t, offset: t + offset,
+                    lambda cond, thunk: thunk() if not cond else None,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.quantfin.char_func_option_d12.f": ProbePlan(
             positive=ProbeCase(
                 "evaluate the real-valued characteristic-function integrand at a simple deterministic point",

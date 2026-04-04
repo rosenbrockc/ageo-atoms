@@ -606,6 +606,10 @@ def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
 
 def test_runtime_probe_passes_for_pronto_dynamic_stance_d12_family() -> None:
     for atom_name, module_path, symbol in [
+        ("ageoa.pronto.dynamic_stance_estimator.initializefilter", "ageoa.pronto.dynamic_stance_estimator.atoms", "initializefilter"),
+        ("ageoa.pronto.dynamic_stance_estimator.predictstep", "ageoa.pronto.dynamic_stance_estimator.atoms", "predictstep"),
+        ("ageoa.pronto.dynamic_stance_estimator.updatestep", "ageoa.pronto.dynamic_stance_estimator.atoms", "updatestep"),
+        ("ageoa.pronto.dynamic_stance_estimator.querystance", "ageoa.pronto.dynamic_stance_estimator.atoms", "querystance"),
         ("ageoa.pronto.dynamic_stance_estimator_d12.stancestateinit", "ageoa.pronto.dynamic_stance_estimator_d12.atoms", "stancestateinit"),
         ("ageoa.pronto.dynamic_stance_estimator_d12.stanceestimation", "ageoa.pronto.dynamic_stance_estimator_d12.atoms", "stanceestimation"),
     ]:
@@ -739,6 +743,7 @@ def test_runtime_probe_passes_for_additional_quantfin_helpers() -> None:
         ("ageoa.quantfin.monte_carlo_anti_d12.quicksimanti", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "quicksimanti", True),
         ("ageoa.quantfin.monte_carlo_anti_d12.simulatestate", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "simulatestate", True),
         ("ageoa.quantfin.monte_carlo_anti_d12.runsim", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "runsim", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.evolve", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "evolve", True),
         ("ageoa.quantfin.rng_skip_d12.randomword32", "ageoa.quantfin.rng_skip_d12.atoms", "randomword32", True),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
