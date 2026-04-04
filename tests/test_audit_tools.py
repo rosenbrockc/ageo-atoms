@@ -100,6 +100,34 @@ def test_rust_bicycle_kinematic_mapping_resolves_trait_impl_signature() -> None:
     assert evidence["upstream_signature"]["parameter_names"] == ["x", "u", "_t"]
 
 
+def test_cpp_dynamic_stance_mapping_resolves_to_vendored_header_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "pronto/dynamic_stance_estimator:initializefilter")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_cpp"
+    assert evidence["upstream_signature"]["parameter_names"] == [
+        "inverse_dynamics",
+        "jsim",
+        "feet_contact_forces",
+        "forward_kinematics",
+    ]
+
+
+def test_cpp_mcmc_nuts_mapping_resolves_to_vendored_header_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "mcmc_foundational/kthohr_mcmc/nuts:nuts_recursive_tree_build")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_cpp"
+    assert evidence["upstream_signature"]["parameter_names"] == [
+        "initial_vals",
+        "target_log_kernel",
+        "draws_out",
+        "target_data",
+    ]
+
+
 def test_fasta_dataset_manifest_is_not_marked_ffi_from_sort_method_name() -> None:
     manifest = build_manifest()
     record = _record_for(manifest, "mint/fasta_dataset:dataset_state_initialization")

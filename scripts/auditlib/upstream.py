@@ -91,9 +91,22 @@ def _module_to_candidate_paths(repo_name: str, module_name: str) -> list[Path]:
         candidates.append(repo_root / Path(*parts[1:]) / "__init__.py")
     if repo_name.endswith(".jl") and module_name:
         candidates.append(repo_root / "src" / f"{parts[-1]}.jl")
+    candidates.append(repo_root / Path(*parts).with_suffix(".hpp"))
+    candidates.append(repo_root / Path(*parts).with_suffix(".h"))
+    candidates.append(repo_root / "include" / Path(*parts).with_suffix(".hpp"))
+    candidates.append(repo_root / "include" / Path(*parts).with_suffix(".h"))
+    if len(parts) > 1:
+        candidates.append(repo_root / parts[0] / "include" / Path(*parts).with_suffix(".hpp"))
+        candidates.append(repo_root / parts[0] / "include" / Path(*parts).with_suffix(".h"))
+        candidates.append(repo_root / parts[0] / "include" / Path(*parts[1:]).with_suffix(".hpp"))
+        candidates.append(repo_root / parts[0] / "include" / Path(*parts[1:]).with_suffix(".h"))
     candidates.append(repo_root / "src" / Path(*parts).with_suffix(".rs"))
     if len(parts) > 1:
         candidates.append(repo_root / "src" / Path(*parts[1:]).with_suffix(".rs"))
+        candidates.append(repo_root / Path(*parts[1:]).with_suffix(".hpp"))
+        candidates.append(repo_root / Path(*parts[1:]).with_suffix(".h"))
+        candidates.append(repo_root / "include" / Path(*parts[1:]).with_suffix(".hpp"))
+        candidates.append(repo_root / "include" / Path(*parts[1:]).with_suffix(".h"))
     return candidates
 
 
@@ -101,7 +114,7 @@ def resolve_vendored_module_path(mapping: UpstreamMapping) -> Path | None:
     """Resolve a vendored source path for a mapped upstream symbol."""
     if not mapping.repo or not mapping.module or not mapping.language:
         return None
-    if mapping.language not in {"python", "rust"}:
+    if mapping.language not in {"python", "rust", "cpp"}:
         return None
     for candidate in _module_to_candidate_paths(mapping.repo, mapping.module):
         if candidate.exists():
@@ -419,6 +432,131 @@ def _extract_from_rust(path: Path, qualname: str) -> dict[str, Any] | None:
     return None
 
 
+def _strip_cpp_comments(text: str) -> str:
+    without_block = []
+    i = 0
+    while i < len(text):
+        if text[i : i + 2] == "/*":
+            end = text.find("*/", i + 2)
+            if end == -1:
+                break
+            i = end + 2
+            continue
+        without_block.append(text[i])
+        i += 1
+    lines = []
+    for line in "".join(without_block).splitlines():
+        lines.append(line.split("//", 1)[0])
+    return "\n".join(lines)
+
+
+def _find_matching_brace(text: str, start_index: int) -> int:
+    depth = 0
+    for idx in range(start_index, len(text)):
+        char = text[idx]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return idx
+    return -1
+
+
+def _extract_cpp_signature(signature_text: str, function_name: str) -> dict[str, Any] | None:
+    open_paren = signature_text.find("(")
+    close_paren = signature_text.rfind(")")
+    if open_paren == -1 or close_paren == -1 or close_paren <= open_paren:
+        return None
+    params_text = signature_text[open_paren + 1 : close_paren].strip()
+    prefix = signature_text[:open_paren].strip()
+    if not prefix:
+        return None
+    if prefix.endswith(function_name):
+        return_annotation = prefix[: -len(function_name)].strip() or None
+    else:
+        return_annotation = None
+
+    params: list[dict[str, Any]] = []
+    for raw_param in _split_rust_top_level(params_text):
+        param = raw_param.strip()
+        if not param or param == "void":
+            continue
+        normalized = param.split("=", 1)[0].strip()
+        if normalized in {"self", "this"}:
+            continue
+        pieces = normalized.rsplit(" ", 1)
+        if len(pieces) == 1:
+            name = pieces[0].strip("&*")
+            annotation = None
+        else:
+            annotation, name = pieces
+            name = name.strip("&*")
+        if not name:
+            continue
+        params.append(
+            {
+                "name": name,
+                "required": True,
+                "kind": "positional_or_keyword",
+                "annotation": annotation.strip() if annotation else None,
+            }
+        )
+
+    return {
+        "parameter_names": [param["name"] for param in params],
+        "required_parameter_names": [param["name"] for param in params if param["required"]],
+        "parameters": params,
+        "return_annotation": return_annotation,
+    }
+
+
+def _extract_from_cpp(path: Path, qualname: str) -> dict[str, Any] | None:
+    text = _strip_cpp_comments(path.read_text())
+    if "::" in qualname:
+        class_name, method_name = qualname.split("::", 1)
+        class_match = None
+        for candidate in (f"class {class_name}", f"struct {class_name}"):
+            idx = text.find(candidate)
+            if idx != -1:
+                class_match = idx
+                break
+        if class_match is None:
+            return None
+        body_start = text.find("{", class_match)
+        if body_start == -1:
+            return None
+        body_end = _find_matching_brace(text, body_start)
+        if body_end == -1:
+            return None
+        body = text[body_start + 1 : body_end]
+        compact = " ".join(body.split())
+        pattern = f"{method_name}("
+        idx = compact.find(pattern)
+        if idx == -1:
+            return None
+        sig_start = compact.rfind(";", 0, idx)
+        sig_start = 0 if sig_start == -1 else sig_start + 1
+        sig_end = compact.find(";", idx)
+        if sig_end == -1:
+            return None
+        return _extract_cpp_signature(compact[sig_start:sig_end].strip(), method_name)
+
+    compact = " ".join(text.split())
+    pattern = f"{qualname}("
+    idx = compact.find(pattern)
+    if idx == -1:
+        return None
+    sig_start = compact.rfind(";", 0, idx)
+    sig_start = compact.rfind("}", 0, idx) if sig_start == -1 else sig_start
+    sig_start = 0 if sig_start == -1 else sig_start + 1
+    sig_end = compact.find(";", idx)
+    if sig_end == -1:
+        return None
+    function_name = qualname.split("::")[-1]
+    return _extract_cpp_signature(compact[sig_start:sig_end].strip(), function_name)
+
+
 def resolve_upstream_signature(mapping: UpstreamMapping) -> tuple[dict[str, Any] | None, str | None, str | None]:
     """Resolve a deterministic upstream signature."""
     if not mapping.module or not mapping.function or not mapping.language:
@@ -432,6 +570,10 @@ def resolve_upstream_signature(mapping: UpstreamMapping) -> tuple[dict[str, Any]
         signature = _extract_from_rust(vendored_path, mapping.function)
         if signature is not None:
             return signature, "vendored_rust", str(vendored_path)
+    if mapping.language == "cpp" and vendored_path is not None:
+        signature = _extract_from_cpp(vendored_path, mapping.function)
+        if signature is not None:
+            return signature, "vendored_cpp", str(vendored_path)
     if mapping.language == "python":
         inspected = _extract_with_inspect(mapping)
         if inspected is not None:

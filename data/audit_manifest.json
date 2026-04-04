@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T23:01:12+00:00",
+    "generated_at": "2026-04-04T23:07:14+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 486,
-      "medium": 19
+      "low": 488,
+      "medium": 17
     },
     "stateful_count": 70,
     "stochastic_count": 22,
@@ -121,13 +121,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 481,
+      "review_later": 483,
       "review_now": 7,
-      "review_soon": 17
+      "review_soon": 15
     },
     "high_risk_count": 0,
-    "medium_risk_count": 19,
-    "low_risk_count": 486
+    "medium_risk_count": 17,
+    "low_risk_count": 488
   },
   "atoms": [
     {
@@ -34200,13 +34200,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "temper_val",
         "target_log_kernel",
@@ -34273,20 +34271,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -34434,13 +34429,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "state_candidate",
         "temper_val"
@@ -34499,20 +34492,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -34660,13 +34650,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "target_log_kernel"
       ],
@@ -34716,20 +34704,17 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 26,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -34875,13 +34860,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "target_log_kernel"
       ],
@@ -34932,20 +34915,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -35093,13 +35073,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "step_size",
         "vals_bound",
@@ -35165,20 +35143,17 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 26,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -35557,13 +35532,12 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 86,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence"
+        "add a safe runtime probe or narrow the wrapper scope documentation"
       ],
       "argument_names": [
         "direction_val",
@@ -35664,20 +35638,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 39,
+      "risk_score": 31,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 11,
@@ -35823,13 +35794,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "target_log_kernel",
         "tensor_fn"
@@ -35888,20 +35857,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -36049,13 +36015,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "target_log_kernel"
       ],
@@ -36106,20 +36070,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -62784,13 +62745,12 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 86,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence"
+        "add a safe runtime probe or narrow the wrapper scope documentation"
       ],
       "argument_names": [
         "data"
@@ -62841,20 +62801,17 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_PARITY",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 29,
+      "risk_score": 21,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 11,
@@ -62996,13 +62953,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [],
       "required_parameter_names": [],
       "argument_details": [],
@@ -63042,20 +62997,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -64726,7 +64678,7 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.DynamicStanceEstimator",
@@ -64752,13 +64704,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "initial_x",
         "initial_P",
@@ -64850,20 +64800,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 33,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -64896,7 +64843,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -65465,7 +65412,7 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.DynamicStanceEstimator",
@@ -65491,13 +65438,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "current_state"
       ],
@@ -65549,20 +65494,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 33,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -65595,7 +65537,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -65712,13 +65654,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "config"
       ],
@@ -65770,20 +65710,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_REFINED_INGEST",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -66162,13 +66099,12 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 83,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence"
+        "add a safe runtime probe or narrow the wrapper scope documentation"
       ],
       "argument_names": [],
       "required_parameter_names": [],
@@ -66211,20 +66147,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 11,
@@ -67253,13 +67186,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "state_in"
       ],
@@ -67310,20 +67241,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -67678,13 +67606,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "prior_state",
         "prior_cov",
@@ -67758,20 +67684,17 @@
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 26,
+      "risk_score": 18,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -67917,13 +67840,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [],
       "required_parameter_names": [],
       "argument_details": [],
@@ -67963,20 +67884,17 @@
         "RISK_FFI_BACKED",
         "RISK_GENERATED_INGEST",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_REVIEW_BASIS",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_MISSING_REVIEW_BASIS"
       ],
-      "risk_score": 28,
+      "risk_score": 20,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -68124,13 +68042,12 @@
       "parity_test_status": "unknown",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 62,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 83,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "add vendored or importable upstream signature evidence"
+        "add a safe runtime probe or narrow the wrapper scope documentation"
       ],
       "argument_names": [],
       "required_parameter_names": [],
@@ -68173,20 +68090,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 41,
+      "risk_score": 33,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 11,
