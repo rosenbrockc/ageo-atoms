@@ -92,6 +92,11 @@ def get_probe_plans() -> dict[str, Any]:
             assert arr.shape == (1,)
             assert np.all(np.isfinite(arr))
 
+        def _assert_dispatch_draws(result: Any) -> None:
+            arr = np.asarray(result, dtype=float)
+            assert arr.shape == (4, 2)
+            assert np.all(np.isfinite(arr))
+
         def _assert_advancedhmc_tempering(result: Any) -> None:
             assert np.isclose(float(result), 1.0)
 
@@ -182,6 +187,23 @@ def get_probe_plans() -> dict[str, Any]:
                 negative=ProbeCase(
                     "reject a missing target log-kernel oracle",
                     lambda func: func(None),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.mcmc_foundational.kthohr_mcmc.mcmc_algos.dispatch_mcmc_algorithm": ProbePlan(
+                positive=ProbeCase(
+                    "dispatch a deterministic random-walk sampler loop into posterior draws",
+                    lambda func: func(
+                        np.array([0.5, -0.25], dtype=float),
+                        np.array([1.0, -1.0], dtype=float),
+                        4,
+                    ),
+                    _assert_dispatch_draws,
+                ),
+                negative=ProbeCase(
+                    "reject a missing initial state",
+                    lambda func: func(np.array([0.5, -0.25], dtype=float), None, 4),
                     expect_exception=True,
                 ),
                 parity_used=True,

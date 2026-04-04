@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T22:32:16+00:00",
+    "generated_at": "2026-04-04T22:42:59+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 479,
-      "medium": 26
+      "low": 481,
+      "medium": 24
     },
     "stateful_count": 70,
     "stochastic_count": 22,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 324,
+    "parity_coverage_count": 325,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 15,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 493
     },
     "parity_coverage_level_counts": {
-      "none": 84,
+      "none": 83,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 277,
+      "parity_or_usage_equivalent": 278,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -94,7 +94,7 @@
       "hPDB": 2,
       "institutional_quant_engine": 3,
       "jFOF": 1,
-      "mcmc_foundational": 5,
+      "mcmc_foundational": 4,
       "mint": 3,
       "molecular_docking": 6,
       "numpy": 15,
@@ -107,27 +107,27 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 192,
+      "not_applicable": 191,
       "partial": 7,
-      "pass": 304
+      "pass": 305
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 304,
-      "unknown": 192
+      "pass": 305,
+      "unknown": 191
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 475,
+      "review_later": 477,
       "review_now": 7,
-      "review_soon": 23
+      "review_soon": 21
     },
     "high_risk_count": 0,
-    "medium_risk_count": 26,
-    "low_risk_count": 479
+    "medium_risk_count": 24,
+    "low_risk_count": 481
   },
   "atoms": [
     {
@@ -4766,11 +4766,11 @@
       "domain_family": "belief_propagation",
       "module_family": "belief_propagation",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Belief-Propagation",
         "module": "bp_impl",
-        "function": "LoopyBP.__init__",
+        "function": "loopy_belief_propagation.__init__",
         "language": "python",
         "notes": null
       },
@@ -4792,13 +4792,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "pgm",
         "state"
@@ -4858,20 +4856,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -4903,7 +4898,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -4994,11 +4989,11 @@
       "domain_family": "belief_propagation",
       "module_family": "belief_propagation",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "Belief-Propagation",
         "module": "bp_impl",
-        "function": "LoopyBP.belief",
+        "function": "loopy_belief_propagation.belief",
         "language": "python",
         "notes": null
       },
@@ -5020,13 +5015,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "state_in",
         "v_name",
@@ -5102,20 +5095,17 @@
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
-        "RISK_STATE_MODEL_PRESENT",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATE_MODEL_PRESENT"
       ],
-      "risk_score": 31,
+      "risk_score": 23,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -5146,7 +5136,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -35381,20 +35371,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 65,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 73,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -35461,13 +35450,12 @@
       ],
       "risk_reasons": [
         "RISK_GENERATED_INGEST",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
         "RISK_STATEFUL_API",
         "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 38,
+      "risk_score": 30,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
@@ -35480,9 +35468,8 @@
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
@@ -35544,19 +35531,19 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/mcmc_foundational/kthohr_mcmc/mcmc_algos.py",
@@ -35565,14 +35552,17 @@
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

@@ -45,6 +45,8 @@ def _state_adapter_parameters(record: dict[str, Any], mapping: UpstreamMapping |
         for name in record.get("argument_names", [])
         if (
             name == "state"
+            or name == "state_in"
+            or name == "state_out"
             or name.endswith("_state")
             or name.endswith("_context")
             or name.endswith("_valid")

@@ -129,3 +129,11 @@ def test_minimize_bandwidth_loop_stage_adapters_do_not_trigger_signature_finding
         assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
         assert "FIDELITY_SIGNATURE_MISSING_REQUIRED" not in evidence["findings"]
         assert "FIDELITY_SIGNATURE_ORDER_MISMATCH" not in evidence["findings"]
+
+
+def test_loopy_bp_state_in_adapter_is_not_treated_as_invented_parameter() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "belief_propagation/loopy_bp:run_loopy_message_passing_and_belief_query")
+    evidence = build_signature_evidence(record)
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_REQUIREDNESS_MISMATCH" not in evidence["findings"]

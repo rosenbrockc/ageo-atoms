@@ -880,6 +880,20 @@ def test_runtime_probe_passes_for_belief_propagation_loopy_bp() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_kthohr_mcmc_dispatch() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.mcmc_foundational.kthohr_mcmc.mcmc_algos.dispatch_mcmc_algorithm",
+            "ageoa.mcmc_foundational.kthohr_mcmc.mcmc_algos",
+            "dispatch_mcmc_algorithm",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_marks_hftbacktest_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record("ageoa.hftbacktest.update_glft_coefficients", "ageoa.hftbacktest.atoms", "update_glft_coefficients")

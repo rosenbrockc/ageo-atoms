@@ -515,14 +515,14 @@
   upstream:
     repo: Belief-Propagation
     module: bp_impl
-    function: LoopyBP.__init__
+    function: loopy_belief_propagation.__init__
     language: python
 
 - atom: belief_propagation/loopy_bp:run_loopy_message_passing_and_belief_query
   upstream:
     repo: Belief-Propagation
     module: bp_impl
-    function: LoopyBP.belief
+    function: loopy_belief_propagation.belief
     language: python
 
 # =============================================================================
