@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import numpy as np
 import icontract
-from typing import Callable, List
+from collections.abc import Callable, Iterable, Sequence
+from typing import TypeAlias
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_cotraversevec, witness_tdmasolver
@@ -12,6 +13,15 @@ from .witnesses import witness_cotraversevec, witness_tdmasolver
 import ctypes
 import ctypes.util
 from pathlib import Path
+
+
+ScalarVector: TypeAlias = Sequence[float]
+WrappedVectors: TypeAlias = Sequence[ScalarVector]
+ProjectedSlices: TypeAlias = Sequence[float]
+IndexRangeFactory: TypeAlias = Callable[[int, int], Sequence[int]]
+ProjectedFunctorMap: TypeAlias = Callable[[Callable[[ScalarVector], float], WrappedVectors], ProjectedSlices]
+IndexAggregator: TypeAlias = Callable[[ProjectedSlices], float]
+IndexMap: TypeAlias = Callable[[Callable[[int], float], Sequence[int]], Iterable[float]]
 
 
 # ---------------------------------------------------------------------------
@@ -145,14 +155,14 @@ def tdmasolver(
 @icontract.require(lambda f: callable(f), "f must be callable")
 @icontract.ensure(lambda result: result is not None, "result must not be None")
 def cotraversevec(
-    enumFromN: Callable,
-    f: Callable,
-    fmap: Callable,
+    enumFromN: IndexRangeFactory,
+    f: IndexAggregator,
+    fmap: ProjectedFunctorMap,
     i: int,
     l: int,
-    m: object,
-    map: Callable,
-) -> list:
+    m: WrappedVectors,
+    map: IndexMap,
+) -> list[float]:
     """Apply a co-traversal over unboxed vectors.
 
     Maps an index-wise extraction function across a functor of vectors,
@@ -172,8 +182,14 @@ def cotraversevec(
     """
     # Co-traverse: apply f at each index across the functor of vectors.
     # enumFromN generates indices [0..l-1], f aggregates at each index.
-    indices = enumFromN(0, l)
-    return list(map(lambda idx: f(fmap(lambda vec: vec[idx], m)), indices))
+    indices = enumFromN(i, l)
+    return [
+        float(value)
+        for value in map(
+            lambda idx: f(fmap(lambda vec: float(vec[idx]), m)),
+            indices,
+        )
+    ]
 
 
 # ---------------------------------------------------------------------------

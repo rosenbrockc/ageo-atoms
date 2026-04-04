@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 import icontract
-from typing import Callable, List, Tuple
+from typing import Any, Callable, TypeAlias
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import (
@@ -28,6 +28,16 @@ import ctypes.util
 from pathlib import Path
 
 
+MonteCarloState: TypeAlias = dict[str, Any]
+PricingModel: TypeAlias = dict[str, Any]
+ClaimBasket: TypeAlias = list[Any] | dict[str, Any]
+RandomState: TypeAlias = int | dict[str, Any]
+ObservationValue: TypeAlias = float | int | bool | dict[str, Any] | list[float]
+ObservationMap: TypeAlias = dict[float, ObservationValue]
+CashFlow: TypeAlias = tuple[float, float] | dict[str, Any]
+ClaimProcessor: TypeAlias = dict[str, Any]
+
+
 # ---------------------------------------------------------------------------
 # runmc  — execute a Monte Carlo computation
 # ---------------------------------------------------------------------------
@@ -40,10 +50,10 @@ def runmc(
     evalState: Callable,
     evalStateT: Callable,
     flip: Callable,
-    initState: object,
+    initState: MonteCarloState,
     lift: Callable,
     mc: Callable,
-    randState: object,
+    randState: RandomState,
     sampleRVarTWith: Callable,
 ) -> float:
     """Run a Monte Carlo computation and return its final value.
@@ -82,13 +92,13 @@ def runmc(
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def runsimulation(
     anti: bool,
-    ccs: object,
-    modl: object,
+    ccs: ClaimBasket,
+    modl: PricingModel,
     run: Callable,
     runMC: Callable,
-    seed: object,
+    seed: RandomState,
     trials: int,
-    undefined: object,
+    undefined: ObservationValue,
 ) -> float:
     """Run a full Monte Carlo simulation for a basket of contingent claims.
 
@@ -120,10 +130,10 @@ def runsimulation(
 @icontract.require(lambda trials: isinstance(trials, int) and trials > 0, "trials must be a positive integer")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def runsimulationanti(
-    ccs: object,
-    modl: object,
+    ccs: ClaimBasket,
+    modl: PricingModel,
     runSim: Callable,
-    seed: object,
+    seed: RandomState,
     trials: int,
 ) -> float:
     """Run a Monte Carlo simulation using antithetic variates for variance reduction.
@@ -156,8 +166,8 @@ def runsimulationanti(
 @icontract.require(lambda trials: isinstance(trials, int) and trials > 0, "trials must be a positive integer")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def quicksim(
-    mdl: object,
-    opts: object,
+    mdl: PricingModel,
+    opts: ClaimBasket,
     pureMT: Callable,
     runSimulation: Callable,
     trials: int,
@@ -189,8 +199,8 @@ def quicksim(
 @icontract.require(lambda trials: isinstance(trials, int) and trials > 0, "trials must be a positive integer")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def quicksimanti(
-    mdl: object,
-    opts: object,
+    mdl: PricingModel,
+    opts: ClaimBasket,
     pureMT: Callable,
     runSimulationAnti: Callable,
     trials: int,
@@ -227,14 +237,14 @@ def evolve(
     evolve_prime: Callable,
     get: Callable,
     maxStep: Callable,
-    mdl: object,
+    mdl: PricingModel,
     ms: float,
     t1: float,
     t2: float,
     timeDiff: Callable,
     timeOffset: Callable,
     unless: Callable,
-) -> object:
+) -> MonteCarloState:
     """Evolve the model state from current time to a target time.
 
     If the time gap exceeds the model's maximum step size, the
@@ -302,7 +312,7 @@ def simulatestate(
     anti: bool,
     avg: Callable,
     ccb: list,
-    modl: object,
+    modl: PricingModel,
     replicateM: Callable,
     singleTrial: Callable,
     trials: int,
@@ -337,11 +347,11 @@ def simulatestate(
 @icontract.require(lambda trials: isinstance(trials, int) and trials > 0, "trials must be a positive integer")
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def runsim(
-    ccs: object,
+    ccs: ClaimBasket,
     div: Callable,
-    modl: object,
+    modl: PricingModel,
     runSimulation: Callable,
-    seed: object,
+    seed: RandomState,
     trials: int,
     x: bool,
 ) -> float:
@@ -378,7 +388,7 @@ def process(
     allcfs: list,
     amt: float,
     anti: bool,
-    c: object,
+    c: ClaimProcessor,
     ccs: list,
     cfList: list,
     cfs: list,
@@ -396,11 +406,11 @@ def process(
     insertCFList: Callable,
     map: Callable,
     mf: list,
-    modl: object,
+    modl: PricingModel,
     newCFs: list,
-    obs: object,
-    obsMap: dict,
-    obsMap_prime: dict,
+    obs: ObservationValue,
+    obsMap: ObservationMap,
+    obsMap_prime: ObservationMap,
     process: Callable,
     t: float,
     xs: list,
@@ -487,11 +497,11 @@ def process(
     insertCFList: Callable,
     map: Callable,
     mf: list,
-    modl: object,
+    modl: PricingModel,
     newCFs: list,
-    obs: object,
-    obsMap: dict,
-    obsMap_prime: dict,
+    obs: ObservationValue,
+    obsMap: ObservationMap,
+    obsMap_prime: ObservationMap,
     process: Callable,
     t: float,
     xs: list,
@@ -547,7 +557,7 @@ def process(
 @icontract.ensure(lambda result: isinstance(result, float), "result must be a float")
 def process(
     anti: bool,
-    cf: object,
+    cf: CashFlow,
     cfAmount: Callable,
     cfTime: Callable,
     cfs: list,
@@ -555,8 +565,8 @@ def process(
     discCFs: float,
     discount: Callable,
     evolve: Callable,
-    modl: object,
-    obsMap: dict,
+    modl: PricingModel,
+    obsMap: ObservationMap,
     process: Callable,
 ) -> float:
     """Process remaining cash flows when no more processors exist.
@@ -671,7 +681,7 @@ def insertcf(
 @icontract.require(lambda cf: cf is not None, "cf must not be None")
 @icontract.ensure(lambda result: isinstance(result, list) and len(result) == 1, "result must be a single-element list")
 def insertcf(
-    cf: object,
+    cf: CashFlow,
 ) -> list:
     """Insert a cash flow into an empty list (base case).
 

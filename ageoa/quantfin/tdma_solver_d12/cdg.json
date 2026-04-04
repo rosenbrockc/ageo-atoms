@@ -313,56 +313,56 @@
     {
       "node_id": "cotraversevec",
       "parent_id": "tdmaSolver_root",
-      "name": "Cotraversevec",
-      "description": "Atomic operation: Cotraversevec",
+      "name": "CotraverseVec",
+      "description": "Map an index-wise aggregation across a functor of numeric vectors to produce one aggregated vector.",
       "concept_type": "custom",
       "inputs": [
         {
           "name": "enumFromN",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "Callable[[int, int], list[int]]",
+          "constraints": "constructs the index range to traverse",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "f",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "Callable[[list[float]], float]",
+          "constraints": "aggregates one projected slice into a scalar",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "fmap",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "Callable[[Callable[[list[float]], float], list[list[float]]], list[float]]",
+          "constraints": "maps a projection over the wrapped vector collection",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "i",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "int",
+          "constraints": "starting index for traversal",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "l",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "int",
+          "constraints": "positive output vector length",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "m",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "list[list[float]]",
+          "constraints": "functor-wrapped collection of numeric vectors",
           "required": true,
           "default_value_repr": ""
         },
         {
           "name": "map",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "Callable[[Callable[[int], float], list[int]], list[float]]",
+          "constraints": "materializes the output vector over the provided indices",
           "required": true,
           "default_value_repr": ""
         }
@@ -370,8 +370,8 @@
       "outputs": [
         {
           "name": "result",
-          "type_desc": "Any",
-          "constraints": "valid Any",
+          "type_desc": "list[float]",
+          "constraints": "aggregated numeric vector",
           "required": true,
           "default_value_repr": ""
         }
@@ -379,7 +379,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(enumFromN: Any, f: Any, fmap: Any, i: Any, l: Any, m: Any, map: Any) -> Any",
+      "type_signature": "(enumFromN: index-range factory, f: projected-slice aggregator, fmap: projection mapper over numeric vectors, i: int, l: int, m: wrapped numeric vectors, map: index mapper) -> list[float]",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

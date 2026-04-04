@@ -717,6 +717,7 @@ def test_runtime_probe_passes_for_quantfin_d12_helpers() -> None:
         ("ageoa.quantfin.rng_skip_d12.randomint64", "ageoa.quantfin.rng_skip_d12.atoms", "randomint64"),
         ("ageoa.quantfin.rng_skip_d12.randomword64", "ageoa.quantfin.rng_skip_d12.atoms", "randomword64"),
         ("ageoa.quantfin.tdma_solver_d12.tdmasolver", "ageoa.quantfin.tdma_solver_d12.atoms", "tdmasolver"),
+        ("ageoa.quantfin.tdma_solver_d12.cotraversevec", "ageoa.quantfin.tdma_solver_d12.atoms", "cotraversevec"),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
         assert probe["status"] == "pass"
@@ -731,6 +732,13 @@ def test_runtime_probe_passes_for_additional_quantfin_helpers() -> None:
         ("ageoa.quantfin.monte_carlo_anti_d12.maxstep", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "maxstep", True),
         ("ageoa.quantfin.monte_carlo_anti_d12.insertcf", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "insertcf", True),
         ("ageoa.quantfin.monte_carlo_anti_d12.insertcflist", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "insertcflist", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.runmc", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "runmc", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.runsimulation", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "runsimulation", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.runsimulationanti", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "runsimulationanti", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.quicksim", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "quicksim", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.quicksimanti", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "quicksimanti", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.simulatestate", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "simulatestate", True),
+        ("ageoa.quantfin.monte_carlo_anti_d12.runsim", "ageoa.quantfin.monte_carlo_anti_d12.atoms", "runsim", True),
         ("ageoa.quantfin.rng_skip_d12.randomword32", "ageoa.quantfin.rng_skip_d12.atoms", "randomword32", True),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
