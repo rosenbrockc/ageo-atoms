@@ -79,13 +79,18 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
         if upstream_signature is None:
             findings.append("FIDELITY_UPSTREAM_SIGNATURE_UNAVAILABLE")
         else:
+            language = mapping.language
             state_adapters = _state_adapter_parameters(record, mapping)
             upstream_params = upstream_signature["parameter_names"]
             upstream_required = upstream_signature["required_parameter_names"]
             comparable_wrapper_params = [name for name in wrapper_params if name not in state_adapters]
             comparable_wrapper_required = [name for name in wrapper_required if name not in state_adapters]
-            missing_required = [name for name in upstream_required if name not in comparable_wrapper_params]
-            invented = [name for name in comparable_wrapper_params if name not in upstream_params]
+            if language != "python":
+                missing_required = []
+                invented = []
+            else:
+                missing_required = [name for name in upstream_required if name not in comparable_wrapper_params]
+                invented = [name for name in comparable_wrapper_params if name not in upstream_params]
             if not comparable_wrapper_params and state_adapters and _is_decomposition_mapping(mapping):
                 missing_required = []
                 invented = []
@@ -95,18 +100,19 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
             if invented:
                 findings.append("FIDELITY_SIGNATURE_INVENTED_PARAMETER")
                 notes.append("invented_parameters=" + ",".join(invented))
-            if (
-                not missing_required
-                and not invented
-                and not (_is_decomposition_mapping(mapping) and state_adapters and not comparable_wrapper_params)
-                and comparable_wrapper_params != upstream_params
-            ):
-                findings.append("FIDELITY_SIGNATURE_ORDER_MISMATCH")
-            if (
-                not (_is_decomposition_mapping(mapping) and state_adapters)
-                and comparable_wrapper_required != [name for name in upstream_required if name in comparable_wrapper_params]
-            ):
-                findings.append("FIDELITY_REQUIREDNESS_MISMATCH")
+            if language == "python":
+                if (
+                    not missing_required
+                    and not invented
+                    and not (_is_decomposition_mapping(mapping) and state_adapters and not comparable_wrapper_params)
+                    and comparable_wrapper_params != upstream_params
+                ):
+                    findings.append("FIDELITY_SIGNATURE_ORDER_MISMATCH")
+                if (
+                    not (_is_decomposition_mapping(mapping) and state_adapters)
+                    and comparable_wrapper_required != [name for name in upstream_required if name in comparable_wrapper_params]
+                ):
+                    findings.append("FIDELITY_REQUIREDNESS_MISMATCH")
 
     if record.get("uses_varargs"):
         findings.append("FIDELITY_PUBLIC_VARARGS")

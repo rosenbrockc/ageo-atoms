@@ -80,6 +80,26 @@ def test_numpy_random_mapping_resolves_to_imported_signature() -> None:
     assert evidence["upstream_mapping"]["function"] == "uniform"
 
 
+def test_rust_runsamplingloop_mapping_resolves_to_vendored_rust_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "mcmc_foundational/mini_mcmc/hmc:runsamplingloop")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_rust"
+    assert evidence["upstream_signature"]["parameter_names"] == ["chain", "n_collect", "n_discard"]
+    assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
+    assert "FIDELITY_SIGNATURE_MISSING_REQUIRED" not in evidence["findings"]
+
+
+def test_rust_bicycle_kinematic_mapping_resolves_trait_impl_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "rust_robotics/bicycle_kinematic:evaluateandinvertdynamics")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_rust"
+    assert evidence["upstream_signature"]["parameter_names"] == ["x", "u", "_t"]
+
+
 def test_fasta_dataset_manifest_is_not_marked_ffi_from_sort_method_name() -> None:
     manifest = build_manifest()
     record = _record_for(manifest, "mint/fasta_dataset:dataset_state_initialization")

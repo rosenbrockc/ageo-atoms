@@ -91,6 +91,9 @@ def _module_to_candidate_paths(repo_name: str, module_name: str) -> list[Path]:
         candidates.append(repo_root / Path(*parts[1:]) / "__init__.py")
     if repo_name.endswith(".jl") and module_name:
         candidates.append(repo_root / "src" / f"{parts[-1]}.jl")
+    candidates.append(repo_root / "src" / Path(*parts).with_suffix(".rs"))
+    if len(parts) > 1:
+        candidates.append(repo_root / "src" / Path(*parts[1:]).with_suffix(".rs"))
     return candidates
 
 
@@ -98,7 +101,7 @@ def resolve_vendored_module_path(mapping: UpstreamMapping) -> Path | None:
     """Resolve a vendored source path for a mapped upstream symbol."""
     if not mapping.repo or not mapping.module or not mapping.language:
         return None
-    if mapping.language != "python":
+    if mapping.language not in {"python", "rust"}:
         return None
     for candidate in _module_to_candidate_paths(mapping.repo, mapping.module):
         if candidate.exists():
@@ -235,18 +238,204 @@ def _extract_with_inspect(mapping: UpstreamMapping) -> dict[str, Any] | None:
     }
 
 
+def _split_rust_top_level(text: str) -> list[str]:
+    parts: list[str] = []
+    current: list[str] = []
+    angle = paren = bracket = brace = 0
+    for char in text:
+        if char == "," and angle == 0 and paren == 0 and bracket == 0 and brace == 0:
+            piece = "".join(current).strip()
+            if piece:
+                parts.append(piece)
+            current = []
+            continue
+        current.append(char)
+        if char == "<":
+            angle += 1
+        elif char == ">":
+            angle = max(0, angle - 1)
+        elif char == "(":
+            paren += 1
+        elif char == ")":
+            paren = max(0, paren - 1)
+        elif char == "[":
+            bracket += 1
+        elif char == "]":
+            bracket = max(0, bracket - 1)
+        elif char == "{":
+            brace += 1
+        elif char == "}":
+            brace = max(0, brace - 1)
+    tail = "".join(current).strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
+
+def _parse_rust_signature(signature_text: str) -> dict[str, Any] | None:
+    open_paren = signature_text.find("(")
+    if open_paren == -1:
+        return None
+    paren_depth = 0
+    close_paren = -1
+    for idx in range(open_paren, len(signature_text)):
+        char = signature_text[idx]
+        if char == "(":
+            paren_depth += 1
+        elif char == ")":
+            paren_depth -= 1
+            if paren_depth == 0:
+                close_paren = idx
+                break
+    if close_paren == -1:
+        return None
+    params_text = signature_text[open_paren + 1 : close_paren]
+    return_text = signature_text[close_paren + 1 :].strip()
+    if "{" in return_text:
+        return_text = return_text.split("{", 1)[0].strip()
+    if return_text.startswith("->"):
+        return_annotation = return_text[2:].strip() or None
+    else:
+        return_annotation = None
+
+    params: list[dict[str, Any]] = []
+    for raw_param in _split_rust_top_level(params_text):
+        param = raw_param.strip()
+        if not param:
+            continue
+        normalized = param.replace("pub ", "").strip()
+        if normalized in {"self", "&self", "&mut self", "mut self"}:
+            continue
+        if ":" not in normalized:
+            continue
+        name_text, annotation_text = normalized.split(":", 1)
+        name = name_text.strip().removeprefix("mut ").strip()
+        if not name:
+            continue
+        params.append(
+            {
+                "name": name,
+                "required": True,
+                "kind": "positional_or_keyword",
+                "annotation": annotation_text.strip() or None,
+            }
+        )
+
+    return {
+        "parameter_names": [param["name"] for param in params],
+        "required_parameter_names": [param["name"] for param in params if param["required"]],
+        "parameters": params,
+        "return_annotation": return_annotation,
+    }
+
+
+def _extract_from_rust(path: Path, qualname: str) -> dict[str, Any] | None:
+    text = path.read_text()
+    parts = qualname.replace("::", ".").split(".")
+    target_impl = parts[0] if len(parts) == 2 else None
+    target_fn = parts[-1]
+    lines = text.splitlines()
+
+    def _strip_leading_rust_generics(text: str) -> str:
+        normalized = text.strip()
+        if not normalized.startswith("<"):
+            return normalized
+        depth = 0
+        for idx, char in enumerate(normalized):
+            if char == "<":
+                depth += 1
+            elif char == ">":
+                depth -= 1
+                if depth == 0:
+                    return normalized[idx + 1 :].strip()
+        return normalized
+
+    def _impl_target_from_header(header: str) -> str | None:
+        normalized = " ".join(header.split())
+        if not normalized.startswith("impl") or "{" not in normalized:
+            return None
+        if " for " in normalized:
+            after_for = normalized.split(" for ", 1)[1].split("{", 1)[0].strip()
+            if not after_for:
+                return None
+            return after_for.split("<", 1)[0].split()[-1]
+        after_impl = _strip_leading_rust_generics(normalized[4:].split("{", 1)[0].strip())
+        if not after_impl:
+            return None
+        return after_impl.split("<", 1)[0].split()[-1]
+
+    def _collect_signature(start_index: int) -> dict[str, Any] | None:
+        collected: list[str] = []
+        paren_depth = 0
+        saw_open = False
+        for line in lines[start_index:]:
+            collected.append(line.strip())
+            paren_depth += line.count("(") - line.count(")")
+            saw_open = saw_open or "(" in line
+            if saw_open and paren_depth <= 0 and ("{" in line or "where" in line or "->" in line):
+                break
+        return _parse_rust_signature(" ".join(collected))
+
+    if target_impl is None:
+        for idx, line in enumerate(lines):
+            stripped = line.strip()
+            if stripped.startswith("//"):
+                continue
+            if stripped.startswith("fn ") or stripped.startswith("pub fn "):
+                name = stripped.split("fn ", 1)[1].split("(", 1)[0].split("<", 1)[0].strip()
+                if name == target_fn:
+                    return _collect_signature(idx)
+        return None
+
+    impl_target: str | None = None
+    impl_depth = 0
+    pending_impl_header: list[str] = []
+    for idx, line in enumerate(lines):
+        stripped = line.strip()
+        if impl_target is None:
+            if pending_impl_header or stripped.startswith("impl"):
+                pending_impl_header.append(stripped)
+                if "{" not in stripped:
+                    continue
+                header_lines = list(pending_impl_header)
+                header_target = _impl_target_from_header(" ".join(header_lines))
+                pending_impl_header = []
+                impl_depth = sum(segment.count("{") - segment.count("}") for segment in header_lines)
+                if header_target == target_impl:
+                    impl_target = header_target
+                else:
+                    impl_depth = 0
+            continue
+
+        if impl_target is not None:
+            if stripped.startswith("fn ") or stripped.startswith("pub fn "):
+                name = stripped.split("fn ", 1)[1].split("(", 1)[0].split("<", 1)[0].strip()
+                if name == target_fn:
+                    return _collect_signature(idx)
+            impl_depth += line.count("{") - line.count("}")
+            if impl_depth <= 0:
+                impl_target = None
+                impl_depth = 0
+    return None
+
+
 def resolve_upstream_signature(mapping: UpstreamMapping) -> tuple[dict[str, Any] | None, str | None, str | None]:
     """Resolve a deterministic upstream signature."""
     if not mapping.module or not mapping.function or not mapping.language:
         return None, None, None
-    if mapping.language != "python":
-        return None, None, "non_python_upstream"
     vendored_path = resolve_vendored_module_path(mapping)
-    if vendored_path is not None:
+    if mapping.language == "python" and vendored_path is not None:
         signature = _extract_from_ast(vendored_path, mapping.function)
         if signature is not None:
             return signature, "vendored_ast", str(vendored_path)
-    inspected = _extract_with_inspect(mapping)
-    if inspected is not None:
-        return inspected, "inspect", mapping.module
+    if mapping.language == "rust" and vendored_path is not None:
+        signature = _extract_from_rust(vendored_path, mapping.function)
+        if signature is not None:
+            return signature, "vendored_rust", str(vendored_path)
+    if mapping.language == "python":
+        inspected = _extract_with_inspect(mapping)
+        if inspected is not None:
+            return inspected, "inspect", mapping.module
+    if mapping.language != "python":
+        return None, None, "non_python_upstream"
     return None, None, "signature_unavailable"
