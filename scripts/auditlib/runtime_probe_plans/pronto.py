@@ -111,7 +111,58 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
         helpers["_assert_array"](np.zeros(3, dtype=float))(result["position"])
         helpers["_assert_array"](np.eye(3, dtype=float))(result["orientation"])
 
+    def _assert_ekf_state(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {"x", "P", "A", "Q", "H", "R", "x_history", "P_history", "x_pred_history", "P_pred_history"}
+        helpers["_assert_array"](np.zeros(6, dtype=float))(result["x"])
+        helpers["_assert_array"](np.eye(6, dtype=float) * 1e2)(result["P"])
+        helpers["_assert_array"](np.eye(6, dtype=float) * 1e-3)(result["Q"])
+        helpers["_assert_array"](np.eye(6, dtype=float))(result["H"])
+        helpers["_assert_array"](np.eye(6, dtype=float) * 1e-1)(result["R"])
+        assert result["x_history"] == []
+        assert result["P_history"] == []
+        assert result["x_pred_history"] == []
+        assert result["P_pred_history"] == []
+
+    def _assert_yaw_lock_init(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert set(result) == {
+            "correction_period",
+            "yaw_slip_detect",
+            "yaw_slip_threshold_degrees",
+            "yaw_slip_disable_period",
+            "is_robot_standing",
+            "joint_name",
+            "joint_position",
+            "joint_angles_init",
+            "left_standing_link",
+            "right_standing_link",
+        }
+        assert result["correction_period"] == 1.0
+        assert result["yaw_slip_detect"] is False
+        assert result["yaw_slip_threshold_degrees"] == 5.0
+        assert result["yaw_slip_disable_period"] == 1.0
+        assert result["is_robot_standing"] is False
+        assert result["joint_name"] is None
+        assert result["joint_position"] is None
+        assert result["joint_angles_init"] is None
+        assert result["left_standing_link"] is None
+        assert result["right_standing_link"] is None
+
     return {
+        "ageoa.pronto.ekf_smoother.stateestimatorinit": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic EKF smoother state bundle",
+                lambda func: func(),
+                _assert_ekf_state,
+            ),
+            negative=ProbeCase(
+                "reject unexpected positional arguments for the zero-argument EKF smoother initializer",
+                lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.pronto.foot_contact.foot_sensing_state_update": ProbePlan(
             positive=ProbeCase(
                 "merge a foot sensing command into an immutable state snapshot",
@@ -199,6 +250,19 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
             negative=ProbeCase(
                 "reject a missing yaw-lock state",
                 lambda func: func(None),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.initializeyawlockstate": ProbePlan(
+            positive=ProbeCase(
+                "initialize a deterministic yaw-lock state bundle",
+                lambda func: func(),
+                _assert_yaw_lock_init,
+            ),
+            negative=ProbeCase(
+                "reject unexpected positional arguments for the zero-argument yaw-lock initializer",
+                lambda func: func(1),
                 expect_exception=True,
             ),
             parity_used=True,

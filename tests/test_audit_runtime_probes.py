@@ -559,11 +559,13 @@ def test_runtime_probe_passes_for_mcmc_foundational_builder_family() -> None:
         ("ageoa.mcmc_foundational.kthohr_mcmc.aees.metropolishastingstransitionkernel", "ageoa.mcmc_foundational.kthohr_mcmc.aees.atoms", "metropolishastingstransitionkernel"),
         ("ageoa.mcmc_foundational.kthohr_mcmc.aees.targetlogkerneloracle", "ageoa.mcmc_foundational.kthohr_mcmc.aees.atoms", "targetlogkerneloracle"),
         ("ageoa.mcmc_foundational.kthohr_mcmc.hmc.buildhmckernelfromlogdensityoracle", "ageoa.mcmc_foundational.kthohr_mcmc.hmc", "buildhmckernelfromlogdensityoracle"),
+        ("ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build", "ageoa.mcmc_foundational.kthohr_mcmc.nuts", "nuts_recursive_tree_build"),
         ("ageoa.mcmc_foundational.kthohr_mcmc.rmhmc.buildrmhmctransitionkernel", "ageoa.mcmc_foundational.kthohr_mcmc.rmhmc", "buildrmhmctransitionkernel"),
         ("ageoa.mcmc_foundational.kthohr_mcmc.rwmh.constructrandomwalkmetropoliskernel", "ageoa.mcmc_foundational.kthohr_mcmc.rwmh", "constructrandomwalkmetropoliskernel"),
         ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializehmckernelstate", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "initializehmckernelstate"),
         ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializesamplerrng", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "initializesamplerrng"),
         ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.hamiltoniantransitionkernel", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "hamiltoniantransitionkernel"),
+        ("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.collectposteriorchain", "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms", "collectposteriorchain"),
         ("ageoa.mcmc_foundational.mini_mcmc.nuts_llm.initializenutsstate", "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.atoms", "initializenutsstate"),
         ("ageoa.mcmc_foundational.mini_mcmc.nuts_llm.runnutstransitions", "ageoa.mcmc_foundational.mini_mcmc.nuts_llm.atoms", "runnutstransitions"),
     ]:
@@ -591,9 +593,11 @@ def test_runtime_probe_passes_for_mini_mcmc_kernel_family() -> None:
 
 def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
     for atom_name, module_path, symbol in [
+        ("ageoa.pronto.ekf_smoother.stateestimatorinit", "ageoa.pronto.ekf_smoother", "stateestimatorinit"),
         ("ageoa.pronto.foot_contact.foot_sensing_state_update", "ageoa.pronto.foot_contact.atoms", "foot_sensing_state_update"),
         ("ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform", "ageoa.pronto.inverse_schmitt", "inverse_schmitt_trigger_transform"),
         ("ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage", "ageoa.pronto.torque_adjustment", "torqueadjustmentidentitystage"),
+        ("ageoa.pronto.yaw_lock.initializeyawlockstate", "ageoa.pronto.yaw_lock.atoms", "initializeyawlockstate"),
         ("ageoa.pronto.yaw_lock.readrobotstandingstatus", "ageoa.pronto.yaw_lock.atoms", "readrobotstandingstatus"),
         ("ageoa.pronto.yaw_lock.readinitialjointangles", "ageoa.pronto.yaw_lock.atoms", "readinitialjointangles"),
     ]:

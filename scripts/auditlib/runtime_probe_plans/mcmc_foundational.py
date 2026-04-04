@@ -57,6 +57,14 @@ def get_probe_plans() -> dict[str, Any]:
             assert isinstance(stats, dict)
             assert {"accepted", "accept_prob", "delta_H"} <= set(stats)
 
+        def _assert_collect_chain(result: Any) -> None:
+            assert isinstance(result, tuple) and len(result) == 4
+            samples, final_state, final_rng, trace = result
+            assert np.asarray(samples).shape == (2, 1)
+            assert np.asarray(final_state).shape == (3,)
+            assert np.asarray(final_rng).shape == (1,)
+            assert np.asarray(trace).shape == (3, 3)
+
         def _assert_nuts_transition(result: Any) -> None:
             assert isinstance(result, tuple) and len(result) == 4
             samples, trace, nuts_state_out, rng_key_out = result
@@ -119,6 +127,17 @@ def get_probe_plans() -> dict[str, Any]:
         def _invoke_hmc_builder(func: Callable[..., Any]) -> Any:
             kernel = func(target_log)
             return kernel(np.array([0.5, -0.5], dtype=float), np.array([1, 2], dtype=np.int64))
+
+        def _invoke_hmc_chain_collector(func: Callable[..., Any]) -> Any:
+            module = safe_import_module("ageoa.mcmc_foundational.mini_mcmc.hmc_llm.atoms")
+            kernel_spec, chain_state = module.initializehmckernelstate(
+                target_log,
+                np.array([0.5], dtype=float),
+                0.1,
+                4,
+            )
+            rng_key = module.initializesamplerrng(7)
+            return func(2, 1, chain_state, kernel_spec, rng_key)
 
         def _invoke_nuts(func: Callable[..., Any]) -> Any:
             module = safe_import_module("ageoa.mcmc_foundational.mini_mcmc.nuts_llm.atoms")
@@ -208,6 +227,27 @@ def get_probe_plans() -> dict[str, Any]:
                 ),
                 parity_used=True,
             ),
+            "ageoa.mcmc_foundational.kthohr_mcmc.nuts.nuts_recursive_tree_build": ProbePlan(
+                positive=ProbeCase(
+                    "build a deterministic shallow kthohr-mcmc NUTS subtree",
+                    lambda func: func(
+                        1,
+                        0.1,
+                        -1.0,
+                        np.array([0.5], dtype=float),
+                        target_log,
+                        lambda state, step_size, direction: np.asarray(state, dtype=float) + direction * step_size,
+                        1,
+                    ),
+                    _assert_nuts_tree,
+                ),
+                negative=ProbeCase(
+                    "reject a non-callable integrator function for kthohr-mcmc NUTS tree build",
+                    lambda func: func(1, 0.1, -1.0, np.array([0.5], dtype=float), target_log, None, 1),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
             "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.initializehmckernelstate": ProbePlan(
                 positive=ProbeCase(
                     "initialize a deterministic HMC kernel spec and chain state",
@@ -253,6 +293,19 @@ def get_probe_plans() -> dict[str, Any]:
                         np.array([7], dtype=np.int64),
                         target_log,
                     ),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.mcmc_foundational.mini_mcmc.hmc_llm.collectposteriorchain": ProbePlan(
+                positive=ProbeCase(
+                    "collect a tiny deterministic posterior chain from explicit HMC state and RNG",
+                    _invoke_hmc_chain_collector,
+                    _assert_collect_chain,
+                ),
+                negative=ProbeCase(
+                    "reject a missing HMC kernel specification when collecting posterior draws",
+                    lambda func: func(2, 1, np.array([0.5, -0.125, 0.0], dtype=float), None, np.array([7], dtype=np.int64)),
                     expect_exception=True,
                 ),
                 parity_used=True,
