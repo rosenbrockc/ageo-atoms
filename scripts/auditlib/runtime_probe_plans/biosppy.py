@@ -581,13 +581,13 @@ def get_probe_plans() -> dict[str, Any]:
             ),
             "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi": ProbePlan(
                 positive=ProbeCase(
-                    "refined-ingest ZZ2018 composite SQI assembles the expected score bundle",
-                    lambda func: func(100.0, 0.0, 1.5),
-                    _assert_dict_keys({"b_sqi", "f_sqi", "k_sqi"}),
+                    "refined-ingest ZZ2018 composite SQI classifies a small synthetic signal",
+                    lambda func: func(signal, detector_1, detector_2, 1000.0, 50, 64, "simple"),
+                    lambda result: isinstance(result, str) and bool(result),
                 ),
                 negative=ProbeCase(
-                    "refined-ingest ZZ2018 composite SQI rejects a non-numeric component score",
-                    lambda func: func("bad", 0.0, 1.5),
+                    "refined-ingest ZZ2018 composite SQI rejects a non-numeric sampling rate",
+                    lambda func: func(signal, detector_1, detector_2, "bad", 50, 64, "simple"),
                     expect_exception=True,
                 ),
                 parity_used=True,

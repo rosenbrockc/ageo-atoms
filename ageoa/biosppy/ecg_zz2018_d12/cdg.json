@@ -123,20 +123,24 @@
       "node_id": "assemblezz2018sqi",
       "parent_id": "zz2018_d12_root",
       "name": "AssembleZZ2018SQI",
-      "description": "Package the three component SQIs into a small score bundle.",
-      "concept_type": "data_assembly",
+      "description": "Run the composite ZZ2018 ECG signal-quality classifier from the waveform and two detector streams.",
+      "concept_type": "classification",
       "inputs": [
-        {"name": "b_sqi", "type_desc": "float", "constraints": "beat-agreement score", "required": true, "default_value_repr": ""},
-        {"name": "f_sqi", "type_desc": "float", "constraints": "frequency score", "required": true, "default_value_repr": ""},
-        {"name": "k_sqi", "type_desc": "float", "constraints": "kurtosis score", "required": true, "default_value_repr": ""}
+        {"name": "signal", "type_desc": "ndarray", "constraints": "ECG samples", "required": true, "default_value_repr": ""},
+        {"name": "detector_1", "type_desc": "ndarray", "constraints": "first R-peak detector output", "required": true, "default_value_repr": ""},
+        {"name": "detector_2", "type_desc": "ndarray", "constraints": "second R-peak detector output", "required": true, "default_value_repr": ""},
+        {"name": "fs", "type_desc": "float", "constraints": "> 0", "required": false, "default_value_repr": "1000.0"},
+        {"name": "search_window", "type_desc": "int", "constraints": ">= 0 milliseconds", "required": false, "default_value_repr": "100"},
+        {"name": "nseg", "type_desc": "int", "constraints": "> 0", "required": false, "default_value_repr": "1024"},
+        {"name": "mode", "type_desc": "str", "constraints": "BioSPPy ZZ2018 mode", "required": false, "default_value_repr": "'simple'"}
       ],
       "outputs": [
-        {"name": "score_bundle", "type_desc": "dict[str, float]", "constraints": "contains b_sqi, f_sqi, and k_sqi", "required": true, "default_value_repr": ""}
+        {"name": "noise_class", "type_desc": "str", "constraints": "ZZ2018 quality class label", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(b_sqi: float, f_sqi: float, k_sqi: float) -> dict[str, float]",
+      "type_signature": "(signal: ndarray, detector_1: ndarray, detector_2: ndarray, fs: float = 1000.0, search_window: int = 100, nseg: int = 1024, mode: str = 'simple') -> str",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

@@ -20,5 +20,10 @@ def test_frequency_and_kurtosis_sqi_use_defaults() -> None:
     assert isinstance(computekurtosissqi(signal), float)
 
 
-def test_assemblezz2018sqi_returns_component_bundle() -> None:
-    assert assemblezz2018sqi(0.9, 0.4, 3.2) == {"b_sqi": 0.9, "f_sqi": 0.4, "k_sqi": 3.2}
+def test_assemblezz2018sqi_matches_upstream_defaults() -> None:
+    signal = np.sin(np.linspace(0.0, 4.0 * np.pi, 256, dtype=float))
+    detector_1 = np.array([40, 104, 168, 232], dtype=int)
+    detector_2 = detector_1.copy()
+    result = assemblezz2018sqi(signal, detector_1, detector_2)
+    assert isinstance(result, str)
+    assert result in {"Excellent", "Barely acceptable", "Unnacceptable", "Unacceptable"}

@@ -32,13 +32,13 @@ def witness_computekurtosissqi(signal: AbstractArray, fisher: AbstractScalar) ->
 
 
 def witness_assemblezz2018sqi(
-    b_sqi: AbstractScalar,
-    f_sqi: AbstractScalar,
-    k_sqi: AbstractScalar,
-) -> dict[str, AbstractScalar]:
+    signal: AbstractSignal,
+    detector_1: AbstractArray,
+    detector_2: AbstractArray,
+    fs: AbstractScalar,
+    search_window: AbstractScalar,
+    nseg: AbstractScalar,
+    mode: AbstractScalar,
+) -> AbstractScalar:
     """Shape-and-type check for assemble zz2018 sqi."""
-    return {
-        "b_sqi": AbstractScalar(dtype="float64"),
-        "f_sqi": AbstractScalar(dtype="float64"),
-        "k_sqi": AbstractScalar(dtype="float64"),
-    }
+    return AbstractScalar(dtype="str")

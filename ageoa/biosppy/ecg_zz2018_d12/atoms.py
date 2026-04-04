@@ -7,7 +7,7 @@ from numpy.typing import ArrayLike
 
 import icontract
 from ageoa.ghost.registry import register_atom
-from biosppy.signals.ecg import bSQI, fSQI, kSQI
+from biosppy.signals.ecg import ZZ2018, bSQI, fSQI, kSQI
 
 from .witnesses import (
     witness_assemblezz2018sqi,
@@ -73,10 +73,43 @@ def computekurtosissqi(signal: ArrayLike, fisher: bool = True) -> float:
 
 
 @register_atom(witness_assemblezz2018sqi)
-@icontract.require(lambda b_sqi: isinstance(b_sqi, (float, int, np.number)), "b_sqi must be numeric")
-@icontract.require(lambda f_sqi: isinstance(f_sqi, (float, int, np.number)), "f_sqi must be numeric")
-@icontract.require(lambda k_sqi: isinstance(k_sqi, (float, int, np.number)), "k_sqi must be numeric")
+@icontract.require(lambda signal: signal is not None, "signal cannot be None")
+@icontract.require(lambda detector_1: detector_1 is not None, "detector_1 cannot be None")
+@icontract.require(lambda detector_2: detector_2 is not None, "detector_2 cannot be None")
+@icontract.require(lambda fs: isinstance(fs, (float, int, np.number)), "fs must be numeric")
+@icontract.require(lambda search_window: isinstance(search_window, (float, int, np.number)), "search_window must be numeric")
+@icontract.require(lambda nseg: isinstance(nseg, (float, int, np.number)), "nseg must be numeric")
 @icontract.ensure(lambda result: result is not None, "AssembleZZ2018SQI output must not be None")
-def assemblezz2018sqi(b_sqi: float, f_sqi: float, k_sqi: float) -> dict[str, float]:
-    """Package the three ZZ2018 SQI components into a compact score bundle."""
-    return {"b_sqi": b_sqi, "f_sqi": f_sqi, "k_sqi": k_sqi}
+def assemblezz2018sqi(
+    signal: ArrayLike,
+    detector_1: ArrayLike,
+    detector_2: ArrayLike,
+    fs: float = 1000.0,
+    search_window: int = 100,
+    nseg: int = 1024,
+    mode: str = "simple",
+) -> str:
+    """Run the composite ZZ2018 ECG quality classifier.
+
+    Args:
+        signal: Input ECG waveform in millivolts.
+        detector_1: R-peak indices from the first detector.
+        detector_2: R-peak indices from the second detector.
+        fs: Sampling frequency in Hz.
+        search_window: Matching window around candidate peaks in milliseconds.
+        nseg: Frequency-axis resolution used by the spectral SQIs.
+        mode: BioSPPy classifier mode, typically ``simple`` or ``fuzzy``.
+
+    Returns:
+        noise_class: Composite ZZ2018 quality class string.
+    """
+    _ensure_scipy_trapz()
+    return ZZ2018(
+        signal=signal,
+        detector_1=detector_1,
+        detector_2=detector_2,
+        fs=fs,
+        search_window=search_window,
+        nseg=nseg,
+        mode=mode,
+    )

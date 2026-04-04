@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-04T02:29:11+00:00",
+    "generated_at": "2026-04-04T02:46:41+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 446,
-      "medium": 59
+      "low": 447,
+      "medium": 58
     },
     "stateful_count": 69,
     "stochastic_count": 24,
@@ -76,8 +76,8 @@
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
-      "partial": 41,
-      "pass": 464
+      "partial": 40,
+      "pass": 465
     },
     "parity_coverage_level_counts": {
       "none": 112,
@@ -123,13 +123,13 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 470,
+      "review_later": 471,
       "review_now": 11,
-      "review_soon": 24
+      "review_soon": 23
     },
     "high_risk_count": 0,
-    "medium_risk_count": 59,
-    "low_risk_count": 446
+    "medium_risk_count": 58,
+    "low_risk_count": 447
   },
   "atoms": [
     {
@@ -11057,17 +11057,17 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:80",
+      "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:83",
       "atom_name": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
       "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
       "module_import_path": "ageoa.biosppy.ecg_zz2018_d12.atoms",
       "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
       "wrapper_symbol": "assemblezz2018sqi",
-      "wrapper_line": 80,
+      "wrapper_line": 83,
       "domain_family": "biosppy",
       "module_family": "biosppy",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "BioSPPy",
         "module": "biosppy.signals.ecg",
@@ -11086,64 +11086,84 @@
       "has_cdg": true,
       "has_references": true,
       "has_parity_tests": true,
-      "structural_status": "partial",
+      "structural_status": "pass",
       "runtime_status": "pass",
       "semantic_status": "pass",
       "developer_semantics_status": "unknown",
       "parity_test_status": "pass",
       "references_status": "pass",
-      "overall_verdict": "misleading",
-      "acceptability_score": 49,
-      "acceptability_band": "misleading_candidate",
-      "max_reviewable_verdict": "misleading",
-      "blocking_findings": [
-        "FIDELITY_SIGNATURE_INVENTED_PARAMETER",
-        "FIDELITY_SIGNATURE_MISSING_REQUIRED",
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "required_actions": [
-        "replace placeholder docstring text",
-        "remove or document invented wrapper parameters",
-        "align wrapper parameters with the upstream required parameters"
-      ],
+      "overall_verdict": "acceptable_with_limits",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
+      "max_reviewable_verdict": "acceptable_with_limits",
+      "blocking_findings": [],
+      "required_actions": [],
       "argument_names": [
-        "b_sqi",
-        "f_sqi",
-        "k_sqi"
+        "signal",
+        "detector_1",
+        "detector_2",
+        "fs",
+        "search_window",
+        "nseg",
+        "mode"
       ],
       "required_parameter_names": [
-        "b_sqi",
-        "f_sqi",
-        "k_sqi"
+        "signal",
+        "detector_1",
+        "detector_2"
       ],
       "argument_details": [
         {
-          "name": "b_sqi",
+          "name": "signal",
           "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "ArrayLike"
+        },
+        {
+          "name": "detector_1",
+          "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "ArrayLike"
+        },
+        {
+          "name": "detector_2",
+          "required": true,
+          "kind": "positional_or_keyword",
+          "annotation": "ArrayLike"
+        },
+        {
+          "name": "fs",
+          "required": false,
           "kind": "positional_or_keyword",
           "annotation": "float"
         },
         {
-          "name": "f_sqi",
-          "required": true,
+          "name": "search_window",
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "float"
+          "annotation": "int"
         },
         {
-          "name": "k_sqi",
-          "required": true,
+          "name": "nseg",
+          "required": false,
           "kind": "positional_or_keyword",
-          "annotation": "float"
+          "annotation": "int"
+        },
+        {
+          "name": "mode",
+          "required": false,
+          "kind": "positional_or_keyword",
+          "annotation": "str"
         }
       ],
-      "return_annotation": "dict[str, float]",
-      "decorator_count": 5,
-      "require_count": 3,
+      "return_annotation": "str",
+      "decorator_count": 8,
+      "require_count": 6,
       "ensure_count": 1,
       "witness_binding": "register_atom(witness_assemblezz2018sqi)",
       "placeholder_witness": false,
       "has_docstring": true,
-      "docstring_summary": "Package the three ZZ2018 SQI components into a compact score bundle.",
+      "docstring_summary": "Run the composite ZZ2018 ECG quality classifier.",
       "has_weak_types": false,
       "weak_type_annotations": [],
       "uses_varargs": false,
@@ -11171,23 +11191,17 @@
       "risk_reasons": [
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
-        "RISK_REFINED_INGEST",
-        "RISK_SIGNATURE_MISMATCH",
-        "RISK_STRUCTURAL_PARTIAL"
+        "RISK_REFINED_INGEST"
       ],
-      "risk_score": 34,
+      "risk_score": 10,
       "risk_dimensions": {
         "structural_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_STRUCTURAL_PARTIAL"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "fidelity_risk": {
-          "score": 12,
-          "reasons": [
-            "RISK_SIGNATURE_MISMATCH"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -11216,7 +11230,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -11225,7 +11239,7 @@
           "upstream_manifest_lookup"
         ],
         "structural": [
-          "audit.py"
+          "no_structural_findings"
         ],
         "parity": [
           "fixtures",
@@ -11249,26 +11263,8 @@
           "parity_coverage"
         ]
       },
-      "structural_findings": [
-        "STRUCT_DOCSTRING_PLACEHOLDER"
-      ],
-      "structural_finding_details": [
-        {
-          "atom_id": "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi@ageoa/biosppy/ecg_zz2018_d12/atoms.py:80",
-          "atom_key": "biosppy/ecg_zz2018_d12:assemblezz2018sqi",
-          "domain_family": "biosppy",
-          "module_path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "wrapper_symbol": "assemblezz2018sqi",
-          "code": "STRUCT_DOCSTRING_PLACEHOLDER",
-          "severity": "warning",
-          "source": "audit.py",
-          "message": "assemblezz2018sqi: docstring missing 'Args:' section",
-          "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-          "line": null,
-          "column": null,
-          "raw_code": "A-DOC"
-        }
-      ],
+      "structural_findings": [],
+      "structural_finding_details": [],
       "semantic_findings": [
         "RUNTIME_CONTRACT_NEGATIVE_PASS",
         "RUNTIME_PROBE_PASS",
@@ -11286,7 +11282,7 @@
           "source_refs": [
             {
               "path": "ageoa/biosppy/ecg_zz2018_d12/atoms.py",
-              "line": 80
+              "line": 83
             }
           ]
         }
