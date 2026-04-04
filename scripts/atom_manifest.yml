@@ -40,27 +40,27 @@
 # =============================================================================
 - atom: alphafold:coordinate_reconstruction
   upstream:
-    repo: ~
-    module: ~
-    function: ~
+    repo: google-deepmind/alphafold
+    module: alphafold.model.all_atom
+    function: torsion_angles_to_frames
     language: python
-    notes: No third_party repo; stub references AlphaFold2 torsion_angles_to_frames logic
+    notes: Wrapper is a compact local reconstruction adapter around the official AlphaFold all_atom.torsion_angles_to_frames flow.
 
 - atom: alphafold:equivariant_frame_update
   upstream:
-    repo: ~
-    module: ~
-    function: ~
+    repo: google-deepmind/alphafold
+    module: alphafold.model.folding
+    function: FoldIteration.__call__
     language: python
-    notes: No third_party repo; stub references AlphaFold2 InvariantPointAttention frame update
+    notes: Wrapper mirrors the affine-update step performed inside the official AlphaFold FoldIteration backbone update.
 
 - atom: alphafold:invariant_point_attention
   upstream:
-    repo: ~
-    module: ~
-    function: ~
+    repo: google-deepmind/alphafold
+    module: alphafold.model.folding
+    function: InvariantPointAttention.__call__
     language: python
-    notes: No third_party repo; stub references AlphaFold2 InvariantPointAttention
+    notes: Wrapper is a simplified local adapter around the official AlphaFold InvariantPointAttention module.
 
 # =============================================================================
 #  astroflow

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-03T23:57:47+00:00",
+    "generated_at": "2026-04-04T02:29:11+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,15 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 443,
-      "medium": 62
+      "low": 446,
+      "medium": 59
     },
     "stateful_count": 69,
     "stochastic_count": 24,
     "procedural_count": 25,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 293,
+    "parity_coverage_count": 296,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 19,
     "structural_status_counts": {
@@ -80,9 +80,9 @@
       "pass": 464
     },
     "parity_coverage_level_counts": {
-      "none": 115,
+      "none": 112,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 246,
+      "parity_or_usage_equivalent": 249,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -90,7 +90,6 @@
     "parity_fixture_case_count": 25,
     "families_missing_parity_evidence": {
       "advancedvi": 1,
-      "alphafold": 3,
       "belief_propagation": 2,
       "e2e_ppg": 6,
       "hPDB": 2,
@@ -110,27 +109,27 @@
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 223,
+      "not_applicable": 220,
       "partial": 7,
-      "pass": 273
+      "pass": 276
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 273,
-      "unknown": 223
+      "pass": 276,
+      "unknown": 220
     },
     "developer_semantics_status_counts": {
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 467,
+      "review_later": 470,
       "review_now": 11,
-      "review_soon": 27
+      "review_soon": 24
     },
     "high_risk_count": 0,
-    "medium_risk_count": 62,
-    "low_risk_count": 443
+    "medium_risk_count": 59,
+    "low_risk_count": 446
   },
   "atoms": [
     {
@@ -3558,23 +3557,23 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.alphafold.invariant_point_attention@ageoa/alphafold/atoms.py:22",
+      "atom_id": "ageoa.alphafold.invariant_point_attention@ageoa/alphafold/atoms.py:21",
       "atom_name": "ageoa.alphafold.invariant_point_attention",
       "atom_key": "alphafold:invariant_point_attention",
       "module_import_path": "ageoa.alphafold.atoms",
       "module_path": "ageoa/alphafold/atoms.py",
       "wrapper_symbol": "invariant_point_attention",
-      "wrapper_line": 22,
+      "wrapper_line": 21,
       "domain_family": "alphafold",
       "module_family": "alphafold",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
-        "repo": null,
-        "module": null,
-        "function": null,
+        "repo": "google-deepmind/alphafold",
+        "module": "alphafold.model.folding",
+        "function": "InvariantPointAttention.__call__",
         "language": "python",
-        "notes": "No third_party repo; stub references AlphaFold2 InvariantPointAttention"
+        "notes": "Wrapper is a simplified local adapter around the official AlphaFold InvariantPointAttention module."
       },
       "upstream_version": null,
       "source_revision": null,
@@ -3586,21 +3585,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
+      "acceptability_score": 67,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -3664,34 +3661,37 @@
           "path": "ageoa/alphafold/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "google-deepmind/alphafold",
+          "module": "alphafold.model.folding"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/alphafold/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 40,
+      "risk_score": 25,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -3716,7 +3716,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -3752,35 +3752,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/alphafold/atoms.py",
-              "line": 22
+              "line": 21
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -3794,23 +3797,23 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.alphafold.equivariant_frame_update@ageoa/alphafold/atoms.py:74",
+      "atom_id": "ageoa.alphafold.equivariant_frame_update@ageoa/alphafold/atoms.py:79",
       "atom_name": "ageoa.alphafold.equivariant_frame_update",
       "atom_key": "alphafold:equivariant_frame_update",
       "module_import_path": "ageoa.alphafold.atoms",
       "module_path": "ageoa/alphafold/atoms.py",
       "wrapper_symbol": "equivariant_frame_update",
-      "wrapper_line": 74,
+      "wrapper_line": 79,
       "domain_family": "alphafold",
       "module_family": "alphafold",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
-        "repo": null,
-        "module": null,
-        "function": null,
+        "repo": "google-deepmind/alphafold",
+        "module": "alphafold.model.folding",
+        "function": "FoldIteration.__call__",
         "language": "python",
-        "notes": "No third_party repo; stub references AlphaFold2 InvariantPointAttention frame update"
+        "notes": "Wrapper mirrors the affine-update step performed inside the official AlphaFold FoldIteration backbone update."
       },
       "upstream_version": null,
       "source_revision": null,
@@ -3822,21 +3825,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
+      "acceptability_score": 64,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -3892,34 +3893,38 @@
           "path": "ageoa/alphafold/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "google-deepmind/alphafold",
+          "module": "alphafold.model.folding"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/alphafold/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
+        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 40,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -3940,11 +3945,13 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -3980,35 +3987,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/alphafold/atoms.py",
-              "line": 74
+              "line": 79
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -4022,23 +4032,23 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:109",
+      "atom_id": "ageoa.alphafold.coordinate_reconstruction@ageoa/alphafold/atoms.py:125",
       "atom_name": "ageoa.alphafold.coordinate_reconstruction",
       "atom_key": "alphafold:coordinate_reconstruction",
       "module_import_path": "ageoa.alphafold.atoms",
       "module_path": "ageoa/alphafold/atoms.py",
       "wrapper_symbol": "coordinate_reconstruction",
-      "wrapper_line": 109,
+      "wrapper_line": 125,
       "domain_family": "alphafold",
       "module_family": "alphafold",
       "source_kind": "hand_written",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
-        "repo": null,
-        "module": null,
-        "function": null,
+        "repo": "google-deepmind/alphafold",
+        "module": "alphafold.model.all_atom",
+        "function": "torsion_angles_to_frames",
         "language": "python",
-        "notes": "No third_party repo; stub references AlphaFold2 torsion_angles_to_frames logic"
+        "notes": "Wrapper is a compact local reconstruction adapter around the official AlphaFold all_atom.torsion_angles_to_frames flow."
       },
       "upstream_version": null,
       "source_revision": null,
@@ -4050,21 +4060,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
+      "acceptability_score": 64,
       "acceptability_band": "limited_acceptability",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence",
         "pin source revision or upstream version in the manifest"
       ],
@@ -4120,34 +4128,38 @@
           "path": "ageoa/alphafold/atoms.py"
         },
         {
+          "kind": "vendored_repo",
+          "repo": "google-deepmind/alphafold",
+          "module": "alphafold.model.all_atom"
+        },
+        {
           "kind": "local_references",
           "path": "ageoa/alphafold/references.json"
         }
       ],
       "risk_reasons": [
-        "RISK_MISSING_PARITY",
+        "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_PROVENANCE",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_STATEFUL_API",
         "RISK_STATE_MODEL_PRESENT",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 40,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 17,
+          "score": 9,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_PROVENANCE",
             "RISK_MISSING_REVIEW_BASIS"
           ]
@@ -4168,11 +4180,13 @@
           "reasons": []
         },
         "semantics_proxy_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 2,
+          "reasons": [
+            "RISK_LOW_NAME_ALIGNMENT"
+          ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -4208,35 +4222,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/alphafold/atoms.py",
-              "line": 109
+              "line": 125
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

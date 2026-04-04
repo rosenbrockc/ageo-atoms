@@ -466,6 +466,104 @@ def _datadriven_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     }
 
 
+def _alphafold_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
+    def _assert_alpha_nodes(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        nodes, state = result
+        assert tuple(np.asarray(nodes).shape) == (4, 8)
+        assert hasattr(state, "nodes")
+        assert tuple(np.asarray(state.nodes).shape) == (4, 8)
+
+    def _assert_alpha_frames(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        frames, state = result
+        assert tuple(np.asarray(frames).shape) == (4, 7)
+        assert hasattr(state, "frames")
+        assert tuple(np.asarray(state.frames).shape) == (4, 7)
+
+    def _assert_alpha_coords(result: Any) -> None:
+        assert isinstance(result, tuple)
+        assert len(result) == 2
+        coords, state = result
+        assert tuple(np.asarray(coords).shape) == (4, 37, 3)
+        assert hasattr(state, "frames")
+
+    def _state():
+        from ageoa.alphafold.state_models import AlphaFoldStructuralState
+
+        return AlphaFoldStructuralState()
+
+    return {
+        "ageoa.alphafold.invariant_point_attention": ProbePlan(
+            positive=ProbeCase(
+                "alphafold invariant point attention updates node embeddings on a tiny synthetic residue set",
+                lambda func: func(
+                    np.zeros((4, 8), dtype=float),
+                    np.zeros((4, 4, 3), dtype=float),
+                    np.zeros((4, 7), dtype=float),
+                    _state(),
+                ),
+                _assert_alpha_nodes,
+            ),
+            negative=ProbeCase(
+                "reject pair features with mismatched sequence dimensions",
+                lambda func: func(
+                    np.zeros((4, 8), dtype=float),
+                    np.zeros((5, 4, 3), dtype=float),
+                    np.zeros((4, 7), dtype=float),
+                    _state(),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.alphafold.equivariant_frame_update": ProbePlan(
+            positive=ProbeCase(
+                "alphafold frame update returns the same frame shape on a tiny synthetic residue set",
+                lambda func: func(
+                    np.zeros((4, 7), dtype=float),
+                    np.zeros((4, 8), dtype=float),
+                    _state(),
+                ),
+                _assert_alpha_frames,
+            ),
+            negative=ProbeCase(
+                "reject a scalar node tensor",
+                lambda func: func(
+                    np.zeros((4, 7), dtype=float),
+                    np.array(1.0),
+                    _state(),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.alphafold.coordinate_reconstruction": ProbePlan(
+            positive=ProbeCase(
+                "alphafold coordinate reconstruction returns residue coordinates from tiny torsion inputs",
+                lambda func: func(
+                    np.zeros((4, 7), dtype=float),
+                    np.zeros((4, 7, 2), dtype=float),
+                    _state(),
+                ),
+                _assert_alpha_coords,
+            ),
+            negative=ProbeCase(
+                "reject torsions without sin/cos pairs",
+                lambda func: func(
+                    np.zeros((4, 7), dtype=float),
+                    np.zeros((4, 7, 3), dtype=float),
+                    _state(),
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+    }
+
+
 def _pronto_backlash_filter_plans(ProbeCase: type, ProbePlan: type) -> dict[str, Any]:
     state = np.array([0.5, 1.0, 0.0, 0.0], dtype=np.float64)
     return {
@@ -577,6 +675,7 @@ def get_probe_plans() -> dict[str, Any]:
     plans.update(_e2e_ppg_plans(ProbeCase, ProbePlan))
     plans.update(_e2e_ppg_reconstruction_plans(ProbeCase, ProbePlan))
     plans.update(_datadriven_plans(ProbeCase, ProbePlan))
+    plans.update(_alphafold_plans(ProbeCase, ProbePlan))
     plans.update(_pronto_backlash_filter_plans(ProbeCase, ProbePlan))
     plans.update(_sklearn_image_plans(ProbeCase, ProbePlan))
     return plans

@@ -1189,6 +1189,19 @@ def test_runtime_probe_marks_mint_top_level_attention_atoms_as_usage_equivalent(
         assert probe["parity_used"] is True
 
 
+def test_runtime_probe_marks_alphafold_atoms_as_usage_equivalent() -> None:
+    for atom_name, symbol in [
+        ("ageoa.alphafold.invariant_point_attention", "invariant_point_attention"),
+        ("ageoa.alphafold.equivariant_frame_update", "equivariant_frame_update"),
+        ("ageoa.alphafold.coordinate_reconstruction", "coordinate_reconstruction"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(
+            _record(atom_name, "ageoa.alphafold.atoms", symbol)
+        )
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+
+
 def test_runtime_probe_marks_e2e_ppg_windowed_reconstruction_as_usage_equivalent() -> None:
     probe = runtime_probes.build_runtime_probe(
         _record(
