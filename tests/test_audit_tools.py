@@ -128,3 +128,4 @@ def test_minimize_bandwidth_loop_stage_adapters_do_not_trigger_signature_finding
         evidence = build_signature_evidence(_record_for(manifest, atom_key))
         assert "FIDELITY_SIGNATURE_INVENTED_PARAMETER" not in evidence["findings"]
         assert "FIDELITY_SIGNATURE_MISSING_REQUIRED" not in evidence["findings"]
+        assert "FIDELITY_SIGNATURE_ORDER_MISMATCH" not in evidence["findings"]

@@ -93,7 +93,12 @@ def build_signature_evidence(record: dict[str, Any]) -> dict[str, Any]:
             if invented:
                 findings.append("FIDELITY_SIGNATURE_INVENTED_PARAMETER")
                 notes.append("invented_parameters=" + ",".join(invented))
-            if not missing_required and not invented and comparable_wrapper_params != upstream_params:
+            if (
+                not missing_required
+                and not invented
+                and not (_is_decomposition_mapping(mapping) and state_adapters and not comparable_wrapper_params)
+                and comparable_wrapper_params != upstream_params
+            ):
                 findings.append("FIDELITY_SIGNATURE_ORDER_MISMATCH")
             if (
                 not (_is_decomposition_mapping(mapping) and state_adapters)

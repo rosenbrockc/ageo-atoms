@@ -2969,7 +2969,7 @@
   upstream:
     repo: rust_robotics
     module: models.ground_vehicles.bicycle_kinematic
-    function: Model.get_derivatives
+    function: BicycleKinematic.get_derivatives
     language: rust
     crate: rust_robotics
 
