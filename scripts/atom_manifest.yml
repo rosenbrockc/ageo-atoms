@@ -1593,10 +1593,10 @@
 - atom: mcmc_foundational/kthohr_mcmc/mcmc_algos:dispatch_mcmc_algorithm
   upstream:
     repo: mcmc
-    module: mcmc.mcmc_algos
-    function: mcmc
+    module: mcmc.rwmh
+    function: rwmh
     language: cpp
-    notes: Top-level dispatch that selects rwmh/hmc/nuts/mala/de/aees/rmhmc
+    notes: Current procedural wrapper only implements a simple random-walk Metropolis fallback, so vendored rwmh is the closest upstream anchor
 
 - atom: mcmc_foundational/kthohr_mcmc/nuts:nuts_recursive_tree_build
   upstream:
@@ -2419,8 +2419,9 @@
   upstream:
     repo: pronto
     module: pronto_quadruped.DynamicStanceEstimator
-    function: DynamicStanceEstimator::predict
+    function: DynamicStanceEstimator::getStance
     language: cpp
+    notes: Decomposed adapter over the vendored DynamicStanceEstimator stance-estimation update path
 
 - atom: pronto/dynamic_stance_estimator:querystance
   upstream:
@@ -2433,8 +2434,9 @@
   upstream:
     repo: pronto
     module: pronto_quadruped.DynamicStanceEstimator
-    function: DynamicStanceEstimator::update
+    function: DynamicStanceEstimator::getStance
     language: cpp
+    notes: Decomposed adapter over the vendored DynamicStanceEstimator stance-estimation update path
 
 - atom: pronto/dynamic_stance_estimator_d12:stanceestimation
   upstream:

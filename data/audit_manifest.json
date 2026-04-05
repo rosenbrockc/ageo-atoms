@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-05T00:14:27+00:00",
+    "generated_at": "2026-04-05T00:31:00+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,8 +64,8 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 500,
-      "medium": 5
+      "low": 503,
+      "medium": 2
     },
     "stateful_count": 70,
     "stochastic_count": 22,
@@ -119,13 +119,12 @@
       "unknown": 505
     },
     "review_priority_counts": {
-      "review_later": 495,
-      "review_now": 7,
-      "review_soon": 3
+      "review_later": 498,
+      "review_now": 7
     },
     "high_risk_count": 0,
-    "medium_risk_count": 5,
-    "low_risk_count": 500
+    "medium_risk_count": 2,
+    "low_risk_count": 503
   },
   "atoms": [
     {
@@ -35236,13 +35235,13 @@
       "domain_family": "mcmc_foundational",
       "module_family": "mcmc_foundational",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "mcmc",
-        "module": "mcmc.mcmc_algos",
-        "function": "mcmc",
+        "module": "mcmc.rwmh",
+        "function": "rwmh",
         "language": "cpp",
-        "notes": "Top-level dispatch that selects rwmh/hmc/nuts/mala/de/aees/rmhmc"
+        "notes": "Current procedural wrapper only implements a simple random-walk Metropolis fallback, so vendored rwmh is the closest upstream anchor"
       },
       "upstream_version": null,
       "source_revision": "2abb7d4c45dd35e0b284094ff07b9a58bdb5f1b7",
@@ -35262,13 +35261,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 73,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 94,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "log_target_density",
         "initial_state",
@@ -35323,7 +35320,7 @@
         {
           "kind": "vendored_repo",
           "repo": "mcmc",
-          "module": "mcmc.mcmc_algos",
+          "module": "mcmc.rwmh",
           "source_revision": "2abb7d4c45dd35e0b284094ff07b9a58bdb5f1b7"
         },
         {
@@ -35335,20 +35332,17 @@
         "RISK_GENERATED_INGEST",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 30,
+      "risk_score": 22,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -35378,7 +35372,7 @@
           "reasons": []
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -64890,13 +64884,13 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.DynamicStanceEstimator",
-        "function": "DynamicStanceEstimator::predict",
+        "function": "DynamicStanceEstimator::getStance",
         "language": "cpp",
-        "notes": null
+        "notes": "Decomposed adapter over the vendored DynamicStanceEstimator stance-estimation update path"
       },
       "upstream_version": null,
       "source_revision": "50290a9811c6279afc227bc8f4682cee902f6424",
@@ -64916,13 +64910,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "current_state",
         "model_params",
@@ -64991,20 +64983,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 37,
+      "risk_score": 29,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -65038,7 +65027,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
@@ -65129,13 +65118,13 @@
       "domain_family": "pronto",
       "module_family": "pronto",
       "source_kind": "generated_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "pronto",
         "module": "pronto_quadruped.DynamicStanceEstimator",
-        "function": "DynamicStanceEstimator::update",
+        "function": "DynamicStanceEstimator::getStance",
         "language": "cpp",
-        "notes": null
+        "notes": "Decomposed adapter over the vendored DynamicStanceEstimator stance-estimation update path"
       },
       "upstream_version": null,
       "source_revision": "50290a9811c6279afc227bc8f4682cee902f6424",
@@ -65155,13 +65144,11 @@
       "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 70,
-      "acceptability_band": "acceptable_with_limits_candidate",
+      "acceptability_score": 91,
+      "acceptability_band": "review_ready",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
-      "required_actions": [
-        "add vendored or importable upstream signature evidence"
-      ],
+      "required_actions": [],
       "argument_names": [
         "predicted_state",
         "model_params",
@@ -65230,20 +65217,17 @@
         "RISK_LOW_NAME_ALIGNMENT",
         "RISK_MISSING_REVIEW_BASIS",
         "RISK_PROCEDURAL_WRAPPER",
-        "RISK_STATEFUL_API",
-        "RISK_WEAK_UPSTREAM_ANCHOR"
+        "RISK_STATEFUL_API"
       ],
-      "risk_score": 37,
+      "risk_score": 29,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 8,
-          "reasons": [
-            "RISK_WEAK_UPSTREAM_ANCHOR"
-          ]
+          "score": 0,
+          "reasons": []
         },
         "evidence_gap_risk": {
           "score": 3,
@@ -65277,7 +65261,7 @@
           ]
         }
       },
-      "review_priority": "review_soon",
+      "review_priority": "review_later",
       "status_basis": {
         "inventory": [
           "ast_discovery",
