@@ -2535,8 +2535,8 @@
 - atom: pronto/yaw_lock:configurecorrectionandyawslippolicy
   upstream:
     repo: pronto
-    module: pronto_biped_core.yawlock_module
-    function: YawLockModule::setCorrectionMode
+    module: pronto_biped_core.yawlock_common
+    function: YawLock::setParameters
     language: cpp
 
 - atom: pronto/yaw_lock:initializeyawlockstate
@@ -2563,22 +2563,22 @@
 - atom: pronto/yaw_lock:setjointposeandinitialangles
   upstream:
     repo: pronto
-    module: pronto_biped_core.yawlock_module
-    function: YawLockModule::setJointPose
+    module: pronto_biped_core.yawlock_common
+    function: YawLock::setJointState
     language: cpp
 
 - atom: pronto/yaw_lock:setrobotstandingstatus
   upstream:
     repo: pronto
-    module: pronto_biped_core.yawlock_module
-    function: YawLockModule::setStanding
+    module: pronto_biped_core.yawlock_common
+    function: YawLock::setIsRobotStanding
     language: cpp
 
 - atom: pronto/yaw_lock:setstandinglinktargets
   upstream:
     repo: pronto
-    module: pronto_biped_core.yawlock_module
-    function: YawLockModule::setStandingLinks
+    module: pronto_biped_core.yawlock_common
+    function: YawLock::setStandingLinks
     language: cpp
 
 # =============================================================================

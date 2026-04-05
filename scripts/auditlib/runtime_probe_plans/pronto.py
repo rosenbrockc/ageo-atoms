@@ -149,6 +149,42 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
         assert result["left_standing_link"] is None
         assert result["right_standing_link"] is None
 
+    def _assert_yaw_lock_policy(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert result["correction_period"] == 2.0
+        assert result["yaw_slip_detect"] is True
+        assert result["yaw_slip_threshold_degrees"] == 7.5
+        assert result["yaw_slip_disable_period"] == 3.0
+
+    def _assert_yaw_lock_standing(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert result["is_robot_standing"] is True
+
+    def _assert_yaw_lock_joint_pose(result: Any) -> None:
+        assert isinstance(result, dict)
+        helpers["_assert_value"](["hip", "knee"])(list(result["joint_name"]))
+        helpers["_assert_array"](np.array([0.1, -0.2], dtype=float))(result["joint_position"])
+        helpers["_assert_array"](np.array([0.05, -0.1], dtype=float))(result["joint_angles_init"])
+
+    def _assert_yaw_lock_links(result: Any) -> None:
+        assert isinstance(result, dict)
+        assert result["left_standing_link"] == "left_foot"
+        assert result["right_standing_link"] == "right_foot"
+
+    def _yaw_lock_base_state() -> dict[str, Any]:
+        return {
+            "correction_period": 1.0,
+            "yaw_slip_detect": False,
+            "yaw_slip_threshold_degrees": 5.0,
+            "yaw_slip_disable_period": 1.0,
+            "is_robot_standing": False,
+            "joint_name": None,
+            "joint_position": None,
+            "joint_angles_init": None,
+            "left_standing_link": None,
+            "right_standing_link": None,
+        }
+
     return {
         "ageoa.pronto.ekf_smoother.stateestimatorinit": ProbePlan(
             positive=ProbeCase(
@@ -263,6 +299,72 @@ def _pronto_state_readout_plans(ProbeCase: type, ProbePlan: type, helpers: dict[
             negative=ProbeCase(
                 "reject unexpected positional arguments for the zero-argument yaw-lock initializer",
                 lambda func: func(1),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.configurecorrectionandyawslippolicy": ProbePlan(
+            positive=ProbeCase(
+                "configure correction cadence and yaw-slip policy on immutable yaw-lock state",
+                lambda func: func(_yaw_lock_base_state(), 2.0, True, 7.5, 3.0),
+                _assert_yaw_lock_policy,
+            ),
+            negative=ProbeCase(
+                "reject a missing yaw-lock state when configuring correction policy",
+                lambda func: func(None, 2.0, True, 7.5, 3.0),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.setrobotstandingstatus": ProbePlan(
+            positive=ProbeCase(
+                "store the robot-standing flag in immutable yaw-lock state",
+                lambda func: func(_yaw_lock_base_state(), True),
+                _assert_yaw_lock_standing,
+            ),
+            negative=ProbeCase(
+                "reject a missing yaw-lock state when storing standing status",
+                lambda func: func(None, True),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.setjointposeandinitialangles": ProbePlan(
+            positive=ProbeCase(
+                "store joint pose and initial-angle snapshots in immutable yaw-lock state",
+                lambda func: func(
+                    _yaw_lock_base_state(),
+                    ["hip", "knee"],
+                    np.array([0.1, -0.2], dtype=float),
+                    np.array([0.05, -0.1], dtype=float),
+                ),
+                _assert_yaw_lock_joint_pose,
+            ),
+            negative=ProbeCase(
+                "reject a missing initial joint-angle snapshot",
+                lambda func: func(
+                    _yaw_lock_base_state(),
+                    ["hip", "knee"],
+                    np.array([0.1, -0.2], dtype=float),
+                    None,
+                ),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.pronto.yaw_lock.setstandinglinktargets": ProbePlan(
+            positive=ProbeCase(
+                "store left and right standing-link identifiers in immutable yaw-lock state",
+                lambda func: func(_yaw_lock_base_state(), "left_foot", "right_foot"),
+                _assert_yaw_lock_links,
+            ),
+            negative=ProbeCase(
+                "reject a missing left standing-link identifier",
+                lambda func: func(
+                    _yaw_lock_base_state(),
+                    None,
+                    "right_foot",
+                ),
                 expect_exception=True,
             ),
             parity_used=True,

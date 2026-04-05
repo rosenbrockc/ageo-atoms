@@ -609,9 +609,13 @@ def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
         ("ageoa.pronto.foot_contact.foot_sensing_state_update", "ageoa.pronto.foot_contact.atoms", "foot_sensing_state_update"),
         ("ageoa.pronto.inverse_schmitt.inverse_schmitt_trigger_transform", "ageoa.pronto.inverse_schmitt", "inverse_schmitt_trigger_transform"),
         ("ageoa.pronto.torque_adjustment.torqueadjustmentidentitystage", "ageoa.pronto.torque_adjustment", "torqueadjustmentidentitystage"),
+        ("ageoa.pronto.yaw_lock.configurecorrectionandyawslippolicy", "ageoa.pronto.yaw_lock.atoms", "configurecorrectionandyawslippolicy"),
         ("ageoa.pronto.yaw_lock.initializeyawlockstate", "ageoa.pronto.yaw_lock.atoms", "initializeyawlockstate"),
         ("ageoa.pronto.yaw_lock.readrobotstandingstatus", "ageoa.pronto.yaw_lock.atoms", "readrobotstandingstatus"),
         ("ageoa.pronto.yaw_lock.readinitialjointangles", "ageoa.pronto.yaw_lock.atoms", "readinitialjointangles"),
+        ("ageoa.pronto.yaw_lock.setjointposeandinitialangles", "ageoa.pronto.yaw_lock.atoms", "setjointposeandinitialangles"),
+        ("ageoa.pronto.yaw_lock.setrobotstandingstatus", "ageoa.pronto.yaw_lock.atoms", "setrobotstandingstatus"),
+        ("ageoa.pronto.yaw_lock.setstandinglinktargets", "ageoa.pronto.yaw_lock.atoms", "setstandinglinktargets"),
     ]:
         probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
         assert probe["status"] == "pass"
