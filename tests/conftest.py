@@ -9,6 +9,10 @@ _scripts = str(Path(__file__).resolve().parent.parent / "scripts")
 if _scripts not in sys.path:
     sys.path.insert(0, _scripts)
 
+from ageoa_julia_runtime import configure_juliacall_env
+
+configure_juliacall_env()
+
 
 def pytest_collection_modifyitems(config, items):
     """Skip parity tests when no fixtures exist yet."""

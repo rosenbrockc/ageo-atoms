@@ -3,13 +3,13 @@ from __future__ import annotations
 
 
 import re
-import os
 from typing import Any, List
 
 import icontract
 import numpy as np
 from pydantic import BaseModel, Field
 
+from ageoa_julia_runtime import configure_juliacall_env
 
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_discover_equations
@@ -17,15 +17,12 @@ from .witnesses import witness_discover_equations
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _jl: object | None = None
 _datadriven_loaded = False
-_JULIA_PROJECT = "/tmp/ageoa_juliapkg_project"
-_JULIA_DEPOT = "/tmp/ageoa_julia_depot"
 
 
 def _get_jl() -> object:
     """Lazily import the Julia language bridge and load DataDriven packages once."""
     global _jl, _datadriven_loaded
-    os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", _JULIA_PROJECT)
-    os.environ.setdefault("JULIA_DEPOT_PATH", _JULIA_DEPOT)
+    configure_juliacall_env()
     if _jl is None:
         from juliacall import Main as jl_main
 

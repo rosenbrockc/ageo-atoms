@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import importlib
 import importlib.util
-import os
 import sys
 import types
 from dataclasses import dataclass
@@ -14,6 +13,8 @@ from typing import Any, Callable
 import numpy as np
 import scipy.sparse as sp
 import scipy.spatial as spatial
+
+from ageoa_julia_runtime import configure_juliacall_env
 
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_PROBES_DIR, ROOT
@@ -36,10 +37,7 @@ from .runtime_probe_plans import (
 )
 from .semantics import utc_now, write_evidence_section
 
-_PROBE_JULIA_PROJECT = "/tmp/ageoa_juliapkg_project"
-_PROBE_JULIA_DEPOT = "/tmp/ageoa_julia_depot"
-os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", _PROBE_JULIA_PROJECT)
-os.environ.setdefault("JULIA_DEPOT_PATH", _PROBE_JULIA_DEPOT)
+configure_juliacall_env()
 
 
 @dataclass(frozen=True)

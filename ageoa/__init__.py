@@ -7,6 +7,10 @@ environments.
 
 from __future__ import annotations
 
+from ageoa_julia_runtime import configure_juliacall_env
+
+configure_juliacall_env()
+
 try:
     import juliacall
 except ImportError:
