@@ -114,7 +114,7 @@ def resolve_vendored_module_path(mapping: UpstreamMapping) -> Path | None:
     """Resolve a vendored source path for a mapped upstream symbol."""
     if not mapping.repo or not mapping.module or not mapping.language:
         return None
-    if mapping.language not in {"python", "rust", "cpp"}:
+    if mapping.language not in {"python", "rust", "cpp", "julia"}:
         return None
     for candidate in _module_to_candidate_paths(mapping.repo, mapping.module):
         if candidate.exists():
@@ -557,6 +557,103 @@ def _extract_from_cpp(path: Path, qualname: str) -> dict[str, Any] | None:
     return _extract_cpp_signature(compact[sig_start:sig_end].strip(), function_name)
 
 
+def _split_julia_top_level(text: str) -> list[str]:
+    parts: list[str] = []
+    current: list[str] = []
+    paren = bracket = brace = 0
+    for char in text:
+        if char == "," and paren == 0 and bracket == 0 and brace == 0:
+            piece = "".join(current).strip()
+            if piece:
+                parts.append(piece)
+            current = []
+            continue
+        current.append(char)
+        if char == "(":
+            paren += 1
+        elif char == ")":
+            paren = max(0, paren - 1)
+        elif char == "[":
+            bracket += 1
+        elif char == "]":
+            bracket = max(0, bracket - 1)
+        elif char == "{":
+            brace += 1
+        elif char == "}":
+            brace = max(0, brace - 1)
+    tail = "".join(current).strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
+
+def _normalize_julia_param(part: str, *, keyword_only: bool = False) -> dict[str, Any] | None:
+    token = part.strip().split("#", 1)[0].strip()
+    if not token:
+        return None
+    if token.endswith("..."):
+        name = token[:-3].split("::", 1)[0].strip()
+        return {
+            "name": name,
+            "required": False,
+            "kind": "vararg",
+            "annotation": token.split("::", 1)[1].strip() if "::" in token else None,
+        }
+    required = "=" not in token
+    head = token.split("=", 1)[0].strip()
+    if "::" in head:
+        name, annotation = head.split("::", 1)
+        annotation = annotation.strip()
+    else:
+        name, annotation = head, None
+    return {
+        "name": name.strip(),
+        "required": required,
+        "kind": "keyword_only" if keyword_only else "positional_or_keyword",
+        "annotation": annotation,
+    }
+
+
+def _extract_from_julia(path: Path, qualname: str) -> dict[str, Any] | None:
+    compact = " ".join(path.read_text().split())
+    marker = f"function {qualname}("
+    start = compact.find(marker)
+    if start == -1:
+        return None
+    params_start = start + len(marker)
+    depth = 1
+    idx = params_start
+    while idx < len(compact) and depth > 0:
+        char = compact[idx]
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+        idx += 1
+    if depth != 0:
+        return None
+    params_blob = compact[params_start : idx - 1].strip()
+    if ";" in params_blob:
+        positional_blob, keyword_blob = params_blob.split(";", 1)
+    else:
+        positional_blob, keyword_blob = params_blob, ""
+    params: list[dict[str, Any]] = []
+    for part in _split_julia_top_level(positional_blob):
+        normalized = _normalize_julia_param(part, keyword_only=False)
+        if normalized is not None:
+            params.append(normalized)
+    for part in _split_julia_top_level(keyword_blob):
+        normalized = _normalize_julia_param(part, keyword_only=True)
+        if normalized is not None:
+            params.append(normalized)
+    return {
+        "parameter_names": [param["name"] for param in params if param["kind"] != "vararg"],
+        "required_parameter_names": [param["name"] for param in params if param["required"]],
+        "parameters": params,
+        "return_annotation": None,
+    }
+
+
 def resolve_upstream_signature(mapping: UpstreamMapping) -> tuple[dict[str, Any] | None, str | None, str | None]:
     """Resolve a deterministic upstream signature."""
     if not mapping.module or not mapping.function or not mapping.language:
@@ -574,6 +671,10 @@ def resolve_upstream_signature(mapping: UpstreamMapping) -> tuple[dict[str, Any]
         signature = _extract_from_cpp(vendored_path, mapping.function)
         if signature is not None:
             return signature, "vendored_cpp", str(vendored_path)
+    if mapping.language == "julia" and vendored_path is not None:
+        signature = _extract_from_julia(vendored_path, mapping.function)
+        if signature is not None:
+            return signature, "vendored_julia", str(vendored_path)
     if mapping.language == "python":
         inspected = _extract_with_inspect(mapping)
         if inspected is not None:

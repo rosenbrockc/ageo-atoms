@@ -591,6 +591,18 @@ def test_runtime_probe_passes_for_mini_mcmc_kernel_family() -> None:
         assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
 
 
+def test_runtime_probe_passes_for_advancedhmc_trajectory_family() -> None:
+    for atom_name, module_path, symbol in [
+        ("ageoa.mcmc_foundational.advancedhmc.trajectory.buildnutstree", "ageoa.mcmc_foundational.advancedhmc.trajectory.atoms", "buildnutstree"),
+        ("ageoa.mcmc_foundational.advancedhmc.trajectory.nutstransitionkernel", "ageoa.mcmc_foundational.advancedhmc.trajectory.atoms", "nutstransitionkernel"),
+    ]:
+        probe = runtime_probes.build_runtime_probe(_record(atom_name, module_path, symbol))
+        assert probe["status"] == "pass"
+        assert probe["parity_used"] is True
+        assert "RUNTIME_PROBE_PASS" in probe["findings"]
+        assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
 def test_runtime_probe_passes_for_pronto_state_readout_family() -> None:
     for atom_name, module_path, symbol in [
         ("ageoa.pronto.ekf_smoother.stateestimatorinit", "ageoa.pronto.ekf_smoother", "stateestimatorinit"),
@@ -847,6 +859,20 @@ def test_runtime_probe_passes_for_advancedvi_gradient_oracle() -> None:
             "ageoa.advancedvi.core.gradient_oracle_evaluation",
             "ageoa.advancedvi.core",
             "gradient_oracle_evaluation",
+        )
+    )
+    assert probe["status"] == "pass"
+    assert probe["parity_used"] is True
+    assert "RUNTIME_PROBE_PASS" in probe["findings"]
+    assert "RUNTIME_CONTRACT_NEGATIVE_PASS" in probe["findings"]
+
+
+def test_runtime_probe_passes_for_advancedvi_optimization_loop() -> None:
+    probe = runtime_probes.build_runtime_probe(
+        _record(
+            "ageoa.advancedvi.core.optimizationlooporchestration",
+            "ageoa.advancedvi.core",
+            "optimizationlooporchestration",
         )
     )
     assert probe["status"] == "pass"

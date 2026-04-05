@@ -75,6 +75,18 @@ def get_probe_plans() -> dict[str, ProbePlan]:
         np.testing.assert_allclose(np.asarray(state_out, dtype=float), np.array([9.0, 8.0], dtype=float))
         assert rng_out == 123
 
+    def _assert_advancedvi_optimization_bundle(result: Any) -> None:
+        assert isinstance(result, tuple) and len(result) == 3
+        q_out, rng_out, final_state = result
+        q_out = np.asarray(q_out, dtype=float)
+        final_state = np.asarray(final_state, dtype=float)
+        assert q_out.shape == (2,)
+        assert final_state.shape == (2,)
+        assert np.all(np.isfinite(q_out))
+        assert np.all(np.isfinite(final_state))
+        np.testing.assert_allclose(q_out, final_state)
+        assert rng_out == 123
+
     def _assert_kalman_init_state(result: Any) -> None:
         assert hasattr(result, "x")
         assert hasattr(result, "p")
@@ -154,6 +166,31 @@ def get_probe_plans() -> dict[str, ProbePlan]:
                     np.array([9.0, 8.0], dtype=float),
                     np.array([1.0, -2.0], dtype=float),
                     None,
+                ),
+                expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+        "ageoa.advancedvi.core.optimizationlooporchestration": ProbePlan(
+            positive=ProbeCase(
+                "run a bounded deterministic optimization loop with the scipy fallback path",
+                lambda func: func(
+                    None,
+                    5,
+                    _quadratic_obj,
+                    np.array([1.0, -2.0], dtype=float),
+                    123,
+                ),
+                _assert_advancedvi_optimization_bundle,
+            ),
+            negative=ProbeCase(
+                "reject a missing objective oracle for the optimization loop",
+                lambda func: func(
+                    None,
+                    5,
+                    None,
+                    np.array([1.0, -2.0], dtype=float),
+                    123,
                 ),
                 expect_exception=True,
             ),

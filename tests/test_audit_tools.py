@@ -128,6 +128,33 @@ def test_cpp_mcmc_nuts_mapping_resolves_to_vendored_header_signature() -> None:
     ]
 
 
+def test_julia_advancedvi_optimize_mapping_resolves_to_vendored_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "advancedvi/core:optimizationlooporchestration")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_julia"
+    assert evidence["upstream_signature"]["parameter_names"][:5] == [
+        "rng",
+        "algorithm",
+        "max_iter",
+        "prob",
+        "q_init",
+    ]
+    assert any(param["name"] == "objargs" and param["kind"] == "vararg" for param in evidence["upstream_signature"]["parameters"])
+    assert "show_progress" in evidence["upstream_signature"]["parameter_names"]
+
+
+def test_julia_particlefilters_update_mapping_resolves_to_vendored_signature() -> None:
+    manifest = build_manifest()
+    record = _record_for(manifest, "particle_filters/basic:filter_step_preparation_and_dispatch")
+    evidence = build_signature_evidence(record)
+    assert evidence["mapping_found"] is True
+    assert evidence["upstream_signature_source"] == "vendored_julia"
+    assert evidence["upstream_signature"]["parameter_names"] == ["up", "b", "a", "o"]
+    assert evidence["upstream_signature"]["required_parameter_names"] == ["up", "b", "a", "o"]
+
+
 def test_fasta_dataset_manifest_is_not_marked_ffi_from_sort_method_name() -> None:
     manifest = build_manifest()
     record = _record_for(manifest, "mint/fasta_dataset:dataset_state_initialization")

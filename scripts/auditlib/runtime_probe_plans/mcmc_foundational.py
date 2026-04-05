@@ -116,6 +116,21 @@ def get_probe_plans() -> dict[str, Any]:
             assert np.allclose(arr, np.array([0.65, -0.6], dtype=float))
             assert is_valid is True
 
+        def _assert_advancedhmc_tree(result: Any) -> None:
+            arr = np.asarray(result, dtype=float)
+            assert arr.shape == (2,)
+            assert np.all(np.isfinite(arr))
+
+        def _assert_advancedhmc_nuts_transition(result: Any) -> None:
+            assert isinstance(result, tuple) and len(result) == 2
+            next_state, diagnostics = result
+            arr = np.asarray(next_state, dtype=float)
+            assert arr.shape == (2,)
+            assert np.all(np.isfinite(arr))
+            assert isinstance(diagnostics, dict)
+            assert {"accept_prob", "tree_depth", "energy"} <= set(diagnostics)
+            assert 0.0 <= float(diagnostics["accept_prob"]) <= 1.0
+
         def _invoke_rwmh(func: Callable[..., Any]) -> Any:
             kernel = func(target_log)
             return kernel(np.array([0.5, -0.5], dtype=float), np.array([1, 2], dtype=np.int64))
@@ -431,6 +446,56 @@ def get_probe_plans() -> dict[str, Any]:
                         np.array([1.0, 2.0], dtype=float),
                         np.array([0.1, -0.2], dtype=float),
                         np.array([0.5, 0.0], dtype=float),
+                        None,
+                    ),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.mcmc_foundational.advancedhmc.trajectory.buildnutstree": ProbePlan(
+                positive=ProbeCase(
+                    "build a deterministic shallow AdvancedHMC NUTS tree",
+                    lambda func: func(
+                        np.array([7], dtype=np.int64),
+                        target_log,
+                        np.array([0.5, -0.5], dtype=float),
+                        1,
+                        2,
+                        0.25,
+                    ),
+                    _assert_advancedhmc_tree,
+                ),
+                negative=ProbeCase(
+                    "reject a non-numeric initial energy for AdvancedHMC NUTS tree build",
+                    lambda func: func(
+                        np.array([7], dtype=np.int64),
+                        target_log,
+                        np.array([0.5, -0.5], dtype=float),
+                        1,
+                        2,
+                        "bad",
+                    ),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
+            "ageoa.mcmc_foundational.advancedhmc.trajectory.nutstransitionkernel": ProbePlan(
+                positive=ProbeCase(
+                    "run a deterministic AdvancedHMC NUTS transition kernel step",
+                    lambda func: func(
+                        np.array([7], dtype=np.int64),
+                        target_log,
+                        np.array([0.5, -0.5], dtype=float),
+                        np.array([0.05, 3.0], dtype=float),
+                    ),
+                    _assert_advancedhmc_nuts_transition,
+                ),
+                negative=ProbeCase(
+                    "reject a missing trajectory parameter vector for the AdvancedHMC NUTS transition",
+                    lambda func: func(
+                        np.array([7], dtype=np.int64),
+                        target_log,
+                        np.array([0.5, -0.5], dtype=float),
                         None,
                     ),
                     expect_exception=True,
