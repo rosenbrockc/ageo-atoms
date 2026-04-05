@@ -673,6 +673,19 @@ def get_probe_plans() -> dict[str, Any]:
             ),
             parity_used=True,
         ),
+        "ageoa.quantfin.rng_skip_d12.mulmod64_inner_step": ProbePlan(
+            positive=ProbeCase(
+                "take the conditional-add branch in the mulmod64 inner loop",
+                lambda func: func(3, 1, 6, 3, lambda a_prime, b_prime, carry: carry, 4, 4, 7),
+                _assert_scalar(7),
+            ),
+            negative=ProbeCase(
+                "reject a negative multiplicand state",
+                lambda func: func(3, -1, 6, 3, lambda a_prime, b_prime, carry: carry, 4, 4, 7),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
         "ageoa.quantfin.rng_skip_d12.powmod64": ProbePlan(
             positive=ProbeCase(
                 "compute modular exponentiation deterministically",
@@ -682,6 +695,19 @@ def get_probe_plans() -> dict[str, Any]:
             negative=ProbeCase(
                 "reject a negative exponent",
                 lambda func: func(7, -1, lambda *args: 0, 11),
+                expect_exception=True,
+            ),
+            parity_used=True,
+        ),
+        "ageoa.quantfin.rng_skip_d12.powmod64_inner_step": ProbePlan(
+            positive=ProbeCase(
+                "take the conditional-multiply branch in the powmod64 inner loop",
+                lambda func: func(2, 5, 3, 1, lambda acc_next, e_next, sqr_next: acc_next, 2, 4, 16),
+                _assert_scalar(5),
+            ),
+            negative=ProbeCase(
+                "reject a negative exponent state",
+                lambda func: func(2, 5, 3, -1, lambda acc_next, e_next, sqr_next: acc_next, 2, 4, 16),
                 expect_exception=True,
             ),
             parity_used=True,

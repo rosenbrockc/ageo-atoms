@@ -9,9 +9,10 @@ from typing import Callable, Tuple
 from ageoa.ghost.registry import register_atom
 from .witnesses import (
     witness_addmod64,
-    witness_f,
     witness_mulmod64,
+    witness_mulmod64_inner_step,
     witness_next,
+    witness_powmod64_inner_step,
     witness_powmod64,
     witness_randomdouble,
     witness_randomint,
@@ -387,15 +388,15 @@ def split(
 # f  — mulmod64 inner loop
 # ---------------------------------------------------------------------------
 
-@register_atom(witness_f)
+@register_atom(witness_mulmod64_inner_step)
 @icontract.require(lambda a1: isinstance(a1, int) and a1 >= 0, "a1 must be a non-negative integer")
 @icontract.ensure(lambda result: isinstance(result, int) and result >= 0, "result must be non-negative")
-def f(
+def mulmod64_inner_step(
     a_prime: int,
     a1: int,
     b_prime: int,
     b1: int,
-    f: Callable,
+    step: Callable,
     otherwise: int,
     r: int,
     r_prime: int,
@@ -410,7 +411,7 @@ def f(
         a1: Current multiplicand value.
         b_prime: Doubled multiplier (b + b mod m).
         b1: Current multiplier value.
-        f: Recursive reference to this helper.
+        step: Recursive reference to this helper.
         otherwise: Result when lowest bit is not set.
         r: Running accumulator.
         r_prime: Updated accumulator after conditional add.
@@ -424,24 +425,24 @@ def f(
         return r
     # If lowest bit of a1 is set, use r_prime (r + b1 mod m), else use r.
     if a1 & 1:
-        return f(a_prime, b_prime, r_prime)
+        return step(a_prime, b_prime, r_prime)
     else:
-        return f(a_prime, b_prime, otherwise)
+        return step(a_prime, b_prime, otherwise)
 
 
 # ---------------------------------------------------------------------------
 # f  — powmod64 inner loop
 # ---------------------------------------------------------------------------
 
-@register_atom(witness_f)
+@register_atom(witness_powmod64_inner_step)
 @icontract.require(lambda e1: isinstance(e1, int) and e1 >= 0, "e1 must be a non-negative integer")
 @icontract.ensure(lambda result: isinstance(result, int) and result >= 0, "result must be non-negative")
-def f(
+def powmod64_inner_step(
     acc: int,
     acc_prime: int,
     e_prime: int,
     e1: int,
-    f: Callable,
+    step: Callable,
     otherwise: int,
     sqr: int,
     sqr_prime: int,
@@ -456,7 +457,7 @@ def f(
         acc_prime: Updated accumulator after conditional multiply.
         e_prime: Shifted exponent (e >> 1).
         e1: Current exponent value.
-        f: Recursive reference to this helper.
+        step: Recursive reference to this helper.
         otherwise: Accumulator value when lowest bit is not set.
         sqr: Current base being squared each iteration.
         sqr_prime: Squared base for the next iteration.
@@ -470,9 +471,9 @@ def f(
         return acc
     # If lowest bit of e1 is set, use acc_prime (acc * sqr mod m), else acc.
     if e1 & 1:
-        return f(acc_prime, e_prime, sqr_prime)
+        return step(acc_prime, e_prime, sqr_prime)
     else:
-        return f(otherwise, e_prime, sqr_prime)
+        return step(otherwise, e_prime, sqr_prime)
 
 
 # ---------------------------------------------------------------------------

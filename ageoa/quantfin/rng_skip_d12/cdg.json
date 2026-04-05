@@ -21,8 +21,8 @@
         "skip",
         "next",
         "split",
-        "f",
-        "f"
+        "mulmod64_inner_step",
+        "powmod64_inner_step"
       ],
       "depth": 0,
       "type_signature": "",
@@ -705,10 +705,10 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "f",
+      "node_id": "mulmod64_inner_step",
       "parent_id": "skip_root",
-      "name": "F",
-      "description": "Atomic operation: F",
+      "name": "Mulmod64InnerStep",
+      "description": "Atomic operation: Mulmod64InnerStep",
       "concept_type": "custom",
       "inputs": [
         {
@@ -740,7 +740,7 @@
           "default_value_repr": ""
         },
         {
-          "name": "f",
+          "name": "step",
           "type_desc": "Any",
           "constraints": "valid Any",
           "required": true,
@@ -780,7 +780,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(a': Any, a1: Any, b': Any, b1: Any, f: Any, otherwise: Any, r: Any, r': Any) -> Any",
+      "type_signature": "(a': Any, a1: Any, b': Any, b1: Any, step: Any, otherwise: Any, r: Any, r': Any) -> Any",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",
@@ -793,10 +793,10 @@
       "decomposition_rationale": ""
     },
     {
-      "node_id": "f",
+      "node_id": "powmod64_inner_step",
       "parent_id": "skip_root",
-      "name": "F",
-      "description": "Atomic operation: F",
+      "name": "Powmod64InnerStep",
+      "description": "Atomic operation: Powmod64InnerStep",
       "concept_type": "custom",
       "inputs": [
         {
@@ -828,7 +828,7 @@
           "default_value_repr": ""
         },
         {
-          "name": "f",
+          "name": "step",
           "type_desc": "Any",
           "constraints": "valid Any",
           "required": true,
@@ -868,7 +868,7 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(acc: Any, acc': Any, e': Any, e1: Any, f: Any, otherwise: Any, sqr: Any, sqr': Any) -> Any",
+      "type_signature": "(acc: Any, acc': Any, e': Any, e1: Any, step: Any, otherwise: Any, sqr: Any, sqr': Any) -> Any",
       "matched_primitive": null,
       "primitive_binding_confidence": 0.0,
       "primitive_binding_source": "",

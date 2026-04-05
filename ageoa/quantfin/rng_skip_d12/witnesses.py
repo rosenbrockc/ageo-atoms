@@ -90,16 +90,16 @@ def witness_split(g: AbstractArray, skip: AbstractArray, skipConst: AbstractArra
     )
     return result
 
-def witness_f_prime(a_prime: AbstractArray, a1: AbstractArray, b_prime: AbstractArray, b1: AbstractArray, f: AbstractArray, otherwise: AbstractArray, r: AbstractArray, r_prime: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for f. Returns output metadata without running the real computation."""
+def witness_mulmod64_inner_step(a_prime: AbstractArray, a1: AbstractArray, b_prime: AbstractArray, b1: AbstractArray, step: AbstractArray, otherwise: AbstractArray, r: AbstractArray, r_prime: AbstractArray) -> AbstractArray:
+    """Shape-and-type check for mulmod64_inner_step. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=a_prime.shape,
         dtype="float64",
     )
     return result
 
-def witness_f(acc: AbstractArray, acc_prime: AbstractArray, e_prime: AbstractArray, e1: AbstractArray, f: AbstractArray, otherwise: AbstractArray, sqr: AbstractArray, sqr_prime: AbstractArray) -> AbstractArray:
-    """Shape-and-type check for f. Returns output metadata without running the real computation."""
+def witness_powmod64_inner_step(acc: AbstractArray, acc_prime: AbstractArray, e_prime: AbstractArray, e1: AbstractArray, step: AbstractArray, otherwise: AbstractArray, sqr: AbstractArray, sqr_prime: AbstractArray) -> AbstractArray:
+    """Shape-and-type check for powmod64_inner_step. Returns output metadata without running the real computation."""
     result = AbstractArray(
         shape=acc.shape,
         dtype="float64",

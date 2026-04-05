@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-05T00:31:00+00:00",
+    "generated_at": "2026-04-05T00:38:13+00:00",
     "repo": "ageo-atoms",
     "generator": "scripts/build_audit_manifest.py",
     "phase": "phase_1_inventory",
@@ -64,15 +64,14 @@
       "refined_ingest": 85
     },
     "risk_tier_counts": {
-      "low": 503,
-      "medium": 2
+      "low": 505
     },
     "stateful_count": 70,
     "stochastic_count": 22,
-    "procedural_count": 25,
+    "procedural_count": 27,
     "ffi_count": 199,
     "skeleton_count": 0,
-    "parity_coverage_count": 336,
+    "parity_coverage_count": 338,
     "reference_coverage_count": 501,
     "unmapped_upstream_count": 15,
     "structural_status_counts": {
@@ -80,9 +79,9 @@
       "pass": 493
     },
     "parity_coverage_level_counts": {
-      "none": 72,
+      "none": 70,
       "not_applicable": 97,
-      "parity_or_usage_equivalent": 289,
+      "parity_or_usage_equivalent": 291,
       "positive_and_negative": 39,
       "positive_path": 8
     },
@@ -99,21 +98,21 @@
       "pasqal": 1,
       "pronto": 2,
       "pulsar_folding": 1,
-      "quantfin": 12,
+      "quantfin": 10,
       "scipy": 18,
       "tempo": 2
     },
     "runtime_status_counts": {
       "fail": 2,
-      "not_applicable": 180,
+      "not_applicable": 178,
       "partial": 7,
-      "pass": 316
+      "pass": 318
     },
     "semantic_status_counts": {
       "fail": 2,
       "partial": 7,
-      "pass": 316,
-      "unknown": 180
+      "pass": 318,
+      "unknown": 178
     },
     "developer_semantics_status_counts": {
       "unknown": 505
@@ -123,8 +122,8 @@
       "review_now": 7
     },
     "high_risk_count": 0,
-    "medium_risk_count": 2,
-    "low_risk_count": 503
+    "medium_risk_count": 0,
+    "low_risk_count": 505
   },
   "atoms": [
     {
@@ -80426,13 +80425,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.randomword32@ageoa/quantfin/rng_skip_d12/atoms.py:37",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.randomword32@ageoa/quantfin/rng_skip_d12/atoms.py:38",
       "atom_name": "ageoa.quantfin.rng_skip_d12.randomword32",
       "atom_key": "quantfin/rng_skip_d12:randomword32",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "randomword32",
-      "wrapper_line": 37,
+      "wrapper_line": 38,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -80650,7 +80649,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 37
+              "line": 38
             }
           ]
         }
@@ -80679,13 +80678,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.randomint@ageoa/quantfin/rng_skip_d12/atoms.py:74",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.randomint@ageoa/quantfin/rng_skip_d12/atoms.py:75",
       "atom_name": "ageoa.quantfin.rng_skip_d12.randomint",
       "atom_key": "quantfin/rng_skip_d12:randomint",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "randomint",
-      "wrapper_line": 74,
+      "wrapper_line": 75,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -80892,7 +80891,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 74
+              "line": 75
             }
           ]
         }
@@ -80921,13 +80920,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.randomword64@ageoa/quantfin/rng_skip_d12/atoms.py:106",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.randomword64@ageoa/quantfin/rng_skip_d12/atoms.py:107",
       "atom_name": "ageoa.quantfin.rng_skip_d12.randomword64",
       "atom_key": "quantfin/rng_skip_d12:randomword64",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "randomword64",
-      "wrapper_line": 106,
+      "wrapper_line": 107,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -81142,7 +81141,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 106
+              "line": 107
             }
           ]
         }
@@ -81171,13 +81170,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.randomdouble@ageoa/quantfin/rng_skip_d12/atoms.py:141",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.randomdouble@ageoa/quantfin/rng_skip_d12/atoms.py:142",
       "atom_name": "ageoa.quantfin.rng_skip_d12.randomdouble",
       "atom_key": "quantfin/rng_skip_d12:randomdouble",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "randomdouble",
-      "wrapper_line": 141,
+      "wrapper_line": 142,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -81392,7 +81391,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 141
+              "line": 142
             }
           ]
         }
@@ -81421,13 +81420,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.randomint64@ageoa/quantfin/rng_skip_d12/atoms.py:176",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.randomint64@ageoa/quantfin/rng_skip_d12/atoms.py:177",
       "atom_name": "ageoa.quantfin.rng_skip_d12.randomint64",
       "atom_key": "quantfin/rng_skip_d12:randomint64",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "randomint64",
-      "wrapper_line": 176,
+      "wrapper_line": 177,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -81634,7 +81633,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 176
+              "line": 177
             }
           ]
         }
@@ -81663,13 +81662,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.addmod64@ageoa/quantfin/rng_skip_d12/atoms.py:209",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.addmod64@ageoa/quantfin/rng_skip_d12/atoms.py:210",
       "atom_name": "ageoa.quantfin.rng_skip_d12.addmod64",
       "atom_key": "quantfin/rng_skip_d12:addmod64",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "addmod64",
-      "wrapper_line": 209,
+      "wrapper_line": 210,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -81876,7 +81875,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 209
+              "line": 210
             }
           ]
         }
@@ -81905,13 +81904,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.mulmod64@ageoa/quantfin/rng_skip_d12/atoms.py:239",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.mulmod64@ageoa/quantfin/rng_skip_d12/atoms.py:240",
       "atom_name": "ageoa.quantfin.rng_skip_d12.mulmod64",
       "atom_key": "quantfin/rng_skip_d12:mulmod64",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "mulmod64",
-      "wrapper_line": 239,
+      "wrapper_line": 240,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -82118,7 +82117,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 239
+              "line": 240
             }
           ]
         }
@@ -82147,13 +82146,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.powmod64@ageoa/quantfin/rng_skip_d12/atoms.py:272",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.powmod64@ageoa/quantfin/rng_skip_d12/atoms.py:273",
       "atom_name": "ageoa.quantfin.rng_skip_d12.powmod64",
       "atom_key": "quantfin/rng_skip_d12:powmod64",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "powmod64",
-      "wrapper_line": 272,
+      "wrapper_line": 273,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -82360,7 +82359,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 272
+              "line": 273
             }
           ]
         }
@@ -82389,13 +82388,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.skip@ageoa/quantfin/rng_skip_d12/atoms.py:304",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.skip@ageoa/quantfin/rng_skip_d12/atoms.py:305",
       "atom_name": "ageoa.quantfin.rng_skip_d12.skip",
       "atom_key": "quantfin/rng_skip_d12:skip",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "skip",
-      "wrapper_line": 304,
+      "wrapper_line": 305,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -82591,7 +82590,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 304
+              "line": 305
             }
           ]
         }
@@ -82620,13 +82619,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.next@ageoa/quantfin/rng_skip_d12/atoms.py:333",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.next@ageoa/quantfin/rng_skip_d12/atoms.py:334",
       "atom_name": "ageoa.quantfin.rng_skip_d12.next",
       "atom_key": "quantfin/rng_skip_d12:next",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "next",
-      "wrapper_line": 333,
+      "wrapper_line": 334,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -82833,7 +82832,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 333
+              "line": 334
             }
           ]
         }
@@ -82862,13 +82861,13 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.split@ageoa/quantfin/rng_skip_d12/atoms.py:364",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.split@ageoa/quantfin/rng_skip_d12/atoms.py:365",
       "atom_name": "ageoa.quantfin.rng_skip_d12.split",
       "atom_key": "quantfin/rng_skip_d12:split",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
       "wrapper_symbol": "split",
-      "wrapper_line": 364,
+      "wrapper_line": 365,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
@@ -83064,7 +83063,7 @@
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 364
+              "line": 365
             }
           ]
         }
@@ -83093,23 +83092,23 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:393",
-      "atom_name": "ageoa.quantfin.rng_skip_d12.f",
-      "atom_key": "quantfin/rng_skip_d12:f",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.mulmod64_inner_step@ageoa/quantfin/rng_skip_d12/atoms.py:394",
+      "atom_name": "ageoa.quantfin.rng_skip_d12.mulmod64_inner_step",
+      "atom_key": "quantfin/rng_skip_d12:mulmod64_inner_step",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-      "wrapper_symbol": "f",
-      "wrapper_line": 393,
+      "wrapper_symbol": "mulmod64_inner_step",
+      "wrapper_line": 394,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "mulMod64",
         "language": "haskell",
-        "notes": "Internal helper within MWC64X RNG"
+        "notes": "Decomposed adapter over the inner shift-and-add step used by mulMod64"
       },
       "upstream_version": null,
       "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7",
@@ -83121,21 +83120,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -83143,7 +83140,7 @@
         "a1",
         "b_prime",
         "b1",
-        "f",
+        "step",
         "otherwise",
         "r",
         "r_prime"
@@ -83153,7 +83150,7 @@
         "a1",
         "b_prime",
         "b1",
-        "f",
+        "step",
         "otherwise",
         "r",
         "r_prime"
@@ -83184,7 +83181,7 @@
           "annotation": "int"
         },
         {
-          "name": "f",
+          "name": "step",
           "required": true,
           "kind": "positional_or_keyword",
           "annotation": "Callable"
@@ -83212,7 +83209,7 @@
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
-      "witness_binding": "register_atom(witness_f)",
+      "witness_binding": "register_atom(witness_mulmod64_inner_step)",
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Execute one step of the shift-and-add loop for mulmod64.",
@@ -83223,7 +83220,7 @@
       "inventory_notes": [],
       "stateful_kind": "none",
       "stochastic": false,
-      "procedural": false,
+      "procedural": true,
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
@@ -83243,33 +83240,34 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 4,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER"
+          ]
         },
         "generation_risk": {
           "score": 5,
@@ -83326,35 +83324,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 393
+              "line": 394
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,
@@ -83368,23 +83369,23 @@
       "recommended_overall_verdict": null
     },
     {
-      "atom_id": "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439",
-      "atom_name": "ageoa.quantfin.rng_skip_d12.f",
-      "atom_key": "quantfin/rng_skip_d12:f",
+      "atom_id": "ageoa.quantfin.rng_skip_d12.powmod64_inner_step@ageoa/quantfin/rng_skip_d12/atoms.py:440",
+      "atom_name": "ageoa.quantfin.rng_skip_d12.powmod64_inner_step",
+      "atom_key": "quantfin/rng_skip_d12:powmod64_inner_step",
       "module_import_path": "ageoa.quantfin.rng_skip_d12.atoms",
       "module_path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-      "wrapper_symbol": "f",
-      "wrapper_line": 439,
+      "wrapper_symbol": "powmod64_inner_step",
+      "wrapper_line": 440,
       "domain_family": "quantfin",
       "module_family": "quantfin",
       "source_kind": "refined_ingest",
-      "risk_tier": "medium",
+      "risk_tier": "low",
       "upstream_symbols": {
         "repo": "quantfin",
         "module": "Quant.RNG.MWC64X",
-        "function": null,
+        "function": "powMod64",
         "language": "haskell",
-        "notes": "Internal helper within MWC64X RNG"
+        "notes": "Decomposed adapter over the inner square-and-multiply step used by powMod64"
       },
       "upstream_version": null,
       "source_revision": "d077e00d234cbc6a88396ad5644ba76f18cc8ae7",
@@ -83396,21 +83397,19 @@
       "has_witnesses": true,
       "has_cdg": true,
       "has_references": true,
-      "has_parity_tests": false,
+      "has_parity_tests": true,
       "structural_status": "pass",
-      "runtime_status": "not_applicable",
-      "semantic_status": "unknown",
+      "runtime_status": "pass",
+      "semantic_status": "pass",
       "developer_semantics_status": "unknown",
-      "parity_test_status": "unknown",
+      "parity_test_status": "pass",
       "references_status": "pass",
       "overall_verdict": "acceptable_with_limits",
-      "acceptability_score": 59,
-      "acceptability_band": "limited_acceptability",
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
       "max_reviewable_verdict": "acceptable_with_limits",
       "blocking_findings": [],
       "required_actions": [
-        "add a safe runtime probe or narrow the wrapper scope documentation",
-        "map this atom in scripts/atom_manifest.yml",
         "add vendored or importable upstream signature evidence"
       ],
       "argument_names": [
@@ -83418,7 +83417,7 @@
         "acc_prime",
         "e_prime",
         "e1",
-        "f",
+        "step",
         "otherwise",
         "sqr",
         "sqr_prime"
@@ -83428,7 +83427,7 @@
         "acc_prime",
         "e_prime",
         "e1",
-        "f",
+        "step",
         "otherwise",
         "sqr",
         "sqr_prime"
@@ -83459,7 +83458,7 @@
           "annotation": "int"
         },
         {
-          "name": "f",
+          "name": "step",
           "required": true,
           "kind": "positional_or_keyword",
           "annotation": "Callable"
@@ -83487,7 +83486,7 @@
       "decorator_count": 3,
       "require_count": 1,
       "ensure_count": 1,
-      "witness_binding": "register_atom(witness_f)",
+      "witness_binding": "register_atom(witness_powmod64_inner_step)",
       "placeholder_witness": false,
       "has_docstring": true,
       "docstring_summary": "Execute one step of the square-and-multiply loop for powmod64.",
@@ -83498,7 +83497,7 @@
       "inventory_notes": [],
       "stateful_kind": "none",
       "stochastic": false,
-      "procedural": false,
+      "procedural": true,
       "authoritative_sources": [
         {
           "kind": "local_wrapper",
@@ -83518,33 +83517,34 @@
       "risk_reasons": [
         "RISK_FFI_BACKED",
         "RISK_LOW_NAME_ALIGNMENT",
-        "RISK_MISSING_PARITY",
         "RISK_MISSING_REVIEW_BASIS",
+        "RISK_PROCEDURAL_WRAPPER",
         "RISK_REFINED_INGEST",
-        "RISK_UPSTREAM_UNMAPPED"
+        "RISK_WEAK_UPSTREAM_ANCHOR"
       ],
-      "risk_score": 38,
+      "risk_score": 27,
       "risk_dimensions": {
         "structural_risk": {
           "score": 0,
           "reasons": []
         },
         "fidelity_risk": {
-          "score": 15,
+          "score": 8,
           "reasons": [
-            "RISK_UPSTREAM_UNMAPPED"
+            "RISK_WEAK_UPSTREAM_ANCHOR"
           ]
         },
         "evidence_gap_risk": {
-          "score": 11,
+          "score": 3,
           "reasons": [
-            "RISK_MISSING_PARITY",
             "RISK_MISSING_REVIEW_BASIS"
           ]
         },
         "statefulness_risk": {
-          "score": 0,
-          "reasons": []
+          "score": 4,
+          "reasons": [
+            "RISK_PROCEDURAL_WRAPPER"
+          ]
         },
         "generation_risk": {
           "score": 5,
@@ -83601,35 +83601,38 @@
       "structural_findings": [],
       "structural_finding_details": [],
       "semantic_findings": [
-        "RUNTIME_PROBE_SKIPPED",
-        "SEMANTIC_RUNTIME_SUPPORT_MISSING"
+        "RUNTIME_CONTRACT_NEGATIVE_PASS",
+        "RUNTIME_PROBE_PASS",
+        "SEMANTIC_RUNTIME_SUPPORT_PRESENT"
       ],
       "semantic_finding_details": [
         {
           "category": "runtime_probe",
-          "status": "not_applicable",
+          "status": "pass",
           "findings": [
-            "RUNTIME_PROBE_SKIPPED"
+            "RUNTIME_PROBE_PASS",
+            "RUNTIME_CONTRACT_NEGATIVE_PASS"
           ],
-          "notes": [
-            "Atom is outside the conservative safe probe allowlist."
-          ],
+          "notes": [],
           "source_refs": [
             {
               "path": "ageoa/quantfin/rng_skip_d12/atoms.py",
-              "line": 439
+              "line": 440
             }
           ]
         }
       ],
-      "parity_coverage_level": "none",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_coverage_reasons": [
         "PARITY_MISSING_FIXTURE",
-        "PARITY_MISSING_USAGE_EQUIVALENCE"
+        "PARITY_NEGATIVE_CASES_PRESENT",
+        "PARITY_POSITIVE_CASES_PRESENT",
+        "PARITY_RUNTIME_PROBE_SUPPORT",
+        "PARITY_USAGE_EQUIVALENCE_PRESENT"
       ],
       "parity_fixture_count": 0,
       "parity_case_count": 0,
-      "usage_test_coverage": "none",
+      "usage_test_coverage": "usage_equivalent",
       "review_status": "missing",
       "review_record_path": null,
       "reviewer_type": null,

@@ -2828,13 +2828,21 @@
     function: addMod64
     language: haskell
 
-- atom: quantfin/rng_skip_d12:f
+- atom: quantfin/rng_skip_d12:mulmod64_inner_step
   upstream:
     repo: quantfin
     module: Quant.RNG.MWC64X
-    function: ~
+    function: mulMod64
     language: haskell
-    notes: Internal helper within MWC64X RNG
+    notes: Decomposed adapter over the inner shift-and-add step used by mulMod64
+
+- atom: quantfin/rng_skip_d12:powmod64_inner_step
+  upstream:
+    repo: quantfin
+    module: Quant.RNG.MWC64X
+    function: powMod64
+    language: haskell
+    notes: Decomposed adapter over the inner square-and-multiply step used by powMod64
 
 - atom: quantfin/rng_skip_d12:mulmod64
   upstream:

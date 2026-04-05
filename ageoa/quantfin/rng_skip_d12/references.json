@@ -16,7 +16,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:393": {
+    "ageoa.quantfin.rng_skip_d12.mulmod64_inner_step@ageoa/quantfin/rng_skip_d12/atoms.py:394": {
       "references": [
         {
           "ref_id": "repo_quantfin",
@@ -31,7 +31,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "ageoa.quantfin.rng_skip_d12.f@ageoa/quantfin/rng_skip_d12/atoms.py:439": {
+    "ageoa.quantfin.rng_skip_d12.powmod64_inner_step@ageoa/quantfin/rng_skip_d12/atoms.py:440": {
       "references": [
         {
           "ref_id": "repo_quantfin",
