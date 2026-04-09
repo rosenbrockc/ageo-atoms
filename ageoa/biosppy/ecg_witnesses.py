@@ -38,6 +38,14 @@ def witness_peak_correction(
     return AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype)
 
 
+def witness_reject_outlier_intervals(
+    rpeaks: AbstractArray,
+    sampling_rate: AbstractArray,
+) -> AbstractArray:
+    """Ghost witness for outlier interval rejection."""
+    return AbstractArray(shape=rpeaks.shape, dtype=rpeaks.dtype)
+
+
 def witness_template_extraction(
     filtered: AbstractArray,
     rpeaks: AbstractArray,

@@ -18,6 +18,7 @@ from .ecg_witnesses import (
     witness_christov_segmenter,
     witness_heart_rate_computation,
     witness_peak_correction,
+    witness_reject_outlier_intervals,
     witness_r_peak_detection,
     witness_ssf_segmenter,
     witness_template_extraction,
@@ -126,6 +127,63 @@ def peak_correction(
         sampling_rate=float(sampling_rate),
         tol=float(tol),
     )["rpeaks"]
+
+
+@register_atom(witness_reject_outlier_intervals)
+@icontract.require(lambda rpeaks: _is_vector(rpeaks), "rpeaks must be a 1D numpy array")
+@icontract.require(_valid_sampling_rate, "sampling_rate must be positive")
+@icontract.require(
+    lambda mad_scale: isinstance(mad_scale, (float, int, np.number)) and float(mad_scale) > 0.0,
+    "mad_scale must be positive",
+)
+@icontract.ensure(lambda result: result is not None, "Outlier Interval Rejection output must not be None")
+def reject_outlier_intervals(
+    rpeaks: np.ndarray,
+    *,
+    sampling_rate: float = 1000.0,
+    mad_scale: float = 3.0,
+    min_interval_s: float = 0.25,
+    max_interval_s: float = 2.0,
+) -> np.ndarray:
+    """Remove event markers that induce implausible adjacent intervals.
+
+    The rule is intentionally generic: it uses robust interval statistics over an
+    ordered event sequence and removes the later event in any interval that is
+    implausibly short or long under a robust median/MAD bound. This is a
+    single-pass cleanup, which keeps the transform conservative and avoids
+    cascading deletions.
+    """
+    cleaned = np.asarray(rpeaks, dtype=int).reshape(-1)
+    if cleaned.size < 5:
+        return cleaned
+
+    sr = float(sampling_rate)
+    if sr <= 0.0:
+        return cleaned
+
+    rr = np.diff(cleaned).astype(float)
+    if rr.size < 3:
+        return cleaned
+
+    median_rr = float(np.median(rr))
+    mad_rr = float(np.median(np.abs(rr - median_rr)))
+    if mad_rr <= 1e-9:
+        return cleaned
+
+    lo = max(float(min_interval_s) * sr, median_rr - float(mad_scale) * mad_rr)
+    hi = min(float(max_interval_s) * sr, median_rr + float(mad_scale) * mad_rr)
+
+    keep = np.ones(cleaned.size, dtype=bool)
+    for interval_index, interval in enumerate(rr):
+        if interval < lo or interval > hi:
+            later_event_index = interval_index + 1
+            if later_event_index < cleaned.size - 1:
+                keep[later_event_index] = False
+
+    filtered = cleaned[keep]
+    if filtered.size >= 3:
+        return filtered.astype(int, copy=False)
+    return cleaned.astype(int, copy=False)
 
 
 @register_atom(witness_template_extraction)
