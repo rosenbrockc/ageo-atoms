@@ -7,6 +7,7 @@ import re
 from datetime import datetime, timezone
 from typing import Any
 
+from .heuristic_assets import evaluate_heuristic_asset
 from .io import safe_atom_stem, write_json
 from .paths import AUDIT_RESULTS_DIR, AUDIT_SCORES_PATH
 
@@ -167,6 +168,13 @@ def _score_developer_semantics(record: dict[str, Any], evidence: dict[str, Any] 
     if record.get("source_kind") == "generated_ingest" and summary.startswith("stateless wrapper"):
         score -= 2
         findings.append("SEMANTICS_GENERATED_ABSTRACTION")
+    heuristic = evaluate_heuristic_asset(record)
+    if heuristic["status"] == "fail":
+        score -= 5
+        findings.extend(heuristic["findings"])
+    elif heuristic["status"] == "partial":
+        score -= 2
+        findings.extend(heuristic["findings"])
     nouns = evidence.get("generated_nouns") if evidence else None
     if isinstance(nouns, dict):
         for finding in nouns.get("findings", []):

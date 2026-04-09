@@ -1,0 +1,197 @@
+{
+  "asset_id": "family.shared_heuristics.v1",
+  "asset_version": "phase1.v1",
+  "family": "shared_heuristics",
+  "domain": "cross_family",
+  "name": "Canonical Heuristic Registry",
+  "summary": "Shared heuristic definitions for cross-family runtime evidence and refinement decisions.",
+  "heuristics": [
+    {
+      "heuristic_id": "boundary_discontinuity",
+      "display_name": "Boundary Discontinuity",
+      "dejargonized_meaning": "A boundary input changes abruptly enough to warrant cleanup before a downstream stage consumes it.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["precondition", "insert_correction"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["jump_discontinuities", "jump_discontinuity_count"],
+      "uncertainty_notes": ["Use as a precondition signal, not as a universal failure verdict."]
+    },
+    {
+      "heuristic_id": "quality_instability",
+      "display_name": "Quality Instability",
+      "dejargonized_meaning": "Local quality changes enough that one fixed path may be brittle and a gate or alternate branch may be needed.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "branch_and_compare"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["signal_quality_variance", "signal_quality_kurtosis_cv"],
+      "uncertainty_notes": ["Prefer as a routing cue before committing to a brittle transform path."]
+    },
+    {
+      "heuristic_id": "interval_instability",
+      "display_name": "Interval Instability",
+      "dejargonized_meaning": "Observed spacing between extracted events is too irregular for the downstream stage to trust without correction or smoothing.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["insert_correction", "smooth_or_aggregate"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["interval_outlier_fraction", "rate_cv"],
+      "uncertainty_notes": ["Treat as an after-detection heuristic only."]
+    },
+    {
+      "heuristic_id": "dominant_nuisance_structure",
+      "display_name": "Dominant Nuisance Structure",
+      "dejargonized_meaning": "The current conditioning stage leaves too much nuisance structure relative to the useful content.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["precondition", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["snr_db"],
+      "uncertainty_notes": ["A low score indicates the stage family may be the wrong one, not just poorly tuned."]
+    },
+    {
+      "heuristic_id": "residual_structure_after_transform",
+      "display_name": "Residual Structure After Transform",
+      "dejargonized_meaning": "The transformation output still carries structured residual behavior that should not be ignored.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["innovation_whiteness_pvalue"],
+      "uncertainty_notes": ["Use when the current transform is not fully explaining the observed input."]
+    },
+    {
+      "heuristic_id": "alignment_error",
+      "display_name": "Alignment Error",
+      "dejargonized_meaning": "The current stage boundaries or outputs are not aligned with what the downstream stage expects.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["nis_ratio"],
+      "uncertainty_notes": ["A structural mismatch can look like a metric failure before it looks like a correctness failure."]
+    },
+    {
+      "heuristic_id": "convergence_instability",
+      "display_name": "Convergence Instability",
+      "dejargonized_meaning": "Iteration behavior is unstable enough that the current strategy should be validated or replaced.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["replace_stage", "insert_correction", "gate_or_validate"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["accept_rate", "rhat"],
+      "uncertainty_notes": ["Prefer this when the algorithm is search-like or iterative."]
+    },
+    {
+      "heuristic_id": "numerical_condition_instability",
+      "display_name": "Numerical Condition Instability",
+      "dejargonized_meaning": "The current computation is poorly conditioned and may need preconditioning or a different stage.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["precondition", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["condition_number"],
+      "uncertainty_notes": ["This is a numerical stability cue rather than a domain-specific correctness verdict."]
+    },
+    {
+      "heuristic_id": "constraint_violation_risk",
+      "display_name": "Constraint Violation Risk",
+      "dejargonized_meaning": "The current candidate is likely violating one or more declared constraints and should be checked explicitly.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "precondition"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": ["constraint_violations"],
+      "uncertainty_notes": ["Useful as a general admissibility heuristic across families."]
+    },
+    {
+      "heuristic_id": "split_balance_instability",
+      "display_name": "Split Balance Instability",
+      "dejargonized_meaning": "A divide step is producing imbalanced subproblems that may hurt depth, parallelism, or solution quality.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["precondition", "branch_and_compare"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": [],
+      "uncertainty_notes": ["Use for split-heavy recursive or partitioned algorithms."]
+    },
+    {
+      "heuristic_id": "coverage_fragmentation",
+      "display_name": "Coverage Fragmentation",
+      "dejargonized_meaning": "The candidate coverage is fragmented enough that the algorithm should validate completeness or overlap explicitly.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "split_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": [],
+      "uncertainty_notes": ["Useful wherever a decomposition can leave gaps or overlaps."]
+    },
+    {
+      "heuristic_id": "resource_growth_instability",
+      "display_name": "Resource Growth Instability",
+      "dejargonized_meaning": "Intermediate work or storage is growing too quickly relative to the problem size.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": [],
+      "uncertainty_notes": ["Signals that the current recursion or merge plan may be too expensive."]
+    },
+    {
+      "heuristic_id": "recursion_depth_pressure",
+      "display_name": "Recursion Depth Pressure",
+      "dejargonized_meaning": "The recursion depth is growing too quickly for the current input scale or split plan.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["precondition", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": [],
+      "uncertainty_notes": ["A structural pressure signal for recursive algorithms."]
+    },
+    {
+      "heuristic_id": "merge_cost_pressure",
+      "display_name": "Merge Cost Pressure",
+      "dejargonized_meaning": "The merge or combine step is likely dominating total work and should be monitored or revised.",
+      "evidence_type": "scalar_score",
+      "value_kind": "score",
+      "value_shape": "scalar",
+      "supported_action_classes": ["gate_or_validate", "replace_stage"],
+      "provenance_requirements": ["metric_name", "metric_value", "threshold"],
+      "compatibility_aliases": [],
+      "uncertainty_notes": ["Useful when the combine step can become the bottleneck."]
+    }
+  ],
+  "audit": {
+    "provenance": "repo_local_transitional_asset",
+    "source_kind": "ageo_atoms_asset",
+    "review_status": "draft",
+    "rationale": "Provides a canonical, de-jargonized shared heuristic surface for family-local registries.",
+    "dejargonized_summary": "These are the shared warning signs that different algorithm families can interpret locally without redefining the underlying heuristics.",
+    "uncertainty_notes": [
+      "This registry is intentionally broad so family registries can specialize it without changing the shared identifiers."
+    ],
+    "references": [
+      {
+        "title": "Cross-family heuristic plan",
+        "note": "Shared heuristic surface for Phase 1 and Phase 3 coupling."
+      }
+    ],
+    "maintainers": [
+      "ageo-atoms"
+    ]
+  }
+}

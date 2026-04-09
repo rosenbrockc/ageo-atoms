@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from .heuristic_assets import evaluate_heuristic_asset
 from .io import write_json
 from .paths import AUDIT_MANIFEST_VALIDATION_PATH, ROOT
 
@@ -39,6 +40,7 @@ REQUIRED_ATOM_FIELDS = {
 ALLOWED_SOURCE_KINDS = {"hand_written", "generated_ingest", "refined_ingest", "skeleton"}
 ALLOWED_RISK_TIERS = {"high", "medium", "low"}
 ALLOWED_STATEFUL_KINDS = {"none", "explicit_state_model", "argument_state", "return_state", "implicit_stateful"}
+HEURISTIC_ERROR_CODES = {"HEURISTIC_DOCSTRING_MISSING", "HEURISTIC_DOCSTRING_PLACEHOLDER"}
 
 
 def _finding(level: str, code: str, message: str, *, atom_id: str | None = None, path: str | None = None) -> dict[str, Any]:
@@ -102,6 +104,9 @@ def validate_manifest(payload: dict[str, Any]) -> dict[str, Any]:
     atoms = payload.get("atoms", [])
     atom_ids = Counter(record.get("atom_id") for record in atoms)
     atom_names = Counter(record.get("atom_name") for record in atoms)
+    heuristic_atom_count = 0
+    heuristic_error_count = 0
+    heuristic_warning_count = 0
 
     for atom_id, count in atom_ids.items():
         if atom_id and count > 1:
@@ -130,6 +135,25 @@ def validate_manifest(payload: dict[str, Any]) -> dict[str, Any]:
             findings.append(_finding("error", "MANIFEST_BAD_AUTHORITATIVE_SOURCES", "authoritative_sources must be a list", atom_id=atom_id))
         _validate_wrapper_reference(record, findings)
 
+        heuristic = evaluate_heuristic_asset(record)
+        if heuristic["status"] != "not_applicable":
+            heuristic_atom_count += 1
+            for code in heuristic["findings"]:
+                level = "error" if code in HEURISTIC_ERROR_CODES else "warning"
+                if level == "error":
+                    heuristic_error_count += 1
+                else:
+                    heuristic_warning_count += 1
+                findings.append(
+                    _finding(
+                        level,
+                        code,
+                        "; ".join(heuristic["notes"]) or "Heuristic asset documentation requires review.",
+                        atom_id=atom_id,
+                        path=record.get("module_path"),
+                    )
+                )
+
     errors = [finding for finding in findings if finding["level"] == "error"]
     warnings = [finding for finding in findings if finding["level"] == "warning"]
     return {
@@ -139,6 +163,9 @@ def validate_manifest(payload: dict[str, Any]) -> dict[str, Any]:
             "atom_count": len(atoms),
             "error_count": len(errors),
             "warning_count": len(warnings),
+            "heuristic_atom_count": heuristic_atom_count,
+            "heuristic_error_count": heuristic_error_count,
+            "heuristic_warning_count": heuristic_warning_count,
         },
         "findings": findings,
     }

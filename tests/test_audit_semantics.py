@@ -66,3 +66,31 @@ def test_acceptability_uses_semantic_evidence() -> None:
     assert result["dimension_evidence"]["runtime_status"] == "pass"
     assert result["dimension_evidence"]["semantic_status"] == "fail"
     assert "RETURN_IGNORES_UPSTREAM_VALUE" in result["major_penalties"]
+
+
+def test_acceptability_penalizes_thin_heuristic_docstrings() -> None:
+    record = {
+        "atom_id": "atom",
+        "atom_name": "ageoa.example.atom",
+        "wrapper_symbol": "atom",
+        "source_kind": "generated_ingest",
+        "docstring_summary": "Time.",
+        "has_references": False,
+        "source_revision": None,
+        "upstream_version": None,
+        "has_parity_tests": False,
+        "skeleton": False,
+        "structural_findings": [],
+        "structural_status": "pass",
+        "has_docstring": True,
+    }
+    evidence = {
+        "mapping_found": True,
+        "upstream_signature": {"parameter_names": ["x"]},
+        "findings": [],
+        "runtime_probe": {"status": "pass", "findings": ["RUNTIME_PROBE_PASS"]},
+    }
+    result = score_acceptability(record, evidence)
+    assert "HEURISTIC_DEJARGONIZATION_WEAK" in result["major_penalties"]
+    assert "HEURISTIC_DOCSTRING_THIN" in result["major_penalties"]
+    assert result["dimension_scores"]["developer_semantics"] < 15

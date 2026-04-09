@@ -29,13 +29,11 @@
         "compatibility_aliases": [
           "signal_quality_variance",
           "signal_quality_kurtosis_cv"
-        ],
-        "family_notes": [
-          "In ECG quality scoring this labels whether the window is trustworthy enough for downstream analysis."
         ]
       },
       "provenance_notes": [
-        "Composite ECG SQI label derived from the waveform and two detector streams."
+        "Composite ECG SQI label derived from the waveform and two detector streams.",
+        "In ECG quality scoring this label indicates whether the window is trustworthy enough for downstream analysis."
       ],
       "uncertainty_notes": [
         "This output is a heuristic quality indicator, not a ground-truth physiological label."
