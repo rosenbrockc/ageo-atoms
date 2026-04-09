@@ -69,17 +69,40 @@ class AtomHeuristicMetadata(BaseModel):
         return self
 
 
-def load_atom_heuristic_metadata(path: str | Path) -> AtomHeuristicMetadata:
-    return AtomHeuristicMetadata.model_validate(
-        json.loads(Path(path).read_text(encoding="utf-8"))
+def load_atom_heuristic_metadata_records(
+    path: str | Path,
+) -> tuple[AtomHeuristicMetadata, ...]:
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    if isinstance(raw, list):
+        payloads = raw
+    elif isinstance(raw, dict) and isinstance(raw.get("records"), list):
+        payloads = raw.get("records", [])
+    else:
+        payloads = [raw]
+    return tuple(
+        AtomHeuristicMetadata.model_validate(item)
+        for item in payloads
+        if isinstance(item, dict)
     )
+
+
+def load_atom_heuristic_metadata(path: str | Path) -> AtomHeuristicMetadata:
+    records = load_atom_heuristic_metadata_records(path)
+    if not records:
+        raise ValueError(f"No atom heuristic metadata records found in {path}")
+    if len(records) != 1:
+        raise ValueError(
+            "load_atom_heuristic_metadata expects exactly one record; "
+            f"found {len(records)} in {path}"
+        )
+    return records[0]
 
 
 @lru_cache(maxsize=1)
 def load_all_atom_heuristic_metadata() -> tuple[AtomHeuristicMetadata, ...]:
     records: list[AtomHeuristicMetadata] = []
     for path in sorted(ATOM_ROOT.glob("**/heuristic_metadata.json")):
-        records.append(load_atom_heuristic_metadata(path))
+        records.extend(load_atom_heuristic_metadata_records(path))
     return tuple(records)
 
 

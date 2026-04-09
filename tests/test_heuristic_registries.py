@@ -44,6 +44,9 @@ HeuristicActionClass = heuristics_registry.HeuristicActionClass
 HeuristicDefinition = heuristics_registry.HeuristicDefinition
 load_canonical_heuristic_registry = heuristics_registry.load_canonical_heuristic_registry
 load_family_heuristic_registries = heuristics_registry.load_family_heuristic_registries
+load_atom_heuristic_metadata_records = (
+    heuristics_atom_metadata.load_atom_heuristic_metadata_records
+)
 load_atom_heuristic_metadata_for_fqdn = (
     heuristics_atom_metadata.load_atom_heuristic_metadata_for_fqdn
 )
@@ -89,7 +92,11 @@ def test_family_registries_reference_canonical_heuristics_without_redefinition()
     canonical_map = {item.heuristic_id: item for item in canonical.heuristics}
     registries = load_family_heuristic_registries()
 
-    assert {registry.family for registry in registries} == {"signal_event_rate", "divide_and_conquer"}
+    assert {registry.family for registry in registries} == {
+        "signal_event_rate",
+        "divide_and_conquer",
+        "sequential_filter",
+    }
 
     shared_ids: set[str] = set()
     for registry in registries:
@@ -157,3 +164,39 @@ def test_signal_atom_metadata_loads_and_keeps_canonical_heuristic_generic() -> N
         "gate_or_validate",
         "branch_and_compare",
     ]
+
+
+def test_multi_record_signal_metadata_loads_multiple_atoms_from_one_asset() -> None:
+    records = load_atom_heuristic_metadata_records(
+        ROOT / "ageoa" / "biosppy" / "ecg_zz2018" / "heuristic_metadata.json"
+    )
+
+    fqdns = {record.atom_fqdn for record in records}
+    assert {
+        "ageoa.biosppy.ecg_zz2018.calculatecompositesqi_zz2018",
+        "ageoa.biosppy.ecg_zz2018.calculatefrequencypowersqi",
+        "ageoa.biosppy.ecg_zz2018.calculatebeatagreementsqi",
+    }.issubset(fqdns)
+
+
+def test_non_signal_atom_metadata_uses_shared_residual_heuristic() -> None:
+    metadata = load_atom_heuristic_metadata_for_fqdn(
+        "ageoa.kalman_filters.filter_rs.evaluatemeasurementoracle"
+    )
+
+    assert metadata is not None
+    assert metadata.heuristic_outputs[0].heuristic.heuristic_id == (
+        "residual_structure_after_transform"
+    )
+    assert metadata.heuristic_outputs[0].heuristic.applicability_scope == "cross_family"
+
+
+def test_sequential_filter_registry_proves_second_family_rollout() -> None:
+    registries = {registry.family: registry for registry in load_family_heuristic_registries()}
+    sequential = registries["sequential_filter"]
+
+    assert set(sequential.family_aliases) == {"kalman_filter", "particle_filter"}
+    entry_ids = {entry.heuristic_id for entry in sequential.heuristic_bindings}
+    assert "residual_structure_after_transform" in entry_ids
+    assert "alignment_error" in entry_ids
+    assert "constraint_violation_risk" in entry_ids
