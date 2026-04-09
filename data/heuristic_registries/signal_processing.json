@@ -1,0 +1,109 @@
+{
+  "asset_id": "family.signal_processing.heuristics.v1",
+  "asset_version": "phase4.v1",
+  "family": "signal_processing",
+  "family_aliases": [
+    "signal_event_rate",
+    "signal_detect_measure"
+  ],
+  "name": "Signal Processing Heuristic Registry",
+  "summary": "Family-local interpretation of shared heuristics for sampled-signal pipelines.",
+  "dejargonized_summary": "This registry says which generic warning signs matter most for pipelines that condition a sampled waveform, detect events, and derive rates or quality labels.",
+  "entries": [
+    {
+      "heuristic_id": "boundary_discontinuity",
+      "sanctioned_producer_kinds": [
+        "atom_output",
+        "runtime_transform"
+      ],
+      "supported_action_classes": [
+        "precondition",
+        "insert_correction"
+      ],
+      "action_priority": [
+        "precondition",
+        "insert_correction"
+      ],
+      "expected_evidence_strength": "strong",
+      "admissibility_notes": [
+        "Prefer cleanup before the first major transformation when abrupt input steps are present."
+      ],
+      "escalation_conditions": [
+        "Escalate when discontinuities occur before the first conditioning stage."
+      ],
+      "family_notes": [
+        "In signal pipelines this often means preserving the waveform path long enough to remove abrupt discontinuities before the first detector-facing transform."
+      ]
+    },
+    {
+      "heuristic_id": "quality_instability",
+      "sanctioned_producer_kinds": [
+        "atom_output",
+        "diagnostic_atom",
+        "runtime_transform"
+      ],
+      "supported_action_classes": [
+        "gate_or_validate",
+        "branch_and_compare"
+      ],
+      "action_priority": [
+        "gate_or_validate",
+        "branch_and_compare"
+      ],
+      "expected_evidence_strength": "moderate",
+      "admissibility_notes": [
+        "Quality variation should not silently force one brittle path when a gate or alternate branch is available."
+      ],
+      "escalation_conditions": [
+        "Escalate when local quality changes enough that one fixed path is likely to fail on part of the window."
+      ],
+      "family_notes": [
+        "The shared heuristic stays generic; the family note explains the waveform-specific reading."
+      ]
+    },
+    {
+      "heuristic_id": "interval_instability",
+      "sanctioned_producer_kinds": [
+        "atom_output",
+        "runtime_transform"
+      ],
+      "supported_action_classes": [
+        "insert_correction",
+        "smooth_or_aggregate"
+      ],
+      "action_priority": [
+        "insert_correction",
+        "smooth_or_aggregate"
+      ],
+      "expected_evidence_strength": "strong",
+      "admissibility_notes": [
+        "Downstream measure stages should not trust unstable event spacing without cleanup or smoothing."
+      ],
+      "escalation_conditions": [
+        "Escalate when implausible event spacing persists after an otherwise valid detector path."
+      ],
+      "family_notes": [
+        "This is intentionally phrased as interval instability rather than a domain-specific term."
+      ]
+    }
+  ],
+  "audit": {
+    "provenance": "repo_local_transitional_asset",
+    "source_kind": "local_asset",
+    "review_status": "transitional",
+    "rationale": "Captures family-local interpretation of shared heuristics without redefining their canonical meaning.",
+    "dejargonized_summary": "These are the generic warning signs that matter most for waveform-to-event-to-rate pipelines and the kinds of structural responses they support.",
+    "uncertainty_notes": [
+      "Family guidance should remain local and should not redefine the shared heuristic identifiers."
+    ],
+    "references": [
+      {
+        "title": "Cross-family expansion and CDG enrichment plan",
+        "citation": "Repository plan for auditable refinement across families."
+      }
+    ],
+    "maintainers": [
+      "ageo-atoms"
+    ]
+  }
+}
