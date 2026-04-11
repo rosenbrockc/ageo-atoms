@@ -33,6 +33,13 @@ def get_probe_plans() -> dict[str, Any]:
     _assert_tuple = rt._assert_tuple
     _assert_type = rt._assert_type
 
+    def _assert_pandas_series_type():
+        def _validator(result: Any) -> None:
+            assert result.__class__.__name__ == "Series"
+            assert result.__class__.__module__.startswith("pandas")
+
+        return _validator
+
     def _assert_weighted_interaction_edges(result: Any) -> None:
         assert isinstance(result, list)
         assert result == [
@@ -630,7 +637,7 @@ def get_probe_plans() -> dict[str, Any]:
                     0.4,
                     0.01,
                 ),
-                _assert_type(__import__("pandas").Series),
+                _assert_pandas_series_type(),
             ),
             negative=ProbeCase(
                 "reject a non-numeric differentiation order",

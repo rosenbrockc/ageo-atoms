@@ -13,7 +13,7 @@ configure_juliacall_env()
 
 try:
     import juliacall
-except ImportError:
+except Exception:
     pass
 
 import importlib

@@ -1,0 +1,49 @@
+"""Selector-friendly registry coverage for Phase B family probe lanes."""
+
+from __future__ import annotations
+
+from auditlib import runtime_probes
+
+
+def test_runtime_probe_registry_contains_wave1_neurokit2() -> None:
+    for atom_name in (
+        "ageoa.neurokit2.averageqrstemplate",
+        "ageoa.neurokit2.zhao2018hrvanalysis",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave1_rust_robotics() -> None:
+    assert "ageoa.rust_robotics.bicycle_kinematic.evaluateandinvertdynamics" in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave1_belief_propagation() -> None:
+    for atom_name in (
+        "ageoa.belief_propagation.loopy_bp.initialize_message_passing_state",
+        "ageoa.belief_propagation.loopy_bp.run_loopy_message_passing_and_belief_query",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave1_particle_filter_and_pasqal() -> None:
+    for atom_name in (
+        "ageoa.particle_filters.basic.resample_and_belief_projection",
+        "ageoa.pasqal.docking.quantum_mwis_solver",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_kalman_filter() -> None:
+    for atom_name in (
+        "ageoa.kalman_filters.filter_rs.initializekalmanstatemodel",
+        "ageoa.kalman_filters.static_kf.updatewithmeasurement",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_quant_engine() -> None:
+    for atom_name in (
+        "ageoa.quant_engine.calculate_ofi",
+        "ageoa.quant_engine.execute_passive",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS

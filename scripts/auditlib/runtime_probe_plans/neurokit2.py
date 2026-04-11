@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-import neurokit2 as nk
 import numpy as np
 
 
 def get_probe_plans() -> dict[str, object]:
     from .. import runtime_probes as rt
+    import neurokit2 as nk
 
     ProbeCase = rt.ProbeCase
     ProbePlan = rt.ProbePlan

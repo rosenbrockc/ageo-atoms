@@ -215,6 +215,19 @@ def get_probe_plans() -> dict[str, Any]:
                 ),
                 parity_used=True,
             ),
+            "ageoa.biosppy.ecg.heart_rate_computation_median_smoothed": ProbePlan(
+                positive=ProbeCase(
+                    "Robust median-smoothed heart-rate computation returns aligned index and bpm arrays",
+                    lambda func: func(np.array([500, 1300, 2100, 2900, 3700, 4500, 5300, 6100, 6900, 7700], dtype=int), sampling_rate=1000.0),
+                    _assert_pair_of_arrays(),
+                ),
+                negative=ProbeCase(
+                    "Robust median-smoothed heart-rate computation rejects a negative sampling rate",
+                    lambda func: func(np.array([500, 1300, 2100], dtype=int), sampling_rate=-1.0),
+                    expect_exception=True,
+                ),
+                parity_used=True,
+            ),
             "ageoa.biosppy.ecg.ssf_segmenter": ProbePlan(
                 positive=ProbeCase(
                     "SSF segmenter returns monotonic peak indices on a synthetic ECG trace",

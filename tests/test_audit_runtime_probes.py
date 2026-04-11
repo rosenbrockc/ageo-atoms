@@ -395,6 +395,7 @@ def test_runtime_probe_passes_for_biosppy_ecg_module_wrappers() -> None:
         ("ageoa.biosppy.ecg.peak_correction", "peak_correction"),
         ("ageoa.biosppy.ecg.template_extraction", "template_extraction"),
         ("ageoa.biosppy.ecg.heart_rate_computation", "heart_rate_computation"),
+        ("ageoa.biosppy.ecg.heart_rate_computation_median_smoothed", "heart_rate_computation_median_smoothed"),
         ("ageoa.biosppy.ecg.ssf_segmenter", "ssf_segmenter"),
         ("ageoa.biosppy.ecg.christov_segmenter", "christov_segmenter"),
     ]:
@@ -1465,3 +1466,23 @@ def test_runtime_probe_records_positive_failure(monkeypatch) -> None:
     assert probe["status"] == "fail"
     assert "RUNTIME_PROBE_FAIL" in probe["findings"]
     assert probe["positive_probe"]["exception_type"] == "RuntimeError"
+
+
+def test_runtime_probe_wrapper_reexports_core_symbols() -> None:
+    assert runtime_probes.ProbeCase.__module__.endswith("runtime_probes_core")
+    assert runtime_probes.ProbePlan.__module__.endswith("runtime_probes_core")
+    assert runtime_probes.safe_import_module.__module__.endswith("runtime_probes_core")
+
+
+def test_runtime_probe_registry_contains_extracted_local_families() -> None:
+    for atom_name in (
+        "ageoa.algorithms.search.binary_search",
+        "ageoa.numpy.arrays.zeros",
+        "ageoa.scipy.fft.dct",
+        "ageoa.algorithms.sorting.merge_sort",
+        "ageoa.scipy.sparse_graph.graph_laplacian",
+        "ageoa.numpy.fft_v2.forwardmultidimensionalfft",
+        "ageoa.numpy.search_sort_v2.binarysearchinsertion",
+        "ageoa.scipy.optimize_v2.differentialevolutionoptimization",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS

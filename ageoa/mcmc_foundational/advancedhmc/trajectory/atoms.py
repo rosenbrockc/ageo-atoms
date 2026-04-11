@@ -9,7 +9,17 @@ import icontract
 from ageoa.ghost.registry import register_atom
 from .witnesses import witness_buildnutstree, witness_nutstransitionkernel
 
-from juliacall import Main as jl
+_jl: object | None = None
+
+
+def _get_jl() -> object:
+    """Import JuliaCall lazily so the pure-Python wrappers stay importable."""
+    global _jl
+    if _jl is None:
+        from juliacall import Main as jl
+
+        _jl = jl
+    return _jl
 
 
 # Witness functions should be imported from the generated witnesses module
@@ -123,18 +133,13 @@ def nutstransitionkernel(rng: np.ndarray, hamiltonian: Callable[[np.ndarray], fl
         "energy": np.array(proposed_energy),
     }
     return (new_state, diagnostics)
-
-
 """Auto-generated FFI bindings for julia implementations."""
-
-
-from juliacall import Main as jl
 
 
 def _buildnutstree_ffi(rng, hamiltonian, start_state, direction, tree_depth, initial_energy):
     """Wrapper that calls the Julia version of build nuts tree. Passes arguments through and returns the result."""
-    return jl.eval("buildnutstree(rng, hamiltonian, start_state, direction, tree_depth, initial_energy)")
+    return _get_jl().eval("buildnutstree(rng, hamiltonian, start_state, direction, tree_depth, initial_energy)")
 
 def _nutstransitionkernel_ffi(rng, hamiltonian, initial_state, trajectory_params):
     """Wrapper that calls the Julia version of nuts transition kernel. Passes arguments through and returns the result."""
-    return jl.eval("nutstransitionkernel(rng, hamiltonian, initial_state, trajectory_params)")
+    return _get_jl().eval("nutstransitionkernel(rng, hamiltonian, initial_state, trajectory_params)")
