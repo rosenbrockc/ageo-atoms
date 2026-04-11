@@ -92,6 +92,25 @@ def test_runtime_probe_registry_contains_wave3_pronto_packet() -> None:
         assert atom_name in runtime_probes.PROBE_PLANS
 
 
+def test_runtime_probe_registry_contains_wave3_mcmc_foundational_packet() -> None:
+    for atom_name in (
+        "ageoa.mcmc_foundational.kthohr_mcmc.aees.metropolishastingstransitionkernel",
+        "ageoa.mcmc_foundational.mini_mcmc.hmc.initializehmcstate",
+        "ageoa.mcmc_foundational.advancedhmc.trajectory.nutstransitionkernel",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_quantfin_packet() -> None:
+    for atom_name in (
+        "ageoa.quantfin.montecarlo.quick_sim_anti",
+        "ageoa.quantfin.rng_skip_d12.randomword32",
+        "ageoa.quantfin.tdma_solver_d12.tdmasolver",
+        "ageoa.quantfin.monte_carlo_anti_d12.runsimulationanti",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
 def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc_extended() -> None:
     for atom_name in (
         "ageoa.conjugate_priors.beta_binom.posterior_randmodel",
