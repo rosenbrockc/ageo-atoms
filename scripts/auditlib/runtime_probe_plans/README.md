@@ -53,32 +53,33 @@ Low-coupling and already domain-local.
 
 | Family module | Main selector | Notes |
 | --- | --- | --- |
-| `neurokit2.py` | `-k neurokit2` | Good for small isolated additions or wrapper parity fixes. |
-| `rust_robotics.py` | `-k rust_robotics` | Keep dynamics helpers family-local. |
-| `belief_propagation.py` | `-k belief_propagation` | Message-passing probes only. |
-| `particle_filter_and_pasqal.py` | `-k particle_filter` or `-k pasqal` | Split by subfamily when assigning worker packets. |
+| `neurokit2.py` | `-k neurokit2` | Packet file: `tests/test_runtime_probe_neurokit2_family.py`. |
+| `rust_robotics.py` | `-k rust_robotics` | Packet file: `tests/test_runtime_probe_rust_robotics_family.py`. |
+| `belief_propagation.py` | `-k belief_propagation` | Packet file: `tests/test_runtime_probe_belief_propagation_family.py`. |
+| `particle_filter_and_pasqal.py` | `-k particle_filter` or `-k pasqal` | Packet file: `tests/test_runtime_probe_particle_filter_and_pasqal_family.py`; mixed parity, so keep usage-equivalent helpers local to the packet file. |
 
 ### Wave 2
 Moderate-size numerical families.
 
 | Family module | Main selector | Notes |
 | --- | --- | --- |
-| `kalman_filter.py` | `-k kalman_filter` | State-update and estimator probes. |
-| `quant_engine.py` | `-k quant_engine` | Shared state helpers should stay family-local unless reused. |
-| `advancedvi_and_iqe.py` | `-k advancedvi` or `-k iqe` | Useful for separate worker packets if changes do not overlap. |
-| `conjugate_priors_and_small_mcmc.py` | `-k conjugate_priors` or `-k small_mcmc` | Keep the smaller Bayesian helpers together. |
+| `kalman_filter.py` | `-k kalman_filter` | Packet file: `tests/test_runtime_probe_kalman_filter_family.py`. |
+| `quant_engine.py` | `-k quant_engine` | Packet file: `tests/test_runtime_probe_quant_engine_family.py`. |
+| `advancedvi_and_iqe.py` | `-k advancedvi` or `-k iqe` | Packet file: `tests/test_runtime_probe_advancedvi_and_iqe_family.py`. |
+| `conjugate_priors_and_small_mcmc.py` | `-k conjugate_priors` or `-k small_mcmc` | Packet file: `tests/test_runtime_probe_conjugate_priors_and_small_mcmc_family.py`. |
 
 ### Wave 3
 Large and more coupled families.
 
 | Family module | Main selector | Notes |
 | --- | --- | --- |
-| `biosppy.py` | `-k biosppy` | Split by ECG, PPG, ABP, EDA, EMG, and PCG subsections when practical. |
-| `pronto.py` | `-k pronto` | Multiple wrapper families live here. |
-| `molecular_docking.py` | `-k molecular_docking` | Keep domain-specific scoring helpers close to the family. |
-| `quantfin.py` | `-k quantfin` | Higher fan-out, so keep packets narrow. |
-| `hftbacktest_and_ingest.py` | `-k hftbacktest` or `-k ingest` | Avoid touching shared registry glue from worker lanes. |
-| `mcmc_foundational.py` | `-k mcmc_foundational` or `-k advancedhmc` or `-k mini_mcmc` | Prefer one subsection per worker packet. |
+| `biosppy.py` | `-k biosppy` | Packet files: `tests/test_runtime_probe_biosppy_ecg_family.py` and `tests/test_runtime_probe_biosppy_signal_family.py`. |
+| `pronto.py` | `-k pronto` | Packet file: `tests/test_runtime_probe_pronto_family.py`. |
+| `molecular_docking.py` | `-k molecular_docking` | Packet file: `tests/test_runtime_probe_molecular_docking_family.py`. |
+| `quantfin.py` | `-k quantfin` | Packet file: `tests/test_runtime_probe_quantfin_family.py`. |
+| `hftbacktest_and_ingest.py` | `-k hftbacktest` or `-k ingest` | Packet file: `tests/test_runtime_probe_hftbacktest_and_ingest_family.py`. |
+| `mcmc_foundational.py` | `-k mcmc_foundational` or `-k advancedhmc` or `-k mini_mcmc` | Packet file: `tests/test_runtime_probe_mcmc_foundational_family.py`. |
+| `foundation.py` | `-k e2e_ppg` or `-k mint` or `-k alphafold` | Packet file: `tests/test_runtime_probe_foundation_family.py` for the remaining mixed foundation-style surfaces. |
 
 ### Integration Only
 Already split or mostly stable. Do not assign as new Phase B worker packets unless there is a specific regression to fix.
@@ -101,6 +102,15 @@ Already split or mostly stable. Do not assign as new Phase B worker packets unle
 - `runtime_probes.py` and `runtime_probes_core.py` own shared assembly and execution behavior.
 - Family workers should not edit registry assembly unless specifically assigned to an integration pass.
 - If many family lanes land at once, batch registry-import updates in one main-agent pass.
+
+## Residual Audit-Only Cases
+
+Keep these in the broad audit suite unless they regress or grow large enough to justify a dedicated packet:
+- small baseline probes in `search.py`, `sorting.py`, `numpy_basic.py`, `scipy_basic.py`, and `scipy_sparse_graph.py`
+- narrow optimizer and vectorized helper lanes in `numpy_fft_v2.py`, `numpy_search_sort_v2.py`, and `scipy_optimize_v2.py`
+- standalone or two-case probes such as `skyfield`, `pulsar`, `jax_advi`, `astroflow`, `datadriven`, and small generated wrappers
+
+Practical rule: add a dedicated packet file only when the family meaningfully benefits from isolated worker ownership or from a selector-friendly verification target.
 
 ## Practical Rule
 
