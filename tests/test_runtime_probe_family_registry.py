@@ -47,3 +47,36 @@ def test_runtime_probe_registry_contains_wave2_quant_engine() -> None:
         "ageoa.quant_engine.execute_passive",
     ):
         assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_advancedvi_and_iqe() -> None:
+    for atom_name in (
+        "ageoa.advancedvi.core.evaluate_log_probability_density",
+        "ageoa.institutional_quant_engine.hawkes_process.hawkesprocesssimulator",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc() -> None:
+    for atom_name in (
+        "ageoa.conjugate_priors.beta_binom.posterior_randmodel",
+        "ageoa.mcmc_foundational.kthohr_mcmc.de.build_de_transition_kernel",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_biosppy_ecg_packet() -> None:
+    for atom_name in (
+        "ageoa.biosppy.ecg.bandpass_filter",
+        "ageoa.biosppy.ecg.heart_rate_computation_median_smoothed",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc() -> None:
+    for atom_name in (
+        "ageoa.conjugate_priors.beta_binom.posterior_randmodel",
+        "ageoa.mcmc_foundational.kthohr_mcmc.de.build_de_transition_kernel",
+        "ageoa.mcmc_foundational.kthohr_mcmc.mala.mala_proposal_adjustment",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
