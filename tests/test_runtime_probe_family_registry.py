@@ -73,7 +73,26 @@ def test_runtime_probe_registry_contains_wave3_biosppy_ecg_packet() -> None:
         assert atom_name in runtime_probes.PROBE_PLANS
 
 
-def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc() -> None:
+def test_runtime_probe_registry_contains_wave3_biosppy_signal_packet() -> None:
+    for atom_name in (
+        "ageoa.biosppy.ppg_detectors.detect_signal_onsets_elgendi2013",
+        "ageoa.biosppy.online_filter_v2.filterstep",
+        "ageoa.biosppy.ecg_zz2018_d12.assemblezz2018sqi",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_pronto_packet() -> None:
+    for atom_name in (
+        "ageoa.pronto.backlash_filter.initializebacklashfilterstate",
+        "ageoa.pronto.foot_contact.mode_snapshot_readout",
+        "ageoa.pronto.dynamic_stance_estimator_d12.stanceestimation",
+        "ageoa.pronto.state_estimator.update_state_estimate",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc_extended() -> None:
     for atom_name in (
         "ageoa.conjugate_priors.beta_binom.posterior_randmodel",
         "ageoa.mcmc_foundational.kthohr_mcmc.de.build_de_transition_kernel",
