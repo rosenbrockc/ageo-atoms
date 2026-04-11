@@ -111,6 +111,46 @@ def test_runtime_probe_registry_contains_wave3_quantfin_packet() -> None:
         assert atom_name in runtime_probes.PROBE_PLANS
 
 
+def test_runtime_probe_registry_contains_wave3_molecular_docking_packet() -> None:
+    for atom_name in (
+        "ageoa.molecular_docking.greedy_mapping_d12.init_problem_context",
+        "ageoa.molecular_docking.quantum_solver_d12.quantumsolverorchestrator",
+        "ageoa.molecular_docking.mwis_sa.to_qubo",
+        "ageoa.molecular_docking.minimize_bandwidth.build_threshold_search_space",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_institutional_quant_engine_packet() -> None:
+    for atom_name in (
+        "ageoa.institutional_quant_engine.market_making_avellaneda",
+        "ageoa.institutional_quant_engine.avellaneda_stoikov.initializemarketmakerstate",
+        "ageoa.institutional_quant_engine.almgren_chriss_v2.optimalexecutiontrajectory",
+        "ageoa.institutional_quant_engine.fractional_diff.fractional_differentiator",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_foundation_packet() -> None:
+    for atom_name in (
+        "ageoa.e2e_ppg.kazemi_peak_detection",
+        "ageoa.e2e_ppg.reconstruction.windowed_signal_reconstruction",
+        "ageoa.mint.axial_attention.rowselfattention",
+        "ageoa.alphafold.invariant_point_attention",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
+def test_runtime_probe_registry_contains_wave3_hftbacktest_and_ingest_packet() -> None:
+    for atom_name in (
+        "ageoa.hftbacktest.update_glft_coefficients",
+        "ageoa.mint.encoding_dist_mat.encodedistancematrix",
+        "ageoa.mint.fasta_dataset.dataset_state_initialization",
+        "ageoa.mint.incremental_attention.enable_incremental_state_configuration",
+    ):
+        assert atom_name in runtime_probes.PROBE_PLANS
+
+
 def test_runtime_probe_registry_contains_wave2_conjugate_priors_and_small_mcmc_extended() -> None:
     for atom_name in (
         "ageoa.conjugate_priors.beta_binom.posterior_randmodel",
