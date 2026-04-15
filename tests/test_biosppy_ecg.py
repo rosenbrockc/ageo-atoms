@@ -7,6 +7,7 @@ from ageoa.biosppy.ecg import (
     peak_correction,
     template_extraction,
     heart_rate_computation,
+    heart_rate_computation_median_smoothed,
 )
 
 
@@ -63,9 +64,17 @@ class TestEcgPipeline:
         # 5. Heart rate computation
         indices, hr = heart_rate_computation(corrected, sampling_rate=fs)
         assert len(hr) == len(corrected) - 1
+        median_indices, median_hr = heart_rate_computation_median_smoothed(
+            corrected,
+            sampling_rate=fs,
+            smoothing_window=5,
+        )
+        assert len(median_indices) == len(indices)
+        assert len(median_hr) == len(hr)
         # Check that computed HR is close to expected (75 bpm)
         mean_hr = np.mean(hr)
         assert mean_hr == pytest.approx(expected_hr, rel=0.1)
+        assert np.mean(median_hr) == pytest.approx(expected_hr, rel=0.1)
 
 
 class TestEcgPreconditions:

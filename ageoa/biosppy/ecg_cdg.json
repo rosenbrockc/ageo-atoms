@@ -27,7 +27,13 @@
       "parallelizable": false,
       "conceptual_summary": "",
       "critic_notes": "",
-      "decomposition_rationale": ""
+      "decomposition_rationale": "",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     },
     {
       "node_id": "bandpass_filter",
@@ -40,6 +46,9 @@
           "name": "signal",
           "type_desc": "np.ndarray",
           "constraints": "1D raw ECG signal",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -49,6 +58,9 @@
           "name": "filtered",
           "type_desc": "np.ndarray",
           "constraints": "bandpass-filtered ECG",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -66,7 +78,13 @@
       "parallelizable": false,
       "conceptual_summary": "Canonical unknown operation via filter_signal. Planned group: bandpass_filter.",
       "critic_notes": "",
-      "decomposition_rationale": "canonical_ir"
+      "decomposition_rationale": "canonical_ir",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     },
     {
       "node_id": "r_peak_detection",
@@ -79,6 +97,9 @@
           "name": "filtered",
           "type_desc": "np.ndarray",
           "constraints": "filtered ECG signal",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -88,6 +109,9 @@
           "name": "rpeaks",
           "type_desc": "np.ndarray",
           "constraints": "R-peak sample indices",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -105,7 +129,13 @@
       "parallelizable": false,
       "conceptual_summary": "Canonical unknown operation via detect_rpeaks. Planned group: r_peak_detection.",
       "critic_notes": "",
-      "decomposition_rationale": "canonical_ir"
+      "decomposition_rationale": "canonical_ir",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     },
     {
       "node_id": "peak_correction",
@@ -118,6 +148,9 @@
           "name": "filtered",
           "type_desc": "np.ndarray",
           "constraints": "filtered ECG signal",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         },
@@ -125,6 +158,9 @@
           "name": "rpeaks",
           "type_desc": "np.ndarray",
           "constraints": "initial R-peak indices",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -134,6 +170,9 @@
           "name": "rpeaks_corrected",
           "type_desc": "np.ndarray",
           "constraints": "corrected R-peak indices",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -151,7 +190,13 @@
       "parallelizable": false,
       "conceptual_summary": "Canonical unknown operation via correct_peaks. Planned group: peak_correction.",
       "critic_notes": "",
-      "decomposition_rationale": "canonical_ir"
+      "decomposition_rationale": "canonical_ir",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     },
     {
       "node_id": "template_extraction",
@@ -164,6 +209,9 @@
           "name": "filtered",
           "type_desc": "np.ndarray",
           "constraints": "filtered ECG signal",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         },
@@ -171,6 +219,9 @@
           "name": "rpeaks",
           "type_desc": "np.ndarray",
           "constraints": "corrected R-peak indices",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -180,6 +231,9 @@
           "name": "templates",
           "type_desc": "np.ndarray",
           "constraints": "2D array of heartbeat templates",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         },
@@ -187,6 +241,9 @@
           "name": "rpeaks_final",
           "type_desc": "np.ndarray",
           "constraints": "final R-peak indices after template extraction",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -204,7 +261,13 @@
       "parallelizable": false,
       "conceptual_summary": "Canonical unknown operation via extract_templates. Planned group: template_extraction.",
       "critic_notes": "",
-      "decomposition_rationale": "canonical_ir"
+      "decomposition_rationale": "canonical_ir",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     },
     {
       "node_id": "heart_rate_computation",
@@ -217,6 +280,9 @@
           "name": "rpeaks",
           "type_desc": "np.ndarray",
           "constraints": "R-peak sample indices",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -226,6 +292,9 @@
           "name": "hr_idx",
           "type_desc": "np.ndarray",
           "constraints": "time indices for heart rate values",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         },
@@ -233,6 +302,9 @@
           "name": "heart_rate",
           "type_desc": "np.ndarray",
           "constraints": "instantaneous heart rate in bpm",
+          "data_kind": "",
+          "time_basis": "",
+          "provenance": "",
           "required": true,
           "default_value_repr": ""
         }
@@ -250,7 +322,13 @@
       "parallelizable": false,
       "conceptual_summary": "Canonical unknown operation via compute_heart_rate. Planned group: heart_rate_computation.",
       "critic_notes": "",
-      "decomposition_rationale": "canonical_ir"
+      "decomposition_rationale": "canonical_ir",
+      "fixed_point_max_iterations": 0,
+      "fixed_point_convergence_field": "",
+      "map_window_size": 0,
+      "map_hop_size": 0,
+      "boundary_kind": "none",
+      "boundary_port_name": ""
     }
   ],
   "edges": [
@@ -261,7 +339,12 @@
       "input_name": "filtered",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     },
     {
       "source_id": "bandpass_filter",
@@ -270,7 +353,12 @@
       "input_name": "filtered",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     },
     {
       "source_id": "r_peak_detection",
@@ -279,7 +367,12 @@
       "input_name": "rpeaks",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     },
     {
       "source_id": "bandpass_filter",
@@ -288,7 +381,12 @@
       "input_name": "filtered",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     },
     {
       "source_id": "peak_correction",
@@ -297,7 +395,12 @@
       "input_name": "rpeaks",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     },
     {
       "source_id": "peak_correction",
@@ -306,9 +409,99 @@
       "input_name": "rpeaks",
       "source_type": "np.ndarray",
       "target_type": "np.ndarray",
-      "requires_glue": false
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "r_peak_detection",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "peak_correction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "bandpass_filter",
+      "target_id": "template_extraction",
+      "output_name": "filtered",
+      "input_name": "filtered",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "r_peak_detection",
+      "target_id": "peak_correction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "peak_correction",
+      "target_id": "template_extraction",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
+    },
+    {
+      "source_id": "template_extraction",
+      "target_id": "heart_rate_computation",
+      "output_name": "rpeaks",
+      "input_name": "rpeaks",
+      "source_type": "ECGPipelineState",
+      "target_type": "ECGPipelineState",
+      "requires_glue": false,
+      "data_kind": "",
+      "provenance": "",
+      "time_basis": "",
+      "loss_class": "preserving",
+      "alignment_expectation": ""
     }
   ],
+  "planning_artifact": null,
   "metadata": {
     "source": "ingester",
     "class_name": "ECGProcessor",
